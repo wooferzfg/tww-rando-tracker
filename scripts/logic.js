@@ -93,11 +93,6 @@ function loadItemLocations() {
 loadMacros();
 loadItemLocations();
 
-function test() {
-    items["DRC Small Key"] = 4;
-    console.log(checkLocationAvailable("Dragon Roost Cavern - Map Chest"));
-}
-
 function checkRequirementMet(reqName) {
     if (reqName.startsWith('Progressive'))
         return checkNumberReq(reqName);
