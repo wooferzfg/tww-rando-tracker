@@ -37,12 +37,12 @@ body {
 }
 
 .label-text {
-    padding-left: 15px;
+    padding-left: 50px;
 }
 
 .slider-container {
     text-align: right;
-    padding-right: 15px;
+    padding-right: 50px;
 }
 
 .text-col {
@@ -50,7 +50,7 @@ body {
 }
 
 .slider-col {
-    width: 10%:
+    width: 10%;
 }
 
 .permalink-container {
@@ -77,10 +77,11 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 34px;
+    border: 1px solid #808080;
+    background-color: #d2d2d2;
   }
 
   .slider:before {
@@ -108,6 +109,27 @@ body {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
+  }
+
+  button,
+  #flags {
+      padding: 6px;
+      border-radius: 5px;
+      font-family: Raleway;
+      font-size: 0.8em;
+      font-weight: bold;
+      border: 1px solid #808080;
+      margin-left: 2px;
+      margin-right: 2px;
+  }
+
+  #flags {
+      margin-left: 4px;
+      width: 450px;
+  }
+
+  button {
+    background: linear-gradient(#d2d2d2,#c8c8c8);
   }
 
   .launcher-button-container {
