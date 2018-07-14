@@ -1,6 +1,8 @@
 var flagParam = getParameterByName('f');
 var flags = [];
 var isRandomEntrances = false;
+var disableMap = false;
+var imagedir = 'images/';
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -114,8 +116,6 @@ function saveProgress() {
 }
 
 function refreshAllImagesAndCounts() {
-    var imagedir = 'images/';
-
     //CHECK BOSSES
     var bosses = [];
     bosses[0] = locationsChecked["Dragon Roost Cavern"]["Gohma Heart Container"];
@@ -295,8 +295,7 @@ function toggleItem(itemName, maxItems) {
     items[itemName] = curCount;
 
     itemsChanged();
-
-    // TODO: Disable Map here!
+    disableMap = true;
 }
 
 function ToggleKey(element, maxKeys) {
@@ -315,10 +314,31 @@ function ToggleEntry(element) {
     }
 
     itemsChanged();
+    disableMap = true;
+}
+
+function ShrinkMap() {
+    document.getElementById('chartmap').style.display = "block";
+    document.getElementById('zoommap').style.display = "none";
 }
 
 function ToggleMap(index) {
+    if (disableMap) {
+        disableMap = false;
+        return;
+    }
 
+    document.getElementById('chartmap').style.display = "none";
+    document.getElementById('zoommap').style.display = "block";
+    document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imagedir + 'mapfull' + index + '.png\')';
+}
+
+function ToggleLocation(index) {
+
+}
+
+function ClearMapInfo() {
+    document.getElementById('mapinfo').innerHTML = '';
 }
 
 function MapInfo(i) {

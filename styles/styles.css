@@ -244,12 +244,29 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     float: left;
     width: 343px;
     height: 326px;
-    background: url("../images/map48.png");
-    background-size: cover;
 }
 
 #zoommap table {
     width: 100%;
+}
+
+#zoommap-background,
+.zoommap-cover {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#zoommap-background {
+    z-index: -2;
+    background: url("../images/map48.png");
+    background-size: cover;
+}
+
+.zoommap-cover {
+    z-index: -1;
+    background-color: rgba(216, 186, 106, 0.7);
 }
 
 .tracker td {
