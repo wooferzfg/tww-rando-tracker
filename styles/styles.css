@@ -142,7 +142,7 @@ body {
 
 .tracker {
     font-family: 'Fira Sans', sans-serif;
-    height: 400px;
+    height: 360px;
 }
 
 .item-tracker {
@@ -175,9 +175,9 @@ body {
 
 .chart-map-container {
     float: left;
-    margin-left: 20px;
-    margin-top: 2px;
+    margin-left: 8px;
     width: 343px;
+    height: 326px;
 }
 
 #chartmap {
@@ -224,9 +224,8 @@ body {
 #zoommap {
     position: absolute;
     float: left;
-    width: 336px;
-    height: 336px;
-    margin-left: 7px;
+    width: 343px;
+    height: 326px;
     background: url("../images/map48.png");
     background-size: cover;
 }
@@ -247,7 +246,7 @@ body {
 
 .extra-locations {
     float: left;
-    margin: 0px 0px 0px 12px;
+    margin-left: 8px;
     background-color: rgba(160, 160, 160, 0.85);
 }
 

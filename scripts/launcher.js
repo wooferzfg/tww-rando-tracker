@@ -221,7 +221,7 @@ function loadMostRecent() {
 	var progressStr = getProgressString();
 
 	//Chrome defaults
-	var h = 500;
+	var h = 410;
 	var w = 1300;
 
 	open('tracker.html?f=' + flagsstr + '&p=' + progressStr,
@@ -234,7 +234,7 @@ function launch() {
 	var progressStr = '0';
 
 	//Chrome defaults
-	var h = 500;
+	var h = 410;
 	var w = 1300;
 
 	open('tracker.html?f=' + flagsstr + '&p=' + progressStr,
