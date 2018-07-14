@@ -150,12 +150,13 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     width: 200px;
 }
 
-.attribution {
+.attribution,
+.attribution a {
     text-align: center;
     margin-top: 10px;
     color: #C8C8C8;
     font-family: 'Fira Sans', sans-serif;
-    font-size: 0.8em;
+    font-size: 13px;
 }
 
 .tracker {
@@ -269,6 +270,14 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     background-color: rgba(216, 186, 106, 0.7);
 }
 
+.detail-small {
+    font-size: 12px;
+}
+
+.detail-smallest {
+    font-size: 9px;
+}
+
 .tracker td {
 	cursor: pointer;
 	-webkit-touch-callout: none;
@@ -319,4 +328,5 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
 
 #save-progress-button {
     width: 120px;
+    margin: 0;
 }

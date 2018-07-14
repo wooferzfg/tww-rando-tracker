@@ -3,6 +3,7 @@ var flags = [];
 var isRandomEntrances = false;
 var disableMap = false;
 var imagedir = 'images/';
+var currentGeneralLocation = '';
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -331,10 +332,63 @@ function ToggleMap(index) {
     document.getElementById('chartmap').style.display = "none";
     document.getElementById('zoommap').style.display = "block";
     document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imagedir + 'mapfull' + index + '.png\')';
+
+    currentGeneralLocation = generalLocations[index];
+    var detailedLocations = getDetailedLocations(currentGeneralLocation);
+
+    var fontSize = 'normal';
+    if (detailedLocations.length > 24) { // Windfall Island
+        fontSize = 'smallest';
+    }
+    else if (detailedLocations.length > 12) { // Dungeons
+        fontSize = 'small';
+    }
+
+    for (var i = 0; i < 36; i++) {
+        var l = 'detaillocation' + i.toString();
+        var element = document.getElementById(l);
+        if (i < detailedLocations.length) {
+            element.style.display = "block";
+            element.innerText = detailedLocations[i];
+            element.classList.remove("detail-small");
+            element.classList.remove("detail-smallest");
+            if (fontSize == "small") {
+                element.classList.add("detail-small");
+            } else if (fontSize == "smallest") {
+                element.classList.add("detail-smallest");
+            }
+        } else {
+            element.style.display = "none";
+        }
+    }
+
+    refreshLocationColors();
 }
 
-function ToggleLocation(index) {
+function refreshLocationColors() {
+    for (var i = 0; i < 36; i++) {
+        var l = 'detaillocation' + i.toString();
+        var element = document.getElementById(l);
+        var detailedLocation = element.innerText;
+        if (locationsChecked[currentGeneralLocation][detailedLocation]) {
+            element.style.color = "#000000"; // black
+            element.style.setProperty("text-decoration", "line-through");
+        } else {
+            element.style.setProperty("text-decoration", "none");
+            if (locationsAreAvailable[currentGeneralLocation][detailedLocation]) {
+                element.style.color = "#2929CC"; // blue
+            } else {
+                element.style.color = "#CC2929"; // red
+            }
+        }
+    }
+}
 
+function ToggleLocation(element) {
+    var detailedLocation = element.innerText;
+    locationsChecked[currentGeneralLocation][detailedLocation] = !locationsChecked[currentGeneralLocation][detailedLocation];
+
+    locationsChanged();
 }
 
 function ClearMapInfo() {

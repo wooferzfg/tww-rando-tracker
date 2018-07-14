@@ -241,11 +241,24 @@ function itemsChanged() {
     setLocationsAreAvailable();
     setChestCounts();
     refreshAllImagesAndCounts();
+    refreshLocationColors();
 }
 
 function locationsChanged() {
     setChestCounts();
     refreshAllImagesAndCounts();
+    refreshLocationColors();
+}
+
+function getDetailedLocations(generalLocation) {
+    var result = [];
+    var allDetailedLocations = locationsAreProgress[generalLocation];
+    Object.keys(allDetailedLocations).forEach(function (detailedLocation) {
+        if (locationsAreProgress[generalLocation][detailedLocation]) {
+            result.push(detailedLocation);
+        }
+    })
+    return result;
 }
 
 function setLocationsAreProgress() {
