@@ -297,6 +297,8 @@ function resetAllShards() {
 }
 
 function toggleItem(itemName, maxItems) {
+    disableMap = true;
+
     var curCount = items[itemName];
     curCount++;
     if (curCount > maxItems) {
@@ -305,7 +307,6 @@ function toggleItem(itemName, maxItems) {
     items[itemName] = curCount;
 
     itemsChanged();
-    disableMap = true;
 }
 
 function ToggleKey(element, maxKeys) {
@@ -314,6 +315,8 @@ function ToggleKey(element, maxKeys) {
 }
 
 function ToggleEntry(element) {
+    disableMap = true;
+
     var macroName = element.innerText;
     var macroVal = macros[macroName];
     if (macroVal == "Impossible") {
@@ -324,7 +327,6 @@ function ToggleEntry(element) {
     }
 
     itemsChanged();
-    disableMap = true;
 }
 
 function ShrinkMap() {
