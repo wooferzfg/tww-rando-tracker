@@ -115,6 +115,8 @@ function saveProgress() {
     localStorage.setItem(totgMacro, macros[totgMacro]);
     localStorage.setItem(etMacro, macros[etMacro]);
     localStorage.setItem(wtMacro, macros[wtMacro]);
+
+    localStorage.setItem("rando-flags", flagParam);
 }
 
 function toggleNonProgressLocations(button) {
