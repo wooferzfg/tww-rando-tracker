@@ -2,7 +2,67 @@ var macros; // contents of macros.txt
 var itemLocations; // contents of item_locations.txt
 var macrosLoaded = false;
 var itemLocationsLoaded = false;
-var trackerLoaded = false;
+
+var generalLocations = [
+    'Forsaken Fortress',
+    'Star Island',
+    'Northern Fairy Island',
+    'Gale Isle',
+    'Crescent Moon Island',
+    'Seven-Star Isles',
+    'Overlook Island',
+    'Four-Eye Reef',
+    'Mother and Child Isles',
+    'Spectacle Island',
+    'Windfall Island',
+    'Pawprint Isle',
+    'Dragon Roost Island',
+    'Flight Control Platform',
+    'Western Fairy Island',
+    'Rock Spire Isle',
+    'Tingle Island',
+    'Northern Triangle Island',
+    'Eastern Fairy Island',
+    'Fire Mountain',
+    'Star Belt Archipelago',
+    'Three-Eye Reef',
+    'Greatfish Isle',
+    'Cyclops Reef',
+    'Six-Eye Reef',
+    'Tower of the Gods',
+    'Eastern Triangle Island',
+    'Thorned Fairy Island',
+    'Needle Rock Isle',
+    'Islet of Steel',
+    'Stone Watcher Island',
+    'Southern Triangle Island',
+    'Private Oasis',
+    'Bomb Island',
+    'Bird\'s Peak Rock',
+    'Diamond Steppe Island',
+    'Five-Eye Reef',
+    'Shark Island',
+    'Southern Fairy Island',
+    'Ice Ring Isle',
+    'Forest Haven',
+    'Cliff Plateau Isles',
+    'Horseshoe Island',
+    'Outset Island',
+    'Headstone Island',
+    'Two-Eye Reef',
+    'Angular Isles',
+    'Boating Course',
+    'Five-Star Isles',
+
+    'Dragon Roost Cavern',
+    'Forbidden Woods',
+    'Tower of the Gods',
+    'Forsaken Fortress',
+    'Earth Temple',
+    'Wind Temple',
+    'Mailbox',
+    'The Great Sea',
+    'Ganon\'s Tower'];
 
 var items = {
     "Tingle Tuner": 0,
@@ -70,10 +130,67 @@ var items = {
     "ET Small Key": 0,
     "WT Big Key": 0,
     "WT Small Key": 0,
+
+    "Treasure Chart 1": 0,
+    "Treasure Chart 2": 0,
+    "Treasure Chart 3": 0,
+    "Treasure Chart 4": 0,
+    "Treasure Chart 5": 0,
+    "Treasure Chart 6": 0,
+    "Treasure Chart 7": 0,
+    "Treasure Chart 8": 0,
+    "Treasure Chart 9": 0,
+    "Treasure Chart 10": 0,
+    "Treasure Chart 11": 0,
+    "Treasure Chart 12": 0,
+    "Treasure Chart 13": 0,
+    "Treasure Chart 14": 0,
+    "Treasure Chart 15": 0,
+    "Treasure Chart 16": 0,
+    "Treasure Chart 17": 0,
+    "Treasure Chart 18": 0,
+    "Treasure Chart 19": 0,
+    "Treasure Chart 20": 0,
+    "Treasure Chart 21": 0,
+    "Treasure Chart 22": 0,
+    "Treasure Chart 23": 0,
+    "Treasure Chart 24": 0,
+    "Treasure Chart 25": 0,
+    "Treasure Chart 26": 0,
+    "Treasure Chart 27": 0,
+    "Treasure Chart 28": 0,
+    "Treasure Chart 29": 0,
+    "Treasure Chart 30": 0,
+    "Treasure Chart 31": 0,
+    "Treasure Chart 32": 0,
+    "Treasure Chart 33": 0,
+    "Treasure Chart 34": 0,
+    "Treasure Chart 35": 0,
+    "Treasure Chart 36": 0,
+    "Treasure Chart 37": 0,
+    "Treasure Chart 38": 0,
+    "Treasure Chart 39": 0,
+    "Treasure Chart 40": 0,
+    "Treasure Chart 41": 0,
+
+    "Triforce Chart 1": 0,
+    "Triforce Chart 2": 0,
+    "Triforce Chart 3": 0,
+    "Triforce Chart 4": 0,
+    "Triforce Chart 5": 0,
+    "Triforce Chart 6": 0,
+    "Triforce Chart 7": 0,
+    "Triforce Chart 8": 0,
+
+    "Telescope": 0,
+    "Magic Armor": 0
 };
 var locationsChecked = {};
 
 var locationsAreProgress = {};
+var locationsAreAvailable = {};
+var availableChests = {};
+var totalChests = {};
 
 function loadMacros() {
     $.ajax(
@@ -101,12 +218,58 @@ function loadItemLocations() {
     )
 }
 
-loadMacros();
-loadItemLocations();
-
 function afterLoad() {
-    if (macrosLoaded && itemLocationsLoaded && trackerLoaded) {
+    if (macrosLoaded && itemLocationsLoaded) {
+        loadFlagsAndStartingItems();
         setLocationsAreProgress();
+        loadProgressString();
+        setLocationsAreAvailable();
+        initializeLocationsChecked();
+        initializeRandomDungeonEntrances();
+        setChestCounts();
+        refreshAllImagesAndCounts();
+    }
+}
+
+function setLocationsAreProgress() {
+    locationsAreProgress = setLocations(isLocationProgress);
+}
+
+function setLocationsAreAvailable() {
+    locationsAreAvailable = setLocations(isLocationAvailable);
+}
+
+function initializeLocationsChecked() {
+    locationsChecked = setLocations(() => false);
+}
+
+function initializeRandomDungeonEntrances() {
+    if (isRandomEntrances) { // we rely on the tracker to change these macros later
+        macros["Can Access Dragon Roost Cavern"] = "Impossible";
+        macros["Can Access Forbidden Woods"] = "Impossible";
+        macros["Can Access Tower of the Gods"] = "Impossible";
+        macros["Can Access Earth Temple"] = "Impossible";
+        macros["Can Access Wind Temple"] = "Impossible";
+    }
+}
+
+function setChestCounts() {
+    for (var i = 0; i < generalLocations.length; i++) {
+        var generalLocation = generalLocations[i];
+        var curAvailable = 0;
+        var curTotal = 0;
+        var curLocation = locationsChecked[generalLocation];
+        Object.keys(curLocation).forEach(function (detailedLocation) {
+            if ((!curLocation[detailedLocation])
+                && locationsAreProgress[generalLocation][detailedLocation]) {
+                curTotal++;
+                if (locationsAreAvailable[generalLocation][detailedLocation]) {
+                    curAvailable++;
+                }
+            }
+        });
+        availableChests[generalLocation] = curAvailable;
+        totalChests[generalLocation] = curTotal;
     }
 }
 
@@ -123,10 +286,6 @@ function setLocations(valueCallback) {
         result[generalLocation][detailedLocation] = locationValue;
     });
     return result;
-}
-
-function setLocationsAreProgress() {
-    locationsAreProgress = setLocations(isLocationProgress);
 }
 
 function checkRequirementMet(reqName) {

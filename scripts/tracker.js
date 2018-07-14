@@ -12,11 +12,7 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function parseProgressString(progressString) {
-    /* TODO */
-}
-
-function ApplyModes() {
+function loadFlagsAndStartingItems() {
     if (flagParam.indexOf("D1") > -1) {
         flags.push("Dungeon");
     }
@@ -75,14 +71,147 @@ function ApplyModes() {
 
     document.getElementById('mapinfo').innerHTML = '';
     document.getElementById('iteminfo').innerHTML = '';
-
-    var progressString = getParameterByName("p");
-    parseProgressString(progressString);
-
-    trackerLoaded = true;
-    afterLoad();
 }
 
-function SetAllImagesAndCounts() {
+function loadProgressString() {
+    var progressString = getParameterByName("p");
+}
 
+function refreshAllImagesAndCounts() {
+    var imagedir = 'images/';
+
+    //CHECK BOSSES
+    var bosses = [];
+    bosses[0] = locationsChecked["Dragon Roost Cavern"]["Gohma Heart Container"];
+    bosses[1] = locationsChecked["Forbidden Woods"]["Kalle Demos Heart Container"];
+    bosses[2] = locationsChecked["Tower of the Gods"]["Gohdan Heart Container"];
+    bosses[3] = locationsChecked["Forsaken Fortress"]["Helmaroc King Heart Container"];
+    bosses[4] = locationsChecked["Earth Temple"]["Jalhalla Heart Container"];
+    bosses[5] = locationsChecked["Wind Temple"]["Molgera Heart Container"];
+
+    for (var i = 0; i < 6; i++) {
+        var l = 'extralocation' + i.toString();
+        if (bosses[i]) {
+            document.getElementById(l).src = imagedir + 'boss' + i + '_d.png';
+        } else {
+            document.getElementById(l).src = imagedir + 'boss' + i + '.png';
+        }
+    }
+
+    //TRIFORCE PIECES
+    var triforce = 0;
+    for (var i = 1; i <= 8; i++) {
+        if (items["Triforce Shard " + i] > 0) {
+            triforce++;
+        }
+        else break;
+    }
+    document.getElementById('triforce').src = imagedir + 'triforce' + triforce + '.png'
+
+    //ITEMS
+    for (var i = 0; i < 28; i++) {
+        var l = 'item' + i.toString();
+        var itemName = document.getElementById(l).name;
+        var itemCount = items[itemName];
+
+        if (itemCount === 0) {
+            document.getElementById(l).src = imagedir + 'item' + i + '.png'
+        } else if (itemCount === 1) {
+            document.getElementById(l).src = imagedir + 'item' + i + '_a.png'
+        } else {
+            document.getElementById(l).src = imagedir + 'item' + i + '_' + itemCount + '_a.png'
+        }
+    }
+
+    //SONGS
+    for (var i = 0; i < 6; i++) {
+        var l = 'song' + i.toString();
+        var songName = document.getElementById(l).name;
+
+        if (items[songName] === 0) {
+            document.getElementById(l).src = imagedir + 'song' + i + '.png'
+        } else
+            document.getElementById(l).src = imagedir + 'song' + i + '_a.png'
+    }
+
+    //PEARLS
+    for (var i = 0; i < 3; i++) {
+        var l = 'pearl' + i.toString();
+        var pearlName = document.getElementById(l).name;
+
+        if (items[pearlName] === 0) {
+            document.getElementById(l).src = imagedir + 'pearl' + i + '.png'
+        } else
+            document.getElementById(l).src = imagedir + 'pearl' + i + '_a.png'
+    }
+
+    for (var i = 0; i < 6; i++) {
+        //FF does not have keys
+        if (i != 3) {
+            //SMALL KEYS
+            var l = 'smallkey' + i.toString();
+            var smallKeyName = document.getElementById(l).innerText;
+            var smallKeyCount = items[smallKeyName];
+            if (smallKeyCount === 0) {
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'smallkey.png\')';
+            } else {
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'smallkey_' + smallKeyCount + '.png\')';
+            }
+
+            //ENTRY
+            var l = 'entry' + i.toString();
+
+            if (isRandomEntrances) {
+                var entryName = document.getElementById(l).innerText;
+                var curMacro = macros[entryName];
+                if (curMacro == "Nothing") {
+                    document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'dungeon_entered.png\')';
+                } else {
+                    document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'dungeon_noentry.png\')';
+                }
+            } else {
+                document.getElementById(l).style.display = "none";
+            }
+
+            //BOSS KEYS
+            var l = 'bosskey' + i.toString();
+            var bigKeyName = document.getElementById(l).innerText;
+            var bigKeyCount = items[bigKeyName];
+            if (bigKeyCount === 0) {
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'bosskey.png\')';
+            } else {
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'bosskey_a.png\')';
+            }
+        }
+    }
+
+    //CHARTS
+    for (var i = 0; i < 49; i++) {
+        var l = 'chart' + i.toString();
+        var chartName = document.getElementById(l).innerText;
+        var chartCount = items[chartName];
+        if (chartCount === 1) {
+            document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'chartopen.png\')';
+        } else {
+            document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'chart.png\')';
+        }
+    }
+
+    //LOCATIONS
+    for (var i = 0; i < 58; i++) {
+        var l = 'mapchests' + i.toString();
+        var curLocation = generalLocations[i];
+        var curAvailable = availableChests[curLocation];
+        var curTotal = totalChests[curLocation];
+        document.getElementById(l).innerHTML = curAvailable + '/' + curTotal;
+        if (curTotal === 0) {
+            document.getElementById(l).style.color = "#000000";
+        } else {
+            if (curAvailable === 0) {
+                document.getElementById(l).style.color = "#ff0000";
+            } else {
+                document.getElementById(l).style.color = "#4400ff";
+            }
+        }
+    }
 }

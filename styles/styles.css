@@ -25,7 +25,7 @@ body {
 
 .settings table {
     width: 1000px;
-    font-family: Raleway;
+    font-family: 'Fira Sans', sans-serif;
     font-size: 1.2em;
     table-layout: fixed;
     color: white;
@@ -115,7 +115,7 @@ body {
   #flags {
       padding: 6px;
       border-radius: 5px;
-      font-family: Raleway;
+      font-family: 'Fira Sans', sans-serif;
       font-size: 0.8em;
       font-weight: bold;
       border: 1px solid #808080;
@@ -141,7 +141,7 @@ body {
 }
 
 .tracker {
-    font-family: Raleway;
+    font-family: 'Fira Sans', sans-serif;
     height: 400px;
 }
 
@@ -195,6 +195,7 @@ body {
     float: left;
     background: url("../images/chart.png");
     cursor: pointer;
+    font-size: 0;
 }
 
 #iteminfo {
@@ -247,6 +248,7 @@ body {
 .extra-locations {
     float: left;
     margin: 0px 0px 0px 12px;
+    background-color: rgba(160, 160, 160, 0.85);
 }
 
 .extra-location {
@@ -269,6 +271,7 @@ body {
     height: 24px;
     cursor: pointer;
     display: flex;
+    font-size: 0;
 }
 
 .extra-location-chests {
@@ -278,4 +281,8 @@ body {
 
 .dungeon-icon {
     display: flex;
+}
+
+#save-progress-button {
+    width: 120px;
 }
