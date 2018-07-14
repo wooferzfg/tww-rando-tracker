@@ -2,11 +2,19 @@ body {
     background-image: url("../images/background.png");
 }
 
-.launcher-container {
-    position: absolute;
+.full-container {
     width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.launcher-container {
+    width: 100%;
 }
 
 .header {
@@ -68,7 +76,9 @@ body {
     height: 34px;
 }
 
-.switch input {display:none;}
+.switch input {
+    display:none;
+}
 
 .slider {
     position: absolute;
@@ -82,9 +92,9 @@ body {
     border-radius: 34px;
     border: 1px solid #808080;
     background-color: #d2d2d2;
-  }
+}
 
-  .slider:before {
+.slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -95,49 +105,57 @@ body {
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 50%;
-  }
+}
 
-  input:checked + .slider {
+input:checked + .slider {
     background-color: #2196F3;
-  }
+}
 
-  input:focus + .slider {
+input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
-  }
+}
 
-  input:checked + .slider:before {
+input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-  }
+}
 
-  button,
-  #flags {
-      padding: 6px;
-      border-radius: 5px;
-      font-family: 'Fira Sans', sans-serif;
-      font-size: 0.8em;
-      font-weight: bold;
-      border: 1px solid #808080;
-      margin-left: 2px;
-      margin-right: 2px;
-  }
+button,
+#flags {
+    padding: 6px;
+    border-radius: 5px;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 0.8em;
+    font-weight: bold;
+    border: 1px solid #808080;
+    margin-left: 2px;
+    margin-right: 2px;
+}
 
-  #flags {
-      margin-left: 4px;
-      width: 450px;
-  }
+#flags {
+    margin-left: 4px;
+    width: 450px;
+}
 
-  button {
-    background: linear-gradient(#d2d2d2,#c8c8c8);
-  }
+button {
+background: linear-gradient(#d2d2d2,#c8c8c8);
+}
 
-  .launcher-button-container {
-      text-align: center;
-  }
+.launcher-button-container {
+    text-align: center;
+}
 
-  .launcher-button {
+.launcher-button {
     width: 200px;
+}
+
+.attribution {
+    text-align: center;
+    margin-top: 10px;
+    color: #C8C8C8;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 0.8em;
 }
 
 .tracker {

@@ -15,185 +15,188 @@
 </head>
 
 <body>
-    <div class="launcher-container">
-        <div class="header">
-            <img src="./images/header.png">
-        </div>
-        <div class="settings">
-            <table>
-                <colgroup>
-                    <col class="text-col">
-                    <col class="button-col">
-                    <col class="text-col">
-                    <col class="button-col">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td colspan="4" class="permalink-container">
-                            Paste Permalink:
-                            <input placeholder="Permalink" id="flags" />
-                            <button id="apply-flags-button" type="button" onclick="applyflags()">Apply Flags</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label-text">
-                            Dungeons
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="dswitch" name="dswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td class="label-text">
-                            Secret Caves
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="scswitch" name="scswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label-text">
-                            Sidequests
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="sqswitch" name="sqswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td class="label-text">
-                            Minigames
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="mswitch" name="mswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label-text">
-                            Lookout Platforms/Rafts
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="lrswitch" name="lrswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td class="label-text">
-                            Submarines
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="sswitch" name="sswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label-text">
-                            Eye Reef Chests
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="eswitch" name="eswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td class="label-text">
-                            Big Octos and Gunboats
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="bswitch" name="bswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label-text">
-                            Sunken Treasure (Triforce)
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="striswitch" name="striswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td class="label-text">
-                            Sunken Treasure (Treasure)
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="streswitch" name="streswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label-text">
-                            Free Gifts
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="gswitch" name="gwitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td class="label-text">
-                            Mail
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="maswitch" name="maswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label-text">
-                            Expensive Purchases
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="epswitch" name="eswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td class="label-text">
-                            Everywhere Else
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="evswitch" name="evswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label-text">
-                            Randomized Dungeon Entrances
-                        </td>
-                        <td class="slider-container">
-                            <label class="switch">
-                                <input id="entryswitch" name="entryswitch" type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" class="launcher-button-container">
-                            <button class="launcher-button" type="button" onclick="launch()">Launch Tracker</button>
-                            <button class="launcher-button" type="button" onclick="loadMostRecent()">Load Most Recent</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="full-container">
+        <div class="launcher-container">
+            <div class="header">
+                <img src="./images/header.png">
+            </div>
+            <div class="settings">
+                <table>
+                    <colgroup>
+                        <col class="text-col">
+                        <col class="button-col">
+                        <col class="text-col">
+                        <col class="button-col">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td colspan="4" class="permalink-container">
+                                Paste Permalink:
+                                <input placeholder="Permalink" id="flags" />
+                                <button id="apply-flags-button" type="button" onclick="applyflags()">Apply Flags</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-text">
+                                Dungeons
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="dswitch" name="dswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td class="label-text">
+                                Secret Caves
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="scswitch" name="scswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-text">
+                                Sidequests
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="sqswitch" name="sqswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td class="label-text">
+                                Minigames
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="mswitch" name="mswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-text">
+                                Lookout Platforms/Rafts
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="lrswitch" name="lrswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td class="label-text">
+                                Submarines
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="sswitch" name="sswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-text">
+                                Eye Reef Chests
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="eswitch" name="eswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td class="label-text">
+                                Big Octos and Gunboats
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="bswitch" name="bswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-text">
+                                Sunken Treasure (Triforce)
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="striswitch" name="striswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td class="label-text">
+                                Sunken Treasure (Treasure)
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="streswitch" name="streswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-text">
+                                Free Gifts
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="gswitch" name="gwitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td class="label-text">
+                                Mail
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="maswitch" name="maswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-text">
+                                Expensive Purchases
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="epswitch" name="eswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td class="label-text">
+                                Everywhere Else
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="evswitch" name="evswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-text">
+                                Randomized Dungeon Entrances
+                            </td>
+                            <td class="slider-container">
+                                <label class="switch">
+                                    <input id="entryswitch" name="entryswitch" type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="launcher-button-container">
+                                <button class="launcher-button" type="button" onclick="launch()">Launch Tracker</button>
+                                <button class="launcher-button" type="button" onclick="loadMostRecent()">Load Most Recent</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="attribution">Original tracker created by BigDunka. Modified by wooferzfg.</div>
         </div>
     </div>
 </body>
