@@ -342,12 +342,13 @@ function ToggleMap(index, isDungeon) {
 
     document.getElementById('chartmap').style.display = "none";
     document.getElementById('zoommap').style.display = "block";
-    document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imagedir + 'mapfull' + index + '.png\')';
 
     if (isDungeon) {
         currentGeneralLocation = dungeons[index];
+        document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imagedir + 'dungeon_mapfull' + index + '.png\')';
     } else {
         currentGeneralLocation = islands[index];
+        document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imagedir + 'mapfull' + index + '.png\')';
     }
     var detailedLocations = getDetailedLocations(currentGeneralLocation, isDungeon);
 
