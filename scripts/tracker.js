@@ -251,3 +251,45 @@ function refreshAllImagesAndCounts() {
         }
     }
 }
+
+function ClearItemInfo() {
+    document.getElementById('iteminfo').innerText = '';
+}
+
+function ItemInfo(element) {
+    document.getElementById('iteminfo').innerText = element.name;
+}
+
+function ToggleItem(element, maxItems) {
+    var curCount = items[element.name];
+    curCount++;
+    if (curCount > maxItems) {
+        curCount = 0;
+    }
+    items[element.name] = curCount;
+
+    itemsChanged();
+
+    // TODO: Toggle Map here!
+}
+
+function ToggleTriforce() {
+    for (var i = 1; i <= 8; i++) {
+        var curShard = "Triforce Shard " + i;
+        if (items[curShard] == 0) {
+            items[curShard] = 1;
+            break;
+        }
+        else if (i == 8) {
+            resetAllShards();
+        }
+    }
+
+    itemsChanged();
+}
+
+function resetAllShards() {
+    for (var i = 1; i <= 8; i++) {
+        items["Triforce Shard " + i] = 0;
+    }
+}

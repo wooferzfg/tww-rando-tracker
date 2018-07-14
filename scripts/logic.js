@@ -237,6 +237,17 @@ function afterLoad() {
     }
 }
 
+function itemsChanged() {
+    setLocationsAreAvailable();
+    setChestCounts();
+    refreshAllImagesAndCounts();
+}
+
+function locationsChanged() {
+    setChestCounts();
+    refreshAllImagesAndCounts();
+}
+
 function setLocationsAreProgress() {
     locationsAreProgress = setLocations(isLocationProgress);
 }
