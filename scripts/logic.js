@@ -3,6 +3,12 @@ var itemLocations; // contents of item_locations.txt
 var macrosLoaded = false;
 var itemLocationsLoaded = false;
 
+const drcMacro = "Can Access Dragon Roost Cavern";
+const fwMacro = "Can Access Forbidden Woods";
+const totgMacro = "Can Access Tower of the Gods";
+const etMacro = "Can Access Earth Temple";
+const wtMacro = "Can Access Wind Temple";
+
 var generalLocations = [
     'Forsaken Fortress',
     'Star Island',
@@ -222,10 +228,10 @@ function afterLoad() {
     if (macrosLoaded && itemLocationsLoaded) {
         loadFlagsAndStartingItems();
         setLocationsAreProgress();
-        loadProgressString();
-        setLocationsAreAvailable();
         initializeLocationsChecked();
         initializeRandomDungeonEntrances();
+        loadProgress();
+        setLocationsAreAvailable();
         setChestCounts();
         refreshAllImagesAndCounts();
     }
@@ -245,11 +251,11 @@ function initializeLocationsChecked() {
 
 function initializeRandomDungeonEntrances() {
     if (isRandomEntrances) { // we rely on the tracker to change these macros later
-        macros["Can Access Dragon Roost Cavern"] = "Impossible";
-        macros["Can Access Forbidden Woods"] = "Impossible";
-        macros["Can Access Tower of the Gods"] = "Impossible";
-        macros["Can Access Earth Temple"] = "Impossible";
-        macros["Can Access Wind Temple"] = "Impossible";
+        macros[drcMacro] = "Impossible";
+        macros[fwMacro] = "Impossible";
+        macros[totgMacro] = "Impossible";
+        macros[etMacro] = "Impossible";
+        macros[wtMacro] = "Impossible";
     }
 }
 

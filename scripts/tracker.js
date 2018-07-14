@@ -73,8 +73,44 @@ function loadFlagsAndStartingItems() {
     document.getElementById('iteminfo').innerHTML = '';
 }
 
-function loadProgressString() {
+function loadProgress() {
     var progressString = getParameterByName("p");
+    if (parseInt(progressString) == 0) return;
+
+    Object.keys(items).forEach(function (itemName) {
+        items[itemName] = parseInt(localStorage.getItem(itemName));
+    });
+    for (var i = 0; i < generalLocations.length; i++) {
+        var generalLocation = generalLocations[i];
+        Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
+            var locationName = generalLocation + " - " + detailedLocation;
+            locationsChecked[generalLocation][detailedLocation] = localStorage.getItem(locationName) == "true";
+        });
+    }
+    macros[drcMacro] = localStorage.getItem(drcMacro);
+    macros[fwMacro] = localStorage.getItem(fwMacro);
+    macros[totgMacro] = localStorage.getItem(totgMacro);
+    macros[etMacro] = localStorage.getItem(etMacro);
+    macros[wtMacro] = localStorage.getItem(wtMacro);
+}
+
+function saveProgress() {
+    Object.keys(items).forEach(function (itemName) {
+        localStorage.setItem(itemName, items[itemName]);
+    });
+    for (var i = 0; i < generalLocations.length; i++) {
+        var generalLocation = generalLocations[i];
+        Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
+            var locationName = generalLocation + " - " + detailedLocation;
+            var locationValue = locationsChecked[generalLocation][detailedLocation];
+            localStorage.setItem(locationName, locationValue);
+        });
+    }
+    localStorage.setItem(drcMacro, macros[drcMacro]);
+    localStorage.setItem(fwMacro, macros[fwMacro]);
+    localStorage.setItem(totgMacro, macros[totgMacro]);
+    localStorage.setItem(etMacro, macros[etMacro]);
+    localStorage.setItem(wtMacro, macros[wtMacro]);
 }
 
 function refreshAllImagesAndCounts() {

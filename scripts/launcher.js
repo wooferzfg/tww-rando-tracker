@@ -209,35 +209,26 @@ function getMostRecentFlags() {
 	return getFlagString();
 }
 
-function getProgressString() {
-	var progressStr = localStorage.getItem("rando-progress");
-	if (progressStr)
-		return progressStr;
-	return '0';
-}
-
 function loadMostRecent() {
 	var flagsstr = getMostRecentFlags();
-	var progressStr = getProgressString();
 
 	//Chrome defaults
 	var h = 410;
 	var w = 1300;
 
-	open('tracker.html?f=' + flagsstr + '&p=' + progressStr,
+	open('tracker.html?f=' + flagsstr + '&p=1',
 		'',
 		'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0');
 }
 
 function launch() {
 	var flagsstr = getFlagString();
-	var progressStr = '0';
 
 	//Chrome defaults
 	var h = 410;
 	var w = 1300;
 
-	open('tracker.html?f=' + flagsstr + '&p=' + progressStr,
+	open('tracker.html?f=' + flagsstr + '&p=0',
 		'',
 		'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0');
 }
