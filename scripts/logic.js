@@ -9,7 +9,7 @@ const totgMacro = "Can Access Tower of the Gods";
 const etMacro = "Can Access Earth Temple";
 const wtMacro = "Can Access Wind Temple";
 
-var generalLocations = [
+var islands = [
     'Forsaken Fortress',
     'Star Island',
     'Northern Fairy Island',
@@ -59,15 +59,17 @@ var generalLocations = [
     'Angular Isles',
     'Boating Course',
     'Five-Star Isles',
+    'Mailbox',
+    'The Great Sea'
+];
 
+var dungeons = [
     'Dragon Roost Cavern',
     'Forbidden Woods',
     'Tower of the Gods',
     'Forsaken Fortress',
     'Earth Temple',
     'Wind Temple',
-    'Mailbox',
-    'The Great Sea',
     'Ganon\'s Tower'];
 
 var items = {
@@ -195,8 +197,10 @@ var locationsChecked = {};
 
 var locationsAreProgress = {};
 var locationsAreAvailable = {};
-var availableChests = {};
-var totalChests = {};
+var availableIslandChests = {};
+var totalIslandChests = {};
+var availableDungeonChests = {};
+var totalDungeonChests = {};
 
 function loadMacros() {
     $.ajax(
@@ -250,11 +254,12 @@ function locationsChanged() {
     refreshLocationColors();
 }
 
-function getDetailedLocations(generalLocation) {
+function getDetailedLocations(generalLocation, isDungeon) {
     var result = [];
     var allDetailedLocations = locationsAreProgress[generalLocation];
     Object.keys(allDetailedLocations).forEach(function (detailedLocation) {
-        if (locationsAreProgress[generalLocation][detailedLocation]) {
+        if ((isDungeon == isDungeonChest(generalLocation, detailedLocation))
+            && locationsAreProgress[generalLocation][detailedLocation]) {
             result.push(detailedLocation);
         }
     })
@@ -283,23 +288,44 @@ function initializeRandomDungeonEntrances() {
     }
 }
 
-function setChestCounts() {
-    for (var i = 0; i < generalLocations.length; i++) {
-        var generalLocation = generalLocations[i];
-        var curAvailable = 0;
-        var curTotal = 0;
-        var curLocation = locationsChecked[generalLocation];
-        Object.keys(curLocation).forEach(function (detailedLocation) {
-            if ((!curLocation[detailedLocation])
-                && locationsAreProgress[generalLocation][detailedLocation]) {
-                curTotal++;
-                if (locationsAreAvailable[generalLocation][detailedLocation]) {
-                    curAvailable++;
-                }
+function isDungeonChest(generalLocation, detailedLocation) {
+    var fullName = generalLocation + " - " + detailedLocation;
+    return itemLocations[fullName].Types.includes("Dungeon");
+}
+
+function locationStillHasProgress(generalLocation, detailedLocation) {
+    return (!locationsChecked[generalLocation][detailedLocation])
+        && (locationsAreProgress[generalLocation][detailedLocation]);
+}
+
+function getChestCountsForLocation(generalLocation, isDungeon) {
+    var curAvailable = 0;
+    var curTotal = 0;
+    var curLocation = locationsChecked[generalLocation];
+    Object.keys(curLocation).forEach(function (detailedLocation) {
+        if ((isDungeonChest(generalLocation, detailedLocation) == isDungeon)
+            && locationStillHasProgress(generalLocation, detailedLocation)) {
+            curTotal++;
+            if (locationsAreAvailable[generalLocation][detailedLocation]) {
+                curAvailable++;
             }
-        });
-        availableChests[generalLocation] = curAvailable;
-        totalChests[generalLocation] = curTotal;
+        }
+    });
+    return { available: curAvailable, total: curTotal };
+}
+
+function setChestCounts() {
+    for (var i = 0; i < islands.length; i++) {
+        var generalLocation = islands[i];
+        var chests = getChestCountsForLocation(generalLocation, false);
+        availableIslandChests[generalLocation] = chests.available;
+        totalIslandChests[generalLocation] = chests.total;
+    }
+    for (var i = 0; i < dungeons.length; i++) {
+        var generalLocation = dungeons[i];
+        var chests = getChestCountsForLocation(generalLocation, true);
+        availableDungeonChests[generalLocation] = chests.available;
+        totalDungeonChests[generalLocation] = chests.total;
     }
 }
 

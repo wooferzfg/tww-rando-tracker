@@ -83,13 +83,12 @@ function loadProgress() {
     Object.keys(items).forEach(function (itemName) {
         items[itemName] = parseInt(localStorage.getItem(itemName));
     });
-    for (var i = 0; i < generalLocations.length; i++) {
-        var generalLocation = generalLocations[i];
+    Object.keys(locationsChecked).forEach(function (generalLocation) {
         Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
             var locationName = generalLocation + " - " + detailedLocation;
             locationsChecked[generalLocation][detailedLocation] = localStorage.getItem(locationName) == "true";
         });
-    }
+    })
     macros[drcMacro] = localStorage.getItem(drcMacro);
     macros[fwMacro] = localStorage.getItem(fwMacro);
     macros[totgMacro] = localStorage.getItem(totgMacro);
@@ -101,14 +100,13 @@ function saveProgress() {
     Object.keys(items).forEach(function (itemName) {
         localStorage.setItem(itemName, items[itemName]);
     });
-    for (var i = 0; i < generalLocations.length; i++) {
-        var generalLocation = generalLocations[i];
+    Object.keys(locationsChecked).forEach(function (generalLocation) {
         Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
             var locationName = generalLocation + " - " + detailedLocation;
             var locationValue = locationsChecked[generalLocation][detailedLocation];
             localStorage.setItem(locationName, locationValue);
         });
-    }
+    })
     localStorage.setItem(drcMacro, macros[drcMacro]);
     localStorage.setItem(fwMacro, macros[fwMacro]);
     localStorage.setItem(totgMacro, macros[totgMacro]);
@@ -235,20 +233,31 @@ function refreshAllImagesAndCounts() {
     }
 
     //LOCATIONS
-    for (var i = 0; i < 58; i++) {
+    for (var i = 0; i < islands.length; i++) {
         var l = 'mapchests' + i.toString();
-        var curLocation = generalLocations[i];
-        var curAvailable = availableChests[curLocation];
-        var curTotal = totalChests[curLocation];
-        document.getElementById(l).innerHTML = curAvailable + '/' + curTotal;
-        if (curTotal === 0) {
-            document.getElementById(l).style.color = "#000000"; // black
+        var curLocation = islands[i];
+        var curAvailable = availableIslandChests[curLocation];
+        var curTotal = totalIslandChests[curLocation];
+        setChestsForElement(document.getElementById(l), curAvailable, curTotal);
+    }
+    for (var i = 0; i < dungeons.length; i++) {
+        var l = 'dungeonchests' + i.toString();
+        var curLocation = dungeons[i];
+        var curAvailable = availableDungeonChests[curLocation];
+        var curTotal = totalDungeonChests[curLocation];
+        setChestsForElement(document.getElementById(l), curAvailable, curTotal);
+    }
+}
+
+function setChestsForElement(element, available, total) {
+    element.innerHTML = available + '/' + total;
+    if (total === 0) {
+        element.style.color = "#000000"; // black
+    } else {
+        if (available === 0) {
+            element.style.color = "#CC2929"; // red
         } else {
-            if (curAvailable === 0) {
-                document.getElementById(l).style.color = "#CC2929"; // red
-            } else {
-                document.getElementById(l).style.color = "#2929CC"; // blue
-            }
+            element.style.color = "#2929CC"; // blue
         }
     }
 }
@@ -323,7 +332,7 @@ function ShrinkMap() {
     document.getElementById('zoommap').style.display = "none";
 }
 
-function ToggleMap(index) {
+function ToggleMap(index, isDungeon) {
     if (disableMap) {
         disableMap = false;
         return;
@@ -333,8 +342,12 @@ function ToggleMap(index) {
     document.getElementById('zoommap').style.display = "block";
     document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imagedir + 'mapfull' + index + '.png\')';
 
-    currentGeneralLocation = generalLocations[index];
-    var detailedLocations = getDetailedLocations(currentGeneralLocation);
+    if (isDungeon) {
+        currentGeneralLocation = dungeons[index];
+    } else {
+        currentGeneralLocation = islands[index];
+    }
+    var detailedLocations = getDetailedLocations(currentGeneralLocation, isDungeon);
 
     var fontSize = 'normal';
     if (detailedLocations.length > 24) { // Windfall Island
@@ -396,9 +409,16 @@ function ClearMapInfo() {
 }
 
 function MapInfo(i) {
-    let generalLocation = generalLocations[i];
-    var curAvailable = availableChests[generalLocation];
-    var curTotal = totalChests[generalLocation];
+    let generalLocation = islands[i];
+    var curAvailable = availableIslandChests[generalLocation];
+    var curTotal = totalIslandChests[generalLocation];
+    document.getElementById('mapinfo').innerHTML = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
+}
+
+function DungeonMapInfo(i) {
+    let generalLocation = dungeons[i];
+    var curAvailable = availableDungeonChests[generalLocation];
+    var curTotal = totalDungeonChests[generalLocation];
     document.getElementById('mapinfo').innerHTML = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
 }
 
