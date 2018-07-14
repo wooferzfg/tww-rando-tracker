@@ -205,12 +205,12 @@ function refreshAllImagesAndCounts() {
         var curTotal = totalChests[curLocation];
         document.getElementById(l).innerHTML = curAvailable + '/' + curTotal;
         if (curTotal === 0) {
-            document.getElementById(l).style.color = "#000000";
+            document.getElementById(l).style.color = "#000000"; // black
         } else {
             if (curAvailable === 0) {
-                document.getElementById(l).style.color = "#ff0000";
+                document.getElementById(l).style.color = "#CC2929"; // red
             } else {
-                document.getElementById(l).style.color = "#4400ff";
+                document.getElementById(l).style.color = "#2929CC"; // blue
             }
         }
     }
