@@ -1,5 +1,5 @@
 body {
-    background-color: #55692e;
+    background-image: url("../images/background.png");
 }
 
 .launcher-container {
@@ -246,27 +246,36 @@ body {
 
 .extra-locations {
     float: left;
-    margin: 2px 0px 0px 12px;
+    margin: 0px 0px 0px 12px;
 }
 
 .extra-location {
     width: 80px;
-    height: 80px;
     float: left;
-    margin-bottom: 25px;
     background-position-y: 15px;
+    display: flex;
+    flex-direction: column;
+    margin: 5px
+}
+
+.dungeon-items {
+    display: flex;
+    justify-content: center;
+    height: 24px;
 }
 
 .dungeon-item {
     width: 24px;
     height: 24px;
-    float: left;
     cursor: pointer;
-    margin-bottom: 15px;
+    display: flex;
 }
 
 .extra-location-chests {
     font-size: 16px;
-    margin: 80px 10px 10px 4px;
     text-align: center;
+}
+
+.dungeon-icon {
+    display: flex;
 }

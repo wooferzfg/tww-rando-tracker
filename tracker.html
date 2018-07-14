@@ -14,6 +14,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="./scripts/logic.js"></script>
     <script src="./scripts/tracker.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ApplyModes();
+        });
+    </script>
 </head>
 
 <body>
@@ -659,70 +664,94 @@
             </div>
         </div>
         <div class="extra-locations" class="extra-locations">
-            <div id="extralocation0" onmouseout="ClearMapInfo();" onmouseover="MapInfo(49);" onclick="ToggleMap(49);" class="extra-location"
-                style="background: url(./images/boss0.png);">
-                <div id="smallkey0" onclick="DisableMap(); ToggleSmallKey(0);" class="dungeon-item" style="background: url(./images/smallkey.png);"></div>
-                <div id="entry0" onclick="DisableMap(); ToggleEntry(0);" class="dungeon-item" style="background: url(./images/dungeon_noentry.png);"></div>
-                <div id="bosskey0" onclick="DisableMap(); ToggleBossKey(0);" class="dungeon-item" style="background: url(./images/bosskey.png);"></div>
-                <div id="mapchests49" class="extra-location-chests">10/10</span>
+            <div id="extralocation0" onmouseout="ClearMapInfo();" onmouseover="MapInfo(49);" onclick="ToggleMap(49);" class="extra-location">
+                <div class="dungeon-items">
+                    <div id="smallkey0" onclick="DisableMap(); ToggleSmallKey(0);" class="dungeon-item" style="background: url(./images/smallkey.png);"></div>
+                    <div id="entry0" onclick="DisableMap(); ToggleEntry(0);" class="dungeon-item" style="background: url(./images/dungeon_noentry.png);"></div>
+                    <div id="bosskey0" onclick="DisableMap(); ToggleBossKey(0);" class="dungeon-item" style="background: url(./images/bosskey.png);"></div>
                 </div>
+                <div class="dungeon-icon">
+                    <img src="./images/boss0.png">
+                </div>
+                <div id="mapchests49" class="extra-location-chests">10/10</div>
             </div>
-            <div id="extralocation1" onmouseout="ClearMapInfo();" onmouseover="MapInfo(50);" onclick="ToggleMap(50);" class="extra-location"
-                style="background: url(./images/boss1.png);">
-                <div id="smallkey1" onclick="DisableMap(); ToggleSmallKey(1);" class="dungeon-item" style="background: url(./images/smallkey.png);"></div>
-                <div id="entry1" onclick="DisableMap(); ToggleEntry(1);" class="dungeon-item" style="background: url(./images/dungeon_noentry.png);"></div>
-                <div id="bosskey1" onclick="DisableMap(); ToggleBossKey(1);" class="dungeon-item" style="background: url(./images/bosskey.png);"></div>
-                <div id="mapchests50" class="extra-location-chests">10/10</span>
+            <div id="extralocation1" onmouseout="ClearMapInfo();" onmouseover="MapInfo(50);" onclick="ToggleMap(50);" class="extra-location">
+                <div class="dungeon-items">
+                    <div id="smallkey1" onclick="DisableMap(); ToggleSmallKey(1);" class="dungeon-item" style="background: url(./images/smallkey.png);"></div>
+                    <div id="entry1" onclick="DisableMap(); ToggleEntry(1);" class="dungeon-item" style="background: url(./images/dungeon_noentry.png);"></div>
+                    <div id="bosskey1" onclick="DisableMap(); ToggleBossKey(1);" class="dungeon-item" style="background: url(./images/bosskey.png);"></div>
                 </div>
+                <div class="dungeon-icon">
+                    <img src="./images/boss1.png">
+                </div>
+                <div id="mapchests50" class="extra-location-chests">10/10</div>
             </div>
-            <div id="extralocation2" onmouseout="ClearMapInfo();" onmouseover="MapInfo(51);" onclick="ToggleMap(51);" class="extra-location"
-                style="background: url(./images/boss2.png);">
-                <div id="smallkey2" onclick="DisableMap(); ToggleSmallKey(2);" class="dungeon-item" style="background: url(./images/smallkey.png);"></div>
-                <div id="entry2" onclick="DisableMap(); ToggleEntry(2);" class="dungeon-item" style="background: url(./images/dungeon_noentry.png);"></div>
-                <div id="bosskey2" onclick="DisableMap(); ToggleBossKey(2);" class="dungeon-item" style="background: url(./images/bosskey.png);"></div>
-                <div id="mapchests51" class="extra-location-chests">10/10</span>
+            <div id="extralocation2" onmouseout="ClearMapInfo();" onmouseover="MapInfo(51);" onclick="ToggleMap(51);" class="extra-location">
+                <div class="dungeon-items">
+                    <div id="smallkey2" onclick="DisableMap(); ToggleSmallKey(2);" class="dungeon-item" style="background: url(./images/smallkey.png);"></div>
+                    <div id="entry2" onclick="DisableMap(); ToggleEntry(2);" class="dungeon-item" style="background: url(./images/dungeon_noentry.png);"></div>
+                    <div id="bosskey2" onclick="DisableMap(); ToggleBossKey(2);" class="dungeon-item" style="background: url(./images/bosskey.png);"></div>
                 </div>
+                <div class="dungeon-icon">
+                    <img src="./images/boss2.png">
+                </div>
+                <div id="mapchests51" class="extra-location-chests">10/10</div>
             </div>
-            <br>
-            <div id="extralocation3" onmouseout="ClearMapInfo();" onmouseover="MapInfo(52);" onclick="ToggleMap(52);" class="extra-location"
-                style="background: url(./images/boss3.png);">
-                <div id="mapchests52" class="extra-location-chests">10/10</span>
+            <div id="extralocation4" onmouseout="ClearMapInfo();" onmouseover="MapInfo(53);" onclick="ToggleMap(53);" class="extra-location">
+                <div class="dungeon-items">
+                    <div id="smallkey4" onclick="DisableMap(); ToggleSmallKey(4);" class="dungeon-item" style="background: url(./images/smallkey.png);"></div>
+                    <div id="entry4" onclick="DisableMap(); ToggleEntry(4);" class="dungeon-item" style="background: url(./images/dungeon_noentry.png);"></div>
+                    <div id="bosskey4" onclick="DisableMap(); ToggleBossKey(4);" class="dungeon-item" style="background: url(./images/bosskey.png);"></div>
                 </div>
+                <div class="dungeon-icon">
+                    <img src="./images/boss4.png">
+                </div>
+                <div id="mapchests53" class="extra-location-chests">10/10</div>
             </div>
-            <div id="extralocation4" onmouseout="ClearMapInfo();" onmouseover="MapInfo(53);" onclick="ToggleMap(53);" class="extra-location"
-                style="background: url(./images/boss4.png);">
-                <div id="smallkey4" onclick="DisableMap(); ToggleSmallKey(4);" class="dungeon-item" style="background: url(./images/smallkey.png);"></div>
-                <div id="entry4" onclick="DisableMap(); ToggleEntry(4);" class="dungeon-item" style="background: url(./images/dungeon_noentry.png);"></div>
-                <div id="bosskey4" onclick="DisableMap(); ToggleBossKey(4);" class="dungeon-item" style="background: url(./images/bosskey.png);"></div>
-                <div id="mapchests53" class="extra-location-chests">10/10</span>
+            <div id="extralocation5" onmouseout="ClearMapInfo();" onmouseover="MapInfo(54);" onclick="ToggleMap(54);" class="extra-location">
+                <div class="dungeon-items">
+                    <div id="smallkey5" onclick="DisableMap(); ToggleSmallKey(5);" class="dungeon-item" style="background: url(./images/smallkey.png);"></div>
+                    <div id="entry5" onclick="DisableMap(); ToggleEntry(5);" class="dungeon-item" style="background: url(./images/dungeon_noentry.png);"></div>
+                    <div id="bosskey5" onclick="DisableMap(); ToggleBossKey(5);" class="dungeon-item" style="background: url(./images/bosskey.png);"></div>
                 </div>
-            </div>
-            <div id="extralocation5" onmouseout="ClearMapInfo();" onmouseover="MapInfo(54);" onclick="ToggleMap(54);" class="extra-location"
-                style="background: url(./images/boss5.png);">
-                <div id="smallkey5" onclick="DisableMap(); ToggleSmallKey(5);" class="dungeon-item" style="background: url(./images/smallkey.png);"></div>
-                <div id="entry5" onclick="DisableMap(); ToggleEntry(5);" class="dungeon-item" style="background: url(./images/dungeon_noentry.png);"></div>
-                <div id="bosskey5" onclick="DisableMap(); ToggleBossKey(5);" class="dungeon-item" style="background: url(./images/bosskey.png);"></div>
-                <div id="mapchests54" class="extra-location-chests">10/10</span>
+                <div class="dungeon-icon">
+                    <img src="./images/boss5.png">
                 </div>
-            </div>
-            <br>
-            <div id="extralocation6" onmouseout="ClearMapInfo();" onmouseover="MapInfo(55);" onclick="ToggleMap(55);" class="extra-location"
-                style="background: url(./images/mailbox.png);">
-                <div id="mapchests55" class="extra-location-chests">10/10</span>
-                </div>
-            </div>
-            <div id="extralocation7" onmouseout="ClearMapInfo();" onmouseover="MapInfo(56);" onclick="ToggleMap(56);" class="extra-location"
-                style="background: url(./images/greatsea.png);">
-                <div id="mapchests56" name="map0chests" class="extra-location-chests">10/10</span>
-                </div>
+                <div id="mapchests54" class="extra-location-chests">10/10</div>
             </div>
             <br>
-            <div id="extralocation8" onmouseout="ClearMapInfo();" onmouseover="MapInfo(57);" onclick="ToggleMap(57);" class="extra-location"
-                style="background: url(./images/boss6.png);">
-                <div id="mapchests57" class="extra-location-chests">10/10</span>
+            <div id="extralocation6" onmouseout="ClearMapInfo();" onmouseover="MapInfo(55);" onclick="ToggleMap(55);" class="extra-location">
+                <div class="dungeon-items">
                 </div>
+                <div class="dungeon-icon">
+                    <img src="./images/mailbox.png">
+                </div>
+                <div id="mapchests55" class="extra-location-chests">10/10</div>
             </div>
-            <br>
+            <div id="extralocation7" onmouseout="ClearMapInfo();" onmouseover="MapInfo(56);" onclick="ToggleMap(56);" class="extra-location">
+                <div class="dungeon-items">
+                </div>
+                <div class="dungeon-icon">
+                    <img src="./images/greatsea.png">
+                </div>
+                <div id="mapchests56" class="extra-location-chests">10/10</div>
+            </div>
+            <div id="extralocation3" onmouseout="ClearMapInfo();" onmouseover="MapInfo(52);" onclick="ToggleMap(52);" class="extra-location">
+                <div class="dungeon-items">
+                </div>
+                <div class="dungeon-icon">
+                    <img src="./images/boss3.png">
+                </div>
+                <div id="mapchests52" class="extra-location-chests">10/10</div>
+            </div>
+            <div id="extralocation8" onmouseout="ClearMapInfo();" onmouseover="MapInfo(57);" onclick="ToggleMap(57);" class="extra-location">
+                <div class="dungeon-items">
+                </div>
+                <div class="dungeon-icon">
+                    <img src="./images/boss6.png">
+                </div>
+                <div id="mapchests57" class="extra-location-chests">10/10</div>
+            </div>
         </div>
     </div>
     <button type="button" onclick="saveProgress()" style="width: 200px; margin-left: 30px; margin-top: 35px;">Save Progress</button>

@@ -1,5 +1,9 @@
-var macros;
-var itemLocations;
+var macros; // contents of macros.txt
+var itemLocations; // contents of item_locations.txt
+var macrosLoaded = false;
+var itemLocationsLoaded = false;
+var trackerLoaded = false;
+
 var items = {
     "Tingle Tuner": 0,
     "Wind Waker": 0,
@@ -67,6 +71,9 @@ var items = {
     "WT Big Key": 0,
     "WT Small Key": 0,
 };
+var locationsChecked = {};
+
+var locationsAreProgress = {};
 
 function loadMacros() {
     $.ajax(
@@ -74,6 +81,8 @@ function loadMacros() {
             url: './rando_files/macros.txt',
             success: function (data) {
                 macros = jsyaml.load(data);
+                macrosLoaded = true;
+                afterLoad();
             }
         }
     )
@@ -85,6 +94,8 @@ function loadItemLocations() {
             url: './rando_files/item_locations.txt',
             success: function (data) {
                 itemLocations = jsyaml.load(data);
+                itemLocationsLoaded = true;
+                afterLoad();
             }
         }
     )
@@ -92,6 +103,31 @@ function loadItemLocations() {
 
 loadMacros();
 loadItemLocations();
+
+function afterLoad() {
+    if (macrosLoaded && itemLocationsLoaded && trackerLoaded) {
+        setLocationsAreProgress();
+    }
+}
+
+function setLocations(valueCallback) {
+    result = {};
+    Object.keys(itemLocations).forEach(function (locationName) {
+        var split = locationName.indexOf(' - ');
+        var generalLocation = locationName.substring(0, split);
+        var detailedLocation = locationName.substring(split + 3);
+        if (!(generalLocation in result)) {
+            result[generalLocation] = {};
+        }
+        var locationValue = valueCallback(locationName);
+        result[generalLocation][detailedLocation] = locationValue;
+    });
+    return result;
+}
+
+function setLocationsAreProgress() {
+    locationsAreProgress = setLocations(isLocationProgress);
+}
 
 function checkRequirementMet(reqName) {
     if (reqName.startsWith('Progressive'))
@@ -146,4 +182,21 @@ function checkLogicalExpressionReq(expression) {
 
 function isLocationAvailable(locationName) {
     return checkLogicalExpressionReq(itemLocations[locationName].Need);
+}
+
+function isLocationProgress(locationName) {
+    var types = itemLocations[locationName].Types.split(',').map(x => x.trim());
+    for (var i = 0; i < types.length; i++) {
+        var type = types[i];
+        if (type == "Sunken Treasure"
+            && itemLocations[locationName]["Original item"].startsWith("Triforce Shard")) {
+            if (!flags.includes("Sunken Triforce"))
+                return false;
+            continue;
+        }
+        if (!(flags.includes(type))) {
+            return false;
+        }
+    }
+    return true;
 }

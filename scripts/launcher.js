@@ -137,7 +137,6 @@ function getFlagString() {
 	var maflag = 'MA0';
 	var epflag = 'EP0';
 	var evflag = 'EV0';
-	var keyflag = 'KEY0';
 	var entryflag = 'ENTRY0';
 
 	if (document.getElementById('dswitch').checked) {
@@ -200,7 +199,7 @@ function getFlagString() {
 		entryflag = 'ENTRY1';
 	}
 
-	return dflag + scflag + sqflag + mflag + lrflag + sflag + eflag + bflag + striflag + streflag + gflag + maflag + epflag + evflag + keyflag + entryflag;
+	return dflag + scflag + sqflag + mflag + lrflag + sflag + eflag + bflag + striflag + streflag + gflag + maflag + epflag + evflag + entryflag;
 }
 
 function getMostRecentFlags() {
@@ -223,7 +222,7 @@ function loadMostRecent() {
 
 	//Chrome defaults
 	var h = 500;
-	var w = 1120;
+	var w = 1300;
 
 	open('tracker.html?f=' + flagsstr + '&p=' + progressStr,
 		'',
@@ -236,7 +235,7 @@ function launch() {
 
 	//Chrome defaults
 	var h = 500;
-	var w = 1120;
+	var w = 1300;
 
 	open('tracker.html?f=' + flagsstr + '&p=' + progressStr,
 		'',
