@@ -161,7 +161,7 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
 
 .tracker {
     font-family: 'Fira Sans', sans-serif;
-    height: 360px;
+    height: 400px;
 }
 
 .item-tracker {
@@ -171,6 +171,11 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     padding: 10px;
     background-size: cover;
     float: left;
+}
+
+.item-tracker.single-color {
+    background-image: none;
+    background-color: #69891C;
 }
 
 .songs,
@@ -294,6 +299,10 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     background-color: rgba(160, 160, 160, 0.85);
 }
 
+.extra-locations.single-color {
+    background-color: rgba(160, 160, 160, 1);
+}
+
 .extra-location {
     width: 80px;
     float: left;
@@ -328,5 +337,13 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
 
 #save-progress-button {
     width: 120px;
-    margin: 0;
+    margin-left: 0;
+}
+
+#toggle-locations-button {
+    width: 200px;
+}
+
+#toggle-background-button {
+    width: 200px;
 }

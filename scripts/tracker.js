@@ -1,9 +1,12 @@
 var flagParam = getParameterByName('f');
 var flags = [];
-var isRandomEntrances = false;
 var disableMap = false;
 var imagedir = 'images/';
 var currentGeneralLocation = '';
+
+var isRandomEntrances = false;
+var showNonProgressLocations = false;
+var singleColorBackground = false;
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -112,6 +115,39 @@ function saveProgress() {
     localStorage.setItem(totgMacro, macros[totgMacro]);
     localStorage.setItem(etMacro, macros[etMacro]);
     localStorage.setItem(wtMacro, macros[wtMacro]);
+}
+
+function toggleNonProgressLocations(button) {
+    showNonProgressLocations = !showNonProgressLocations;
+    if (showNonProgressLocations) {
+        button.innerText = "Hide Non-Progress Locations";
+    } else {
+        button.innerText = "Show Non-Progress Locations";
+    }
+
+    if (document.getElementById("zoommap").style.display == "block") {
+        if (islands.includes(currentGeneralLocation)) {
+            ToggleMap(islands.indexOf(currentGeneralLocation), false);
+        } else {
+            ToggleMap(dungeons.indexOf(currentGeneralLocation, true));
+        }
+    }
+    locationsChanged();
+}
+
+function toggleSingleColorBackground(button) {
+    var itemTracker = document.getElementsByClassName("item-tracker")[0];
+    var extraLocations = document.getElementsByClassName("extra-locations")[0];
+    singleColorBackground = !singleColorBackground;
+    if (singleColorBackground) {
+        itemTracker.classList.add("single-color");
+        extraLocations.classList.add("single-color");
+        button.innerText = "Hide Single Color Background";
+    } else {
+        itemTracker.classList.remove("single-color");
+        extraLocations.classList.remove("single-color");
+        button.innerText = "Show Single Color Background";
+    }
 }
 
 function refreshAllImagesAndCounts() {
@@ -236,20 +272,22 @@ function refreshAllImagesAndCounts() {
     for (var i = 0; i < islands.length; i++) {
         var l = 'mapchests' + i.toString();
         var curLocation = islands[i];
+        var curProgress = progressIslandChests[curLocation];
         var curAvailable = availableIslandChests[curLocation];
         var curTotal = totalIslandChests[curLocation];
-        setChestsForElement(document.getElementById(l), curAvailable, curTotal);
+        setChestsForElement(document.getElementById(l), curProgress, curAvailable, curTotal);
     }
     for (var i = 0; i < dungeons.length; i++) {
         var l = 'dungeonchests' + i.toString();
         var curLocation = dungeons[i];
+        var curProgress = progressDungeonChests[curLocation];
         var curAvailable = availableDungeonChests[curLocation];
         var curTotal = totalDungeonChests[curLocation];
-        setChestsForElement(document.getElementById(l), curAvailable, curTotal);
+        setChestsForElement(document.getElementById(l), curProgress, curAvailable, curTotal);
     }
 }
 
-function setChestsForElement(element, available, total) {
+function setChestsForElement(element, progress, available, total) {
     element.innerHTML = available + '/' + total;
     if (total === 0) {
         element.style.color = "#000000"; // black
@@ -257,7 +295,11 @@ function setChestsForElement(element, available, total) {
         if (available === 0) {
             element.style.color = "#CC2929"; // red
         } else {
-            element.style.color = "#2929CC"; // blue
+            if (progress === 0) {
+                element.style.color = "#808000"; // yellow
+            } else {
+                element.style.color = "#2929CC"; // blue
+            }
         }
     }
 }
@@ -332,6 +374,7 @@ function ToggleEntry(element) {
 function ShrinkMap() {
     document.getElementById('chartmap').style.display = "block";
     document.getElementById('zoommap').style.display = "none";
+    currentGeneralLocation = "";
 }
 
 function ToggleMap(index, isDungeon) {
@@ -382,6 +425,10 @@ function ToggleMap(index, isDungeon) {
 }
 
 function refreshLocationColors() {
+    if (currentGeneralLocation.length === 0) {
+        return;
+    }
+
     for (var i = 0; i < 36; i++) {
         var l = 'detaillocation' + i.toString();
         var element = document.getElementById(l);
@@ -392,7 +439,11 @@ function refreshLocationColors() {
         } else {
             element.style.setProperty("text-decoration", "none");
             if (locationsAreAvailable[currentGeneralLocation][detailedLocation]) {
-                element.style.color = "#2929CC"; // blue
+                if (locationsAreProgress[currentGeneralLocation][detailedLocation]) {
+                    element.style.color = "#2929CC"; // blue
+                } else {
+                    element.style.color = "#808000"; // yellow
+                }
             } else {
                 element.style.color = "#CC2929"; // red
             }

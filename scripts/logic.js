@@ -197,8 +197,10 @@ var locationsChecked = {};
 
 var locationsAreProgress = {};
 var locationsAreAvailable = {};
+var progressIslandChests = {};
 var availableIslandChests = {};
 var totalIslandChests = {};
+var progressDungeonChests = {};
 var availableDungeonChests = {};
 var totalDungeonChests = {};
 
@@ -259,7 +261,7 @@ function getDetailedLocations(generalLocation, isDungeon) {
     var allDetailedLocations = locationsAreProgress[generalLocation];
     Object.keys(allDetailedLocations).forEach(function (detailedLocation) {
         if ((isDungeon == isDungeonChest(generalLocation, detailedLocation))
-            && locationsAreProgress[generalLocation][detailedLocation]) {
+            && (showNonProgressLocations || locationsAreProgress[generalLocation][detailedLocation])) {
             result.push(detailedLocation);
         }
     })
@@ -299,31 +301,39 @@ function locationStillHasProgress(generalLocation, detailedLocation) {
 }
 
 function getChestCountsForLocation(generalLocation, isDungeon) {
+    var curProgress = 0;
     var curAvailable = 0;
     var curTotal = 0;
     var curLocation = locationsChecked[generalLocation];
     Object.keys(curLocation).forEach(function (detailedLocation) {
-        if ((isDungeonChest(generalLocation, detailedLocation) == isDungeon)
-            && locationStillHasProgress(generalLocation, detailedLocation)) {
-            curTotal++;
-            if (locationsAreAvailable[generalLocation][detailedLocation]) {
-                curAvailable++;
+        if (isDungeonChest(generalLocation, detailedLocation) == isDungeon) {
+            var hasProgress = locationStillHasProgress(generalLocation, detailedLocation);
+            if (hasProgress || showNonProgressLocations) {
+                curTotal++;
+                if (hasProgress) {
+                    curProgress++;
+                }
+                if (locationsAreAvailable[generalLocation][detailedLocation]) {
+                    curAvailable++;
+                }
             }
         }
     });
-    return { available: curAvailable, total: curTotal };
+    return { progress: curProgress, available: curAvailable, total: curTotal };
 }
 
 function setChestCounts() {
     for (var i = 0; i < islands.length; i++) {
         var generalLocation = islands[i];
         var chests = getChestCountsForLocation(generalLocation, false);
+        progressIslandChests[generalLocation] = chests.progress;
         availableIslandChests[generalLocation] = chests.available;
         totalIslandChests[generalLocation] = chests.total;
     }
     for (var i = 0; i < dungeons.length; i++) {
         var generalLocation = dungeons[i];
         var chests = getChestCountsForLocation(generalLocation, true);
+        progressDungeonChests[generalLocation] = chests.progress;
         availableDungeonChests[generalLocation] = chests.available;
         totalDungeonChests[generalLocation] = chests.total;
     }
