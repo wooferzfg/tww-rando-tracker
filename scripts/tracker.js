@@ -129,7 +129,7 @@ function toggleNonProgressLocations(button) {
         if (islands.includes(currentGeneralLocation)) {
             ToggleMap(islands.indexOf(currentGeneralLocation), false);
         } else {
-            ToggleMap(dungeons.indexOf(currentGeneralLocation, true));
+            ToggleMap(dungeons.indexOf(currentGeneralLocation), true);
         }
     }
     locationsChanged();
