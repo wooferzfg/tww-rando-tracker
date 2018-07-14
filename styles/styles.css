@@ -233,9 +233,9 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     color: white;
     font-size: 20px;
     position: absolute;
-    left: 68px;
+    left: -32px;
     top: 333px;
-    width: 200px;
+    width: 400px;
     text-align: center;
 }
 

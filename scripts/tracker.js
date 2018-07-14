@@ -261,16 +261,8 @@ function ItemInfo(element) {
 }
 
 function ToggleItem(element, maxItems) {
-    var curCount = items[element.name];
-    curCount++;
-    if (curCount > maxItems) {
-        curCount = 0;
-    }
-    items[element.name] = curCount;
-
-    itemsChanged();
-
-    // TODO: Toggle Map here!
+    var itemName = element.name;
+    toggleItem(itemName, maxItems);
 }
 
 function ToggleTriforce() {
@@ -292,4 +284,50 @@ function resetAllShards() {
     for (var i = 1; i <= 8; i++) {
         items["Triforce Shard " + i] = 0;
     }
+}
+
+function toggleItem(itemName, maxItems) {
+    var curCount = items[itemName];
+    curCount++;
+    if (curCount > maxItems) {
+        curCount = 0;
+    }
+    items[itemName] = curCount;
+
+    itemsChanged();
+
+    // TODO: Disable Map here!
+}
+
+function ToggleKey(element, maxKeys) {
+    var keyName = element.innerText;
+    toggleItem(keyName, maxKeys);
+}
+
+function ToggleEntry(element) {
+    var macroName = element.innerText;
+    var macroVal = macros[macroName];
+    if (macroVal == "Impossible") {
+        macros[macroName] = "Nothing";
+    }
+    else {
+        macros[macroName] = "Impossible";
+    }
+
+    itemsChanged();
+}
+
+function ToggleMap(index) {
+
+}
+
+function MapInfo(i) {
+    let generalLocation = generalLocations[i];
+    var curAvailable = availableChests[generalLocation];
+    var curTotal = totalChests[generalLocation];
+    document.getElementById('mapinfo').innerHTML = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
+}
+
+function ToggleChart(element) {
+    toggleItem(element.innerText, 1);
 }
