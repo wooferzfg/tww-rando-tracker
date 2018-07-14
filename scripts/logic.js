@@ -306,20 +306,29 @@ function setLocations(valueCallback) {
 }
 
 function checkRequirementMet(reqName) {
-    if (reqName.startsWith('Progressive'))
+    if (reqName.startsWith('Progressive')) {
         return checkNumberReq(reqName);
-    if (reqName.includes('Small Key x'))
+    }
+    if (reqName.includes('Small Key x')) {
         return checkNumberReq(reqName);
-    if (reqName.startsWith('Can Access Other Location "'))
+    }
+    if (reqName.startsWith('Can Access Other Location "')) {
         return checkOtherLocationReq(reqName);
-    if (reqName in items)
+    }
+    if (reqName in items) {
         return items[reqName] > 0;
-    if (reqName in macros)
-        return checkLogicalExpressionReq(macros[reqName]);
-    if (reqName == "Nothing")
+    }
+    if (reqName in macros) {
+        var macro = macros[reqName];
+        var splitExpression = getSplitExpression(macro);
+        return checkLogicalExpressionReq(splitExpression);
+    }
+    if (reqName == "Nothing") {
         return true;
-    if (reqName == "Impossible")
+    }
+    if (reqName == "Impossible") {
         return false;
+    }
 }
 
 function checkNumberReq(reqName) {
@@ -330,34 +339,48 @@ function checkNumberReq(reqName) {
 
 function checkOtherLocationReq(reqName) {
     var otherLocation = reqName.substring('Can Access Other Location "'.length, reqName.length - 1);
-    return checkLogicalExpressionReq(itemLocations[otherLocation].Need);
+    var splitExpression = getSplitExpression(itemLocations[otherLocation].Need)
+    return checkLogicalExpressionReq(splitExpression);
 }
 
-function checkLogicalExpressionReq(expression) {
-    var splitExpression = expression.split(/([(&\|)])/g);
-    var result = "";
-    for (var i = 0; i < splitExpression.length; i++) {
-        var cur = splitExpression[i].trim();
-        if (cur.length > 0) {
-            if (cur == "(" || cur == ")")
-                result += cur;
-            else if (cur == "|")
-                result += "||";
-            else if (cur == "&")
-                result += "&&";
-            else {
-                if (checkRequirementMet(cur))
-                    result += "true";
-                else
-                    result += "false";
+function getSplitExpression(expression) {
+    return expression.split(/([(&\|)])/g);
+}
+
+function checkLogicalExpressionReq(splitExpression) {
+    var expressionType = "";
+    var subexpressionResults = [];
+    while (splitExpression.length > 0) {
+        var cur = splitExpression[0].trim();
+        splitExpression.shift();
+        if (cur && cur.length > 0) {
+            if (cur == "|") {
+                expressionType = "OR";
+            }
+            else if (cur == "&") {
+                expressionType = "AND";
+            }
+            else if (cur == "(") {
+                var result = checkLogicalExpressionReq(splitExpression);
+                subexpressionResults.push(result);
+                splitExpression.shift(); // ')'
+            } else if (cur == ')') {
+                break;
+            } else {
+                result = checkRequirementMet(cur);
+                subexpressionResults.push(result);
             }
         }
     }
-    return eval(result);
+    if (expressionType == "OR") {
+        return subexpressionResults.some(element => element);
+    }
+    return subexpressionResults.every(element => element);
 }
 
 function isLocationAvailable(locationName) {
-    return checkLogicalExpressionReq(itemLocations[locationName].Need);
+    var splitExpression = getSplitExpression(itemLocations[locationName].Need)
+    return checkLogicalExpressionReq(splitExpression);
 }
 
 function isLocationProgress(locationName) {
