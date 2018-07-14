@@ -339,8 +339,6 @@ function resetAllShards() {
 }
 
 function toggleItem(itemName, maxItems) {
-    disableMap = true;
-
     var curCount = items[itemName];
     curCount++;
     if (curCount > maxItems) {
@@ -352,6 +350,8 @@ function toggleItem(itemName, maxItems) {
 }
 
 function ToggleKey(element, maxKeys) {
+    disableMap = true;
+
     var keyName = element.innerText;
     toggleItem(keyName, maxKeys);
 }
@@ -477,5 +477,6 @@ function DungeonMapInfo(i) {
 }
 
 function ToggleChart(element) {
+    disableMap = true;
     toggleItem(element.innerText, 1);
 }
