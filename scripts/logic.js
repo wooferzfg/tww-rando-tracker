@@ -260,7 +260,7 @@ function getDetailedLocations(generalLocation, isDungeon) {
     var result = [];
     var allDetailedLocations = locationsAreProgress[generalLocation];
     Object.keys(allDetailedLocations).forEach(function (detailedLocation) {
-        if ((isDungeon == isDungeonChest(generalLocation, detailedLocation))
+        if ((isValidForLocation(generalLocation, detailedLocation, isDungeon))
             && (showNonProgressLocations || locationsAreProgress[generalLocation][detailedLocation])) {
             result.push(detailedLocation);
         }
@@ -290,9 +290,12 @@ function initializeRandomDungeonEntrances() {
     }
 }
 
-function isDungeonChest(generalLocation, detailedLocation) {
-    var fullName = generalLocation + " - " + detailedLocation;
-    return itemLocations[fullName].Types.includes("Dungeon");
+function isValidForLocation(generalLocation, detailedLocation, isDungeon) {
+    if (islands.includes(generalLocation) && dungeons.includes(generalLocation)) {
+        var fullName = generalLocation + " - " + detailedLocation;
+        return isDungeon == itemLocations[fullName].Types.includes("Dungeon");
+    }
+    return true;
 }
 
 function locationStillHasProgress(generalLocation, detailedLocation) {
@@ -306,7 +309,7 @@ function getChestCountsForLocation(generalLocation, isDungeon) {
     var curTotal = 0;
     var curLocation = locationsChecked[generalLocation];
     Object.keys(curLocation).forEach(function (detailedLocation) {
-        if (isDungeonChest(generalLocation, detailedLocation) == isDungeon) {
+        if (isValidForLocation(generalLocation, detailedLocation, isDungeon)) {
             var hasProgress = locationStillHasProgress(generalLocation, detailedLocation);
             if (hasProgress || showNonProgressLocations) {
                 curTotal++;
