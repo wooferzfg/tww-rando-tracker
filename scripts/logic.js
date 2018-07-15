@@ -204,6 +204,11 @@ var progressDungeonChests = {};
 var availableDungeonChests = {};
 var totalDungeonChests = {};
 
+$(document).ready(function () {
+    loadMacros();
+    loadItemLocations();
+});
+
 function loadMacros() {
     $.ajax(
         {
