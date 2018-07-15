@@ -74,9 +74,6 @@ function loadFlagsAndStartingItems() {
     items["Boat's Sail"] = 1;
     items["Wind's Requiem"] = 1;
     items["Ballad of Gales"] = 1;
-
-    document.getElementById('mapinfo').innerHTML = '';
-    document.getElementById('iteminfo').innerHTML = '';
 }
 
 function loadProgress() {
@@ -273,10 +270,19 @@ function refreshAllImagesAndCounts() {
         var l = 'chart' + i.toString();
         var chartName = document.getElementById(l).innerText;
         var chartCount = items[chartName];
-        if (chartCount === 1) {
-            document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'chartopen.png\')';
-        } else {
-            document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'chart.png\')';
+        if (chartName.includes("Triforce")) {
+            if (chartCount === 1) {
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'triforcechartopen.png\')';
+            } else {
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'triforcechart.png\')';
+            }
+        }
+        else {
+            if (chartCount === 1) {
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'chartopen.png\')';
+            } else {
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'chart.png\')';
+            }
         }
     }
 
@@ -379,6 +385,7 @@ function ItemInfo(element) {
 function ToggleItem(element, maxItems) {
     var itemName = element.name;
     toggleItem(itemName, maxItems);
+    ItemInfo(element);
 }
 
 function ToggleShield(element) {
@@ -392,6 +399,7 @@ function ToggleShield(element) {
     }
 
     itemsChanged();
+    ItemInfo(element);
 }
 
 function ToggleTriforce() {
@@ -407,6 +415,7 @@ function ToggleTriforce() {
     }
 
     itemsChanged();
+    ItemInfo(document.getElementById('triforce'));
 }
 
 function resetAllShards() {
@@ -431,6 +440,7 @@ function ToggleKey(element, maxKeys) {
 
     var keyName = element.innerText;
     toggleItem(keyName, maxKeys);
+    SmallKeyInfo(element, maxKeys);
 }
 
 function ToggleEntry(element) {
@@ -446,6 +456,7 @@ function ToggleEntry(element) {
     }
 
     itemsChanged();
+    MapItemInfo(element);
 }
 
 function ShrinkMap() {
@@ -536,24 +547,39 @@ function ToggleLocation(element) {
 }
 
 function ClearMapInfo() {
-    document.getElementById('mapinfo').innerHTML = '';
+    document.getElementById('mapinfo').innerText = '';
 }
 
 function MapInfo(i) {
     let generalLocation = islands[i];
     var curAvailable = availableIslandChests[generalLocation];
     var curTotal = totalIslandChests[generalLocation];
-    document.getElementById('mapinfo').innerHTML = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
+    document.getElementById('mapinfo').innerText = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
+}
+
+function ClearMapItemInfo() {
+    document.getElementById('mapiteminfo').innerText = '';
+}
+
+function MapItemInfo(element) {
+    document.getElementById('mapiteminfo').innerText = element.innerText;
+}
+
+function SmallKeyInfo(element, maxKeys) {
+    var keyName = element.innerText;
+    var numKeys = items[keyName];
+    document.getElementById('mapiteminfo').innerText = keyName + ' (' + numKeys + '/' + maxKeys + ')';
 }
 
 function DungeonMapInfo(i) {
     let generalLocation = dungeons[i];
     var curAvailable = availableDungeonChests[generalLocation];
     var curTotal = totalDungeonChests[generalLocation];
-    document.getElementById('mapinfo').innerHTML = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
+    document.getElementById('mapinfo').innerText = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
 }
 
 function ToggleChart(element) {
     disableMap = true;
     toggleItem(element.innerText, 1);
+    MapItemInfo(element);
 }

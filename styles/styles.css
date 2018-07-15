@@ -235,14 +235,27 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     position: absolute;
 }
 
-#mapinfo {
+.map-item-info-container {
+    position: absolute;
+}
+
+#mapinfo,
+#mapiteminfo {
     color: white;
-    font-size: 20px;
     position: absolute;
     left: -32px;
-    top: 333px;
     width: 400px;
     text-align: center;
+}
+
+#mapinfo {
+    top: 333px;
+    font-size: 20px;
+}
+
+#mapiteminfo {
+    top: 360px;
+    font-size: 16px;
 }
 
 #zoommap {
