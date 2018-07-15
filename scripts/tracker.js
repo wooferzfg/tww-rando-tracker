@@ -372,7 +372,7 @@ function ItemInfo(element) {
         for (var i = 1; i <= 8; i++) {
             var curShard = "Triforce Shard " + i;
             if (items[curShard] == 0) {
-                text = "Triforce Shards (" + (i - 1).toString() + "/8)";
+                text = "Triforce Shard (" + (i - 1).toString() + "/8)";
                 break;
             } else if (i == 8) {
                 text = "Triforce";
