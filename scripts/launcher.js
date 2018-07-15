@@ -1,15 +1,3 @@
-$(document).ready(function () {
-	setDefaultFlags();
-});
-
-function setDefaultFlags() {
-	document.getElementById('dswitch').checked = true;
-	document.getElementById('scswitch').checked = true;
-	document.getElementById('gswitch').checked = true;
-	document.getElementById('epswitch').checked = true;
-	document.getElementById('evswitch').checked = true;
-}
-
 function applyflags() {
 	var decodeddata = atob(document.getElementById('flags').value);
 	var version = '';
