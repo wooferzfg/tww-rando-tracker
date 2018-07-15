@@ -69,7 +69,7 @@ function loadFlagsAndStartingItems() {
     }
 
     items["Progressive Sword"] = 1;
-    items["Progressive Shield"] = 1;
+    items["Hero's Shield"] = 1;
     items["Wind Waker"] = 1;
     items["Boat's Sail"] = 1;
     items["Wind's Requiem"] = 1;
