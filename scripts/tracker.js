@@ -182,7 +182,7 @@ function refreshAllImagesAndCounts() {
     document.getElementById('triforce').src = imagedir + 'triforce' + triforce + '.png'
 
     //ITEMS
-    for (var i = 0; i < 28; i++) {
+    for (var i = 0; i < 27; i++) {
         var l = 'item' + i.toString();
         var itemName = document.getElementById(l).name;
         var itemCount = items[itemName];
@@ -194,6 +194,16 @@ function refreshAllImagesAndCounts() {
         } else {
             document.getElementById(l).src = imagedir + 'item' + i + '_' + itemCount + '_a.png'
         }
+    }
+
+    //SHIELDS
+    var l = 'shield';
+    if (items["Mirror Shield"] > 0) {
+        document.getElementById(l).src = imagedir + 'mirrorshield.png'
+    } else if (items["Hero's Shield"] > 0) {
+        document.getElementById(l).src = imagedir + 'herosshield.png'
+    } else {
+        document.getElementById(l).src = imagedir + 'noshield.png'
     }
 
     //SONGS
@@ -317,6 +327,19 @@ function ItemInfo(element) {
 function ToggleItem(element, maxItems) {
     var itemName = element.name;
     toggleItem(itemName, maxItems);
+}
+
+function ToggleShield(element) {
+    if (items["Hero's Shield"] == 0) {
+        items["Hero's Shield"] = 1;
+    } else if (items["Mirror Shield"] == 0) {
+        items["Mirror Shield"] = 1;
+    } else {
+        items["Hero's Shield"] = 0;
+        items["Mirror Shield"] = 0;
+    }
+
+    itemsChanged();
 }
 
 function ToggleTriforce() {
