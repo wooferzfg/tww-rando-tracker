@@ -161,7 +161,8 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
 
 .tracker {
     font-family: 'Fira Sans', sans-serif;
-    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .item-tracker {
@@ -171,6 +172,8 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     padding: 10px;
     background-size: cover;
     float: left;
+    margin-right: 8px;
+    margin-bottom: 36px;
 }
 
 .item-tracker.single-color {
@@ -199,9 +202,10 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
 
 .chart-map-container {
     float: left;
-    margin-left: 8px;
+    margin-right: 8px;
     width: 343px;
     height: 326px;
+    margin-bottom: 61px;
 }
 
 #chartmap {
@@ -307,9 +311,10 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
 }
 
 .extra-locations {
-    float: left;
-    margin-left: 8px;
     background-color: rgba(160, 160, 160, 0.85);
+    width: 450px;
+    height: 266px;
+    margin-bottom: 8px;
 }
 
 .extra-locations.single-color {

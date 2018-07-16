@@ -213,7 +213,7 @@ function loadMostRecent() {
 	var flagsstr = getMostRecentFlags();
 
 	//Chrome defaults
-	var h = 450;
+	var h = 435;
 	var w = 1300;
 
 	open('tracker.html?f=' + flagsstr + '&p=1',
@@ -225,7 +225,7 @@ function launch() {
 	var flagsstr = getFlagString();
 
 	//Chrome defaults
-	var h = 450;
+	var h = 435;
 	var w = 1300;
 
 	open('tracker.html?f=' + flagsstr + '&p=0',
