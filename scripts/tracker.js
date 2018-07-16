@@ -243,11 +243,10 @@ function refreshAllImagesAndCounts() {
 
             if (isRandomEntrances) {
                 var entryName = document.getElementById(l).innerText;
-                var curMacro = macros[entryName];
-                if (curMacro == "Nothing") {
-                    document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'dungeon_entered.png\')';
-                } else {
+                if (items[entryName] === 0) {
                     document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'dungeon_noentry.png\')';
+                } else {
+                    document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'dungeon_entered.png\')';
                 }
             } else {
                 document.getElementById(l).style.display = "none";
@@ -397,7 +396,6 @@ function ToggleShield(element) {
         items["Hero's Shield"] = 0;
         items["Mirror Shield"] = 0;
     }
-
     itemsChanged();
     ItemInfo(element);
 }
@@ -413,7 +411,6 @@ function ToggleTriforce() {
             resetAllShards();
         }
     }
-
     itemsChanged();
     ItemInfo(document.getElementById('triforce'));
 }
@@ -431,13 +428,11 @@ function toggleItem(itemName, maxItems) {
         curCount = 0;
     }
     items[itemName] = curCount;
-
     itemsChanged();
 }
 
 function ToggleKey(element, maxKeys) {
     disableMap = true;
-
     var keyName = element.innerText;
     toggleItem(keyName, maxKeys);
     SmallKeyInfo(element, maxKeys);
@@ -445,16 +440,8 @@ function ToggleKey(element, maxKeys) {
 
 function ToggleEntry(element) {
     disableMap = true;
-
-    var macroName = element.innerText;
-    var macroVal = macros[macroName];
-    if (macroVal == "Impossible") {
-        macros[macroName] = "Nothing";
-    }
-    else {
-        macros[macroName] = "Impossible";
-    }
-
+    var entryName = element.innerText;
+    toggleItem(entryName, 1);
     itemsChanged();
     MapItemInfo(element);
 }

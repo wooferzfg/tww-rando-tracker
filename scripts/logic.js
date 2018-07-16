@@ -191,7 +191,13 @@ var items = {
     "Triforce Chart 8": 0,
 
     "Telescope": 0,
-    "Magic Armor": 0
+    "Magic Armor": 0,
+
+    "Entered DRC": 0,
+    "Entered FW": 0,
+    "Entered TotG": 0,
+    "Entered ET": 0,
+    "Entered WT": 0
 };
 var locationsChecked = {};
 
@@ -287,11 +293,11 @@ function initializeLocationsChecked() {
 
 function initializeRandomDungeonEntrances() {
     if (isRandomEntrances) { // we rely on the tracker to change these macros later
-        macros[drcMacro] = "Impossible";
-        macros[fwMacro] = "Impossible";
-        macros[totgMacro] = "Impossible";
-        macros[etMacro] = "Impossible";
-        macros[wtMacro] = "Impossible";
+        macros[drcMacro] = "Entered DRC";
+        macros[fwMacro] = "Entered FW";
+        macros[totgMacro] = "Entered TotG";
+        macros[etMacro] = "Entered ET";
+        macros[wtMacro] = "Entered WT";
     }
 }
 
