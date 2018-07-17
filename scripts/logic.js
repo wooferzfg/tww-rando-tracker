@@ -473,19 +473,6 @@ function itemsMissingForRequirement(reqName) {
     }
 }
 
-function addSubexpressionResult(subexpressionResults, result, expressionType, itemNotMissing) {
-    if (result) {
-        if (result.type == expressionType) {
-            subexpressionResults.push.apply(subexpressionResults, result.items);
-        } else {
-            subexpressionResults.push(result);
-        }
-    } else {
-        itemNotMissing = true;
-    }
-    return itemNotMissing;
-}
-
 function itemsMissingForLogicalExpression(splitExpression) {
     var expressionType = "";
     var itemNotMissing = false; // if an item is not missing and we have 'OR', then no items are missing in the expression
@@ -500,12 +487,20 @@ function itemsMissingForLogicalExpression(splitExpression) {
                 expressionType = "AND";
             } else if (cur == "(") {
                 var result = itemsMissingForLogicalExpression(splitExpression);
-                itemNotMissing = addSubexpressionResult(subexpressionResults, result, expressionType, itemNotMissing);
+                if (result) {
+                    subexpressionResults.push(result);
+                } else {
+                    itemNotMissing = true;
+                }
             } else if (cur == ')') {
                 break;
             } else {
                 result = itemsMissingForRequirement(cur);
-                itemNotMissing = addSubexpressionResult(subexpressionResults, result, expressionType, itemNotMissing);
+                if (result) {
+                    subexpressionResults.push(result);
+                } else {
+                    itemNotMissing = true;
+                }
             }
         }
     }
@@ -523,6 +518,30 @@ function getSubexpression(items, expressionType) {
         return items[0];
     }
     return null;
+}
+
+function flattenArrays(expression) {
+    if (!expression || !(expression.type)) {
+        return expression;
+    }
+    var items = expression.items;
+    var newItems = [];
+    for (var i = 0; i < items.length; i++) {
+        var curItem = items[i];
+        if (curItem.type) {
+            var subExpression = flattenArrays(curItem);
+            if (subExpression) {
+                if (subExpression.type == expression.type) {
+                    newItems.push.apply(newItems, subExpression.items);
+                } else {
+                    newItems.push(subExpression);
+                }
+            }
+        } else {
+            newItems.push(curItem);
+        }
+    }
+    return getSubexpression(newItems, expression.type);
 }
 
 function removeDuplicateItems(expression) {
@@ -568,12 +587,71 @@ function removeChildExpressions(expression, parentItems) {
     return getSubexpression(newItems, expression.type);
 }
 
+function removeSubsumedExpressions(expression) {
+    if (!expression || !(expression.type)) {
+        return expression;
+    }
+    var items = expression.items;
+    var newItems = [];
+    for (var i = 0; i < items.length; i++) {
+        var curItem = items[i];
+        if (curItem.type) {
+            if (!shouldRemoveSubsumedExpression(curItem, expression, i)) {
+                var subExpression = removeSubsumedExpressions(curItem);
+                if (subExpression) {
+                    newItems.push(subExpression);
+                }
+            }
+        } else {
+            newItems.push(curItem);
+        }
+    }
+    return getSubexpression(newItems, expression.type);
+}
+
+function shouldRemoveSubsumedExpression(expression, parentExpression, index) {
+    var items = parentExpression.items;
+    for (var i = 0; i < items.length; i++) {
+        if (i != index) {
+            var otherExpression = items[i];
+            if (otherExpression.type) {
+                if (parentExpression.type == "AND") {
+                    if (expressionSubsumes(expression, otherExpression)) {
+                        return true;
+                    }
+                } else if (expressionSubsumes(otherExpression, expression)) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+function expressionSubsumes(firstExpression, secondExpression) {
+    if (firstExpression.type != secondExpression.type) {
+        return false;
+    }
+    if (firstExpression.items.length < secondExpression.items.length) {
+        return false;
+    }
+    for (var i = 0; i < secondExpression.items.length; i++) {
+        var curItem = secondExpression.items[i];
+        if (!firstExpression.items.includes(curItem)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 function itemsMissingForLocation(generalLocation, detailedLocation) {
     var fullName = generalLocation + " - " + detailedLocation;
     var splitExpression = getSplitExpression(itemLocations[fullName].Need);
     var items = itemsMissingForLogicalExpression(splitExpression);
+    items = flattenArrays(items);
     items = removeDuplicateItems(items);
     items = removeChildExpressions(items, []);
+    items = removeSubsumedExpressions(items);
     return items;
 }
 
