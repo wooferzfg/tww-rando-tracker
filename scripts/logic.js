@@ -413,7 +413,7 @@ function getSplitExpression(expression) {
 }
 
 function checkLogicalExpressionReq(splitExpression) {
-    var expressionType = "AND";
+    var expressionType = "";
     var subexpressionResults = [];
     while (splitExpression.length > 0) {
         var cur = splitExpression[0].trim();
@@ -426,7 +426,6 @@ function checkLogicalExpressionReq(splitExpression) {
             } else if (cur == "(") {
                 var result = checkLogicalExpressionReq(splitExpression);
                 subexpressionResults.push(result);
-                splitExpression.shift(); // ')'
             } else if (cur == ')') {
                 break;
             } else {
@@ -488,7 +487,7 @@ function addSubexpressionResult(subexpressionResults, result, expressionType, it
 }
 
 function itemsMissingForLogicalExpression(splitExpression) {
-    var expressionType = "AND";
+    var expressionType = "";
     var itemNotMissing = false; // if an item is not missing and we have 'OR', then no items are missing in the expression
     var subexpressionResults = [];
     while (splitExpression.length > 0) {
@@ -502,7 +501,6 @@ function itemsMissingForLogicalExpression(splitExpression) {
             } else if (cur == "(") {
                 var result = itemsMissingForLogicalExpression(splitExpression);
                 itemNotMissing = addSubexpressionResult(subexpressionResults, result, expressionType, itemNotMissing);
-                splitExpression.shift(); // ')'
             } else if (cur == ')') {
                 break;
             } else {
