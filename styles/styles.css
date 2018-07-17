@@ -150,8 +150,7 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     width: 200px;
 }
 
-.attribution,
-.attribution a {
+.attribution {
     text-align: center;
     margin-top: 25px;
     color: #C8C8C8;
