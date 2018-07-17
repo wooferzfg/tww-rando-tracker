@@ -259,6 +259,7 @@ function itemsChanged() {
     setChestCounts();
     refreshAllImagesAndCounts();
     refreshLocationColors();
+    recreateTooltips();
 }
 
 function locationsChanged() {

@@ -413,14 +413,102 @@ function ToggleEntry(element) {
     disableMap = true;
     var entryName = element.innerText;
     toggleItem(entryName, 1);
-    itemsChanged();
     MapItemInfo(element);
 }
 
 function ShrinkMap() {
+    removeAllTooltips();
     document.getElementById('chartmap').style.display = "block";
     document.getElementById('zoommap').style.display = "none";
     currentGeneralLocation = "";
+}
+
+function getTextForExpression(expression) {
+    if (expression.type == "OR") {
+        var separator = " or ";
+    } else {
+        var separator = " and ";
+    }
+    var items = expression.items;
+    var result = "";
+    for (var i = 0; i < items.length; i++) {
+        var curItem = items[i];
+        if (curItem.type) {
+            var subResult = getTextForExpression(curItem);
+            result += "(" + subResult + ")";
+        } else {
+            result += curItem;
+        }
+        if (i < items.length - 1) {
+            result += separator;
+        }
+    }
+    return result;
+}
+
+function setTooltipText(generalLocation, detailedLocation) {
+    var itemsMissing = itemsMissingForLocation(generalLocation, detailedLocation);
+    var list = document.createElement("ul");
+    if (itemsMissing.type == "AND") {
+        var items = itemsMissing.items;
+    } else {
+        var items = [itemsMissing];
+    }
+    for (var i = 0; i < items.length; i++) {
+        var listItem = document.createElement("li");
+        var curItem = items[i];
+        if (curItem.type) {
+            listItem.innerText = getTextForExpression(curItem);
+        } else {
+            listItem.innerText = curItem;
+        }
+        list.appendChild(listItem);
+    }
+    $(".tool-tip-text").html(list.outerHTML);
+}
+
+function addTooltipToElement(element) {
+    var detailedLocation = element.innerText;
+    if (!locationsChecked[currentGeneralLocation][detailedLocation]
+        && !locationsAreAvailable[currentGeneralLocation][detailedLocation]) {
+        setTooltipText(currentGeneralLocation, detailedLocation);
+        $(element).qtip({
+            content: {
+                text: $(".tool-tip-text").clone(),
+                title: "Missing Items"
+            },
+            position: {
+                target: 'mouse',
+                adjust: {
+                    x: 15
+                }
+            }
+        });
+    }
+}
+
+function recreateTooltips() {
+    if (document.getElementById('zoommap').style.display == "block") {
+        removeAllTooltips();
+        for (var i = 0; i < 36; i++) {
+            var l = 'detaillocation' + i.toString();
+            var element = document.getElementById(l);
+            if (element.style.display == "block") {
+                addTooltipToElement(element);
+            }
+        }
+    }
+}
+
+function removeAllTooltips() {
+    $('.qtip').each(function () {
+        var element = $(this);
+        if (element.data("qtip")) {
+            element.qtip("destroy", true);
+            element.removeData("hasqtip");
+            element.removeAttr("data-hasqtip");
+        }
+    });
 }
 
 function ToggleMap(index, isDungeon) {
@@ -449,6 +537,8 @@ function ToggleMap(index, isDungeon) {
         fontSize = 'small';
     }
 
+    removeAllTooltips();
+
     for (var i = 0; i < 36; i++) {
         var l = 'detaillocation' + i.toString();
         var element = document.getElementById(l);
@@ -462,6 +552,7 @@ function ToggleMap(index, isDungeon) {
             } else if (fontSize == "smallest") {
                 element.classList.add("detail-smallest");
             }
+            addTooltipToElement(element);
         } else {
             element.style.display = "none";
         }
@@ -499,7 +590,14 @@ function refreshLocationColors() {
 
 function ToggleLocation(element) {
     var detailedLocation = element.innerText;
-    locationsChecked[currentGeneralLocation][detailedLocation] = !locationsChecked[currentGeneralLocation][detailedLocation];
+    var newLocationChecked = !locationsChecked[currentGeneralLocation][detailedLocation];
+    locationsChecked[currentGeneralLocation][detailedLocation] = newLocationChecked;
+
+    if (newLocationChecked) {
+        $(element).qtip('destroy', true);
+    } else {
+        addTooltipToElement(element);
+    }
 
     locationsChanged();
 }

@@ -299,6 +299,19 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     font-size: 9px;
 }
 
+.tool-tip-text {
+    display: none;
+}
+
+.tool-tip-text ul {
+    margin: 0;
+    padding-left: 15px;
+}
+
+.qtip {
+    font-family: 'Fira Sans', sans-serif;
+}
+
 .tracker td {
 	cursor: pointer;
 	-webkit-touch-callout: none;
