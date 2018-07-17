@@ -559,8 +559,7 @@ function removeChildExpressions(expression, parentItems) {
             return null;
         }
         if (curItem.type) {
-            var itemsForChild = parentItems.concat(items);
-            var subExpression = removeChildExpressions(curItem, itemsForChild);
+            var subExpression = removeChildExpressions(curItem, items);
             if (subExpression) {
                 newItems.push(subExpression);
             }
