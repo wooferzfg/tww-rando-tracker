@@ -365,10 +365,7 @@ function setLocations(valueCallback) {
 }
 
 function checkRequirementMet(reqName) {
-    if (reqName.startsWith('Progressive')) {
-        return checkNumberReq(reqName);
-    }
-    if (reqName.includes('Small Key x')) {
+    if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
         return checkNumberReq(reqName);
     }
     if (reqName.startsWith('Can Access Other Location "')) {
@@ -391,9 +388,17 @@ function checkRequirementMet(reqName) {
 }
 
 function checkNumberReq(reqName) {
-    var itemName = reqName.substring(0, reqName.length - 3);
-    var numRequired = parseInt(reqName.charAt(reqName.length - 1));
+    var itemName = getProgressiveItemName(reqName);
+    var numRequired = getProgressiveNumRequired(reqName);
     return items[itemName] >= numRequired;
+}
+
+function getProgressiveItemName(reqName) {
+    return reqName.substring(0, reqName.length - 3);
+}
+
+function getProgressiveNumRequired(reqName) {
+    return parseInt(reqName.charAt(reqName.length - 1));
 }
 
 function checkOtherLocationReq(reqName) {
@@ -407,7 +412,7 @@ function getSplitExpression(expression) {
 }
 
 function checkLogicalExpressionReq(splitExpression) {
-    var expressionType = "";
+    var expressionType = "AND";
     var subexpressionResults = [];
     while (splitExpression.length > 0) {
         var cur = splitExpression[0].trim();
@@ -415,11 +420,9 @@ function checkLogicalExpressionReq(splitExpression) {
         if (cur && cur.length > 0) {
             if (cur == "|") {
                 expressionType = "OR";
-            }
-            else if (cur == "&") {
+            } else if (cur == "&") {
                 expressionType = "AND";
-            }
-            else if (cur == "(") {
+            } else if (cur == "(") {
                 var result = checkLogicalExpressionReq(splitExpression);
                 subexpressionResults.push(result);
                 splitExpression.shift(); // ')'
@@ -435,6 +438,145 @@ function checkLogicalExpressionReq(splitExpression) {
         return subexpressionResults.some(element => element);
     }
     return subexpressionResults.every(element => element);
+}
+
+function itemsMissingForOtherLocation(reqName) {
+    var otherLocation = reqName.substring('Can Access Other Location "'.length, reqName.length - 1);
+    var splitExpression = getSplitExpression(itemLocations[otherLocation].Need)
+    return itemsMissingForLogicalExpression(splitExpression);
+}
+
+function itemsMissingForRequirement(reqName) {
+    if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
+        if (!checkNumberReq(reqName))
+            return getNameForItem(reqName);
+        return null;
+    }
+    if (reqName.startsWith('Can Access Other Location "')) {
+        return itemsMissingForOtherLocation(reqName);
+    }
+    if (reqName in items) {
+        if (items[reqName] == 0)
+            return getNameForItem(reqName);
+        return null;
+    }
+    if (reqName in macros) {
+        var macro = macros[reqName];
+        var splitExpression = getSplitExpression(macro);
+        return itemsMissingForLogicalExpression(splitExpression);
+    }
+    if (reqName == "Nothing") {
+        return null;
+    }
+    if (reqName == "Impossible") {
+        return "Impossible";
+    }
+}
+
+function addSubexpressionResult(subexpressionResults, result, expressionType, itemNotMissing) {
+    if (result) {
+        if (result.type == expressionType) {
+            subexpressionResults.push.apply(subexpressionResults, result.items);
+        } else {
+            subexpressionResults.push(result);
+        }
+    } else {
+        itemNotMissing = true;
+    }
+    return itemNotMissing;
+}
+
+function itemsMissingForLogicalExpression(splitExpression) {
+    var expressionType = "AND";
+    var itemNotMissing = false; // if an item is not missing and we have 'OR', then no items are missing in the expression
+    var subexpressionResults = [];
+    while (splitExpression.length > 0) {
+        var cur = splitExpression[0].trim();
+        splitExpression.shift();
+        if (cur && cur.length > 0) {
+            if (cur == "|") {
+                expressionType = "OR";
+            } else if (cur == "&") {
+                expressionType = "AND";
+            } else if (cur == "(") {
+                var result = itemsMissingForLogicalExpression(splitExpression);
+                itemNotMissing = addSubexpressionResult(subexpressionResults, result, expressionType, itemNotMissing);
+                splitExpression.shift(); // ')'
+            } else if (cur == ')') {
+                break;
+            } else {
+                result = itemsMissingForRequirement(cur);
+                itemNotMissing = addSubexpressionResult(subexpressionResults, result, expressionType, itemNotMissing);
+            }
+        }
+    }
+    if (expressionType == "OR" && itemNotMissing) {
+        return null;
+    }
+    return getSubexpression(subexpressionResults, expressionType);
+}
+
+function getSubexpression(items, expressionType) {
+    if (items.length > 1) {
+        return { type: expressionType, items: items };
+    }
+    if (items.length === 1) {
+        return items[0];
+    }
+    return null;
+}
+
+function removeDuplicateItems(expression) {
+    if (!expression || !(expression.type)) {
+        return expression;
+    }
+    var items = expression.items;
+    var newItems = [];
+    for (var i = 0; i < items.length; i++) {
+        var curItem = items[i];
+        if (curItem.type) {
+            var subExpression = removeDuplicateItems(curItem);
+            if (subExpression) {
+                newItems.push(subExpression);
+            }
+        } else if (i == items.indexOf(curItem)) {
+            newItems.push(curItem);
+        }
+    }
+    return getSubexpression(newItems, expression.type);
+}
+
+function removeChildExpressions(expression, parentItems) {
+    if (!expression || !(expression.type)) {
+        return expression;
+    }
+    var items = expression.items;
+    var newItems = [];
+    for (var i = 0; i < items.length; i++) {
+        var curItem = items[i];
+        if (parentItems.includes(curItem)) {
+            return null;
+        }
+        if (curItem.type) {
+            var itemsForChild = parentItems.concat(items);
+            var subExpression = removeChildExpressions(curItem, itemsForChild);
+            if (subExpression) {
+                newItems.push(subExpression);
+            }
+        } else {
+            newItems.push(curItem);
+        }
+    }
+    return getSubexpression(newItems, expression.type);
+}
+
+function itemsMissingForLocation(generalLocation, detailedLocation) {
+    var fullName = generalLocation + " - " + detailedLocation;
+    var splitExpression = getSplitExpression(itemLocations[fullName].Need);
+    var items = itemsMissingForLogicalExpression(splitExpression);
+    items = removeDuplicateItems(items);
+    items = removeChildExpressions(items, []);
+    return items;
 }
 
 function isLocationAvailable(locationName) {
@@ -457,4 +599,53 @@ function isLocationProgress(locationName) {
         }
     }
     return true;
+}
+
+function getNameForItem(itemName) {
+    if (itemName.startsWith("Progressive")) {
+        var item = getProgressiveItemName(itemName);
+        var numRequired = getProgressiveNumRequired(itemName);
+        if (item == "Progressive Sword") {
+            if (numRequired <= 1) {
+                return "Hero's Sword";
+            }
+            if (numRequired == 2) {
+                return "Master Sword";
+            }
+            if (numRequired == 3) {
+                return "Master Sword (Half Power)";
+            }
+            if (numRequired == 4) {
+                return "Master Sword (Full Power)";
+            }
+        } else if (item == "Progressive Bow") {
+            if (numRequired <= 1) {
+                return "Hero's Bow";
+            }
+            if (numRequired == 2) {
+                return "Hero's Bow (Fire & Ice Arrows)";
+            }
+            if (numRequired == 3) {
+                return "Hero's Bow (All Arrows)";
+            }
+        } else if (item == "Progressive Picto Box") {
+            if (numRequired <= 1) {
+                return "Picto Box";
+            }
+            if (numRequired == 2) {
+                return "Deluxe Picto Box";
+            }
+        } else if (item == "Progressive Wallet") {
+            if (numRequired <= 1) {
+                return "1000 Rupee Wallet";
+            }
+            if (numRequired == 2) {
+                return "5000 Rupee Wallet";
+            }
+        }
+    }
+    else if (itemName.startsWith("Triforce Shard")) {
+        return "Triforce";
+    }
+    return itemName;
 }

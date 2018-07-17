@@ -327,46 +327,17 @@ function ClearItemInfo() {
 
 function ItemInfo(element) {
     var text = element.name;
-    if (text == "Progressive Sword") {
-        var swordCount = items["Progressive Sword"];
-        if (swordCount <= 1) {
-            text = "Hero's Sword";
-        } else if (swordCount == 2) {
-            text = "Master Sword";
-        } else if (swordCount == 3) {
-            text = "Master Sword (Half Power)";
-        } else {
-            text = "Master Sword (Full Power)";
-        }
-    } else if (text == "Progressive Bow") {
-        var bowCount = items["Progressive Bow"];
-        if (bowCount <= 1) {
-            text = "Hero's Bow";
-        } else if (bowCount == 2) {
-            text = "Hero's Bow (Fire & Ice Arrows)";
-        } else {
-            text = "Hero's Bow (All Arrows)";
-        }
-    } else if (text == "Progressive Picto Box") {
-        var pictoCount = items["Progressive Picto Box"];
-        if (pictoCount <= 1) {
-            text = "Picto Box";
-        } else {
-            text = "Deluxe Picto Box";
-        }
-    } else if (text == "Progressive Wallet") {
-        var walletCount = items["Progressive Wallet"];
-        if (walletCount <= 1) {
-            text = "1000 Rupee Wallet";
-        } else {
-            text = "5000 Rupee Wallet";
-        }
-    } else if (text == "Progressive Shield") {
+    if (text == "Progressive Shield") {
         if (items["Mirror Shield"] == 1) {
             text = "Mirror Shield";
         } else {
             text = "Hero's Shield";
         }
+    }
+    else if (text.startsWith("Progressive")) {
+        var itemCount = items[text];
+        var textWithCount = text + " x" + itemCount;
+        text = getNameForItem(textWithCount);
     } else if (text == "Triforce") {
         for (var i = 1; i <= 8; i++) {
             var curShard = "Triforce Shard " + i;
