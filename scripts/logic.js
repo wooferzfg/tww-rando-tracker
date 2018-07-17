@@ -596,7 +596,7 @@ function removeSubsumedExpressions(expression) {
     for (var i = 0; i < items.length; i++) {
         var curItem = items[i];
         if (curItem.type) {
-            if (!shouldRemoveSubsumedExpression(curItem, expression, i)) {
+            if (!shouldRemoveSubsumedExpression(curItem, items, i)) {
                 var subExpression = removeSubsumedExpressions(curItem);
                 if (subExpression) {
                     newItems.push(subExpression);
@@ -609,19 +609,12 @@ function removeSubsumedExpressions(expression) {
     return getSubexpression(newItems, expression.type);
 }
 
-function shouldRemoveSubsumedExpression(expression, parentExpression, index) {
-    var items = parentExpression.items;
+function shouldRemoveSubsumedExpression(expression, items, index) {
     for (var i = 0; i < items.length; i++) {
         if (i != index) {
             var otherExpression = items[i];
-            if (otherExpression.type) {
-                if (parentExpression.type == "AND") {
-                    if (expressionSubsumes(expression, otherExpression)) {
-                        return true;
-                    }
-                } else if (expressionSubsumes(otherExpression, expression)) {
-                    return true;
-                }
+            if (otherExpression.type && expressionSubsumes(expression, otherExpression)) {
+                return true;
             }
         }
     }
