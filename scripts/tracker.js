@@ -417,7 +417,7 @@ function ToggleEntry(element) {
 }
 
 function ShrinkMap() {
-    removeAllTooltips();
+    removeVisibleTooltips();
     document.getElementById('chartmap').style.display = "block";
     document.getElementById('zoommap').style.display = "none";
     currentGeneralLocation = "";
@@ -487,12 +487,17 @@ function addTooltipToElement(element) {
     }
 }
 
+function removeTooltipFromElement(element) {
+    $(element).qtip('destroy', true);
+}
+
 function recreateTooltips() {
     if (document.getElementById('zoommap').style.display == "block") {
-        removeAllTooltips();
+        removeVisibleTooltips();
         for (var i = 0; i < 36; i++) {
             var l = 'detaillocation' + i.toString();
             var element = document.getElementById(l);
+            removeTooltipFromElement(element);
             if (element.style.display == "block") {
                 addTooltipToElement(element);
             }
@@ -500,7 +505,7 @@ function recreateTooltips() {
     }
 }
 
-function removeAllTooltips() {
+function removeVisibleTooltips() {
     $('.qtip').each(function () {
         var element = $(this);
         if (element.data("qtip")) {
@@ -537,8 +542,6 @@ function ToggleMap(index, isDungeon) {
         fontSize = 'small';
     }
 
-    removeAllTooltips();
-
     for (var i = 0; i < 36; i++) {
         var l = 'detaillocation' + i.toString();
         var element = document.getElementById(l);
@@ -552,13 +555,13 @@ function ToggleMap(index, isDungeon) {
             } else if (fontSize == "smallest") {
                 element.classList.add("detail-smallest");
             }
-            addTooltipToElement(element);
         } else {
             element.style.display = "none";
         }
     }
 
     refreshLocationColors();
+    recreateTooltips();
 }
 
 function refreshLocationColors() {
@@ -594,7 +597,7 @@ function ToggleLocation(element) {
     locationsChecked[currentGeneralLocation][detailedLocation] = newLocationChecked;
 
     if (newLocationChecked) {
-        $(element).qtip('destroy', true);
+        removeTooltipFromElement(element);
     } else {
         addTooltipToElement(element);
     }
