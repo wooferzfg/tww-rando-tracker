@@ -1,5 +1,6 @@
 body {
     background-image: url("../images/background.png");
+    font-family: 'Fira Sans', sans-serif;
 }
 
 .full-container {
@@ -27,21 +28,21 @@ body {
     display: flex;
     justify-content: center;
     width: 100%;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
 }
 
 .settings table {
     width: 1100px;
-    font-family: 'Fira Sans', sans-serif;
     font-size: 1.2em;
     table-layout: fixed;
     color: white;
 }
 
 .settings td {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .label-text {
@@ -125,7 +126,6 @@ button,
 #flags {
     padding: 6px;
     border-radius: 5px;
-    font-family: 'Fira Sans', sans-serif;
     font-size: 0.8em;
     font-weight: bold;
     border: 1px solid #808080;
@@ -142,6 +142,19 @@ button {
 background: linear-gradient(#d2d2d2,#c8c8c8);
 }
 
+fieldset {
+    margin: 4px;
+    border: 1px solid #c8c8c8;
+    padding: 4px;
+    border-radius: 4px;
+    background-color: rgba(50, 50, 50, 0.4);
+}
+
+legend {
+    color: white;
+    padding: 2px;
+}
+
 .launcher-button-container {
     text-align: center;
 }
@@ -154,12 +167,10 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     text-align: center;
     margin-top: 25px;
     color: #C8C8C8;
-    font-family: 'Fira Sans', sans-serif;
     font-size: 13px;
 }
 
 .tracker {
-    font-family: 'Fira Sans', sans-serif;
     display: flex;
     flex-wrap: wrap;
 }
@@ -306,10 +317,6 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
 .tool-tip-text ul {
     margin: 0;
     padding-left: 15px;
-}
-
-.qtip {
-    font-family: 'Fira Sans', sans-serif;
 }
 
 .tracker td {
