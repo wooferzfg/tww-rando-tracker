@@ -1,11 +1,27 @@
+function parseFlags(flags, ids) {
+	var curVal = 128;
+	var i = 7;
+	while (curVal >= 1) {
+		var element = document.getElementById(ids[i])
+		if (flags >= curVal) {
+			if (element) {
+				element.checked = true;
+			}
+			flags = flags - curVal;
+		} else if (element) {
+			element.checked = false;
+		}
+		i--;
+		curVal /= 2;
+	}
+}
+
 function applyflags() {
 	var decodeddata = atob(document.getElementById('flags').value);
-	var version = '';
-	var seed = '';
 	var bits = '';
 
 	while (decodeddata.charCodeAt(0) != 0 && decodeddata.length > 0) {
-		version += decodeddata[0];
+		//version
 		decodeddata = decodeddata.substring(1);
 	}
 
@@ -14,7 +30,7 @@ function applyflags() {
 	}
 
 	while (decodeddata.charCodeAt(0) != 0 && decodeddata.length > 0) {
-		seed += decodeddata[0];
+		//seed
 		decodeddata = decodeddata.substring(1);
 	}
 
@@ -23,102 +39,11 @@ function applyflags() {
 		bits = decodeddata;
 
 		var flags = bits.charCodeAt(0);
-		console.log(bits);
-
-		if (flags >= 128) {
-			document.getElementById('bswitch').checked = true;
-			flags = flags - 128;
-		} else {
-			document.getElementById('bswitch').checked = false;
-		}
-		if (flags >= 64) {
-			document.getElementById('eswitch').checked = true;
-			flags = flags - 64;
-		} else {
-			document.getElementById('eswitch').checked = false;
-		}
-		if (flags >= 32) {
-			document.getElementById('sswitch').checked = true;
-			flags = flags - 32;
-		} else {
-			document.getElementById('sswitch').checked = false;
-		}
-		if (flags >= 16) {
-			document.getElementById('lrswitch').checked = true;
-			flags = flags - 16;
-		} else {
-			document.getElementById('lrswitch').checked = false;
-		}
-		if (flags >= 8) {
-			document.getElementById('mswitch').checked = true;
-			flags = flags - 8;
-		} else {
-			document.getElementById('mswitch').checked = false;
-		}
-		if (flags >= 4) {
-			document.getElementById('sqswitch').checked = true;
-			flags = flags - 4;
-		} else {
-			document.getElementById('sqswitch').checked = false;
-		}
-		if (flags >= 2) {
-			document.getElementById('scswitch').checked = true;
-			flags = flags - 2;
-		} else {
-			document.getElementById('scswitch').checked = false;
-		}
-		if (flags >= 1) {
-			document.getElementById('dswitch').checked = true;
-		} else {
-			document.getElementById('dswitch').checked = false;
-		}
-
+		parseFlags(flags, ['dungeons', 'great_fairies', 'puzzle_secret_caves', 'combat_secret_caves', 'short_sidequests', 'long_sidequests', 'spoils_trading', 'minigames']);
 		flags = bits.charCodeAt(1);
-
-		if (flags >= 128) {
-			document.getElementById('entryswitch').checked = true;
-			flags = flags - 128;
-		} else {
-			document.getElementById('entryswitch').checked = false;
-		}
-		if (flags >= 64) {
-			flags = flags - 64;
-		}
-		if (flags >= 32) {
-			document.getElementById('evswitch').checked = true;
-			flags = flags - 32;
-		} else {
-			document.getElementById('evswitch').checked = false;
-		}
-		if (flags >= 16) {
-			document.getElementById('maswitch').checked = true;
-			flags = flags - 16;
-		} else {
-			document.getElementById('maswitch').checked = false;
-		}
-		if (flags >= 8) {
-			document.getElementById('gswitch').checked = true;
-			flags = flags - 8;
-		} else {
-			document.getElementById('gswitch').checked = false;
-		}
-		if (flags >= 4) {
-			document.getElementById('epswitch').checked = true;
-			flags = flags - 4;
-		} else {
-			document.getElementById('epswitch').checked = false;
-		}
-		if (flags >= 2) {
-			document.getElementById('streswitch').checked = true;
-			flags = flags - 2;
-		} else {
-			document.getElementById('streswitch').checked = false;
-		}
-		if (flags >= 1) {
-			document.getElementById('striswitch').checked = true;
-		} else {
-			document.getElementById('striswitch').checked = false;
-		}
+		parseFlags(flags, ['free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts']);
+		flags = bits.charCodeAt(2);
+		parseFlags(flags, ['expensive_purchases', 'misc', '', 'randomize_dungeon_entrances', '', '', '', '']);
 	}
 }
 
