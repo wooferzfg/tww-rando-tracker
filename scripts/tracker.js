@@ -76,7 +76,7 @@ function loadFlagsAndStartingItems() {
         flags.push("Other Chest");
         flags.push("Misc");
     }
-    if (flagParam.indexOf("RDE") > -1) {
+    if (flagParam.indexOf("RDE1") > -1) {
         isRandomEntrances = true;
     }
 
