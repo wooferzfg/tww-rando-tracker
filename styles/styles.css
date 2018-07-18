@@ -139,7 +139,8 @@ button,
 }
 
 button {
-background: linear-gradient(#d2d2d2,#c8c8c8);
+    background: linear-gradient(#d2d2d2,#c8c8c8);
+    font-family: 'Fira Sans', sans-serif;
 }
 
 fieldset {

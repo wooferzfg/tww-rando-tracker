@@ -48,83 +48,22 @@ function applyflags() {
 }
 
 function getFlagString() {
-	var dflag = 'D0';
-	var scflag = 'SC0';
-	var sqflag = 'SQ0';
-	var mflag = 'M0';
-	var lrflag = 'LR0';
-	var sflag = 'S0';
-	var eflag = 'ER0';
-	var bflag = 'B0';
-	var striflag = 'STRI0';
-	var streflag = 'STRE0';
-	var gflag = 'G0';
-	var maflag = 'MA0';
-	var epflag = 'EP0';
-	var evflag = 'EV0';
-	var entryflag = 'ENTRY0';
+	var flagNames = ['D', 'GF', 'PSC', 'CSC', 'SSQ', 'LSQ', 'ST', 'MG', 'FG', 'MAI', 'PR', 'SUB', 'ERC', 'BOG', 'TRI', 'TRE', 'EP', 'MIS', 'RDE'];
+	var buttonNames = ['dungeons', 'great_fairies', 'puzzle_secret_caves', 'combat_secret_caves', 'short_sidequests', 'long_sidequests', 'spoils_trading', 'minigames',
+		'free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts',
+		'expensive_purchases', 'misc', 'randomize_dungeon_entrances'];
 
-	if (document.getElementById('dswitch').checked) {
-		dflag = 'D1';
+	var result = '';
+	for (var i = 0; i < buttonNames.length; i++) {
+		var curButton = buttonNames[i];
+		var curFlag = flagNames[i];
+		if (document.getElementById(curButton).checked) {
+			result += curFlag + '1';
+		} else {
+			result += curFlag + '0';
+		}
 	}
-
-	if (document.getElementById('scswitch').checked) {
-		scflag = 'SC1';
-	}
-
-	if (document.getElementById('sqswitch').checked) {
-		sqflag = 'SQ1';
-	}
-
-	if (document.getElementById('mswitch').checked) {
-		mflag = 'M1';
-	}
-
-	if (document.getElementById('lrswitch').checked) {
-		lrflag = 'LR1';
-	}
-
-	if (document.getElementById('sswitch').checked) {
-		sflag = 'S1';
-	}
-
-	if (document.getElementById('eswitch').checked) {
-		eflag = 'ER1';
-	}
-
-	if (document.getElementById('bswitch').checked) {
-		bflag = 'B1';
-	}
-
-	if (document.getElementById('striswitch').checked) {
-		striflag = 'STRI1';
-	}
-
-	if (document.getElementById('streswitch').checked) {
-		streflag = 'STRE1';
-	}
-
-	if (document.getElementById('gswitch').checked) {
-		gflag = 'G1';
-	}
-
-	if (document.getElementById('maswitch').checked) {
-		maflag = 'MA1';
-	}
-
-	if (document.getElementById('epswitch').checked) {
-		epflag = 'EP1';
-	}
-
-	if (document.getElementById('evswitch').checked) {
-		evflag = 'EV1';
-	}
-
-	if (document.getElementById('entryswitch').checked) {
-		entryflag = 'ENTRY1';
-	}
-
-	return dflag + scflag + sqflag + mflag + lrflag + sflag + eflag + bflag + striflag + streflag + gflag + maflag + epflag + evflag + entryflag;
+	return result;
 }
 
 function getMostRecentFlags() {
