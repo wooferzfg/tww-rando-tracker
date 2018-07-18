@@ -22,49 +22,61 @@ function loadFlagsAndStartingItems() {
     if (flagParam.indexOf("D1") > -1) {
         flags.push("Dungeon");
     }
-    if (flagParam.indexOf("SC1") > -1) {
-        flags.push("Secret Cave");
+    if (flagParam.indexOf("GF1") > -1) {
+        flags.push("Great Fairy");
     }
-    if (flagParam.indexOf("SQ1") > -1) {
-        flags.push("Sidequest");
+    if (flagParam.indexOf("PSC1") > -1) {
+        flags.push("Puzzle Secret Cave");
     }
-    if (flagParam.indexOf("M1") > -1) {
+    if (flagParam.indexOf("CSC1") > -1) {
+        flags.push("Combat Secret Cave");
+    }
+    if (flagParam.indexOf("SSQ1") > -1) {
+        flags.push("Short Sidequest");
+    }
+    if (flagParam.indexOf("LSQ1") > -1) {
+        flags.push("Long Sidequest");
+    }
+    if (flagParam.indexOf("ST1") > -1) {
+        flags.push("Spoils Trading");
+    }
+    if (flagParam.indexOf("MG1") > -1) {
         flags.push("Minigame");
     }
-    if (flagParam.indexOf("LR1") > -1) {
+    if (flagParam.indexOf("FG1") > -1) {
+        flags.push("Free Gift");
+    }
+    if (flagParam.indexOf("MAI1") > -1) {
+        flags.push("Mail");
+    }
+    if (flagParam.indexOf("PR1") > -1) {
         flags.push("Platform");
         flags.push("Raft");
     }
-    if (flagParam.indexOf("S1") > -1) {
+    if (flagParam.indexOf("SUB1") > -1) {
         flags.push("Submarine");
     }
-    if (flagParam.indexOf("ER1") > -1) {
+    if (flagParam.indexOf("ERC1") > -1) {
         flags.push("Eye Reef Chest");
     }
-    if (flagParam.indexOf("B1") > -1) {
+    if (flagParam.indexOf("BOG1") > -1) {
         flags.push("Big Octo");
         flags.push("Gunboat");
     }
-    if (flagParam.indexOf("STRI1") > -1) {
+    if (flagParam.indexOf("TRI1") > -1) {
         flags.push("Sunken Triforce"); // need to account for this case separately
     }
-    if (flagParam.indexOf("STRE1") > -1) {
+    if (flagParam.indexOf("TRE1") > -1) {
         flags.push("Sunken Treasure")
-    }
-    if (flagParam.indexOf("G1") > -1) {
-        flags.push("Free Gift");
-    }
-    if (flagParam.indexOf("MA1") > -1) {
-        flags.push("Mail");
     }
     if (flagParam.indexOf("EP1") > -1) {
         flags.push("Expensive Purchase");
     }
-    if (flagParam.indexOf("EV1") > -1) {
-        flags.push("Misc");
+    if (flagParam.indexOf("MIS1") > -1) {
         flags.push("Other Chest");
+        flags.push("Misc");
     }
-    if (flagParam.indexOf("ENTRY1") > -1) {
+    if (flagParam.indexOf("RDE") > -1) {
         isRandomEntrances = true;
     }
 
