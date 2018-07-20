@@ -659,11 +659,10 @@ function isLocationProgress(locationName) {
         var type = types[i];
         if (type == "Sunken Treasure"
             && itemLocations[locationName]["Original item"].startsWith("Triforce Shard")) {
-            if (!flags.includes("Sunken Triforce"))
+            if (!flags.includes("Sunken Triforce")) {
                 return false;
-            continue;
-        }
-        if (!(flags.includes(type))) {
+            }
+        } else if (!(flags.includes(type))) {
             return false;
         }
     }
