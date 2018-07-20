@@ -36,7 +36,8 @@ body {
 }
 
 .settings table {
-    width: 1100px;
+    width: 100%;
+    max-width: 1100px;
     font-size: 1.2em;
     table-layout: fixed;
     color: white;
@@ -163,7 +164,7 @@ button:hover {
 }
 
 fieldset {
-    margin: 4px;
+    margin: 4px 20px;
     border: 1px solid #c8c8c8;
     padding: 4px;
     border-radius: 4px;
