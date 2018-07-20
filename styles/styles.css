@@ -255,11 +255,13 @@ legend {
 .triforce-and-pearls {
     margin-top: auto;
     margin-bottom: auto;
-    width: 320px;
+    width: 326px;
 }
 
 .pearls {
     width: 150px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .misc-items {
