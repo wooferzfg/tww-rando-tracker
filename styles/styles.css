@@ -24,7 +24,9 @@ body {
 }
 
 .settings {
-    background-image: url("../images/menubg.png");
+    background: url("../images/menubg.png");
+    background-size: contain;
+    background-position: center center;
     display: flex;
     justify-content: center;
     width: 100%;
