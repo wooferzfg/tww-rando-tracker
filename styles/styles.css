@@ -64,10 +64,6 @@ body {
     width: 10%;
 }
 
-.permalink-container {
-    text-align: center;
-}
-
 #apply-flags-button {
     width: 120px;
 }
@@ -122,6 +118,22 @@ input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
+}
+
+.permalink-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    color: white;
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.permalink-input {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 button,

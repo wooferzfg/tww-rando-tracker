@@ -22,15 +22,15 @@
                 <img src="./images/header.png">
             </div>
             <div class="settings">
-                <table>
-                    <tr>
-                        <td colspan="4" class="permalink-container">
-                            Paste Permalink:
-                            <input placeholder="Permalink" id="flags" />
-                            <button id="apply-flags-button" type="button" onclick="applyflags()">Apply Flags</button>
-                        </td>
-                    </tr>
-                </table>
+                <div class="permalink-container">
+                    <div>Paste Permalink:</div>
+                    <div class="permalink-input">
+                        <input placeholder="Permalink" id="flags" />
+                    </div>
+                    <div>
+                        <button id="apply-flags-button" type="button" onclick="applyflags()">Apply Flags</button>
+                    </div>
+                </div>
                 <fieldset>
                     <legend>Progress Item Locations</legend>
                     <table>
