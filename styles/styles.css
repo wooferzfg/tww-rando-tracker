@@ -215,19 +215,36 @@ legend {
 .chart-map-container {
     float: left;
     margin-right: 8px;
-    width: 343px;
-    height: 326px;
+    width: 364px;
+    height: 346px;
     margin-bottom: 61px;
 }
 
 #chartmap {
     font-size: 13px;
-    position: absolute;
+    background: url("../images/sea_chart.png");
+}
+
+#chartmap,
+#zoommap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.maps {
+    padding: 7px 4px 3px 6px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .sea-sector {
+    position: relative;
     float: left;
     cursor: pointer;
+    width: 50.5px;
+    height: 48px;
 }
 
 .treasure-chart {
@@ -237,6 +254,13 @@ legend {
     background: url("../images/chart.png");
     cursor: pointer;
     font-size: 0;
+}
+
+.chests-counter {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
 }
 
 #iteminfo {
@@ -260,29 +284,22 @@ legend {
 #mapiteminfo {
     color: white;
     position: absolute;
-    left: -32px;
-    width: 400px;
+    width: 364px;
     text-align: center;
 }
 
 #mapinfo {
-    top: 333px;
+    top: 7px;
     font-size: 20px;
 }
 
 #mapiteminfo {
-    top: 360px;
+    top: 32px;
     font-size: 16px;
 }
 
-#zoommap {
-    position: absolute;
-    float: left;
-    width: 343px;
-    height: 326px;
-}
-
 #zoommap table {
+    padding-top: 5px;
     width: 100%;
 }
 
