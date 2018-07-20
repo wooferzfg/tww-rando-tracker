@@ -180,7 +180,7 @@ legend {
 .item-tracker {
     width: 436px;
     height: 326px;
-    background-image: url("../images/trackerbg.png");
+    background: url("../images/trackerbg.png") no-repeat center center;
     padding: 10px;
     background-size: cover;
     float: left;
