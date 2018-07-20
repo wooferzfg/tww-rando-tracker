@@ -203,6 +203,7 @@ legend {
 
 .tracker {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .item-tracker {
@@ -216,6 +217,7 @@ legend {
     margin-bottom: 36px;
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
     position: relative;
 }
 
@@ -275,6 +277,7 @@ legend {
     width: 364px;
     height: 346px;
     margin-bottom: 61px;
+    flex-shrink: 0;
 }
 
 #chartmap {
@@ -413,6 +416,7 @@ legend {
     width: 450px;
     height: 242px;
     margin-bottom: 8px;
+    flex-shrink: 0;
 }
 
 .extra-locations.single-color {
