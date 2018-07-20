@@ -662,7 +662,7 @@ function isLocationProgress(locationName) {
             if (!flags.includes("Sunken Triforce")) {
                 return false;
             }
-        } else if (!(flags.includes(type))) {
+        } else if (!flags.includes(type)) {
             return false;
         }
     }
