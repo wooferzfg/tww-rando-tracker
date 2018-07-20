@@ -146,6 +146,10 @@ button {
     cursor: pointer;
 }
 
+button:hover {
+    border-color: #323232;
+}
+
 fieldset {
     margin: 4px;
     border: 1px solid #c8c8c8;
@@ -167,11 +171,16 @@ legend {
     width: 200px;
 }
 
-.attribution {
+.attribution,
+.attribution a {
     text-align: center;
     margin-top: 25px;
     color: #C8C8C8;
     font-size: 13px;
+}
+
+.attribution a:hover {
+    color: #969696;
 }
 
 .tracker {
