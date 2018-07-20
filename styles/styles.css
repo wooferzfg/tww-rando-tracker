@@ -35,6 +35,11 @@ body {
     flex-wrap: wrap;
 }
 
+.settings,
+.attribution {
+    text-shadow: 2px 1px rgba(0, 0, 0, 0.5);
+}
+
 .settings table {
     width: 100%;
     max-width: 1100px;
