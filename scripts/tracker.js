@@ -3,6 +3,7 @@ var flags = [];
 var disableMap = false;
 var imagedir = 'images/';
 var currentGeneralLocation = '';
+var currentLocationIsDungeon = false;
 
 var isRandomEntrances = false;
 var showNonProgressLocations = false;
@@ -137,10 +138,10 @@ function toggleNonProgressLocations(button) {
     }
 
     if (document.getElementById("zoommap").style.display == "block") {
-        if (islands.includes(currentGeneralLocation)) {
-            ToggleMap(islands.indexOf(currentGeneralLocation), false);
-        } else {
+        if (currentLocationIsDungeon) {
             ToggleMap(dungeons.indexOf(currentGeneralLocation), true);
+        } else {
+            ToggleMap(islands.indexOf(currentGeneralLocation), false);
         }
     }
     locationsChanged();
@@ -569,11 +570,14 @@ function ToggleMap(index, isDungeon) {
 
     if (isDungeon) {
         currentGeneralLocation = dungeons[index];
+        currentLocationIsDungeon = true;
         document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imagedir + 'dungeon_mapfull' + index + '.png\')';
     } else {
         currentGeneralLocation = islands[index];
+        currentLocationIsDungeon = false;
         document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imagedir + 'mapfull' + index + '.png\')';
     }
+
     var detailedLocations = getDetailedLocations(currentGeneralLocation, isDungeon);
 
     var fontSize = 'normal';
@@ -637,13 +641,6 @@ function ToggleLocation(element) {
     var detailedLocation = element.innerText;
     var newLocationChecked = !locationsChecked[currentGeneralLocation][detailedLocation];
     locationsChecked[currentGeneralLocation][detailedLocation] = newLocationChecked;
-
-    if (newLocationChecked) {
-        removeTooltipFromElement(element);
-    } else {
-        addTooltipToElement(element);
-    }
-
     locationsChanged();
 }
 

@@ -267,6 +267,7 @@ function locationsChanged() {
     setChestCounts();
     refreshAllImagesAndCounts();
     refreshLocationColors();
+    recreateTooltips();
 }
 
 function getDetailedLocations(generalLocation, isDungeon) {
