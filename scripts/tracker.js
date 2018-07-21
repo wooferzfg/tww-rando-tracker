@@ -433,6 +433,7 @@ function ShrinkMap() {
     document.getElementById('chartmap').style.display = "block";
     document.getElementById('zoommap').style.display = "none";
     currentGeneralLocation = "";
+    recreateTooltips();
 }
 
 function getTextForExpression(expression) {
@@ -499,6 +500,23 @@ function addTooltipToElement(element) {
     }
 }
 
+function addSongTooltip(element) {
+    var id = "#" + element.id + "-notes";
+    var songName = element.name;
+    $(element).qtip({
+        content: {
+            text: $(id).clone(),
+            title: songName
+        },
+        position: {
+            target: 'mouse',
+            adjust: {
+                x: 15
+            }
+        }
+    });
+}
+
 function removeTooltipFromElement(element) {
     $(element).qtip('destroy', true);
 }
@@ -513,6 +531,18 @@ function recreateTooltips() {
             if (element.style.display == "block") {
                 addTooltipToElement(element);
             }
+        }
+    }
+
+    for (var i = 0; i < 6; i++) {
+        var l = 'song' + i.toString();
+        var element = document.getElementById(l);
+        var songName = element.name;
+
+        if (items[songName] === 0) {
+            removeTooltipFromElement(element);
+        } else {
+            addSongTooltip(element)
         }
     }
 }

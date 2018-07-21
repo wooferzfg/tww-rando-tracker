@@ -273,6 +273,10 @@ legend {
     height: 116px;
 }
 
+.song-notes {
+    display: none;
+}
+
 .chart-map-container {
     float: left;
     margin-right: 8px;

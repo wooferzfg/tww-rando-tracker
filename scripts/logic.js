@@ -251,6 +251,7 @@ function afterLoad() {
         setLocationsAreAvailable();
         setChestCounts();
         refreshAllImagesAndCounts();
+        recreateTooltips();
     }
 }
 
