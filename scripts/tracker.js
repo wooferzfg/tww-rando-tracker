@@ -595,13 +595,6 @@ function ToggleLocation(element) {
     var detailedLocation = element.innerText;
     var newLocationChecked = !locationsChecked[currentGeneralLocation][detailedLocation];
     locationsChecked[currentGeneralLocation][detailedLocation] = newLocationChecked;
-
-    if (newLocationChecked) {
-        removeTooltipFromElement(element);
-    } else {
-        addTooltipToElement(element);
-    }
-
     locationsChanged();
 }
 
