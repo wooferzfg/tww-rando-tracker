@@ -371,6 +371,10 @@ legend {
     width: 100%;
 }
 
+#zoommap td {
+    padding-bottom: 0;
+}
+
 #zoommap-background,
 .zoommap-cover {
     position:absolute;
@@ -391,7 +395,7 @@ legend {
 }
 
 .detail-small {
-    font-size: 13px;
+    font-size: 13.5px;
 }
 
 .detail-smallest {
