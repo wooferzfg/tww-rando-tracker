@@ -214,7 +214,7 @@ legend {
     background-size: cover;
     float: left;
     margin-right: 8px;
-    margin-bottom: 36px;
+    margin-bottom: 38px;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
@@ -282,7 +282,7 @@ legend {
     margin-right: 8px;
     width: 364px;
     height: 346px;
-    margin-bottom: 61px;
+    margin-bottom: 56px;
     flex-shrink: 0;
 }
 
