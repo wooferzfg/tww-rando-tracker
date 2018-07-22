@@ -201,9 +201,16 @@ legend {
     color: #969696;
 }
 
+.tracker-container {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+}
+
 .tracker {
     display: flex;
     flex-wrap: wrap;
+    flex-grow: 1;
 }
 
 .item-tracker {
@@ -464,6 +471,10 @@ legend {
 
 .dungeon-icon {
     display: flex;
+}
+
+.buttons {
+    flex-grow: 0;
 }
 
 #save-progress-button {
