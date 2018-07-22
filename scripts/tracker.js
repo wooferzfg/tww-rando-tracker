@@ -102,11 +102,6 @@ function loadProgress() {
             locationsChecked[generalLocation][detailedLocation] = localStorage.getItem(locationName) == "true";
         });
     })
-    macros[drcMacro] = localStorage.getItem(drcMacro);
-    macros[fwMacro] = localStorage.getItem(fwMacro);
-    macros[totgMacro] = localStorage.getItem(totgMacro);
-    macros[etMacro] = localStorage.getItem(etMacro);
-    macros[wtMacro] = localStorage.getItem(wtMacro);
 }
 
 function saveProgress() {
@@ -120,11 +115,6 @@ function saveProgress() {
             localStorage.setItem(locationName, locationValue);
         });
     })
-    localStorage.setItem(drcMacro, macros[drcMacro]);
-    localStorage.setItem(fwMacro, macros[fwMacro]);
-    localStorage.setItem(totgMacro, macros[totgMacro]);
-    localStorage.setItem(etMacro, macros[etMacro]);
-    localStorage.setItem(wtMacro, macros[wtMacro]);
 
     localStorage.setItem("rando-flags", flagParam);
 }
