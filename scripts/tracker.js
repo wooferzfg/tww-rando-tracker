@@ -153,7 +153,7 @@ function toggleSingleColorBackground(button) {
 }
 
 function refreshAllImagesAndCounts() {
-    //CHECK BOSSES
+    // bosses
     var bosses = [];
     bosses[0] = locationsChecked["Dragon Roost Cavern"]["Gohma Heart Container"];
     bosses[1] = locationsChecked["Forbidden Woods"]["Kalle Demos Heart Container"];
@@ -171,7 +171,7 @@ function refreshAllImagesAndCounts() {
         }
     }
 
-    //TRIFORCE PIECES
+    // triforce pieces
     var triforce = 0;
     for (var i = 1; i <= 8; i++) {
         if (items["Triforce Shard " + i] > 0) {
@@ -181,7 +181,7 @@ function refreshAllImagesAndCounts() {
     }
     document.getElementById('triforce').src = imagedir + 'triforce' + triforce + '.png'
 
-    //ITEMS
+    // items
     for (var i = 0; i < 27; i++) {
         var l = 'item' + i.toString();
         var itemName = document.getElementById(l).name;
@@ -196,7 +196,7 @@ function refreshAllImagesAndCounts() {
         }
     }
 
-    //SHIELDS
+    // shields
     var l = 'shield';
     if (items["Mirror Shield"] > 0) {
         document.getElementById(l).src = imagedir + 'mirrorshield.png'
@@ -206,7 +206,7 @@ function refreshAllImagesAndCounts() {
         document.getElementById(l).src = imagedir + 'noshield.png'
     }
 
-    //SONGS
+    // songs
     for (var i = 0; i < 6; i++) {
         var l = 'song' + i.toString();
         var songName = document.getElementById(l).name;
@@ -217,7 +217,7 @@ function refreshAllImagesAndCounts() {
             document.getElementById(l).src = imagedir + 'song' + i + '_a.png'
     }
 
-    //PEARLS
+    // pearls
     for (var i = 0; i < 3; i++) {
         var l = 'pearl' + i.toString();
         var pearlName = document.getElementById(l).name;
@@ -229,9 +229,9 @@ function refreshAllImagesAndCounts() {
     }
 
     for (var i = 0; i < 6; i++) {
-        //FF does not have keys
+        // FF does not have keys
         if (i != 3) {
-            //SMALL KEYS
+            // small keys
             var l = 'smallkey' + i.toString();
             var smallKeyName = document.getElementById(l).innerText;
             var smallKeyCount = items[smallKeyName];
@@ -241,7 +241,7 @@ function refreshAllImagesAndCounts() {
                 document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'smallkey_' + smallKeyCount + '.png\')';
             }
 
-            //ENTRY
+            // dungeon entry
             var l = 'entry' + i.toString();
 
             if (isRandomEntrances) {
@@ -255,7 +255,7 @@ function refreshAllImagesAndCounts() {
                 document.getElementById(l).style.display = "none";
             }
 
-            //BOSS KEYS
+            // boss keys
             var l = 'bosskey' + i.toString();
             var bigKeyName = document.getElementById(l).innerText;
             var bigKeyCount = items[bigKeyName];
@@ -267,7 +267,7 @@ function refreshAllImagesAndCounts() {
         }
     }
 
-    //CHARTS
+    // charts
     for (var i = 0; i < 49; i++) {
         var l = 'chart' + i.toString();
         var chartName = document.getElementById(l).innerText;
@@ -288,7 +288,7 @@ function refreshAllImagesAndCounts() {
         }
     }
 
-    //LOCATIONS
+    // locations
     for (var i = 0; i < islands.length; i++) {
         var l = 'mapchests' + i.toString();
         var curLocation = islands[i];
@@ -571,10 +571,10 @@ function ToggleMap(index, isDungeon) {
     var detailedLocations = getDetailedLocations(currentGeneralLocation, isDungeon);
 
     var fontSize = 'normal';
-    if (detailedLocations.length > 24) { // Windfall Island
+    if (detailedLocations.length > 24) { // 3 columns
         fontSize = 'smallest';
     }
-    else if (detailedLocations.length > 12) { // Dungeons
+    else if (detailedLocations.length > 12) { // 2 columns
         fontSize = 'small';
     }
 

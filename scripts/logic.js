@@ -295,7 +295,7 @@ function initializeLocationsChecked() {
 }
 
 function initializeRandomDungeonEntrances() {
-    if (isRandomEntrances) { // we rely on the tracker to change these macros later
+    if (isRandomEntrances) {
         macros[drcMacro] = "Entered DRC";
         macros[fwMacro] = "Entered FW";
         macros[totgMacro] = "Entered TotG";
