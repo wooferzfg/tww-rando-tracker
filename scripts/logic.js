@@ -218,7 +218,7 @@ $(document).ready(function () {
 function loadMacros() {
     $.ajax(
         {
-            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/1.1.0/logic/macros.txt',
+            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/1.2.0/logic/macros.txt',
             success: function (data) {
                 macros = jsyaml.load(data);
                 macrosLoaded = true;
@@ -231,7 +231,7 @@ function loadMacros() {
 function loadItemLocations() {
     $.ajax(
         {
-            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/1.1.0/logic/item_locations.txt',
+            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/1.2.0/logic/item_locations.txt',
             success: function (data) {
                 itemLocations = jsyaml.load(data);
                 itemLocationsLoaded = true;
