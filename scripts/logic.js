@@ -8,8 +8,9 @@ const fwMacro = "Can Access Forbidden Woods";
 const totgMacro = "Can Access Tower of the Gods";
 const etMacro = "Can Access Earth Temple";
 const wtMacro = "Can Access Wind Temple";
+const shortDungeonNames = ['DRC', 'FW', 'TotG', 'ET', 'WT', 'GT'];
 
-var islands = [
+const islands = [
     'Forsaken Fortress',
     'Star Island',
     'Northern Fairy Island',
@@ -63,7 +64,7 @@ var islands = [
     'The Great Sea'
 ];
 
-var dungeons = [
+const dungeons = [
     'Dragon Roost Cavern',
     'Forbidden Woods',
     'Tower of the Gods',
@@ -199,6 +200,20 @@ var items = {
     "Entered ET": 0,
     "Entered WT": 0
 };
+var keys = {
+    "DRC Big Key": 0,
+    "DRC Small Key": 0,
+    "FW Big Key": 0,
+    "FW Small Key": 0,
+    "TotG Big Key": 0,
+    "TotG Small Key": 0,
+    "FF Big Key": 0,
+    "FF Small Key": 0,
+    "ET Big Key": 0,
+    "ET Small Key": 0,
+    "WT Big Key": 0,
+    "WT Small Key": 0,
+};
 var locationsChecked = {};
 
 var locationsAreProgress = {};
@@ -287,7 +302,9 @@ function setLocationsAreProgress() {
 }
 
 function setLocationsAreAvailable() {
+    transferKeys();
     locationsAreAvailable = setLocations(isLocationAvailable);
+    setGuaranteedKeys();
 }
 
 function initializeLocationsChecked() {
@@ -302,6 +319,61 @@ function initializeRandomDungeonEntrances() {
         macros[etMacro] = "Entered ET";
         macros[wtMacro] = "Entered WT";
     }
+}
+
+function transferKeys() {
+    Object.keys(keys).forEach(function (keyName) {
+        if (isKeyLunacy) {
+            items[keyName] = keys[keyName];
+        } else {
+            items[keyName] = 5;
+        }
+    });
+}
+
+function setGuaranteedKeys() {
+    if (!isKeyLunacy) {
+        for (var i = 0; i < 6; i++) {
+            var guaranteedKeys = getGuaranteedKeysForDungeon(dungeons[i]);
+            var shortDungeonName = shortDungeonNames[i];
+            var smallKeyName = shortDungeonName + " Small Key";
+            var bigKeyName = shortDungeonName + " Big Key";
+            items[smallKeyName] = Math.max(guaranteedKeys.small, keys[smallKeyName]);
+            items[bigKeyName] = Math.max(guaranteedKeys.big, keys[bigKeyName]);
+        }
+        locationsAreAvailable = setLocations(isLocationAvailable);
+    }
+}
+
+function getGuaranteedKeysForDungeon(dugeonName) {
+    var guaranteedSmallKeys = 5;
+    var guaranteedBigKeys = 1;
+    Object.keys(locationsAreAvailable[dugeonName]).forEach(function (detailedLocation) {
+        if (isValidForLocation(dugeonName, detailedLocation, true)
+            && !locationsAreAvailable[dugeonName][detailedLocation]
+            && !locationsChecked[dugeonName][detailedLocation]) {
+            var keyReqs = getKeyRequirementsForLocation(dugeonName, detailedLocation);
+            guaranteedSmallKeys = Math.min(guaranteedSmallKeys, keyReqs.small);
+            guaranteedBigKeys = Math.min(guaranteedBigKeys, keyReqs.big);
+        }
+    });
+    return { small: guaranteedSmallKeys, big: guaranteedBigKeys };
+}
+
+function getKeyRequirementsForLocation(dungeonName, detailedLocation) {
+    var fullName = dungeonName + " - " + detailedLocation;
+    var requirements = itemLocations[fullName].Need;
+    var smallReq = 0;
+    var bigReq = 0;
+    var smallIndex = requirements.indexOf("Small Key x");
+    if (smallIndex >= 0) {
+        var smallReqName = requirements.substring(smallIndex, "Small Key x1".length + smallIndex);
+        smallReq = getProgressiveNumRequired(smallReqName);
+    }
+    if (requirements.includes("Big Key")) {
+        bigReq = 1;
+    }
+    return { small: smallReq, big: bigReq };
 }
 
 function isValidForLocation(generalLocation, detailedLocation, isDungeon) {

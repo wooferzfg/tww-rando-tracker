@@ -238,7 +238,7 @@ function refreshAllImagesAndCounts() {
             // small keys
             var l = 'smallkey' + i.toString();
             var smallKeyName = document.getElementById(l).innerText;
-            var smallKeyCount = items[smallKeyName];
+            var smallKeyCount = keys[smallKeyName];
             if (smallKeyCount === 0) {
                 document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'smallkey.png\')';
             } else {
@@ -262,7 +262,7 @@ function refreshAllImagesAndCounts() {
             // boss keys
             var l = 'bosskey' + i.toString();
             var bigKeyName = document.getElementById(l).innerText;
-            var bigKeyCount = items[bigKeyName];
+            var bigKeyCount = keys[bigKeyName];
             if (bigKeyCount === 0) {
                 document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'bosskey.png\')';
             } else {
@@ -412,7 +412,13 @@ function toggleItem(itemName, maxItems) {
 function ToggleKey(element, maxKeys) {
     disableMap = true;
     var keyName = element.innerText;
-    toggleItem(keyName, maxKeys);
+    var keyCount = keys[keyName];
+    keyCount++;
+    if (keyCount > maxKeys) {
+        keyCount = 0;
+    }
+    keys[keyName] = keyCount;
+    itemsChanged();
     SmallKeyInfo(element, maxKeys);
 }
 
