@@ -5,6 +5,7 @@ var imagedir = 'images/';
 var currentGeneralLocation = '';
 var currentLocationIsDungeon = false;
 
+var isKeyLunacy = false;
 var isRandomEntrances = false;
 var showNonProgressLocations = false;
 var singleColorBackground = false;
@@ -76,6 +77,9 @@ function loadFlagsAndStartingItems() {
     if (flagParam.indexOf("MIS1") > -1) {
         flags.push("Other Chest");
         flags.push("Misc");
+    }
+    if (flagParam.indexOf("KL1") > -1) {
+        isKeyLunacy = true;
     }
     if (flagParam.indexOf("RDE1") > -1) {
         isRandomEntrances = true;
