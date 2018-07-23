@@ -419,7 +419,9 @@ function ToggleKey(element, maxKeys) {
     }
     keys[keyName] = keyCount;
     itemsChanged();
-    SmallKeyInfo(element, maxKeys);
+    if (keyName.includes("Small")) {
+        SmallKeyInfo(element, maxKeys);
+    }
 }
 
 function ToggleEntry(element) {
@@ -665,7 +667,7 @@ function MapItemInfo(element) {
 
 function SmallKeyInfo(element, maxKeys) {
     var keyName = element.innerText;
-    var numKeys = items[keyName];
+    var numKeys = keys[keyName];
     document.getElementById('mapiteminfo').innerText = keyName + ' (' + numKeys + '/' + maxKeys + ')';
 }
 
