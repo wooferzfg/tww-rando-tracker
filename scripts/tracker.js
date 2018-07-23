@@ -91,6 +91,12 @@ function loadFlagsAndStartingItems() {
     items["Boat's Sail"] = 1;
     items["Wind's Requiem"] = 1;
     items["Ballad of Gales"] = 1;
+
+    flags.push("Finish Game");
+    itemLocations["Ganon's Tower - Defeat Ganondorf"] = {
+        Need: "Can Reach and Defeat Ganondorf",
+        Types: "Finish Game"
+    };
 }
 
 function loadProgress() {
@@ -165,8 +171,9 @@ function refreshAllImagesAndCounts() {
     bosses[3] = locationsChecked["Forsaken Fortress"]["Helmaroc King Heart Container"];
     bosses[4] = locationsChecked["Earth Temple"]["Jalhalla Heart Container"];
     bosses[5] = locationsChecked["Wind Temple"]["Molgera Heart Container"];
+    bosses[6] = locationsChecked["Ganon's Tower"]["Defeat Ganondorf"];
 
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 7; i++) {
         var l = 'extralocation' + i.toString();
         if (bosses[i]) {
             document.getElementById(l).src = imagedir + 'boss' + i + '_d.png';
