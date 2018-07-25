@@ -173,7 +173,7 @@ function refreshAllImagesAndCounts() {
     bosses[5] = locationsChecked["Wind Temple"]["Molgera Heart Container"];
     bosses[6] = locationsChecked["Ganon's Tower"]["Defeat Ganondorf"];
 
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < bosses.length; i++) {
         var l = 'extralocation' + i.toString();
         if (bosses[i]) {
             document.getElementById(l).src = imagedir + 'boss' + i + '_d.png';
@@ -239,9 +239,8 @@ function refreshAllImagesAndCounts() {
             document.getElementById(l).src = imagedir + 'pearl' + i + '_a.png'
     }
 
-    for (var i = 0; i < 6; i++) {
-        // FF does not have keys
-        if (i != 3) {
+    for (var i = 0; i < dungeons.length; i++) {
+        if (isMainDungeon(dungeons[i])) {
             // small keys
             var l = 'smallkey' + i.toString();
             var smallKeyName = document.getElementById(l).innerText;
@@ -254,7 +253,6 @@ function refreshAllImagesAndCounts() {
 
             // dungeon entry
             var l = 'entry' + i.toString();
-
             if (isRandomEntrances) {
                 var entryName = document.getElementById(l).innerText;
                 if (items[entryName] === 0) {

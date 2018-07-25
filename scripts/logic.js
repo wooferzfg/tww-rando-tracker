@@ -3,13 +3,6 @@ var itemLocations; // contents of item_locations.txt
 var macrosLoaded = false;
 var itemLocationsLoaded = false;
 
-const drcMacro = "Can Access Dragon Roost Cavern";
-const fwMacro = "Can Access Forbidden Woods";
-const totgMacro = "Can Access Tower of the Gods";
-const etMacro = "Can Access Earth Temple";
-const wtMacro = "Can Access Wind Temple";
-const shortDungeonNames = ['DRC', 'FW', 'TotG', 'ET', 'WT', 'GT'];
-
 const islands = [
     'Forsaken Fortress',
     'Star Island',
@@ -73,6 +66,15 @@ const dungeons = [
     'Wind Temple',
     'Ganon\'s Tower'];
 
+const shortDungeonNames = [
+    'DRC',
+    'FW',
+    'TotG',
+    'FF',
+    'ET',
+    'WT',
+    'GT'];
+
 var items = {
     "Tingle Tuner": 0,
     "Wind Waker": 0,
@@ -133,8 +135,6 @@ var items = {
     "FW Small Key": 0,
     "TotG Big Key": 0,
     "TotG Small Key": 0,
-    "FF Big Key": 0,
-    "FF Small Key": 0,
     "ET Big Key": 0,
     "ET Small Key": 0,
     "WT Big Key": 0,
@@ -313,11 +313,14 @@ function initializeLocationsChecked() {
 
 function initializeRandomDungeonEntrances() {
     if (isRandomEntrances) {
-        macros[drcMacro] = "Entered DRC";
-        macros[fwMacro] = "Entered FW";
-        macros[totgMacro] = "Entered TotG";
-        macros[etMacro] = "Entered ET";
-        macros[wtMacro] = "Entered WT";
+        for (var i = 0; i < dungeons.length; i++) {
+            var dungeonName = dungeons[i];
+            if (isMainDungeon(dungeonName)) {
+                var macroName = "Can Access " + dungeonName;
+                var entryName = "Entered " + shortDungeonNames[i];
+                macros[macroName] = entryName;
+            }
+        }
     }
 }
 
@@ -333,13 +336,16 @@ function transferKeys() {
 
 function setGuaranteedKeys() {
     if (!isKeyLunacy) {
-        for (var i = 0; i < 6; i++) {
-            var guaranteedKeys = getGuaranteedKeysForDungeon(dungeons[i]);
-            var shortDungeonName = shortDungeonNames[i];
-            var smallKeyName = shortDungeonName + " Small Key";
-            var bigKeyName = shortDungeonName + " Big Key";
-            items[smallKeyName] = Math.max(guaranteedKeys.small, keys[smallKeyName]);
-            items[bigKeyName] = Math.max(guaranteedKeys.big, keys[bigKeyName]);
+        for (var i = 0; i < dungeons.length; i++) {
+            var dungeonName = dungeons[i];
+            if (isMainDungeon(dungeonName)) {
+                var guaranteedKeys = getGuaranteedKeysForDungeon(dungeonName);
+                var shortDungeonName = shortDungeonNames[i];
+                var smallKeyName = shortDungeonName + " Small Key";
+                var bigKeyName = shortDungeonName + " Big Key";
+                items[smallKeyName] = Math.max(guaranteedKeys.small, keys[smallKeyName]);
+                items[bigKeyName] = Math.max(guaranteedKeys.big, keys[bigKeyName]);
+            }
         }
         locationsAreAvailable = setLocations(isLocationAvailable);
     }
@@ -374,6 +380,13 @@ function getKeyRequirementsForLocation(dungeonName, detailedLocation) {
         bigReq = 1;
     }
     return { small: smallReq, big: bigReq };
+}
+
+function isMainDungeon(dungeonName) {
+    if (dungeonName == "Forsaken Fortress" || dungeonName == "Ganon's Tower") {
+        return false;
+    }
+    return dungeons.includes(dungeonName);
 }
 
 function isValidForLocation(generalLocation, detailedLocation, isDungeon) {
