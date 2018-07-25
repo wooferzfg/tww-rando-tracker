@@ -4,9 +4,6 @@ var disableMap = false;
 var imagedir = 'images/';
 var currentGeneralLocation = '';
 var currentLocationIsDungeon = false;
-
-var isKeyLunacy = false;
-var isRandomEntrances = false;
 var showNonProgressLocations = false;
 var singleColorBackground = false;
 
@@ -139,9 +136,9 @@ function toggleNonProgressLocations(button) {
 
     if (document.getElementById("zoommap").style.display == "block") {
         if (currentLocationIsDungeon) {
-            ToggleMap(dungeons.indexOf(currentGeneralLocation), true);
+            toggleMap(dungeons.indexOf(currentGeneralLocation), true);
         } else {
-            ToggleMap(islands.indexOf(currentGeneralLocation), false);
+            toggleMap(islands.indexOf(currentGeneralLocation), false);
         }
     }
     locationsChanged();
@@ -333,11 +330,11 @@ function setChestsForElement(element, progress, available, total) {
     }
 }
 
-function ClearItemInfo() {
+function clearItemInfo() {
     document.getElementById('iteminfo').innerText = '';
 }
 
-function ItemInfo(element) {
+function itemInfo(element) {
     var text = element.name;
     if (text == "Hero's Shield") {
         if (items["Mirror Shield"] == 1) {
@@ -361,13 +358,13 @@ function ItemInfo(element) {
     document.getElementById('iteminfo').innerText = text;
 }
 
-function ToggleItem(element, maxItems) {
+function toggleInventoryItem(element, maxItems) {
     var itemName = element.name;
     toggleItem(itemName, maxItems);
-    ItemInfo(element);
+    itemInfo(element);
 }
 
-function ToggleShield(element) {
+function toggleShield(element) {
     if (items["Hero's Shield"] == 0) {
         items["Hero's Shield"] = 1;
     } else if (items["Mirror Shield"] == 0) {
@@ -377,10 +374,10 @@ function ToggleShield(element) {
         items["Mirror Shield"] = 0;
     }
     itemsChanged();
-    ItemInfo(element);
+    itemInfo(element);
 }
 
-function ToggleTriforce() {
+function toggleTriforce() {
     for (var i = 1; i <= 8; i++) {
         var curShard = "Triforce Shard " + i;
         if (items[curShard] == 0) {
@@ -392,7 +389,7 @@ function ToggleTriforce() {
         }
     }
     itemsChanged();
-    ItemInfo(document.getElementById('triforce'));
+    itemInfo(document.getElementById('triforce'));
 }
 
 function resetAllShards() {
@@ -411,7 +408,7 @@ function toggleItem(itemName, maxItems) {
     itemsChanged();
 }
 
-function ToggleKey(element, maxKeys) {
+function toggleKey(element, maxKeys) {
     disableMap = true;
     var keyName = element.innerText;
     var keyCount = keys[keyName];
@@ -422,18 +419,18 @@ function ToggleKey(element, maxKeys) {
     keys[keyName] = keyCount;
     itemsChanged();
     if (keyName.includes("Small")) {
-        SmallKeyInfo(element, maxKeys);
+        smallKeyInfo(element, maxKeys);
     }
 }
 
-function ToggleEntry(element) {
+function toggleEntry(element) {
     disableMap = true;
     var entryName = element.innerText;
     toggleItem(entryName, 1);
-    MapItemInfo(element);
+    mapItemInfo(element);
 }
 
-function ShrinkMap() {
+function shrinkMap() {
     removeVisibleTooltips();
     document.getElementById('chartmap').style.display = "block";
     document.getElementById('zoommap').style.display = "none";
@@ -563,7 +560,7 @@ function removeVisibleTooltips() {
     });
 }
 
-function ToggleMap(index, isDungeon) {
+function toggleMap(index, isDungeon) {
     if (disableMap) {
         disableMap = false;
         return;
@@ -641,47 +638,47 @@ function refreshLocationColors() {
     }
 }
 
-function ToggleLocation(element) {
+function toggleLocation(element) {
     var detailedLocation = element.innerText;
     var newLocationChecked = !locationsChecked[currentGeneralLocation][detailedLocation];
     locationsChecked[currentGeneralLocation][detailedLocation] = newLocationChecked;
     locationsChanged();
 }
 
-function ClearMapInfo() {
+function clearMapInfo() {
     document.getElementById('mapinfo').innerText = '';
 }
 
-function MapInfo(i) {
+function mapInfo(i) {
     let generalLocation = islands[i];
     var curAvailable = availableIslandChests[generalLocation];
     var curTotal = totalIslandChests[generalLocation];
     document.getElementById('mapinfo').innerText = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
 }
 
-function ClearMapItemInfo() {
+function clearMapItemInfo() {
     document.getElementById('mapiteminfo').innerText = '';
 }
 
-function MapItemInfo(element) {
+function mapItemInfo(element) {
     document.getElementById('mapiteminfo').innerText = element.innerText;
 }
 
-function SmallKeyInfo(element, maxKeys) {
+function smallKeyInfo(element, maxKeys) {
     var keyName = element.innerText;
     var numKeys = keys[keyName];
     document.getElementById('mapiteminfo').innerText = keyName + ' (' + numKeys + '/' + maxKeys + ')';
 }
 
-function DungeonMapInfo(i) {
+function dungeonMapInfo(i) {
     let generalLocation = dungeons[i];
     var curAvailable = availableDungeonChests[generalLocation];
     var curTotal = totalDungeonChests[generalLocation];
     document.getElementById('mapinfo').innerText = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
 }
 
-function ToggleChart(element) {
+function toggleChart(element) {
     disableMap = true;
     toggleItem(element.innerText, 1);
-    MapItemInfo(element);
+    mapItemInfo(element);
 }

@@ -56,7 +56,6 @@ const islands = [
     'Mailbox',
     'The Great Sea'
 ];
-
 const dungeons = [
     'Dragon Roost Cavern',
     'Forbidden Woods',
@@ -65,7 +64,6 @@ const dungeons = [
     'Earth Temple',
     'Wind Temple',
     'Ganon\'s Tower'];
-
 const shortDungeonNames = [
     'DRC',
     'FW',
@@ -75,6 +73,7 @@ const shortDungeonNames = [
     'WT',
     'GT'];
 
+// tracker should modify these
 var items = {
     "Tingle Tuner": 0,
     "Wind Waker": 0,
@@ -207,15 +206,16 @@ var keys = {
     "FW Small Key": 0,
     "TotG Big Key": 0,
     "TotG Small Key": 0,
-    "FF Big Key": 0,
-    "FF Small Key": 0,
     "ET Big Key": 0,
     "ET Small Key": 0,
     "WT Big Key": 0,
     "WT Small Key": 0,
 };
 var locationsChecked = {};
+var isKeyLunacy = false;
+var isRandomEntrances = false;
 
+// tracker should use these without modifying them
 var locationsAreProgress = {};
 var locationsAreAvailable = {};
 var progressIslandChests = {};
@@ -270,6 +270,7 @@ function afterLoad() {
     }
 }
 
+// tracker should call this after changing 'items'
 function itemsChanged() {
     setLocationsAreAvailable();
     setChestCounts();
@@ -278,6 +279,7 @@ function itemsChanged() {
     recreateTooltips();
 }
 
+// tracker should call this after changing 'locationsChecked'
 function locationsChanged() {
     setChestCounts();
     refreshAllImagesAndCounts();
