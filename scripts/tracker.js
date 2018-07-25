@@ -341,14 +341,11 @@ function ClearItemInfo() {
 
 function ItemInfo(element) {
     var text = element.name;
-    if (text == "Progressive Shield") {
+    if (text == "Hero's Shield") {
         if (items["Mirror Shield"] == 1) {
             text = "Mirror Shield";
-        } else {
-            text = "Hero's Shield";
         }
-    }
-    else if (text.startsWith("Progressive")) {
+    } else if (text.startsWith("Progressive")) {
         var itemCount = items[text];
         var textWithCount = text + " x" + itemCount;
         text = getNameForItem(textWithCount);
@@ -358,10 +355,10 @@ function ItemInfo(element) {
             if (items[curShard] == 0) {
                 text = "Triforce Shard (" + (i - 1).toString() + "/8)";
                 break;
-            } else if (i == 8) {
-                text = "Triforce";
             }
         }
+    } else {
+        text = getNameForItem(text);
     }
     document.getElementById('iteminfo').innerText = text;
 }

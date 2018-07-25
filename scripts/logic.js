@@ -786,6 +786,9 @@ function getNameForItem(itemName) {
             }
         }
     }
+    else if (itemName == "Boat's Sail") {
+        return "Swift Sail";
+    }
     else if (itemName.startsWith("Triforce Shard")) {
         return "Triforce";
     }
