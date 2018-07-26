@@ -279,10 +279,6 @@ legend {
     display: none;
 }
 
-.empty-cell {
-    pointer-events: none;
-}
-
 .chart-map-container {
     float: left;
     margin-right: 8px;

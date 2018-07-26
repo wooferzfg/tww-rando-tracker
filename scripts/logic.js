@@ -139,6 +139,12 @@ var items = {
     "WT Big Key": 0,
     "WT Small Key": 0,
 
+    "Entered DRC": 0,
+    "Entered FW": 0,
+    "Entered TotG": 0,
+    "Entered ET": 0,
+    "Entered WT": 0,
+
     "Treasure Chart 1": 0,
     "Treasure Chart 2": 0,
     "Treasure Chart 3": 0,
@@ -195,12 +201,7 @@ var items = {
     "Hero's Charm": 0,
     "Progressive Quiver": 0,
     "Progressive Bomb Bag": 0,
-
-    "Entered DRC": 0,
-    "Entered FW": 0,
-    "Entered TotG": 0,
-    "Entered ET": 0,
-    "Entered WT": 0
+    "Hurricane Spin": 0
 };
 var keys = {
     "DRC Big Key": 0,

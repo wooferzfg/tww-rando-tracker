@@ -190,7 +190,7 @@ function refreshAllImagesAndCounts() {
     document.getElementById('triforce').src = imagedir + 'triforce' + triforce + '.png'
 
     // items
-    for (var i = 0; i < 30; i++) {
+    for (var i = 0; i < 31; i++) {
         var l = 'item' + i.toString();
         var itemName = document.getElementById(l).name;
         var itemCount = items[itemName];
