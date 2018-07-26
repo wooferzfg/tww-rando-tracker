@@ -15,6 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css">
     <script src="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
+    <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
     <script src="./scripts/logic.js"></script>
     <script src="./scripts/tracker.js"></script>
 </head>
@@ -698,7 +699,7 @@
             </div>
         </div>
         <div class="buttons">
-            <button id="save-progress-button" type="button" onclick="saveProgress()">Save Progress</button>
+            <button id="save-progress-button" type="button" onclick="saveProgress(this)">Save Progress</button>
             <button id="toggle-locations-button" type="button" onclick="toggleNonProgressLocations(this)">Show Non-Progress Locations</button>
             <button id="toggle-background-button" type="button" onclick="toggleSingleColorBackground(this)">Show Single Color Background</button>
         </div>

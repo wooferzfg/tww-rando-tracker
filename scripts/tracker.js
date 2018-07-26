@@ -111,7 +111,7 @@ function loadProgress() {
     })
 }
 
-function saveProgress() {
+function saveProgress(element) {
     Object.keys(items).forEach(function (itemName) {
         localStorage.setItem(itemName, items[itemName]);
     });
@@ -122,8 +122,13 @@ function saveProgress() {
             localStorage.setItem(locationName, locationValue);
         });
     })
-
     localStorage.setItem("rando-flags", flagParam);
+
+    $(element).notify("Your progress has been saved.", {
+        autoHideDelay: 2500,
+        className: "success",
+        position: "top left"
+    });
 }
 
 function toggleNonProgressLocations(button) {
