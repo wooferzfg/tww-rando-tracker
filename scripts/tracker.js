@@ -112,23 +112,32 @@ function loadProgress() {
 }
 
 function saveProgress(element) {
-    Object.keys(items).forEach(function (itemName) {
-        localStorage.setItem(itemName, items[itemName]);
-    });
-    Object.keys(locationsChecked).forEach(function (generalLocation) {
-        Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
-            var locationName = generalLocation + " - " + detailedLocation;
-            var locationValue = locationsChecked[generalLocation][detailedLocation];
-            localStorage.setItem(locationName, locationValue);
+    try {
+        Object.keys(items).forEach(function (itemName) {
+            localStorage.setItem(itemName, items[itemName]);
         });
-    })
-    localStorage.setItem("rando-flags", flagParam);
+        Object.keys(locationsChecked).forEach(function (generalLocation) {
+            Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
+                var locationName = generalLocation + " - " + detailedLocation;
+                var locationValue = locationsChecked[generalLocation][detailedLocation];
+                localStorage.setItem(locationName, locationValue);
+            });
+        })
+        localStorage.setItem("rando-flags", flagParam);
 
-    $(element).notify("Your progress has been saved.", {
-        autoHideDelay: 2500,
-        className: "success",
-        position: "top left"
-    });
+        $(element).notify("Your progress has been saved.", {
+            autoHideDelay: 2500,
+            className: "success",
+            position: "top left"
+        });
+    }
+    catch {
+        $(element).notify("Your progress could not be saved.", {
+            autoHideDelay: 2500,
+            className: "error",
+            position: "top left"
+        });
+    }
 }
 
 function toggleNonProgressLocations(button) {
