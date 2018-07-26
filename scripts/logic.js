@@ -212,6 +212,7 @@ var keys = {
     "WT Small Key": 0,
 };
 var locationsChecked = {};
+var flags = [];
 var isKeyLunacy = false;
 var isRandomEntrances = false;
 
@@ -258,7 +259,9 @@ function loadItemLocations() {
 
 function afterLoad() {
     if (macrosLoaded && itemLocationsLoaded) {
-        loadFlagsAndStartingItems();
+        loadFlags();
+        loadStartingItems();
+        addDefeatGanondorf();
         setLocationsAreProgress();
         initializeLocationsChecked();
         initializeRandomDungeonEntrances();
@@ -285,6 +288,23 @@ function locationsChanged() {
     refreshAllImagesAndCounts();
     refreshLocationColors();
     recreateTooltips();
+}
+
+function loadStartingItems() {
+    items["Progressive Sword"] = 1;
+    items["Hero's Shield"] = 1;
+    items["Wind Waker"] = 1;
+    items["Boat's Sail"] = 1;
+    items["Wind's Requiem"] = 1;
+    items["Ballad of Gales"] = 1;
+}
+
+function addDefeatGanondorf() {
+    flags.push("Finish Game");
+    itemLocations["Ganon's Tower - Defeat Ganondorf"] = {
+        Need: "Can Reach and Defeat Ganondorf",
+        Types: "Finish Game"
+    };
 }
 
 function getDetailedLocations(generalLocation, isDungeon) {

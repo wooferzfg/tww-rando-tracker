@@ -1,5 +1,4 @@
 var flagParam = getParameterByName('f');
-var flags = [];
 var disableMap = false;
 var imagedir = 'images/';
 var currentGeneralLocation = '';
@@ -17,7 +16,7 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function loadFlagsAndStartingItems() {
+function loadFlags() {
     if (flagParam.indexOf("D1") > -1) {
         flags.push("Dungeon");
     }
@@ -81,19 +80,6 @@ function loadFlagsAndStartingItems() {
     if (flagParam.indexOf("RDE1") > -1) {
         isRandomEntrances = true;
     }
-
-    items["Progressive Sword"] = 1;
-    items["Hero's Shield"] = 1;
-    items["Wind Waker"] = 1;
-    items["Boat's Sail"] = 1;
-    items["Wind's Requiem"] = 1;
-    items["Ballad of Gales"] = 1;
-
-    flags.push("Finish Game");
-    itemLocations["Ganon's Tower - Defeat Ganondorf"] = {
-        Need: "Can Reach and Defeat Ganondorf",
-        Types: "Finish Game"
-    };
 }
 
 function loadProgress() {
