@@ -262,11 +262,11 @@ legend {
 .triforce-and-pearls {
     margin-top: auto;
     margin-bottom: auto;
-    width: 326px;
+    width: 270px;
 }
 
 .pearls {
-    width: 150px;
+    width: 114px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -282,6 +282,10 @@ legend {
 
 .song-notes {
     display: none;
+}
+
+.empty-cell {
+    pointer-events: none;
 }
 
 .chart-map-container {

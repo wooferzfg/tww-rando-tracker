@@ -190,7 +190,7 @@ function refreshAllImagesAndCounts() {
     document.getElementById('triforce').src = imagedir + 'triforce' + triforce + '.png'
 
     // items
-    for (var i = 0; i < 27; i++) {
+    for (var i = 0; i < 30; i++) {
         var l = 'item' + i.toString();
         var itemName = document.getElementById(l).name;
         var itemCount = items[itemName];
@@ -336,14 +336,14 @@ function clearItemInfo() {
 
 function itemInfo(element) {
     var text = element.name;
-    if (text == "Hero's Shield") {
-        if (items["Mirror Shield"] == 1) {
-            text = "Mirror Shield";
-        }
-    } else if (text.startsWith("Progressive")) {
+    if (text.startsWith("Progressive")) {
         var itemCount = items[text];
         var textWithCount = text + " x" + itemCount;
         text = getNameForItem(textWithCount);
+    } else if (text == "Hero's Shield") {
+        if (items["Mirror Shield"] == 1) {
+            text = "Mirror Shield";
+        }
     } else if (text == "Triforce") {
         for (var i = 1; i <= 8; i++) {
             var curShard = "Triforce Shard " + i;
@@ -352,6 +352,9 @@ function itemInfo(element) {
                 break;
             }
         }
+    } else if (text == "Empty Bottle") {
+        var itemCount = items[text];
+        text = "Empty Bottle (" + itemCount + "/4)";
     } else {
         text = getNameForItem(text);
     }

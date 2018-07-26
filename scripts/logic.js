@@ -192,6 +192,9 @@ var items = {
 
     "Telescope": 0,
     "Magic Armor": 0,
+    "Hero's Charm": 0,
+    "Progressive Quiver": 0,
+    "Progressive Bomb Bag": 0,
 
     "Entered DRC": 0,
     "Entered FW": 0,
@@ -814,10 +817,24 @@ function getNameForItem(itemName) {
             }
         } else if (item == "Progressive Wallet") {
             if (numRequired <= 1) {
-                return "1000 Rupee Wallet";
+                return "Wallet (1000 Rupees)";
             }
             if (numRequired == 2) {
-                return "5000 Rupee Wallet";
+                return "Wallet (5000 Rupees)";
+            }
+        } else if (item == "Progressive Quiver") {
+            if (numRequired <= 1) {
+                return "Quiver (60 Arrows)"
+            }
+            if (numRequired == 2) {
+                return "Quiver (99 Arrows)";
+            }
+        } else if (item == "Progressive Bomb Bag") {
+            if (numRequired <= 1) {
+                return "Bomb Bag (60 Bombs)"
+            }
+            if (numRequired == 2) {
+                return "Bomb Bag (99 Bombs)";
             }
         }
     }
