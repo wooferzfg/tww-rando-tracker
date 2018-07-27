@@ -66,31 +66,31 @@ function getFlagString() {
 	return result;
 }
 
-function loadMostRecent() {
+function openTracker(loadProgress) {
 	var flagStr = getFlagString();
-	var version = localStorage.getItem("version");
 	var versionStr = '';
-	if (version) {
-		versionStr = '&v=' + version;
+	var progressStr = '0';
+	if (loadProgress) {
+		var version = localStorage.getItem("version");
+		if (version) {
+			versionStr = '&v=' + version;
+		}
+		progressStr = '1';
 	}
 
 	//Chrome defaults
 	var h = 455;
 	var w = 1320;
 
-	open('tracker.html?f=' + flagStr + '&p=1' + versionStr,
+	open('tracker.html?f=' + flagStr + '&p=' + progressStr + versionStr,
 		'',
 		'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0');
 }
 
+function loadMostRecent() {
+	openTracker(true);
+}
+
 function launch() {
-	var flagStr = getFlagString();
-
-	//Chrome defaults
-	var h = 455;
-	var w = 1320;
-
-	open('tracker.html?f=' + flagStr + '&p=0',
-		'',
-		'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0');
+	openTracker(false);
 }
