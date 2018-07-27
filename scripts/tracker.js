@@ -21,7 +21,7 @@ function getParameterByName(name, url) {
 
 function showLoadingError() {
     if (!loadingErrorShown) {
-        $.notify("Wind Waker Randomizer " + getVersion() + " logic could not be loaded.", {
+        $.notify("Logic for Wind Waker Randomizer " + getVersion() + " could not be loaded.", {
             autoHideDelay: 5000,
             className: "error",
             position: "top left"
@@ -164,14 +164,14 @@ function saveProgress(element) {
         localStorage.setItem("version", getVersion());
         localStorage.setItem("progress", "true");
 
-        $(element).notify("Your progress has been saved.", {
+        $(element).notify("Progress saved.", {
             autoHideDelay: 5000,
             className: "success",
             position: "top left"
         });
     }
     catch {
-        $(element).notify("Your progress could not be saved.", {
+        $(element).notify("Progress could not be saved.", {
             autoHideDelay: 5000,
             className: "error",
             position: "top left"
