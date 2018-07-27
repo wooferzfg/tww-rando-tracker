@@ -115,6 +115,12 @@ function loadProgress() {
                     items[itemName] = itemCount;
                 }
             });
+            Object.keys(keys).forEach(function (keyName) {
+                var keyCount = parseInt(localStorage.getItem(keyName));
+                if (!isNaN(keyCount)) {
+                    keys[keyName] = keyCount;
+                }
+            });
             Object.keys(locationsChecked).forEach(function (generalLocation) {
                 Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
                     var locationName = generalLocation + " - " + detailedLocation;
@@ -150,6 +156,9 @@ function saveProgress(element) {
     try {
         Object.keys(items).forEach(function (itemName) {
             localStorage.setItem(itemName, items[itemName]);
+        });
+        Object.keys(keys).forEach(function (keyName) {
+            localStorage.setItem(keyName, keys[keyName]);
         });
         Object.keys(locationsChecked).forEach(function (generalLocation) {
             Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
@@ -194,7 +203,7 @@ function toggleNonProgressLocations(button) {
             toggleMap(islands.indexOf(currentGeneralLocation), false);
         }
     }
-    locationsChanged();
+    dataChanged();
 }
 
 function toggleSingleColorBackground(button) {
@@ -429,7 +438,7 @@ function toggleShield(element) {
         items["Hero's Shield"] = 0;
         items["Mirror Shield"] = 0;
     }
-    itemsChanged();
+    dataChanged();
     itemInfo(element);
 }
 
@@ -444,7 +453,7 @@ function toggleTriforce() {
             resetAllShards();
         }
     }
-    itemsChanged();
+    dataChanged();
     itemInfo(document.getElementById('triforce'));
 }
 
@@ -461,7 +470,7 @@ function toggleItem(itemName, maxItems) {
         curCount = 0;
     }
     items[itemName] = curCount;
-    itemsChanged();
+    dataChanged();
 }
 
 function toggleKey(element, maxKeys) {
@@ -473,7 +482,7 @@ function toggleKey(element, maxKeys) {
         keyCount = 0;
     }
     keys[keyName] = keyCount;
-    itemsChanged();
+    dataChanged();
     if (keyName.includes("Small")) {
         smallKeyInfo(element, maxKeys);
     }
@@ -698,7 +707,7 @@ function toggleLocation(element) {
     var detailedLocation = element.innerText;
     var newLocationChecked = !locationsChecked[currentGeneralLocation][detailedLocation];
     locationsChecked[currentGeneralLocation][detailedLocation] = newLocationChecked;
-    locationsChanged();
+    dataChanged();
 }
 
 function clearMapInfo() {

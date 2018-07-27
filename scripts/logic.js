@@ -252,7 +252,9 @@ function loadMacros() {
                 macrosLoaded = true;
                 afterLoad();
             },
-            error: showLoadingError()
+            error: function () {
+                showLoadingError();
+            }
         }
     )
 }
@@ -266,7 +268,9 @@ function loadItemLocations() {
                 itemLocationsLoaded = true;
                 afterLoad();
             },
-            error: showLoadingError()
+            error: function () {
+                showLoadingError();
+            }
         }
     )
 }
@@ -287,17 +291,9 @@ function afterLoad() {
     }
 }
 
-// tracker should call this after changing 'items'
-function itemsChanged() {
+// tracker should call this after changing 'items', 'keys', or 'locationsChecked'
+function dataChanged() {
     setLocationsAreAvailable();
-    setChestCounts();
-    refreshAllImagesAndCounts();
-    refreshLocationColors();
-    recreateTooltips();
-}
-
-// tracker should call this after changing 'locationsChecked'
-function locationsChanged() {
     setChestCounts();
     refreshAllImagesAndCounts();
     refreshLocationColors();
