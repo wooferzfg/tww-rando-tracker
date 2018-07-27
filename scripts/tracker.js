@@ -7,6 +7,7 @@ var currentGeneralLocation = '';
 var currentLocationIsDungeon = false;
 var showNonProgressLocations = false;
 var singleColorBackground = false;
+var loadingErrorShown = false;
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -16,6 +17,17 @@ function getParameterByName(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function showLoadingError() {
+    if (!loadingErrorShown) {
+        $.notify("Wind Waker Randomizer " + getVersion() + " logic could not be loaded.", {
+            autoHideDelay: 5000,
+            className: "error",
+            position: "top left"
+        });
+        loadingErrorShown = true;
+    }
 }
 
 function loadFlags() {
@@ -116,13 +128,13 @@ function loadProgress() {
                 notificationMessage = "Progress loaded for Wind Waker Randomizer " + version + "."
             }
             $.notify(notificationMessage, {
-                autoHideDelay: 3000,
+                autoHideDelay: 5000,
                 className: "success",
                 position: "top left"
             });
         } else {
             $.notify("Progress could not be loaded.", {
-                autoHideDelay: 3000,
+                autoHideDelay: 5000,
                 className: "error",
                 position: "top left"
             });
@@ -153,14 +165,14 @@ function saveProgress(element) {
         localStorage.setItem("progress", "true");
 
         $(element).notify("Your progress has been saved.", {
-            autoHideDelay: 3000,
+            autoHideDelay: 5000,
             className: "success",
             position: "top left"
         });
     }
     catch {
         $(element).notify("Your progress could not be saved.", {
-            autoHideDelay: 3000,
+            autoHideDelay: 5000,
             className: "error",
             position: "top left"
         });

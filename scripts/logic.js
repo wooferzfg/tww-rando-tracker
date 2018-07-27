@@ -244,29 +244,29 @@ function getVersion() {
 }
 
 function loadMacros() {
-    var version = getVersion();
     $.ajax(
         {
-            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/' + version + '/logic/macros.txt',
+            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/' + getVersion() + '/logic/macros.txt',
             success: function (data) {
                 macros = jsyaml.load(data);
                 macrosLoaded = true;
                 afterLoad();
-            }
+            },
+            error: showLoadingError()
         }
     )
 }
 
 function loadItemLocations() {
-    var version = getVersion();
     $.ajax(
         {
-            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/' + version + '/logic/item_locations.txt',
+            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/' + getVersion() + '/logic/item_locations.txt',
             success: function (data) {
                 itemLocations = jsyaml.load(data);
                 itemLocationsLoaded = true;
                 afterLoad();
-            }
+            },
+            error: showLoadingError()
         }
     )
 }
