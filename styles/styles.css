@@ -214,10 +214,10 @@ legend {
 }
 
 .item-tracker {
-    width: 436px;
+    width: 434px;
     height: 326px;
     background: url("../images/trackerbg.png") no-repeat center center;
-    padding: 10px;
+    padding: 10px 11px;
     background-size: cover;
     float: left;
     margin-right: 8px;
