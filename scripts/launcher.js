@@ -66,33 +66,31 @@ function getFlagString() {
 	return result;
 }
 
-function getMostRecentFlags() {
-	var flagsStr = localStorage.getItem("rando-flags");
-	if (flagsStr)
-		return flagsStr;
-	return getFlagString();
-}
-
 function loadMostRecent() {
-	var flagsstr = getMostRecentFlags();
+	var flagStr = getFlagString();
+	var version = localStorage.getItem("version");
+	var versionStr = '';
+	if (version) {
+		versionStr = '&v=' + version;
+	}
 
 	//Chrome defaults
 	var h = 455;
 	var w = 1320;
 
-	open('tracker.html?f=' + flagsstr + '&p=1',
+	open('tracker.html?f=' + flagStr + '&p=1' + versionStr,
 		'',
 		'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0');
 }
 
 function launch() {
-	var flagsstr = getFlagString();
+	var flagStr = getFlagString();
 
 	//Chrome defaults
 	var h = 455;
 	var w = 1320;
 
-	open('tracker.html?f=' + flagsstr + '&p=0',
+	open('tracker.html?f=' + flagStr + '&p=0',
 		'',
 		'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0');
 }

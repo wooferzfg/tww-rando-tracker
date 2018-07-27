@@ -1,4 +1,6 @@
 var flagParam = getParameterByName('f');
+var versionParam = getParameterByName('v');
+var progressParam = getParameterByName("p");
 var disableMap = false;
 var imagedir = 'images/';
 var currentGeneralLocation = '';
@@ -17,6 +19,16 @@ function getParameterByName(name, url) {
 }
 
 function loadFlags() {
+    if (progressParam == "1" && getLocalStorageBool("progress")) {
+        var flagString = localStorage.getItem("flags");
+        if (flagString) {
+            flags = flagString.split(',');
+        }
+        isKeyLunacy = getLocalStorageBool("isKeyLunacy");
+        isRandomEntrances = getLocalStorageBool("isRandomEntrances");
+        return;
+    }
+
     if (flagParam.indexOf("D1") > -1) {
         flags.push("Dungeon");
     }
@@ -83,18 +95,43 @@ function loadFlags() {
 }
 
 function loadProgress() {
-    var progressString = getParameterByName("p");
-    if (parseInt(progressString) == 0) return;
+    if (progressParam == "1") {
+        if (getLocalStorageBool("progress")) {
+            Object.keys(items).forEach(function (itemName) {
+                var itemCount = parseInt(localStorage.getItem(itemName));
+                if (!isNaN(itemCount)) {
+                    items[itemName] = itemCount;
+                }
+            });
+            Object.keys(locationsChecked).forEach(function (generalLocation) {
+                Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
+                    var locationName = generalLocation + " - " + detailedLocation;
+                    locationsChecked[generalLocation][detailedLocation] = getLocalStorageBool(locationName);
+                });
+            });
 
-    Object.keys(items).forEach(function (itemName) {
-        items[itemName] = parseInt(localStorage.getItem(itemName));
-    });
-    Object.keys(locationsChecked).forEach(function (generalLocation) {
-        Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
-            var locationName = generalLocation + " - " + detailedLocation;
-            locationsChecked[generalLocation][detailedLocation] = localStorage.getItem(locationName) == "true";
-        });
-    })
+            var notificationMessage = "Progress loaded.";
+            var version = getVersion();
+            if (version != currentVersion) {
+                notificationMessage = "Progress loaded for Wind Waker Randomizer " + version + "."
+            }
+            $.notify(notificationMessage, {
+                autoHideDelay: 3000,
+                className: "success",
+                position: "top left"
+            });
+        } else {
+            $.notify("Progress could not be loaded.", {
+                autoHideDelay: 3000,
+                className: "error",
+                position: "top left"
+            });
+        }
+    }
+}
+
+function getLocalStorageBool(itemName) {
+    return localStorage.getItem(itemName) == "true";
 }
 
 function saveProgress(element) {
@@ -109,17 +146,21 @@ function saveProgress(element) {
                 localStorage.setItem(locationName, locationValue);
             });
         })
-        localStorage.setItem("rando-flags", flagParam);
+        localStorage.setItem("flags", flags.join(','));
+        localStorage.setItem("isKeyLunacy", isKeyLunacy);
+        localStorage.setItem("isRandomEntrances", isRandomEntrances);
+        localStorage.setItem("version", getVersion());
+        localStorage.setItem("progress", "true");
 
         $(element).notify("Your progress has been saved.", {
-            autoHideDelay: 2500,
+            autoHideDelay: 3000,
             className: "success",
             position: "top left"
         });
     }
     catch {
         $(element).notify("Your progress could not be saved.", {
-            autoHideDelay: 2500,
+            autoHideDelay: 3000,
             className: "error",
             position: "top left"
         });
