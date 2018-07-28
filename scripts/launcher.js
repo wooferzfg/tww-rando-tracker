@@ -1,4 +1,4 @@
-var currentVersion = "1.2.0";
+const currentVersion = "1.2.0";
 
 function parseFlags(flags, ids) {
 	var curVal = 128;

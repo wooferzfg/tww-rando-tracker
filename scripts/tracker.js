@@ -1,9 +1,10 @@
-var flagParam = getParameterByName('f');
-var versionParam = getParameterByName('v');
-var progressParam = getParameterByName('p');
-var isCurrentVersionParam = getParameterByName('c');
+const imageDir = 'images/';
+const flagParam = getParameterByName('f');
+const versionParam = getParameterByName('v');
+const progressParam = getParameterByName('p');
+const isCurrentVersionParam = getParameterByName('c');
+
 var disableMap = false;
-var imagedir = 'images/';
 var currentGeneralLocation = '';
 var currentLocationIsDungeon = false;
 var showNonProgressLocations = false;
@@ -241,9 +242,9 @@ function refreshAllImagesAndCounts() {
     for (var i = 0; i < bosses.length; i++) {
         var l = 'extralocation' + i.toString();
         if (bosses[i]) {
-            document.getElementById(l).src = imagedir + 'boss' + i + '_d.png';
+            document.getElementById(l).src = imageDir + 'boss' + i + '_d.png';
         } else {
-            document.getElementById(l).src = imagedir + 'boss' + i + '.png';
+            document.getElementById(l).src = imageDir + 'boss' + i + '.png';
         }
     }
 
@@ -255,7 +256,7 @@ function refreshAllImagesAndCounts() {
         }
         else break;
     }
-    document.getElementById('triforce').src = imagedir + 'triforce' + triforce + '.png'
+    document.getElementById('triforce').src = imageDir + 'triforce' + triforce + '.png'
 
     // items
     for (var i = 0; i < 31; i++) {
@@ -264,22 +265,22 @@ function refreshAllImagesAndCounts() {
         var itemCount = items[itemName];
 
         if (itemCount === 0) {
-            document.getElementById(l).src = imagedir + 'item' + i + '.png'
+            document.getElementById(l).src = imageDir + 'item' + i + '.png'
         } else if (itemCount === 1) {
-            document.getElementById(l).src = imagedir + 'item' + i + '_a.png'
+            document.getElementById(l).src = imageDir + 'item' + i + '_a.png'
         } else {
-            document.getElementById(l).src = imagedir + 'item' + i + '_' + itemCount + '_a.png'
+            document.getElementById(l).src = imageDir + 'item' + i + '_' + itemCount + '_a.png'
         }
     }
 
     // shields
     var l = 'shield';
     if (items["Mirror Shield"] > 0) {
-        document.getElementById(l).src = imagedir + 'mirrorshield.png'
+        document.getElementById(l).src = imageDir + 'mirrorshield.png'
     } else if (items["Hero's Shield"] > 0) {
-        document.getElementById(l).src = imagedir + 'herosshield.png'
+        document.getElementById(l).src = imageDir + 'herosshield.png'
     } else {
-        document.getElementById(l).src = imagedir + 'noshield.png'
+        document.getElementById(l).src = imageDir + 'noshield.png'
     }
 
     // songs
@@ -288,9 +289,9 @@ function refreshAllImagesAndCounts() {
         var songName = document.getElementById(l).name;
 
         if (items[songName] === 0) {
-            document.getElementById(l).src = imagedir + 'song' + i + '.png'
+            document.getElementById(l).src = imageDir + 'song' + i + '.png'
         } else
-            document.getElementById(l).src = imagedir + 'song' + i + '_a.png'
+            document.getElementById(l).src = imageDir + 'song' + i + '_a.png'
     }
 
     // pearls
@@ -299,9 +300,9 @@ function refreshAllImagesAndCounts() {
         var pearlName = document.getElementById(l).name;
 
         if (items[pearlName] === 0) {
-            document.getElementById(l).src = imagedir + 'pearl' + i + '.png'
+            document.getElementById(l).src = imageDir + 'pearl' + i + '.png'
         } else
-            document.getElementById(l).src = imagedir + 'pearl' + i + '_a.png'
+            document.getElementById(l).src = imageDir + 'pearl' + i + '_a.png'
     }
 
     for (var i = 0; i < dungeons.length; i++) {
@@ -311,9 +312,9 @@ function refreshAllImagesAndCounts() {
             var smallKeyName = document.getElementById(l).innerText;
             var smallKeyCount = keys[smallKeyName];
             if (smallKeyCount === 0) {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'smallkey.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'smallkey.png\')';
             } else {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'smallkey_' + smallKeyCount + '.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'smallkey_' + smallKeyCount + '.png\')';
             }
 
             // dungeon entry
@@ -321,9 +322,9 @@ function refreshAllImagesAndCounts() {
             if (isRandomEntrances) {
                 var entryName = document.getElementById(l).innerText;
                 if (items[entryName] === 0) {
-                    document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'dungeon_noentry.png\')';
+                    document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'dungeon_noentry.png\')';
                 } else {
-                    document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'dungeon_entered.png\')';
+                    document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'dungeon_entered.png\')';
                 }
             } else {
                 document.getElementById(l).style.display = "none";
@@ -334,9 +335,9 @@ function refreshAllImagesAndCounts() {
             var bigKeyName = document.getElementById(l).innerText;
             var bigKeyCount = keys[bigKeyName];
             if (bigKeyCount === 0) {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'bosskey.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'bosskey.png\')';
             } else {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'bosskey_a.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'bosskey_a.png\')';
             }
         }
     }
@@ -348,16 +349,16 @@ function refreshAllImagesAndCounts() {
         var chartCount = items[chartName];
         if (chartName.includes("Triforce")) {
             if (chartCount === 1) {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'triforcechartopen.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'triforcechartopen.png\')';
             } else {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'triforcechart.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'triforcechart.png\')';
             }
         }
         else {
             if (chartCount === 1) {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'chartopen.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'chartopen.png\')';
             } else {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'chart.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'chart.png\')';
             }
         }
     }
@@ -643,11 +644,11 @@ function toggleMap(index, isDungeon) {
     if (isDungeon) {
         currentGeneralLocation = dungeons[index];
         currentLocationIsDungeon = true;
-        document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imagedir + 'dungeon_mapfull' + index + '.png\')';
+        document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imageDir + 'dungeon_mapfull' + index + '.png\')';
     } else {
         currentGeneralLocation = islands[index];
         currentLocationIsDungeon = false;
-        document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imagedir + 'mapfull' + index + '.png\')';
+        document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imageDir + 'mapfull' + index + '.png\')';
     }
 
     var detailedLocations = getDetailedLocations(currentGeneralLocation, isDungeon);
