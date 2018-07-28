@@ -442,7 +442,7 @@ legend {
 }
 
 .extra-locations {
-    background-color: rgba(200, 200, 200, 0.8);
+    background-color: rgba(160, 160, 160, 0.85);
     width: 450px;
     height: 242px;
     margin-bottom: 8px;
@@ -450,7 +450,7 @@ legend {
 }
 
 .extra-locations.single-color {
-    background-color: rgba(180, 180, 180, 1);
+    background-color: rgba(160, 160, 160, 1);
 }
 
 .extra-location {
