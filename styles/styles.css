@@ -407,6 +407,7 @@ legend {
     z-index: -2;
     background: url("../images/map48.png");
     background-size: cover;
+    background-position-y: 50%;
 }
 
 .zoommap-cover {
