@@ -21,7 +21,12 @@ function getParameterByName(name, url) {
 
 function showLoadingError() {
     if (!loadingErrorShown) {
-        $.notify("Logic for Wind Waker Randomizer " + getVersion() + " could not be loaded.", {
+        if (versionParam) {
+            var notificationMessage = "Logic for Wind Waker Randomizer " + versionParam + " could not be loaded.";
+        } else {
+            var notificationMessage = "Logic could not be loaded. Version not specified.";
+        }
+        $.notify(notificationMessage, {
             autoHideDelay: 5000,
             className: "error",
             position: "top left"
@@ -128,11 +133,7 @@ function loadProgress() {
                 });
             });
 
-            var notificationMessage = "Progress loaded.";
-            var version = getVersion();
-            if (version != currentVersion) {
-                notificationMessage = "Progress loaded for Wind Waker Randomizer " + version + "."
-            }
+            var notificationMessage = "Progress loaded for Wind Waker Randomizer " + versionParam + "."
             $.notify(notificationMessage, {
                 autoHideDelay: 5000,
                 className: "success",
@@ -170,7 +171,7 @@ function saveProgress(element) {
         localStorage.setItem("flags", flags.join(','));
         localStorage.setItem("isKeyLunacy", isKeyLunacy);
         localStorage.setItem("isRandomEntrances", isRandomEntrances);
-        localStorage.setItem("version", getVersion());
+        localStorage.setItem("version", versionParam);
         localStorage.setItem("progress", "true");
 
         $(element).notify("Progress saved.", {

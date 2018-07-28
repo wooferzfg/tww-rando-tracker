@@ -2,7 +2,6 @@ var macros; // contents of macros.txt
 var itemLocations; // contents of item_locations.txt
 var macrosLoaded = false;
 var itemLocationsLoaded = false;
-var currentVersion = "1.2.0";
 
 const islands = [
     'Forsaken Fortress',
@@ -236,17 +235,10 @@ $(document).ready(function () {
     loadItemLocations();
 });
 
-function getVersion() {
-    if (versionParam) {
-        return versionParam;
-    }
-    return currentVersion;
-}
-
 function loadMacros() {
     $.ajax(
         {
-            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/' + getVersion() + '/logic/macros.txt',
+            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/' + versionParam + '/logic/macros.txt',
             success: function (data) {
                 macros = jsyaml.load(data);
                 macrosLoaded = true;
@@ -262,7 +254,7 @@ function loadMacros() {
 function loadItemLocations() {
     $.ajax(
         {
-            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/' + getVersion() + '/logic/item_locations.txt',
+            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/' + versionParam + '/logic/item_locations.txt',
             success: function (data) {
                 itemLocations = jsyaml.load(data);
                 itemLocationsLoaded = true;
