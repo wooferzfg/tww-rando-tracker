@@ -103,10 +103,12 @@ function openTracker(loadProgress) {
 	var flagStr = getFlagString();
 	var progressStr = '0';
 	var versionStr = currentVersion;
+	var isCurrentVersionStr = '1';
 	if (loadProgress) {
 		var storedVersion = localStorage.getItem("version");
-		if (storedVersion) {
+		if (storedVersion && storedVersion != currentVersion) {
 			versionStr = storedVersion;
+			isCurrentVersionStr = '0';
 		}
 		progressStr = '1';
 	}
@@ -115,7 +117,7 @@ function openTracker(loadProgress) {
 	var h = 455;
 	var w = 1320;
 
-	open('tracker.html?f=' + flagStr + '&p=' + progressStr + '&v=' + versionStr,
+	open('tracker.html?f=' + flagStr + '&p=' + progressStr + '&v=' + versionStr + '&c=' + isCurrentVersionStr,
 		'',
 		'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0');
 }

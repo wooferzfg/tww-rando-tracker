@@ -1,6 +1,7 @@
 var flagParam = getParameterByName('f');
 var versionParam = getParameterByName('v');
-var progressParam = getParameterByName("p");
+var progressParam = getParameterByName('p');
+var isCurrentVersionParam = getParameterByName('c');
 var disableMap = false;
 var imagedir = 'images/';
 var currentGeneralLocation = '';
@@ -133,7 +134,11 @@ function loadProgress() {
                 });
             });
 
-            var notificationMessage = "Progress loaded for Wind Waker Randomizer " + versionParam + "."
+            if (isCurrentVersionParam == '1') {
+                var notificationMessage = "Progress loaded.";
+            } else {
+                var notificationMessage = "Progress loaded for Wind Waker Randomizer " + versionParam + "."
+            }
             $.notify(notificationMessage, {
                 autoHideDelay: 5000,
                 className: "success",
