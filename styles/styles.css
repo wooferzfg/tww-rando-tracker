@@ -237,6 +237,10 @@ legend {
     text-align: center;
 }
 
+.item-tracker img {
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
 .menu-items {
     width: 100%;
 }
@@ -264,6 +268,17 @@ legend {
     width: 114px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+}
+
+.pearl-holder {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.pearl-holder img {
+    filter: none;
 }
 
 .misc-items {
