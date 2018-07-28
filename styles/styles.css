@@ -478,6 +478,18 @@ legend {
     font-size: 0;
 }
 
+.small-key {
+    background: url("../images/smallkey.png");
+}
+
+.dungeon-entry {
+    background: url("../images/dungeon_noentry.png");
+}
+
+.boss-key {
+    background: url("../images/bosskey.png");
+}
+
 .extra-location-chests {
     font-size: 16px;
     text-align: center;
