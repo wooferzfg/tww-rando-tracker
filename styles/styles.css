@@ -36,7 +36,10 @@ body {
 }
 
 .settings,
-.attribution {
+.attribution,
+#iteminfo,
+#mapinfo,
+#mapiteminfo {
     text-shadow: 1.5px 1px rgba(0, 0, 0, 0.5);
 }
 
@@ -439,7 +442,7 @@ legend {
 }
 
 .extra-locations {
-    background-color: rgba(160, 160, 160, 0.85);
+    background-color: rgba(200, 200, 200, 0.8);
     width: 450px;
     height: 242px;
     margin-bottom: 8px;
@@ -447,7 +450,7 @@ legend {
 }
 
 .extra-locations.single-color {
-    background-color: rgba(160, 160, 160, 1);
+    background-color: rgba(180, 180, 180, 1);
 }
 
 .extra-location {
