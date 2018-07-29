@@ -29,9 +29,9 @@ body {
     background-position: center center;
     display: flex;
     justify-content: center;
+    color: white;
     width: 100%;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 8px 0px;
     flex-wrap: wrap;
 }
 
@@ -129,15 +129,18 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-.permalink-container {
+.permalink-container,
+.launcher-button-container {
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.2em;
-    color: white;
     width: 100%;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding: 4px 0px;
+}
+
+.launcher-button {
+    width: 200px;
 }
 
 .permalink-input {
@@ -174,7 +177,7 @@ button:hover {
 fieldset {
     margin: 4px 20px;
     border: 1px solid #c8c8c8;
-    padding: 4px;
+    padding: 0px 4px 4px 4px;
     border-radius: 4px;
     background-color: rgba(50, 50, 50, 0.4);
 }
@@ -184,18 +187,10 @@ legend {
     padding: 2px;
 }
 
-.launcher-button-container {
-    text-align: center;
-}
-
-.launcher-button {
-    width: 200px;
-}
-
 .attribution,
 .attribution a {
     text-align: center;
-    margin-top: 25px;
+    margin-top: 20px;
     color: #C8C8C8;
     font-size: 13px;
 }
