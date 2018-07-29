@@ -53,10 +53,10 @@ function applyflags(element) {
 			flags = bits.charCodeAt(2);
 			parseFlags(flags, ['expensive_purchases', 'misc', 'key_lunacy', 'randomize_dungeon_entrances', '', '', '', '']);
 
-			$(element).notify("Flags applied.", {
+			$(element).notify("Flags applied from the Permalink.", {
 				autoHideDelay: 5000,
 				className: "success",
-				position: "top left"
+				position: "top center"
 			});
 		} else {
 			showBrokenPermalink(element, false);
@@ -69,14 +69,14 @@ function applyflags(element) {
 
 function showBrokenPermalink(element, wrongVersion) {
 	if (wrongVersion) {
-		var notificationMessage = "Flags could not be applied for Wind Waker Randomizer " + currentVersion + ".";
+		var notificationMessage = "Flags could not be applied. Permalink is not compatible with Wind Waker Randomizer " + currentVersion + ".";
 	} else {
-		var notificationMessage = "Flags could not be applied.";
+		var notificationMessage = "Flags could not be applied from the Permalink.";
 	}
 	$(element).notify(notificationMessage, {
 		autoHideDelay: 5000,
 		className: "error",
-		position: "top left"
+		position: "top center"
 	});
 }
 
