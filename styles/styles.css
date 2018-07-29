@@ -134,9 +134,12 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2em;
     width: 100%;
     padding: 4px 0px;
+}
+
+.permalink-label {
+    font-size: 1.2em;
 }
 
 .launcher-button {
@@ -152,11 +155,15 @@ button,
 #flags {
     padding: 6px;
     border-radius: 5px;
-    font-size: 0.8em;
     font-weight: bold;
     border: 1px solid #808080;
     margin-left: 2px;
     margin-right: 2px;
+}
+
+.settings button,
+#flags {
+    font-size: 1em;
 }
 
 #flags {
