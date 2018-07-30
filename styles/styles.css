@@ -1,6 +1,11 @@
 body {
     background-image: url("../images/background.png");
     font-family: 'Fira Sans', sans-serif;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .full-container {
@@ -73,10 +78,6 @@ body {
     width: 10%;
 }
 
-#apply-flags-button {
-    width: 120px;
-}
-
 .switch {
     position: relative;
     display: inline-block;
@@ -142,13 +143,13 @@ input:checked + .slider:before {
     font-size: 1.2em;
 }
 
-.launcher-button {
-    width: 200px;
-}
-
 .permalink-input {
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.launcher-button {
+    min-width: 200px;
 }
 
 button,
@@ -175,6 +176,9 @@ button {
     background: linear-gradient(#d2d2d2,#c8c8c8);
     font-family: 'Fira Sans', sans-serif;
     cursor: pointer;
+    min-width: 120px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 button:hover {
@@ -216,6 +220,7 @@ legend {
     display: flex;
     flex-wrap: wrap;
     flex-grow: 1;
+    align-content: flex-start;
 }
 
 .item-tracker {
@@ -394,6 +399,7 @@ legend {
 }
 
 #zoommap td {
+    padding-top: 0;
     padding-bottom: 0;
 }
 
@@ -506,14 +512,10 @@ legend {
 }
 
 #save-progress-button {
-    width: 120px;
     margin-left: 0;
 }
 
-#toggle-locations-button {
-    width: 200px;
-}
-
+#toggle-locations-button,
 #toggle-background-button {
-    width: 200px;
+    min-width: 225px;
 }
