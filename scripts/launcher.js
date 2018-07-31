@@ -62,7 +62,7 @@ function applyflags(element) {
 			showBrokenPermalink(element, false);
 		}
 	}
-	catch {
+	catch (err) {
 		showBrokenPermalink(element, false);
 	}
 }

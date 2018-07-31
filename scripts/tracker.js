@@ -186,7 +186,7 @@ function saveProgress(element) {
             position: "top left"
         });
     }
-    catch {
+    catch (err) {
         $(element).notify("Progress could not be saved.", {
             autoHideDelay: 5000,
             className: "error",
