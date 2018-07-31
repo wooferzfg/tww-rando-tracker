@@ -6,7 +6,8 @@
     <meta http-equiv="expires" content="0" />
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
-    <title>TWW Rando Tracker</title>
+    <title>TWW Randomizer Tracker</title>
+    <link rel="icon" href="./images/icon.ico" />
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
     <link rel="stylesheet" href="./styles/styles.css">
     <script src="https://cdn.jsdelivr.net/es5.shim/4.4.1/es5-shim.min.js"></script>
@@ -14,779 +15,694 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css">
     <script src="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
+    <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
     <script src="./scripts/logic.js"></script>
     <script src="./scripts/tracker.js"></script>
 </head>
 
 <body>
-    <div class="tracker">
-        <div class="item-tracker">
-            <table>
-                <tr>
-                    <td>
-                        <img id="item0" name="Telescope" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item0.png" />
-                    </td>
-                    <td>
-                        <img id="item1" name="Boat's Sail" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item1.png" />
-                    </td>
-                    <td>
-                        <img id="item2" name="Wind Waker" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item2.png" />
-                    </td>
-                    <td>
-                        <img id="item3" name="Grappling Hook" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item3.png" />
-                    </td>
-                    <td>
-                        <img id="item4" name="Spoils Bag" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item4.png" />
-                    </td>
-                    <td>
-                        <img id="item5" name="Boomerang" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item5.png" />
-                    </td>
-                    <td>
-                        <img id="item6" name="Deku Leaf" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item6.png" />
-                    </td>
-                    <td>
-                        <img id="item21" name="Progressive Sword" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 4);"
-                            src="./images/item21.png" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img id="item7" name="Tingle Tuner" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item7.png" />
-                    </td>
-                    <td>
-                        <img id="item8" name="Progressive Picto Box" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 2);"
-                            src="./images/item8.png" />
-                    </td>
-                    <td>
-                        <img id="item9" name="Iron Boots" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item9.png" />
-                    </td>
-                    <td>
-                        <img id="item10" name="Magic Armor" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item10.png" />
-                    </td>
-                    <td>
-                        <img id="item11" name="Bait Bag" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item11.png" />
-                    </td>
-                    <td>
-                        <img id="item12" name="Progressive Bow" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 3);"
-                            src="./images/item12.png" />
-                    </td>
-                    <td>
-                        <img id="item13" name="Bombs" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item13.png" />
-                    </td>
-                    <td>
-                        <img id="shield" name="Progressive Shield" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleShield(this);"
-                            src="./images/herosshield.png" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img id="item14" name="Empty Bottle" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 4);"
-                            src="./images/item14.png" />
-                    </td>
-                    <td>
-                        <img id="item15" name="Maggie's Letter" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item15.png" />
-                    </td>
-                    <td>
-                        <img id="item16" name="Moblin's Letter" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item16.png" />
-                    </td>
-                    <td>
-                        <img id="item17" name="Note to Mom" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item17.png" />
-                    </td>
-                    <td>
-                        <img id="item18" name="Delivery Bag" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item18.png" />
-                    </td>
-                    <td>
-                        <img id="item19" name="Hookshot" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item19.png" />
-                    </td>
-                    <td>
-                        <img id="item20" name="Skull Hammer" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item20.png" />
-                    </td>
-                    <td>
-                        <img id="item22" name="Power Bracelets" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                            src="./images/item22.png" />
-                    </td>
-                </tr>
-            </table>
-
-            <div class="songs">
-                <table>
-                    <tr>
-                        <td>
-                            <img id="song0" name="Wind's Requiem" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                                src="./images/song0.png" />
-                        </td>
-                        <td>
-                            <img id="song1" name="Ballad of Gales" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                                src="./images/song1.png" />
-                        </td>
-                        <td>
-                            <img id="song2" name="Command Melody" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                                src="./images/song2.png" />
-                        </td>
-                        <td>
-                            <img id="song3" name="Earth God's Lyric" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                                src="./images/song3.png" />
-                        </td>
-                        <td>
-                            <img id="song4" name="Wind God's Aria" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                                src="./images/song4.png" />
-                        </td>
-                        <td>
-                            <img id="song5" name="Song of Passing" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                                src="./images/song5.png" />
-                        </td>
+    <div class="tracker-container">
+        <div class="tracker">
+            <div class="item-tracker">
+                <div class="menu-items">
+                    <table>
                         <tr>
-                </table>
-                <table class="pearls">
-                    <tr>
-                        <td>
-                            <img id="pearl0" name="Nayru's Pearl" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                                src="./images/pearl0.png" />
-                            <br>
-                            <img id="pearl1" name="Din's Pearl" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                                src="./images/pearl1.png" class="dins-pearl" />
-                            <img id="pearl2" name="Farore's Pearl" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                                src="./images/pearl2.png" class="farores-pearl" />
-                        </td>
-                        <td>
-                            <img id="triforce" name="Triforce" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleTriforce();"
-                                src="./images/triforce0.png" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div>
-                <table class="misc-items">
-                    <tr class="blank-row">
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img id="item23" name="Ghost Ship Chart" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                                src="./images/item23.png" />
-                        </td>
-                        <td>
-                            <img id="item24" name="Cabana Deed" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                                src="./images/item24.png" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img id="item25" name="Progressive Wallet" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 2);"
-                                src="./images/item25.png" />
-                        </td>
-                        <td>
-                            <img id="item26" name="Magic Meter Upgrade" onmouseout="ClearItemInfo();" onmouseover="ItemInfo(this);" onclick="ToggleItem(this, 1);"
-                                src="./images/item26.png" />
-                        </td>
-                    </tr>
-                </table>
+                            <td>
+                                <img id="item0" name="Telescope" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item0.png" />
+                            </td>
+                            <td>
+                                <img id="item1" name="Boat's Sail" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item1.png" />
+                            </td>
+                            <td>
+                                <img id="item2" name="Wind Waker" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item2.png" />
+                            </td>
+                            <td>
+                                <img id="item3" name="Grappling Hook" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item3.png" />
+                            </td>
+                            <td>
+                                <img id="item4" name="Spoils Bag" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item4.png" />
+                            </td>
+                            <td>
+                                <img id="item5" name="Boomerang" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item5.png" />
+                            </td>
+                            <td>
+                                <img id="item6" name="Deku Leaf" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item6.png" />
+                            </td>
+                            <td>
+                                <img id="item21" name="Progressive Sword" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 4);"
+                                    src="./images/item21.png" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img id="item7" name="Tingle Tuner" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item7.png" />
+                            </td>
+                            <td>
+                                <img id="item8" name="Progressive Picto Box" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 2);"
+                                    src="./images/item8.png" />
+                            </td>
+                            <td>
+                                <img id="item9" name="Iron Boots" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item9.png" />
+                            </td>
+                            <td>
+                                <img id="item10" name="Magic Armor" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item10.png" />
+                            </td>
+                            <td>
+                                <img id="item11" name="Bait Bag" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item11.png" />
+                            </td>
+                            <td>
+                                <img id="item12" name="Progressive Bow" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 3);"
+                                    src="./images/item12.png" />
+                            </td>
+                            <td>
+                                <img id="item13" name="Bombs" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item13.png" />
+                            </td>
+                            <td>
+                                <img id="shield" name="Hero's Shield" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleShield(this);"
+                                    src="./images/noshield.png" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img id="item24" name="Cabana Deed" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item24.png" />
+                            </td>
+                            <td>
+                                <img id="item15" name="Maggie's Letter" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item15.png" />
+                            </td>
+                            <td>
+                                <img id="item16" name="Moblin's Letter" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item16.png" />
+                            </td>
+                            <td>
+                                <img id="item17" name="Note to Mom" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item17.png" />
+                            </td>
+                            <td>
+                                <img id="item18" name="Delivery Bag" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item18.png" />
+                            </td>
+                            <td>
+                                <img id="item19" name="Hookshot" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item19.png" />
+                            </td>
+                            <td>
+                                <img id="item20" name="Skull Hammer" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item20.png" />
+                            </td>
+                            <td>
+                                <img id="item22" name="Power Bracelets" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item22.png" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img id="item14" name="Empty Bottle" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 4);"
+                                    src="./images/item14.png" />
+                            </td>
+                            <td>
+                                <img id="song0" name="Wind's Requiem" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/song0.png" />
+                                <div class="song-notes" id="song0-notes">
+                                    <img src="./images/song_up.png" />
+                                    <img src="./images/song_left.png" />
+                                    <img src="./images/song_right.png" />
+                                </div>
+                            </td>
+                            <td>
+                                <img id="song1" name="Ballad of Gales" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/song1.png" />
+                                <div class="song-notes" id="song1-notes">
+                                    <img src="./images/song_down.png" />
+                                    <img src="./images/song_right.png" />
+                                    <img src="./images/song_left.png" />
+                                    <img src="./images/song_up.png" />
+                                </div>
+                            </td>
+                            <td>
+                                <img id="song2" name="Command Melody" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/song2.png" />
+                                <div class="song-notes" id="song2-notes">
+                                    <img src="./images/song_left.png" />
+                                    <img src="./images/song_neutral.png" />
+                                    <img src="./images/song_right.png" />
+                                    <img src="./images/song_neutral.png" />
+                                </div>
+                            </td>
+                            <td>
+                                <img id="song3" name="Earth God's Lyric" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/song3.png" />
+                                <div class="song-notes" id="song3-notes">
+                                    <img src="./images/song_down.png" />
+                                    <img src="./images/song_down.png" />
+                                    <img src="./images/song_neutral.png" />
+                                    <img src="./images/song_right.png" />
+                                    <img src="./images/song_left.png" />
+                                    <img src="./images/song_neutral.png" />
+                                </div>
+                            </td>
+                            <td>
+                                <img id="song4" name="Wind God's Aria" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/song4.png" />
+                                <div class="song-notes" id="song4-notes">
+                                    <img src="./images/song_up.png" />
+                                    <img src="./images/song_up.png" />
+                                    <img src="./images/song_down.png" />
+                                    <img src="./images/song_right.png" />
+                                    <img src="./images/song_left.png" />
+                                    <img src="./images/song_right.png" />
+                                </div>
+                            </td>
+                            <td>
+                                <img id="song5" name="Song of Passing" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/song5.png" />
+                                <div class="song-notes" id="song5-notes">
+                                    <img src="./images/song_right.png" />
+                                    <img src="./images/song_left.png" />
+                                    <img src="./images/song_down.png" />
+                                </div>
+                            </td>
+                            <td>
+                                <img id="item27" name="Hero's Charm" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                    src="./images/item27.png" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="other-items">
+                    <table class="triforce-and-pearls">
+                        <tr>
+                            <td>
+                                <div class="pearls">
+                                    <div class="pearl-holder">
+                                        <img src="./images/pearl_holder.png" />
+                                    </div>
+                                    <img id="pearl0" name="Nayru's Pearl" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                        src="./images/pearl0.png" />
+                                    <br>
+                                    <img id="pearl1" name="Din's Pearl" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                        src="./images/pearl1.png" class="dins-pearl" />
+                                    <img id="pearl2" name="Farore's Pearl" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                        src="./images/pearl2.png" class="farores-pearl" />
+                                </div>
+                            </td>
+                            <td>
+                                <img id="triforce" name="Triforce" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleTriforce();"
+                                    src="./images/triforce0.png" />
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="misc-items">
+                        <table>
+                            <tr>
+                                <td>
+                                    <img id="item23" name="Ghost Ship Chart" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                        src="./images/item23.png" />
+                                </td>
+                                <td>
+                                    <img id="item30" name="Hurricane Spin" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                        src="./images/item30.png" />
+                                </td>
+                                <td>
+                                    <img id="item26" name="Magic Meter Upgrade" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
+                                        src="./images/item26.png" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img id="item29" name="Progressive Bomb Bag" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 2);"
+                                        src="./images/item29.png" />
+                                </td>
+
+                                <td>
+                                    <img id="item28" name="Progressive Quiver" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 2);"
+                                        src="./images/item28.png" />
+                                </td>
+                                <td>
+                                    <img id="item25" name="Progressive Wallet" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 2);"
+                                        src="./images/item25.png" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
                 <span id="iteminfo"></span>
             </div>
-        </div>
-        <div class="chart-map-container">
-            <div id="chartmap" name="chartmap">
-                <div id="map0" name="map0" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(0);" onclick="ToggleMap(0, false);"
-                    style="height: 51px; width: 54px; background: url(./images/map0.png);">
-                    <div id="chart0" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-top: 8px; margin-left: 6px;">Treasure Chart 25</div>
-                    <div id="mapchests0" class="chests-counter" style="margin: 38px 10px 10px 10px;">10/10</span>
+            <div class="chart-map-container">
+                <div id="chartmap" name="chartmap">
+                    <div class="maps">
+                        <div id="map0" name="map0" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(0);" onclick="toggleMap(0, false);">
+                            <div id="chart0" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 25</div>
+                            <div id="mapchests0" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map1" name="map1" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(1);" onclick="toggleMap(1, false);">
+                            <div id="chart1" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 7</div>
+                            <div id="mapchests1" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map2" name="map2" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(2);" onclick="toggleMap(2, false);">
+                            <div id="chart2" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 24</div>
+                            <div id="mapchests2" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map3" name="map3" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(3);" onclick="toggleMap(3, false);">
+                            <div id="chart3" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Triforce Chart 2</div>
+                            <div id="mapchests3" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map4" name="map4" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(4);" onclick="toggleMap(4, false);">
+                            <div id="chart4" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 11</div>
+                            <div id="mapchests4" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map5" name="map5" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(5);" onclick="toggleMap(5, false);">
+                            <div id="chart5" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Triforce Chart 7</div>
+                            <div id="mapchests5" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map6" name="map6" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(6);" onclick="toggleMap(6, false);">
+                            <div id="chart6" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 13</div>
+                            <div id="mapchests6" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map7" name="map7" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(7);" onclick="toggleMap(7, false);">
+                            <div id="chart7" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 41</div>
+                            <div id="mapchests7" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map8" name="map8" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(8);" onclick="toggleMap(8, false);">
+                            <div id="chart8" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 29</div>
+                            <div id="mapchests8" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map9" name="map9" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(9);" onclick="toggleMap(9, false);">
+                            <div id="chart9" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 22</div>
+                            <div id="mapchests9" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map10" name="map10" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(10);" onclick="toggleMap(10, false);">
+                            <div id="chart10" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 18</div>
+                            <div id="mapchests10" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map11" name="map11" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(11);" onclick="toggleMap(11, false);">
+                            <div id="chart11" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 30</div>
+                            <div id="mapchests11" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map12" name="map12" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(12);" onclick="toggleMap(12, false);">
+                            <div id="chart12" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 39</div>
+                            <div id="mapchests12" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map13" name="map13" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(13);" onclick="toggleMap(13, false);">
+                            <div id="chart13" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 19</div>
+                            <div id="mapchests13" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map14" name="map14" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(14);" onclick="toggleMap(14, false);">
+                            <div id="chart14" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 8</div>
+                            <div id="mapchests14" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map15" name="map15" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(15);" onclick="toggleMap(15, false);">
+                            <div id="chart15" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 2</div>
+                            <div id="mapchests15" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map16" name="map16" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(16);" onclick="toggleMap(16, false);">
+                            <div id="chart16" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 10</div>
+                            <div id="mapchests16" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map17" name="map17" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(17);" onclick="toggleMap(17, false);">
+                            <div id="chart17" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 26</div>
+                            <div id="mapchests17" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map18" name="map18" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(18);" onclick="toggleMap(18, false);">
+                            <div id="chart18" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 3</div>
+                            <div id="mapchests18" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map19" name="map19" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(19);" onclick="toggleMap(19, false);">
+                            <div id="chart19" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 37</div>
+                            <div id="mapchests19" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map20" name="map20" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(20);" onclick="toggleMap(20, false);">
+                            <div id="chart20" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 27</div>
+                            <div id="mapchests20" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map21" name="map21" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(21);" onclick="toggleMap(21, false);">
+                            <div id="chart21" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 38</div>
+                            <div id="mapchests21" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map22" name="map22" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(22);" onclick="toggleMap(22, false);">
+                            <div id="chart22" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Triforce Chart 1</div>
+                            <div id="mapchests22" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map23" name="map23" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(23);" onclick="toggleMap(23, false);">
+                            <div id="chart23" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 21</div>
+                            <div id="mapchests23" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map24" name="map24" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(24);" onclick="toggleMap(24, false);">
+                            <div id="chart24" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 6</div>
+                            <div id="mapchests24" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map25" name="map25" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(25);" onclick="toggleMap(25, false);">
+                            <div id="chart25" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 14</div>
+                            <div id="mapchests25" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map26" name="map26" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(26);" onclick="toggleMap(26, false);">
+                            <div id="chart26" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 34</div>
+                            <div id="mapchests26" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map27" name="map27" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(27);" onclick="toggleMap(27, false);">
+                            <div id="chart27" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 5</div>
+                            <div id="mapchests27" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map28" name="map28" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(28);" onclick="toggleMap(28, false);">
+                            <div id="chart28" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 28</div>
+                            <div id="mapchests28" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map29" name="map29" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(29);" onclick="toggleMap(29, false);">
+                            <div id="chart29" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 35</div>
+                            <div id="mapchests29" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map30" name="map30" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(30);" onclick="toggleMap(30, false);">
+                            <div id="chart30" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Triforce Chart 3</div>
+                            <div id="mapchests30" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map31" name="map31" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(31);" onclick="toggleMap(31, false);">
+                            <div id="chart31" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Triforce Chart 6</div>
+                            <div id="mapchests31" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map32" name="map32" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(32);" onclick="toggleMap(32, false);">
+                            <div id="chart32" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 1</div>
+                            <div id="mapchests32" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map33" name="map33" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(33);" onclick="toggleMap(33, false);">
+                            <div id="chart33" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 20</div>
+                            <div id="mapchests33" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map34" name="map34" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(34);" onclick="toggleMap(34, false);">
+                            <div id="chart34" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 36</div>
+                            <div id="mapchests34" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map35" name="map35" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(35);" onclick="toggleMap(35, false);">
+                            <div id="chart35" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 23</div>
+                            <div id="mapchests35" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map36" name="map36" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(36);" onclick="toggleMap(36, false);">
+                            <div id="chart36" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 12</div>
+                            <div id="mapchests36" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map37" name="map37" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(37);" onclick="toggleMap(37, false);">
+                            <div id="chart37" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 16</div>
+                            <div id="mapchests37" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map38" name="map38" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(38);" onclick="toggleMap(38, false);">
+                            <div id="chart38" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 4</div>
+                            <div id="mapchests38" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map39" name="map39" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(39);" onclick="toggleMap(39, false);">
+                            <div id="chart39" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 17</div>
+                            <div id="mapchests39" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map40" name="map40" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(40);" onclick="toggleMap(40, false);">
+                            <div id="chart40" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 31</div>
+                            <div id="mapchests40" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map41" name="map41" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(41);" onclick="toggleMap(41, false);">
+                            <div id="chart41" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Triforce Chart 5</div>
+                            <div id="mapchests41" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map42" name="map42" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(42);" onclick="toggleMap(42, false);">
+                            <div id="chart42" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 9</div>
+                            <div id="mapchests42" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map43" name="map43" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(43);" onclick="toggleMap(43, false);">
+                            <div id="chart43" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Triforce Chart 4</div>
+                            <div id="mapchests43" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map44" name="map44" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(44);" onclick="toggleMap(44, false);">
+                            <div id="chart44" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 40</div>
+                            <div id="mapchests44" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map45" name="map45" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(45);" onclick="toggleMap(45, false);">
+                            <div id="chart45" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Triforce Chart 8</div>
+                            <div id="mapchests45" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map46" name="map46" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(46);" onclick="toggleMap(46, false);">
+                            <div id="chart46" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Triforce Chart 15</div>
+                            <div id="mapchests46" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map47" name="map47" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(47);" onclick="toggleMap(47, false);">
+                            <div id="chart47" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 32</div>
+                            <div id="mapchests47" class="chests-counter">10/10</div>
+                        </div>
+                        <div id="map48" name="map48" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(48);" onclick="toggleMap(48, false);">
+                            <div id="chart48" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleChart(this);" class="treasure-chart">Treasure Chart 33</div>
+                            <div id="mapchests48" class="chests-counter">10/10</div>
+                        </div>
+                        <br>
                     </div>
                 </div>
-                <div id="map1" name="map1" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(1);" onclick="ToggleMap(1, false);"
-                    style="height: 51px; width: 46px; background: url(./images/map1.png);">
-                    <div id="chart1" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-top: 8px;">Treasure Chart 7</div>
-                    <div id="mapchests1" style="margin: 38px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map2" name="map2" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(2);" onclick="ToggleMap(2, false);"
-                    style="height: 51px; width: 47px; background: url(./images/map2.png);">
-                    <div id="chart2" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-top: 8px;">Treasure Chart 24</div>
-                    <div id="mapchests2" style="margin: 38px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map3" name="map3" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(3);" onclick="ToggleMap(3, false);"
-                    style="height: 51px; width: 48px; background: url(./images/map3.png);">
-                    <div id="chart3" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-top: 8px;">Triforce Chart 2</div>
-                    <div id="mapchests3" style="margin: 38px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map4" name="map4" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(4);" onclick="ToggleMap(4, false);"
-                    style="height: 51px; width: 48px; background: url(./images/map4.png);">
-                    <div id="chart4" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-top: 8px;">Treasure Chart 11</div>
-                    <div id="mapchests4" style="margin: 38px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map5" name="map5" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(5);" onclick="ToggleMap(5, false);"
-                    style="height: 51px; width: 48px; background: url(./images/map5.png);">
-                    <div id="chart5" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-top: 8px;">Triforce Chart 7</div>
-                    <div id="mapchests5" style="margin: 38px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map6" name="map6" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(6);" onclick="ToggleMap(6, false);"
-                    style="height: 51px; width: 52px; background: url(./images/map6.png);">
-                    <div id="chart6" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-top: 8px;">Treasure Chart 13</div>
-                    <div id="mapchests6" style="margin: 38px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <br>
-                <div id="map7" name="map7" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(7);" onclick="ToggleMap(7, false);"
-                    style="height: 45px; width: 54px; background: url(./images/map7.png);">
-                    <div id="chart7" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-left: 6px;">Treasure Chart 41</div>
-                    <div id="mapchests7" style="margin: 33px 10px 10px 8px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map8" name="map8" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(8);" onclick="ToggleMap(8, false);"
-                    style="height: 45px; width: 46px; background: url(./images/map8.png);">
-                    <div id="chart8" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 29</div>
-                    <div id="mapchests8" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map9" name="map9" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(9);" onclick="ToggleMap(9, false);"
-                    style="height: 45px; width: 47px; background: url(./images/map9.png);">
-                    <div id="chart9" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 22</div>
-                    <div id="mapchests9" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map10" name="map10" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(10);" onclick="ToggleMap(10, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map10.png);">
-                    <div id="chart10" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 18</div>
-                    <div id="mapchests10" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map11" name="map11" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(11);" onclick="ToggleMap(11, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map11.png);">
-                    <div id="chart11" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 30</div>
-                    <div id="mapchests11" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map12" name="map12" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(12);" onclick="ToggleMap(12, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map12.png);">
-                    <div id="chart12" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 39</div>
-                    <div id="mapchests12" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map13" name="map13" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(13);" onclick="ToggleMap(13, false);"
-                    style="height: 45px; width: 52px; background: url(./images/map13.png);">
-                    <div id="chart13" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 19</div>
-                    <div id="mapchests13" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <br>
-                <div id="map14" name="map14" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(14);" onclick="ToggleMap(14, false);"
-                    style="height: 45px; width: 54px; background: url(./images/map14.png);">
-                    <div id="chart14" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-left: 6px;">Treasure Chart 8</div>
-                    <div id="mapchests14" style="margin: 33px 10px 10px 8px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map15" name="map15" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(15);" onclick="ToggleMap(15, false);"
-                    style="height: 45px; width: 46px; background: url(./images/map15.png);">
-                    <div id="chart15" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 2</div>
-                    <div id="mapchests15" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map16" name="map16" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(16);" onclick="ToggleMap(16, false);"
-                    style="height: 45px; width: 47px; background: url(./images/map16.png);">
-                    <div id="chart16" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 10</div>
-                    <div id="mapchests16" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map17" name="map17" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(17);" onclick="ToggleMap(17, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map17.png);">
-                    <div id="chart17" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 26</div>
-                    <div id="mapchests17" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map18" name="map18" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(18);" onclick="ToggleMap(18, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map18.png);">
-                    <div id="chart18" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 3</div>
-                    <div id="mapchests18" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map19" name="map19" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(19);" onclick="ToggleMap(19, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map19.png);">
-                    <div id="chart19" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 37</div>
-                    <div id="mapchests19" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map20" name="map20" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(20);" onclick="ToggleMap(20, false);"
-                    style="height: 45px; width: 52px; background: url(./images/map20.png);">
-                    <div id="chart20" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 27</div>
-                    <div id="mapchests20" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <br>
-                <div id="map21" name="map21" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(21);" onclick="ToggleMap(21, false);"
-                    style="height: 45px; width: 54px; background: url(./images/map21.png);">
-                    <div id="chart21" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-left: 6px;">Treasure Chart 38</div>
-                    <div id="mapchests21" style="margin: 33px 10px 10px 8px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map22" name="map22" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(22);" onclick="ToggleMap(22, false);"
-                    style="height: 45px; width: 46px; background: url(./images/map22.png);">
-                    <div id="chart22" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Triforce Chart 1</div>
-                    <div id="mapchests22" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map23" name="map23" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(23);" onclick="ToggleMap(23, false);"
-                    style="height: 45px; width: 47px; background: url(./images/map23.png);">
-                    <div id="chart23" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 21</div>
-                    <div id="mapchests23" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map24" name="map24" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(24);" onclick="ToggleMap(24, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map24.png);">
-                    <div id="chart24" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 6</div>
-                    <div id="mapchests24" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map25" name="map25" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(25);" onclick="ToggleMap(25, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map25.png);">
-                    <div id="chart25" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 14</div>
-                    <div id="mapchests25" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map26" name="map26" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(26);" onclick="ToggleMap(26, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map26.png);">
-                    <div id="chart26" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 34</div>
-                    <div id="mapchests26" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map27" name="map27" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(27);" onclick="ToggleMap(27, false);"
-                    style="height: 45px; width: 52px; background: url(./images/map27.png);">
-                    <div id="chart27" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 5</div>
-                    <div id="mapchests27" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <br>
-                <div id="map28" name="map28" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(28);" onclick="ToggleMap(28, false);"
-                    style="height: 45px; width: 54px; background: url(./images/map28.png);">
-                    <div id="chart28" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-left: 6px;">Treasure Chart 28</div>
-                    <div id="mapchests28" style="margin: 33px 10px 10px 8px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map29" name="map29" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(29);" onclick="ToggleMap(29, false);"
-                    style="height: 45px; width: 46px; background: url(./images/map29.png);">
-                    <div id="chart29" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 35</div>
-                    <div id="mapchests29" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map30" name="map30" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(30);" onclick="ToggleMap(30, false);"
-                    style="height: 45px; width: 47px; background: url(./images/map30.png);">
-                    <div id="chart30" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Triforce Chart 3</div>
-                    <div id="mapchests30" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map31" name="map31" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(31);" onclick="ToggleMap(31, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map31.png);">
-                    <div id="chart31" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Triforce Chart 6</div>
-                    <div id="mapchests31" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map32" name="map32" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(32);" onclick="ToggleMap(32, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map32.png);">
-                    <div id="chart32" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 1</div>
-                    <div id="mapchests32" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map33" name="map33" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(33);" onclick="ToggleMap(33, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map33.png);">
-                    <div id="chart33" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 20</div>
-                    <div id="mapchests33" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map34" name="map34" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(34);" onclick="ToggleMap(34, false);"
-                    style="height: 45px; width: 52px; background: url(./images/map34.png);">
-                    <div id="chart34" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 36</div>
-                    <div id="mapchests34" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <br>
-                <div id="map35" name="map35" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(35);" onclick="ToggleMap(35, false);"
-                    style="height: 45px; width: 54px; background: url(./images/map35.png);">
-                    <div id="chart35" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-left: 6px;">Treasure Chart 23</div>
-                    <div id="mapchests35" style="margin: 33px 10px 10px 8px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map36" name="map36" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(36);" onclick="ToggleMap(36, false);"
-                    style="height: 45px; width: 46px; background: url(./images/map36.png);">
-                    <div id="chart36" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 12</div>
-                    <div id="mapchests36" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map37" name="map37" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(37);" onclick="ToggleMap(37, false);"
-                    style="height: 45px; width: 47px; background: url(./images/map37.png);">
-                    <div id="chart37" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 16</div>
-                    <div id="mapchests37" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map38" name="map38" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(38);" onclick="ToggleMap(38, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map38.png);">
-                    <div id="chart38" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 4</div>
-                    <div id="mapchests38" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map39" name="map39" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(39);" onclick="ToggleMap(39, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map39.png);">
-                    <div id="chart39" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 17</div>
-                    <div id="mapchests39" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map40" name="map40" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(40);" onclick="ToggleMap(40, false);"
-                    style="height: 45px; width: 48px; background: url(./images/map40.png);">
-                    <div id="chart40" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 31</div>
-                    <div id="mapchests40" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map41" name="map41" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(41);" onclick="ToggleMap(41, false);"
-                    style="height: 45px; width: 52px; background: url(./images/map41.png);">
-                    <div id="chart41" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Triforce Chart 5</div>
-                    <div id="mapchests41" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <br>
-                <div id="map42" name="map42" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(42);" onclick="ToggleMap(42, false);"
-                    style="height: 50px; width: 54px; background: url(./images/map42.png);">
-                    <div id="chart42" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart"
-                        style="margin-left: 6px;">Treasure Chart 9</div>
-                    <div id="mapchests42" style="margin: 33px 10px 10px 8px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map43" name="map43" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(43);" onclick="ToggleMap(43, false);"
-                    style="height: 50px; width: 46px; background: url(./images/map43.png);">
-                    <div id="chart43" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Triforce Chart 4</div>
-                    <div id="mapchests43" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map44" name="map44" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(44);" onclick="ToggleMap(44, false);"
-                    style="height: 50px; width: 47px; background: url(./images/map44.png);">
-                    <div id="chart44" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 40</div>
-                    <div id="mapchests44" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map45" name="map45" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(45);" onclick="ToggleMap(45, false);"
-                    style="height: 50px; width: 48px; background: url(./images/map45.png);">
-                    <div id="chart45" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Triforce Chart 8</div>
-                    <div id="mapchests45" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map46" name="map46" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(46);" onclick="ToggleMap(46, false);"
-                    style="height: 50px; width: 48px; background: url(./images/map46.png);">
-                    <div id="chart46" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 15</div>
-                    <div id="mapchests46" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map47" name="map47" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(47);" onclick="ToggleMap(47, false);"
-                    style="height: 50px; width: 48px; background: url(./images/map47.png);">
-                    <div id="chart47" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 32</div>
-                    <div id="mapchests47" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <div id="map48" name="map48" class="sea-sector" onmouseout="ClearMapInfo();" onmouseover="MapInfo(48);" onclick="ToggleMap(48, false);"
-                    style="height: 50px; width: 52px; background: url(./images/map48.png);">
-                    <div id="chart48" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleChart(this);" class="treasure-chart">Treasure Chart 33</div>
-                    <div id="mapchests48" style="margin: 33px 10px 10px 4px;">10/10</span>
-                    </div>
-                </div>
-                <br>
-            </div>
-            <div id="zoommap" name="zoommap" style="display: none;">
-                <div class="zoommap-cover"></div>
-                <div id="zoommap-background"></div>
-                <table style="margin-top: 10px;">
-                    <tr>
-                        <td style="min-width: 114px;">
-                            <span onclick="ShrinkMap();" class="detailspan">X Close Map</span>
-                        </td>
-                        <td>
-                            <input id="hiddenmapid" style="display: none;" />
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id="detaillocation0" class="detailspan" onclick="ToggleLocation(this);">Location 1</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation12" class="detailspan" onclick="ToggleLocation(this);">Location 13</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation24" class="detailspan" onclick="ToggleLocation(this);">Location 25</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id="detaillocation1" class="detailspan" onclick="ToggleLocation(this);">Location 2</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation13" class="detailspan" onclick="ToggleLocation(this);">Location 14</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation25" class="detailspan" onclick="ToggleLocation(this);">Location 26</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id="detaillocation2" class="detailspan" onclick="ToggleLocation(this);">Location 3</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation14" class="detailspan" onclick="ToggleLocation(this);">Location 15</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation26" class="detailspan" onclick="ToggleLocation(this);">Location 27</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id="detaillocation3" class="detailspan" onclick="ToggleLocation(this);">Location 4</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation15" class="detailspan" onclick="ToggleLocation(this);">Location 16</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation27" class="detailspan" onclick="ToggleLocation(this);">Location 28</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id="detaillocation4" class="detailspan" onclick="ToggleLocation(this);">Location 5</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation16" class="detailspan" onclick="ToggleLocation(this);">Location 17</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation28" class="detailspan" onclick="ToggleLocation(this);">Location 29</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id="detaillocation5" class="detailspan" onclick="ToggleLocation(this);">Location 6</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation17" class="detailspan" onclick="ToggleLocation(this);">Location 18</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation29" class="detailspan" onclick="ToggleLocation(this);">Location 30</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id="detaillocation6" class="detailspan" onclick="ToggleLocation(this);">Location 7</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation18" class="detailspan" onclick="ToggleLocation(this);">Location 19</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation30" class="detailspan" onclick="ToggleLocation(this);">Location 31</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id="detaillocation7" class="detailspan" onclick="ToggleLocation(this);">Location 8</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation19" class="detailspan" onclick="ToggleLocation(this);">Location 20</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation31" class="detailspan" onclick="ToggleLocation(this);">Location 32</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id="detaillocation8" class="detailspan" onclick="ToggleLocation(this);">Location 9</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation20" class="detailspan" onclick="ToggleLocation(this);">Location 21</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation32" class="detailspan" onclick="ToggleLocation(this);">Location 33</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id="detaillocation9" class="detailspan" onclick="ToggleLocation(this);">Location 10</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation21" class="detailspan" onclick="ToggleLocation(this);">Location 22</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation33" class="detailspan" onclick="ToggleLocation(this);">Location 34</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id="detaillocation10" class="detailspan" onclick="ToggleLocation(this);">Location 11</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation22" class="detailspan" onclick="ToggleLocation(this);">Location 23</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation34" class="detailspan" onclick="ToggleLocation(this);">Location 35</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id="detaillocation11" class="detailspan" onclick="ToggleLocation(this);">Location 12</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation23" class="detailspan" onclick="ToggleLocation(this);">Location 24</span>
-                        </td>
-                        <td>
-                            <span id="detaillocation35" class="detailspan" onclick="ToggleLocation(this);">Location 36</span>
-                        </td>
+                <div id="zoommap" name="zoommap" style="display: none;">
+                    <div class="zoommap-cover"></div>
+                    <div id="zoommap-background"></div>
+                    <table>
                         <tr>
-                </table>
+                            <td>
+                                <div onclick="shrinkMap();" class="detailspan">X Close Map</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="detaillocation0" class="detailspan" onclick="toggleLocation(this);">Location 1</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation12" class="detailspan" onclick="toggleLocation(this);">Location 13</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation24" class="detailspan" onclick="toggleLocation(this);">Location 25</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="detaillocation1" class="detailspan" onclick="toggleLocation(this);">Location 2</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation13" class="detailspan" onclick="toggleLocation(this);">Location 14</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation25" class="detailspan" onclick="toggleLocation(this);">Location 26</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="detaillocation2" class="detailspan" onclick="toggleLocation(this);">Location 3</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation14" class="detailspan" onclick="toggleLocation(this);">Location 15</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation26" class="detailspan" onclick="toggleLocation(this);">Location 27</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="detaillocation3" class="detailspan" onclick="toggleLocation(this);">Location 4</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation15" class="detailspan" onclick="toggleLocation(this);">Location 16</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation27" class="detailspan" onclick="toggleLocation(this);">Location 28</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="detaillocation4" class="detailspan" onclick="toggleLocation(this);">Location 5</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation16" class="detailspan" onclick="toggleLocation(this);">Location 17</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation28" class="detailspan" onclick="toggleLocation(this);">Location 29</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="detaillocation5" class="detailspan" onclick="toggleLocation(this);">Location 6</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation17" class="detailspan" onclick="toggleLocation(this);">Location 18</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation29" class="detailspan" onclick="toggleLocation(this);">Location 30</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="detaillocation6" class="detailspan" onclick="toggleLocation(this);">Location 7</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation18" class="detailspan" onclick="toggleLocation(this);">Location 19</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation30" class="detailspan" onclick="toggleLocation(this);">Location 31</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="detaillocation7" class="detailspan" onclick="toggleLocation(this);">Location 8</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation19" class="detailspan" onclick="toggleLocation(this);">Location 20</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation31" class="detailspan" onclick="toggleLocation(this);">Location 32</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="detaillocation8" class="detailspan" onclick="toggleLocation(this);">Location 9</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation20" class="detailspan" onclick="toggleLocation(this);">Location 21</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation32" class="detailspan" onclick="toggleLocation(this);">Location 33</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="detaillocation9" class="detailspan" onclick="toggleLocation(this);">Location 10</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation21" class="detailspan" onclick="toggleLocation(this);">Location 22</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation33" class="detailspan" onclick="toggleLocation(this);">Location 34</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="detaillocation10" class="detailspan" onclick="toggleLocation(this);">Location 11</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation22" class="detailspan" onclick="toggleLocation(this);">Location 23</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation34" class="detailspan" onclick="toggleLocation(this);">Location 35</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="detaillocation11" class="detailspan" onclick="toggleLocation(this);">Location 12</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation23" class="detailspan" onclick="toggleLocation(this);">Location 24</div>
+                            </td>
+                            <td>
+                                <div id="detaillocation35" class="detailspan" onclick="toggleLocation(this);">Location 36</div>
+                            </td>
+                            <tr>
+                    </table>
 
+                </div>
+                <div class="map-info-container">
+                    <span id="mapinfo"></span>
+                </div>
+                <div class="map-item-info-container">
+                    <span id="mapiteminfo"></span>
+                </div>
+                <div class="tool-tip-text"></div>
             </div>
-            <div class="map-info-container">
-                <span id="mapinfo"></span>
-            </div>
-            <div class="map-item-info-container">
-                <span id="mapiteminfo"></span>
-            </div>
-            <div class="tool-tip-text"></div>
-        </div>
-        <div class="extra-locations" class="extra-locations">
-            <div onmouseout="ClearMapInfo();" onmouseover="DungeonMapInfo(0);" onclick="ToggleMap(0, true);" class="extra-location">
-                <div class="dungeon-items">
-                    <div id="smallkey0" onmouseout="ClearMapItemInfo();" onmouseover="SmallKeyInfo(this, 4);" onclick="ToggleKey(this, 4);" class="dungeon-item"
-                        style="background: url(./images/smallkey.png);">DRC Small Key</div>
-                    <div id="entry0" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleEntry(this);" class="dungeon-item"
-                        style="background: url(./images/dungeon_noentry.png);">Entered DRC</div>
-                    <div id="bosskey0" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleKey(this, 1);" class="dungeon-item"
-                        style="background: url(./images/bosskey.png);">DRC Big Key</div>
+            <div class="extra-locations" class="extra-locations">
+                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(0);" onclick="toggleMap(0, true);" class="extra-location">
+                    <div class="dungeon-items">
+                        <div id="smallkey0" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 4);" onclick="toggleKey(this, 4);" class="dungeon-item small-key">DRC Small Key</div>
+                        <div id="entry0" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this);" class="dungeon-item dungeon-entry">Entered DRC</div>
+                        <div id="bosskey0" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1);" class="dungeon-item boss-key">DRC Big Key</div>
+                    </div>
+                    <div class="dungeon-icon">
+                        <img id="extralocation0" src="./images/boss0.png">
+                    </div>
+                    <div id="dungeonchests0" class="extra-location-chests">10/10</div>
                 </div>
-                <div class="dungeon-icon">
-                    <img id="extralocation0" src="./images/boss0.png">
+                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(1);" onclick="toggleMap(1, true);" class="extra-location">
+                    <div class="dungeon-items">
+                        <div id="smallkey1" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 1);" onclick="toggleKey(this, 1);" class="dungeon-item small-key">FW Small Key</div>
+                        <div id="entry1" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this);" class="dungeon-item dungeon-entry">Entered FW</div>
+                        <div id="bosskey1" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1);" class="dungeon-item boss-key">FW Big Key</div>
+                    </div>
+                    <div class="dungeon-icon">
+                        <img id="extralocation1" src="./images/boss1.png">
+                    </div>
+                    <div id="dungeonchests1" class="extra-location-chests">10/10</div>
                 </div>
-                <div id="dungeonchests0" class="extra-location-chests">10/10</div>
-            </div>
-            <div onmouseout="ClearMapInfo();" onmouseover="DungeonMapInfo(1);" onclick="ToggleMap(1, true);" class="extra-location">
-                <div class="dungeon-items">
-                    <div id="smallkey1" onmouseout="ClearMapItemInfo();" onmouseover="SmallKeyInfo(this, 1);" onclick="ToggleKey(this, 1);" class="dungeon-item"
-                        style="background: url(./images/smallkey.png);">FW Small Key</div>
-                    <div id="entry1" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleEntry(this);" class="dungeon-item"
-                        style="background: url(./images/dungeon_noentry.png);">Entered FW</div>
-                    <div id="bosskey1" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleKey(this, 1);" class="dungeon-item"
-                        style="background: url(./images/bosskey.png);">FW Big Key</div>
+                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(2);" onclick="toggleMap(2, true);" class="extra-location">
+                    <div class="dungeon-items">
+                        <div id="smallkey2" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 2);" onclick="toggleKey(this, 2);" class="dungeon-item small-key">TotG Small Key</div>
+                        <div id="entry2" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this);" class="dungeon-item dungeon-entry">Entered TotG</div>
+                        <div id="bosskey2" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1);" class="dungeon-item boss-key">TotG Big Key</div>
+                    </div>
+                    <div class="dungeon-icon">
+                        <img id="extralocation2" src="./images/boss2.png">
+                    </div>
+                    <div id="dungeonchests2" class="extra-location-chests">10/10</div>
                 </div>
-                <div class="dungeon-icon">
-                    <img id="extralocation1" src="./images/boss1.png">
+                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(4);" onclick="toggleMap(4, true);" class="extra-location">
+                    <div class="dungeon-items">
+                        <div id="smallkey4" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 3);" onclick="toggleKey(this, 3);" class="dungeon-item small-key">ET Small Key</div>
+                        <div id="entry4" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this);" class="dungeon-item dungeon-entry">Entered ET</div>
+                        <div id="bosskey4" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1);" class="dungeon-item boss-key">ET Big Key</div>
+                    </div>
+                    <div class="dungeon-icon">
+                        <img id="extralocation4" src="./images/boss4.png">
+                    </div>
+                    <div id="dungeonchests4" class="extra-location-chests">10/10</div>
                 </div>
-                <div id="dungeonchests1" class="extra-location-chests">10/10</div>
-            </div>
-            <div onmouseout="ClearMapInfo();" onmouseover="DungeonMapInfo(2);" onclick="ToggleMap(2, true);" class="extra-location">
-                <div class="dungeon-items">
-                    <div id="smallkey2" onmouseout="ClearMapItemInfo();" onmouseover="SmallKeyInfo(this, 2);" onclick="ToggleKey(this, 2);" class="dungeon-item"
-                        style="background: url(./images/smallkey.png);">TotG Small Key</div>
-                    <div id="entry2" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleEntry(this);" class="dungeon-item"
-                        style="background: url(./images/dungeon_noentry.png);">Entered TotG</div>
-                    <div id="bosskey2" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleKey(this, 1);" class="dungeon-item"
-                        style="background: url(./images/bosskey.png);">TotG Big Key</div>
+                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(5);" onclick="toggleMap(5, true);" class="extra-location">
+                    <div class="dungeon-items">
+                        <div id="smallkey5" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 2);" onclick="toggleKey(this, 2);" class="dungeon-item small-key">WT Small Key</div>
+                        <div id="entry5" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this);" class="dungeon-item dungeon-entry">Entered WT</div>
+                        <div id="bosskey5" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1);" class="dungeon-item boss-key">WT Big Key</div>
+                    </div>
+                    <div class="dungeon-icon">
+                        <img id="extralocation5" src="./images/boss5.png">
+                    </div>
+                    <div id="dungeonchests5" class="extra-location-chests">10/10</div>
                 </div>
-                <div class="dungeon-icon">
-                    <img id="extralocation2" src="./images/boss2.png">
+                <br>
+                <div onmouseout="clearMapInfo();" onmouseover="mapInfo(49);" onclick="toggleMap(49, false);" class="extra-location">
+                    <div class="dungeon-icon">
+                        <img id="extralocation7" src="./images/mailbox.png">
+                    </div>
+                    <div id="mapchests49" class="extra-location-chests">10/10</div>
                 </div>
-                <div id="dungeonchests2" class="extra-location-chests">10/10</div>
-            </div>
-            <div onmouseout="ClearMapInfo();" onmouseover="DungeonMapInfo(4);" onclick="ToggleMap(4, true);" class="extra-location">
-                <div class="dungeon-items">
-                    <div id="smallkey4" onmouseout="ClearMapItemInfo();" onmouseover="SmallKeyInfo(this, 3);" onclick="ToggleKey(this, 3);" class="dungeon-item"
-                        style="background: url(./images/smallkey.png);">ET Small Key</div>
-                    <div id="entry4" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleEntry(this);" class="dungeon-item"
-                        style="background: url(./images/dungeon_noentry.png);">Entered ET</div>
-                    <div id="bosskey4" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleKey(this, 1);" class="dungeon-item"
-                        style="background: url(./images/bosskey.png);">ET Big Key</div>
+                <div onmouseout="clearMapInfo();" onmouseover="mapInfo(50);" onclick="toggleMap(50, false);" class="extra-location">
+                    <div class="dungeon-icon">
+                        <img id="extralocation8" src="./images/greatsea.png">
+                    </div>
+                    <div id="mapchests50" class="extra-location-chests">10/10</div>
                 </div>
-                <div class="dungeon-icon">
-                    <img id="extralocation4" src="./images/boss4.png">
+                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(3);" onclick="toggleMap(3, true);" class="extra-location">
+                    <div class="dungeon-icon">
+                        <img id="extralocation3" src="./images/boss3.png">
+                    </div>
+                    <div id="dungeonchests3" class="extra-location-chests">10/10</div>
                 </div>
-                <div id="dungeonchests4" class="extra-location-chests">10/10</div>
-            </div>
-            <div onmouseout="ClearMapInfo();" onmouseover="DungeonMapInfo(5);" onclick="ToggleMap(5, true);" class="extra-location">
-                <div class="dungeon-items">
-                    <div id="smallkey5" onmouseout="ClearMapItemInfo();" onmouseover="SmallKeyInfo(this, 2);" onclick="ToggleKey(this, 2);" class="dungeon-item"
-                        style="background: url(./images/smallkey.png);">WT Small Key</div>
-                    <div id="entry5" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleEntry(this);" class="dungeon-item"
-                        style="background: url(./images/dungeon_noentry.png);">Entered WT</div>
-                    <div id="bosskey5" onmouseout="ClearMapItemInfo();" onmouseover="MapItemInfo(this);" onclick="ToggleKey(this, 1);" class="dungeon-item"
-                        style="background: url(./images/bosskey.png);">WT Big Key</div>
+                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(6);" onclick="toggleMap(6, true);" class="extra-location">
+                    <div class="dungeon-icon">
+                        <img id="extralocation6" src="./images/boss6.png">
+                    </div>
+                    <div id="dungeonchests6" class="extra-location-chests">10/10</div>
                 </div>
-                <div class="dungeon-icon">
-                    <img id="extralocation5" src="./images/boss5.png">
-                </div>
-                <div id="dungeonchests5" class="extra-location-chests">10/10</div>
-            </div>
-            <br>
-            <div onmouseout="ClearMapInfo();" onmouseover="MapInfo(49);" onclick="ToggleMap(49, false);" class="extra-location">
-                <div class="dungeon-items">
-                </div>
-                <div class="dungeon-icon">
-                    <img id="extralocation6" src="./images/mailbox.png">
-                </div>
-                <div id="mapchests49" class="extra-location-chests">10/10</div>
-            </div>
-            <div onmouseout="ClearMapInfo();" onmouseover="MapInfo(50);" onclick="ToggleMap(50, false);" class="extra-location">
-                <div class="dungeon-items">
-                </div>
-                <div class="dungeon-icon">
-                    <img id="extralocation7" src="./images/greatsea.png">
-                </div>
-                <div id="mapchests50" class="extra-location-chests">10/10</div>
-            </div>
-            <div onmouseout="ClearMapInfo();" onmouseover="DungeonMapInfo(3);" onclick="ToggleMap(3, true);" class="extra-location">
-                <div class="dungeon-items">
-                </div>
-                <div class="dungeon-icon">
-                    <img id="extralocation3" src="./images/boss3.png">
-                </div>
-                <div id="dungeonchests3" class="extra-location-chests">10/10</div>
-            </div>
-            <div onmouseout="ClearMapInfo();" onmouseover="DungeonMapInfo(6);" onclick="ToggleMap(6, true);" class="extra-location">
-                <div class="dungeon-items">
-                </div>
-                <div class="dungeon-icon">
-                    <img id="extralocation8" src="./images/boss6.png">
-                </div>
-                <div id="dungeonchests6" class="extra-location-chests">10/10</div>
             </div>
         </div>
-    </div>
-    <div class="buttons">
-        <button id="save-progress-button" type="button" onclick="saveProgress()">Save Progress</button>
-        <button id="toggle-locations-button" type="button" onclick="toggleNonProgressLocations(this)">Show Non-Progress Locations</button>
-        <button id="toggle-background-button" type="button" onclick="toggleSingleColorBackground(this)">Show Single Color Background</button>
+        <div class="buttons">
+            <button id="save-progress-button" type="button" onclick="saveProgress(this)">Save Progress</button>
+            <button id="toggle-locations-button" type="button" onclick="toggleNonProgressLocations(this)">Show Non-Progress Locations</button>
+            <button id="toggle-background-button" type="button" onclick="toggleSingleColorBackground(this)">Show Single Color Background</button>
+        </div>
     </div>
 </body>
 

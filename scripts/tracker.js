@@ -1,13 +1,15 @@
-var flagParam = getParameterByName('f');
-var flags = [];
+const imageDir = 'images/';
+const flagParam = getParameterByName('f');
+const versionParam = getParameterByName('v');
+const progressParam = getParameterByName('p');
+const isCurrentVersionParam = getParameterByName('c');
+
 var disableMap = false;
-var imagedir = 'images/';
 var currentGeneralLocation = '';
 var currentLocationIsDungeon = false;
-
-var isRandomEntrances = false;
 var showNonProgressLocations = false;
 var singleColorBackground = false;
+var loadingErrorShown = false;
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -19,102 +21,178 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function loadFlagsAndStartingItems() {
+function showLoadingError() {
+    if (!loadingErrorShown) {
+        if (versionParam) {
+            var notificationMessage = "Logic for Wind Waker Randomizer " + versionParam + " could not be loaded.";
+        } else {
+            var notificationMessage = "Logic could not be loaded. Version not specified.";
+        }
+        $.notify(notificationMessage, {
+            autoHideDelay: 5000,
+            className: "error",
+            position: "top left"
+        });
+        loadingErrorShown = true;
+    }
+}
+
+function loadFlags() {
+    if (progressParam == "1" && getLocalStorageBool("progress")) {
+        var flagString = localStorage.getItem("flags");
+        if (flagString) {
+            flags = flagString.split(',');
+        }
+        isKeyLunacy = getLocalStorageBool("isKeyLunacy");
+        isRandomEntrances = getLocalStorageBool("isRandomEntrances");
+        return;
+    }
+
     if (flagParam.indexOf("D1") > -1) {
         flags.push("Dungeon");
     }
-    if (flagParam.indexOf("SC1") > -1) {
-        flags.push("Secret Cave");
+    if (flagParam.indexOf("GF1") > -1) {
+        flags.push("Great Fairy");
     }
-    if (flagParam.indexOf("SQ1") > -1) {
-        flags.push("Sidequest");
+    if (flagParam.indexOf("PSC1") > -1) {
+        flags.push("Puzzle Secret Cave");
     }
-    if (flagParam.indexOf("M1") > -1) {
+    if (flagParam.indexOf("CSC1") > -1) {
+        flags.push("Combat Secret Cave");
+    }
+    if (flagParam.indexOf("SSQ1") > -1) {
+        flags.push("Short Sidequest");
+    }
+    if (flagParam.indexOf("LSQ1") > -1) {
+        flags.push("Long Sidequest");
+    }
+    if (flagParam.indexOf("ST1") > -1) {
+        flags.push("Spoils Trading");
+    }
+    if (flagParam.indexOf("MG1") > -1) {
         flags.push("Minigame");
     }
-    if (flagParam.indexOf("LR1") > -1) {
+    if (flagParam.indexOf("FG1") > -1) {
+        flags.push("Free Gift");
+    }
+    if (flagParam.indexOf("MAI1") > -1) {
+        flags.push("Mail");
+    }
+    if (flagParam.indexOf("PR1") > -1) {
         flags.push("Platform");
         flags.push("Raft");
     }
-    if (flagParam.indexOf("S1") > -1) {
+    if (flagParam.indexOf("SUB1") > -1) {
         flags.push("Submarine");
     }
-    if (flagParam.indexOf("ER1") > -1) {
+    if (flagParam.indexOf("ERC1") > -1) {
         flags.push("Eye Reef Chest");
     }
-    if (flagParam.indexOf("B1") > -1) {
+    if (flagParam.indexOf("BOG1") > -1) {
         flags.push("Big Octo");
         flags.push("Gunboat");
     }
-    if (flagParam.indexOf("STRI1") > -1) {
+    if (flagParam.indexOf("TRI1") > -1) {
         flags.push("Sunken Triforce"); // need to account for this case separately
     }
-    if (flagParam.indexOf("STRE1") > -1) {
+    if (flagParam.indexOf("TRE1") > -1) {
         flags.push("Sunken Treasure")
-    }
-    if (flagParam.indexOf("G1") > -1) {
-        flags.push("Free Gift");
-    }
-    if (flagParam.indexOf("MA1") > -1) {
-        flags.push("Mail");
     }
     if (flagParam.indexOf("EP1") > -1) {
         flags.push("Expensive Purchase");
     }
-    if (flagParam.indexOf("EV1") > -1) {
-        flags.push("Misc");
+    if (flagParam.indexOf("MIS1") > -1) {
         flags.push("Other Chest");
+        flags.push("Misc");
     }
-    if (flagParam.indexOf("ENTRY1") > -1) {
+    if (flagParam.indexOf("KL1") > -1) {
+        isKeyLunacy = true;
+    }
+    if (flagParam.indexOf("RDE1") > -1) {
         isRandomEntrances = true;
     }
-
-    items["Progressive Sword"] = 1;
-    items["Hero's Shield"] = 1;
-    items["Wind Waker"] = 1;
-    items["Boat's Sail"] = 1;
-    items["Wind's Requiem"] = 1;
-    items["Ballad of Gales"] = 1;
 }
 
 function loadProgress() {
-    var progressString = getParameterByName("p");
-    if (parseInt(progressString) == 0) return;
+    if (progressParam == "1") {
+        if (getLocalStorageBool("progress")) {
+            Object.keys(items).forEach(function (itemName) {
+                var itemCount = parseInt(localStorage.getItem(itemName));
+                if (!isNaN(itemCount)) {
+                    items[itemName] = itemCount;
+                }
+            });
+            Object.keys(keys).forEach(function (keyName) {
+                var keyCount = parseInt(localStorage.getItem(keyName));
+                if (!isNaN(keyCount)) {
+                    keys[keyName] = keyCount;
+                }
+            });
+            Object.keys(locationsChecked).forEach(function (generalLocation) {
+                Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
+                    var locationName = generalLocation + " - " + detailedLocation;
+                    locationsChecked[generalLocation][detailedLocation] = getLocalStorageBool(locationName);
+                });
+            });
 
-    Object.keys(items).forEach(function (itemName) {
-        items[itemName] = parseInt(localStorage.getItem(itemName));
-    });
-    Object.keys(locationsChecked).forEach(function (generalLocation) {
-        Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
-            var locationName = generalLocation + " - " + detailedLocation;
-            locationsChecked[generalLocation][detailedLocation] = localStorage.getItem(locationName) == "true";
-        });
-    })
-    macros[drcMacro] = localStorage.getItem(drcMacro);
-    macros[fwMacro] = localStorage.getItem(fwMacro);
-    macros[totgMacro] = localStorage.getItem(totgMacro);
-    macros[etMacro] = localStorage.getItem(etMacro);
-    macros[wtMacro] = localStorage.getItem(wtMacro);
+            if (isCurrentVersionParam == '1') {
+                var notificationMessage = "Progress loaded.";
+            } else {
+                var notificationMessage = "Progress loaded for Wind Waker Randomizer " + versionParam + "."
+            }
+            $.notify(notificationMessage, {
+                autoHideDelay: 5000,
+                className: "success",
+                position: "top left"
+            });
+        } else {
+            $.notify("Progress could not be loaded.", {
+                autoHideDelay: 5000,
+                className: "error",
+                position: "top left"
+            });
+        }
+    }
 }
 
-function saveProgress() {
-    Object.keys(items).forEach(function (itemName) {
-        localStorage.setItem(itemName, items[itemName]);
-    });
-    Object.keys(locationsChecked).forEach(function (generalLocation) {
-        Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
-            var locationName = generalLocation + " - " + detailedLocation;
-            var locationValue = locationsChecked[generalLocation][detailedLocation];
-            localStorage.setItem(locationName, locationValue);
-        });
-    })
-    localStorage.setItem(drcMacro, macros[drcMacro]);
-    localStorage.setItem(fwMacro, macros[fwMacro]);
-    localStorage.setItem(totgMacro, macros[totgMacro]);
-    localStorage.setItem(etMacro, macros[etMacro]);
-    localStorage.setItem(wtMacro, macros[wtMacro]);
+function getLocalStorageBool(itemName) {
+    return localStorage.getItem(itemName) == "true";
+}
 
-    localStorage.setItem("rando-flags", flagParam);
+function saveProgress(element) {
+    try {
+        Object.keys(items).forEach(function (itemName) {
+            localStorage.setItem(itemName, items[itemName]);
+        });
+        Object.keys(keys).forEach(function (keyName) {
+            localStorage.setItem(keyName, keys[keyName]);
+        });
+        Object.keys(locationsChecked).forEach(function (generalLocation) {
+            Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
+                var locationName = generalLocation + " - " + detailedLocation;
+                var locationValue = locationsChecked[generalLocation][detailedLocation];
+                localStorage.setItem(locationName, locationValue);
+            });
+        })
+        localStorage.setItem("flags", flags.join(','));
+        localStorage.setItem("isKeyLunacy", isKeyLunacy);
+        localStorage.setItem("isRandomEntrances", isRandomEntrances);
+        localStorage.setItem("version", versionParam);
+        localStorage.setItem("progress", "true");
+
+        $(element).notify("Progress saved.", {
+            autoHideDelay: 5000,
+            className: "success",
+            position: "top left"
+        });
+    }
+    catch {
+        $(element).notify("Progress could not be saved.", {
+            autoHideDelay: 5000,
+            className: "error",
+            position: "top left"
+        });
+    }
 }
 
 function toggleNonProgressLocations(button) {
@@ -127,12 +205,12 @@ function toggleNonProgressLocations(button) {
 
     if (document.getElementById("zoommap").style.display == "block") {
         if (currentLocationIsDungeon) {
-            ToggleMap(dungeons.indexOf(currentGeneralLocation), true);
+            toggleMap(dungeons.indexOf(currentGeneralLocation), true);
         } else {
-            ToggleMap(islands.indexOf(currentGeneralLocation), false);
+            toggleMap(islands.indexOf(currentGeneralLocation), false);
         }
     }
-    locationsChanged();
+    dataChanged();
 }
 
 function toggleSingleColorBackground(button) {
@@ -151,7 +229,7 @@ function toggleSingleColorBackground(button) {
 }
 
 function refreshAllImagesAndCounts() {
-    //CHECK BOSSES
+    // bosses
     var bosses = [];
     bosses[0] = locationsChecked["Dragon Roost Cavern"]["Gohma Heart Container"];
     bosses[1] = locationsChecked["Forbidden Woods"]["Kalle Demos Heart Container"];
@@ -159,17 +237,18 @@ function refreshAllImagesAndCounts() {
     bosses[3] = locationsChecked["Forsaken Fortress"]["Helmaroc King Heart Container"];
     bosses[4] = locationsChecked["Earth Temple"]["Jalhalla Heart Container"];
     bosses[5] = locationsChecked["Wind Temple"]["Molgera Heart Container"];
+    bosses[6] = locationsChecked["Ganon's Tower"]["Defeat Ganondorf"];
 
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < bosses.length; i++) {
         var l = 'extralocation' + i.toString();
         if (bosses[i]) {
-            document.getElementById(l).src = imagedir + 'boss' + i + '_d.png';
+            document.getElementById(l).src = imageDir + 'boss' + i + '_d.png';
         } else {
-            document.getElementById(l).src = imagedir + 'boss' + i + '.png';
+            document.getElementById(l).src = imageDir + 'boss' + i + '.png';
         }
     }
 
-    //TRIFORCE PIECES
+    // triforce pieces
     var triforce = 0;
     for (var i = 1; i <= 8; i++) {
         if (items["Triforce Shard " + i] > 0) {
@@ -177,116 +256,114 @@ function refreshAllImagesAndCounts() {
         }
         else break;
     }
-    document.getElementById('triforce').src = imagedir + 'triforce' + triforce + '.png'
+    document.getElementById('triforce').src = imageDir + 'triforce' + triforce + '.png'
 
-    //ITEMS
-    for (var i = 0; i < 27; i++) {
+    // items
+    for (var i = 0; i < 31; i++) {
         var l = 'item' + i.toString();
         var itemName = document.getElementById(l).name;
         var itemCount = items[itemName];
 
         if (itemCount === 0) {
-            document.getElementById(l).src = imagedir + 'item' + i + '.png'
+            document.getElementById(l).src = imageDir + 'item' + i + '.png'
         } else if (itemCount === 1) {
-            document.getElementById(l).src = imagedir + 'item' + i + '_a.png'
+            document.getElementById(l).src = imageDir + 'item' + i + '_a.png'
         } else {
-            document.getElementById(l).src = imagedir + 'item' + i + '_' + itemCount + '_a.png'
+            document.getElementById(l).src = imageDir + 'item' + i + '_' + itemCount + '_a.png'
         }
     }
 
-    //SHIELDS
+    // shields
     var l = 'shield';
     if (items["Mirror Shield"] > 0) {
-        document.getElementById(l).src = imagedir + 'mirrorshield.png'
+        document.getElementById(l).src = imageDir + 'mirrorshield.png'
     } else if (items["Hero's Shield"] > 0) {
-        document.getElementById(l).src = imagedir + 'herosshield.png'
+        document.getElementById(l).src = imageDir + 'herosshield.png'
     } else {
-        document.getElementById(l).src = imagedir + 'noshield.png'
+        document.getElementById(l).src = imageDir + 'noshield.png'
     }
 
-    //SONGS
+    // songs
     for (var i = 0; i < 6; i++) {
         var l = 'song' + i.toString();
         var songName = document.getElementById(l).name;
 
         if (items[songName] === 0) {
-            document.getElementById(l).src = imagedir + 'song' + i + '.png'
+            document.getElementById(l).src = imageDir + 'song' + i + '.png'
         } else
-            document.getElementById(l).src = imagedir + 'song' + i + '_a.png'
+            document.getElementById(l).src = imageDir + 'song' + i + '_a.png'
     }
 
-    //PEARLS
+    // pearls
     for (var i = 0; i < 3; i++) {
         var l = 'pearl' + i.toString();
         var pearlName = document.getElementById(l).name;
 
         if (items[pearlName] === 0) {
-            document.getElementById(l).src = imagedir + 'pearl' + i + '.png'
+            document.getElementById(l).src = imageDir + 'pearl' + i + '.png'
         } else
-            document.getElementById(l).src = imagedir + 'pearl' + i + '_a.png'
+            document.getElementById(l).src = imageDir + 'pearl' + i + '_a.png'
     }
 
-    for (var i = 0; i < 6; i++) {
-        //FF does not have keys
-        if (i != 3) {
-            //SMALL KEYS
+    for (var i = 0; i < dungeons.length; i++) {
+        if (isMainDungeon(dungeons[i])) {
+            // small keys
             var l = 'smallkey' + i.toString();
             var smallKeyName = document.getElementById(l).innerText;
-            var smallKeyCount = items[smallKeyName];
+            var smallKeyCount = keys[smallKeyName];
             if (smallKeyCount === 0) {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'smallkey.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'smallkey.png\')';
             } else {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'smallkey_' + smallKeyCount + '.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'smallkey_' + smallKeyCount + '.png\')';
             }
 
-            //ENTRY
+            // dungeon entry
             var l = 'entry' + i.toString();
-
             if (isRandomEntrances) {
                 var entryName = document.getElementById(l).innerText;
                 if (items[entryName] === 0) {
-                    document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'dungeon_noentry.png\')';
+                    document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'dungeon_noentry.png\')';
                 } else {
-                    document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'dungeon_entered.png\')';
+                    document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'dungeon_entered.png\')';
                 }
             } else {
                 document.getElementById(l).style.display = "none";
             }
 
-            //BOSS KEYS
+            // boss keys
             var l = 'bosskey' + i.toString();
             var bigKeyName = document.getElementById(l).innerText;
-            var bigKeyCount = items[bigKeyName];
+            var bigKeyCount = keys[bigKeyName];
             if (bigKeyCount === 0) {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'bosskey.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'bosskey.png\')';
             } else {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'bosskey_a.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'bosskey_a.png\')';
             }
         }
     }
 
-    //CHARTS
+    // charts
     for (var i = 0; i < 49; i++) {
         var l = 'chart' + i.toString();
         var chartName = document.getElementById(l).innerText;
         var chartCount = items[chartName];
         if (chartName.includes("Triforce")) {
             if (chartCount === 1) {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'triforcechartopen.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'triforcechartopen.png\')';
             } else {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'triforcechart.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'triforcechart.png\')';
             }
         }
         else {
             if (chartCount === 1) {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'chartopen.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'chartopen.png\')';
             } else {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imagedir + 'chart.png\')';
+                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'chart.png\')';
             }
         }
     }
 
-    //LOCATIONS
+    // locations
     for (var i = 0; i < islands.length; i++) {
         var l = 'mapchests' + i.toString();
         var curLocation = islands[i];
@@ -322,44 +399,44 @@ function setChestsForElement(element, progress, available, total) {
     }
 }
 
-function ClearItemInfo() {
+function clearItemInfo() {
     document.getElementById('iteminfo').innerText = '';
 }
 
-function ItemInfo(element) {
+function itemInfo(element) {
     var text = element.name;
-    if (text == "Progressive Shield") {
-        if (items["Mirror Shield"] == 1) {
-            text = "Mirror Shield";
-        } else {
-            text = "Hero's Shield";
-        }
-    }
-    else if (text.startsWith("Progressive")) {
+    if (text.startsWith("Progressive")) {
         var itemCount = items[text];
         var textWithCount = text + " x" + itemCount;
         text = getNameForItem(textWithCount);
+    } else if (text == "Hero's Shield") {
+        if (items["Mirror Shield"] == 1) {
+            text = "Mirror Shield";
+        }
     } else if (text == "Triforce") {
         for (var i = 1; i <= 8; i++) {
             var curShard = "Triforce Shard " + i;
             if (items[curShard] == 0) {
                 text = "Triforce Shard (" + (i - 1).toString() + "/8)";
                 break;
-            } else if (i == 8) {
-                text = "Triforce";
             }
         }
+    } else if (text == "Empty Bottle") {
+        var itemCount = items[text];
+        text = "Empty Bottle (" + itemCount + "/4)";
+    } else {
+        text = getNameForItem(text);
     }
     document.getElementById('iteminfo').innerText = text;
 }
 
-function ToggleItem(element, maxItems) {
+function toggleInventoryItem(element, maxItems) {
     var itemName = element.name;
     toggleItem(itemName, maxItems);
-    ItemInfo(element);
+    itemInfo(element);
 }
 
-function ToggleShield(element) {
+function toggleShield(element) {
     if (items["Hero's Shield"] == 0) {
         items["Hero's Shield"] = 1;
     } else if (items["Mirror Shield"] == 0) {
@@ -368,11 +445,11 @@ function ToggleShield(element) {
         items["Hero's Shield"] = 0;
         items["Mirror Shield"] = 0;
     }
-    itemsChanged();
-    ItemInfo(element);
+    dataChanged();
+    itemInfo(element);
 }
 
-function ToggleTriforce() {
+function toggleTriforce() {
     for (var i = 1; i <= 8; i++) {
         var curShard = "Triforce Shard " + i;
         if (items[curShard] == 0) {
@@ -383,8 +460,8 @@ function ToggleTriforce() {
             resetAllShards();
         }
     }
-    itemsChanged();
-    ItemInfo(document.getElementById('triforce'));
+    dataChanged();
+    itemInfo(document.getElementById('triforce'));
 }
 
 function resetAllShards() {
@@ -400,28 +477,37 @@ function toggleItem(itemName, maxItems) {
         curCount = 0;
     }
     items[itemName] = curCount;
-    itemsChanged();
+    dataChanged();
 }
 
-function ToggleKey(element, maxKeys) {
+function toggleKey(element, maxKeys) {
     disableMap = true;
     var keyName = element.innerText;
-    toggleItem(keyName, maxKeys);
-    SmallKeyInfo(element, maxKeys);
+    var keyCount = keys[keyName];
+    keyCount++;
+    if (keyCount > maxKeys) {
+        keyCount = 0;
+    }
+    keys[keyName] = keyCount;
+    dataChanged();
+    if (keyName.includes("Small")) {
+        smallKeyInfo(element, maxKeys);
+    }
 }
 
-function ToggleEntry(element) {
+function toggleEntry(element) {
     disableMap = true;
     var entryName = element.innerText;
     toggleItem(entryName, 1);
-    MapItemInfo(element);
+    mapItemInfo(element);
 }
 
-function ShrinkMap() {
+function shrinkMap() {
     removeVisibleTooltips();
     document.getElementById('chartmap').style.display = "block";
     document.getElementById('zoommap').style.display = "none";
     currentGeneralLocation = "";
+    recreateTooltips();
 }
 
 function getTextForExpression(expression) {
@@ -488,6 +574,23 @@ function addTooltipToElement(element) {
     }
 }
 
+function addSongTooltip(element) {
+    var id = "#" + element.id + "-notes";
+    var songName = element.name;
+    $(element).qtip({
+        content: {
+            text: $(id).clone(),
+            title: songName
+        },
+        position: {
+            target: 'mouse',
+            adjust: {
+                x: 15
+            }
+        }
+    });
+}
+
 function removeTooltipFromElement(element) {
     $(element).qtip('destroy', true);
 }
@@ -504,6 +607,18 @@ function recreateTooltips() {
             }
         }
     }
+
+    for (var i = 0; i < 6; i++) {
+        var l = 'song' + i.toString();
+        var element = document.getElementById(l);
+        var songName = element.name;
+
+        if (items[songName] === 0) {
+            removeTooltipFromElement(element);
+        } else {
+            addSongTooltip(element)
+        }
+    }
 }
 
 function removeVisibleTooltips() {
@@ -517,7 +632,7 @@ function removeVisibleTooltips() {
     });
 }
 
-function ToggleMap(index, isDungeon) {
+function toggleMap(index, isDungeon) {
     if (disableMap) {
         disableMap = false;
         return;
@@ -529,20 +644,20 @@ function ToggleMap(index, isDungeon) {
     if (isDungeon) {
         currentGeneralLocation = dungeons[index];
         currentLocationIsDungeon = true;
-        document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imagedir + 'dungeon_mapfull' + index + '.png\')';
+        document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imageDir + 'dungeon_mapfull' + index + '.png\')';
     } else {
         currentGeneralLocation = islands[index];
         currentLocationIsDungeon = false;
-        document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imagedir + 'mapfull' + index + '.png\')';
+        document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imageDir + 'mapfull' + index + '.png\')';
     }
 
     var detailedLocations = getDetailedLocations(currentGeneralLocation, isDungeon);
 
     var fontSize = 'normal';
-    if (detailedLocations.length > 24) { // Windfall Island
+    if (detailedLocations.length > 24) { // 3 columns
         fontSize = 'smallest';
     }
-    else if (detailedLocations.length > 12) { // Dungeons
+    else if (detailedLocations.length > 12) { // 2 columns
         fontSize = 'small';
     }
 
@@ -595,47 +710,47 @@ function refreshLocationColors() {
     }
 }
 
-function ToggleLocation(element) {
+function toggleLocation(element) {
     var detailedLocation = element.innerText;
     var newLocationChecked = !locationsChecked[currentGeneralLocation][detailedLocation];
     locationsChecked[currentGeneralLocation][detailedLocation] = newLocationChecked;
-    locationsChanged();
+    dataChanged();
 }
 
-function ClearMapInfo() {
+function clearMapInfo() {
     document.getElementById('mapinfo').innerText = '';
 }
 
-function MapInfo(i) {
+function mapInfo(i) {
     let generalLocation = islands[i];
     var curAvailable = availableIslandChests[generalLocation];
     var curTotal = totalIslandChests[generalLocation];
     document.getElementById('mapinfo').innerText = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
 }
 
-function ClearMapItemInfo() {
+function clearMapItemInfo() {
     document.getElementById('mapiteminfo').innerText = '';
 }
 
-function MapItemInfo(element) {
+function mapItemInfo(element) {
     document.getElementById('mapiteminfo').innerText = element.innerText;
 }
 
-function SmallKeyInfo(element, maxKeys) {
+function smallKeyInfo(element, maxKeys) {
     var keyName = element.innerText;
-    var numKeys = items[keyName];
+    var numKeys = keys[keyName];
     document.getElementById('mapiteminfo').innerText = keyName + ' (' + numKeys + '/' + maxKeys + ')';
 }
 
-function DungeonMapInfo(i) {
+function dungeonMapInfo(i) {
     let generalLocation = dungeons[i];
     var curAvailable = availableDungeonChests[generalLocation];
     var curTotal = totalDungeonChests[generalLocation];
     document.getElementById('mapinfo').innerText = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
 }
 
-function ToggleChart(element) {
+function toggleChart(element) {
     disableMap = true;
     toggleItem(element.innerText, 1);
-    MapItemInfo(element);
+    mapItemInfo(element);
 }

@@ -1,234 +1,131 @@
-function applyflags() {
-	var decodeddata = atob(document.getElementById('flags').value);
-	var version = '';
-	var seed = '';
-	var bits = '';
+const currentVersion = "1.2.0";
 
-	while (decodeddata.charCodeAt(0) != 0 && decodeddata.length > 0) {
-		version += decodeddata[0];
-		decodeddata = decodeddata.substring(1);
+function parseFlags(flags, ids) {
+	var curVal = 128;
+	var i = 7;
+	while (curVal >= 1) {
+		var element = document.getElementById(ids[i])
+		if (flags >= curVal) {
+			if (element) {
+				element.checked = true;
+			}
+			flags = flags - curVal;
+		} else if (element) {
+			element.checked = false;
+		}
+		i--;
+		curVal /= 2;
 	}
+}
 
-	if (decodeddata.length > 0) {
-		decodeddata = decodeddata.substring(1);
-	}
+function applyflags(element) {
+	try {
+		var decodedData = atob(document.getElementById('flags').value);
+		var version = '';
+		var bits = '';
 
-	while (decodeddata.charCodeAt(0) != 0 && decodeddata.length > 0) {
-		seed += decodeddata[0];
-		decodeddata = decodeddata.substring(1);
-	}
-
-	if (decodeddata.length > 0) {
-		decodeddata = decodeddata.substring(1);
-		bits = decodeddata;
-
-		var flags = bits.charCodeAt(0);
-		console.log(bits);
-
-		if (flags >= 128) {
-			document.getElementById('bswitch').checked = true;
-			flags = flags - 128;
-		} else {
-			document.getElementById('bswitch').checked = false;
-		}
-		if (flags >= 64) {
-			document.getElementById('eswitch').checked = true;
-			flags = flags - 64;
-		} else {
-			document.getElementById('eswitch').checked = false;
-		}
-		if (flags >= 32) {
-			document.getElementById('sswitch').checked = true;
-			flags = flags - 32;
-		} else {
-			document.getElementById('sswitch').checked = false;
-		}
-		if (flags >= 16) {
-			document.getElementById('lrswitch').checked = true;
-			flags = flags - 16;
-		} else {
-			document.getElementById('lrswitch').checked = false;
-		}
-		if (flags >= 8) {
-			document.getElementById('mswitch').checked = true;
-			flags = flags - 8;
-		} else {
-			document.getElementById('mswitch').checked = false;
-		}
-		if (flags >= 4) {
-			document.getElementById('sqswitch').checked = true;
-			flags = flags - 4;
-		} else {
-			document.getElementById('sqswitch').checked = false;
-		}
-		if (flags >= 2) {
-			document.getElementById('scswitch').checked = true;
-			flags = flags - 2;
-		} else {
-			document.getElementById('scswitch').checked = false;
-		}
-		if (flags >= 1) {
-			document.getElementById('dswitch').checked = true;
-		} else {
-			document.getElementById('dswitch').checked = false;
+		while (decodedData.charCodeAt(0) != 0 && decodedData.length > 0) {
+			version += decodedData[0];
+			decodedData = decodedData.substring(1);
 		}
 
-		flags = bits.charCodeAt(1);
+		if (/^[0-9.]+$/.test(version) && version != currentVersion) {
+			showBrokenPermalink(element, true);
+			return;
+		}
 
-		if (flags >= 128) {
-			document.getElementById('entryswitch').checked = true;
-			flags = flags - 128;
-		} else {
-			document.getElementById('entryswitch').checked = false;
+		if (decodedData.length > 0) {
+			decodedData = decodedData.substring(1); // space between version and seed
 		}
-		if (flags >= 64) {
-			flags = flags - 64;
+
+		while (decodedData.charCodeAt(0) != 0 && decodedData.length > 0) {
+			decodedData = decodedData.substring(1); // seed
 		}
-		if (flags >= 32) {
-			document.getElementById('evswitch').checked = true;
-			flags = flags - 32;
+
+		if (decodedData.length > 0) {
+			decodedData = decodedData.substring(1); // space between seed and flags
+			bits = decodedData;
+
+			var flags = bits.charCodeAt(0);
+			parseFlags(flags, ['dungeons', 'great_fairies', 'puzzle_secret_caves', 'combat_secret_caves', 'short_sidequests', 'long_sidequests', 'spoils_trading', 'minigames']);
+			flags = bits.charCodeAt(1);
+			parseFlags(flags, ['free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts']);
+			flags = bits.charCodeAt(2);
+			parseFlags(flags, ['expensive_purchases', 'misc', 'key_lunacy', 'randomize_dungeon_entrances', '', '', '', '']);
+
+			$(element).notify("Flags applied from the Permalink.", {
+				autoHideDelay: 5000,
+				className: "success",
+				position: "top center"
+			});
 		} else {
-			document.getElementById('evswitch').checked = false;
-		}
-		if (flags >= 16) {
-			document.getElementById('maswitch').checked = true;
-			flags = flags - 16;
-		} else {
-			document.getElementById('maswitch').checked = false;
-		}
-		if (flags >= 8) {
-			document.getElementById('gswitch').checked = true;
-			flags = flags - 8;
-		} else {
-			document.getElementById('gswitch').checked = false;
-		}
-		if (flags >= 4) {
-			document.getElementById('epswitch').checked = true;
-			flags = flags - 4;
-		} else {
-			document.getElementById('epswitch').checked = false;
-		}
-		if (flags >= 2) {
-			document.getElementById('streswitch').checked = true;
-			flags = flags - 2;
-		} else {
-			document.getElementById('streswitch').checked = false;
-		}
-		if (flags >= 1) {
-			document.getElementById('striswitch').checked = true;
-		} else {
-			document.getElementById('striswitch').checked = false;
+			showBrokenPermalink(element, false);
 		}
 	}
+	catch {
+		showBrokenPermalink(element, false);
+	}
+}
+
+function showBrokenPermalink(element, wrongVersion) {
+	if (wrongVersion) {
+		var notificationMessage = "Flags could not be applied. Permalink is not compatible with Wind Waker Randomizer " + currentVersion + ".";
+	} else {
+		var notificationMessage = "Flags could not be applied from the Permalink.";
+	}
+	$(element).notify(notificationMessage, {
+		autoHideDelay: 5000,
+		className: "error",
+		position: "top center"
+	});
 }
 
 function getFlagString() {
-	var dflag = 'D0';
-	var scflag = 'SC0';
-	var sqflag = 'SQ0';
-	var mflag = 'M0';
-	var lrflag = 'LR0';
-	var sflag = 'S0';
-	var eflag = 'ER0';
-	var bflag = 'B0';
-	var striflag = 'STRI0';
-	var streflag = 'STRE0';
-	var gflag = 'G0';
-	var maflag = 'MA0';
-	var epflag = 'EP0';
-	var evflag = 'EV0';
-	var entryflag = 'ENTRY0';
+	var flagNames = ['D', 'GF', 'PSC', 'CSC', 'SSQ', 'LSQ', 'ST', 'MG', 'FG', 'MAI', 'PR', 'SUB', 'ERC', 'BOG', 'TRI', 'TRE', 'EP', 'MIS', 'KL', 'RDE'];
+	var buttonNames = ['dungeons', 'great_fairies', 'puzzle_secret_caves', 'combat_secret_caves', 'short_sidequests', 'long_sidequests', 'spoils_trading', 'minigames',
+		'free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts',
+		'expensive_purchases', 'misc', 'key_lunacy', 'randomize_dungeon_entrances'];
 
-	if (document.getElementById('dswitch').checked) {
-		dflag = 'D1';
+	var result = '';
+	for (var i = 0; i < buttonNames.length; i++) {
+		var curButton = buttonNames[i];
+		var curFlag = flagNames[i];
+		if (document.getElementById(curButton).checked) {
+			result += curFlag + '1';
+		} else {
+			result += curFlag + '0';
+		}
 	}
-
-	if (document.getElementById('scswitch').checked) {
-		scflag = 'SC1';
-	}
-
-	if (document.getElementById('sqswitch').checked) {
-		sqflag = 'SQ1';
-	}
-
-	if (document.getElementById('mswitch').checked) {
-		mflag = 'M1';
-	}
-
-	if (document.getElementById('lrswitch').checked) {
-		lrflag = 'LR1';
-	}
-
-	if (document.getElementById('sswitch').checked) {
-		sflag = 'S1';
-	}
-
-	if (document.getElementById('eswitch').checked) {
-		eflag = 'ER1';
-	}
-
-	if (document.getElementById('bswitch').checked) {
-		bflag = 'B1';
-	}
-
-	if (document.getElementById('striswitch').checked) {
-		striflag = 'STRI1';
-	}
-
-	if (document.getElementById('streswitch').checked) {
-		streflag = 'STRE1';
-	}
-
-	if (document.getElementById('gswitch').checked) {
-		gflag = 'G1';
-	}
-
-	if (document.getElementById('maswitch').checked) {
-		maflag = 'MA1';
-	}
-
-	if (document.getElementById('epswitch').checked) {
-		epflag = 'EP1';
-	}
-
-	if (document.getElementById('evswitch').checked) {
-		evflag = 'EV1';
-	}
-
-	if (document.getElementById('entryswitch').checked) {
-		entryflag = 'ENTRY1';
-	}
-
-	return dflag + scflag + sqflag + mflag + lrflag + sflag + eflag + bflag + striflag + streflag + gflag + maflag + epflag + evflag + entryflag;
+	return result;
 }
 
-function getMostRecentFlags() {
-	var flagsStr = localStorage.getItem("rando-flags");
-	if (flagsStr)
-		return flagsStr;
-	return getFlagString();
+function openTracker(loadProgress) {
+	var flagStr = getFlagString();
+	var progressStr = '0';
+	var versionStr = currentVersion;
+	var isCurrentVersionStr = '1';
+	if (loadProgress) {
+		var storedVersion = localStorage.getItem("version");
+		if (storedVersion && storedVersion != currentVersion) {
+			versionStr = storedVersion;
+			isCurrentVersionStr = '0';
+		}
+		progressStr = '1';
+	}
+
+	//Chrome defaults
+	var h = 455;
+	var w = 1320;
+
+	open('tracker.html?f=' + flagStr + '&p=' + progressStr + '&v=' + versionStr + '&c=' + isCurrentVersionStr,
+		'',
+		'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0');
 }
 
 function loadMostRecent() {
-	var flagsstr = getMostRecentFlags();
-
-	//Chrome defaults
-	var h = 435;
-	var w = 1300;
-
-	open('tracker.html?f=' + flagsstr + '&p=1',
-		'',
-		'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0');
+	openTracker(true);
 }
 
 function launch() {
-	var flagsstr = getFlagString();
-
-	//Chrome defaults
-	var h = 435;
-	var w = 1300;
-
-	open('tracker.html?f=' + flagsstr + '&p=0',
-		'',
-		'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0');
+	openTracker(false);
 }

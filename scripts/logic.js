@@ -3,13 +3,7 @@ var itemLocations; // contents of item_locations.txt
 var macrosLoaded = false;
 var itemLocationsLoaded = false;
 
-const drcMacro = "Can Access Dragon Roost Cavern";
-const fwMacro = "Can Access Forbidden Woods";
-const totgMacro = "Can Access Tower of the Gods";
-const etMacro = "Can Access Earth Temple";
-const wtMacro = "Can Access Wind Temple";
-
-var islands = [
+const islands = [
     'Forsaken Fortress',
     'Star Island',
     'Northern Fairy Island',
@@ -62,8 +56,7 @@ var islands = [
     'Mailbox',
     'The Great Sea'
 ];
-
-var dungeons = [
+const dungeons = [
     'Dragon Roost Cavern',
     'Forbidden Woods',
     'Tower of the Gods',
@@ -71,7 +64,16 @@ var dungeons = [
     'Earth Temple',
     'Wind Temple',
     'Ganon\'s Tower'];
+const shortDungeonNames = [
+    'DRC',
+    'FW',
+    'TotG',
+    'FF',
+    'ET',
+    'WT',
+    'GT'];
 
+// tracker should modify these
 var items = {
     "Tingle Tuner": 0,
     "Wind Waker": 0,
@@ -132,12 +134,16 @@ var items = {
     "FW Small Key": 0,
     "TotG Big Key": 0,
     "TotG Small Key": 0,
-    "FF Big Key": 0,
-    "FF Small Key": 0,
     "ET Big Key": 0,
     "ET Small Key": 0,
     "WT Big Key": 0,
     "WT Small Key": 0,
+
+    "Entered DRC": 0,
+    "Entered FW": 0,
+    "Entered TotG": 0,
+    "Entered ET": 0,
+    "Entered WT": 0,
 
     "Treasure Chart 1": 0,
     "Treasure Chart 2": 0,
@@ -192,15 +198,29 @@ var items = {
 
     "Telescope": 0,
     "Magic Armor": 0,
-
-    "Entered DRC": 0,
-    "Entered FW": 0,
-    "Entered TotG": 0,
-    "Entered ET": 0,
-    "Entered WT": 0
+    "Hero's Charm": 0,
+    "Progressive Quiver": 0,
+    "Progressive Bomb Bag": 0,
+    "Hurricane Spin": 0
+};
+var keys = {
+    "DRC Big Key": 0,
+    "DRC Small Key": 0,
+    "FW Big Key": 0,
+    "FW Small Key": 0,
+    "TotG Big Key": 0,
+    "TotG Small Key": 0,
+    "ET Big Key": 0,
+    "ET Small Key": 0,
+    "WT Big Key": 0,
+    "WT Small Key": 0,
 };
 var locationsChecked = {};
+var flags = [];
+var isKeyLunacy = false;
+var isRandomEntrances = false;
 
+// tracker should use these without modifying them
 var locationsAreProgress = {};
 var locationsAreAvailable = {};
 var progressIslandChests = {};
@@ -218,11 +238,14 @@ $(document).ready(function () {
 function loadMacros() {
     $.ajax(
         {
-            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/1.1.0/logic/macros.txt',
+            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/' + versionParam + '/logic/macros.txt',
             success: function (data) {
                 macros = jsyaml.load(data);
                 macrosLoaded = true;
                 afterLoad();
+            },
+            error: function () {
+                showLoadingError();
             }
         }
     )
@@ -231,11 +254,14 @@ function loadMacros() {
 function loadItemLocations() {
     $.ajax(
         {
-            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/1.1.0/logic/item_locations.txt',
+            url: 'https://raw.githubusercontent.com/LagoLunatic/wwrando/' + versionParam + '/logic/item_locations.txt',
             success: function (data) {
                 itemLocations = jsyaml.load(data);
                 itemLocationsLoaded = true;
                 afterLoad();
+            },
+            error: function () {
+                showLoadingError();
             }
         }
     )
@@ -243,7 +269,9 @@ function loadItemLocations() {
 
 function afterLoad() {
     if (macrosLoaded && itemLocationsLoaded) {
-        loadFlagsAndStartingItems();
+        loadFlags();
+        loadStartingItems();
+        addDefeatGanondorf();
         setLocationsAreProgress();
         initializeLocationsChecked();
         initializeRandomDungeonEntrances();
@@ -251,10 +279,12 @@ function afterLoad() {
         setLocationsAreAvailable();
         setChestCounts();
         refreshAllImagesAndCounts();
+        recreateTooltips();
     }
 }
 
-function itemsChanged() {
+// tracker should call this after changing 'items', 'keys', or 'locationsChecked'
+function dataChanged() {
     setLocationsAreAvailable();
     setChestCounts();
     refreshAllImagesAndCounts();
@@ -262,11 +292,21 @@ function itemsChanged() {
     recreateTooltips();
 }
 
-function locationsChanged() {
-    setChestCounts();
-    refreshAllImagesAndCounts();
-    refreshLocationColors();
-    recreateTooltips();
+function loadStartingItems() {
+    items["Progressive Sword"] = 1;
+    items["Hero's Shield"] = 1;
+    items["Wind Waker"] = 1;
+    items["Boat's Sail"] = 1;
+    items["Wind's Requiem"] = 1;
+    items["Ballad of Gales"] = 1;
+}
+
+function addDefeatGanondorf() {
+    flags.push("Finish Game");
+    itemLocations["Ganon's Tower - Defeat Ganondorf"] = {
+        Need: "Can Reach and Defeat Ganondorf",
+        Types: "Finish Game"
+    };
 }
 
 function getDetailedLocations(generalLocation, isDungeon) {
@@ -286,7 +326,9 @@ function setLocationsAreProgress() {
 }
 
 function setLocationsAreAvailable() {
+    transferKeys();
     locationsAreAvailable = setLocations(isLocationAvailable);
+    setGuaranteedKeys();
 }
 
 function initializeLocationsChecked() {
@@ -294,13 +336,81 @@ function initializeLocationsChecked() {
 }
 
 function initializeRandomDungeonEntrances() {
-    if (isRandomEntrances) { // we rely on the tracker to change these macros later
-        macros[drcMacro] = "Entered DRC";
-        macros[fwMacro] = "Entered FW";
-        macros[totgMacro] = "Entered TotG";
-        macros[etMacro] = "Entered ET";
-        macros[wtMacro] = "Entered WT";
+    if (isRandomEntrances) {
+        for (var i = 0; i < dungeons.length; i++) {
+            var dungeonName = dungeons[i];
+            if (isMainDungeon(dungeonName)) {
+                var macroName = "Can Access " + dungeonName;
+                var entryName = "Entered " + shortDungeonNames[i];
+                macros[macroName] = entryName;
+            }
+        }
     }
+}
+
+function transferKeys() {
+    Object.keys(keys).forEach(function (keyName) {
+        if (isKeyLunacy) {
+            items[keyName] = keys[keyName];
+        } else {
+            items[keyName] = 5;
+        }
+    });
+}
+
+function setGuaranteedKeys() {
+    if (!isKeyLunacy) {
+        for (var i = 0; i < dungeons.length; i++) {
+            var dungeonName = dungeons[i];
+            if (isMainDungeon(dungeonName)) {
+                var guaranteedKeys = getGuaranteedKeysForDungeon(dungeonName);
+                var shortDungeonName = shortDungeonNames[i];
+                var smallKeyName = shortDungeonName + " Small Key";
+                var bigKeyName = shortDungeonName + " Big Key";
+                items[smallKeyName] = Math.max(guaranteedKeys.small, keys[smallKeyName]);
+                items[bigKeyName] = Math.max(guaranteedKeys.big, keys[bigKeyName]);
+            }
+        }
+        locationsAreAvailable = setLocations(isLocationAvailable);
+    }
+}
+
+function getGuaranteedKeysForDungeon(dugeonName) {
+    var guaranteedSmallKeys = 5;
+    var guaranteedBigKeys = 1;
+    Object.keys(locationsAreAvailable[dugeonName]).forEach(function (detailedLocation) {
+        if (isValidForLocation(dugeonName, detailedLocation, true)
+            && !locationsAreAvailable[dugeonName][detailedLocation]
+            && !locationsChecked[dugeonName][detailedLocation]) {
+            var keyReqs = getKeyRequirementsForLocation(dugeonName, detailedLocation);
+            guaranteedSmallKeys = Math.min(guaranteedSmallKeys, keyReqs.small);
+            guaranteedBigKeys = Math.min(guaranteedBigKeys, keyReqs.big);
+        }
+    });
+    return { small: guaranteedSmallKeys, big: guaranteedBigKeys };
+}
+
+function getKeyRequirementsForLocation(dungeonName, detailedLocation) {
+    var fullName = dungeonName + " - " + detailedLocation;
+    var requirements = itemLocations[fullName].Need;
+    var smallReq = 0;
+    var bigReq = 0;
+    var smallIndex = requirements.indexOf("Small Key x");
+    if (smallIndex >= 0) {
+        var smallReqName = requirements.substring(smallIndex, "Small Key x1".length + smallIndex);
+        smallReq = getProgressiveNumRequired(smallReqName);
+    }
+    if (requirements.includes("Big Key")) {
+        bigReq = 1;
+    }
+    return { small: smallReq, big: bigReq };
+}
+
+function isMainDungeon(dungeonName) {
+    if (dungeonName == "Forsaken Fortress" || dungeonName == "Ganon's Tower") {
+        return false;
+    }
+    return dungeons.includes(dungeonName);
 }
 
 function isValidForLocation(generalLocation, detailedLocation, isDungeon) {
@@ -660,11 +770,10 @@ function isLocationProgress(locationName) {
         var type = types[i];
         if (type == "Sunken Treasure"
             && itemLocations[locationName]["Original item"].startsWith("Triforce Shard")) {
-            if (!flags.includes("Sunken Triforce"))
+            if (!flags.includes("Sunken Triforce")) {
                 return false;
-            continue;
-        }
-        if (!(flags.includes(type))) {
+            }
+        } else if (!flags.includes(type)) {
             return false;
         }
     }
@@ -707,12 +816,29 @@ function getNameForItem(itemName) {
             }
         } else if (item == "Progressive Wallet") {
             if (numRequired <= 1) {
-                return "1000 Rupee Wallet";
+                return "Wallet (1000 Rupees)";
             }
             if (numRequired == 2) {
-                return "5000 Rupee Wallet";
+                return "Wallet (5000 Rupees)";
+            }
+        } else if (item == "Progressive Quiver") {
+            if (numRequired <= 1) {
+                return "Quiver (60 Arrows)"
+            }
+            if (numRequired == 2) {
+                return "Quiver (99 Arrows)";
+            }
+        } else if (item == "Progressive Bomb Bag") {
+            if (numRequired <= 1) {
+                return "Bomb Bag (60 Bombs)"
+            }
+            if (numRequired == 2) {
+                return "Bomb Bag (99 Bombs)";
             }
         }
+    }
+    else if (itemName == "Boat's Sail") {
+        return "Swift Sail";
     }
     else if (itemName.startsWith("Triforce Shard")) {
         return "Triforce";

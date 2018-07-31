@@ -1,5 +1,11 @@
 body {
     background-image: url("../images/background.png");
+    font-family: 'Fira Sans', sans-serif;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .full-container {
@@ -23,25 +29,36 @@ body {
 }
 
 .settings {
-    background-image: url("../images/menubg.png");
+    background: url("../images/menubg.png");
+    background-size: contain;
+    background-position: center center;
     display: flex;
     justify-content: center;
+    color: white;
     width: 100%;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding: 8px 0px;
+    flex-wrap: wrap;
+}
+
+.settings,
+.attribution,
+#iteminfo,
+#mapinfo,
+#mapiteminfo {
+    text-shadow: 1.5px 1px rgba(0, 0, 0, 0.5);
 }
 
 .settings table {
-    width: 1100px;
-    font-family: 'Fira Sans', sans-serif;
+    width: 100%;
+    max-width: 1100px;
     font-size: 1.2em;
     table-layout: fixed;
     color: white;
 }
 
 .settings td {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .label-text {
@@ -59,14 +76,6 @@ body {
 
 .slider-col {
     width: 10%;
-}
-
-.permalink-container {
-    text-align: center;
-}
-
-#apply-flags-button {
-    width: 120px;
 }
 
 .switch {
@@ -121,16 +130,41 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
+.permalink-container,
+.launcher-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 4px 0px;
+}
+
+.permalink-label {
+    font-size: 1.2em;
+}
+
+.permalink-input {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.launcher-button {
+    min-width: 200px;
+}
+
 button,
 #flags {
     padding: 6px;
     border-radius: 5px;
-    font-family: 'Fira Sans', sans-serif;
-    font-size: 0.8em;
     font-weight: bold;
     border: 1px solid #808080;
     margin-left: 2px;
     margin-right: 2px;
+}
+
+.settings button,
+#flags {
+    font-size: 1em;
 }
 
 #flags {
@@ -139,40 +173,69 @@ button,
 }
 
 button {
-background: linear-gradient(#d2d2d2,#c8c8c8);
-}
-
-.launcher-button-container {
-    text-align: center;
-}
-
-.launcher-button {
-    width: 200px;
-}
-
-.attribution {
-    text-align: center;
-    margin-top: 25px;
-    color: #C8C8C8;
+    background: linear-gradient(#d2d2d2,#c8c8c8);
     font-family: 'Fira Sans', sans-serif;
+    cursor: pointer;
+    min-width: 120px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+button:hover {
+    border-color: #323232;
+}
+
+fieldset {
+    margin: 4px 20px;
+    border: 1px solid #c8c8c8;
+    padding: 0px 4px 4px 4px;
+    border-radius: 4px;
+    background-color: rgba(50, 50, 50, 0.4);
+}
+
+legend {
+    color: white;
+    padding: 2px;
+}
+
+.attribution,
+.attribution a {
+    text-align: center;
+    margin-top: 20px;
+    color: #C8C8C8;
     font-size: 13px;
 }
 
+.attribution a:hover {
+    color: #969696;
+}
+
+.tracker-container {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+}
+
 .tracker {
-    font-family: 'Fira Sans', sans-serif;
     display: flex;
     flex-wrap: wrap;
+    flex-grow: 1;
+    align-content: flex-start;
 }
 
 .item-tracker {
-    width: 436px;
+    width: 434px;
     height: 326px;
-    background-image: url("../images/trackerbg.png");
-    padding: 10px;
+    background: url("../images/trackerbg.png") no-repeat center center;
+    padding: 10px 11px;
     background-size: cover;
     float: left;
     margin-right: 8px;
-    margin-bottom: 36px;
+    margin-bottom: 38px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    position: relative;
 }
 
 .item-tracker.single-color {
@@ -180,40 +243,101 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     background-color: #69891C;
 }
 
-.songs,
-.pearls,
-.misc-items {
-    float: left;
+.item-tracker table {
+    text-align: center;
+}
+
+.item-tracker img {
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.menu-items {
+    width: 100%;
+}
+
+.menu-items table {
+    width: 100%;
 }
 
 .dins-pearl {
     float: left;
-    margin-top: -4px;
 }
 
-.farores-pearl {
-    margin-top: -4px;
+.other-items {
+    display: flex;
+    width: 100%;
 }
 
-.blank-row {
-    height: 48px;
+.triforce-and-pearls {
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 270px;
+}
+
+.pearls {
+    width: 114px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.pearl-holder {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.pearl-holder img {
+    filter: none;
+}
+
+.misc-items {
+    flex-grow: 1;
+}
+
+.misc-items table {
+    width: 100%;
+    height: 116px;
+}
+
+.song-notes {
+    display: none;
 }
 
 .chart-map-container {
     float: left;
     margin-right: 8px;
-    width: 343px;
-    height: 326px;
-    margin-bottom: 61px;
+    width: 364px;
+    height: 346px;
+    margin-bottom: 56px;
+    flex-shrink: 0;
 }
 
 #chartmap {
     font-size: 13px;
-    position: absolute;
+    background: url("../images/sea_chart.png");
+}
+
+#chartmap,
+#zoommap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.maps {
+    padding: 7px 4px 3px 6px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .sea-sector {
+    position: relative;
     float: left;
+    cursor: pointer;
+    width: 50.5px;
+    height: 48px;
 }
 
 .treasure-chart {
@@ -225,13 +349,22 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     font-size: 0;
 }
 
+.chests-counter {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+}
+
 #iteminfo {
+    position: absolute;
     color: white;
-    float: left;
     width: 100%;
     text-align: center;
     font-size: 20px;
-    margin-top: 20px;
+    margin-top: 7px;
+    left: 0;
+    top: 100%;
 }
 
 .map-info-container {
@@ -246,30 +379,28 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
 #mapiteminfo {
     color: white;
     position: absolute;
-    left: -32px;
-    width: 400px;
+    width: 364px;
     text-align: center;
 }
 
 #mapinfo {
-    top: 333px;
+    top: 7px;
     font-size: 20px;
 }
 
 #mapiteminfo {
-    top: 360px;
+    top: 32px;
     font-size: 16px;
 }
 
-#zoommap {
-    position: absolute;
-    float: left;
-    width: 343px;
-    height: 326px;
+#zoommap table {
+    padding-top: 5px;
+    width: 100%;
 }
 
-#zoommap table {
-    width: 100%;
+#zoommap td {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 #zoommap-background,
@@ -284,6 +415,7 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     z-index: -2;
     background: url("../images/map48.png");
     background-size: cover;
+    background-position-y: 50%;
 }
 
 .zoommap-cover {
@@ -292,11 +424,11 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
 }
 
 .detail-small {
-    font-size: 12px;
+    font-size: 13.5px;
 }
 
 .detail-smallest {
-    font-size: 9px;
+    font-size: 10px;
 }
 
 .tool-tip-text {
@@ -306,10 +438,6 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
 .tool-tip-text ul {
     margin: 0;
     padding-left: 15px;
-}
-
-.qtip {
-    font-family: 'Fira Sans', sans-serif;
 }
 
 .tracker td {
@@ -325,8 +453,9 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
 .extra-locations {
     background-color: rgba(160, 160, 160, 0.85);
     width: 450px;
-    height: 266px;
+    height: 242px;
     margin-bottom: 8px;
+    flex-shrink: 0;
 }
 
 .extra-locations.single-color {
@@ -339,7 +468,8 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     background-position-y: 15px;
     display: flex;
     flex-direction: column;
-    margin: 5px
+    margin: 5px;
+    cursor: pointer;
 }
 
 .dungeon-items {
@@ -356,6 +486,18 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     font-size: 0;
 }
 
+.small-key {
+    background: url("../images/smallkey.png");
+}
+
+.dungeon-entry {
+    background: url("../images/dungeon_noentry.png");
+}
+
+.boss-key {
+    background: url("../images/bosskey.png");
+}
+
 .extra-location-chests {
     font-size: 16px;
     text-align: center;
@@ -365,15 +507,15 @@ background: linear-gradient(#d2d2d2,#c8c8c8);
     display: flex;
 }
 
+.buttons {
+    flex-grow: 0;
+}
+
 #save-progress-button {
-    width: 120px;
     margin-left: 0;
 }
 
-#toggle-locations-button {
-    width: 200px;
-}
-
+#toggle-locations-button,
 #toggle-background-button {
-    width: 200px;
+    min-width: 225px;
 }
