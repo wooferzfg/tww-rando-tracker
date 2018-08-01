@@ -432,11 +432,11 @@ function getChestCountsForLocation(generalLocation, isDungeon) {
             var hasProgress = locationsAreProgress[generalLocation][detailedLocation];
             if (hasProgress || showNonProgressLocations) {
                 curTotal++;
-                if (hasProgress) {
-                    curProgress++;
-                }
                 if (locationsAreAvailable[generalLocation][detailedLocation]) {
                     curAvailable++;
+                    if (hasProgress) {
+                        curProgress++;
+                    }
                 }
             }
         }
