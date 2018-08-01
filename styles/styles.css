@@ -217,6 +217,10 @@ legend {
     display: flex;
     min-height: 100%;
     flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-bottom: 8px;
 }
 
 .tracker {
