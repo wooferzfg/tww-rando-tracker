@@ -119,7 +119,7 @@ function openTracker(loadProgress) {
 
 	open('tracker.html?f=' + flagStr + '&p=' + progressStr + '&v=' + versionStr + '&c=' + isCurrentVersionStr,
 		'',
-		'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0');
+		'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0');
 }
 
 function loadMostRecent() {
