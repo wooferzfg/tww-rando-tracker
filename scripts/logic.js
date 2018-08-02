@@ -675,7 +675,7 @@ function removeDuplicateItems(expression) {
     return getSubexpression(newItems, expression.type);
 }
 
-function removeChildExpressions(expression, parentItems) {
+function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
     if (!expression || !(expression.type)) {
         return expression;
     }
@@ -683,16 +683,17 @@ function removeChildExpressions(expression, parentItems) {
     var newItems = [];
     for (var i = 0; i < items.length; i++) {
         var curItem = items[i];
-        if (parentItems.includes(curItem)) {
+        if (oppositeExprItems.includes(curItem)) { // when the parent items have an opposite expression, we remove the whole child expression
             return null;
-        }
-        if (curItem.type) {
-            var subExpression = removeChildExpressions(curItem, items);
-            if (subExpression) {
-                newItems.push(subExpression);
+        } else if (!sameExprItems.includes(curItem)) { // when the parent items have the same expression, we just remove the child
+            if (curItem.type) {
+                var subExpression = removeChildExpressions(curItem, sameExprItems.concat(items), oppositeExprItems);
+                if (subExpression) {
+                    newItems.push(subExpression);
+                }
+            } else {
+                newItems.push(curItem);
             }
-        } else {
-            newItems.push(curItem);
         }
     }
     return getSubexpression(newItems, expression.type);
@@ -754,7 +755,7 @@ function itemsMissingForLocation(generalLocation, detailedLocation) {
     var items = itemsMissingForLogicalExpression(splitExpression);
     items = flattenArrays(items);
     items = removeDuplicateItems(items);
-    items = removeChildExpressions(items, []);
+    items = removeChildExpressions(items, [], []);
     items = removeSubsumedExpressions(items);
     return items;
 }
