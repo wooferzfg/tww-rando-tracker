@@ -45,9 +45,19 @@ function loadFlags() {
         }
         isKeyLunacy = getLocalStorageBool("isKeyLunacy");
         isRandomEntrances = getLocalStorageBool("isRandomEntrances");
+        isRandomCharts = getLocalStorageBool("isRandomCharts");
         return;
     }
 
+    if (flagParam.indexOf("KL1") > -1) {
+        isKeyLunacy = true;
+    }
+    if (flagParam.indexOf("RDE1") > -1) {
+        isRandomEntrances = true;
+    }
+    if (flagParam.indexOf("RCH1") > -1) {
+        isRandomCharts = true;
+    }
     if (flagParam.indexOf("D1") > -1) {
         flags.push("Dungeon");
     }
@@ -93,7 +103,11 @@ function loadFlags() {
         flags.push("Gunboat");
     }
     if (flagParam.indexOf("TRI1") > -1) {
-        flags.push("Sunken Triforce"); // need to account for this case separately
+        if (isRandomCharts) {
+            flags.push("Sunken Treasure")
+        } else {
+            flags.push("Sunken Triforce"); // need to account for this case separately
+        }
     }
     if (flagParam.indexOf("TRE1") > -1) {
         flags.push("Sunken Treasure")
@@ -104,12 +118,6 @@ function loadFlags() {
     if (flagParam.indexOf("MIS1") > -1) {
         flags.push("Other Chest");
         flags.push("Misc");
-    }
-    if (flagParam.indexOf("KL1") > -1) {
-        isKeyLunacy = true;
-    }
-    if (flagParam.indexOf("RDE1") > -1) {
-        isRandomEntrances = true;
     }
 }
 
@@ -177,6 +185,7 @@ function saveProgress(element) {
         localStorage.setItem("flags", flags.join(','));
         localStorage.setItem("isKeyLunacy", isKeyLunacy);
         localStorage.setItem("isRandomEntrances", isRandomEntrances);
+        localStorage.setItem("isRandomCharts", isRandomCharts);
         localStorage.setItem("version", versionParam);
         localStorage.setItem("progress", "true");
 
@@ -343,11 +352,11 @@ function refreshAllImagesAndCounts() {
     }
 
     // charts
-    for (var i = 0; i < 49; i++) {
+    for (var i = 0; i < charts.length; i++) {
         var l = 'chart' + i.toString();
-        var chartName = document.getElementById(l).innerText;
+        var chartName = charts[i];
         var chartCount = items[chartName];
-        if (chartName.includes("Triforce")) {
+        if (!isRandomCharts && chartName.includes("Triforce")) {
             if (chartCount === 1) {
                 document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'triforcechartopen.png\')';
             } else {
@@ -749,8 +758,14 @@ function dungeonMapInfo(i) {
     document.getElementById('mapinfo').innerText = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
 }
 
-function toggleChart(element) {
+function toggleChart(i) {
     disableMap = true;
-    toggleItem(element.innerText, 1);
-    mapItemInfo(element);
+    var chartName = charts[i];
+    toggleItem(chartName, 1);
+    chartInfo(i);
+}
+
+function chartInfo(i) {
+    var chartName = getNameForItem(charts[i]);
+    document.getElementById('mapiteminfo').innerText = chartName;
 }

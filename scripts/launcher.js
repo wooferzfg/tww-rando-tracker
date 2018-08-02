@@ -51,7 +51,7 @@ function applyflags(element) {
 			flags = bits.charCodeAt(1);
 			parseFlags(flags, ['free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts']);
 			flags = bits.charCodeAt(2);
-			parseFlags(flags, ['expensive_purchases', 'misc', 'key_lunacy', 'randomize_dungeon_entrances', '', '', '', '']);
+			parseFlags(flags, ['expensive_purchases', 'misc', 'key_lunacy', 'randomize_dungeon_entrances', 'randomize_charts', '', '', '']);
 
 			$(element).notify("Flags applied from the Permalink.", {
 				autoHideDelay: 5000,
@@ -81,10 +81,10 @@ function showBrokenPermalink(element, wrongVersion) {
 }
 
 function getFlagString() {
-	var flagNames = ['D', 'GF', 'PSC', 'CSC', 'SSQ', 'LSQ', 'ST', 'MG', 'FG', 'MAI', 'PR', 'SUB', 'ERC', 'BOG', 'TRI', 'TRE', 'EP', 'MIS', 'KL', 'RDE'];
+	var flagNames = ['D', 'GF', 'PSC', 'CSC', 'SSQ', 'LSQ', 'ST', 'MG', 'FG', 'MAI', 'PR', 'SUB', 'ERC', 'BOG', 'TRI', 'TRE', 'EP', 'MIS', 'KL', 'RDE', 'RCH'];
 	var buttonNames = ['dungeons', 'great_fairies', 'puzzle_secret_caves', 'combat_secret_caves', 'short_sidequests', 'long_sidequests', 'spoils_trading', 'minigames',
 		'free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts',
-		'expensive_purchases', 'misc', 'key_lunacy', 'randomize_dungeon_entrances'];
+		'expensive_purchases', 'misc', 'key_lunacy', 'randomize_dungeon_entrances', 'randomize_charts'];
 
 	var result = '';
 	for (var i = 0; i < buttonNames.length; i++) {

@@ -353,7 +353,6 @@ legend {
     float: left;
     background: url("../images/chart.png");
     cursor: pointer;
-    font-size: 0;
 }
 
 .chests-counter {

@@ -56,6 +56,57 @@ const islands = [
     'Mailbox',
     'The Great Sea'
 ];
+const charts = [
+    'Treasure Chart 25',
+    'Treasure Chart 7',
+    'Treasure Chart 24',
+    'Triforce Chart 2',
+    'Treasure Chart 11',
+    'Triforce Chart 7',
+    'Treasure Chart 13',
+    'Treasure Chart 41',
+    'Treasure Chart 29',
+    'Treasure Chart 22',
+    'Treasure Chart 18',
+    'Treasure Chart 30',
+    'Treasure Chart 39',
+    'Treasure Chart 19',
+    'Treasure Chart 8',
+    'Treasure Chart 2',
+    'Treasure Chart 10',
+    'Treasure Chart 26',
+    'Treasure Chart 3',
+    'Treasure Chart 37',
+    'Treasure Chart 27',
+    'Treasure Chart 38',
+    'Triforce Chart 1',
+    'Treasure Chart 21',
+    'Treasure Chart 6',
+    'Treasure Chart 14',
+    'Treasure Chart 34',
+    'Treasure Chart 5',
+    'Treasure Chart 28',
+    'Treasure Chart 35',
+    'Triforce Chart 3',
+    'Triforce Chart 6',
+    'Treasure Chart 1',
+    'Treasure Chart 20',
+    'Treasure Chart 36',
+    'Treasure Chart 23',
+    'Treasure Chart 12',
+    'Treasure Chart 16',
+    'Treasure Chart 4',
+    'Treasure Chart 17',
+    'Treasure Chart 31',
+    'Triforce Chart 5',
+    'Treasure Chart 9',
+    'Triforce Chart 4',
+    'Treasure Chart 40',
+    'Triforce Chart 8',
+    'Treasure Chart 15',
+    'Treasure Chart 32',
+    'Treasure Chart 33',
+];
 const dungeons = [
     'Dragon Roost Cavern',
     'Forbidden Woods',
@@ -63,7 +114,8 @@ const dungeons = [
     'Forsaken Fortress',
     'Earth Temple',
     'Wind Temple',
-    'Ganon\'s Tower'];
+    'Ganon\'s Tower'
+];
 const shortDungeonNames = [
     'DRC',
     'FW',
@@ -71,7 +123,8 @@ const shortDungeonNames = [
     'FF',
     'ET',
     'WT',
-    'GT'];
+    'GT'
+];
 
 // tracker should modify these
 var items = {
@@ -219,6 +272,7 @@ var locationsChecked = {};
 var flags = [];
 var isKeyLunacy = false;
 var isRandomEntrances = false;
+var isRandomCharts = false;
 
 // tracker should use these without modifying them
 var locationsAreProgress = {};
@@ -275,6 +329,7 @@ function afterLoad() {
         setLocationsAreProgress();
         initializeLocationsChecked();
         initializeRandomDungeonEntrances();
+        initializeRandomCharts();
         loadProgress();
         setLocationsAreAvailable();
         setChestCounts();
@@ -344,6 +399,16 @@ function initializeRandomDungeonEntrances() {
                 var entryName = "Entered " + shortDungeonNames[i];
                 macros[macroName] = entryName;
             }
+        }
+    }
+}
+
+function initializeRandomCharts() {
+    if (isRandomCharts) {
+        for (var i = 0; i < charts.length; i++) {
+            var chartName = charts[i];
+            var macroName = "Chart for Island " + (i + 1);
+            macros[macroName] = chartName; // we assume everything is a Treasure Chart and clear any additional requirements like wallet upgrades
         }
     }
 }
@@ -769,7 +834,8 @@ function isLocationProgress(locationName) {
     var types = itemLocations[locationName].Types.split(',').map(x => x.trim());
     for (var i = 0; i < types.length; i++) {
         var type = types[i];
-        if (type == "Sunken Treasure"
+        if (!isRandomCharts
+            && type == "Sunken Treasure"
             && itemLocations[locationName]["Original item"].startsWith("Triforce Shard")) {
             if (!flags.includes("Sunken Triforce")) {
                 return false;
@@ -843,6 +909,10 @@ function getNameForItem(itemName) {
     }
     else if (itemName.startsWith("Triforce Shard")) {
         return "Triforce of Courage";
+    }
+    else if (isRandomCharts && (itemName.startsWith("Triforce Chart") || itemName.startsWith("Treasure Chart"))) {
+        var islandIndex = charts.indexOf(itemName);
+        return "Chart for " + islands[islandIndex];
     }
     return itemName;
 }
