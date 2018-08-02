@@ -58,66 +58,40 @@ function loadFlags() {
     if (flagParam.indexOf("RCH1") > -1) {
         isRandomCharts = true;
     }
-    if (flagParam.indexOf("D1") > -1) {
-        flags.push("Dungeon");
-    }
-    if (flagParam.indexOf("GF1") > -1) {
-        flags.push("Great Fairy");
-    }
-    if (flagParam.indexOf("PSC1") > -1) {
-        flags.push("Puzzle Secret Cave");
-    }
-    if (flagParam.indexOf("CSC1") > -1) {
-        flags.push("Combat Secret Cave");
-    }
-    if (flagParam.indexOf("SSQ1") > -1) {
-        flags.push("Short Sidequest");
-    }
-    if (flagParam.indexOf("LSQ1") > -1) {
-        flags.push("Long Sidequest");
-    }
-    if (flagParam.indexOf("ST1") > -1) {
-        flags.push("Spoils Trading");
-    }
-    if (flagParam.indexOf("MG1") > -1) {
-        flags.push("Minigame");
-    }
-    if (flagParam.indexOf("FG1") > -1) {
-        flags.push("Free Gift");
-    }
-    if (flagParam.indexOf("MAI1") > -1) {
-        flags.push("Mail");
-    }
-    if (flagParam.indexOf("PR1") > -1) {
-        flags.push("Platform");
-        flags.push("Raft");
-    }
-    if (flagParam.indexOf("SUB1") > -1) {
-        flags.push("Submarine");
-    }
-    if (flagParam.indexOf("ERC1") > -1) {
-        flags.push("Eye Reef Chest");
-    }
-    if (flagParam.indexOf("BOG1") > -1) {
-        flags.push("Big Octo");
-        flags.push("Gunboat");
-    }
     if (flagParam.indexOf("TRI1") > -1) {
         if (isRandomCharts) {
-            flags.push("Sunken Treasure")
+            flags.push("Sunken Treasure");
         } else {
             flags.push("Sunken Triforce"); // need to account for this case separately
         }
     }
-    if (flagParam.indexOf("TRE1") > -1) {
-        flags.push("Sunken Treasure")
-    }
-    if (flagParam.indexOf("EP1") > -1) {
-        flags.push("Expensive Purchase");
-    }
-    if (flagParam.indexOf("MIS1") > -1) {
-        flags.push("Other Chest");
-        flags.push("Misc");
+    checkAddFlags("D1", ["Dungeon"]);
+    checkAddFlags("GF1", ["Great Fairy"]);
+    checkAddFlags("PSC1", ["Puzzle Secret Cave"]);
+    checkAddFlags("CSC1", ["Combat Secret Cave"]);
+    checkAddFlags("SSQ1", ["Short Sidequest"]);
+    checkAddFlags("LSQ1", ["Long Sidequest"]);
+    checkAddFlags("ST1", ["Spoils Trading"]);
+    checkAddFlags("MG1", ["Minigame"]);
+    checkAddFlags("FG1", ["Free Gift"]);
+    checkAddFlags("MAI1", ["Mail"]);
+    checkAddFlags("PR1", ["Platform", "Raft"]);
+    checkAddFlags("SUB1", ["Submarine"]);
+    checkAddFlags("ERC1", ["Eye Reef Chest"]);
+    checkAddFlags("BOG1", ["Big Octo", "Gunboat"]);
+    checkAddFlags("TRE1", ["Sunken Treasure"]);
+    checkAddFlags("EP1", ["Expensive Purchase"]);
+    checkAddFlags("MIS1", ["Other Chest", "Misc"]);
+}
+
+function checkAddFlags(param, flagsToAdd) {
+    if (flagParam.indexOf(param) > -1) {
+        for (var i = 0; i < flagsToAdd.length; i++) {
+            var curFlag = flagsToAdd[i];
+            if (!flags.includes(curFlag)) {
+                flags.push(curFlag);
+            }
+        }
     }
 }
 
