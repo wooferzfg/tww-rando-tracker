@@ -841,7 +841,7 @@ function getNameForItem(itemName) {
         return "Swift Sail";
     }
     else if (itemName.startsWith("Triforce Shard")) {
-        return "Triforce";
+        return "Triforce of Courage";
     }
     return itemName;
 }

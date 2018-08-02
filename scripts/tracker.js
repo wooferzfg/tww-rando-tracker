@@ -413,7 +413,7 @@ function itemInfo(element) {
         if (items["Mirror Shield"] == 1) {
             text = "Mirror Shield";
         }
-    } else if (text == "Triforce") {
+    } else if (text == "Triforce of Courage") {
         for (var i = 1; i <= 8; i++) {
             var curShard = "Triforce Shard " + i;
             if (items[curShard] == 0) {
