@@ -429,6 +429,11 @@ legend {
     background-color: rgba(216, 186, 106, 0.7);
 }
 
+.detailspan {
+    line-height: 1em;
+    padding-bottom: 5px;
+}
+
 .detail-small {
     font-size: 13.5px;
 }
