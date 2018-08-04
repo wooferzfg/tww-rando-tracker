@@ -47,6 +47,7 @@ body {
 .attribution,
 #item-info,
 #map-info,
+#chest-counts,
 #map-item-info {
     text-shadow: 1.5px 1px rgba(0, 0, 0, 0.5);
 }
@@ -316,7 +317,7 @@ legend {
     margin-right: 8px;
     width: 364px;
     height: 346px;
-    margin-bottom: 56px;
+    margin-bottom: 80px;
     flex-shrink: 0;
 }
 
@@ -382,6 +383,7 @@ legend {
 }
 
 #map-info,
+#chest-counts,
 #map-item-info {
     color: white;
     position: absolute;
@@ -394,9 +396,20 @@ legend {
     font-size: 20px;
 }
 
-#map-item-info {
-    top: 32px;
+#chest-counts {
+    top: 29px;
+    font-size: 11px;
+    visibility: hidden;
+}
+
+#chests-avail,
+#chests-total {
     font-size: 16px;
+}
+
+#map-item-info {
+    top: 50px;
+    font-size: 20px;
 }
 
 #zoommap table {

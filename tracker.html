@@ -608,7 +608,10 @@
 
                 </div>
                 <div class="map-info-container">
-                    <span id="map-info"></span>
+                    <div id="map-info"></div>
+                    <div id="chest-counts">
+                        <span id="chests-avail"></span> Accessible,
+                        <span id="chests-total"></span> Remaining</div>
                 </div>
                 <div class="map-item-info-container">
                     <span id="map-item-info"></span>
@@ -618,9 +621,10 @@
             <div class="extra-locations" class="extra-locations">
                 <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(0);" onclick="toggleMap(0, true);" class="extra-location">
                     <div class="dungeon-items">
-                        <div id="smallkey0" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 4);" onclick="toggleKey(this, 4);" class="dungeon-item small-key">DRC Small Key</div>
-                        <div id="entry0" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this);" class="dungeon-item dungeon-entry">Entered DRC</div>
-                        <div id="bosskey0" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1);" class="dungeon-item boss-key">DRC Big Key</div>
+                        <div id="smallkey0" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 4);" onclick="toggleKey(this, 4, 0);"
+                            class="dungeon-item small-key">DRC Small Key</div>
+                        <div id="entry0" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this, 0);" class="dungeon-item dungeon-entry">Entered DRC</div>
+                        <div id="bosskey0" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1, 0);" class="dungeon-item boss-key">DRC Big Key</div>
                     </div>
                     <div class="dungeon-icon">
                         <img id="extralocation0" src="./images/boss0.png">
@@ -629,9 +633,10 @@
                 </div>
                 <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(1);" onclick="toggleMap(1, true);" class="extra-location">
                     <div class="dungeon-items">
-                        <div id="smallkey1" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 1);" onclick="toggleKey(this, 1);" class="dungeon-item small-key">FW Small Key</div>
-                        <div id="entry1" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this);" class="dungeon-item dungeon-entry">Entered FW</div>
-                        <div id="bosskey1" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1);" class="dungeon-item boss-key">FW Big Key</div>
+                        <div id="smallkey1" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 1);" onclick="toggleKey(this, 1, 1);"
+                            class="dungeon-item small-key">FW Small Key</div>
+                        <div id="entry1" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this, 1);" class="dungeon-item dungeon-entry">Entered FW</div>
+                        <div id="bosskey1" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1, 1);" class="dungeon-item boss-key">FW Big Key</div>
                     </div>
                     <div class="dungeon-icon">
                         <img id="extralocation1" src="./images/boss1.png">
@@ -640,9 +645,10 @@
                 </div>
                 <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(2);" onclick="toggleMap(2, true);" class="extra-location">
                     <div class="dungeon-items">
-                        <div id="smallkey2" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 2);" onclick="toggleKey(this, 2);" class="dungeon-item small-key">TotG Small Key</div>
-                        <div id="entry2" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this);" class="dungeon-item dungeon-entry">Entered TotG</div>
-                        <div id="bosskey2" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1);" class="dungeon-item boss-key">TotG Big Key</div>
+                        <div id="smallkey2" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 2);" onclick="toggleKey(this, 2, 2);"
+                            class="dungeon-item small-key">TotG Small Key</div>
+                        <div id="entry2" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this, 2);" class="dungeon-item dungeon-entry">Entered TotG</div>
+                        <div id="bosskey2" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1, 2);" class="dungeon-item boss-key">TotG Big Key</div>
                     </div>
                     <div class="dungeon-icon">
                         <img id="extralocation2" src="./images/boss2.png">
@@ -651,9 +657,10 @@
                 </div>
                 <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(4);" onclick="toggleMap(4, true);" class="extra-location">
                     <div class="dungeon-items">
-                        <div id="smallkey4" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 3);" onclick="toggleKey(this, 3);" class="dungeon-item small-key">ET Small Key</div>
-                        <div id="entry4" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this);" class="dungeon-item dungeon-entry">Entered ET</div>
-                        <div id="bosskey4" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1);" class="dungeon-item boss-key">ET Big Key</div>
+                        <div id="smallkey4" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 3);" onclick="toggleKey(this, 3, 4);"
+                            class="dungeon-item small-key">ET Small Key</div>
+                        <div id="entry4" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this, 4);" class="dungeon-item dungeon-entry">Entered ET</div>
+                        <div id="bosskey4" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1, 4);" class="dungeon-item boss-key">ET Big Key</div>
                     </div>
                     <div class="dungeon-icon">
                         <img id="extralocation4" src="./images/boss4.png">
@@ -662,9 +669,10 @@
                 </div>
                 <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(5);" onclick="toggleMap(5, true);" class="extra-location">
                     <div class="dungeon-items">
-                        <div id="smallkey5" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 2);" onclick="toggleKey(this, 2);" class="dungeon-item small-key">WT Small Key</div>
-                        <div id="entry5" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this);" class="dungeon-item dungeon-entry">Entered WT</div>
-                        <div id="bosskey5" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1);" class="dungeon-item boss-key">WT Big Key</div>
+                        <div id="smallkey5" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 2);" onclick="toggleKey(this, 2, 5);"
+                            class="dungeon-item small-key">WT Small Key</div>
+                        <div id="entry5" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleEntry(this, 5);" class="dungeon-item dungeon-entry">Entered WT</div>
+                        <div id="bosskey5" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);" onclick="toggleKey(this, 1, 5);" class="dungeon-item boss-key">WT Big Key</div>
                     </div>
                     <div class="dungeon-icon">
                         <img id="extralocation5" src="./images/boss5.png">
