@@ -412,6 +412,10 @@ legend {
     font-size: 20px;
 }
 
+#zoommap {
+    display: none;
+}
+
 #zoommap table {
     padding-top: 5px;
     width: 100%;
