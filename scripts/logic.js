@@ -683,7 +683,12 @@ function itemsMissingForLogicalExpression(splitExpression) {
     if (expressionType == "OR" && itemNotMissing) {
         return null;
     }
-    return getSubexpression(subexpressionResults, expressionType);
+    return getFlatSubexpression(subexpressionResults, expressionType);
+}
+
+function getFlatSubexpression(items, expressionType) {
+    var expression = getSubexpression(items, expressionType);
+    return flattenArrays(expression);
 }
 
 function getSubexpression(items, expressionType) {
@@ -737,7 +742,7 @@ function removeDuplicateItems(expression) {
             newItems.push(curItem);
         }
     }
-    return getSubexpression(newItems, expression.type);
+    return getFlatSubexpression(newItems, expression.type);
 }
 
 function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
@@ -761,7 +766,7 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
             }
         }
     }
-    return getSubexpression(newItems, expression.type);
+    return getFlatSubexpression(newItems, expression.type);
 }
 
 function removeSubsumedExpressions(expression) {
@@ -783,7 +788,7 @@ function removeSubsumedExpressions(expression) {
             newItems.push(curItem);
         }
     }
-    return getSubexpression(newItems, expression.type);
+    return getFlatSubexpression(newItems, expression.type);
 }
 
 function shouldRemoveSubsumedExpression(expression, items, index) {
@@ -818,7 +823,6 @@ function itemsMissingForLocation(generalLocation, detailedLocation) {
     var fullName = generalLocation + " - " + detailedLocation;
     var splitExpression = getSplitExpression(itemLocations[fullName].Need);
     var items = itemsMissingForLogicalExpression(splitExpression);
-    items = flattenArrays(items);
     items = removeDuplicateItems(items);
     items = removeChildExpressions(items, [], []);
     items = removeSubsumedExpressions(items);
