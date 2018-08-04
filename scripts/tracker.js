@@ -383,7 +383,7 @@ function setChestsForElement(element, progress, available, total) {
 }
 
 function clearItemInfo() {
-    document.getElementById('iteminfo').innerText = '';
+    document.getElementById('item-info').innerText = '';
 }
 
 function itemInfo(element) {
@@ -410,7 +410,7 @@ function itemInfo(element) {
     } else {
         text = getNameForItem(text);
     }
-    document.getElementById('iteminfo').innerText = text;
+    document.getElementById('item-info').innerText = text;
 }
 
 function toggleInventoryItem(element, maxItems) {
@@ -701,35 +701,39 @@ function toggleLocation(element) {
 }
 
 function clearMapInfo() {
-    document.getElementById('mapinfo').innerText = '';
+    document.getElementById('map-info').innerText = '';
 }
 
 function mapInfo(i) {
     let generalLocation = islands[i];
     var curAvailable = availableIslandChests[generalLocation];
     var curTotal = totalIslandChests[generalLocation];
-    document.getElementById('mapinfo').innerText = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
-}
-
-function clearMapItemInfo() {
-    document.getElementById('mapiteminfo').innerText = '';
-}
-
-function mapItemInfo(element) {
-    document.getElementById('mapiteminfo').innerText = element.innerText;
-}
-
-function smallKeyInfo(element, maxKeys) {
-    var keyName = element.innerText;
-    var numKeys = keys[keyName];
-    document.getElementById('mapiteminfo').innerText = keyName + ' (' + numKeys + '/' + maxKeys + ')';
+    setMapInfoText(generalLocation, curAvailable, curTotal);
 }
 
 function dungeonMapInfo(i) {
     let generalLocation = dungeons[i];
     var curAvailable = availableDungeonChests[generalLocation];
     var curTotal = totalDungeonChests[generalLocation];
-    document.getElementById('mapinfo').innerText = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
+    setMapInfoText(generalLocation, curAvailable, curTotal);
+}
+
+function setMapInfoText(generalLocation, curAvailable, curTotal) {
+    document.getElementById('map-info').innerText = generalLocation + ' (' + curAvailable + '/' + curTotal + ')';
+}
+
+function clearMapItemInfo() {
+    document.getElementById('map-item-info').innerText = '';
+}
+
+function mapItemInfo(element) {
+    document.getElementById('map-item-info').innerText = element.innerText;
+}
+
+function smallKeyInfo(element, maxKeys) {
+    var keyName = element.innerText;
+    var numKeys = keys[keyName];
+    document.getElementById('map-item-info').innerText = keyName + ' (' + numKeys + '/' + maxKeys + ')';
 }
 
 function toggleChart(i) {
@@ -741,5 +745,5 @@ function toggleChart(i) {
 
 function chartInfo(i) {
     var chartName = getNameForItem(charts[i]);
-    document.getElementById('mapiteminfo').innerText = chartName;
+    document.getElementById('map-item-info').innerText = chartName;
 }

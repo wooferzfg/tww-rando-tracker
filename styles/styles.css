@@ -45,9 +45,9 @@ body {
 
 .settings,
 .attribution,
-#iteminfo,
-#mapinfo,
-#mapiteminfo {
+#item-info,
+#map-info,
+#map-item-info {
     text-shadow: 1.5px 1px rgba(0, 0, 0, 0.5);
 }
 
@@ -362,7 +362,7 @@ legend {
     width: 100%;
 }
 
-#iteminfo {
+#item-info {
     position: absolute;
     color: white;
     width: 100%;
@@ -381,20 +381,20 @@ legend {
     position: absolute;
 }
 
-#mapinfo,
-#mapiteminfo {
+#map-info,
+#map-item-info {
     color: white;
     position: absolute;
     width: 364px;
     text-align: center;
 }
 
-#mapinfo {
+#map-info {
     top: 7px;
     font-size: 20px;
 }
 
-#mapiteminfo {
+#map-item-info {
     top: 32px;
     font-size: 16px;
 }
