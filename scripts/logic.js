@@ -769,7 +769,9 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
     return getFlatSubexpression(newItems, expression.type);
 }
 
-function removeSubsumedExpressions(expression) {
+// we want to remove any expression that subsumes another expression at the same level
+// a subsuming expression is one that includes every item from another expression
+function removeSubsumingExpressions(expression) {
     if (!expression || !(expression.type)) {
         return expression;
     }
@@ -778,8 +780,8 @@ function removeSubsumedExpressions(expression) {
     for (var i = 0; i < items.length; i++) {
         var curItem = items[i];
         if (curItem.type) {
-            if (!shouldRemoveSubsumedExpression(curItem, items, i)) {
-                var subExpression = removeSubsumedExpressions(curItem);
+            if (!isSubsumingExpression(curItem, items, i)) {
+                var subExpression = removeSubsumingExpressions(curItem);
                 if (subExpression) {
                     newItems.push(subExpression);
                 }
@@ -791,7 +793,7 @@ function removeSubsumedExpressions(expression) {
     return getFlatSubexpression(newItems, expression.type);
 }
 
-function shouldRemoveSubsumedExpression(expression, items, index) {
+function isSubsumingExpression(expression, items, index) {
     for (var i = 0; i < items.length; i++) {
         if (i != index) {
             var otherExpression = items[i];
@@ -825,7 +827,7 @@ function itemsMissingForLocation(generalLocation, detailedLocation) {
     var items = itemsMissingForLogicalExpression(splitExpression);
     items = removeDuplicateItems(items);
     items = removeChildExpressions(items, [], []);
-    items = removeSubsumedExpressions(items);
+    items = removeSubsumingExpressions(items);
     return items;
 }
 
