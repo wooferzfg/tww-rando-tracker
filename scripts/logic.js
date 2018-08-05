@@ -285,6 +285,8 @@ var availableDungeonChests = {};
 var totalDungeonChests = {};
 
 $(document).ready(function () {
+    loadFlags();
+    loadStartingItems();
     loadMacros();
     loadItemLocations();
 });
@@ -323,18 +325,13 @@ function loadItemLocations() {
 
 function afterLoad() {
     if (macrosLoaded && itemLocationsLoaded) {
-        loadFlags();
-        loadStartingItems();
         addDefeatGanondorf();
         setLocationsAreProgress();
         initializeLocationsChecked();
         initializeRandomDungeonEntrances();
         initializeRandomCharts();
         loadProgress();
-        setLocationsAreAvailable();
-        setChestCounts();
-        refreshAllImagesAndCounts();
-        recreateTooltips();
+        dataChanged();
     }
 }
 
