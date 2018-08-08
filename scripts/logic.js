@@ -378,9 +378,13 @@ function setLocationsAreProgress() {
 }
 
 function setLocationsAreAvailable() {
-    transferKeys();
-    locationsAreAvailable = setLocations(isLocationAvailable);
-    setGuaranteedKeys();
+    if (hideLocationLogic) {
+        locationsAreAvailable = setLocations(() => true);
+    } else {
+        transferKeys();
+        locationsAreAvailable = setLocations(isLocationAvailable);
+        setGuaranteedKeys();
+    }
 }
 
 function initializeLocationsChecked() {

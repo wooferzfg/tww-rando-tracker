@@ -610,7 +610,9 @@
                 <div class="map-info-container">
                     <div id="map-info"></div>
                     <div id="chest-counts">
-                        <span id="chests-avail"></span> Accessible,
+                        <span id="chests-avail-container">
+                            <span id="chests-avail"></span> Accessible,
+                        </span>
                         <span id="chests-total"></span> Remaining</div>
                 </div>
                 <div class="map-item-info-container">
@@ -709,6 +711,7 @@
         <div class="buttons">
             <button id="save-progress-button" type="button" onclick="saveProgress(this)">Save Progress</button>
             <button id="toggle-locations-button" type="button" onclick="toggleNonProgressLocations(this)">Show Non-Progress Locations</button>
+            <button id="toggle-logic-button" type="button" onclick="toggleLocationLogic(this)">Hide Location Logic</button>
             <button id="toggle-background-button" type="button" onclick="toggleSingleColorBackground(this)">Show Single Color Background</button>
         </div>
     </div>

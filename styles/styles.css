@@ -551,3 +551,7 @@ legend {
 #toggle-background-button {
     min-width: 225px;
 }
+
+#toggle-logic-button {
+    min-width: 150px;
+}

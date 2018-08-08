@@ -9,6 +9,7 @@ var currentGeneralLocation = '';
 var currentLocationIsDungeon = false;
 var showNonProgressLocations = false;
 var singleColorBackground = false;
+var hideLocationLogic = false;
 var loadingErrorShown = false;
 
 function getParameterByName(name, url) {
@@ -211,6 +212,16 @@ function toggleSingleColorBackground(button) {
     }
 }
 
+function toggleLocationLogic(button) {
+    hideLocationLogic = !hideLocationLogic;
+    if (hideLocationLogic) {
+        button.innerText = "Show Location Logic";
+    } else {
+        button.innerText = "Hide Location Logic";
+    }
+    dataChanged();
+}
+
 function refreshAllImagesAndCounts() {
     // bosses
     var bosses = [];
@@ -366,7 +377,11 @@ function refreshAllImagesAndCounts() {
 }
 
 function setChestsForElement(element, progress, available, total) {
-    element.innerHTML = available + '/' + total;
+    if (hideLocationLogic) {
+        element.innerHTML = total;
+    } else {
+        element.innerHTML = available + '/' + total;
+    }
     if (total === 0) {
         element.style.color = "#000000"; // black
     } else {
@@ -626,14 +641,15 @@ function toggleMap(index, isDungeon) {
     document.getElementById('chartmap').style.display = "none";
     document.getElementById('zoommap').style.display = "block";
 
+    var zoommapBackground = document.getElementById('zoommap-background');
     if (isDungeon) {
         currentGeneralLocation = dungeons[index];
         currentLocationIsDungeon = true;
-        document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imageDir + 'dungeon_mapfull' + index + '.png\')';
+        zoommapBackground.style.backgroundImage = 'url(\'' + imageDir + 'dungeon_mapfull' + index + '.png\')';
     } else {
         currentGeneralLocation = islands[index];
         currentLocationIsDungeon = false;
-        document.getElementById('zoommap-background').style.backgroundImage = 'url(\'' + imageDir + 'mapfull' + index + '.png\')';
+        zoommapBackground.style.backgroundImage = 'url(\'' + imageDir + 'mapfull' + index + '.png\')';
     }
 
     var detailedLocations = getDetailedLocations(currentGeneralLocation, isDungeon);
@@ -724,8 +740,14 @@ function dungeonMapInfo(index) {
 function setMapInfoText(generalLocation, curAvailable, curTotal) {
     document.getElementById('map-info').innerText = generalLocation;
     document.getElementById('chest-counts').style.visibility = 'visible';
-    document.getElementById('chests-avail').innerText = curAvailable;
     document.getElementById('chests-total').innerText = curTotal;
+    var chestsAvailContainer = document.getElementById('chests-avail-container');
+    if (hideLocationLogic) {
+        chestsAvailContainer.style.display = "none";
+    } else {
+        chestsAvailContainer.style.display = "inline";
+        document.getElementById('chests-avail').innerText = curAvailable;
+    }
 }
 
 function clearMapItemInfo() {
