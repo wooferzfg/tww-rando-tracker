@@ -492,6 +492,11 @@ legend {
     padding-left: 15px;
 }
 
+.qtip-titlebar,
+.qtip-content {
+    color: black;
+}
+
 .tracker td {
 	cursor: pointer;
 	-webkit-touch-callout: none;

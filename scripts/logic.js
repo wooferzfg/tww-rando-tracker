@@ -696,7 +696,7 @@ function itemsRequiredForLogicalExpression(splitExpression) {
 
 function getFlatSubexpression(itemsReq, expressionType) {
     var expression = getSubexpression(itemsReq, expressionType);
-    return flattenArrays(expression);
+    return flattenArrays(expression, expression.eval);
 }
 
 function getSubexpression(itemsReq, expressionType) {
@@ -715,7 +715,7 @@ function getSubexpression(itemsReq, expressionType) {
     return null;
 }
 
-function flattenArrays(expression) {
+function flattenArrays(expression, isParentExprTrue) {
     if (!expression) {
         return null;
     }
@@ -731,9 +731,10 @@ function flattenArrays(expression) {
     }
 
     var newItems = [];
+    var isExprTrue = isParentExprTrue || expression.eval;
     for (var i = 0; i < itemsReq.length; i++) {
         var curItem = itemsReq[i];
-        var subExpression = flattenArrays(curItem);
+        var subExpression = flattenArrays(curItem, isExprTrue);
         if (subExpression) {
             if (!subExpression.type) {
                 var fullExpr = { items: subExpression, eval: curItem.eval };
@@ -745,7 +746,7 @@ function flattenArrays(expression) {
             }
         }
     }
-    sortItems(newItems, expression.eval);
+    sortItems(newItems, isExprTrue);
     return getSubexpression(newItems, expression.type);
 }
 
@@ -757,11 +758,12 @@ function sortItems(newItems, isExprTrue) {
         } else {
             var exprSort = 1;
         }
+        var itemSort = 0;
         if (!a.eval && b.eval) {
-            var itemSort = -1;
+            itemSort = -1;
         }
         else if (a.eval && !b.eval) {
-            var itemSort = 1;
+            itemSort = 1;
         }
         return exprSort * itemSort;
     });
