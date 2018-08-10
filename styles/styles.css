@@ -463,6 +463,22 @@ legend {
     font-size: 10px;
 }
 
+.black-text {
+    color: #000000;
+}
+
+.red-text {
+    color: #CC2929;
+}
+
+.yellow-text {
+    color: #808000;    
+}
+
+.blue-text {
+    color: #2929CC;
+}
+
 .tool-tip-text {
     display: none;
 }

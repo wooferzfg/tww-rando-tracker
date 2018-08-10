@@ -383,18 +383,26 @@ function setChestsForElement(element, progress, available, total) {
         element.innerHTML = available + '/' + total;
     }
     if (total === 0) {
-        element.style.color = "#000000"; // black
+        setElementColor(element, "black-text");
     } else {
         if (available === 0) {
-            element.style.color = "#CC2929"; // red
+            setElementColor(element, "red-text");
         } else {
             if (progress === 0) {
-                element.style.color = "#808000"; // yellow
+                setElementColor(element, "yellow-text");
             } else {
-                element.style.color = "#2929CC"; // blue
+                setElementColor(element, "blue-text");
             }
         }
     }
+}
+
+function setElementColor(element, color) {
+    element.classList.remove("black-text");
+    element.classList.remove("red-text");
+    element.classList.remove("yellow-text");
+    element.classList.remove("blue-text");
+    element.classList.add(color);
 }
 
 function clearItemInfo() {
@@ -694,18 +702,18 @@ function refreshLocationColors() {
         var element = document.getElementById(l);
         var detailedLocation = element.innerText;
         if (locationsChecked[currentGeneralLocation][detailedLocation]) {
-            element.style.color = "#000000"; // black
+            setElementColor(element, "black-text");
             element.style.setProperty("text-decoration", "line-through");
         } else {
             element.style.setProperty("text-decoration", "none");
             if (locationsAreAvailable[currentGeneralLocation][detailedLocation]) {
                 if (locationsAreProgress[currentGeneralLocation][detailedLocation]) {
-                    element.style.color = "#2929CC"; // blue
+                    setElementColor(element, "blue-text");
                 } else {
-                    element.style.color = "#808000"; // yellow
+                    setElementColor(element, "yellow-text");
                 }
             } else {
-                element.style.color = "#CC2929"; // red
+                setElementColor(element, "red-text");
             }
         }
     }
