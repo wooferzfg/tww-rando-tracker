@@ -567,6 +567,13 @@ function setTooltipText(generalLocation, detailedLocation) {
         $(".tool-tip-text").html(element.outerHTML);
         return;
     }
+    if (itemsRequiredExpr.items == "Impossible") {
+        var element = document.createElement("span");
+        element.innerText = "Impossible";
+        setElementColor(element, "red-text");
+        $(".tool-tip-text").html(element.outerHTML);
+        return;
+    }
 
     if (itemsRequiredExpr.type == "AND") {
         var itemsRequired = itemsRequiredExpr.items;

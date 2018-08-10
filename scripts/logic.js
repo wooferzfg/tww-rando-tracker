@@ -256,7 +256,8 @@ var items = {
     "Progressive Bomb Bag": 0,
     "Hurricane Spin": 0
 };
-var startingItems = {};
+var startingItems = {}; // the items you get at the start of a new playthrough
+var impossibleItems = []; // the items that are missing from the item pool and are impossible to obtain
 var keys = {
     "DRC Big Key": 0,
     "DRC Small Key": 0,
@@ -629,7 +630,11 @@ function itemsRequiredForOtherLocation(reqName) {
 }
 
 function itemsForRequirement(reqName) {
-    if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
+    if (impossibleItems.includes(reqName) || reqName == "Impossible") {
+        var requiredItems = "Impossible";
+        var reqMet = false;
+    }
+    else if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
         var reqMet = checkNumberReq(reqName, items);
         if (reqMet && checkNumberReq(reqName, startingItems)) {
             return null;
@@ -653,10 +658,6 @@ function itemsForRequirement(reqName) {
     }
     else if (reqName == "Nothing") {
         return null;
-    }
-    else if (reqName == "Impossible") {
-        var requiredItems = "Impossible";
-        var reqMet = false;
     }
     return { items: requiredItems, eval: reqMet };
 }
@@ -793,8 +794,22 @@ function removeDuplicateItems(expression) {
     return getFlatSubexpression(newItems, expression.type);
 }
 
+function removeChildren(expression) {
+    if (!expression) {
+        return null;
+    }
+    const impossible = [{ items: "Impossible", eval: false }];
+    if (expression.type == "AND") {
+        if (indexOfItem(expression.items, impossible[0]) > -1) {
+            return getFlatSubexpression(impossible, "AND"); // if there is an impossible item in the top level, the whole expression is impossible
+        }
+        return removeChildExpressions(expression, impossible, []);
+    }
+    return removeChildExpressions(expression, [], impossible);
+}
+
 function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
-    if (!expression || (!expression.type)) {
+    if (!expression.type) {
         return expression;
     }
     var itemsReq = expression.items;
@@ -874,7 +889,7 @@ function itemsRequiredForLocation(generalLocation, detailedLocation) {
     var splitExpression = getSplitExpression(itemLocations[fullName].Need);
     var itemsReq = itemsRequiredForLogicalExpression(splitExpression);
     itemsReq = removeDuplicateItems(itemsReq);
-    itemsReq = removeChildExpressions(itemsReq, [], []);
+    itemsReq = removeChildren(itemsReq);
     itemsReq = removeSubsumingExpressions(itemsReq);
     return itemsReq;
 }
