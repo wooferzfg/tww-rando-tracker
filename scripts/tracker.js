@@ -546,7 +546,7 @@ function getTextForExpression(expression, isParentExprTrue) {
     var result = "";
     for (var i = 0; i < itemsReq.length; i++) {
         var curItem = itemsReq[i];
-        var subResult = getTextForExpression(curItem, expression.eval);
+        var subResult = getTextForExpression(curItem, isParentExprTrue);
         if (curItem.type) {
             subResult = "(" + subResult + ")";
         }
@@ -577,7 +577,7 @@ function setTooltipText(generalLocation, detailedLocation) {
     for (var i = 0; i < itemsRequired.length; i++) {
         var listItem = document.createElement("li");
         var curItem = itemsRequired[i];
-        listItem.innerHTML = getTextForExpression(curItem, false);
+        listItem.innerHTML = getTextForExpression(curItem, curItem.eval);
         list.appendChild(listItem);
     }
     $(".tool-tip-text").html(list.outerHTML);
