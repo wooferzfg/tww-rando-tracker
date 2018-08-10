@@ -696,7 +696,7 @@ function itemsRequiredForLogicalExpression(splitExpression) {
 
 function getFlatSubexpression(itemsReq, expressionType) {
     var expression = getSubexpression(itemsReq, expressionType);
-    return flattenArrays(expression, expression.eval);
+    return flattenArrays(expression, false);
 }
 
 function getSubexpression(itemsReq, expressionType) {
