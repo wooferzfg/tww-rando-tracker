@@ -256,6 +256,7 @@ var items = {
     "Progressive Bomb Bag": 0,
     "Hurricane Spin": 0
 };
+var startingItems = {};
 var keys = {
     "DRC Big Key": 0,
     "DRC Small Key": 0,
@@ -345,12 +346,16 @@ function dataChanged() {
 }
 
 function loadStartingItems() {
-    items["Progressive Sword"] = 1;
-    items["Hero's Shield"] = 1;
-    items["Wind Waker"] = 1;
-    items["Boat's Sail"] = 1;
-    items["Wind's Requiem"] = 1;
-    items["Ballad of Gales"] = 1;
+    startingItems["Progressive Sword"] = 1;
+    startingItems["Hero's Shield"] = 1;
+    startingItems["Wind Waker"] = 1;
+    startingItems["Boat's Sail"] = 1;
+    startingItems["Wind's Requiem"] = 1;
+    startingItems["Ballad of Gales"] = 1;
+
+    Object.keys(startingItems).forEach(function (item) {
+        items[item] = startingItems[item];
+    });
 }
 
 function addDefeatGanondorf() {
@@ -544,7 +549,7 @@ function setLocations(valueCallback) {
 
 function checkRequirementMet(reqName) {
     if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
-        return checkNumberReq(reqName);
+        return checkNumberReq(reqName, items);
     }
     if (reqName.startsWith('Can Access Other Location "')) {
         return checkOtherLocationReq(reqName);
@@ -565,10 +570,10 @@ function checkRequirementMet(reqName) {
     }
 }
 
-function checkNumberReq(reqName) {
+function checkNumberReq(reqName, itemSet) {
     var itemName = getProgressiveItemName(reqName);
     var numRequired = getProgressiveNumRequired(reqName);
-    return items[itemName] >= numRequired;
+    return itemSet[itemName] >= numRequired;
 }
 
 function getProgressiveItemName(reqName) {
@@ -625,14 +630,20 @@ function itemsRequiredForOtherLocation(reqName) {
 
 function itemsForRequirement(reqName) {
     if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
-        var reqMet = checkNumberReq(reqName);
+        var reqMet = checkNumberReq(reqName, items);
+        if (reqMet && checkNumberReq(reqName, startingItems)) {
+            return null;
+        }
         var requiredItems = getNameForItem(reqName);
     }
     else if (reqName.startsWith('Can Access Other Location "')) {
         return itemsMissingForOtherLocation(reqName);
     }
     else if (reqName in items) {
-        var reqMet = items[reqName] > 0
+        var reqMet = items[reqName] > 0;
+        if (reqMet && startingItems[reqName] > 0) {
+            return null;
+        }
         var requiredItems = getNameForItem(reqName);
     }
     else if (reqName in macros) {
