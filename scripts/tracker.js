@@ -546,7 +546,7 @@ function getTextForExpression(expression, isParentExprTrue) {
     var result = "";
     for (var i = 0; i < itemsReq.length; i++) {
         var curItem = itemsReq[i];
-        var subResult = getTextForExpression(curItem, isParentExprTrue);
+        var subResult = getTextForExpression(curItem, isParentExprTrue || expression.eval);
         if (curItem.type) {
             subResult = "(" + subResult + ")";
         }
