@@ -761,8 +761,11 @@ function sortItems(newItems, isExprTrue) {
         var itemSort = 0;
         if (!a.eval && b.eval) {
             itemSort = -1;
-        }
-        else if (a.eval && !b.eval) {
+        } else if (a.eval && !b.eval) {
+            itemSort = 1;
+        } else if (a.items < b.items) {
+            itemSort = -1;
+        } else if (a.items > b.items) {
             itemSort = 1;
         }
         return exprSort * itemSort;
