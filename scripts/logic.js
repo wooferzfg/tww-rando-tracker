@@ -864,7 +864,7 @@ function isSubsumingExpression(expression, itemsReq, index) {
     for (var i = 0; i < itemsReq.length; i++) {
         if (i != index) {
             var otherExpression = itemsReq[i];
-            if (otherExpression.type && expressionSubsumes(expression, otherExpression)) {
+            if (otherExpression.type && expressionSubsumes(expression, otherExpression, i < index)) {
                 return true;
             }
         }
@@ -872,11 +872,14 @@ function isSubsumingExpression(expression, itemsReq, index) {
     return false;
 }
 
-function expressionSubsumes(firstExpression, secondExpression) {
+function expressionSubsumes(firstExpression, secondExpression, tiebreaker) {
     if (firstExpression.type != secondExpression.type) {
         return false;
     }
     if (firstExpression.items.length < secondExpression.items.length) {
+        return false;
+    }
+    if (firstExpression.items.length == secondExpression.items.length && !tiebreaker) {
         return false;
     }
     for (var i = 0; i < secondExpression.items.length; i++) {
