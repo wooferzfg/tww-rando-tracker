@@ -518,23 +518,40 @@ function shrinkMap() {
     recreateTooltips();
 }
 
-function getTextForExpression(expression) {
+function getHtmlForItem(itemExpr, isParentExprTrue) {
+    var element = document.createElement("span");
+    element.innerText = itemExpr.items;
+    if (itemExpr.eval) {
+        setElementColor(element, "blue-text");
+    } else if (isParentExprTrue) {
+        setElementColor(element, "gray-text");
+    } else {
+        setElementColor(element, "red-text");
+    }
+    return element.outerHTML;
+}
+
+function getTextForExpression(expression, isParentExprTrue) {
+    var itemsReq = expression.items;
+    if (!Array.isArray(itemsReq)) {
+        return getHtmlForItem(expression, isParentExprTrue);
+    }
+
     if (expression.type == "OR") {
         var separator = " or ";
     } else {
         var separator = " and ";
     }
-    var items = expression.items;
+
     var result = "";
-    for (var i = 0; i < items.length; i++) {
-        var curItem = items[i];
+    for (var i = 0; i < itemsReq.length; i++) {
+        var curItem = itemsReq[i];
+        var subResult = getTextForExpression(curItem, isParentExprTrue || expression.eval);
         if (curItem.type) {
-            var subResult = getTextForExpression(curItem);
-            result += "(" + subResult + ")";
-        } else {
-            result += curItem;
+            subResult = "(" + subResult + ")";
         }
-        if (i < items.length - 1) {
+        result += subResult;
+        if (i < itemsReq.length - 1) {
             result += separator;
         }
     }
@@ -542,21 +559,32 @@ function getTextForExpression(expression) {
 }
 
 function setTooltipText(generalLocation, detailedLocation) {
-    var itemsMissing = itemsMissingForLocation(generalLocation, detailedLocation);
-    var list = document.createElement("ul");
-    if (itemsMissing.type == "AND") {
-        var items = itemsMissing.items;
-    } else {
-        var items = [itemsMissing];
+    var itemsRequiredExpr = itemsRequiredForLocation(generalLocation, detailedLocation);
+    if (!itemsRequiredExpr || itemsRequiredExpr.items == "None") {
+        var element = document.createElement("span");
+        element.innerText = "None";
+        setElementColor(element, "gray-text");
+        $(".tool-tip-text").html(element.outerHTML);
+        return;
     }
-    for (var i = 0; i < items.length; i++) {
+    if (itemsRequiredExpr.items == "Impossible") {
+        var element = document.createElement("span");
+        element.innerText = "Impossible";
+        setElementColor(element, "red-text");
+        $(".tool-tip-text").html(element.outerHTML);
+        return;
+    }
+
+    if (itemsRequiredExpr.type == "AND") {
+        var itemsRequired = itemsRequiredExpr.items;
+    } else {
+        var itemsRequired = [itemsRequiredExpr];
+    }
+    var list = document.createElement("ul");
+    for (var i = 0; i < itemsRequired.length; i++) {
         var listItem = document.createElement("li");
-        var curItem = items[i];
-        if (curItem.type) {
-            listItem.innerText = getTextForExpression(curItem);
-        } else {
-            listItem.innerText = curItem;
-        }
+        var curItem = itemsRequired[i];
+        listItem.innerHTML = getTextForExpression(curItem, curItem.eval);
         list.appendChild(listItem);
     }
     $(".tool-tip-text").html(list.outerHTML);
@@ -564,13 +592,12 @@ function setTooltipText(generalLocation, detailedLocation) {
 
 function addTooltipToElement(element) {
     var detailedLocation = element.innerText;
-    if (!locationsChecked[currentGeneralLocation][detailedLocation]
-        && !locationsAreAvailable[currentGeneralLocation][detailedLocation]) {
+    if (!locationsChecked[currentGeneralLocation][detailedLocation]) {
         setTooltipText(currentGeneralLocation, detailedLocation);
         $(element).qtip({
             content: {
                 text: $(".tool-tip-text").clone(),
-                title: "Missing Items"
+                title: "Items Required"
             },
             position: {
                 target: 'mouse',
@@ -610,7 +637,7 @@ function recreateTooltips() {
             var l = 'detaillocation' + i.toString();
             var element = document.getElementById(l);
             removeTooltipFromElement(element);
-            if (element.style.display == "block") {
+            if (!hideLocationLogic && element.style.display == "block") {
                 addTooltipToElement(element);
             }
         }

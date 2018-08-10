@@ -479,6 +479,10 @@ legend {
     color: #2929CC;
 }
 
+.gray-text {
+    color: #A69B8D;
+}
+
 .tool-tip-text {
     display: none;
 }
@@ -486,6 +490,11 @@ legend {
 .tool-tip-text ul {
     margin: 0;
     padding-left: 15px;
+}
+
+.qtip-titlebar,
+.qtip-content {
+    color: black;
 }
 
 .tracker td {
