@@ -628,7 +628,7 @@ function recreateTooltips() {
             var l = 'detaillocation' + i.toString();
             var element = document.getElementById(l);
             removeTooltipFromElement(element);
-            if (element.style.display == "block") {
+            if (!hideLocationLogic && element.style.display == "block") {
                 addTooltipToElement(element);
             }
         }
