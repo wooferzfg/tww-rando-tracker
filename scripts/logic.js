@@ -637,7 +637,7 @@ function itemsForRequirement(reqName) {
         var requiredItems = getNameForItem(reqName);
     }
     else if (reqName.startsWith('Can Access Other Location "')) {
-        return itemsMissingForOtherLocation(reqName);
+        return itemsRequiredForOtherLocation(reqName);
     }
     else if (reqName in items) {
         var reqMet = items[reqName] > 0;
