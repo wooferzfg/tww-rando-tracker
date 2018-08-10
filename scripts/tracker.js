@@ -592,19 +592,21 @@ function setTooltipText(generalLocation, detailedLocation) {
 
 function addTooltipToElement(element) {
     var detailedLocation = element.innerText;
-    setTooltipText(currentGeneralLocation, detailedLocation);
-    $(element).qtip({
-        content: {
-            text: $(".tool-tip-text").clone(),
-            title: "Items Required"
-        },
-        position: {
-            target: 'mouse',
-            adjust: {
-                x: 15
+    if (!locationsChecked[currentGeneralLocation][detailedLocation]) {
+        setTooltipText(currentGeneralLocation, detailedLocation);
+        $(element).qtip({
+            content: {
+                text: $(".tool-tip-text").clone(),
+                title: "Items Required"
+            },
+            position: {
+                target: 'mouse',
+                adjust: {
+                    x: 15
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 function addSongTooltip(element) {
