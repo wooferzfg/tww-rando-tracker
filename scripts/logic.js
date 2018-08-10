@@ -730,20 +730,25 @@ function flattenArrays(expression) {
             }
         }
     }
-    sortItems(newItems);
+    sortItems(newItems, expression.eval);
     return getSubexpression(newItems, expression.type);
 }
 
 // we want to put expressions with missing items at the top
-function sortItems(newItems) {
+function sortItems(newItems, isExprTrue) {
     newItems.sort(function (a, b) {
+        if (isExprTrue) {
+            var exprSort = -1;
+        } else {
+            var exprSort = 1;
+        }
         if (!a.eval && b.eval) {
-            return -1;
+            var itemSort = -1;
         }
-        if (a.eval && !b.eval) {
-            return 1;
+        else if (a.eval && !b.eval) {
+            var itemSort = 1;
         }
-        return 0;
+        return exprSort * itemSort;
     });
 }
 

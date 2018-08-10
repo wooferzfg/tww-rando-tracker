@@ -479,6 +479,10 @@ legend {
     color: #2929CC;
 }
 
+.gray-text {
+    color: #A0A0A0;
+}
+
 .tool-tip-text {
     display: none;
 }
