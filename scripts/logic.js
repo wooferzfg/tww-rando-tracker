@@ -753,22 +753,26 @@ function flattenArrays(expression, isParentExprTrue) {
 // we want to put expressions with missing items at the top
 function sortItems(newItems, isExprTrue) {
     newItems.sort(function (a, b) {
-        if (isExprTrue) {
-            var exprSort = -1;
-        } else {
-            var exprSort = 1;
-        }
         var itemSort = 0;
         if (!a.eval && b.eval) {
             itemSort = -1;
         } else if (a.eval && !b.eval) {
             itemSort = 1;
-        } else if (a.items < b.items) {
-            itemSort = -1;
-        } else if (a.items > b.items) {
-            itemSort = 1;
         }
-        return exprSort * itemSort;
+        if (itemSort != 0) {
+            if (isExprTrue) {
+                var exprSort = -1; // if the expression is true, we want to put items we have first
+            } else {
+                var exprSort = 1; // if the expression is false, we want to put items we're missing first
+            }
+            return exprSort * itemSort;
+        }
+        if (a.items < b.items) { // otherwise, we sort alphabetically
+            return -1;
+        }
+        if (a.items > b.items) {
+            return 1;
+        }
     });
 }
 
