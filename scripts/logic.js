@@ -637,9 +637,10 @@ function itemsForRequirement(reqName) {
     else if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
         var reqMet = checkNumberReq(reqName, items);
         if (reqMet && checkNumberReq(reqName, startingItems)) {
-            return null;
+            var requiredItems = "None";
+        } else {
+            var requiredItems = getNameForItem(reqName);
         }
-        var requiredItems = getNameForItem(reqName);
     }
     else if (reqName.startsWith('Can Access Other Location "')) {
         return itemsRequiredForOtherLocation(reqName);
@@ -647,9 +648,10 @@ function itemsForRequirement(reqName) {
     else if (reqName in items) {
         var reqMet = items[reqName] > 0;
         if (reqMet && startingItems[reqName] > 0) {
-            return null;
+            var requiredItems = "None";
+        } else {
+            var requiredItems = getNameForItem(reqName);
         }
-        var requiredItems = getNameForItem(reqName);
     }
     else if (reqName in macros) {
         var macro = macros[reqName];
@@ -657,7 +659,8 @@ function itemsForRequirement(reqName) {
         return itemsRequiredForLogicalExpression(splitExpression);
     }
     else if (reqName == "Nothing") {
-        return null;
+        var requiredItems = "None";
+        var reqMet = true;
     }
     return { items: requiredItems, eval: reqMet };
 }
@@ -799,13 +802,14 @@ function removeChildren(expression) {
         return null;
     }
     const impossible = [{ items: "Impossible", eval: false }];
+    const none = [{ items: "None", eval: true }];
     if (expression.type == "AND") {
         if (indexOfItem(expression.items, impossible[0]) > -1) {
             return getFlatSubexpression(impossible, "AND"); // if there is an impossible item in the top level, the whole expression is impossible
         }
-        return removeChildExpressions(expression, impossible, []);
+        return removeChildExpressions(expression, impossible, none);
     }
-    return removeChildExpressions(expression, [], impossible);
+    return removeChildExpressions(expression, none, impossible);
 }
 
 function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {

@@ -560,7 +560,7 @@ function getTextForExpression(expression, isParentExprTrue) {
 
 function setTooltipText(generalLocation, detailedLocation) {
     var itemsRequiredExpr = itemsRequiredForLocation(generalLocation, detailedLocation);
-    if (!itemsRequiredExpr) {
+    if (itemsRequiredExpr.items == "None") {
         var element = document.createElement("span");
         element.innerText = "None";
         setElementColor(element, "gray-text");
