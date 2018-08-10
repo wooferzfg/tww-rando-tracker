@@ -617,42 +617,41 @@ function checkLogicalExpressionReq(splitExpression) {
     return subexpressionResults.every(element => element);
 }
 
-function itemsMissingForOtherLocation(reqName) {
+function itemsRequiredForOtherLocation(reqName) {
     var otherLocation = reqName.substring('Can Access Other Location "'.length, reqName.length - 1);
     var splitExpression = getSplitExpression(itemLocations[otherLocation].Need)
-    return itemsMissingForLogicalExpression(splitExpression);
+    return itemsRequiredForLogicalExpression(splitExpression);
 }
 
-function itemsMissingForRequirement(reqName) {
+function itemsForRequirement(reqName) {
     if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
-        if (!checkNumberReq(reqName))
-            return getNameForItem(reqName);
-        return null;
+        var reqMet = checkNumberReq(reqName);
+        var requiredItems = getNameForItem(reqName);
     }
-    if (reqName.startsWith('Can Access Other Location "')) {
+    else if (reqName.startsWith('Can Access Other Location "')) {
         return itemsMissingForOtherLocation(reqName);
     }
-    if (reqName in items) {
-        if (items[reqName] == 0)
-            return getNameForItem(reqName);
-        return null;
+    else if (reqName in items) {
+        var reqMet = items[reqName] > 0
+        var requiredItems = getNameForItem(reqName);
     }
-    if (reqName in macros) {
+    else if (reqName in macros) {
         var macro = macros[reqName];
         var splitExpression = getSplitExpression(macro);
-        return itemsMissingForLogicalExpression(splitExpression);
+        return itemsRequiredForLogicalExpression(splitExpression);
     }
-    if (reqName == "Nothing") {
+    else if (reqName == "Nothing") {
         return null;
     }
-    if (reqName == "Impossible") {
-        return "Impossible";
+    else if (reqName == "Impossible") {
+        var requiredItems = "Impossible";
+        var reqMet = false;
     }
+    return { items: requiredItems, eval: reqMet };
 }
 
-function itemsMissingForLogicalExpression(splitExpression) {
+function itemsRequiredForLogicalExpression(splitExpression) {
     var expressionType = "";
-    var itemNotMissing = false; // if an item is not missing and we have 'OR', then no items are missing in the expression
     var subexpressionResults = [];
     while (splitExpression.length > 0) {
         var cur = splitExpression[0].trim();
@@ -663,83 +662,115 @@ function itemsMissingForLogicalExpression(splitExpression) {
             } else if (cur == "&") {
                 expressionType = "AND";
             } else if (cur == "(") {
-                var result = itemsMissingForLogicalExpression(splitExpression);
+                var result = itemsRequiredForLogicalExpression(splitExpression);
                 if (result) {
                     subexpressionResults.push(result);
-                } else {
-                    itemNotMissing = true;
                 }
             } else if (cur == ')') {
                 break;
             } else {
-                result = itemsMissingForRequirement(cur);
+                var result = itemsForRequirement(cur);
                 if (result) {
                     subexpressionResults.push(result);
-                } else {
-                    itemNotMissing = true;
                 }
             }
         }
     }
-    if (expressionType == "OR" && itemNotMissing) {
-        return null;
-    }
     return getFlatSubexpression(subexpressionResults, expressionType);
 }
 
-function getFlatSubexpression(items, expressionType) {
-    var expression = getSubexpression(items, expressionType);
+function getFlatSubexpression(itemsReq, expressionType) {
+    var expression = getSubexpression(itemsReq, expressionType);
     return flattenArrays(expression);
 }
 
-function getSubexpression(items, expressionType) {
-    if (items.length > 1) {
-        return { type: expressionType, items: items };
+function getSubexpression(itemsReq, expressionType) {
+    if (itemsReq.length > 1) {
+        if (expressionType == "OR") {
+            var isExpressionTrue = itemsReq.some(item => item.eval);
+        } else {
+            var isExpressionTrue = itemsReq.every(item => item.eval);
+        }
+        return { type: expressionType, items: itemsReq, eval: isExpressionTrue };
     }
-    if (items.length === 1) {
-        return items[0];
+    if (itemsReq.length === 1) {
+        var isExpressionTrue = itemsReq[0].eval;
+        return { items: itemsReq[0], eval: isExpressionTrue };
     }
     return null;
 }
 
 function flattenArrays(expression) {
-    if (!expression || !(expression.type)) {
+    if (!expression) {
+        return null;
+    }
+    var itemsReq = expression.items;
+    if (!itemsReq) {
         return expression;
     }
-    var items = expression.items;
+    if (!Array.isArray(itemsReq)) {
+        return itemsReq;
+    }
+    if (itemsReq.length === 1) {
+        return itemsReq[0];
+    }
+
     var newItems = [];
-    for (var i = 0; i < items.length; i++) {
-        var curItem = items[i];
-        if (curItem.type) {
-            var subExpression = flattenArrays(curItem);
-            if (subExpression) {
-                if (subExpression.type == expression.type) {
-                    newItems.push.apply(newItems, subExpression.items);
-                } else {
-                    newItems.push(subExpression);
-                }
+    for (var i = 0; i < itemsReq.length; i++) {
+        var curItem = itemsReq[i];
+        var subExpression = flattenArrays(curItem);
+        if (subExpression) {
+            if (!subExpression.type) {
+                var fullExpr = { items: subExpression, eval: curItem.eval };
+                newItems.push(fullExpr);
+            } else if (subExpression.type == expression.type) {
+                newItems.push.apply(newItems, subExpression.items);
+            } else {
+                newItems.push(subExpression);
             }
-        } else {
-            newItems.push(curItem);
         }
     }
+    sortItems(newItems);
     return getSubexpression(newItems, expression.type);
 }
 
+// we want to put expressions with missing items at the top
+function sortItems(newItems) {
+    newItems.sort(function (a, b) {
+        if (!a.eval && b.eval) {
+            return -1;
+        }
+        if (a.eval && !b.eval) {
+            return 1;
+        }
+        return 0;
+    });
+}
+
+function indexOfItem(expressionItems, item) {
+    for (var i = 0; i < expressionItems.length; i++) {
+        var curItem = expressionItems[i];
+        if (curItem.items == item.items) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 function removeDuplicateItems(expression) {
-    if (!expression || !(expression.type)) {
+    if (!expression || (!expression.type)) {
         return expression;
     }
-    var items = expression.items;
+    var itemsReq = expression.items;
     var newItems = [];
-    for (var i = 0; i < items.length; i++) {
-        var curItem = items[i];
+    for (var i = 0; i < itemsReq.length; i++) {
+        var curItem = itemsReq[i];
         if (curItem.type) {
             var subExpression = removeDuplicateItems(curItem);
             if (subExpression) {
                 newItems.push(subExpression);
             }
-        } else if (i == items.indexOf(curItem)) {
+        } else if (i == indexOfItem(itemsReq, curItem)) {
             newItems.push(curItem);
         }
     }
@@ -747,18 +778,18 @@ function removeDuplicateItems(expression) {
 }
 
 function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
-    if (!expression || !(expression.type)) {
+    if (!expression || (!expression.type)) {
         return expression;
     }
-    var items = expression.items;
+    var itemsReq = expression.items;
     var newItems = [];
-    for (var i = 0; i < items.length; i++) {
-        var curItem = items[i];
-        if (oppositeExprItems.includes(curItem)) { // when the parent items have an opposite expression, we remove the whole child expression
+    for (var i = 0; i < itemsReq.length; i++) {
+        var curItem = itemsReq[i];
+        if (indexOfItem(oppositeExprItems, curItem) > -1) { // when the parent items have an opposite expression, we remove the whole child expression
             return null;
-        } else if (!sameExprItems.includes(curItem)) { // when the parent items have the same expression, we just remove the child
+        } else if (indexOfItem(sameExprItems, curItem) == -1) { // when the parent items have the same expression, we just remove the child
             if (curItem.type) {
-                var subExpression = removeChildExpressions(curItem, sameExprItems.concat(items), oppositeExprItems);
+                var subExpression = removeChildExpressions(curItem, sameExprItems.concat(itemsReq), oppositeExprItems);
                 if (subExpression) {
                     newItems.push(subExpression);
                 }
@@ -773,15 +804,15 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
 // we want to remove any expression that subsumes another expression at the same level
 // a subsuming expression is one that includes every item from another expression
 function removeSubsumingExpressions(expression) {
-    if (!expression || !(expression.type)) {
+    if (!expression || (!expression.type)) {
         return expression;
     }
-    var items = expression.items;
+    var itemsReq = expression.items;
     var newItems = [];
-    for (var i = 0; i < items.length; i++) {
-        var curItem = items[i];
+    for (var i = 0; i < itemsReq.length; i++) {
+        var curItem = itemsReq[i];
         if (curItem.type) {
-            if (!isSubsumingExpression(curItem, items, i)) {
+            if (!isSubsumingExpression(curItem, itemsReq, i)) {
                 var subExpression = removeSubsumingExpressions(curItem);
                 if (subExpression) {
                     newItems.push(subExpression);
@@ -794,10 +825,10 @@ function removeSubsumingExpressions(expression) {
     return getFlatSubexpression(newItems, expression.type);
 }
 
-function isSubsumingExpression(expression, items, index) {
-    for (var i = 0; i < items.length; i++) {
+function isSubsumingExpression(expression, itemsReq, index) {
+    for (var i = 0; i < itemsReq.length; i++) {
         if (i != index) {
-            var otherExpression = items[i];
+            var otherExpression = itemsReq[i];
             if (otherExpression.type && expressionSubsumes(expression, otherExpression)) {
                 return true;
             }
@@ -815,21 +846,21 @@ function expressionSubsumes(firstExpression, secondExpression) {
     }
     for (var i = 0; i < secondExpression.items.length; i++) {
         var curItem = secondExpression.items[i];
-        if (!firstExpression.items.includes(curItem)) {
+        if (indexOfItem(firstExpression.items, curItem) == -1) {
             return false;
         }
     }
     return true;
 }
 
-function itemsMissingForLocation(generalLocation, detailedLocation) {
+function itemsRequiredForLocation(generalLocation, detailedLocation) {
     var fullName = generalLocation + " - " + detailedLocation;
     var splitExpression = getSplitExpression(itemLocations[fullName].Need);
-    var items = itemsMissingForLogicalExpression(splitExpression);
-    items = removeDuplicateItems(items);
-    items = removeChildExpressions(items, [], []);
-    items = removeSubsumingExpressions(items);
-    return items;
+    var itemsReq = itemsRequiredForLogicalExpression(splitExpression);
+    itemsReq = removeDuplicateItems(itemsReq);
+    itemsReq = removeChildExpressions(itemsReq, [], []);
+    itemsReq = removeSubsumingExpressions(itemsReq);
+    return itemsReq;
 }
 
 function isLocationAvailable(locationName) {
