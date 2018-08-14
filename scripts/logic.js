@@ -344,6 +344,7 @@ function dataChanged() {
     refreshAllImagesAndCounts();
     refreshLocationColors();
     recreateTooltips();
+    updateStatistics();
 }
 
 function loadStartingItems() {

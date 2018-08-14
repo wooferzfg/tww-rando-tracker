@@ -667,6 +667,41 @@ function removeVisibleTooltips() {
     });
 }
 
+function updateStatistics() {
+    // Treasure Locations Remaining
+    var locationsRemaining = 0;
+    for (var i = 0; i < islands.length; i++) {
+        var chests = getChestCountsForLocation(islands[i], false);
+        locationsRemaining += chests.total;
+    }
+    for (var i = 0; i < dungeons.length; i++) {
+        var chests = getChestCountsForLocation(dungeons[i], true);
+        locationsRemaining += chests.total;
+    }
+    // don't include "Defeat Ganondorf" as a treasure location
+    if (!locationsChecked["Ganon's Tower"]["Defeat Ganondorf"])
+        --locationsRemaining;
+    $("#stat-locationsRemaining").text(locationsRemaining);
+
+    // Items Needed to Finish Game
+    var finishGameItems = itemsRequiredForLocation("Ganon's Tower", "Defeat Ganondorf");
+    var countdown = finishGameItems.countdown;
+    $("#stat-progressionRemaining").text(countdown);
+
+    // Chance of Endgame Find
+    var probability = Math.round(Math.min(1, countdown / locationsRemaining) * 1000) / 10;
+    $("#stat-progressProbability").text(probability + "%");
+
+    // Average Treasure Checks Remaining
+    // also known as average draws without replacement probability
+    var averageChecksRemaining = Math.min(locationsRemaining, (countdown * (locationsRemaining + 1)) / (countdown + 1));
+    $("#stat-averageRemaining").text(Math.round(averageChecksRemaining * 10) / 10);
+
+    // Estimated Locations Leftover at End
+    var leftover = locationsRemaining - averageChecksRemaining;
+    $("#stat-estimatedLeftover").text(Math.round(leftover * 10) / 10);
+}
+
 function toggleMap(index, isDungeon) {
     if (disableMap) {
         disableMap = false;

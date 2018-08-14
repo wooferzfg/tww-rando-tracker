@@ -511,6 +511,7 @@ legend {
     background-color: rgba(160, 160, 160, 0.85);
     width: 450px;
     height: 242px;
+    margin-right: 8px;
     margin-bottom: 8px;
     flex-shrink: 0;
 }
@@ -566,6 +567,38 @@ legend {
 
 .buttons {
     flex-grow: 0;
+}
+
+.statistics {
+    background-color: rgba(80, 80, 80, 0.85);
+    width: 367px;
+    height: 232px;
+    margin: 0 0 8px 0;
+    padding: 5px;
+    flex-shrink: 0;
+    display: inline-block;
+    white-space: normal;
+    color: #bbbbbb;
+}
+
+.statistics.single-color {
+    background-color: rgba(80, 80, 80, 1);
+}
+
+.statistics dd {
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    float: right;
+}
+
+.statistics dt {
+    display: inline-block;
+    clear: both;
+}
+
+.statistics dt::after {
+    content: ":";
 }
 
 #save-progress-button {
