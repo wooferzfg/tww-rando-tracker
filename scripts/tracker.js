@@ -689,7 +689,10 @@ function updateStatistics() {
     $("#stat-progressionRemaining").text(countdown);
 
     // Chance of Endgame Find
-    var probability = Math.round(Math.min(1, countdown / locationsRemaining) * 1000) / 10;
+    var probability = 0;
+    if (locationsRemaining > 0) {
+        probability = Math.round(Math.min(1, countdown / locationsRemaining) * 1000) / 10;
+    }
     $("#stat-progressProbability").text(probability + "%");
 
     // Average Treasure Checks Remaining
