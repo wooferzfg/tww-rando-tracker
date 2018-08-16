@@ -688,19 +688,9 @@ function updateStatistics() {
     var countdown = finishGameItems.countdown;
     $("#stat-progressionRemaining").text(countdown);
 
-    // Chance of Endgame Find
-    var probability = 0;
-    if (locationsRemaining > 0) {
-        probability = Math.round(Math.min(1, countdown / locationsRemaining) * 1000) / 10;
-    }
-    $("#stat-progressProbability").text(probability + "%");
-
-    // Average Treasure Checks Remaining
-    // also known as average draws without replacement probability
-    var averageChecksRemaining = Math.min(locationsRemaining, (countdown * (locationsRemaining + 1)) / (countdown + 1));
-    $("#stat-averageRemaining").text(Math.round(averageChecksRemaining * 10) / 10);
-
     // Estimated Locations Leftover at End
+    // average checks remaining = average draws without replacement probability
+    var averageChecksRemaining = Math.min(locationsRemaining, (countdown * (locationsRemaining + 1)) / (countdown + 1));
     var leftover = locationsRemaining - averageChecksRemaining;
     $("#stat-estimatedLeftover").text(Math.round(leftover * 10) / 10);
 }
