@@ -275,6 +275,7 @@ var flags = [];
 var isKeyLunacy = false;
 var isRandomEntrances = false;
 var isRandomCharts = false;
+var swordMode = "sword";
 
 // tracker should use these without modifying them
 var locationsAreProgress = {};

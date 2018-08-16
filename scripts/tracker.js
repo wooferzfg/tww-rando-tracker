@@ -39,14 +39,15 @@ function showLoadingError() {
 }
 
 function loadFlags() {
-    if (progressParam == "1" && getLocalStorageBool("progress")) {
+    if (progressParam == "1" && getLocalStorageBool("progress", false)) {
         var flagString = localStorage.getItem("flags");
         if (flagString) {
             flags = flagString.split(',');
         }
-        isKeyLunacy = getLocalStorageBool("isKeyLunacy");
-        isRandomEntrances = getLocalStorageBool("isRandomEntrances");
-        isRandomCharts = getLocalStorageBool("isRandomCharts");
+        isKeyLunacy = getLocalStorageBool("isKeyLunacy", isKeyLunacy);
+        isRandomEntrances = getLocalStorageBool("isRandomEntrances", isRandomEntrances);
+        isRandomCharts = getLocalStorageBool("isRandomCharts", isRandomCharts);
+        swordMode = getLocalStorageItem("swordMode", swordMode);
         return;
     }
 
@@ -58,6 +59,11 @@ function loadFlags() {
     }
     if (flagParam.indexOf("RCH1") > -1) {
         isRandomCharts = true;
+    }
+    if (flagParam.indexOf("SWO2") > -1) {
+        swordMode = "swordless";
+    } else if (flagParam.indexOf("SWO1") > -1) {
+        swordMode = "swordless-start";
     }
     if (flagParam.indexOf("TRI1") > -1) {
         if (isRandomCharts) {
@@ -98,7 +104,7 @@ function checkAddFlags(param, flagsToAdd) {
 
 function loadProgress() {
     if (progressParam == "1") {
-        if (getLocalStorageBool("progress")) {
+        if (getLocalStorageBool("progress", false)) {
             Object.keys(items).forEach(function (itemName) {
                 var itemCount = parseInt(localStorage.getItem(itemName));
                 if (!isNaN(itemCount)) {
@@ -114,7 +120,7 @@ function loadProgress() {
             Object.keys(locationsChecked).forEach(function (generalLocation) {
                 Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
                     var locationName = generalLocation + " - " + detailedLocation;
-                    locationsChecked[generalLocation][detailedLocation] = getLocalStorageBool(locationName);
+                    locationsChecked[generalLocation][detailedLocation] = getLocalStorageBool(locationName, false);
                 });
             });
 
@@ -138,8 +144,20 @@ function loadProgress() {
     }
 }
 
-function getLocalStorageBool(itemName) {
-    return localStorage.getItem(itemName) == "true";
+function getLocalStorageBool(itemName, defaultVal) {
+    var itemValue = localStorage.getItem(itemName);
+    if (itemValue) {
+        return localStorage.getItem(itemName) == "true";
+    }
+    return defaultVal;
+}
+
+function getLocalStorageItem(itemName, defaultVal) {
+    var itemValue = localStorage.getItem(itemName);
+    if (itemValue) {
+        return itemValue;
+    }
+    return defaultVal;
 }
 
 function saveProgress(element) {
@@ -161,6 +179,7 @@ function saveProgress(element) {
         localStorage.setItem("isKeyLunacy", isKeyLunacy);
         localStorage.setItem("isRandomEntrances", isRandomEntrances);
         localStorage.setItem("isRandomCharts", isRandomCharts);
+        localStorage.setItem("swordMode", swordMode);
         localStorage.setItem("version", versionParam);
         localStorage.setItem("progress", "true");
 
