@@ -835,10 +835,10 @@ function removeDuplicateItems(expression) {
                  * up how many shards are remaining.
                  */
                 var shardsRemaining = 0;
-                for (var j = 1; j <= 8; ++j) {
+                for (var j = 1; j <= 8; j++) {
                     var shard = "Triforce Shard " + j;
                     if (items[shard] == 0) {
-                        ++shardsRemaining;
+                        shardsRemaining++;
                     }
                 }
                 curItem.countdown = shardsRemaining;

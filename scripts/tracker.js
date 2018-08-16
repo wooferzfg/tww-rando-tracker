@@ -683,10 +683,12 @@ function updateStatistics() {
         progressLocationsRemaining += chests.totalProgress;
     }
     // don't include "Defeat Ganondorf" as a treasure location
-    if (!locationsChecked["Ganon's Tower"]["Defeat Ganondorf"])
-        --locationsRemaining;
-    else
-        --checkedCount;
+    if (!locationsChecked["Ganon's Tower"]["Defeat Ganondorf"]) {
+        locationsRemaining--;
+        progressLocationsRemaining--;
+    } else {
+        checkedCount--;
+    }
     $("#stat-locationsChecked").text(checkedCount);
     $("#stat-locationsRemaining").text(locationsRemaining);
 
