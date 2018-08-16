@@ -669,15 +669,18 @@ function updateStatistics() {
     // Locations Checked, Locations Remaining
     var checkedCount = 0;
     var locationsRemaining = 0;
+    var progressLocationsRemaining = 0;
     for (var i = 0; i < islands.length; i++) {
         var chests = getChestCountsForLocation(islands[i], false);
         checkedCount += chests.checked;
         locationsRemaining += chests.total;
+        progressLocationsRemaining += chests.totalProgress;
     }
     for (var i = 0; i < dungeons.length; i++) {
         var chests = getChestCountsForLocation(dungeons[i], true);
         checkedCount += chests.checked;
         locationsRemaining += chests.total;
+        progressLocationsRemaining += chests.totalProgress;
     }
     // don't include "Defeat Ganondorf" as a treasure location
     if (!locationsChecked["Ganon's Tower"]["Defeat Ganondorf"])
@@ -694,8 +697,8 @@ function updateStatistics() {
 
     // Estimated Locations Left Over at End
     // average checks remaining = average draws without replacement probability
-    var averageChecksRemaining = Math.min(locationsRemaining, (countdown * (locationsRemaining + 1)) / (countdown + 1));
-    var leftover = locationsRemaining - averageChecksRemaining;
+    var averageChecksRemaining = Math.min(progressLocationsRemaining, (countdown * (progressLocationsRemaining + 1)) / (countdown + 1));
+    var leftover = progressLocationsRemaining - averageChecksRemaining;
     $("#stat-estimatedLeftOver").text(Math.round(leftover * 10) / 10);
 }
 
