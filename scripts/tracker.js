@@ -701,7 +701,7 @@ function updateStatistics() {
     // average checks remaining = average draws without replacement probability
     var averageChecksRemaining = Math.min(progressLocationsRemaining, (countdown * (progressLocationsRemaining + 1)) / (countdown + 1));
     var leftover = progressLocationsRemaining - averageChecksRemaining;
-    $("#stat-estimatedLeftOver").text(Math.round(leftover * 10) / 10);
+    $("#stat-estimatedLeftOver").text(leftover.toFixed(1));
 }
 
 function toggleMap(index, isDungeon) {
