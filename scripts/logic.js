@@ -523,11 +523,11 @@ function getChestCountsForLocation(generalLocation, isDungeon) {
         }
     });
     return {
-        checked: curChecked,
-        progress: curProgress,
-        available: curAvailable,
-        total: curTotalDisplayed,
-        totalProgress: curTotalProgress,
+        checked: curChecked, // number of locations that have been checked
+        progress: curProgress, // number of available locations that can contain progesss
+        available: curAvailable, // number of available locations
+        total: curTotalDisplayed, // total locations remaining
+        totalProgress: curTotalProgress, // total locations remaining that can contain progress
     };
 }
 
@@ -828,7 +828,7 @@ function removeDuplicateItems(expression) {
             }
         } else if (i == indexOfItem(itemsReq, curItem)) {
             newItems.push(curItem);
-            
+
             if (curItem.items == "Triforce of Courage") {
                 /* small hack: the triforce is described as individual shards. so maintain countdown of 1 for each
                  * shard at the low level, but when the shards are combined into "Triforce of Courage", just look
