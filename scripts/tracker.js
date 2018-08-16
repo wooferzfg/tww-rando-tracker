@@ -692,11 +692,11 @@ function updateStatistics() {
     var countdown = finishGameItems.countdown;
     $("#stat-progressionRemaining").text(countdown);
 
-    // Estimated Locations Leftover at End
+    // Estimated Locations Left Over at End
     // average checks remaining = average draws without replacement probability
     var averageChecksRemaining = Math.min(locationsRemaining, (countdown * (locationsRemaining + 1)) / (countdown + 1));
     var leftover = locationsRemaining - averageChecksRemaining;
-    $("#stat-estimatedLeftover").text(Math.round(leftover * 10) / 10);
+    $("#stat-estimatedLeftOver").text(Math.round(leftover * 10) / 10);
 }
 
 function toggleMap(index, isDungeon) {
