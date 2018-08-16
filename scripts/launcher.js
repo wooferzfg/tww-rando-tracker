@@ -18,6 +18,11 @@ function parseFlags(flags, ids) {
 	}
 }
 
+function parseComboBox(byte, id) {
+	var element = document.getElementById(id);
+	element.selectedIndex = byte;
+}
+
 function applyflags(element) {
 	try {
 		var decodedData = atob(document.getElementById('flags').value);
@@ -52,6 +57,8 @@ function applyflags(element) {
 			parseFlags(flags, ['free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts']);
 			flags = bits.charCodeAt(2);
 			parseFlags(flags, ['expensive_purchases', 'misc', 'key_lunacy', 'randomize_dungeon_entrances', 'randomize_charts', '', '', '']);
+			byte = bits.charCodeAt(6);
+			parseComboBox(byte, 'sword_mode');
 
 			$(element).notify("Flags applied from the Permalink.", {
 				autoHideDelay: 5000,
