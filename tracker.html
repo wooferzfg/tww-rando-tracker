@@ -23,7 +23,7 @@
 <body>
     <div class="tracker-container">
         <div class="tracker">
-            <div class="item-tracker">
+            <div class="item-tracker canUseSingleColor">
                 <div class="menu-items">
                     <table>
                         <tr>
@@ -620,7 +620,7 @@
                 </div>
                 <div class="tool-tip-text"></div>
             </div>
-            <div class="extra-locations">
+            <div class="extra-locations canUseSingleColor">
                 <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(0);" onclick="toggleMap(0, true);" class="extra-location">
                     <div class="dungeon-items">
                         <div id="smallkey0" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 4);" onclick="toggleKey(this, 4, 0);"
@@ -707,7 +707,7 @@
                     <div id="dungeonchests6" class="extra-location-chests">10/10</div>
                 </div>
             </div>
-            <dl class="statistics">
+            <dl class="statistics canUseSingleColor">
                 <dt>Locations Checked (Remaining)</dt>
                 <dd>
                     <span id="stat-locationsChecked">1000</span>

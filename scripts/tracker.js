@@ -198,16 +198,12 @@ function toggleNonProgressLocations(button) {
 }
 
 function toggleSingleColorBackground(button) {
-    var itemTracker = document.getElementsByClassName("item-tracker")[0];
-    var extraLocations = document.getElementsByClassName("extra-locations")[0];
     singleColorBackground = !singleColorBackground;
     if (singleColorBackground) {
-        itemTracker.classList.add("single-color");
-        extraLocations.classList.add("single-color");
+        $(".canUseSingleColor").addClass("single-color");
         button.innerText = "Hide Single Color Background";
     } else {
-        itemTracker.classList.remove("single-color");
-        extraLocations.classList.remove("single-color");
+        $(".canUseSingleColor").removeClass("single-color");
         button.innerText = "Show Single Color Background";
     }
 }
