@@ -241,14 +241,8 @@ function refreshAllImagesAndCounts() {
     }
 
     // triforce pieces
-    var triforce = 0;
-    for (var i = 1; i <= 8; i++) {
-        if (items["Triforce Shard " + i] > 0) {
-            triforce++;
-        }
-        else break;
-    }
-    document.getElementById('triforce').src = imageDir + 'triforce' + triforce + '.png'
+    var shardCount = getTriforceShardCount();
+    document.getElementById('triforce').src = imageDir + 'triforce' + shardCount + '.png'
 
     // items
     for (var i = 0; i < 31; i++) {
@@ -418,12 +412,11 @@ function itemInfo(element) {
             text = "Mirror Shield";
         }
     } else if (text == "Triforce of Courage") {
-        for (var i = 1; i <= 8; i++) {
-            var curShard = "Triforce Shard " + i;
-            if (items[curShard] == 0) {
-                text = "Triforce Shard (" + (i - 1).toString() + "/8)";
-                break;
-            }
+        var shardCount = getTriforceShardCount();
+        if (shardCount == 8) {
+            text = "Triforce of Courage";
+        } else {
+            text = "Triforce Shard (" + shardCount + "/8)";
         }
     } else if (text == "Empty Bottle") {
         var itemCount = items[text];
@@ -441,37 +434,15 @@ function toggleInventoryItem(element, maxItems) {
 }
 
 function toggleShield(element) {
-    if (items["Hero's Shield"] == 0) {
-        items["Hero's Shield"] = 1;
-    } else if (items["Mirror Shield"] == 0) {
-        items["Mirror Shield"] = 1;
-    } else {
-        items["Hero's Shield"] = 0;
-        items["Mirror Shield"] = 0;
-    }
+    incrementShield();
     dataChanged();
     itemInfo(element);
 }
 
 function toggleTriforce() {
-    for (var i = 1; i <= 8; i++) {
-        var curShard = "Triforce Shard " + i;
-        if (items[curShard] == 0) {
-            items[curShard] = 1;
-            break;
-        }
-        else if (i == 8) {
-            resetAllShards();
-        }
-    }
+    incrementTriforceShardCount();
     dataChanged();
     itemInfo(document.getElementById('triforce'));
-}
-
-function resetAllShards() {
-    for (var i = 1; i <= 8; i++) {
-        items["Triforce Shard " + i] = 0;
-    }
 }
 
 function toggleItem(itemName, maxItems) {

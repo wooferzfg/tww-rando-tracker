@@ -667,9 +667,12 @@ function itemsForRequirement(reqName) {
         var reqMet = items[reqName] > 0;
         if (reqMet && startingItems[reqName] > 0) {
             var requiredItems = "None";
-            var remainingProgress = 0;
         } else {
             var requiredItems = getNameForItem(reqName);
+        }
+        if (reqName.includes("Triforce Shard")) {
+            var remainingProgress = 8 - getTriforceShardCount(); // shards are combined into "Triforce of Courage", so we give them the total shards remaining
+        } else {
             var remainingProgress = reqMet ? 0 : 1;
         }
     }
@@ -828,21 +831,6 @@ function removeDuplicateItems(expression) {
             }
         } else if (i == indexOfItem(itemsReq, curItem)) {
             newItems.push(curItem);
-
-            if (curItem.items == "Triforce of Courage") {
-                /* small hack: the triforce is described as individual shards. so maintain countdown of 1 for each
-                 * shard at the low level, but when the shards are combined into "Triforce of Courage", just look
-                 * up how many shards are remaining.
-                 */
-                var shardsRemaining = 0;
-                for (var j = 1; j <= 8; j++) {
-                    var shard = "Triforce Shard " + j;
-                    if (items[shard] == 0) {
-                        shardsRemaining++;
-                    }
-                }
-                curItem.countdown = shardsRemaining;
-            }
         }
     }
     return getFlatSubexpression(newItems, expression.type);
@@ -1042,4 +1030,42 @@ function getNameForItem(itemName) {
         return "Chart for " + islands[islandIndex];
     }
     return itemName;
+}
+
+function incrementShield() {
+    if (items["Hero's Shield"] == 0) {
+        items["Hero's Shield"] = 1;
+    } else if (items["Mirror Shield"] == 0) {
+        items["Mirror Shield"] = 1;
+    } else {
+        items["Hero's Shield"] = 0;
+        items["Mirror Shield"] = 0;
+    }
+}
+
+function incrementTriforceShardCount() {
+    var newShardCount = (getTriforceShardCount() + 1) % 9; // if the new count is 9, we reset it back to 0
+    if (newShardCount > 0) {
+        var shardName = "Triforce Shard " + newShardCount;
+        items[shardName] = 1;
+    } else {
+        clearShards();
+    }
+}
+
+function clearShards() {
+    for (var i = 1; i <= 8; i++) {
+        var curShard = "Triforce Shard " + i;
+        items[curShard] = 0;
+    }
+}
+
+function getTriforceShardCount() {
+    var shards = 0;
+    for (var i = 1; i <= 8; i++) {
+        if (items["Triforce Shard " + i] > 0) {
+            shards++;
+        } else break;
+    }
+    return shards;
 }
