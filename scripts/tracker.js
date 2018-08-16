@@ -216,8 +216,10 @@ function toggleLocationLogic(button) {
     hideLocationLogic = !hideLocationLogic;
     if (hideLocationLogic) {
         button.innerText = "Show Location Logic";
+        $(".requireLocationLogic").addClass("hide");
     } else {
         button.innerText = "Hide Location Logic";
+        $(".requireLocationLogic").removeClass("hide");
     }
     dataChanged();
 }

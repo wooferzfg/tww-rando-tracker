@@ -591,6 +591,10 @@ legend {
     content: ":";
 }
 
+.hide {
+    visibility: hidden;
+}
+
 #stat-locationsRemaining::before {
     content: "(";
 }
