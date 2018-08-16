@@ -54,32 +54,50 @@ body {
 
 .settings table {
     width: 100%;
-    max-width: 1100px;
+    max-width: 1500px;
     font-size: 1.2em;
     table-layout: fixed;
     color: white;
 }
 
 .settings td {
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding-top: 9px;
+    padding-bottom: 9px;
 }
 
 .label-text {
-    padding-left: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .slider-container {
     text-align: right;
-    padding-right: 50px;
+    padding-right: 10px;
+    position: relative;
+}
+
+.select-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    padding: inherit;
+}
+
+.select-container select {
+    width: 200px;
+    height: 34px;
+    font-size: 1em;
 }
 
 .text-col {
-    width: 40%;
+    width: 27%;
 }
 
 .slider-col {
-    width: 10%;
+    width: 6%;
 }
 
 .switch {
@@ -176,7 +194,8 @@ button,
     width: 450px;
 }
 
-button {
+button,
+select {
     background: linear-gradient(#d2d2d2,#c8c8c8);
     font-family: 'Fira Sans', sans-serif;
     cursor: pointer;
