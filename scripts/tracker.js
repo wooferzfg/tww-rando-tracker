@@ -198,16 +198,12 @@ function toggleNonProgressLocations(button) {
 }
 
 function toggleSingleColorBackground(button) {
-    var itemTracker = document.getElementsByClassName("item-tracker")[0];
-    var extraLocations = document.getElementsByClassName("extra-locations")[0];
     singleColorBackground = !singleColorBackground;
     if (singleColorBackground) {
-        itemTracker.classList.add("single-color");
-        extraLocations.classList.add("single-color");
+        $(".canUseSingleColor").addClass("single-color");
         button.innerText = "Hide Single Color Background";
     } else {
-        itemTracker.classList.remove("single-color");
-        extraLocations.classList.remove("single-color");
+        $(".canUseSingleColor").removeClass("single-color");
         button.innerText = "Show Single Color Background";
     }
 }
@@ -216,8 +212,10 @@ function toggleLocationLogic(button) {
     hideLocationLogic = !hideLocationLogic;
     if (hideLocationLogic) {
         button.innerText = "Show Location Logic";
+        $(".requireLocationLogic").addClass("hide");
     } else {
         button.innerText = "Hide Location Logic";
+        $(".requireLocationLogic").removeClass("hide");
     }
     dataChanged();
 }
@@ -665,6 +663,43 @@ function removeVisibleTooltips() {
             element.removeAttr("data-hasqtip");
         }
     });
+}
+
+function updateStatistics() {
+    // Locations Checked, Locations Remaining
+    var checkedCount = 0;
+    var locationsRemaining = 0;
+    var progressLocationsRemaining = 0;
+    for (var i = 0; i < islands.length; i++) {
+        var chests = getChestCountsForLocation(islands[i], false);
+        checkedCount += chests.checked;
+        locationsRemaining += chests.total;
+        progressLocationsRemaining += chests.totalProgress;
+    }
+    for (var i = 0; i < dungeons.length; i++) {
+        var chests = getChestCountsForLocation(dungeons[i], true);
+        checkedCount += chests.checked;
+        locationsRemaining += chests.total;
+        progressLocationsRemaining += chests.totalProgress;
+    }
+    // don't include "Defeat Ganondorf" as a treasure location
+    if (!locationsChecked["Ganon's Tower"]["Defeat Ganondorf"])
+        --locationsRemaining;
+    else
+        --checkedCount;
+    $("#stat-locationsChecked").text(checkedCount);
+    $("#stat-locationsRemaining").text(locationsRemaining);
+
+    // Items Needed to Finish Game
+    var finishGameItems = itemsRequiredForLocation("Ganon's Tower", "Defeat Ganondorf");
+    var countdown = finishGameItems.countdown;
+    $("#stat-progressionRemaining").text(countdown);
+
+    // Estimated Locations Left Over at End
+    // average checks remaining = average draws without replacement probability
+    var averageChecksRemaining = Math.min(progressLocationsRemaining, (countdown * (progressLocationsRemaining + 1)) / (countdown + 1));
+    var leftover = progressLocationsRemaining - averageChecksRemaining;
+    $("#stat-estimatedLeftOver").text(Math.round(leftover * 10) / 10);
 }
 
 function toggleMap(index, isDungeon) {

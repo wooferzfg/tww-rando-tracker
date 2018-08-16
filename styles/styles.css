@@ -214,6 +214,10 @@ legend {
     color: #969696;
 }
 
+.tracker {
+    flex-grow: 1;
+}
+
 .tracker-container {
     display: flex;
     min-height: 100%;
@@ -222,13 +226,6 @@ legend {
     top: 0;
     left: 0;
     padding-bottom: 8px;
-}
-
-.tracker {
-    display: flex;
-    flex-wrap: wrap;
-    flex-grow: 1;
-    align-content: flex-start;
 }
 
 .item-tracker {
@@ -242,7 +239,6 @@ legend {
     margin-bottom: 38px;
     display: flex;
     flex-direction: column;
-    flex-shrink: 0;
     position: relative;
 }
 
@@ -322,7 +318,6 @@ legend {
     width: 364px;
     height: 346px;
     margin-bottom: 80px;
-    flex-shrink: 0;
 }
 
 #chartmap {
@@ -508,11 +503,12 @@ legend {
 }
 
 .extra-locations {
+    float: left;
     background-color: rgba(160, 160, 160, 0.85);
     width: 450px;
     height: 242px;
+    margin-right: 8px;
     margin-bottom: 8px;
-    flex-shrink: 0;
 }
 
 .extra-locations.single-color {
@@ -564,8 +560,47 @@ legend {
     display: flex;
 }
 
-.buttons {
-    flex-grow: 0;
+.statistics {
+    float: left;
+    width: 440px;
+    background-color: rgba(80, 80, 80, 0.85);
+    height: 86px;
+    margin: 0 0 8px 0;
+    padding: 5px;
+    white-space: normal;
+    color: #bbbbbb;
+}
+
+.statistics.single-color {
+    background-color: rgba(80, 80, 80, 1);
+}
+
+.statistics dd {
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    float: right;
+}
+
+.statistics dt {
+    display: inline-block;
+    clear: both;
+}
+
+.statistics dt::after {
+    content: ":";
+}
+
+.hide {
+    visibility: hidden;
+}
+
+#stat-locationsRemaining::before {
+    content: "(";
+}
+
+#stat-locationsRemaining::after {
+    content: ")";
 }
 
 #save-progress-button {

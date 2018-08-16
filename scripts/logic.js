@@ -344,6 +344,7 @@ function dataChanged() {
     refreshAllImagesAndCounts();
     refreshLocationColors();
     recreateTooltips();
+    updateStatistics();
 }
 
 function loadStartingItems() {
@@ -494,26 +495,40 @@ function isValidForLocation(generalLocation, detailedLocation, isDungeon) {
 }
 
 function getChestCountsForLocation(generalLocation, isDungeon) {
+    var curChecked = 0;
     var curProgress = 0;
     var curAvailable = 0;
-    var curTotal = 0;
+    var curTotalProgress = 0;
+    var curTotalDisplayed = 0;
     var curLocation = locationsChecked[generalLocation];
     Object.keys(curLocation).forEach(function (detailedLocation) {
-        if (isValidForLocation(generalLocation, detailedLocation, isDungeon)
-            && !locationsChecked[generalLocation][detailedLocation]) {
+        if (isValidForLocation(generalLocation, detailedLocation, isDungeon)) {
             var hasProgress = locationsAreProgress[generalLocation][detailedLocation];
-            if (hasProgress || showNonProgressLocations) {
-                curTotal++;
-                if (locationsAreAvailable[generalLocation][detailedLocation]) {
-                    curAvailable++;
-                    if (hasProgress) {
-                        curProgress++;
+            if (!locationsChecked[generalLocation][detailedLocation]) {
+                if (hasProgress) {
+                    curTotalProgress++;
+                }
+                if (hasProgress || showNonProgressLocations) {
+                    curTotalDisplayed++;
+                    if (locationsAreAvailable[generalLocation][detailedLocation]) {
+                        curAvailable++;
+                        if (hasProgress) {
+                            curProgress++;
+                        }
                     }
                 }
+            } else if (hasProgress || showNonProgressLocations) {
+                ++curChecked;
             }
         }
     });
-    return { progress: curProgress, available: curAvailable, total: curTotal };
+    return {
+        checked: curChecked,
+        progress: curProgress,
+        available: curAvailable,
+        total: curTotalDisplayed,
+        totalProgress: curTotalProgress,
+    };
 }
 
 function setChestCounts() {
@@ -550,7 +565,7 @@ function setLocations(valueCallback) {
 
 function checkRequirementMet(reqName) {
     if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
-        return checkNumberReq(reqName, items);
+        return checkProgressiveItemRequirementRemaining(reqName, items) <= 0;
     }
     if (reqName.startsWith('Can Access Other Location "')) {
         return checkOtherLocationReq(reqName);
@@ -571,10 +586,10 @@ function checkRequirementMet(reqName) {
     }
 }
 
-function checkNumberReq(reqName, itemSet) {
+function checkProgressiveItemRequirementRemaining(reqName, itemSet) {
     var itemName = getProgressiveItemName(reqName);
     var numRequired = getProgressiveNumRequired(reqName);
-    return itemSet[itemName] >= numRequired;
+    return numRequired - itemSet[itemName];
 }
 
 function getProgressiveItemName(reqName) {
@@ -633,10 +648,13 @@ function itemsForRequirement(reqName) {
     if (impossibleItems.includes(reqName) || reqName == "Impossible") {
         var requiredItems = "Impossible";
         var reqMet = false;
+        var remainingProgress = NaN;
     }
     else if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
-        var reqMet = checkNumberReq(reqName, items);
-        if (reqMet && checkNumberReq(reqName, startingItems)) {
+        var progressCheck = checkProgressiveItemRequirementRemaining(reqName, items);
+        var reqMet = progressCheck <= 0;
+        var remainingProgress = Math.max(0, progressCheck);
+        if (reqMet && checkProgressiveItemRequirementRemaining(reqName, startingItems) <= 0) {
             var requiredItems = "None";
         } else {
             var requiredItems = getNameForItem(reqName);
@@ -649,8 +667,10 @@ function itemsForRequirement(reqName) {
         var reqMet = items[reqName] > 0;
         if (reqMet && startingItems[reqName] > 0) {
             var requiredItems = "None";
+            var remainingProgress = 0;
         } else {
             var requiredItems = getNameForItem(reqName);
+            var remainingProgress = reqMet ? 0 : 1;
         }
     }
     else if (reqName in macros) {
@@ -661,8 +681,9 @@ function itemsForRequirement(reqName) {
     else if (reqName == "Nothing") {
         var requiredItems = "None";
         var reqMet = true;
+        var remainingProgress = 0;
     }
-    return { items: requiredItems, eval: reqMet };
+    return { items: requiredItems, eval: reqMet, countdown: remainingProgress };
 }
 
 function itemsRequiredForLogicalExpression(splitExpression) {
@@ -706,11 +727,17 @@ function getSubexpression(itemsReq, expressionType) {
         } else {
             var isExpressionTrue = itemsReq.every(item => item.eval);
         }
-        return { type: expressionType, items: itemsReq, eval: isExpressionTrue };
+
+        if (isExpressionTrue) {
+            var groupCountdown = 0;
+        } else {
+            var groupCountdown = itemsReq.reduce((a, b) => typeof a === 'object' ? (a.countdown + b.countdown) : (a + b.countdown));
+        }
+        return { type: expressionType, items: itemsReq, eval: isExpressionTrue, countdown: groupCountdown };
     }
     if (itemsReq.length === 1) {
         var isExpressionTrue = itemsReq[0].eval;
-        return { items: itemsReq[0], eval: isExpressionTrue };
+        return { items: itemsReq[0], eval: isExpressionTrue, countdown: (isExpressionTrue ? 0 : 1) };
     }
     return null;
 }
@@ -737,7 +764,7 @@ function flattenArrays(expression, isParentExprTrue) {
         var subExpression = flattenArrays(curItem, isExprTrue);
         if (subExpression) {
             if (!subExpression.type) {
-                var fullExpr = { items: subExpression, eval: curItem.eval };
+                var fullExpr = { items: subExpression, eval: curItem.eval, countdown: curItem.countdown };
                 newItems.push(fullExpr);
             } else if (subExpression.type == expression.type) {
                 newItems.push.apply(newItems, subExpression.items);
@@ -801,6 +828,21 @@ function removeDuplicateItems(expression) {
             }
         } else if (i == indexOfItem(itemsReq, curItem)) {
             newItems.push(curItem);
+            
+            if (curItem.items == "Triforce of Courage") {
+                /* small hack: the triforce is described as individual shards. so maintain countdown of 1 for each
+                 * shard at the low level, but when the shards are combined into "Triforce of Courage", just look
+                 * up how many shards are remaining.
+                 */
+                var shardsRemaining = 0;
+                for (var j = 1; j <= 8; ++j) {
+                    var shard = "Triforce Shard " + j;
+                    if (items[shard] == 0) {
+                        ++shardsRemaining;
+                    }
+                }
+                curItem.countdown = shardsRemaining;
+            }
         }
     }
     return getFlatSubexpression(newItems, expression.type);
@@ -810,8 +852,8 @@ function removeChildren(expression) {
     if (!expression) {
         return null;
     }
-    const impossible = [{ items: "Impossible", eval: false }];
-    const none = [{ items: "None", eval: true }];
+    const impossible = [{ items: "Impossible", eval: false, countdown: NaN }];
+    const none = [{ items: "None", eval: true, countdown: 0 }];
     if (expression.type == "AND") {
         if (indexOfItem(expression.items, impossible[0]) > -1) {
             return getFlatSubexpression(impossible, "AND"); // if there is an impossible item in the top level, the whole expression is impossible
