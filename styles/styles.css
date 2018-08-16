@@ -224,13 +224,6 @@ legend {
     padding-bottom: 8px;
 }
 
-.tracker {
-    display: flex;
-    flex-wrap: wrap;
-    flex-grow: 1;
-    align-content: flex-start;
-}
-
 .item-tracker {
     width: 434px;
     height: 326px;
@@ -242,7 +235,6 @@ legend {
     margin-bottom: 38px;
     display: flex;
     flex-direction: column;
-    flex-shrink: 0;
     position: relative;
 }
 
@@ -322,7 +314,6 @@ legend {
     width: 364px;
     height: 346px;
     margin-bottom: 80px;
-    flex-shrink: 0;
 }
 
 #chartmap {
@@ -508,12 +499,12 @@ legend {
 }
 
 .extra-locations {
+    float: left;
     background-color: rgba(160, 160, 160, 0.85);
     width: 450px;
     height: 242px;
     margin-right: 8px;
     margin-bottom: 8px;
-    flex-shrink: 0;
 }
 
 .extra-locations.single-color {
@@ -566,17 +557,16 @@ legend {
 }
 
 .buttons {
-    flex-grow: 0;
+    clear: left;
 }
 
 .statistics {
+    float: left;
+    width: 440px;
     background-color: rgba(80, 80, 80, 0.85);
-    width: 367px;
-    height: 232px;
+    height: 86px;
     margin: 0 0 8px 0;
     padding: 5px;
-    flex-shrink: 0;
-    display: inline-block;
     white-space: normal;
     color: #bbbbbb;
 }
