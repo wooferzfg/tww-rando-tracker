@@ -279,12 +279,6 @@ var isRandomCharts = false;
 // tracker should use these without modifying them
 var locationsAreProgress = {};
 var locationsAreAvailable = {};
-var progressIslandChests = {};
-var availableIslandChests = {};
-var totalIslandChests = {};
-var progressDungeonChests = {};
-var availableDungeonChests = {};
-var totalDungeonChests = {};
 
 $(document).ready(function () {
     loadFlags();
@@ -340,7 +334,6 @@ function afterLoad() {
 // tracker should call this after changing 'items', 'keys', or 'locationsChecked'
 function dataChanged() {
     setLocationsAreAvailable();
-    setChestCounts();
     refreshAllImagesAndCounts();
     refreshLocationColors();
     recreateTooltips();
@@ -529,23 +522,6 @@ function getChestCountsForLocation(generalLocation, isDungeon) {
         total: curTotalDisplayed, // total locations remaining
         totalProgress: curTotalProgress, // total locations remaining that can contain progress
     };
-}
-
-function setChestCounts() {
-    for (var i = 0; i < islands.length; i++) {
-        var generalLocation = islands[i];
-        var chests = getChestCountsForLocation(generalLocation, false);
-        progressIslandChests[generalLocation] = chests.progress;
-        availableIslandChests[generalLocation] = chests.available;
-        totalIslandChests[generalLocation] = chests.total;
-    }
-    for (var i = 0; i < dungeons.length; i++) {
-        var generalLocation = dungeons[i];
-        var chests = getChestCountsForLocation(generalLocation, true);
-        progressDungeonChests[generalLocation] = chests.progress;
-        availableDungeonChests[generalLocation] = chests.available;
-        totalDungeonChests[generalLocation] = chests.total;
-    }
 }
 
 function setLocations(valueCallback) {

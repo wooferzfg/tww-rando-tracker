@@ -565,6 +565,7 @@ legend {
     padding: 5px;
     white-space: normal;
     color: #bbbbbb;
+    font-size: 0.9em;
 }
 
 .statistics.single-color {
@@ -575,28 +576,18 @@ legend {
     color: white;
     font-weight: bold;
     margin: 0;
-    float: right;
+    float: left;
+    min-width: 40px;
 }
 
 .statistics dt {
     display: inline-block;
-    clear: both;
+    min-width: 300px;
 }
 
-.statistics dt::after {
-    content: ":";
-}
-
-.hide {
-    visibility: hidden;
-}
-
-#stat-locationsRemaining::before {
-    content: "(";
-}
-
-#stat-locationsRemaining::after {
-    content: ")";
+.statistics dt.hide,
+.statistics dd.hide {
+    display: none;
 }
 
 #save-progress-button {

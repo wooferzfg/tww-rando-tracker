@@ -352,19 +352,13 @@ function refreshAllImagesAndCounts() {
     // locations
     for (var i = 0; i < islands.length; i++) {
         var l = 'mapchests' + i.toString();
-        var curLocation = islands[i];
-        var curProgress = progressIslandChests[curLocation];
-        var curAvailable = availableIslandChests[curLocation];
-        var curTotal = totalIslandChests[curLocation];
-        setChestsForElement(document.getElementById(l), curProgress, curAvailable, curTotal);
+        var chests = getChestCountsForLocation(islands[i], false);
+        setChestsForElement(document.getElementById(l), chests.progress, chests.available, chests.total);
     }
     for (var i = 0; i < dungeons.length; i++) {
         var l = 'dungeonchests' + i.toString();
-        var curLocation = dungeons[i];
-        var curProgress = progressDungeonChests[curLocation];
-        var curAvailable = availableDungeonChests[curLocation];
-        var curTotal = totalDungeonChests[curLocation];
-        setChestsForElement(document.getElementById(l), curProgress, curAvailable, curTotal);
+        var chests = getChestCountsForLocation(dungeons[i], true);
+        setChestsForElement(document.getElementById(l), chests.progress, chests.available, chests.total);
     }
 }
 
@@ -639,17 +633,20 @@ function removeVisibleTooltips() {
 function updateStatistics() {
     // Locations Checked, Locations Remaining
     var checkedCount = 0;
+    var availableCount = 0;
     var locationsRemaining = 0;
     var progressLocationsRemaining = 0;
     for (var i = 0; i < islands.length; i++) {
         var chests = getChestCountsForLocation(islands[i], false);
         checkedCount += chests.checked;
+        availableCount += chests.available;
         locationsRemaining += chests.total;
         progressLocationsRemaining += chests.totalProgress;
     }
     for (var i = 0; i < dungeons.length; i++) {
         var chests = getChestCountsForLocation(dungeons[i], true);
         checkedCount += chests.checked;
+        availableCount += chests.available;
         locationsRemaining += chests.total;
         progressLocationsRemaining += chests.totalProgress;
     }
@@ -657,10 +654,14 @@ function updateStatistics() {
     if (!locationsChecked["Ganon's Tower"]["Defeat Ganondorf"]) {
         locationsRemaining--;
         progressLocationsRemaining--;
+        if (locationsAreAvailable["Ganon's Tower"]["Defeat Ganondorf"]) {
+            availableCount--;
+        }
     } else {
         checkedCount--;
     }
     $("#stat-locationsChecked").text(checkedCount);
+    $("#stat-locationsAvailable").text(availableCount);
     $("#stat-locationsRemaining").text(locationsRemaining);
 
     // Items Needed to Finish Game
@@ -672,7 +673,7 @@ function updateStatistics() {
     // average checks remaining = average draws without replacement probability
     var averageChecksRemaining = Math.min(progressLocationsRemaining, (countdown * (progressLocationsRemaining + 1)) / (countdown + 1));
     var leftover = progressLocationsRemaining - averageChecksRemaining;
-    $("#stat-estimatedLeftOver").text(leftover.toFixed(1));
+    $("#stat-estimatedLeftOver").text(Math.round(leftover));
 }
 
 function toggleMap(index, isDungeon) {
@@ -767,17 +768,15 @@ function clearMapInfo() {
 }
 
 function mapInfo(index) {
-    let generalLocation = islands[index];
-    var curAvailable = availableIslandChests[generalLocation];
-    var curTotal = totalIslandChests[generalLocation];
-    setMapInfoText(generalLocation, curAvailable, curTotal);
+    var generalLocation = islands[index];
+    var chests = getChestCountsForLocation(generalLocation, false);
+    setMapInfoText(generalLocation, chests.available, chests.total);
 }
 
 function dungeonMapInfo(index) {
-    let generalLocation = dungeons[index];
-    var curAvailable = availableDungeonChests[generalLocation];
-    var curTotal = totalDungeonChests[generalLocation];
-    setMapInfoText(generalLocation, curAvailable, curTotal);
+    var generalLocation = dungeons[index];
+    var chests = getChestCountsForLocation(dungeons[index], true);
+    setMapInfoText(generalLocation, chests.available, chests.total);
 }
 
 function setMapInfoText(generalLocation, curAvailable, curTotal) {
