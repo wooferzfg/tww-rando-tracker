@@ -214,6 +214,10 @@ legend {
     color: #969696;
 }
 
+.tracker {
+    flex-grow: 1;
+}
+
 .tracker-container {
     display: flex;
     min-height: 100%;
@@ -554,10 +558,6 @@ legend {
 
 .dungeon-icon {
     display: flex;
-}
-
-.buttons {
-    clear: left;
 }
 
 .statistics {
