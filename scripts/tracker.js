@@ -668,19 +668,25 @@ function removeVisibleTooltips() {
 }
 
 function updateStatistics() {
-    // Treasure Locations Remaining
+    // Locations Checked, Locations Remaining
+    var checkedCount = 0;
     var locationsRemaining = 0;
     for (var i = 0; i < islands.length; i++) {
         var chests = getChestCountsForLocation(islands[i], false);
+        checkedCount += chests.checked;
         locationsRemaining += chests.total;
     }
     for (var i = 0; i < dungeons.length; i++) {
         var chests = getChestCountsForLocation(dungeons[i], true);
+        checkedCount += chests.checked;
         locationsRemaining += chests.total;
     }
     // don't include "Defeat Ganondorf" as a treasure location
     if (!locationsChecked["Ganon's Tower"]["Defeat Ganondorf"])
         --locationsRemaining;
+    else
+        --checkedCount;
+    $("#stat-locationsChecked").text(checkedCount);
     $("#stat-locationsRemaining").text(locationsRemaining);
 
     // Items Needed to Finish Game

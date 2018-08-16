@@ -601,6 +601,14 @@ legend {
     content: ":";
 }
 
+#stat-locationsRemaining::before {
+    content: "(";
+}
+
+#stat-locationsRemaining::after {
+    content: ")";
+}
+
 #save-progress-button {
     margin-left: 0;
 }
