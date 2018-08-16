@@ -66,13 +66,13 @@ body {
 }
 
 .label-text {
-    padding-left: 10px;
+    padding-left: 30px;
     padding-right: 10px;
 }
 
 .slider-container {
     text-align: right;
-    padding-right: 10px;
+    padding-right: 30px;
     position: relative;
 }
 
