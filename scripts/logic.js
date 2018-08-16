@@ -504,12 +504,14 @@ function getChestCountsForLocation(generalLocation, isDungeon) {
     Object.keys(curLocation).forEach(function (detailedLocation) {
         if (isValidForLocation(generalLocation, detailedLocation, isDungeon)) {
             var hasProgress = locationsAreProgress[generalLocation][detailedLocation];
-            if (!locationsChecked[generalLocation][detailedLocation]) {
-                if (hasProgress) {
-                    curTotalProgress++;
-                }
-                if (hasProgress || showNonProgressLocations) {
+            if (hasProgress || showNonProgressLocations) {
+                if (locationsChecked[generalLocation][detailedLocation]) {
+                    curChecked++;
+                } else {
                     curTotalDisplayed++;
+                    if (hasProgress) {
+                        curTotalProgress++;
+                    }
                     if (locationsAreAvailable[generalLocation][detailedLocation]) {
                         curAvailable++;
                         if (hasProgress) {
@@ -517,8 +519,6 @@ function getChestCountsForLocation(generalLocation, isDungeon) {
                         }
                     }
                 }
-            } else if (hasProgress || showNonProgressLocations) {
-                ++curChecked;
             }
         }
     });
