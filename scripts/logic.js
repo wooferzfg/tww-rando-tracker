@@ -729,7 +729,7 @@ function itemsRequiredForLogicalExpression(splitExpression) {
 
 function getFlatSubexpression(itemsReq, expressionType) {
     var expression = getSubexpression(itemsReq, expressionType);
-    return flattenArrays(expression, false);
+    return flattenArrays(expression);
 }
 
 function getSubexpression(itemsReq, expressionType) {
@@ -754,7 +754,7 @@ function getSubexpression(itemsReq, expressionType) {
     return null;
 }
 
-function flattenArrays(expression, isParentExprTrue) {
+function flattenArrays(expression) {
     if (!expression) {
         return null;
     }
@@ -770,10 +770,9 @@ function flattenArrays(expression, isParentExprTrue) {
     }
 
     var newItems = [];
-    var isExprTrue = isParentExprTrue || expression.eval;
     for (var i = 0; i < itemsReq.length; i++) {
         var curItem = itemsReq[i];
-        var subExpression = flattenArrays(curItem, isExprTrue);
+        var subExpression = flattenArrays(curItem);
         if (subExpression) {
             if (!subExpression.type) {
                 var fullExpr = { items: subExpression, eval: curItem.eval, countdown: curItem.countdown };
@@ -785,34 +784,7 @@ function flattenArrays(expression, isParentExprTrue) {
             }
         }
     }
-    sortItems(newItems, isExprTrue);
     return getSubexpression(newItems, expression.type);
-}
-
-// we want to put expressions with missing items at the top
-function sortItems(newItems, isExprTrue) {
-    newItems.sort(function (a, b) {
-        var itemSort = 0;
-        if (!a.eval && b.eval) {
-            itemSort = -1;
-        } else if (a.eval && !b.eval) {
-            itemSort = 1;
-        }
-        if (itemSort != 0) {
-            if (isExprTrue) {
-                var exprSort = -1; // if the expression is true, we want to put items we have first
-            } else {
-                var exprSort = 1; // if the expression is false, we want to put items we're missing first
-            }
-            return exprSort * itemSort;
-        }
-        if (a.items < b.items) { // otherwise, we sort alphabetically
-            return -1;
-        }
-        if (a.items > b.items) {
-            return 1;
-        }
-    });
 }
 
 function indexOfItem(expressionItems, item) {
@@ -974,7 +946,7 @@ function expressionSubsumes(firstExpression, secondExpression, tiebreaker) {
     return true;
 }
 
-function replaceItemNames(expression) {
+function replaceItemNames(expression, isParentExprTrue) {
     if (!expression) {
         return;
     }
@@ -982,11 +954,39 @@ function replaceItemNames(expression) {
         expression.items = getNameForItem(expression.items);
     } else {
         var itemsReq = expression.items;
+        var isExprTrue = isParentExprTrue || expression.eval;
         for (var i = 0; i < itemsReq.length; i++) {
             var curItem = itemsReq[i];
-            replaceItemNames(curItem);
+            replaceItemNames(curItem, isExprTrue);
         }
+        sortItems(itemsReq, isExprTrue);
     }
+}
+
+// we want to put expressions with missing items at the top
+function sortItems(itemsReq, isExprTrue) {
+    itemsReq.sort(function (a, b) {
+        var itemSort = 0;
+        if (!a.eval && b.eval) {
+            itemSort = -1;
+        } else if (a.eval && !b.eval) {
+            itemSort = 1;
+        }
+        if (itemSort != 0) {
+            if (isExprTrue) {
+                var exprSort = -1; // if the expression is true, we want to put items we have first
+            } else {
+                var exprSort = 1; // if the expression is false, we want to put items we're missing first
+            }
+            return exprSort * itemSort;
+        }
+        if (a.items < b.items) { // otherwise, we sort alphabetically
+            return -1;
+        }
+        if (a.items > b.items) {
+            return 1;
+        }
+    });
 }
 
 function itemsRequiredForLocation(generalLocation, detailedLocation) {
@@ -997,7 +997,7 @@ function itemsRequiredForLocation(generalLocation, detailedLocation) {
     itemsReq = removeChildren(itemsReq);
     itemsReq = removeSubsumingExpressions(itemsReq);
     itemsReq = removeChildren(itemsReq); // remove children again so we can catch additional cases
-    replaceItemNames(itemsReq);
+    replaceItemNames(itemsReq, false);
     return itemsReq;
 }
 
