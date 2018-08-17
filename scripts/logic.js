@@ -608,6 +608,10 @@ function getProgressiveNumRequired(reqName) {
     return parseInt(reqName.charAt(reqName.length - 1));
 }
 
+function getProgressiveRequirementName(itemName, numRequired) {
+    return `${itemName} x${numRequired}`;
+}
+
 function checkOtherLocationReq(reqName) {
     var otherLocation = reqName.substring('Can Access Other Location "'.length, reqName.length - 1);
     var splitExpression = getSplitExpression(itemLocations[otherLocation].Need)
@@ -664,7 +668,7 @@ function itemsForRequirement(reqName) {
         if (reqMet && checkProgressiveItemRequirementRemaining(reqName, startingItems) <= 0) {
             var requiredItems = "None";
         } else {
-            var requiredItems = getNameForItem(reqName);
+            var requiredItems = reqName; // don't replace names yet. we do some logic with them and then replace them later
         }
     } else if (reqName.startsWith('Can Access Other Location "')) {
         return itemsRequiredForOtherLocation(reqName);
@@ -677,7 +681,7 @@ function itemsForRequirement(reqName) {
         if (reqMet && startingItems[reqName] > 0) {
             var requiredItems = "None";
         } else {
-            var requiredItems = getNameForItem(reqName);
+            var requiredItems = reqName;
         }
         var remainingProgress = reqMet ? 0 : 1;
     }
@@ -856,6 +860,7 @@ function removeChildren(expression) {
     return removeChildExpressions(expression, none, impossible);
 }
 
+// remove duplicates that are in lower levels, including progressive items that are obsolete by a higher or lower level item of the same type
 function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
     if (!expression.type) {
         return expression;
@@ -868,7 +873,8 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
             return null;
         } else if (indexOfItem(sameExprItems, curItem) == -1) { // when the parent items have the same expression, we just remove the child
             if (curItem.type) {
-                var subExpression = removeChildExpressions(curItem, sameExprItems.concat(itemsReq), oppositeExprItems);
+                var newSameExprItems = getNewSameExprItems(sameExprItems, itemsReq, expression.type);
+                var subExpression = removeChildExpressions(curItem, newSameExprItems, oppositeExprItems);
                 if (subExpression) {
                     newItems.push(subExpression);
                 }
@@ -878,6 +884,39 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
         }
     }
     return getFlatSubexpression(newItems, expression.type);
+}
+
+// adds the items at the current level to the same expression items
+// also adds the children of any progressive items
+function getNewSameExprItems(sameExprItems, itemsReq, expressionType) {
+    var newItems = sameExprItems.slice(0);
+    for (var i = 0; i < itemsReq.length; i++) {
+        var curItem = itemsReq[i];
+        var curReq = curItem.items;
+        if (!Array.isArray(curReq)) {
+            newItems.push(curItem);
+            addProgressiveItemChildren(newItems, curReq, expressionType);
+        }
+    }
+    return newItems;
+}
+
+function addProgressiveItemChildren(newItems, curReq, expressionType) {
+    if (curReq.startsWith("Progressive")) {
+        var itemName = getProgressiveItemName(curReq);
+        var reqCount = getProgressiveNumRequired(curReq);
+        if (expressionType == "OR") { // if the expression type is OR, we add higher level children
+            for (var j = reqCount + 1; j <= 5; j++) {
+                var newItemName = getProgressiveRequirementName(itemName, j);
+                newItems.push({ items: newItemName });
+            }
+        } else { // if the expression type is AND, we add lower level children
+            for (var j = reqCount - 1; j >= 1; j--) {
+                var newItemName = getProgressiveRequirementName(itemName, j);
+                newItems.push({ items: newItemName });
+            }
+        }
+    }
 }
 
 // we want to remove any expression that subsumes another expression at the same level
@@ -935,6 +974,21 @@ function expressionSubsumes(firstExpression, secondExpression, tiebreaker) {
     return true;
 }
 
+function replaceItemNames(expression) {
+    if (!expression) {
+        return;
+    }
+    if (!expression.type) {
+        expression.items = getNameForItem(expression.items);
+    } else {
+        var itemsReq = expression.items;
+        for (var i = 0; i < itemsReq.length; i++) {
+            var curItem = itemsReq[i];
+            replaceItemNames(curItem);
+        }
+    }
+}
+
 function itemsRequiredForLocation(generalLocation, detailedLocation) {
     var fullName = generalLocation + " - " + detailedLocation;
     var splitExpression = getSplitExpression(itemLocations[fullName].Need);
@@ -942,6 +996,8 @@ function itemsRequiredForLocation(generalLocation, detailedLocation) {
     itemsReq = removeDuplicateItems(itemsReq);
     itemsReq = removeChildren(itemsReq);
     itemsReq = removeSubsumingExpressions(itemsReq);
+    itemsReq = removeChildren(itemsReq); // remove children again so we can catch additional cases
+    replaceItemNames(itemsReq);
     return itemsReq;
 }
 
@@ -1026,9 +1082,6 @@ function getNameForItem(itemName) {
     }
     else if (itemName == "Boat's Sail") {
         return "Swift Sail";
-    }
-    else if (itemName.startsWith("Triforce Shard")) {
-        return "Triforce of Courage";
     }
     else if (isRandomCharts && (itemName.startsWith("Triforce Chart") || itemName.startsWith("Treasure Chart"))) {
         var islandIndex = charts.indexOf(itemName);
