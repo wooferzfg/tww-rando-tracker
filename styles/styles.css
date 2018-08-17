@@ -577,7 +577,9 @@ legend {
     font-weight: bold;
     margin: 0;
     float: left;
+    text-align: right;
     min-width: 40px;
+    padding-right: 10px
 }
 
 .statistics dt {
