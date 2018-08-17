@@ -92,6 +92,11 @@ body {
     font-size: 1em;
 }
 
+#num_starting_triforce_shards {
+    width: 80px;
+    min-width: 80px;
+}
+
 .text-col {
     width: 27%;
 }

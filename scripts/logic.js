@@ -277,6 +277,7 @@ var isRandomEntrances = false;
 var isRandomCharts = false;
 var swordMode = "sword";
 var skipRematchBosses = true;
+var startingTriforceShards = 0;
 
 // tracker should use these without modifying them
 var locationsAreProgress = {};
@@ -358,6 +359,10 @@ function loadStartingItems() {
     startingItems["Wind's Requiem"] = 1;
     startingItems["Ballad of Gales"] = 1;
     startingItems["Song of Passing"] = 1;
+    for (var i = 0; i < startingTriforceShards; i++) {
+        var shardName = "Triforce Shard " + (i + 1);
+        startingItems[shardName] = 1;
+    }
 
     Object.keys(startingItems).forEach(function (item) {
         items[item] = startingItems[item];

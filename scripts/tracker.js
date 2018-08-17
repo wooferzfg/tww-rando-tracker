@@ -49,6 +49,7 @@ function loadFlags() {
         isRandomCharts = getLocalStorageBool("isRandomCharts", isRandomCharts);
         swordMode = getLocalStorageItem("swordMode", swordMode);
         skipRematchBosses = getLocalStorageBool("skipRematchBosses", skipRematchBosses);
+        startingTriforceShards = parseInt(getLocalStorageItem("startingTriforceShards", startingTriforceShards));
         return;
     }
 
@@ -68,6 +69,10 @@ function loadFlags() {
     }
     if (flagParam.indexOf("SRB1") > -1) {
         skipRematchBosses = true;
+    }
+    var shardParam = flagParam.match(/STS(\d)/);
+    if (shardParam && shardParam[1]) {
+        startingTriforceShards = parseInt(shardParam[1]);
     }
     if (flagParam.indexOf("TRI1") > -1) {
         if (isRandomCharts) {
@@ -185,6 +190,7 @@ function saveProgress(element) {
         localStorage.setItem("isRandomCharts", isRandomCharts);
         localStorage.setItem("swordMode", swordMode);
         localStorage.setItem("skipRematchBosses", skipRematchBosses);
+        localStorage.setItem("startingTriforceShards", startingTriforceShards);
         localStorage.setItem("version", versionParam);
         localStorage.setItem("progress", "true");
 
