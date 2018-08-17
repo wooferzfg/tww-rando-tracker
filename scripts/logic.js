@@ -841,11 +841,13 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
     var newItems = [];
     for (var i = 0; i < itemsReq.length; i++) {
         var curItem = itemsReq[i];
+        var progressiveChildren = getProgressiveItemChildren(itemsReq, expression.type);
         if (indexOfItem(oppositeExprItems, curItem) > -1) { // when the parent items have an opposite expression, we remove the whole child expression
             return null;
-        } else if (indexOfItem(sameExprItems, curItem) == -1) { // when the parent items have the same expression, we just remove the child
+        } else if (indexOfItem(sameExprItems, curItem) == -1  // when the parent items have the same expression, we just remove the child
+            && indexOfItem(progressiveChildren, curItem) == -1) { // we don't add any items that are subsumed by another progressive item of the same type
             if (curItem.type) {
-                var newSameExprItems = getNewSameExprItems(sameExprItems, itemsReq, expression.type);
+                var newSameExprItems = sameExprItems.concat(itemsReq).concat(progressiveChildren);
                 var subExpression = removeChildExpressions(curItem, newSameExprItems, oppositeExprItems);
                 if (subExpression) {
                     newItems.push(subExpression);
@@ -858,22 +860,20 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
     return getFlatSubexpression(newItems, expression.type);
 }
 
-// adds the items at the current level to the same expression items
-// also adds the children of any progressive items
-function getNewSameExprItems(sameExprItems, itemsReq, expressionType) {
-    var newItems = sameExprItems.slice(0);
+// gets all the progressive item children that are subsumed by this list of items
+function getProgressiveItemChildren(itemsReq, expressionType) {
+    var newItems = [];
     for (var i = 0; i < itemsReq.length; i++) {
         var curItem = itemsReq[i];
         var curReq = curItem.items;
         if (!Array.isArray(curReq)) {
-            newItems.push(curItem);
-            addProgressiveItemChildren(newItems, curReq, expressionType);
+            addProgressiveChildrenForReq(newItems, curReq, expressionType);
         }
     }
     return newItems;
 }
 
-function addProgressiveItemChildren(newItems, curReq, expressionType) {
+function addProgressiveChildrenForReq(newItems, curReq, expressionType) {
     if (curReq.startsWith("Progressive")) {
         var itemName = getProgressiveItemName(curReq);
         var reqCount = getProgressiveNumRequired(curReq);
