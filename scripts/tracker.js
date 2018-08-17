@@ -49,7 +49,7 @@ function loadFlags() {
         isRandomCharts = getLocalStorageBool("isRandomCharts", isRandomCharts);
         swordMode = getLocalStorageItem("swordMode", swordMode);
         skipRematchBosses = getLocalStorageBool("skipRematchBosses", skipRematchBosses);
-        startingTriforceShards = parseInt(getLocalStorageItem("startingTriforceShards", startingTriforceShards));
+        startingTriforceShards = getLocalStorageInt("startingTriforceShards", startingTriforceShards);
         return;
     }
 
@@ -107,8 +107,7 @@ function getParamValue(param, defaultVal) {
 }
 
 function checkAddFlags(param, flagsToAdd) {
-    param = `${param}1`;
-    if (flagParam.indexOf(param) > -1) {
+    if (getParamBool(param, false)) {
         for (var i = 0; i < flagsToAdd.length; i++) {
             var curFlag = flagsToAdd[i];
             if (!flags.includes(curFlag)) {
@@ -122,16 +121,10 @@ function loadProgress() {
     if (progressParam == "1") {
         if (getLocalStorageBool("progress", false)) {
             Object.keys(items).forEach(function (itemName) {
-                var itemCount = parseInt(localStorage.getItem(itemName));
-                if (!isNaN(itemCount)) {
-                    items[itemName] = itemCount;
-                }
+                items[itemName] = getLocalStorageInt(itemName, items[itemName]);
             });
             Object.keys(keys).forEach(function (keyName) {
-                var keyCount = parseInt(localStorage.getItem(keyName));
-                if (!isNaN(keyCount)) {
-                    keys[keyName] = keyCount;
-                }
+                keys[keyName] = getLocalStorageInt(keyName, keys[keyName]);
             });
             Object.keys(locationsChecked).forEach(function (generalLocation) {
                 Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
@@ -158,6 +151,10 @@ function loadProgress() {
             });
         }
     }
+}
+
+function getLocalStorageInt(itemName, defaultVal) {
+    return parseInt(getLocalStorageItem(itemName, defaultVal));
 }
 
 function getLocalStorageBool(itemName, defaultVal) {
