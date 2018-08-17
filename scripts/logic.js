@@ -845,7 +845,7 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
         if (indexOfItem(oppositeExprItems, curItem) > -1) { // when the parent items have an opposite expression, we remove the whole child expression
             return null;
         } else if (indexOfItem(sameExprItems, curItem) == -1  // when the parent items have the same expression, we just remove the child
-            && indexOfItem(progressiveChildren, curItem) == -1) { // we don't add any items that are subsumed by another progressive item of the same type
+            && indexOfItem(progressiveChildren, curItem) == -1) { // we don't add any items that are subsumed by another progressive item in the same level
             if (curItem.type) {
                 var newSameExprItems = sameExprItems.concat(itemsReq).concat(progressiveChildren);
                 var subExpression = removeChildExpressions(curItem, newSameExprItems, oppositeExprItems);
