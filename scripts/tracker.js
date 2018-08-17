@@ -161,11 +161,7 @@ function loadProgress() {
 }
 
 function getLocalStorageBool(itemName, defaultVal) {
-    var itemValue = localStorage.getItem(itemName);
-    if (itemValue) {
-        return localStorage.getItem(itemName) == "true";
-    }
-    return defaultVal;
+    return getLocalStorageItem(itemName, defaultVal) != "false";
 }
 
 function getLocalStorageItem(itemName, defaultVal) {
