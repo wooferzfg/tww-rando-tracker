@@ -290,9 +290,11 @@ function refreshAllImagesAndCounts() {
     }
 
     // sword mode
-    var swordElement = document.getElementById("item21");
     if (swordMode == "swordless") {
+        var swordElement = document.getElementById("item21");
         swordElement.style.cursor = "auto";
+        var hurricaneSpinElement = document.getElementById("item30");
+        hurricaneSpinElement.style.cursor = "auto";
     }
 
     // shields
@@ -459,15 +461,10 @@ function itemInfo(element) {
 
 function toggleInventoryItem(element, maxItems) {
     var itemName = element.name;
-    toggleItem(itemName, maxItems);
-    itemInfo(element);
-}
-
-function toggleSword(element) {
-    if (swordMode != "swordless") {
-        var swordName = element.name;
-        toggleItem(swordName, 4);
+    if (swordMode == "swordless" && (itemName == "Progressive Sword" || itemName == "Hurricane Spin")) {
+        return;
     }
+    toggleItem(itemName, maxItems);
     itemInfo(element);
 }
 

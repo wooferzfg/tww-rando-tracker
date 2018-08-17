@@ -353,6 +353,7 @@ function loadStartingItems() {
         impossibleItems.push("Progressive Sword x2");
         impossibleItems.push("Progressive Sword x3");
         impossibleItems.push("Progressive Sword x4");
+        impossibleItems.push("Hurricane Spin");
     }
     startingItems["Hero's Shield"] = 1;
     startingItems["Wind Waker"] = 1;
