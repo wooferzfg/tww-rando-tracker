@@ -283,6 +283,12 @@ function refreshAllImagesAndCounts() {
         }
     }
 
+    // sword mode
+    var swordElement = document.getElementById("item21");
+    if (swordMode == "swordless") {
+        swordElement.style.cursor = "auto";
+    }
+
     // shields
     var l = 'shield';
     if (items["Mirror Shield"] > 0) {
@@ -448,6 +454,13 @@ function itemInfo(element) {
 function toggleInventoryItem(element, maxItems) {
     var itemName = element.name;
     toggleItem(itemName, maxItems);
+    itemInfo(element);
+}
+
+function toggleSword(element) {
+    if (swordMode != "swordless") {
+        toggleItem("Progressive Sword", 4);
+    }
     itemInfo(element);
 }
 
