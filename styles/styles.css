@@ -66,13 +66,13 @@ body {
 }
 
 .label-text {
-    padding-left: 30px;
+    padding-left: 20px;
     padding-right: 10px;
 }
 
 .slider-container {
     text-align: right;
-    padding-right: 30px;
+    padding-right: 20px;
     position: relative;
 }
 
@@ -102,9 +102,9 @@ body {
 
 .switch {
     position: relative;
-    display: inline-block;
     width: 60px;
     height: 34px;
+    float: right;
 }
 
 .switch input {
