@@ -53,54 +53,61 @@ function loadFlags() {
         return;
     }
 
-    if (flagParam.indexOf("KL1") > -1) {
-        isKeyLunacy = true;
-    }
-    if (flagParam.indexOf("RDE1") > -1) {
-        isRandomEntrances = true;
-    }
-    if (flagParam.indexOf("RCH1") > -1) {
-        isRandomCharts = true;
-    }
-    if (flagParam.indexOf("SWO2") > -1) {
+    isKeyLunacy = getParamBool("KL", isKeyLunacy);
+    isRandomEntrances = getParamBool("RDE", isRandomEntrances);
+    isRandomCharts = getParamBool("RCH", isRandomCharts);
+    skipRematchBosses = getParamBool("SRB", skipRematchBosses);
+    startingTriforceShards = getParamValue("STS", startingTriforceShards);
+
+    var swordValue = getParamValue("SWO", 0);
+    if (swordValue == 2) {
         swordMode = "swordless";
-    } else if (flagParam.indexOf("SWO1") > -1) {
+    } else if (swordValue == 1) {
         swordMode = "swordless-start";
     }
-    if (flagParam.indexOf("SRB1") > -1) {
-        skipRematchBosses = true;
-    }
-    var shardParam = flagParam.match(/STS(\d)/);
-    if (shardParam && shardParam[1]) {
-        startingTriforceShards = parseInt(shardParam[1]);
-    }
-    if (flagParam.indexOf("TRI1") > -1) {
+
+    if (getParamBool("TRI", false)) {
         if (isRandomCharts) {
             flags.push("Sunken Treasure");
         } else {
             flags.push("Sunken Triforce"); // need to account for this case separately
         }
     }
-    checkAddFlags("D1", ["Dungeon"]);
-    checkAddFlags("GF1", ["Great Fairy"]);
-    checkAddFlags("PSC1", ["Puzzle Secret Cave"]);
-    checkAddFlags("CSC1", ["Combat Secret Cave"]);
-    checkAddFlags("SSQ1", ["Short Sidequest"]);
-    checkAddFlags("LSQ1", ["Long Sidequest"]);
-    checkAddFlags("ST1", ["Spoils Trading"]);
-    checkAddFlags("MG1", ["Minigame"]);
-    checkAddFlags("FG1", ["Free Gift"]);
-    checkAddFlags("MAI1", ["Mail"]);
-    checkAddFlags("PR1", ["Platform", "Raft"]);
-    checkAddFlags("SUB1", ["Submarine"]);
-    checkAddFlags("ERC1", ["Eye Reef Chest"]);
-    checkAddFlags("BOG1", ["Big Octo", "Gunboat"]);
-    checkAddFlags("TRE1", ["Sunken Treasure"]);
-    checkAddFlags("EP1", ["Expensive Purchase"]);
-    checkAddFlags("MIS1", ["Other Chest", "Misc"]);
+
+    checkAddFlags("D", ["Dungeon"]);
+    checkAddFlags("GF", ["Great Fairy"]);
+    checkAddFlags("PSC", ["Puzzle Secret Cave"]);
+    checkAddFlags("CSC", ["Combat Secret Cave"]);
+    checkAddFlags("SSQ", ["Short Sidequest"]);
+    checkAddFlags("LSQ", ["Long Sidequest"]);
+    checkAddFlags("ST", ["Spoils Trading"]);
+    checkAddFlags("MG", ["Minigame"]);
+    checkAddFlags("FG", ["Free Gift"]);
+    checkAddFlags("MAI", ["Mail"]);
+    checkAddFlags("PR", ["Platform", "Raft"]);
+    checkAddFlags("SUB", ["Submarine"]);
+    checkAddFlags("ERC", ["Eye Reef Chest"]);
+    checkAddFlags("BOG", ["Big Octo", "Gunboat"]);
+    checkAddFlags("TRE", ["Sunken Treasure"]);
+    checkAddFlags("EP", ["Expensive Purchase"]);
+    checkAddFlags("MIS", ["Other Chest", "Misc"]);
+}
+
+function getParamBool(param, defaultVal) {
+    return getParamValue(param, defaultVal) == 1;
+}
+
+function getParamValue(param, defaultVal) {
+    var regex = new RegExp(`${param}(\\d)`);
+    var match = flagParam.match(regex);
+    if (match && match[1]) {
+        return match[1];
+    }
+    return defaultVal;
 }
 
 function checkAddFlags(param, flagsToAdd) {
+    param = `${param}1`;
     if (flagParam.indexOf(param) > -1) {
         for (var i = 0; i < flagsToAdd.length; i++) {
             var curFlag = flagsToAdd[i];
