@@ -355,6 +355,7 @@ function loadStartingItems() {
     startingItems["Boat's Sail"] = 1;
     startingItems["Wind's Requiem"] = 1;
     startingItems["Ballad of Gales"] = 1;
+    startingItems["Song of Passing"] = 1;
 
     Object.keys(startingItems).forEach(function (item) {
         items[item] = startingItems[item];
