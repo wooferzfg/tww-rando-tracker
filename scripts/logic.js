@@ -276,6 +276,7 @@ var isKeyLunacy = false;
 var isRandomEntrances = false;
 var isRandomCharts = false;
 var swordMode = "sword";
+var skipRematchBosses = false;
 
 // tracker should use these without modifying them
 var locationsAreProgress = {};
@@ -325,8 +326,9 @@ function afterLoad() {
         addDefeatGanondorf();
         setLocationsAreProgress();
         initializeLocationsChecked();
-        initializeRandomDungeonEntrances();
-        initializeRandomCharts();
+        updateDungeonEntranceMacros();
+        updateChartMacros();
+        updateRematchBossesMacros();
         loadProgress();
         dataChanged();
     }
@@ -400,7 +402,7 @@ function initializeLocationsChecked() {
     locationsChecked = setLocations(() => false);
 }
 
-function initializeRandomDungeonEntrances() {
+function updateDungeonEntranceMacros() {
     if (isRandomEntrances) {
         for (var i = 0; i < dungeons.length; i++) {
             var dungeonName = dungeons[i];
@@ -413,13 +415,19 @@ function initializeRandomDungeonEntrances() {
     }
 }
 
-function initializeRandomCharts() {
+function updateChartMacros() {
     if (isRandomCharts) {
         for (var i = 0; i < charts.length; i++) {
             var chartName = charts[i];
             var macroName = "Chart for Island " + (i + 1);
             macros[macroName] = chartName; // we assume everything is a Treasure Chart and clear any additional requirements like wallet upgrades
         }
+    }
+}
+
+function updateRematchBossesMacros() {
+    if (skipRematchBosses) {
+        macros["Can Unlock Ganon's Tower Four Boss Door"] = "Nothing";
     }
 }
 

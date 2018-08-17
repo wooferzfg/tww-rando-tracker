@@ -48,6 +48,7 @@ function loadFlags() {
         isRandomEntrances = getLocalStorageBool("isRandomEntrances", isRandomEntrances);
         isRandomCharts = getLocalStorageBool("isRandomCharts", isRandomCharts);
         swordMode = getLocalStorageItem("swordMode", swordMode);
+        skipRematchBosses = getLocalStorageBool("skipRematchBosses", skipRematchBosses);
         return;
     }
 
@@ -64,6 +65,9 @@ function loadFlags() {
         swordMode = "swordless";
     } else if (flagParam.indexOf("SWO1") > -1) {
         swordMode = "swordless-start";
+    }
+    if (flagParam.indexOf("SRB1") > -1) {
+        skipRematchBosses = true;
     }
     if (flagParam.indexOf("TRI1") > -1) {
         if (isRandomCharts) {
@@ -180,6 +184,7 @@ function saveProgress(element) {
         localStorage.setItem("isRandomEntrances", isRandomEntrances);
         localStorage.setItem("isRandomCharts", isRandomCharts);
         localStorage.setItem("swordMode", swordMode);
+        localStorage.setItem("skipRematchBosses", skipRematchBosses);
         localStorage.setItem("version", versionParam);
         localStorage.setItem("progress", "true");
 
