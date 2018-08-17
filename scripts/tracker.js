@@ -459,7 +459,8 @@ function toggleInventoryItem(element, maxItems) {
 
 function toggleSword(element) {
     if (swordMode != "swordless") {
-        toggleItem("Progressive Sword", 4);
+        var swordName = element.name;
+        toggleItem(swordName, 4);
     }
     itemInfo(element);
 }
@@ -470,10 +471,10 @@ function toggleShield(element) {
     itemInfo(element);
 }
 
-function toggleTriforce() {
+function toggleTriforce(element) {
     incrementTriforceShardCount();
     dataChanged();
-    itemInfo(document.getElementById('triforce'));
+    itemInfo(element);
 }
 
 function toggleItem(itemName, maxItems) {
