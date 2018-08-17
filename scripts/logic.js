@@ -276,7 +276,7 @@ var isKeyLunacy = false;
 var isRandomEntrances = false;
 var isRandomCharts = false;
 var swordMode = "sword";
-var skipRematchBosses = true;
+var skipRematchBosses = false; // on by default in settings, but we set it to false for backwards compatibility
 var startingTriforceShards = 0;
 
 // tracker should use these without modifying them

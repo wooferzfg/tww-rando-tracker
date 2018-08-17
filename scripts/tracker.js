@@ -158,7 +158,7 @@ function getLocalStorageInt(itemName, defaultVal) {
 }
 
 function getLocalStorageBool(itemName, defaultVal) {
-    return getLocalStorageItem(itemName, defaultVal) != "false";
+    return getLocalStorageItem(itemName, defaultVal) == "true";
 }
 
 function getLocalStorageItem(itemName, defaultVal) {
@@ -166,7 +166,7 @@ function getLocalStorageItem(itemName, defaultVal) {
     if (itemValue) {
         return itemValue;
     }
-    return defaultVal;
+    return defaultVal.toString();
 }
 
 function saveProgress(element) {
