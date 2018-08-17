@@ -330,6 +330,7 @@ function afterLoad() {
         updateDungeonEntranceMacros();
         updateChartMacros();
         updateRematchBossesMacros();
+        updateSwordModeMacros();
         loadProgress();
         dataChanged();
     }
@@ -433,6 +434,15 @@ function updateChartMacros() {
 function updateRematchBossesMacros() {
     if (skipRematchBosses) {
         macros["Can Unlock Ganon's Tower Four Boss Door"] = "Nothing";
+    }
+}
+
+function updateSwordModeMacros() {
+    if (swordMode == "swordless") {
+        macros["Can Sword Fight with Orca"] = "Can Sword Fight with Orca in Swordless";
+        macros["Can Defeat Phantom Ganon"] = "Can Defeat Phantom Ganon in Swordless";
+        macros["Can Access Hyrule"] = "Can Access Hyrule in Swordless";
+        macros["Can Defeat Ganondorf"] = "Can Defeat Ganondorf in Swordless";
     }
 }
 
