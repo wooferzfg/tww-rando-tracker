@@ -292,9 +292,9 @@ function refreshAllImagesAndCounts() {
     // sword mode
     if (swordMode == "swordless") {
         var swordElement = document.getElementById("item21");
-        swordElement.style.cursor = "auto";
+        swordElement.classList.add("hide");
         var hurricaneSpinElement = document.getElementById("item30");
-        hurricaneSpinElement.style.cursor = "auto";
+        hurricaneSpinElement.classList.add("hide");
     }
 
     // shields
@@ -461,9 +461,6 @@ function itemInfo(element) {
 
 function toggleInventoryItem(element, maxItems) {
     var itemName = element.name;
-    if (swordMode == "swordless" && (itemName == "Progressive Sword" || itemName == "Hurricane Spin")) {
-        return;
-    }
     toggleItem(itemName, maxItems);
     itemInfo(element);
 }

@@ -516,7 +516,7 @@ legend {
     color: black;
 }
 
-.tracker td {
+.tracker td img {
 	cursor: pointer;
 }
 
@@ -610,7 +610,8 @@ legend {
 }
 
 .statistics dt.hide,
-.statistics dd.hide {
+.statistics dd.hide,
+.item-tracker .hide {
     display: none;
 }
 
