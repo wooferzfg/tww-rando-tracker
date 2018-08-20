@@ -471,6 +471,7 @@ legend {
 .detailspan {
     line-height: 1em;
     padding-bottom: 5px;
+    cursor: pointer;
 }
 
 .detail-small {
