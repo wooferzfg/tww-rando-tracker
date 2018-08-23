@@ -625,8 +625,7 @@ function itemsForRequirement(reqName) {
         var requiredItems = "Impossible";
         var reqMet = false;
         var remainingProgress = NaN;
-    }
-    else if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
+    } else if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
         var progressCheck = checkProgressiveItemRequirementRemaining(reqName, items);
         var reqMet = progressCheck <= 0;
         var remainingProgress = Math.max(0, progressCheck);
@@ -635,22 +634,20 @@ function itemsForRequirement(reqName) {
         } else {
             var requiredItems = getNameForItem(reqName);
         }
-    }
-    else if (reqName.startsWith('Can Access Other Location "')) {
+    } else if (reqName.startsWith('Can Access Other Location "')) {
         return itemsRequiredForOtherLocation(reqName);
-    }
-    else if (reqName in items) {
+    } else if (reqName.includes("Triforce Shard")) {
+        var requiredItems = "Triforce of Courage";
+        var remainingProgress = 8 - getTriforceShardCount();
+        var reqMet = remainingProgress == 0;
+    } else if (reqName in items) {
         var reqMet = items[reqName] > 0;
         if (reqMet && startingItems[reqName] > 0) {
             var requiredItems = "None";
         } else {
             var requiredItems = getNameForItem(reqName);
         }
-        if (reqName.includes("Triforce Shard")) {
-            var remainingProgress = 8 - getTriforceShardCount(); // shards are combined into "Triforce of Courage", so we give them the total shards remaining
-        } else {
-            var remainingProgress = reqMet ? 0 : 1;
-        }
+        var remainingProgress = reqMet ? 0 : 1;
     }
     else if (reqName in macros) {
         var macro = macros[reqName];
