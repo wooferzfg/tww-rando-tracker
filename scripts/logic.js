@@ -875,7 +875,7 @@ function getProgressiveItemChildren(itemsReq, expressionType) {
 }
 
 function addProgressiveChildrenForReq(newItems, curReq, expressionType) {
-    if (curReq.startsWith("Progressive")) {
+    if (curReq.startsWith("Progressive") || curReq.includes('Small Key x')) {
         var itemName = getProgressiveItemName(curReq);
         var reqCount = getProgressiveNumRequired(curReq);
         if (expressionType == "OR") { // if the expression type is OR, we add higher level children
