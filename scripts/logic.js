@@ -968,6 +968,11 @@ function replaceItemNames(expression, isParentExprTrue) {
 
 // we want to put expressions with missing items at the top
 function sortItems(itemsReq, isExprTrue) {
+    var indices = {}; // dictionary with the original order of the requirements
+    for (var i = 0; i < itemsReq.length; i++) {
+        var curItem = itemsReq[i];
+        indices[curItem] = i;
+    }
     itemsReq.sort(function (a, b) {
         var itemSort = 0;
         if (!a.eval && b.eval) {
@@ -983,10 +988,12 @@ function sortItems(itemsReq, isExprTrue) {
             }
             return exprSort * itemSort;
         }
-        if (a.items < b.items) { // otherwise, we sort alphabetically
+        var aIndex = indices[a];
+        var bIndex = indices[b];
+        if (aIndex < bIndex) { // otherwise, we maintain the original order
             return -1;
         }
-        if (a.items > b.items) {
+        if (aIndex > bIndex) {
             return 1;
         }
     });
