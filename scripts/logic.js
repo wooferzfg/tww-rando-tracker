@@ -852,6 +852,8 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
                 var subExpression = removeChildExpressions(curItem, newSameExprItems, oppositeExprItems);
                 if (subExpression) {
                     newItems.push(subExpression);
+                } else if (expression.type == "OR") {
+                    return null;
                 }
             } else {
                 newItems.push(curItem);
