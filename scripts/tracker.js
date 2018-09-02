@@ -39,54 +39,75 @@ function showLoadingError() {
 }
 
 function loadFlags() {
-    if (progressParam == "1" && getLocalStorageBool("progress")) {
+    if (progressParam == "1" && getLocalStorageBool("progress", false)) {
         var flagString = localStorage.getItem("flags");
         if (flagString) {
             flags = flagString.split(',');
         }
-        isKeyLunacy = getLocalStorageBool("isKeyLunacy");
-        isRandomEntrances = getLocalStorageBool("isRandomEntrances");
-        isRandomCharts = getLocalStorageBool("isRandomCharts");
+        isKeyLunacy = getLocalStorageBool("isKeyLunacy", isKeyLunacy);
+        isRandomEntrances = getLocalStorageBool("isRandomEntrances", isRandomEntrances);
+        isRandomCharts = getLocalStorageBool("isRandomCharts", isRandomCharts);
+        swordMode = getLocalStorageItem("swordMode", swordMode);
+        skipRematchBosses = getLocalStorageBool("skipRematchBosses", skipRematchBosses);
+        startingTriforceShards = getLocalStorageInt("startingTriforceShards", startingTriforceShards);
         return;
     }
 
-    if (flagParam.indexOf("KL1") > -1) {
-        isKeyLunacy = true;
+    isKeyLunacy = getParamBool("KL", isKeyLunacy);
+    isRandomEntrances = getParamBool("RDE", isRandomEntrances);
+    isRandomCharts = getParamBool("RCH", isRandomCharts);
+    skipRematchBosses = getParamBool("SRB", skipRematchBosses);
+    startingTriforceShards = getParamValue("STS", startingTriforceShards);
+
+    var swordValue = getParamValue("SWO", 0);
+    if (swordValue == 2) {
+        swordMode = "swordless";
+    } else if (swordValue == 1) {
+        swordMode = "swordless-start";
     }
-    if (flagParam.indexOf("RDE1") > -1) {
-        isRandomEntrances = true;
-    }
-    if (flagParam.indexOf("RCH1") > -1) {
-        isRandomCharts = true;
-    }
-    if (flagParam.indexOf("TRI1") > -1) {
+
+    if (getParamBool("TRI", false)) {
         if (isRandomCharts) {
             flags.push("Sunken Treasure");
         } else {
             flags.push("Sunken Triforce"); // need to account for this case separately
         }
     }
-    checkAddFlags("D1", ["Dungeon"]);
-    checkAddFlags("GF1", ["Great Fairy"]);
-    checkAddFlags("PSC1", ["Puzzle Secret Cave"]);
-    checkAddFlags("CSC1", ["Combat Secret Cave"]);
-    checkAddFlags("SSQ1", ["Short Sidequest"]);
-    checkAddFlags("LSQ1", ["Long Sidequest"]);
-    checkAddFlags("ST1", ["Spoils Trading"]);
-    checkAddFlags("MG1", ["Minigame"]);
-    checkAddFlags("FG1", ["Free Gift"]);
-    checkAddFlags("MAI1", ["Mail"]);
-    checkAddFlags("PR1", ["Platform", "Raft"]);
-    checkAddFlags("SUB1", ["Submarine"]);
-    checkAddFlags("ERC1", ["Eye Reef Chest"]);
-    checkAddFlags("BOG1", ["Big Octo", "Gunboat"]);
-    checkAddFlags("TRE1", ["Sunken Treasure"]);
-    checkAddFlags("EP1", ["Expensive Purchase"]);
-    checkAddFlags("MIS1", ["Other Chest", "Misc"]);
+
+    checkAddFlags("D", ["Dungeon"]);
+    checkAddFlags("GF", ["Great Fairy"]);
+    checkAddFlags("PSC", ["Puzzle Secret Cave"]);
+    checkAddFlags("CSC", ["Combat Secret Cave"]);
+    checkAddFlags("SSQ", ["Short Sidequest"]);
+    checkAddFlags("LSQ", ["Long Sidequest"]);
+    checkAddFlags("ST", ["Spoils Trading"]);
+    checkAddFlags("MG", ["Minigame"]);
+    checkAddFlags("FG", ["Free Gift"]);
+    checkAddFlags("MAI", ["Mail"]);
+    checkAddFlags("PR", ["Platform", "Raft"]);
+    checkAddFlags("SUB", ["Submarine"]);
+    checkAddFlags("ERC", ["Eye Reef Chest"]);
+    checkAddFlags("BOG", ["Big Octo", "Gunboat"]);
+    checkAddFlags("TRE", ["Sunken Treasure"]);
+    checkAddFlags("EP", ["Expensive Purchase"]);
+    checkAddFlags("MIS", ["Other Chest", "Misc"]);
+}
+
+function getParamBool(param, defaultVal) {
+    return getParamValue(param, defaultVal) == 1;
+}
+
+function getParamValue(param, defaultVal) {
+    var regex = new RegExp(`${param}(\\d)`);
+    var match = flagParam.match(regex);
+    if (match && match[1]) {
+        return match[1];
+    }
+    return defaultVal;
 }
 
 function checkAddFlags(param, flagsToAdd) {
-    if (flagParam.indexOf(param) > -1) {
+    if (getParamBool(param, false)) {
         for (var i = 0; i < flagsToAdd.length; i++) {
             var curFlag = flagsToAdd[i];
             if (!flags.includes(curFlag)) {
@@ -98,23 +119,17 @@ function checkAddFlags(param, flagsToAdd) {
 
 function loadProgress() {
     if (progressParam == "1") {
-        if (getLocalStorageBool("progress")) {
+        if (getLocalStorageBool("progress", false)) {
             Object.keys(items).forEach(function (itemName) {
-                var itemCount = parseInt(localStorage.getItem(itemName));
-                if (!isNaN(itemCount)) {
-                    items[itemName] = itemCount;
-                }
+                items[itemName] = getLocalStorageInt(itemName, items[itemName]);
             });
             Object.keys(keys).forEach(function (keyName) {
-                var keyCount = parseInt(localStorage.getItem(keyName));
-                if (!isNaN(keyCount)) {
-                    keys[keyName] = keyCount;
-                }
+                keys[keyName] = getLocalStorageInt(keyName, keys[keyName]);
             });
             Object.keys(locationsChecked).forEach(function (generalLocation) {
                 Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
                     var locationName = generalLocation + " - " + detailedLocation;
-                    locationsChecked[generalLocation][detailedLocation] = getLocalStorageBool(locationName);
+                    locationsChecked[generalLocation][detailedLocation] = getLocalStorageBool(locationName, false);
                 });
             });
 
@@ -138,8 +153,20 @@ function loadProgress() {
     }
 }
 
-function getLocalStorageBool(itemName) {
-    return localStorage.getItem(itemName) == "true";
+function getLocalStorageInt(itemName, defaultVal) {
+    return parseInt(getLocalStorageItem(itemName, defaultVal));
+}
+
+function getLocalStorageBool(itemName, defaultVal) {
+    return getLocalStorageItem(itemName, defaultVal) == "true";
+}
+
+function getLocalStorageItem(itemName, defaultVal) {
+    var itemValue = localStorage.getItem(itemName);
+    if (itemValue) {
+        return itemValue;
+    }
+    return defaultVal.toString();
 }
 
 function saveProgress(element) {
@@ -161,6 +188,9 @@ function saveProgress(element) {
         localStorage.setItem("isKeyLunacy", isKeyLunacy);
         localStorage.setItem("isRandomEntrances", isRandomEntrances);
         localStorage.setItem("isRandomCharts", isRandomCharts);
+        localStorage.setItem("swordMode", swordMode);
+        localStorage.setItem("skipRematchBosses", skipRematchBosses);
+        localStorage.setItem("startingTriforceShards", startingTriforceShards);
         localStorage.setItem("version", versionParam);
         localStorage.setItem("progress", "true");
 
@@ -257,6 +287,14 @@ function refreshAllImagesAndCounts() {
         } else {
             document.getElementById(l).src = imageDir + 'item' + i + '_' + itemCount + '_a.png'
         }
+    }
+
+    // sword mode
+    if (swordMode == "swordless") {
+        var swordElement = document.getElementById("item21");
+        swordElement.classList.add("hide");
+        var hurricaneSpinElement = document.getElementById("item30");
+        hurricaneSpinElement.classList.add("hide");
     }
 
     // shields
@@ -433,10 +471,10 @@ function toggleShield(element) {
     itemInfo(element);
 }
 
-function toggleTriforce() {
+function toggleTriforce(element) {
     incrementTriforceShardCount();
     dataChanged();
-    itemInfo(document.getElementById('triforce'));
+    itemInfo(element);
 }
 
 function toggleItem(itemName, maxItems) {

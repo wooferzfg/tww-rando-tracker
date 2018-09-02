@@ -54,39 +54,60 @@ body {
 
 .settings table {
     width: 100%;
-    max-width: 1100px;
+    max-width: 1500px;
     font-size: 1.2em;
     table-layout: fixed;
     color: white;
 }
 
 .settings td {
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .label-text {
-    padding-left: 50px;
+    padding-left: 20px;
+    padding-right: 10px;
 }
 
 .slider-container {
     text-align: right;
-    padding-right: 50px;
+    padding-right: 20px;
+    position: relative;
+}
+
+.select-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    padding: inherit;
+}
+
+.select-container select {
+    height: 34px;
+    font-size: 1em;
+}
+
+#num_starting_triforce_shards {
+    min-width: 80px;
 }
 
 .text-col {
-    width: 40%;
+    width: 27%;
 }
 
 .slider-col {
-    width: 10%;
+    width: 6%;
 }
 
 .switch {
     position: relative;
-    display: inline-block;
     width: 60px;
     height: 34px;
+    float: right;
 }
 
 .switch input {
@@ -176,7 +197,8 @@ button,
     width: 450px;
 }
 
-button {
+button,
+select {
     background: linear-gradient(#d2d2d2,#c8c8c8);
     font-family: 'Fira Sans', sans-serif;
     cursor: pointer;
@@ -449,6 +471,7 @@ legend {
 .detailspan {
     line-height: 1em;
     padding-bottom: 5px;
+    cursor: pointer;
 }
 
 .detail-small {
@@ -494,7 +517,7 @@ legend {
     color: black;
 }
 
-.tracker td {
+.tracker td img {
 	cursor: pointer;
 }
 
@@ -588,7 +611,8 @@ legend {
 }
 
 .statistics dt.hide,
-.statistics dd.hide {
+.statistics dd.hide,
+.item-tracker .hide {
     display: none;
 }
 

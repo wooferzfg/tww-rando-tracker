@@ -275,6 +275,9 @@ var flags = [];
 var isKeyLunacy = false;
 var isRandomEntrances = false;
 var isRandomCharts = false;
+var swordMode = "sword";
+var skipRematchBosses = false; // on by default in settings, but we set it to false for backwards compatibility
+var startingTriforceShards = 0;
 
 // tracker should use these without modifying them
 var locationsAreProgress = {};
@@ -324,8 +327,10 @@ function afterLoad() {
         addDefeatGanondorf();
         setLocationsAreProgress();
         initializeLocationsChecked();
-        initializeRandomDungeonEntrances();
-        initializeRandomCharts();
+        updateDungeonEntranceMacros();
+        updateChartMacros();
+        updateRematchBossesMacros();
+        updateSwordModeMacros();
         loadProgress();
         dataChanged();
     }
@@ -341,12 +346,25 @@ function dataChanged() {
 }
 
 function loadStartingItems() {
-    startingItems["Progressive Sword"] = 1;
+    if (swordMode == "sword") {
+        startingItems["Progressive Sword"] = 1;
+    } else if (swordMode == "swordless") {
+        impossibleItems.push("Progressive Sword x1");
+        impossibleItems.push("Progressive Sword x2");
+        impossibleItems.push("Progressive Sword x3");
+        impossibleItems.push("Progressive Sword x4");
+        impossibleItems.push("Hurricane Spin");
+    }
     startingItems["Hero's Shield"] = 1;
     startingItems["Wind Waker"] = 1;
     startingItems["Boat's Sail"] = 1;
     startingItems["Wind's Requiem"] = 1;
     startingItems["Ballad of Gales"] = 1;
+    startingItems["Song of Passing"] = 1;
+    for (var i = 0; i < startingTriforceShards; i++) {
+        var shardName = "Triforce Shard " + (i + 1);
+        startingItems[shardName] = 1;
+    }
 
     Object.keys(startingItems).forEach(function (item) {
         items[item] = startingItems[item];
@@ -391,7 +409,7 @@ function initializeLocationsChecked() {
     locationsChecked = setLocations(() => false);
 }
 
-function initializeRandomDungeonEntrances() {
+function updateDungeonEntranceMacros() {
     if (isRandomEntrances) {
         for (var i = 0; i < dungeons.length; i++) {
             var dungeonName = dungeons[i];
@@ -404,13 +422,28 @@ function initializeRandomDungeonEntrances() {
     }
 }
 
-function initializeRandomCharts() {
+function updateChartMacros() {
     if (isRandomCharts) {
         for (var i = 0; i < charts.length; i++) {
             var chartName = charts[i];
             var macroName = "Chart for Island " + (i + 1);
             macros[macroName] = chartName; // we assume everything is a Treasure Chart and clear any additional requirements like wallet upgrades
         }
+    }
+}
+
+function updateRematchBossesMacros() {
+    if (skipRematchBosses) {
+        macros["Can Unlock Ganon's Tower Four Boss Door"] = "Nothing";
+    }
+}
+
+function updateSwordModeMacros() {
+    if (swordMode == "swordless") {
+        macros["Can Sword Fight with Orca"] = "Can Sword Fight with Orca in Swordless";
+        macros["Can Defeat Phantom Ganon"] = "Can Defeat Phantom Ganon in Swordless";
+        macros["Can Access Hyrule"] = "Can Access Hyrule in Swordless";
+        macros["Can Defeat Ganondorf"] = "Can Defeat Ganondorf in Swordless";
     }
 }
 
@@ -576,6 +609,10 @@ function getProgressiveNumRequired(reqName) {
     return parseInt(reqName.charAt(reqName.length - 1));
 }
 
+function getProgressiveRequirementName(itemName, numRequired) {
+    return `${itemName} x${numRequired}`;
+}
+
 function checkOtherLocationReq(reqName) {
     var otherLocation = reqName.substring('Can Access Other Location "'.length, reqName.length - 1);
     var splitExpression = getSplitExpression(itemLocations[otherLocation].Need)
@@ -632,7 +669,7 @@ function itemsForRequirement(reqName) {
         if (reqMet && checkProgressiveItemRequirementRemaining(reqName, startingItems) <= 0) {
             var requiredItems = "None";
         } else {
-            var requiredItems = getNameForItem(reqName);
+            var requiredItems = reqName; // don't replace names yet. we do some logic with them and then replace them later
         }
     } else if (reqName.startsWith('Can Access Other Location "')) {
         return itemsRequiredForOtherLocation(reqName);
@@ -645,7 +682,7 @@ function itemsForRequirement(reqName) {
         if (reqMet && startingItems[reqName] > 0) {
             var requiredItems = "None";
         } else {
-            var requiredItems = getNameForItem(reqName);
+            var requiredItems = reqName;
         }
         var remainingProgress = reqMet ? 0 : 1;
     }
@@ -693,7 +730,7 @@ function itemsRequiredForLogicalExpression(splitExpression) {
 
 function getFlatSubexpression(itemsReq, expressionType) {
     var expression = getSubexpression(itemsReq, expressionType);
-    return flattenArrays(expression, false);
+    return flattenArrays(expression);
 }
 
 function getSubexpression(itemsReq, expressionType) {
@@ -718,7 +755,7 @@ function getSubexpression(itemsReq, expressionType) {
     return null;
 }
 
-function flattenArrays(expression, isParentExprTrue) {
+function flattenArrays(expression) {
     if (!expression) {
         return null;
     }
@@ -734,10 +771,9 @@ function flattenArrays(expression, isParentExprTrue) {
     }
 
     var newItems = [];
-    var isExprTrue = isParentExprTrue || expression.eval;
     for (var i = 0; i < itemsReq.length; i++) {
         var curItem = itemsReq[i];
-        var subExpression = flattenArrays(curItem, isExprTrue);
+        var subExpression = flattenArrays(curItem);
         if (subExpression) {
             if (!subExpression.type) {
                 var fullExpr = { items: subExpression, eval: curItem.eval, countdown: curItem.countdown };
@@ -749,34 +785,7 @@ function flattenArrays(expression, isParentExprTrue) {
             }
         }
     }
-    sortItems(newItems, isExprTrue);
     return getSubexpression(newItems, expression.type);
-}
-
-// we want to put expressions with missing items at the top
-function sortItems(newItems, isExprTrue) {
-    newItems.sort(function (a, b) {
-        var itemSort = 0;
-        if (!a.eval && b.eval) {
-            itemSort = -1;
-        } else if (a.eval && !b.eval) {
-            itemSort = 1;
-        }
-        if (itemSort != 0) {
-            if (isExprTrue) {
-                var exprSort = -1; // if the expression is true, we want to put items we have first
-            } else {
-                var exprSort = 1; // if the expression is false, we want to put items we're missing first
-            }
-            return exprSort * itemSort;
-        }
-        if (a.items < b.items) { // otherwise, we sort alphabetically
-            return -1;
-        }
-        if (a.items > b.items) {
-            return 1;
-        }
-    });
 }
 
 function indexOfItem(expressionItems, item) {
@@ -824,6 +833,7 @@ function removeChildren(expression) {
     return removeChildExpressions(expression, none, impossible);
 }
 
+// remove duplicates that are in lower levels, including progressive items that are obsolete by a higher or lower level item of the same type
 function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
     if (!expression.type) {
         return expression;
@@ -832,13 +842,18 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
     var newItems = [];
     for (var i = 0; i < itemsReq.length; i++) {
         var curItem = itemsReq[i];
+        var progressiveChildren = getProgressiveItemChildren(itemsReq, expression.type);
         if (indexOfItem(oppositeExprItems, curItem) > -1) { // when the parent items have an opposite expression, we remove the whole child expression
             return null;
-        } else if (indexOfItem(sameExprItems, curItem) == -1) { // when the parent items have the same expression, we just remove the child
+        } else if (indexOfItem(sameExprItems, curItem) == -1  // when the parent items have the same expression, we just remove the child
+            && indexOfItem(progressiveChildren, curItem) == -1) { // we don't add any items that are subsumed by another progressive item in the same level
             if (curItem.type) {
-                var subExpression = removeChildExpressions(curItem, sameExprItems.concat(itemsReq), oppositeExprItems);
+                var newSameExprItems = sameExprItems.concat(itemsReq).concat(progressiveChildren);
+                var subExpression = removeChildExpressions(curItem, newSameExprItems, oppositeExprItems);
                 if (subExpression) {
                     newItems.push(subExpression);
+                } else if (expression.type == "OR") {
+                    return null;
                 }
             } else {
                 newItems.push(curItem);
@@ -846,6 +861,37 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
         }
     }
     return getFlatSubexpression(newItems, expression.type);
+}
+
+// gets all the progressive item children that are subsumed by this list of items
+function getProgressiveItemChildren(itemsReq, expressionType) {
+    var newItems = [];
+    for (var i = 0; i < itemsReq.length; i++) {
+        var curItem = itemsReq[i];
+        var curReq = curItem.items;
+        if (!Array.isArray(curReq)) {
+            addProgressiveChildrenForReq(newItems, curReq, expressionType);
+        }
+    }
+    return newItems;
+}
+
+function addProgressiveChildrenForReq(newItems, curReq, expressionType) {
+    if (curReq.startsWith("Progressive") || curReq.includes('Small Key x')) {
+        var itemName = getProgressiveItemName(curReq);
+        var reqCount = getProgressiveNumRequired(curReq);
+        if (expressionType == "OR") { // if the expression type is OR, we add higher level children
+            for (var j = reqCount + 1; j <= 5; j++) {
+                var newItemName = getProgressiveRequirementName(itemName, j);
+                newItems.push({ items: newItemName });
+            }
+        } else { // if the expression type is AND, we add lower level children
+            for (var j = reqCount - 1; j >= 1; j--) {
+                var newItemName = getProgressiveRequirementName(itemName, j);
+                newItems.push({ items: newItemName });
+            }
+        }
+    }
 }
 
 // we want to remove any expression that subsumes another expression at the same level
@@ -903,6 +949,56 @@ function expressionSubsumes(firstExpression, secondExpression, tiebreaker) {
     return true;
 }
 
+function replaceItemNames(expression, isParentExprTrue) {
+    if (!expression) {
+        return;
+    }
+    if (!expression.type) {
+        expression.items = getNameForItem(expression.items);
+    } else {
+        var itemsReq = expression.items;
+        var isExprTrue = isParentExprTrue || expression.eval;
+        for (var i = 0; i < itemsReq.length; i++) {
+            var curItem = itemsReq[i];
+            replaceItemNames(curItem, isExprTrue);
+        }
+        sortItems(itemsReq, isExprTrue);
+    }
+}
+
+// we want to put expressions with missing items at the top
+function sortItems(itemsReq, isExprTrue) {
+    var indices = {}; // dictionary with the original order of the requirements
+    for (var i = 0; i < itemsReq.length; i++) {
+        var curItem = itemsReq[i];
+        indices[curItem] = i;
+    }
+    itemsReq.sort(function (a, b) {
+        var itemSort = 0;
+        if (!a.eval && b.eval) {
+            itemSort = -1;
+        } else if (a.eval && !b.eval) {
+            itemSort = 1;
+        }
+        if (itemSort != 0) {
+            if (isExprTrue) {
+                var exprSort = -1; // if the expression is true, we want to put items we have first
+            } else {
+                var exprSort = 1; // if the expression is false, we want to put items we're missing first
+            }
+            return exprSort * itemSort;
+        }
+        var aIndex = indices[a];
+        var bIndex = indices[b];
+        if (aIndex < bIndex) { // otherwise, we maintain the original order
+            return -1;
+        }
+        if (aIndex > bIndex) {
+            return 1;
+        }
+    });
+}
+
 function itemsRequiredForLocation(generalLocation, detailedLocation) {
     var fullName = generalLocation + " - " + detailedLocation;
     var splitExpression = getSplitExpression(itemLocations[fullName].Need);
@@ -910,6 +1006,8 @@ function itemsRequiredForLocation(generalLocation, detailedLocation) {
     itemsReq = removeDuplicateItems(itemsReq);
     itemsReq = removeChildren(itemsReq);
     itemsReq = removeSubsumingExpressions(itemsReq);
+    itemsReq = removeChildren(itemsReq); // remove children again so we can catch additional cases
+    replaceItemNames(itemsReq, false);
     return itemsReq;
 }
 
@@ -994,9 +1092,6 @@ function getNameForItem(itemName) {
     }
     else if (itemName == "Boat's Sail") {
         return "Swift Sail";
-    }
-    else if (itemName.startsWith("Triforce Shard")) {
-        return "Triforce of Courage";
     }
     else if (isRandomCharts && (itemName.startsWith("Triforce Chart") || itemName.startsWith("Treasure Chart"))) {
         var islandIndex = charts.indexOf(itemName);
