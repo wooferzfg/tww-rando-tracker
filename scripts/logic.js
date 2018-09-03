@@ -756,13 +756,10 @@ function getSubexpression(itemsReq, expressionType) {
         var isExpressionTrue = itemsReq[0].eval;
         return { items: itemsReq[0], eval: isExpressionTrue, countdown: (isExpressionTrue ? 0 : 1) };
     }
-    return null;
+    return { items: null };
 }
 
 function flattenArrays(expression) {
-    if (!expression) {
-        return null;
-    }
     var itemsReq = expression.items;
     if (!itemsReq) {
         return expression;
@@ -812,7 +809,7 @@ function removeDuplicateItems(expression) {
         var curItem = itemsReq[i];
         if (curItem.type) {
             var subExpression = removeDuplicateItems(curItem);
-            if (subExpression) {
+            if (subExpression.items) {
                 newItems.push(subExpression);
             }
         } else if (i == indexOfItem(itemsReq, curItem)) {
@@ -847,17 +844,19 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
     for (var i = 0; i < itemsReq.length; i++) {
         var curItem = itemsReq[i];
         var progressiveChildren = getProgressiveItemChildren(itemsReq, expression.type);
-        if (indexOfItem(oppositeExprItems, curItem) > -1) { // when the parent items have an opposite expression, we remove the whole child expression
+        if (indexOfItem(oppositeExprItems, curItem) > -1) { // when there is a parent with an opposite expression that contains the current item, we remove the whole child expression
             return null;
-        } else if (indexOfItem(sameExprItems, curItem) == -1  // when the parent items have the same expression, we just remove the child
+        } else if (indexOfItem(sameExprItems, curItem) == -1  // when there is a parent with the same expression that contains the current item, we just remove the current item
             && indexOfItem(progressiveChildren, curItem) == -1) { // we don't add any items that are subsumed by another progressive item in the same level
             if (curItem.type) {
                 var newSameExprItems = sameExprItems.concat(itemsReq).concat(progressiveChildren);
                 var subExpression = removeChildExpressions(curItem, newSameExprItems, oppositeExprItems);
-                if (subExpression) {
-                    newItems.push(subExpression);
-                } else if (expression.type == "OR") {
-                    return null;
+                if (subExpression) { // if the subexpression is null, then that means we've explicitly removed it for containing an opposite expression item
+                    if (subExpression.items) {
+                        newItems.push(subExpression);
+                    } else if (expression.type == "OR") { // if we have an OR expression with at least one subexpression where there are no items left, the OR expression is guaranteed to be true, so we remove it
+                        return { items: null };
+                    }
                 }
             } else {
                 newItems.push(curItem);
@@ -911,7 +910,7 @@ function removeSubsumingExpressions(expression) {
         if (curItem.type) {
             if (!isSubsumingExpression(curItem, itemsReq, i)) {
                 var subExpression = removeSubsumingExpressions(curItem);
-                if (subExpression) {
+                if (subExpression.items) {
                     newItems.push(subExpression);
                 }
             }
