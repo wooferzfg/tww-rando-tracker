@@ -940,8 +940,8 @@ function expressionSubsumes(firstExpression, secondExpression, tiebreaker) {
     if (firstExpression.items.length < secondExpression.items.length) {
         return false;
     }
-    if (firstExpression.items.length == secondExpression.items.length && !tiebreaker) {
-        return false; // if two expressions are identical, we don't want to remove both
+    if (firstExpression.items.length == secondExpression.items.length && tiebreaker) {
+        return false; // if two expressions are identical, we only want to keep the first one
     }
     for (var i = 0; i < secondExpression.items.length; i++) {
         var curItem = secondExpression.items[i];
