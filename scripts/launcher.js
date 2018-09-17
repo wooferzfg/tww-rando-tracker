@@ -34,7 +34,7 @@ function applyflags(element) {
 			decodedData = decodedData.substring(1);
 		}
 
-		if (/^[0-9.]+$/.test(version) && version != currentVersion) {
+		if (/^[0-9a-f._]+$/.test(version) && !version.includes(currentVersion)) {
 			showBrokenPermalink(element, true);
 			return;
 		}
