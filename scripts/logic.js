@@ -678,9 +678,13 @@ function itemsForRequirement(reqName) {
     } else if (reqName.startsWith('Can Access Other Location "')) {
         return itemsRequiredForOtherLocation(reqName);
     } else if (reqName.includes("Triforce Shard")) {
-        var requiredItems = "Triforce of Courage";
         var remainingProgress = 8 - getTriforceShardCount();
         var reqMet = remainingProgress == 0;
+        if (reqMet && startingTriforceShards == 8) {
+            var requiredItems = "None";
+        } else {
+            var requiredItems = "Triforce of Courage";
+        }
     } else if (reqName in items) {
         var reqMet = items[reqName] > 0;
         if (reqMet && startingItems[reqName] > 0) {
