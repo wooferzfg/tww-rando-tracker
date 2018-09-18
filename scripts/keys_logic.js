@@ -39,7 +39,9 @@ function getGuaranteedKeysForDungeon(dugeonName) {
             && !locationsAreAvailable[dugeonName][detailedLocation]
             && !locationsChecked[dugeonName][detailedLocation]) {
             var keyReqs = getKeyRequirementsForLocation(dugeonName, detailedLocation);
-            guaranteedSmallKeys = Math.min(guaranteedSmallKeys, keyReqs.small);
+            if (keyReqs.big == 0) {
+                guaranteedSmallKeys = Math.min(guaranteedSmallKeys, keyReqs.small);
+            }
             guaranteedBigKeys = Math.min(guaranteedBigKeys, keyReqs.big);
         }
     });
@@ -61,10 +63,11 @@ function getKeyRequirementsForLocation(dungeonName, detailedLocation) {
     for (var i = 0; i < itemsReq.length; i++) {
         var curItem = itemsReq[i];
         if (!curItem.type) {
-            if (curItem.includes("Small Key")) {
-                smallReq = getProgressiveNumRequired(curItem);
+            var itemName = curItem.items;
+            if (itemName.includes("Small Key")) {
+                smallReq = getProgressiveNumRequired(itemName);
             }
-            if (curItem.includes("Big Key")) {
+            if (itemName.includes("Big Key")) {
                 bigReq = 1;
             }
         }
