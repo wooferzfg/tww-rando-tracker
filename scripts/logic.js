@@ -453,11 +453,7 @@ function updateSwordModeMacros() {
 
 function transferKeys() {
     Object.keys(keys).forEach(function (keyName) {
-        if (isKeyLunacy) {
-            items[keyName] = keys[keyName];
-        } else {
-            items[keyName] = 5;
-        }
+        items[keyName] = keys[keyName];
     });
 }
 
@@ -465,21 +461,31 @@ function setGuaranteedKeys() {
     if (!isKeyLunacy) {
         for (var i = 0; i < dungeons.length; i++) {
             var dungeonName = dungeons[i];
+            var shortDungeonName = shortDungeonNames[i];
             if (isMainDungeon(dungeonName)) {
-                var guaranteedKeys = getGuaranteedKeysForDungeon(dungeonName);
-                var shortDungeonName = shortDungeonNames[i];
-                var smallKeyName = shortDungeonName + " Small Key";
-                var bigKeyName = shortDungeonName + " Big Key";
-                items[smallKeyName] = Math.max(guaranteedKeys.small, keys[smallKeyName]);
-                items[bigKeyName] = Math.max(guaranteedKeys.big, keys[bigKeyName]);
+                setGuaranteedKeysForDungeon(dungeonName, shortDungeonName);
             }
         }
+    }
+}
+
+function setGuaranteedKeysForDungeon(dungeonName, shortDungeonName) {
+    var guaranteedKeys = getGuaranteedKeysForDungeon(dungeonName);
+    var smallKeyName = shortDungeonName + " Small Key";
+    var bigKeyName = shortDungeonName + " Big Key";
+    var smallKeyCount = Math.max(guaranteedKeys.small, keys[smallKeyName]);
+    var bigKeyCount = Math.max(guaranteedKeys.big, keys[bigKeyName]);
+    if (smallKeyCount > items[smallKeyName] || bigKeyCount > items[bigKeyName]) {
+        items[smallKeyName] = smallKeyCount;
+        items[bigKeyName] = bigKeyCount;
         locationsAreAvailable = setLocations(isLocationAvailable);
+        setGuaranteedKeysForDungeon(dungeonName, shortDungeonName); // we might be guaranteed more keys, so check recursively
+        return;
     }
 }
 
 function getGuaranteedKeysForDungeon(dugeonName) {
-    var guaranteedSmallKeys = 5;
+    var guaranteedSmallKeys = 4;
     var guaranteedBigKeys = 1;
     Object.keys(locationsAreAvailable[dugeonName]).forEach(function (detailedLocation) {
         if (isValidForLocation(dugeonName, detailedLocation, true)
@@ -888,7 +894,7 @@ function addProgressiveChildrenForReq(newItems, curReq, expressionType) {
         var itemName = getProgressiveItemName(curReq);
         var reqCount = getProgressiveNumRequired(curReq);
         if (expressionType == "OR") { // if the expression type is OR, we add higher level children
-            for (var j = reqCount + 1; j <= 5; j++) {
+            for (var j = reqCount + 1; j <= 4; j++) {
                 var newItemName = getProgressiveRequirementName(itemName, j);
                 newItems.push({ items: newItemName });
             }
