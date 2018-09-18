@@ -20,17 +20,12 @@ function setGuaranteedKeysForDungeon(dungeonName, shortDungeonName) {
     var guaranteedKeys = getGuaranteedKeysForDungeon(dungeonName);
     var smallKeyName = shortDungeonName + " Small Key";
     var bigKeyName = shortDungeonName + " Big Key";
-    var smallKeyCount = Math.max(guaranteedKeys.small, keys[smallKeyName]);
-    var bigKeyCount = Math.max(guaranteedKeys.big, keys[bigKeyName]);
-    if (smallKeyCount > items[smallKeyName] || bigKeyCount > items[bigKeyName]) {
-        items[smallKeyName] = smallKeyCount;
-        items[bigKeyName] = bigKeyCount;
-        locationsAreAvailable = setLocations(isLocationAvailable);
-        setGuaranteedKeysForDungeon(dungeonName, shortDungeonName); // we might be guaranteed more keys, so check recursively
-        return;
-    }
+    items[smallKeyName] = Math.max(guaranteedKeys.small, keys[smallKeyName]);
+    items[bigKeyName] = Math.max(guaranteedKeys.big, keys[bigKeyName]);
+    locationsAreAvailable = setLocations(isLocationAvailable);
 }
 
+// guaranteed keys are the minimum keys required to access any location that is blocked by non-key requirements
 function getGuaranteedKeysForDungeon(dugeonName) {
     var guaranteedSmallKeys = 4;
     var guaranteedBigKeys = 1;
@@ -39,10 +34,10 @@ function getGuaranteedKeysForDungeon(dugeonName) {
             && !locationsAreAvailable[dugeonName][detailedLocation]
             && !locationsChecked[dugeonName][detailedLocation]) {
             var keyReqs = getKeyRequirementsForLocation(dugeonName, detailedLocation);
-            if (keyReqs.big == 0) {
+            if (!keyReqs.nonKeyReqs) {
                 guaranteedSmallKeys = Math.min(guaranteedSmallKeys, keyReqs.small);
+                guaranteedBigKeys = Math.min(guaranteedBigKeys, keyReqs.big);
             }
-            guaranteedBigKeys = Math.min(guaranteedBigKeys, keyReqs.big);
         }
     });
     return { small: guaranteedSmallKeys, big: guaranteedBigKeys };
@@ -60,17 +55,23 @@ function getKeyRequirementsForLocation(dungeonName, detailedLocation) {
 
     var smallReq = 0;
     var bigReq = 0;
+    var nonKeyReqsMet = true;
     for (var i = 0; i < itemsReq.length; i++) {
         var curItem = itemsReq[i];
         if (!curItem.type) {
             var itemName = curItem.items;
             if (itemName.includes("Small Key")) {
                 smallReq = getProgressiveNumRequired(itemName);
+                continue;
             }
             if (itemName.includes("Big Key")) {
                 bigReq = 1;
+                continue;
             }
         }
+        if (!curItem.eval) {
+            nonKeyReqsMet = false;
+        }
     }
-    return { small: smallReq, big: bigReq };
+    return { small: smallReq, big: bigReq, nonKeyReqs: nonKeyReqsMet };
 }
