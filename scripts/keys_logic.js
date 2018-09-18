@@ -47,17 +47,27 @@ function getGuaranteedKeysForDungeon(dugeonName) {
 }
 
 function getKeyRequirementsForLocation(dungeonName, detailedLocation) {
-    var fullName = dungeonName + " - " + detailedLocation;
-    var requirements = itemLocations[fullName].Need;
+    var expression = itemsRequiredForLocation(dungeonName, detailedLocation);
+    var itemsReq = expression.items;
+    if (!itemsReq) {
+        itemsReq = [];
+    }
+    if (!Array.isArray(itemsReq)) {
+        itemsReq = [expression];
+    }
+
     var smallReq = 0;
     var bigReq = 0;
-    var smallIndex = requirements.indexOf("Small Key x");
-    if (smallIndex >= 0) {
-        var smallReqName = requirements.substring(smallIndex, "Small Key x1".length + smallIndex);
-        smallReq = getProgressiveNumRequired(smallReqName);
-    }
-    if (requirements.includes("Big Key")) {
-        bigReq = 1;
+    for (var i = 0; i < itemsReq.length; i++) {
+        var curItem = itemsReq[i];
+        if (!curItem.type) {
+            if (curItem.includes("Small Key")) {
+                smallReq = getProgressiveNumRequired(curItem);
+            }
+            if (curItem.includes("Big Key")) {
+                bigReq = 1;
+            }
+        }
     }
     return { small: smallReq, big: bigReq };
 }
