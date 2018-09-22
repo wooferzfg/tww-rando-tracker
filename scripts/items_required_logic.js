@@ -95,7 +95,7 @@ function getSubexpression(itemsReq, expressionType) {
         if (isExpressionTrue) {
             var groupCountdown = 0;
         } else {
-            var groupCountdown = itemsReq.reduce((a, b) => typeof a === 'object' ? (a.countdown + b.countdown) : (a + b.countdown));
+            var groupCountdown = itemsReq.reduce((acc, cur) => acc + cur.countdown, 0);
         }
         return { type: expressionType, items: itemsReq, eval: isExpressionTrue, countdown: groupCountdown };
     }
