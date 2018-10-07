@@ -144,14 +144,7 @@ var items = {
     "Hero's Shield": 0,
     "Mirror Shield": 0,
 
-    "Triforce Shard 1": 0,
-    "Triforce Shard 2": 0,
-    "Triforce Shard 3": 0,
-    "Triforce Shard 4": 0,
-    "Triforce Shard 5": 0,
-    "Triforce Shard 6": 0,
-    "Triforce Shard 7": 0,
-    "Triforce Shard 8": 0,
+    "Triforce Shard": 0,
 
     "Nayru's Pearl": 0,
     "Din's Pearl": 0,
@@ -331,10 +324,7 @@ function afterLoad() {
         addDefeatGanondorf();
         setLocationsAreProgress();
         initializeLocationsChecked();
-        updateDungeonEntranceMacros();
-        updateChartMacros();
-        updateRematchBossesMacros();
-        updateSwordModeMacros();
+        updateMacros();
         loadProgress();
         dataChanged();
     }
@@ -365,10 +355,7 @@ function loadStartingItems() {
     startingItems["Wind's Requiem"] = 1;
     startingItems["Ballad of Gales"] = 1;
     startingItems["Song of Passing"] = 1;
-    for (var i = 0; i < startingTriforceShards; i++) {
-        var shardName = "Triforce Shard " + (i + 1);
-        startingItems[shardName] = 1;
-    }
+    startingItems["Triforce Shard"] = startingTriforceShards;
 
     Object.keys(startingItems).forEach(function (item) {
         items[item] = startingItems[item];
@@ -381,6 +368,14 @@ function addDefeatGanondorf() {
         Need: "Can Reach and Defeat Ganondorf",
         Types: "Finish Game"
     };
+}
+
+function updateMacros() {
+    updateDungeonEntranceMacros();
+    updateChartMacros();
+    updateRematchBossesMacros();
+    updateSwordModeMacros();
+    updateTriforceMacro();
 }
 
 function updateDungeonEntranceMacros() {
@@ -421,6 +416,10 @@ function updateSwordModeMacros() {
     }
 }
 
+function updateTriforceMacro() {
+    macros["All 8 Triforce Shards"] = "Triforce Shard x8";
+}
+
 function isMainDungeon(dungeonName) {
     if (dungeonName == "Forsaken Fortress" || dungeonName == "Ganon's Tower") {
         return false;
@@ -429,7 +428,7 @@ function isMainDungeon(dungeonName) {
 }
 
 function getNameForItem(itemName) {
-    if (itemName.startsWith("Progressive")) {
+    if (isProgressiveRequirement(itemName)) {
         var item = getProgressiveItemName(itemName);
         var numRequired = getProgressiveNumRequired(itemName);
         if (item == "Progressive Sword") {
@@ -483,12 +482,12 @@ function getNameForItem(itemName) {
             if (numRequired == 2) {
                 return "Bomb Bag (99 Bombs)";
             }
+        } else if (item == "Triforce Shard") {
+            return "Triforce of Courage";
         }
-    }
-    else if (itemName == "Boat's Sail") {
+    } else if (itemName == "Boat's Sail") {
         return "Swift Sail";
-    }
-    else if (isRandomCharts && (itemName.startsWith("Triforce Chart") || itemName.startsWith("Treasure Chart"))) {
+    } else if (isRandomCharts && (itemName.startsWith("Triforce Chart") || itemName.startsWith("Treasure Chart"))) {
         var islandIndex = charts.indexOf(itemName);
         return "Chart for " + islands[islandIndex];
     }
@@ -504,31 +503,4 @@ function incrementShield() {
         items["Hero's Shield"] = 0;
         items["Mirror Shield"] = 0;
     }
-}
-
-function incrementTriforceShardCount() {
-    var newShardCount = (getTriforceShardCount() + 1) % 9; // if the new count is 9, we reset it back to 0
-    if (newShardCount > 0) {
-        var shardName = "Triforce Shard " + newShardCount;
-        items[shardName] = 1;
-    } else {
-        clearShards();
-    }
-}
-
-function clearShards() {
-    for (var i = 1; i <= 8; i++) {
-        var curShard = "Triforce Shard " + i;
-        items[curShard] = 0;
-    }
-}
-
-function getTriforceShardCount() {
-    var shards = 0;
-    for (var i = 1; i <= 8; i++) {
-        if (items["Triforce Shard " + i] > 0) {
-            shards++;
-        } else break;
-    }
-    return shards;
 }

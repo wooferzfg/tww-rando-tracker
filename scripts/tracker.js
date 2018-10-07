@@ -69,7 +69,7 @@ function refreshAllImagesAndCounts() {
     }
 
     // triforce pieces
-    var shardCount = getTriforceShardCount();
+    var shardCount = items["Triforce Shard"];
     document.getElementById('triforce').src = imageDir + 'triforce' + shardCount + '.png'
 
     // items
@@ -241,8 +241,8 @@ function itemInfo(element) {
         if (items["Mirror Shield"] == 1) {
             text = "Mirror Shield";
         }
-    } else if (text == "Triforce of Courage") {
-        var shardCount = getTriforceShardCount();
+    } else if (text == "Triforce Shard") {
+        var shardCount = items["Triforce Shard"];
         if (shardCount == 8) {
             text = "Triforce of Courage";
         } else {
@@ -265,12 +265,6 @@ function toggleInventoryItem(element, maxItems) {
 
 function toggleShield(element) {
     incrementShield();
-    dataChanged();
-    itemInfo(element);
-}
-
-function toggleTriforce(element) {
-    incrementTriforceShardCount();
     dataChanged();
     itemInfo(element);
 }

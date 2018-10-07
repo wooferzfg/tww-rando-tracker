@@ -89,7 +89,7 @@ function setLocations(valueCallback) {
 }
 
 function checkRequirementMet(reqName) {
-    if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
+    if (isProgressiveRequirement(reqName)) {
         return checkProgressiveItemRequirementRemaining(reqName, items) <= 0;
     }
     if (reqName.startsWith('Can Access Other Location "')) {
@@ -109,6 +109,12 @@ function checkRequirementMet(reqName) {
     if (reqName == "Impossible") {
         return false;
     }
+}
+
+function isProgressiveRequirement(reqName) {
+    return reqName.startsWith('Progressive')
+        || reqName.includes('Small Key x')
+        || reqName.startsWith('Triforce Shard');
 }
 
 function checkProgressiveItemRequirementRemaining(reqName, itemSet) {
