@@ -306,24 +306,32 @@ legend {
 .triforce-and-pearls {
     margin-top: auto;
     margin-bottom: auto;
-    width: 270px;
+    width: 208px;
 }
 
 .pearls {
-    width: 114px;
+    width: 96px;
     margin-left: auto;
     margin-right: auto;
     position: relative;
 }
 
+.pearls img {
+    position: relative;
+    z-index: 1;
+}
+
 .pearl-holder {
     position: absolute;
-    z-index: 1;
     pointer-events: none;
+    top: 0;
 }
 
 .pearl-holder img {
-    filter: none;
+    position: absolute;
+    left: 12px;
+    top: 17px;
+    z-index: 0;
 }
 
 .misc-items {
