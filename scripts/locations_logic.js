@@ -114,7 +114,8 @@ function checkRequirementMet(reqName) {
 function isProgressiveRequirement(reqName) {
     return reqName.startsWith('Progressive')
         || reqName.includes('Small Key x')
-        || reqName.startsWith('Triforce Shard');
+        || reqName.startsWith('Triforce Shard')
+        || reqName.startsWith('Tingle Statue');
 }
 
 function checkProgressiveItemRequirementRemaining(reqName, itemSet) {

@@ -73,7 +73,7 @@ function refreshAllImagesAndCounts() {
     document.getElementById('triforce').src = imageDir + 'triforce' + shardCount + '.png'
 
     // items
-    for (var i = 0; i < 31; i++) {
+    for (var i = 0; i <= 31; i++) {
         var l = 'item' + i.toString();
         var itemName = document.getElementById(l).name;
         var itemCount = items[itemName];
@@ -251,6 +251,9 @@ function itemInfo(element) {
     } else if (text == "Empty Bottle") {
         var itemCount = items[text];
         text = "Empty Bottle (" + itemCount + "/4)";
+    } else if (text == "Tingle Statue") {
+        var itemCount = items[text];
+        text = "Tingle Statue (" + itemCount + "/5)";
     } else {
         text = getNameForItem(text);
     }

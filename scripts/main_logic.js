@@ -164,6 +164,8 @@ var items = {
     "Moblin's Letter": 0,
     "Cabana Deed": 0,
 
+    "Tingle Statue": 0,
+
     "Magic Meter Upgrade": 0,
 
     "Ghost Ship Chart": 0,
@@ -321,10 +323,9 @@ function getLogicFilesUrl() {
 
 function afterLoad() {
     if (macrosLoaded && itemLocationsLoaded) {
-        addDefeatGanondorf();
+        updateMacrosAndLocations();
         setLocationsAreProgress();
         initializeLocationsChecked();
-        updateMacros();
         loadProgress();
         dataChanged();
     }
@@ -362,20 +363,22 @@ function loadStartingItems() {
     });
 }
 
+function updateMacrosAndLocations() {
+    addDefeatGanondorf();
+    updateDungeonEntranceMacros();
+    updateChartMacros();
+    updateRematchBossesMacros();
+    updateSwordModeMacros();
+    updateTriforceMacro();
+    updateTingleStatueReward();
+}
+
 function addDefeatGanondorf() {
     flags.push("Finish Game");
     itemLocations["Ganon's Tower - Defeat Ganondorf"] = {
         Need: "Can Reach and Defeat Ganondorf",
         Types: "Finish Game"
     };
-}
-
-function updateMacros() {
-    updateDungeonEntranceMacros();
-    updateChartMacros();
-    updateRematchBossesMacros();
-    updateSwordModeMacros();
-    updateTriforceMacro();
 }
 
 function updateDungeonEntranceMacros() {
@@ -418,6 +421,10 @@ function updateSwordModeMacros() {
 
 function updateTriforceMacro() {
     macros["All 8 Triforce Shards"] = "Triforce Shard x8";
+}
+
+function updateTingleStatueReward() {
+    itemLocations["Tingle Island - Reward for All Tingle Statues"].Need = "Tingle Statue x5";
 }
 
 function isMainDungeon(dungeonName) {
