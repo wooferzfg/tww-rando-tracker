@@ -84,6 +84,7 @@ function loadFlags() {
     checkAddFlags("TRE", ["Sunken Treasure"]);
     checkAddFlags("EP", ["Expensive Purchase"]);
     checkAddFlags("MIS", ["Other Chest", "Misc"]);
+    checkAddFlags("TIN", ["Tingle Chest"]);
 }
 
 function getParamBool(param, defaultVal) {
