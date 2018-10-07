@@ -424,7 +424,7 @@ function updateTriforceMacro() {
 }
 
 function updateTingleStatueReward() {
-    itemLocations["Tingle Island - Reward for All Tingle Statues"].Need = "Tingle Statue x5";
+    itemLocations["Tingle Island - Ankle - Reward for All Tingle Statues"].Need = "Tingle Statue x5";
 }
 
 function isMainDungeon(dungeonName) {
