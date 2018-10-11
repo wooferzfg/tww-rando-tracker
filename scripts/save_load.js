@@ -122,7 +122,7 @@ function loadProgress() {
             });
             Object.keys(locationsChecked).forEach(function (generalLocation) {
                 Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
-                    var locationName = generalLocation + " - " + detailedLocation;
+                    var locationName = getFullLocationName(generalLocation, detailedLocation);
                     locationsChecked[generalLocation][detailedLocation] = getLocalStorageBool(locationName, false);
                 });
             });
@@ -173,7 +173,7 @@ function saveProgress(element) {
         });
         Object.keys(locationsChecked).forEach(function (generalLocation) {
             Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
-                var locationName = generalLocation + " - " + detailedLocation;
+                var locationName = getFullLocationName(generalLocation, detailedLocation);
                 var locationValue = locationsChecked[generalLocation][detailedLocation];
                 localStorage.setItem(locationName, locationValue);
             });

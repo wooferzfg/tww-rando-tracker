@@ -30,10 +30,14 @@ function initializeLocationsChecked() {
 
 function isValidForLocation(generalLocation, detailedLocation, isDungeon) {
     if (islands.includes(generalLocation) && dungeons.includes(generalLocation)) {
-        var fullName = generalLocation + " - " + detailedLocation;
+        var fullName = getFullLocationName(generalLocation, detailedLocation);
         return isDungeon == itemLocations[fullName].Types.includes("Dungeon");
     }
     return true;
+}
+
+function getFullLocationName(generalLocation, detailedLocation) {
+    return generalLocation + " - " + detailedLocation;
 }
 
 function getChestCountsForLocation(generalLocation, isDungeon) {
@@ -186,9 +190,7 @@ function isLocationProgress(locationName) {
         if (!isRandomCharts
             && type == "Sunken Treasure"
             && itemLocations[locationName]["Original item"].startsWith("Triforce Shard")) {
-            if (!flags.includes("Sunken Triforce")) {
-                return false;
-            }
+            return flags.includes("Sunken Triforce");
         } else if (!flags.includes(type)) {
             return false;
         }

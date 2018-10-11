@@ -26,14 +26,12 @@ function setGuaranteedKeysForDungeon(dungeonName, shortDungeonName) {
 }
 
 // guaranteed keys are the minimum keys required to access any location that is blocked by non-key requirements
-function getGuaranteedKeysForDungeon(dugeonName) {
+function getGuaranteedKeysForDungeon(dungeonName) {
     var guaranteedSmallKeys = 4;
     var guaranteedBigKeys = 1;
-    Object.keys(locationsAreAvailable[dugeonName]).forEach(function (detailedLocation) {
-        if (isValidForLocation(dugeonName, detailedLocation, true)
-            && !locationsAreAvailable[dugeonName][detailedLocation]
-            && !locationsChecked[dugeonName][detailedLocation]) {
-            var keyReqs = getKeyRequirementsForLocation(dugeonName, detailedLocation);
+    Object.keys(locationsAreAvailable[dungeonName]).forEach(function (detailedLocation) {
+        if (isPotentialUnavailableKeyLocation(dungeonName, detailedLocation)) {
+            var keyReqs = getKeyRequirementsForLocation(dungeonName, detailedLocation);
             if (!keyReqs.nonKeyReqs) {
                 guaranteedSmallKeys = Math.min(guaranteedSmallKeys, keyReqs.small);
                 guaranteedBigKeys = Math.min(guaranteedBigKeys, keyReqs.big);
@@ -41,6 +39,19 @@ function getGuaranteedKeysForDungeon(dugeonName) {
         }
     });
     return { small: guaranteedSmallKeys, big: guaranteedBigKeys };
+}
+
+function isPotentialUnavailableKeyLocation(dungeonName, detailedLocation) {
+    if (!isValidForLocation(dungeonName, detailedLocation, true)) {
+        return false;
+    }
+    var fullLocationName = getFullLocationName(dungeonName, detailedLocation);
+    if (itemLocations[fullLocationName].Types.includes("Tingle Chest")
+        && !flags.includes("Tingle Chest")) {
+        return false; // small keys can still appear in other chests, even if dungeons aren't set as progress locations
+    }
+    return !locationsAreAvailable[dungeonName][detailedLocation]
+        && !locationsChecked[dungeonName][detailedLocation];
 }
 
 function getKeyRequirementsForLocation(dungeonName, detailedLocation) {
