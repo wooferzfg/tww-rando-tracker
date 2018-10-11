@@ -147,16 +147,16 @@ function checkOtherLocationReq(reqName) {
 }
 
 function getSplitExpression(expression) {
-    return expression.split(/([(&\|)])/g);
+    return expression.split(/\s*([(&\|)])\s*/g);
 }
 
 function checkLogicalExpressionReq(splitExpression) {
     var expressionType = "";
     var subexpressionResults = [];
     while (splitExpression.length > 0) {
-        var cur = splitExpression[0].trim();
+        var cur = splitExpression[0];
         splitExpression.shift();
-        if (cur && cur.length > 0) {
+        if (cur.length > 0) {
             if (cur == "|") {
                 expressionType = "OR";
             } else if (cur == "&") {
