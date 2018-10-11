@@ -342,7 +342,7 @@ function sortItems(itemsReq, isExprTrue) {
 }
 
 function itemsRequiredForLocation(generalLocation, detailedLocation) {
-    var fullName = generalLocation + " - " + detailedLocation;
+    var fullName = getFullLocationName(generalLocation, detailedLocation);
     var splitExpression = getSplitExpression(itemLocations[fullName].Need);
     var itemsReq = itemsRequiredForLogicalExpression(splitExpression);
     itemsReq = removeDuplicateItems(itemsReq);
