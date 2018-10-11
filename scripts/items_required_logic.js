@@ -5,8 +5,8 @@ function itemsRequiredForOtherLocation(reqName) {
 }
 
 function itemsForRequirement(reqName) {
-    if (impossibleItems.includes(reqName) || reqName == "Impossible") {
-        var requiredItems = "Impossible";
+    if (impossibleItems.includes(reqName) || reqName == 'Impossible') {
+        var requiredItems = 'Impossible';
         var reqMet = false;
         var remainingProgress = NaN;
     } else if (isProgressiveRequirement(reqName)) {
@@ -14,7 +14,7 @@ function itemsForRequirement(reqName) {
         var reqMet = progressCheck <= 0;
         var remainingProgress = Math.max(0, progressCheck);
         if (reqMet && checkProgressiveItemRequirementRemaining(reqName, startingItems) <= 0) {
-            var requiredItems = "None";
+            var requiredItems = 'None';
         } else {
             var requiredItems = reqName; // don't replace names yet. we do some logic with them and then replace them later
         }
@@ -23,7 +23,7 @@ function itemsForRequirement(reqName) {
     } else if (reqName in items) {
         var reqMet = items[reqName] > 0;
         if (reqMet && startingItems[reqName] > 0) {
-            var requiredItems = "None";
+            var requiredItems = 'None';
         } else {
             var requiredItems = reqName;
         }
@@ -34,8 +34,8 @@ function itemsForRequirement(reqName) {
         var splitExpression = getSplitExpression(macro);
         return itemsRequiredForLogicalExpression(splitExpression);
     }
-    else if (reqName == "Nothing") {
-        var requiredItems = "None";
+    else if (reqName == 'Nothing') {
+        var requiredItems = 'None';
         var reqMet = true;
         var remainingProgress = 0;
     }
@@ -43,17 +43,17 @@ function itemsForRequirement(reqName) {
 }
 
 function itemsRequiredForLogicalExpression(splitExpression) {
-    var expressionType = "";
+    var expressionType = '';
     var subexpressionResults = [];
     while (splitExpression.length > 0) {
         var cur = splitExpression[0].trim();
         splitExpression.shift();
         if (cur && cur.length > 0) {
-            if (cur == "|") {
-                expressionType = "OR";
-            } else if (cur == "&") {
-                expressionType = "AND";
-            } else if (cur == "(") {
+            if (cur == '|') {
+                expressionType = 'OR';
+            } else if (cur == '&') {
+                expressionType = 'AND';
+            } else if (cur == '(') {
                 var result = itemsRequiredForLogicalExpression(splitExpression);
                 if (result) {
                     subexpressionResults.push(result);
@@ -78,7 +78,7 @@ function getFlatSubexpression(itemsReq, expressionType) {
 
 function getSubexpression(itemsReq, expressionType) {
     if (itemsReq.length > 1) {
-        if (expressionType == "OR") {
+        if (expressionType == 'OR') {
             var isExpressionTrue = itemsReq.some(item => item.eval);
         } else {
             var isExpressionTrue = itemsReq.every(item => item.eval);
@@ -162,11 +162,11 @@ function removeChildren(expression) {
     if (!expression) {
         return null;
     }
-    const impossible = [{ items: "Impossible", eval: false, countdown: NaN }];
-    const none = [{ items: "None", eval: true, countdown: 0 }];
-    if (expression.type == "AND") {
+    const impossible = [{ items: 'Impossible', eval: false, countdown: NaN }];
+    const none = [{ items: 'None', eval: true, countdown: 0 }];
+    if (expression.type == 'AND') {
         if (indexOfItem(expression.items, impossible[0]) > -1) {
-            return getFlatSubexpression(impossible, "AND"); // if there is an impossible item in the top level, the whole expression is impossible
+            return getFlatSubexpression(impossible, 'AND'); // if there is an impossible item in the top level, the whole expression is impossible
         }
         return removeChildExpressions(expression, impossible, none);
     }
@@ -193,7 +193,7 @@ function removeChildExpressions(expression, oppositeExprItems, sameExprItems) {
                 if (subExpression) { // if the subexpression is null, then that means we've explicitly removed it for containing an opposite expression item
                     if (subExpression.items) {
                         newItems.push(subExpression);
-                    } else if (expression.type == "OR") { // if we have an OR expression with at least one subexpression where there are no items left, the OR expression is guaranteed to be true, so we remove it
+                    } else if (expression.type == 'OR') { // if we have an OR expression with at least one subexpression where there are no items left, the OR expression is guaranteed to be true, so we remove it
                         return { items: null };
                     }
                 }
@@ -219,10 +219,10 @@ function getProgressiveItemChildren(itemsReq, expressionType) {
 }
 
 function addProgressiveChildrenForReq(newItems, curReq, expressionType) {
-    if (curReq.startsWith("Progressive") || curReq.includes('Small Key x')) {
+    if (curReq.startsWith('Progressive') || curReq.includes('Small Key x')) {
         var itemName = getProgressiveItemName(curReq);
         var reqCount = getProgressiveNumRequired(curReq);
-        if (expressionType == "OR") { // if the expression type is OR, we add higher level children
+        if (expressionType == 'OR') { // if the expression type is OR, we add higher level children
             for (var j = reqCount + 1; j <= 4; j++) {
                 var newItemName = getProgressiveRequirementName(itemName, j);
                 newItems.push({ items: newItemName });

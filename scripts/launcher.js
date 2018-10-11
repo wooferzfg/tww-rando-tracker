@@ -1,4 +1,4 @@
-const currentVersion = "1.4.0";
+const currentVersion = '1.4.0';
 
 function parseFlags(flags, ids) {
     var i = ids.length - 1;
@@ -64,10 +64,10 @@ function applyflags(element) {
             flags = bits.charCodeAt(7);
             parseFlags(flags, ['skip_rematch_bosses']);
 
-            $(element).notify("Flags applied from the Permalink.", {
+            $(element).notify('Flags applied from the Permalink.', {
                 autoHideDelay: 5000,
-                className: "success",
-                position: "top center"
+                className: 'success',
+                position: 'top center'
             });
         } else {
             showBrokenPermalink(element, false);
@@ -80,14 +80,14 @@ function applyflags(element) {
 
 function showBrokenPermalink(element, wrongVersion) {
     if (wrongVersion) {
-        var notificationMessage = "Flags could not be applied. Permalink is not compatible with Wind Waker Randomizer " + currentVersion + ".";
+        var notificationMessage = 'Flags could not be applied. Permalink is not compatible with Wind Waker Randomizer ' + currentVersion + '.';
     } else {
-        var notificationMessage = "Flags could not be applied from the Permalink.";
+        var notificationMessage = 'Flags could not be applied from the Permalink.';
     }
     $(element).notify(notificationMessage, {
         autoHideDelay: 5000,
-        className: "error",
-        position: "top center"
+        className: 'error',
+        position: 'top center'
     });
 }
 
@@ -119,7 +119,7 @@ function openTracker(loadProgress) {
     var versionStr = currentVersion;
     var isCurrentVersionStr = '1';
     if (loadProgress) {
-        var storedVersion = localStorage.getItem("version");
+        var storedVersion = localStorage.getItem('version');
         if (storedVersion && storedVersion != currentVersion) {
             versionStr = storedVersion;
             isCurrentVersionStr = '0';

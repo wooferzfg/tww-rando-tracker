@@ -18,8 +18,8 @@ function setGuaranteedKeys() {
 
 function setGuaranteedKeysForDungeon(dungeonName, shortDungeonName) {
     var guaranteedKeys = getGuaranteedKeysForDungeon(dungeonName);
-    var smallKeyName = shortDungeonName + " Small Key";
-    var bigKeyName = shortDungeonName + " Big Key";
+    var smallKeyName = shortDungeonName + ' Small Key';
+    var bigKeyName = shortDungeonName + ' Big Key';
     items[smallKeyName] = Math.max(guaranteedKeys.small, keys[smallKeyName]);
     items[bigKeyName] = Math.max(guaranteedKeys.big, keys[bigKeyName]);
     locationsAreAvailable = setLocations(isLocationAvailable);
@@ -46,8 +46,8 @@ function isPotentialUnavailableKeyLocation(dungeonName, detailedLocation) {
         return false;
     }
     var fullLocationName = getFullLocationName(dungeonName, detailedLocation);
-    if (itemLocations[fullLocationName].Types.includes("Tingle Chest")
-        && !flags.includes("Tingle Chest")) {
+    if (itemLocations[fullLocationName].Types.includes('Tingle Chest')
+        && !flags.includes('Tingle Chest')) {
         return false; // small keys can still appear in other chests, even if dungeons aren't set as progress locations
     }
     return !locationsAreAvailable[dungeonName][detailedLocation]
@@ -71,11 +71,11 @@ function getKeyRequirementsForLocation(dungeonName, detailedLocation) {
         var curItem = itemsReq[i];
         if (!curItem.type) {
             var itemName = curItem.items;
-            if (itemName.includes("Small Key")) {
+            if (itemName.includes('Small Key')) {
                 smallReq = getProgressiveNumRequired(itemName);
                 continue;
             }
-            if (itemName.includes("Big Key")) {
+            if (itemName.includes('Big Key')) {
                 bigReq = 1;
                 continue;
             }

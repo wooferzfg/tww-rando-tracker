@@ -114,7 +114,7 @@ const dungeons = [
     'Forsaken Fortress',
     'Earth Temple',
     'Wind Temple',
-    'Ganon\'s Tower'
+    "Ganon's Tower"
 ];
 const shortDungeonNames = [
     'DRC',
@@ -128,149 +128,149 @@ const shortDungeonNames = [
 
 // tracker should modify these
 var items = {
-    "Tingle Tuner": 0,
-    "Wind Waker": 0,
-    "Spoils Bag": 0,
-    "Grappling Hook": 0,
-    "Power Bracelets": 0,
-    "Iron Boots": 0,
-    "Bait Bag": 0,
-    "Boomerang": 0,
-    "Hookshot": 0,
-    "Delivery Bag": 0,
-    "Bombs": 0,
-    "Skull Hammer": 0,
-    "Deku Leaf": 0,
+    'Tingle Tuner': 0,
+    'Wind Waker': 0,
+    'Spoils Bag': 0,
+    'Grappling Hook': 0,
+    'Power Bracelets': 0,
+    'Iron Boots': 0,
+    'Bait Bag': 0,
+    'Boomerang': 0,
+    'Hookshot': 0,
+    'Delivery Bag': 0,
+    'Bombs': 0,
+    'Skull Hammer': 0,
+    'Deku Leaf': 0,
     "Hero's Shield": 0,
-    "Mirror Shield": 0,
+    'Mirror Shield': 0,
 
-    "Triforce Shard": 0,
+    'Triforce Shard': 0,
 
     "Nayru's Pearl": 0,
     "Din's Pearl": 0,
     "Farore's Pearl": 0,
 
     "Wind's Requiem": 0,
-    "Ballad of Gales": 0,
-    "Command Melody": 0,
+    'Ballad of Gales': 0,
+    'Command Melody': 0,
     "Earth God's Lyric": 0,
     "Wind God's Aria": 0,
-    "Song of Passing": 0,
+    'Song of Passing': 0,
 
     "Boat's Sail": 0,
 
-    "Note to Mom": 0,
+    'Note to Mom': 0,
     "Maggie's Letter": 0,
     "Moblin's Letter": 0,
-    "Cabana Deed": 0,
+    'Cabana Deed': 0,
 
-    "Tingle Statue": 0,
+    'Tingle Statue': 0,
 
-    "Magic Meter Upgrade": 0,
+    'Magic Meter Upgrade': 0,
 
-    "Ghost Ship Chart": 0,
+    'Ghost Ship Chart': 0,
 
-    "Progressive Sword": 0,
-    "Progressive Bow": 0,
-    "Progressive Wallet": 0,
-    "Progressive Picto Box": 0,
-    "Empty Bottle": 0,
+    'Progressive Sword': 0,
+    'Progressive Bow': 0,
+    'Progressive Wallet': 0,
+    'Progressive Picto Box': 0,
+    'Empty Bottle': 0,
 
-    "DRC Big Key": 0,
-    "DRC Small Key": 0,
-    "FW Big Key": 0,
-    "FW Small Key": 0,
-    "TotG Big Key": 0,
-    "TotG Small Key": 0,
-    "ET Big Key": 0,
-    "ET Small Key": 0,
-    "WT Big Key": 0,
-    "WT Small Key": 0,
+    'DRC Big Key': 0,
+    'DRC Small Key': 0,
+    'FW Big Key': 0,
+    'FW Small Key': 0,
+    'TotG Big Key': 0,
+    'TotG Small Key': 0,
+    'ET Big Key': 0,
+    'ET Small Key': 0,
+    'WT Big Key': 0,
+    'WT Small Key': 0,
 
-    "Entered DRC": 0,
-    "Entered FW": 0,
-    "Entered TotG": 0,
-    "Entered ET": 0,
-    "Entered WT": 0,
+    'Entered DRC': 0,
+    'Entered FW': 0,
+    'Entered TotG': 0,
+    'Entered ET': 0,
+    'Entered WT': 0,
 
-    "Treasure Chart 1": 0,
-    "Treasure Chart 2": 0,
-    "Treasure Chart 3": 0,
-    "Treasure Chart 4": 0,
-    "Treasure Chart 5": 0,
-    "Treasure Chart 6": 0,
-    "Treasure Chart 7": 0,
-    "Treasure Chart 8": 0,
-    "Treasure Chart 9": 0,
-    "Treasure Chart 10": 0,
-    "Treasure Chart 11": 0,
-    "Treasure Chart 12": 0,
-    "Treasure Chart 13": 0,
-    "Treasure Chart 14": 0,
-    "Treasure Chart 15": 0,
-    "Treasure Chart 16": 0,
-    "Treasure Chart 17": 0,
-    "Treasure Chart 18": 0,
-    "Treasure Chart 19": 0,
-    "Treasure Chart 20": 0,
-    "Treasure Chart 21": 0,
-    "Treasure Chart 22": 0,
-    "Treasure Chart 23": 0,
-    "Treasure Chart 24": 0,
-    "Treasure Chart 25": 0,
-    "Treasure Chart 26": 0,
-    "Treasure Chart 27": 0,
-    "Treasure Chart 28": 0,
-    "Treasure Chart 29": 0,
-    "Treasure Chart 30": 0,
-    "Treasure Chart 31": 0,
-    "Treasure Chart 32": 0,
-    "Treasure Chart 33": 0,
-    "Treasure Chart 34": 0,
-    "Treasure Chart 35": 0,
-    "Treasure Chart 36": 0,
-    "Treasure Chart 37": 0,
-    "Treasure Chart 38": 0,
-    "Treasure Chart 39": 0,
-    "Treasure Chart 40": 0,
-    "Treasure Chart 41": 0,
+    'Treasure Chart 1': 0,
+    'Treasure Chart 2': 0,
+    'Treasure Chart 3': 0,
+    'Treasure Chart 4': 0,
+    'Treasure Chart 5': 0,
+    'Treasure Chart 6': 0,
+    'Treasure Chart 7': 0,
+    'Treasure Chart 8': 0,
+    'Treasure Chart 9': 0,
+    'Treasure Chart 10': 0,
+    'Treasure Chart 11': 0,
+    'Treasure Chart 12': 0,
+    'Treasure Chart 13': 0,
+    'Treasure Chart 14': 0,
+    'Treasure Chart 15': 0,
+    'Treasure Chart 16': 0,
+    'Treasure Chart 17': 0,
+    'Treasure Chart 18': 0,
+    'Treasure Chart 19': 0,
+    'Treasure Chart 20': 0,
+    'Treasure Chart 21': 0,
+    'Treasure Chart 22': 0,
+    'Treasure Chart 23': 0,
+    'Treasure Chart 24': 0,
+    'Treasure Chart 25': 0,
+    'Treasure Chart 26': 0,
+    'Treasure Chart 27': 0,
+    'Treasure Chart 28': 0,
+    'Treasure Chart 29': 0,
+    'Treasure Chart 30': 0,
+    'Treasure Chart 31': 0,
+    'Treasure Chart 32': 0,
+    'Treasure Chart 33': 0,
+    'Treasure Chart 34': 0,
+    'Treasure Chart 35': 0,
+    'Treasure Chart 36': 0,
+    'Treasure Chart 37': 0,
+    'Treasure Chart 38': 0,
+    'Treasure Chart 39': 0,
+    'Treasure Chart 40': 0,
+    'Treasure Chart 41': 0,
 
-    "Triforce Chart 1": 0,
-    "Triforce Chart 2": 0,
-    "Triforce Chart 3": 0,
-    "Triforce Chart 4": 0,
-    "Triforce Chart 5": 0,
-    "Triforce Chart 6": 0,
-    "Triforce Chart 7": 0,
-    "Triforce Chart 8": 0,
+    'Triforce Chart 1': 0,
+    'Triforce Chart 2': 0,
+    'Triforce Chart 3': 0,
+    'Triforce Chart 4': 0,
+    'Triforce Chart 5': 0,
+    'Triforce Chart 6': 0,
+    'Triforce Chart 7': 0,
+    'Triforce Chart 8': 0,
 
-    "Telescope": 0,
-    "Magic Armor": 0,
+    'Telescope': 0,
+    'Magic Armor': 0,
     "Hero's Charm": 0,
-    "Progressive Quiver": 0,
-    "Progressive Bomb Bag": 0,
-    "Hurricane Spin": 0
+    'Progressive Quiver': 0,
+    'Progressive Bomb Bag': 0,
+    'Hurricane Spin': 0
 };
 var startingItems = {}; // the items you get at the start of a new playthrough
 var impossibleItems = []; // the items that are missing from the item pool and are impossible to obtain
 var keys = {
-    "DRC Big Key": 0,
-    "DRC Small Key": 0,
-    "FW Big Key": 0,
-    "FW Small Key": 0,
-    "TotG Big Key": 0,
-    "TotG Small Key": 0,
-    "ET Big Key": 0,
-    "ET Small Key": 0,
-    "WT Big Key": 0,
-    "WT Small Key": 0,
+    'DRC Big Key': 0,
+    'DRC Small Key': 0,
+    'FW Big Key': 0,
+    'FW Small Key': 0,
+    'TotG Big Key': 0,
+    'TotG Small Key': 0,
+    'ET Big Key': 0,
+    'ET Small Key': 0,
+    'WT Big Key': 0,
+    'WT Small Key': 0,
 };
 var locationsChecked = {};
 var flags = [];
 var isKeyLunacy = false;
 var isRandomEntrances = false;
 var isRandomCharts = false;
-var swordMode = "sword";
+var swordMode = 'sword';
 var skipRematchBosses = false; // on by default in settings, but we set it to false for backwards compatibility
 var startingTriforceShards = 0;
 
@@ -341,22 +341,22 @@ function dataChanged() {
 }
 
 function loadStartingItems() {
-    if (swordMode == "sword") {
-        startingItems["Progressive Sword"] = 1;
-    } else if (swordMode == "swordless") {
-        impossibleItems.push("Progressive Sword x1");
-        impossibleItems.push("Progressive Sword x2");
-        impossibleItems.push("Progressive Sword x3");
-        impossibleItems.push("Progressive Sword x4");
-        impossibleItems.push("Hurricane Spin");
+    if (swordMode == 'sword') {
+        startingItems['Progressive Sword'] = 1;
+    } else if (swordMode == 'swordless') {
+        impossibleItems.push('Progressive Sword x1');
+        impossibleItems.push('Progressive Sword x2');
+        impossibleItems.push('Progressive Sword x3');
+        impossibleItems.push('Progressive Sword x4');
+        impossibleItems.push('Hurricane Spin');
     }
     startingItems["Hero's Shield"] = 1;
-    startingItems["Wind Waker"] = 1;
+    startingItems['Wind Waker'] = 1;
     startingItems["Boat's Sail"] = 1;
     startingItems["Wind's Requiem"] = 1;
-    startingItems["Ballad of Gales"] = 1;
-    startingItems["Song of Passing"] = 1;
-    startingItems["Triforce Shard"] = startingTriforceShards;
+    startingItems['Ballad of Gales'] = 1;
+    startingItems['Song of Passing'] = 1;
+    startingItems['Triforce Shard'] = startingTriforceShards;
 
     Object.keys(startingItems).forEach(function (item) {
         items[item] = startingItems[item];
@@ -364,7 +364,7 @@ function loadStartingItems() {
 }
 
 function isMainDungeon(dungeonName) {
-    if (dungeonName == "Forsaken Fortress" || dungeonName == "Ganon's Tower") {
+    if (dungeonName == 'Forsaken Fortress' || dungeonName == "Ganon's Tower") {
         return false;
     }
     return dungeons.includes(dungeonName);
@@ -374,20 +374,20 @@ function getNameForItem(itemName) {
     if (isProgressiveRequirement(itemName)) {
         var item = getProgressiveItemName(itemName);
         var numRequired = getProgressiveNumRequired(itemName);
-        if (item == "Progressive Sword") {
+        if (item == 'Progressive Sword') {
             if (numRequired <= 1) {
                 return "Hero's Sword";
             }
             if (numRequired == 2) {
-                return "Master Sword";
+                return 'Master Sword';
             }
             if (numRequired == 3) {
-                return "Master Sword (Half Power)";
+                return 'Master Sword (Half Power)';
             }
             if (numRequired == 4) {
-                return "Master Sword (Full Power)";
+                return 'Master Sword (Full Power)';
             }
-        } else if (item == "Progressive Bow") {
+        } else if (item == 'Progressive Bow') {
             if (numRequired <= 1) {
                 return "Hero's Bow";
             }
@@ -397,42 +397,42 @@ function getNameForItem(itemName) {
             if (numRequired == 3) {
                 return "Hero's Bow (All Arrows)";
             }
-        } else if (item == "Progressive Picto Box") {
+        } else if (item == 'Progressive Picto Box') {
             if (numRequired <= 1) {
-                return "Picto Box";
+                return 'Picto Box';
             }
             if (numRequired == 2) {
-                return "Deluxe Picto Box";
+                return 'Deluxe Picto Box';
             }
-        } else if (item == "Progressive Wallet") {
+        } else if (item == 'Progressive Wallet') {
             if (numRequired <= 1) {
-                return "Wallet (1000 Rupees)";
+                return 'Wallet (1000 Rupees)';
             }
             if (numRequired == 2) {
-                return "Wallet (5000 Rupees)";
+                return 'Wallet (5000 Rupees)';
             }
-        } else if (item == "Progressive Quiver") {
+        } else if (item == 'Progressive Quiver') {
             if (numRequired <= 1) {
-                return "Quiver (60 Arrows)"
+                return 'Quiver (60 Arrows)'
             }
             if (numRequired == 2) {
-                return "Quiver (99 Arrows)";
+                return 'Quiver (99 Arrows)';
             }
-        } else if (item == "Progressive Bomb Bag") {
+        } else if (item == 'Progressive Bomb Bag') {
             if (numRequired <= 1) {
-                return "Bomb Bag (60 Bombs)"
+                return 'Bomb Bag (60 Bombs)'
             }
             if (numRequired == 2) {
-                return "Bomb Bag (99 Bombs)";
+                return 'Bomb Bag (99 Bombs)';
             }
-        } else if (item == "Triforce Shard") {
-            return "Triforce of Courage";
+        } else if (item == 'Triforce Shard') {
+            return 'Triforce of Courage';
         }
     } else if (itemName == "Boat's Sail") {
-        return "Swift Sail";
-    } else if (isRandomCharts && (itemName.startsWith("Triforce Chart") || itemName.startsWith("Treasure Chart"))) {
+        return 'Swift Sail';
+    } else if (isRandomCharts && (itemName.startsWith('Triforce Chart') || itemName.startsWith('Treasure Chart'))) {
         var islandIndex = charts.indexOf(itemName);
-        return "Chart for " + islands[islandIndex];
+        return 'Chart for ' + islands[islandIndex];
     }
     return itemName;
 }
@@ -440,10 +440,10 @@ function getNameForItem(itemName) {
 function incrementShield() {
     if (items["Hero's Shield"] == 0) {
         items["Hero's Shield"] = 1;
-    } else if (items["Mirror Shield"] == 0) {
-        items["Mirror Shield"] = 1;
+    } else if (items['Mirror Shield'] == 0) {
+        items['Mirror Shield'] = 1;
     } else {
         items["Hero's Shield"] = 0;
-        items["Mirror Shield"] = 0;
+        items['Mirror Shield'] = 0;
     }
 }

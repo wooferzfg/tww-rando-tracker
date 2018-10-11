@@ -31,13 +31,13 @@ function initializeLocationsChecked() {
 function isValidForLocation(generalLocation, detailedLocation, isDungeon) {
     if (islands.includes(generalLocation) && dungeons.includes(generalLocation)) {
         var fullName = getFullLocationName(generalLocation, detailedLocation);
-        return isDungeon == itemLocations[fullName].Types.includes("Dungeon");
+        return isDungeon == itemLocations[fullName].Types.includes('Dungeon');
     }
     return true;
 }
 
 function getFullLocationName(generalLocation, detailedLocation) {
-    return generalLocation + " - " + detailedLocation;
+    return generalLocation + ' - ' + detailedLocation;
 }
 
 function getChestCountsForLocation(generalLocation, isDungeon) {
@@ -107,10 +107,10 @@ function checkRequirementMet(reqName) {
         var splitExpression = getSplitExpression(macro);
         return checkLogicalExpressionReq(splitExpression);
     }
-    if (reqName == "Nothing") {
+    if (reqName == 'Nothing') {
         return true;
     }
-    if (reqName == "Impossible") {
+    if (reqName == 'Impossible') {
         return false;
     }
 }
@@ -151,17 +151,17 @@ function getSplitExpression(expression) {
 }
 
 function checkLogicalExpressionReq(splitExpression) {
-    var expressionType = "";
+    var expressionType = '';
     var subexpressionResults = [];
     while (splitExpression.length > 0) {
         var cur = splitExpression[0];
         splitExpression.shift();
         if (cur.length > 0) {
-            if (cur == "|") {
-                expressionType = "OR";
-            } else if (cur == "&") {
-                expressionType = "AND";
-            } else if (cur == "(") {
+            if (cur == '|') {
+                expressionType = 'OR';
+            } else if (cur == '&') {
+                expressionType = 'AND';
+            } else if (cur == '(') {
                 var result = checkLogicalExpressionReq(splitExpression);
                 subexpressionResults.push(result);
             } else if (cur == ')') {
@@ -172,7 +172,7 @@ function checkLogicalExpressionReq(splitExpression) {
             }
         }
     }
-    if (expressionType == "OR") {
+    if (expressionType == 'OR') {
         return subexpressionResults.some(element => element);
     }
     return subexpressionResults.every(element => element);
@@ -188,9 +188,9 @@ function isLocationProgress(locationName) {
     for (var i = 0; i < types.length; i++) {
         var type = types[i];
         if (!isRandomCharts
-            && type == "Sunken Treasure"
-            && itemLocations[locationName]["Original item"].startsWith("Triforce Shard")) {
-            return flags.includes("Sunken Triforce");
+            && type == 'Sunken Treasure'
+            && itemLocations[locationName]['Original item'].startsWith('Triforce Shard')) {
+            return flags.includes('Sunken Triforce');
         } else if (!flags.includes(type)) {
             return false;
         }
