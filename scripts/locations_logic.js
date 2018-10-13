@@ -30,10 +30,14 @@ function initializeLocationsChecked() {
 
 function isValidForLocation(generalLocation, detailedLocation, isDungeon) {
     if (islands.includes(generalLocation) && dungeons.includes(generalLocation)) {
-        var fullName = generalLocation + " - " + detailedLocation;
-        return isDungeon == itemLocations[fullName].Types.includes("Dungeon");
+        var fullName = getFullLocationName(generalLocation, detailedLocation);
+        return isDungeon == itemLocations[fullName].Types.includes('Dungeon');
     }
     return true;
+}
+
+function getFullLocationName(generalLocation, detailedLocation) {
+    return generalLocation + ' - ' + detailedLocation;
 }
 
 function getChestCountsForLocation(generalLocation, isDungeon) {
@@ -89,7 +93,7 @@ function setLocations(valueCallback) {
 }
 
 function checkRequirementMet(reqName) {
-    if (reqName.startsWith('Progressive') || reqName.includes('Small Key x')) {
+    if (isProgressiveRequirement(reqName)) {
         return checkProgressiveItemRequirementRemaining(reqName, items) <= 0;
     }
     if (reqName.startsWith('Can Access Other Location "')) {
@@ -103,12 +107,19 @@ function checkRequirementMet(reqName) {
         var splitExpression = getSplitExpression(macro);
         return checkLogicalExpressionReq(splitExpression);
     }
-    if (reqName == "Nothing") {
+    if (reqName == 'Nothing') {
         return true;
     }
-    if (reqName == "Impossible") {
+    if (reqName == 'Impossible') {
         return false;
     }
+}
+
+function isProgressiveRequirement(reqName) {
+    return reqName.startsWith('Progressive')
+        || reqName.includes('Small Key x')
+        || reqName.startsWith('Triforce Shard')
+        || reqName.startsWith('Tingle Statue');
 }
 
 function checkProgressiveItemRequirementRemaining(reqName, itemSet) {
@@ -136,21 +147,21 @@ function checkOtherLocationReq(reqName) {
 }
 
 function getSplitExpression(expression) {
-    return expression.split(/([(&\|)])/g);
+    return expression.split(/\s*([(&\|)])\s*/g);
 }
 
 function checkLogicalExpressionReq(splitExpression) {
-    var expressionType = "";
+    var expressionType = '';
     var subexpressionResults = [];
     while (splitExpression.length > 0) {
-        var cur = splitExpression[0].trim();
+        var cur = splitExpression[0];
         splitExpression.shift();
-        if (cur && cur.length > 0) {
-            if (cur == "|") {
-                expressionType = "OR";
-            } else if (cur == "&") {
-                expressionType = "AND";
-            } else if (cur == "(") {
+        if (cur.length > 0) {
+            if (cur == '|') {
+                expressionType = 'OR';
+            } else if (cur == '&') {
+                expressionType = 'AND';
+            } else if (cur == '(') {
                 var result = checkLogicalExpressionReq(splitExpression);
                 subexpressionResults.push(result);
             } else if (cur == ')') {
@@ -161,7 +172,7 @@ function checkLogicalExpressionReq(splitExpression) {
             }
         }
     }
-    if (expressionType == "OR") {
+    if (expressionType == 'OR') {
         return subexpressionResults.some(element => element);
     }
     return subexpressionResults.every(element => element);
@@ -177,11 +188,9 @@ function isLocationProgress(locationName) {
     for (var i = 0; i < types.length; i++) {
         var type = types[i];
         if (!isRandomCharts
-            && type == "Sunken Treasure"
-            && itemLocations[locationName]["Original item"].startsWith("Triforce Shard")) {
-            if (!flags.includes("Sunken Triforce")) {
-                return false;
-            }
+            && type == 'Sunken Treasure'
+            && itemLocations[locationName]['Original item'].startsWith('Triforce Shard')) {
+            return flags.includes('Sunken Triforce');
         } else if (!flags.includes(type)) {
             return false;
         }

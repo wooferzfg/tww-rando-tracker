@@ -61,8 +61,8 @@ body {
 }
 
 .settings td {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .label-text {
@@ -306,23 +306,32 @@ legend {
 .triforce-and-pearls {
     margin-top: auto;
     margin-bottom: auto;
-    width: 270px;
+    width: 216px;
 }
 
 .pearls {
-    width: 114px;
+    width: 96px;
     margin-left: auto;
     margin-right: auto;
     position: relative;
 }
 
+.pearls img {
+    position: relative;
+    z-index: 1;
+}
+
 .pearl-holder {
     position: absolute;
-    z-index: 1;
     pointer-events: none;
+    top: 0;
 }
 
 .pearl-holder img {
+    position: absolute;
+    left: 17px;
+    top: 19px;
+    z-index: 0;
     filter: none;
 }
 

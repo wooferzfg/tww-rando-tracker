@@ -10,12 +10,12 @@ var hideLocationLogic = false;
 function toggleNonProgressLocations(button) {
     showNonProgressLocations = !showNonProgressLocations;
     if (showNonProgressLocations) {
-        button.innerText = "Hide Non-Progress Locations";
+        button.innerText = 'Hide Non-Progress Locations';
     } else {
-        button.innerText = "Show Non-Progress Locations";
+        button.innerText = 'Show Non-Progress Locations';
     }
 
-    if (document.getElementById("zoommap").style.display == "block") {
+    if (document.getElementById('zoommap').style.display == 'block') {
         if (currentLocationIsDungeon) {
             toggleMap(dungeons.indexOf(currentGeneralLocation), true);
         } else {
@@ -28,22 +28,22 @@ function toggleNonProgressLocations(button) {
 function toggleSingleColorBackground(button) {
     singleColorBackground = !singleColorBackground;
     if (singleColorBackground) {
-        $(".canUseSingleColor").addClass("single-color");
-        button.innerText = "Hide Single Color Background";
+        $('.canUseSingleColor').addClass('single-color');
+        button.innerText = 'Hide Single Color Background';
     } else {
-        $(".canUseSingleColor").removeClass("single-color");
-        button.innerText = "Show Single Color Background";
+        $('.canUseSingleColor').removeClass('single-color');
+        button.innerText = 'Show Single Color Background';
     }
 }
 
 function toggleLocationLogic(button) {
     hideLocationLogic = !hideLocationLogic;
     if (hideLocationLogic) {
-        button.innerText = "Show Location Logic";
-        $(".requireLocationLogic").addClass("hide");
+        button.innerText = 'Show Location Logic';
+        $('.requireLocationLogic').addClass('hide');
     } else {
-        button.innerText = "Hide Location Logic";
-        $(".requireLocationLogic").removeClass("hide");
+        button.innerText = 'Hide Location Logic';
+        $('.requireLocationLogic').removeClass('hide');
     }
     dataChanged();
 }
@@ -51,13 +51,13 @@ function toggleLocationLogic(button) {
 function refreshAllImagesAndCounts() {
     // bosses
     var bosses = [];
-    bosses[0] = locationsChecked["Dragon Roost Cavern"]["Gohma Heart Container"];
-    bosses[1] = locationsChecked["Forbidden Woods"]["Kalle Demos Heart Container"];
-    bosses[2] = locationsChecked["Tower of the Gods"]["Gohdan Heart Container"];
-    bosses[3] = locationsChecked["Forsaken Fortress"]["Helmaroc King Heart Container"];
-    bosses[4] = locationsChecked["Earth Temple"]["Jalhalla Heart Container"];
-    bosses[5] = locationsChecked["Wind Temple"]["Molgera Heart Container"];
-    bosses[6] = locationsChecked["Ganon's Tower"]["Defeat Ganondorf"];
+    bosses[0] = locationsChecked['Dragon Roost Cavern']['Gohma Heart Container'];
+    bosses[1] = locationsChecked['Forbidden Woods']['Kalle Demos Heart Container'];
+    bosses[2] = locationsChecked['Tower of the Gods']['Gohdan Heart Container'];
+    bosses[3] = locationsChecked['Forsaken Fortress']['Helmaroc King Heart Container'];
+    bosses[4] = locationsChecked['Earth Temple']['Jalhalla Heart Container'];
+    bosses[5] = locationsChecked['Wind Temple']['Molgera Heart Container'];
+    bosses[6] = locationsChecked["Ganon's Tower"]['Defeat Ganondorf'];
 
     for (var i = 0; i < bosses.length; i++) {
         var l = 'extralocation' + i.toString();
@@ -69,11 +69,11 @@ function refreshAllImagesAndCounts() {
     }
 
     // triforce pieces
-    var shardCount = getTriforceShardCount();
+    var shardCount = items['Triforce Shard'];
     document.getElementById('triforce').src = imageDir + 'triforce' + shardCount + '.png'
 
     // items
-    for (var i = 0; i < 31; i++) {
+    for (var i = 0; i <= 31; i++) {
         var l = 'item' + i.toString();
         var itemName = document.getElementById(l).name;
         var itemCount = items[itemName];
@@ -88,16 +88,16 @@ function refreshAllImagesAndCounts() {
     }
 
     // sword mode
-    if (swordMode == "swordless") {
-        var swordElement = document.getElementById("item21");
-        swordElement.classList.add("hide");
-        var hurricaneSpinElement = document.getElementById("item30");
-        hurricaneSpinElement.classList.add("hide");
+    if (swordMode == 'swordless') {
+        var swordElement = document.getElementById('item21');
+        swordElement.classList.add('hide');
+        var hurricaneSpinElement = document.getElementById('item30');
+        hurricaneSpinElement.classList.add('hide');
     }
 
     // shields
     var l = 'shield';
-    if (items["Mirror Shield"] > 0) {
+    if (items['Mirror Shield'] > 0) {
         document.getElementById(l).src = imageDir + 'mirrorshield.png'
     } else if (items["Hero's Shield"] > 0) {
         document.getElementById(l).src = imageDir + 'herosshield.png'
@@ -149,7 +149,7 @@ function refreshAllImagesAndCounts() {
                     document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'dungeon_entered.png\')';
                 }
             } else {
-                document.getElementById(l).style.display = "none";
+                document.getElementById(l).style.display = 'none';
             }
 
             // boss keys
@@ -169,7 +169,7 @@ function refreshAllImagesAndCounts() {
         var l = 'chart' + i.toString();
         var chartName = charts[i];
         var chartCount = items[chartName];
-        if (!isRandomCharts && chartName.includes("Triforce")) {
+        if (!isRandomCharts && chartName.includes('Triforce')) {
             if (chartCount === 1) {
                 document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'triforcechartopen.png\')';
             } else {
@@ -205,25 +205,25 @@ function setChestsForElement(element, progress, available, total) {
         element.innerHTML = available + '/' + total;
     }
     if (total === 0) {
-        setElementColor(element, "black-text");
+        setElementColor(element, 'black-text');
     } else {
         if (available === 0) {
-            setElementColor(element, "red-text");
+            setElementColor(element, 'red-text');
         } else {
             if (progress === 0) {
-                setElementColor(element, "yellow-text");
+                setElementColor(element, 'yellow-text');
             } else {
-                setElementColor(element, "blue-text");
+                setElementColor(element, 'blue-text');
             }
         }
     }
 }
 
 function setElementColor(element, color) {
-    element.classList.remove("black-text");
-    element.classList.remove("red-text");
-    element.classList.remove("yellow-text");
-    element.classList.remove("blue-text");
+    element.classList.remove('black-text');
+    element.classList.remove('red-text');
+    element.classList.remove('yellow-text');
+    element.classList.remove('blue-text');
     element.classList.add(color);
 }
 
@@ -233,24 +233,27 @@ function clearItemInfo() {
 
 function itemInfo(element) {
     var text = element.name;
-    if (text.startsWith("Progressive")) {
+    if (text.startsWith('Progressive')) {
         var itemCount = items[text];
-        var textWithCount = text + " x" + itemCount;
+        var textWithCount = text + ' x' + itemCount;
         text = getNameForItem(textWithCount);
     } else if (text == "Hero's Shield") {
-        if (items["Mirror Shield"] == 1) {
-            text = "Mirror Shield";
+        if (items['Mirror Shield'] == 1) {
+            text = 'Mirror Shield';
         }
-    } else if (text == "Triforce of Courage") {
-        var shardCount = getTriforceShardCount();
+    } else if (text == 'Triforce Shard') {
+        var shardCount = items['Triforce Shard'];
         if (shardCount == 8) {
-            text = "Triforce of Courage";
+            text = 'Triforce of Courage';
         } else {
-            text = "Triforce Shard (" + shardCount + "/8)";
+            text = 'Triforce Shard (' + shardCount + '/8)';
         }
-    } else if (text == "Empty Bottle") {
+    } else if (text == 'Empty Bottle') {
         var itemCount = items[text];
-        text = "Empty Bottle (" + itemCount + "/4)";
+        text = 'Empty Bottle (' + itemCount + '/4)';
+    } else if (text == 'Tingle Statue') {
+        var itemCount = items[text];
+        text = 'Tingle Statue (' + itemCount + '/5)';
     } else {
         text = getNameForItem(text);
     }
@@ -265,12 +268,6 @@ function toggleInventoryItem(element, maxItems) {
 
 function toggleShield(element) {
     incrementShield();
-    dataChanged();
-    itemInfo(element);
-}
-
-function toggleTriforce(element) {
-    incrementTriforceShardCount();
     dataChanged();
     itemInfo(element);
 }
@@ -295,7 +292,7 @@ function toggleKey(element, maxKeys, dungeonIndex) {
     }
     keys[keyName] = keyCount;
     dataChanged();
-    if (keyName.includes("Small")) {
+    if (keyName.includes('Small')) {
         smallKeyInfo(element, maxKeys);
     }
     dungeonMapInfo(dungeonIndex);
@@ -311,21 +308,21 @@ function toggleEntry(element, dungeonIndex) {
 
 function shrinkMap() {
     removeVisibleTooltips();
-    document.getElementById('chartmap').style.display = "block";
-    document.getElementById('zoommap').style.display = "none";
-    currentGeneralLocation = "";
+    document.getElementById('chartmap').style.display = 'block';
+    document.getElementById('zoommap').style.display = 'none';
+    currentGeneralLocation = '';
     recreateTooltips();
 }
 
 function getHtmlForItem(itemExpr, isParentExprTrue) {
-    var element = document.createElement("span");
+    var element = document.createElement('span');
     element.innerText = itemExpr.items;
     if (itemExpr.eval) {
-        setElementColor(element, "blue-text");
+        setElementColor(element, 'blue-text');
     } else if (isParentExprTrue) {
-        setElementColor(element, "gray-text");
+        setElementColor(element, 'gray-text');
     } else {
-        setElementColor(element, "red-text");
+        setElementColor(element, 'red-text');
     }
     return element.outerHTML;
 }
@@ -336,18 +333,18 @@ function getTextForExpression(expression, isParentExprTrue) {
         return getHtmlForItem(expression, isParentExprTrue);
     }
 
-    if (expression.type == "OR") {
-        var separator = " or ";
+    if (expression.type == 'OR') {
+        var separator = ' or ';
     } else {
-        var separator = " and ";
+        var separator = ' and ';
     }
 
-    var result = "";
+    var result = '';
     for (var i = 0; i < itemsReq.length; i++) {
         var curItem = itemsReq[i];
         var subResult = getTextForExpression(curItem, isParentExprTrue || expression.eval);
         if (curItem.type) {
-            subResult = "(" + subResult + ")";
+            subResult = '(' + subResult + ')';
         }
         result += subResult;
         if (i < itemsReq.length - 1) {
@@ -359,34 +356,34 @@ function getTextForExpression(expression, isParentExprTrue) {
 
 function setTooltipText(generalLocation, detailedLocation) {
     var itemsRequiredExpr = itemsRequiredForLocation(generalLocation, detailedLocation);
-    if (!itemsRequiredExpr || !itemsRequiredExpr.items || itemsRequiredExpr.items == "None") {
-        var element = document.createElement("span");
-        element.innerText = "None";
-        setElementColor(element, "gray-text");
-        $(".tool-tip-text").html(element.outerHTML);
+    if (!itemsRequiredExpr || !itemsRequiredExpr.items || itemsRequiredExpr.items == 'None') {
+        var element = document.createElement('span');
+        element.innerText = 'None';
+        setElementColor(element, 'gray-text');
+        $('.tool-tip-text').html(element.outerHTML);
         return;
     }
-    if (itemsRequiredExpr.items == "Impossible") {
-        var element = document.createElement("span");
-        element.innerText = "Impossible";
-        setElementColor(element, "red-text");
-        $(".tool-tip-text").html(element.outerHTML);
+    if (itemsRequiredExpr.items == 'Impossible') {
+        var element = document.createElement('span');
+        element.innerText = 'Impossible';
+        setElementColor(element, 'red-text');
+        $('.tool-tip-text').html(element.outerHTML);
         return;
     }
 
-    if (itemsRequiredExpr.type == "AND") {
+    if (itemsRequiredExpr.type == 'AND') {
         var itemsRequired = itemsRequiredExpr.items;
     } else {
         var itemsRequired = [itemsRequiredExpr];
     }
-    var list = document.createElement("ul");
+    var list = document.createElement('ul');
     for (var i = 0; i < itemsRequired.length; i++) {
-        var listItem = document.createElement("li");
+        var listItem = document.createElement('li');
         var curItem = itemsRequired[i];
         listItem.innerHTML = getTextForExpression(curItem, curItem.eval);
         list.appendChild(listItem);
     }
-    $(".tool-tip-text").html(list.outerHTML);
+    $('.tool-tip-text').html(list.outerHTML);
 }
 
 function addTooltipToElement(element) {
@@ -395,8 +392,8 @@ function addTooltipToElement(element) {
         setTooltipText(currentGeneralLocation, detailedLocation);
         $(element).qtip({
             content: {
-                text: $(".tool-tip-text").clone(),
-                title: "Items Required"
+                text: $('.tool-tip-text').clone(),
+                title: 'Items Required'
             },
             position: {
                 target: 'mouse',
@@ -409,7 +406,7 @@ function addTooltipToElement(element) {
 }
 
 function addSongTooltip(element) {
-    var id = "#" + element.id + "-notes";
+    var id = '#' + element.id + '-notes';
     var songName = element.name;
     $(element).qtip({
         content: {
@@ -430,13 +427,13 @@ function removeTooltipFromElement(element) {
 }
 
 function recreateTooltips() {
-    if (document.getElementById('zoommap').style.display == "block") {
+    if (document.getElementById('zoommap').style.display == 'block') {
         removeVisibleTooltips();
         for (var i = 0; i < 36; i++) {
             var l = 'detaillocation' + i.toString();
             var element = document.getElementById(l);
             removeTooltipFromElement(element);
-            if (!hideLocationLogic && element.style.display == "block") {
+            if (!hideLocationLogic && element.style.display == 'block') {
                 addTooltipToElement(element);
             }
         }
@@ -458,57 +455,12 @@ function recreateTooltips() {
 function removeVisibleTooltips() {
     $('.qtip').each(function () {
         var element = $(this);
-        if (element.data("qtip")) {
-            element.qtip("destroy", true);
-            element.removeData("hasqtip");
-            element.removeAttr("data-hasqtip");
+        if (element.data('qtip')) {
+            element.qtip('destroy', true);
+            element.removeData('hasqtip');
+            element.removeAttr('data-hasqtip');
         }
     });
-}
-
-function updateStatistics() {
-    // Locations Checked, Locations Remaining
-    var checkedCount = 0;
-    var availableCount = 0;
-    var locationsRemaining = 0;
-    var progressLocationsRemaining = 0;
-    for (var i = 0; i < islands.length; i++) {
-        var chests = getChestCountsForLocation(islands[i], false);
-        checkedCount += chests.checked;
-        availableCount += chests.available;
-        locationsRemaining += chests.total;
-        progressLocationsRemaining += chests.totalProgress;
-    }
-    for (var i = 0; i < dungeons.length; i++) {
-        var chests = getChestCountsForLocation(dungeons[i], true);
-        checkedCount += chests.checked;
-        availableCount += chests.available;
-        locationsRemaining += chests.total;
-        progressLocationsRemaining += chests.totalProgress;
-    }
-    // don't include "Defeat Ganondorf" as a treasure location
-    if (!locationsChecked["Ganon's Tower"]["Defeat Ganondorf"]) {
-        locationsRemaining--;
-        progressLocationsRemaining--;
-        if (locationsAreAvailable["Ganon's Tower"]["Defeat Ganondorf"]) {
-            availableCount--;
-        }
-    } else {
-        checkedCount--;
-    }
-    $("#stat-locationsChecked").text(checkedCount);
-    $("#stat-locationsAvailable").text(availableCount);
-    $("#stat-locationsRemaining").text(locationsRemaining);
-
-    // Items Needed to Finish Game
-    var finishGameItems = itemsRequiredForLocation("Ganon's Tower", "Defeat Ganondorf");
-    var countdown = finishGameItems.countdown;
-    $("#stat-progressionRemaining").text(countdown);
-
-    // Estimated Locations Left Over at End
-    // average checks remaining = average draws without replacement probability
-    var averageChecksRemaining = Math.min(progressLocationsRemaining, (countdown * (progressLocationsRemaining + 1)) / (countdown + 1));
-    $("#stat-estimatedLeftToCheck").text(Math.round(averageChecksRemaining));
 }
 
 function toggleMap(index, isDungeon) {
@@ -517,8 +469,8 @@ function toggleMap(index, isDungeon) {
         return;
     }
 
-    document.getElementById('chartmap').style.display = "none";
-    document.getElementById('zoommap').style.display = "block";
+    document.getElementById('chartmap').style.display = 'none';
+    document.getElementById('zoommap').style.display = 'block';
 
     var zoommapBackground = document.getElementById('zoommap-background');
     if (isDungeon) {
@@ -545,17 +497,17 @@ function toggleMap(index, isDungeon) {
         var l = 'detaillocation' + i.toString();
         var element = document.getElementById(l);
         if (i < detailedLocations.length) {
-            element.style.display = "block";
+            element.style.display = 'block';
             element.innerText = detailedLocations[i];
-            element.classList.remove("detail-small");
-            element.classList.remove("detail-smallest");
-            if (fontSize == "small") {
-                element.classList.add("detail-small");
-            } else if (fontSize == "smallest") {
-                element.classList.add("detail-smallest");
+            element.classList.remove('detail-small');
+            element.classList.remove('detail-smallest');
+            if (fontSize == 'small') {
+                element.classList.add('detail-small');
+            } else if (fontSize == 'smallest') {
+                element.classList.add('detail-smallest');
             }
         } else {
-            element.style.display = "none";
+            element.style.display = 'none';
         }
     }
 
@@ -573,18 +525,18 @@ function refreshLocationColors() {
         var element = document.getElementById(l);
         var detailedLocation = element.innerText;
         if (locationsChecked[currentGeneralLocation][detailedLocation]) {
-            setElementColor(element, "black-text");
-            element.style.setProperty("text-decoration", "line-through");
+            setElementColor(element, 'black-text');
+            element.style.setProperty('text-decoration', 'line-through');
         } else {
-            element.style.setProperty("text-decoration", "none");
+            element.style.setProperty('text-decoration', 'none');
             if (locationsAreAvailable[currentGeneralLocation][detailedLocation]) {
                 if (locationsAreProgress[currentGeneralLocation][detailedLocation]) {
-                    setElementColor(element, "blue-text");
+                    setElementColor(element, 'blue-text');
                 } else {
-                    setElementColor(element, "yellow-text");
+                    setElementColor(element, 'yellow-text');
                 }
             } else {
-                setElementColor(element, "red-text");
+                setElementColor(element, 'red-text');
             }
         }
     }
@@ -620,9 +572,9 @@ function setMapInfoText(generalLocation, curAvailable, curTotal) {
     document.getElementById('chests-total').innerText = curTotal;
     var chestsAvailContainer = document.getElementById('chests-avail-container');
     if (hideLocationLogic) {
-        chestsAvailContainer.style.display = "none";
+        chestsAvailContainer.style.display = 'none';
     } else {
-        chestsAvailContainer.style.display = "inline";
+        chestsAvailContainer.style.display = 'inline';
         document.getElementById('chests-avail').innerText = curAvailable;
     }
 }
