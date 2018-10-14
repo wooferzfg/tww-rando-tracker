@@ -64,7 +64,7 @@ function applyflags(element) {
             flags = bits.charCodeAt(7);
             parseFlags(flags, ['skip_rematch_bosses']);
 
-            $(element).notify('Flags applied from the Permalink.', {
+            $(element).notify('Settings applied from the Permalink.', {
                 autoHideDelay: 5000,
                 className: 'success',
                 position: 'top center'
@@ -80,9 +80,9 @@ function applyflags(element) {
 
 function showBrokenPermalink(element, wrongVersion) {
     if (wrongVersion) {
-        var notificationMessage = 'Flags could not be applied. Permalink is not compatible with Wind Waker Randomizer ' + currentVersion + '.';
+        var notificationMessage = 'Settings could not be applied. Permalink is not compatible with Wind Waker Randomizer ' + currentVersion + '.';
     } else {
-        var notificationMessage = 'Flags could not be applied from the Permalink.';
+        var notificationMessage = 'Settings could not be applied from the Permalink.';
     }
     $(element).notify(notificationMessage, {
         autoHideDelay: 5000,
