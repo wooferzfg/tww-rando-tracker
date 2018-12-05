@@ -33,8 +33,10 @@ function getGuaranteedKeysForDungeon(dungeonName) {
         if (isPotentialUnavailableKeyLocation(dungeonName, detailedLocation)) {
             var keyReqs = getKeyRequirementsForLocation(dungeonName, detailedLocation);
             if (!keyReqs.nonKeyReqs) {
-                guaranteedSmallKeys = Math.min(guaranteedSmallKeys, keyReqs.small);
                 guaranteedBigKeys = Math.min(guaranteedBigKeys, keyReqs.big);
+                if (keyReqs.big === 0) { // bosses can't drop small keys
+                    guaranteedSmallKeys = Math.min(guaranteedSmallKeys, keyReqs.small);
+                }
             }
         }
     });
@@ -48,7 +50,7 @@ function isPotentialUnavailableKeyLocation(dungeonName, detailedLocation) {
     var fullLocationName = getFullLocationName(dungeonName, detailedLocation);
     if (itemLocations[fullLocationName].Types.includes('Tingle Chest')
         && !flags.includes('Tingle Chest')) {
-        return false; // small keys can still appear in other chests, even if dungeons aren't set as progress locations
+        return false; // small keys can only appear in tingle chests if the tingle chests flag is set
     }
     return !locationsAreAvailable[dungeonName][detailedLocation]
         && !locationsChecked[dungeonName][detailedLocation];
