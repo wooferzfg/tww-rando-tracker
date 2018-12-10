@@ -345,10 +345,11 @@ function itemsRequiredForLocation(generalLocation, detailedLocation) {
     var fullName = getFullLocationName(generalLocation, detailedLocation);
     var splitExpression = getSplitExpression(itemLocations[fullName].Need);
     var itemsReq = itemsRequiredForLogicalExpression(splitExpression);
-    itemsReq = removeDuplicateItems(itemsReq);
-    itemsReq = removeChildren(itemsReq);
-    itemsReq = removeSubsumingExpressions(itemsReq);
-    itemsReq = removeChildren(itemsReq); // remove children again so we can catch additional cases
+    for (var i = 1; i <= 3; i++) { // repeat so we can catch new duplicates that appear as we simplify
+        itemsReq = removeDuplicateItems(itemsReq);
+        itemsReq = removeChildren(itemsReq);
+        itemsReq = removeSubsumingExpressions(itemsReq);
+    }
     replaceItemNames(itemsReq, false);
     return itemsReq;
 }
