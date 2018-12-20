@@ -6,15 +6,6 @@ const isCurrentVersionParam = getParameterByName('c');
 var loadingErrorShown = false;
 var autoSaveInterval;
 
-$('document').ready(function(){
-    var autoSaveCheckbox = document.getElementById('toggle-auto-save-checkbox');
-    var autoSaveButton = document.getElementById('toggle-auto-save-button');
-
-    if(autoSaveCheckbox.checked){
-      autoSaveInterval = setInterval(function(){ saveProgress(autoSaveButton) }, 120000);
-    }
-});
-
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
@@ -216,21 +207,19 @@ function saveProgress(element) {
 function toggleAutoSave(element) {
     var autoSaveCheckbox = document.getElementById('toggle-auto-save-checkbox');
 
-    if (autoSaveCheckbox.checked){
-      if(typeof autoSaveInterval === 'number'){
+    if (autoSaveCheckbox.checked) {
         clearInterval(autoSaveInterval);
-      }
-      autoSaveCheckbox.checked = false;
+        autoSaveCheckbox.checked = false;
     }
     else {
-      // every 2 minutes save
-      autoSaveInterval = setInterval(function(){ saveProgress(element) }, 120000);
-      autoSaveCheckbox.checked = true;
+        // save every 2 minutes
+        autoSaveInterval = setInterval(function () { saveProgress(element) }, 120000);
+        autoSaveCheckbox.checked = true;
 
-      $(element).notify('Progress will save every 2 minutes.', {
-          autoHideDelay: 5000,
-          className: 'success',
-          position: 'top left'
-      });
+        $(element).notify('Progress will be saved every 2 minutes.', {
+            autoHideDelay: 5000,
+            className: 'success',
+            position: 'top left'
+        });
     }
 }
