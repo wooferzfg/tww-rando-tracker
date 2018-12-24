@@ -269,6 +269,7 @@ var locationsChecked = {};
 var flags = [];
 var isKeyLunacy = false;
 var isRandomEntrances = false;
+var isRandomCaves = false;
 var isRandomCharts = false;
 var swordMode = 'sword';
 var skipRematchBosses = false; // on by default in settings, but we set it to false for backwards compatibility

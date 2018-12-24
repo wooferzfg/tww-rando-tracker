@@ -48,10 +48,19 @@ function loadFlags() {
     }
 
     isKeyLunacy = getParamBool('KL', isKeyLunacy);
-    isRandomEntrances = getParamBool('RDE', isRandomEntrances);
     isRandomCharts = getParamBool('RCH', isRandomCharts);
     skipRematchBosses = getParamBool('SRB', skipRematchBosses);
     startingTriforceShards = getParamValue('STS', startingTriforceShards);
+
+    var entrancesValue = getParamValue('REN', 0);
+    if (entrancesValue == 1) {
+        isRandomEntrances = true;
+    } else if (entrancesValue == 2) {
+        isRandomCaves = true;
+    } else if (entrancesValue == 3 || entrancesValue == 4) {
+        isRandomEntrances = true;
+        isRandomCaves = true;
+    }
 
     var swordValue = getParamValue('SWO', 0);
     if (swordValue == 2) {

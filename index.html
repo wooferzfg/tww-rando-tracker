@@ -37,11 +37,11 @@
                     <table>
                         <colgroup>
                             <col class="text-col">
-                            <col class="button-col">
+                            <col class="slider-col">
                             <col class="text-col">
-                            <col class="button-col">
+                            <col class="slider-col">
                             <col class="text-col">
-                            <col class="button-col">
+                            <col class="slider-col">
                         </colgroup>
                         <tbody>
                             <tr>
@@ -238,14 +238,21 @@
                     <table>
                         <colgroup>
                             <col class="text-col">
-                            <col class="button-col">
+                            <col class="slider-col">
                             <col class="text-col">
-                            <col class="button-col">
-                            <col class="text-col">
-                            <col class="button-col">
+                            <col class="slider-col">
                         </colgroup>
                         <tbody>
                             <tr>
+                                <td class="label-text">
+                                    Key-Lunacy
+                                </td>
+                                <td class="slider-container">
+                                    <label class="switch">
+                                        <input id="key_lunacy" type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </td>
                                 <td class="label-text">
                                     Sword Mode
                                 </td>
@@ -258,24 +265,6 @@
                                         </select>
                                     </div>
                                 </td>
-                                <td class="label-text">
-                                    Key-Lunacy
-                                </td>
-                                <td class="slider-container">
-                                    <label class="switch">
-                                        <input id="key_lunacy" type="checkbox">
-                                        <span class="slider"></span>
-                                    </label>
-                                </td>
-                                <td class="label-text">
-                                    Randomize Dungeon Entrances
-                                </td>
-                                <td class="slider-container">
-                                    <label class="switch">
-                                        <input id="randomize_dungeon_entrances" type="checkbox">
-                                        <span class="slider"></span>
-                                    </label>
-                                </td>
                             </tr>
                             <tr>
                                 <td class="label-text">
@@ -287,6 +276,22 @@
                                         <span class="slider"></span>
                                     </label>
                                 </td>
+                                <td class="label-text">
+                                    Randomize Entrances
+                                </td>
+                                <td class="slider-container">
+                                    <div class="select-container">
+                                        <select id="randomize_entrances">
+                                            <option>Disabled</option>
+                                            <option>Dungeons</option>
+                                            <option>Secret Caves</option>
+                                            <option>Dungeons & Secret Caves (Separately)</option>
+                                            <option>Dungeons & Secret Caves (Together)</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="label-text">
                                     Triforce Shards to Start With
                                 </td>
@@ -314,11 +319,9 @@
                     <table>
                         <colgroup>
                             <col class="text-col">
-                            <col class="button-col">
+                            <col class="slider-col">
                             <col class="text-col">
-                            <col class="button-col">
-                            <col class="text-col">
-                            <col class="button-col">
+                            <col class="slider-col">
                         </colgroup>
                         <tbody>
                             <tr>
