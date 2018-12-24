@@ -1,6 +1,7 @@
 function updateMacrosAndLocations() {
     addDefeatGanondorf();
     updateDungeonEntranceMacros();
+    updateCaveEntranceMacros();
     updateChartMacros();
     updateRematchBossesMacros();
     updateSwordModeMacros();
@@ -24,15 +25,28 @@ function updateDungeonEntranceMacros() {
                 var macroName = 'Can Access ' + dungeonName;
                 var entryName = 'Entered ' + shortDungeonNames[i];
                 macros[macroName] = entryName;
+                items[entryName] = 0;
             }
         }
     }
 }
 
+function updateCaveEntranceMacros() {
+    if (isRandomCaves) {
+        for (var i = 0; i < caves.length; i++) {
+            var macroName = 'Can Access ' + caves[i];
+            var entryName = getCaveEntryName(i);
+            macros[macroName] = entryName;
+            items[entryName] = 0;
+        }
+    }
+}
+
 function updateChartMacros() {
-    if (isRandomCharts) {
-        for (var i = 0; i < charts.length; i++) {
-            var chartName = charts[i];
+    for (var i = 0; i < charts.length; i++) {
+        var chartName = charts[i];
+        items[chartName] = 0;
+        if (isRandomCharts) {
             var macroName = 'Chart for Island ' + (i + 1);
             macros[macroName] = chartName; // we assume everything is a Treasure Chart and clear any additional requirements like wallet upgrades
         }

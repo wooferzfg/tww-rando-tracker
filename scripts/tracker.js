@@ -62,15 +62,15 @@ function refreshAllImagesAndCounts() {
     for (var i = 0; i < bosses.length; i++) {
         var l = 'extralocation' + i.toString();
         if (bosses[i]) {
-            document.getElementById(l).src = imageDir + 'boss' + i + '_d.png';
+            setImage(l, 'boss' + i + '_d.png');
         } else {
-            document.getElementById(l).src = imageDir + 'boss' + i + '.png';
+            setImage(l, 'boss' + i + '.png');
         }
     }
 
     // triforce pieces
     var shardCount = items['Triforce Shard'];
-    document.getElementById('triforce').src = imageDir + 'triforce' + shardCount + '.png'
+    setImage('triforce', 'triforce' + shardCount + '.png');
 
     // items
     for (var i = 0; i <= 31; i++) {
@@ -79,11 +79,11 @@ function refreshAllImagesAndCounts() {
         var itemCount = items[itemName];
 
         if (itemCount === 0) {
-            document.getElementById(l).src = imageDir + 'item' + i + '.png'
+            setImage(l, 'item' + i + '.png');
         } else if (itemCount === 1) {
-            document.getElementById(l).src = imageDir + 'item' + i + '_a.png'
+            setImage(l, 'item' + i + '_a.png');
         } else {
-            document.getElementById(l).src = imageDir + 'item' + i + '_' + itemCount + '_a.png'
+            setImage(l, 'item' + i + '_' + itemCount + '_a.png');
         }
     }
 
@@ -98,11 +98,11 @@ function refreshAllImagesAndCounts() {
     // shields
     var l = 'shield';
     if (items['Mirror Shield'] > 0) {
-        document.getElementById(l).src = imageDir + 'mirrorshield.png'
+        setImage(l, 'mirrorshield.png');
     } else if (items["Hero's Shield"] > 0) {
-        document.getElementById(l).src = imageDir + 'herosshield.png'
+        setImage(l, 'herosshield.png');
     } else {
-        document.getElementById(l).src = imageDir + 'noshield.png'
+        setImage(l, 'noshield.png');
     }
 
     // songs
@@ -111,9 +111,10 @@ function refreshAllImagesAndCounts() {
         var songName = document.getElementById(l).name;
 
         if (items[songName] === 0) {
-            document.getElementById(l).src = imageDir + 'song' + i + '.png'
-        } else
-            document.getElementById(l).src = imageDir + 'song' + i + '_a.png'
+            setImage(l, 'song' + i + '.png');
+        } else {
+            setImage(l, 'song' + i + '_a.png');
+        }
     }
 
     // pearls
@@ -122,9 +123,10 @@ function refreshAllImagesAndCounts() {
         var pearlName = document.getElementById(l).name;
 
         if (items[pearlName] === 0) {
-            document.getElementById(l).src = imageDir + 'pearl' + i + '.png'
-        } else
-            document.getElementById(l).src = imageDir + 'pearl' + i + '_a.png'
+            setImage(l, 'pearl' + i + '.png');
+        } else {
+            setImage(l, 'pearl' + i + '_a.png');
+        }
     }
 
     for (var i = 0; i < dungeons.length; i++) {
@@ -134,9 +136,9 @@ function refreshAllImagesAndCounts() {
             var smallKeyName = document.getElementById(l).innerText;
             var smallKeyCount = keys[smallKeyName];
             if (smallKeyCount === 0) {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'smallkey.png\')';
+                setBackgroundUrl(l, 'smallkey.png');
             } else {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'smallkey_' + smallKeyCount + '.png\')';
+                setBackgroundUrl(l, 'smallkey_' + smallKeyCount + '.png');
             }
 
             // dungeon entry
@@ -144,9 +146,9 @@ function refreshAllImagesAndCounts() {
             if (isRandomEntrances) {
                 var entryName = document.getElementById(l).innerText;
                 if (items[entryName] === 0) {
-                    document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'dungeon_noentry.png\')';
+                    setBackgroundUrl(l, 'dungeon_noentry.png');
                 } else {
-                    document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'dungeon_entered.png\')';
+                    setBackgroundUrl(l, 'dungeon_entered.png');
                 }
             } else {
                 document.getElementById(l).style.display = 'none';
@@ -157,9 +159,9 @@ function refreshAllImagesAndCounts() {
             var bigKeyName = document.getElementById(l).innerText;
             var bigKeyCount = keys[bigKeyName];
             if (bigKeyCount === 0) {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'bosskey.png\')';
+                setBackgroundUrl(l, 'bosskey.png');
             } else {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'bosskey_a.png\')';
+                setBackgroundUrl(l, 'bosskey_a.png');
             }
         }
     }
@@ -171,17 +173,32 @@ function refreshAllImagesAndCounts() {
         var chartCount = items[chartName];
         if (!isRandomCharts && chartName.includes('Triforce')) {
             if (chartCount === 1) {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'triforcechartopen.png\')';
+                setBackgroundUrl(l, 'triforcechartopen.png');
             } else {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'triforcechart.png\')';
+                setBackgroundUrl(l, 'triforcechart.png');
             }
         }
         else {
             if (chartCount === 1) {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'chartopen.png\')';
+                setBackgroundUrl(l, 'chartopen.png');
             } else {
-                document.getElementById(l).style.backgroundImage = 'url(\'' + imageDir + 'chart.png\')';
+                setBackgroundUrl(l, 'chart.png');
             }
+        }
+    }
+
+    // cave entry
+    for (var i = 0; i < caves.length; i++) {
+        var l = 'caveentry' + i.toString();
+        if (isRandomCaves) {
+            var entryName = getCaveEntryName(i);
+            if (items[entryName] === 0) {
+                setBackgroundUrl(l, 'cave_noentry.png');
+            } else {
+                setBackgroundUrl(l, 'cave_entered.png');
+            }
+        } else {
+            document.getElementById(l).style.display = 'none';
         }
     }
 
@@ -196,6 +213,14 @@ function refreshAllImagesAndCounts() {
         var chests = getChestCountsForLocation(dungeons[i], true);
         setChestsForElement(document.getElementById(l), chests.progress, chests.available, chests.total);
     }
+}
+
+function setImage(id, path) {
+    document.getElementById(id).src = imageDir + path;
+}
+
+function setBackgroundUrl(id, path) {
+    document.getElementById(id).style.backgroundImage = 'url(\'' + imageDir + path + '\')';
 }
 
 function setChestsForElement(element, progress, available, total) {
@@ -604,4 +629,17 @@ function toggleChart(index) {
 function chartInfo(index) {
     var chartName = getNameForItem(charts[index]);
     document.getElementById('map-item-info').innerText = chartName;
+}
+
+function toggleCaveEntry(caveIndex, islandIndex) {
+    disableMap = true;
+    var entryName = getCaveEntryName(caveIndex);
+    toggleItem(entryName, 1);
+    caveEntryInfo(caveIndex);
+    mapInfo(islandIndex);
+}
+
+function caveEntryInfo(index) {
+    var entryName = getCaveEntryName(index)
+    document.getElementById('map-item-info').innerText = entryName;
 }

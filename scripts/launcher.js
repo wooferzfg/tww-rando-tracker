@@ -1,4 +1,4 @@
-const currentVersion = '1.4.1';
+const currentVersion = '1.5.0';
 
 function parseFlags(flags, ids) {
     var i = ids.length - 1;

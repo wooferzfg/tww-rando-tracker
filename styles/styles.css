@@ -379,12 +379,19 @@ legend {
     height: 48px;
 }
 
-.treasure-chart {
-    width: 20px;
-    height: 20px;
+.treasure-chart, .cave-entry {
+    width: 16px;
+    height: 16px;
     float: left;
-    background: url("../images/chart.png");
     cursor: pointer;
+}
+
+.treasure-chart {
+    background: url("../images/chart.png");
+}
+
+.cave-entry {
+    background: url("../images/cave_noentry.png");
 }
 
 .chests-counter {
