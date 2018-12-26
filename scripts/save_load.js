@@ -40,6 +40,7 @@ function loadFlags() {
         }
         isKeyLunacy = getLocalStorageBool('isKeyLunacy', isKeyLunacy);
         isRandomEntrances = getLocalStorageBool('isRandomEntrances', isRandomEntrances);
+        isRandomCaves = getLocalStorageBool('isRandomCaves', isRandomCaves);
         isRandomCharts = getLocalStorageBool('isRandomCharts', isRandomCharts);
         swordMode = getLocalStorageItem('swordMode', swordMode);
         skipRematchBosses = getLocalStorageBool('skipRematchBosses', skipRematchBosses);
@@ -191,6 +192,7 @@ function saveProgress(element) {
         localStorage.setItem('flags', flags.join(','));
         localStorage.setItem('isKeyLunacy', isKeyLunacy);
         localStorage.setItem('isRandomEntrances', isRandomEntrances);
+        localStorage.setItem('isRandomCaves', isRandomCaves);
         localStorage.setItem('isRandomCharts', isRandomCharts);
         localStorage.setItem('swordMode', swordMode);
         localStorage.setItem('skipRematchBosses', skipRematchBosses);
