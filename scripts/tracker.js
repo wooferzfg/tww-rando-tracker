@@ -508,6 +508,13 @@ function toggleMap(index, isDungeon) {
         zoommapBackground.style.backgroundImage = 'url(\'' + imageDir + 'mapfull' + index + '.png\')';
     }
 
+    var fullClear = document.getElementById('full-clear');
+    if (isRaceMode && isDungeon && dungeons[index] != "Ganon's Tower") {
+        fullClear.style.display = 'block';
+    } else {
+        fullClear.style.display = 'none';
+    }
+
     var detailedLocations = getDetailedLocations(currentGeneralLocation, isDungeon);
 
     var fontSize = 'normal';
@@ -642,4 +649,23 @@ function toggleCaveEntry(caveIndex, islandIndex) {
 function caveEntryInfo(index) {
     var entryName = getCaveEntryName(index)
     document.getElementById('map-item-info').innerText = entryName;
+}
+
+function fullClear() {
+    var curLocation = locationsChecked[currentGeneralLocation];
+    Object.keys(curLocation).forEach(function (detailedLocation) {
+        locationsChecked[currentGeneralLocation][detailedLocation] = true;
+    });
+
+    var mailbox = locationsChecked["Mailbox"];
+    if (currentGeneralLocation == "Forbidden Woods") {
+        mailbox["Letter from Orca"] = true;
+    } else if (currentGeneralLocation == "Forsaken Fortress") {
+        mailbox["Letter from Aryll"] = true;
+        mailbox["Letter from Tingle"] = true;
+    } else if (currentGeneralLocation == "Earth Temple") {
+        mailbox["Letter from Baito"] = true;
+    }
+
+    dataChanged();
 }

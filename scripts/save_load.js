@@ -45,6 +45,7 @@ function loadFlags() {
         swordMode = getLocalStorageItem('swordMode', swordMode);
         skipRematchBosses = getLocalStorageBool('skipRematchBosses', skipRematchBosses);
         startingTriforceShards = getLocalStorageInt('startingTriforceShards', startingTriforceShards);
+        isRaceMode = getLocalStorageBool('isRaceMode', isRaceMode);
         return;
     }
 
@@ -52,6 +53,7 @@ function loadFlags() {
     isRandomCharts = getParamBool('RCH', isRandomCharts);
     skipRematchBosses = getParamBool('SRB', skipRematchBosses);
     startingTriforceShards = getParamValue('STS', startingTriforceShards);
+    isRaceMode = getParamBool('RM', isRaceMode);
 
     var entrancesValue = getParamValue('REN', 0);
     if (entrancesValue == 1) {
@@ -197,6 +199,7 @@ function saveProgress(element) {
         localStorage.setItem('swordMode', swordMode);
         localStorage.setItem('skipRematchBosses', skipRematchBosses);
         localStorage.setItem('startingTriforceShards', startingTriforceShards);
+        localStorage.setItem('isRaceMode', isRaceMode);
         localStorage.setItem('version', versionParam);
         localStorage.setItem('progress', 'true');
 

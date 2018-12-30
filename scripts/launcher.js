@@ -1,4 +1,4 @@
-const currentVersion = '1.5.0';
+const currentVersion = '1.4.1';
 
 function parseFlags(flags, ids) {
     var i = ids.length - 1;
@@ -66,7 +66,7 @@ function applyflags(element) {
             byte = bits.charCodeAt(7);
             parseComboBox(byte, 'sword_mode');
             flags = bits.charCodeAt(8);
-            parseFlags(flags, ['skip_rematch_bosses']);
+            parseFlags(flags, ['skip_rematch_bosses', 'race_mode']);
 
             $(element).notify('Settings applied from the Permalink.', {
                 autoHideDelay: 5000,
@@ -96,11 +96,11 @@ function showBrokenPermalink(element, wrongVersion) {
 }
 
 function getFlagString() {
-    var flagNames = ['D', 'GF', 'PSC', 'CSC', 'SSQ', 'LSQ', 'ST', 'MG', 'FG', 'MAI', 'PR', 'SUB', 'ERC', 'BOG', 'TRI', 'TRE', 'EP', 'MIS', 'TIN', 'KL', 'REN', 'RCH', 'SWO', 'SRB', 'STS'];
+    var flagNames = ['D', 'GF', 'PSC', 'CSC', 'SSQ', 'LSQ', 'ST', 'MG', 'FG', 'MAI', 'PR', 'SUB', 'ERC', 'BOG', 'TRI', 'TRE', 'EP', 'MIS', 'TIN', 'KL', 'REN', 'RCH', 'SWO', 'SRB', 'STS', 'RM'];
     var buttonNames = ['dungeons', 'great_fairies', 'puzzle_secret_caves', 'combat_secret_caves', 'short_sidequests', 'long_sidequests', 'spoils_trading', 'minigames',
         'free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts',
         'expensive_purchases', 'misc', 'tingle_chests', 'key_lunacy', 'randomize_entrances', 'randomize_charts', 'sword_mode',
-        'skip_rematch_bosses', 'num_starting_triforce_shards'];
+        'skip_rematch_bosses', 'num_starting_triforce_shards', 'race_mode'];
 
     var result = '';
     for (var i = 0; i < buttonNames.length; i++) {
