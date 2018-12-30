@@ -652,10 +652,11 @@ function caveEntryInfo(index) {
 }
 
 function fullClear() {
-    var curLocation = locationsChecked[currentGeneralLocation];
-    Object.keys(curLocation).forEach(function (detailedLocation) {
+    var detailedLocations = getDetailedLocations(currentGeneralLocation, true);
+    for (var i = 0; i < detailedLocations.length; i++) {
+        var detailedLocation = detailedLocations[i];
         locationsChecked[currentGeneralLocation][detailedLocation] = true;
-    });
+    }
 
     var mailbox = locationsChecked["Mailbox"];
     if (currentGeneralLocation == "Forbidden Woods") {
