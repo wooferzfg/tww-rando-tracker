@@ -98,6 +98,8 @@ function loadFlags() {
     checkAddFlags('EP', ['Expensive Purchase']);
     checkAddFlags('MIS', ['Other Chest', 'Misc']);
     checkAddFlags('TIN', ['Tingle Chest']);
+    checkAddFlags('SAV', ['Savage Labyrinth']);
+    checkAddFlags('SSM', ['Sinking Ships']);
 }
 
 function getParamBool(param, defaultVal) {
