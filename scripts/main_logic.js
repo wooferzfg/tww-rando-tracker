@@ -116,6 +116,28 @@ const dungeons = [
     'Wind Temple',
     "Ganon's Tower"
 ];
+const caves = [
+    'Savage Labyrinth',
+    'Dragon Roost Island Secret Cave',
+    'Fire Mountain Secret Cave',
+    'Ice Ring Isle Secret Cave',
+    'Cabana Labyrinth',
+    'Needle Rock Isle Secret Cave',
+    'Angular Isles Secret Cave',
+    'Boating Course Secret Cave',
+    'Stone Watcher Island Secret Cave',
+    'Overlook Island Secret Cave',
+    "Bird's Peak Rock Secret Cave",
+    'Pawprint Isle Chuchu Cave',
+    'Pawprint Isle Wizzrobe Cave',
+    'Diamond Steppe Island Warp Maze Cave',
+    'Bomb Island Secret Cave',
+    'Rock Spire Isle Secret Cave',
+    'Shark Island Secret Cave',
+    'Cliff Plateau Isles Secret Cave',
+    'Horseshoe Island Secret Cave',
+    'Star Island Secret Cave'
+];
 const shortDungeonNames = [
     'DRC',
     'FW',
@@ -176,74 +198,6 @@ var items = {
     'Progressive Picto Box': 0,
     'Empty Bottle': 0,
 
-    'DRC Big Key': 0,
-    'DRC Small Key': 0,
-    'FW Big Key': 0,
-    'FW Small Key': 0,
-    'TotG Big Key': 0,
-    'TotG Small Key': 0,
-    'ET Big Key': 0,
-    'ET Small Key': 0,
-    'WT Big Key': 0,
-    'WT Small Key': 0,
-
-    'Entered DRC': 0,
-    'Entered FW': 0,
-    'Entered TotG': 0,
-    'Entered ET': 0,
-    'Entered WT': 0,
-
-    'Treasure Chart 1': 0,
-    'Treasure Chart 2': 0,
-    'Treasure Chart 3': 0,
-    'Treasure Chart 4': 0,
-    'Treasure Chart 5': 0,
-    'Treasure Chart 6': 0,
-    'Treasure Chart 7': 0,
-    'Treasure Chart 8': 0,
-    'Treasure Chart 9': 0,
-    'Treasure Chart 10': 0,
-    'Treasure Chart 11': 0,
-    'Treasure Chart 12': 0,
-    'Treasure Chart 13': 0,
-    'Treasure Chart 14': 0,
-    'Treasure Chart 15': 0,
-    'Treasure Chart 16': 0,
-    'Treasure Chart 17': 0,
-    'Treasure Chart 18': 0,
-    'Treasure Chart 19': 0,
-    'Treasure Chart 20': 0,
-    'Treasure Chart 21': 0,
-    'Treasure Chart 22': 0,
-    'Treasure Chart 23': 0,
-    'Treasure Chart 24': 0,
-    'Treasure Chart 25': 0,
-    'Treasure Chart 26': 0,
-    'Treasure Chart 27': 0,
-    'Treasure Chart 28': 0,
-    'Treasure Chart 29': 0,
-    'Treasure Chart 30': 0,
-    'Treasure Chart 31': 0,
-    'Treasure Chart 32': 0,
-    'Treasure Chart 33': 0,
-    'Treasure Chart 34': 0,
-    'Treasure Chart 35': 0,
-    'Treasure Chart 36': 0,
-    'Treasure Chart 37': 0,
-    'Treasure Chart 38': 0,
-    'Treasure Chart 39': 0,
-    'Treasure Chart 40': 0,
-    'Treasure Chart 41': 0,
-
-    'Triforce Chart 1': 0,
-    'Triforce Chart 2': 0,
-    'Triforce Chart 3': 0,
-    'Triforce Chart 4': 0,
-    'Triforce Chart 5': 0,
-    'Triforce Chart 6': 0,
-    'Triforce Chart 7': 0,
-    'Triforce Chart 8': 0,
-
     'Telescope': 0,
     'Magic Armor': 0,
     "Hero's Charm": 0,
@@ -269,10 +223,12 @@ var locationsChecked = {};
 var flags = [];
 var isKeyLunacy = false;
 var isRandomEntrances = false;
+var isRandomCaves = false;
 var isRandomCharts = false;
 var swordMode = 'sword';
 var skipRematchBosses = false; // on by default in settings, but we set it to false for backwards compatibility
 var startingTriforceShards = 0;
+var isRaceMode = false;
 
 // tracker should use these without modifying them
 var locationsAreProgress = {};
@@ -446,4 +402,10 @@ function incrementShield() {
         items["Hero's Shield"] = 0;
         items['Mirror Shield'] = 0;
     }
+}
+
+function getCaveEntryName(index) {
+    return 'Entered ' + caves[index]
+        .replace('Secret ', '')
+        .replace('Warp Maze ', '');
 }

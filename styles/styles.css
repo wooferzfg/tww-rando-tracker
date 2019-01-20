@@ -17,8 +17,7 @@ body {
     left: -8px;
     right: -8px;
     top: 0;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
     box-sizing: border-box;
 }
 
@@ -61,8 +60,8 @@ body {
 }
 
 .settings td {
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .label-text {
@@ -99,7 +98,7 @@ body {
     width: 27%;
 }
 
-.slider-col {
+.button-col {
     width: 6%;
 }
 
@@ -379,12 +378,19 @@ legend {
     height: 48px;
 }
 
-.treasure-chart {
-    width: 20px;
-    height: 20px;
+.treasure-chart, .cave-entry {
+    width: 16px;
+    height: 16px;
     float: left;
-    background: url("../images/chart.png");
     cursor: pointer;
+}
+
+.treasure-chart {
+    background: url("../images/chart.png");
+}
+
+.cave-entry {
+    background: url("../images/cave_noentry.png");
 }
 
 .chests-counter {

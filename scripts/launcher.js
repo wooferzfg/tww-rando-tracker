@@ -1,4 +1,4 @@
-const currentVersion = '1.4.1';
+const currentVersion = '1.5.0';
 
 function parseFlags(flags, ids) {
     var i = ids.length - 1;
@@ -56,13 +56,17 @@ function applyflags(element) {
             flags = bits.charCodeAt(1);
             parseFlags(flags, ['free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts']);
             flags = bits.charCodeAt(2);
-            parseFlags(flags, ['expensive_purchases', 'misc', 'tingle_chests', 'key_lunacy', 'randomize_dungeon_entrances', 'randomize_charts', '', '']);
-            byte = bits.charCodeAt(4);
+            parseFlags(flags, ['expensive_purchases', 'misc', 'tingle_chests', 'sinking_ships', 'savage_labyrinth', 'key_lunacy']);
+            var byte = bits.charCodeAt(3);
+            parseComboBox(byte, 'randomize_entrances');
+            flags = bits.charCodeAt(4);
+            parseFlags(flags, ['randomize_charts', '', '', '', '']);
+            byte = bits.charCodeAt(5);
             parseComboBox(byte, 'num_starting_triforce_shards');
-            byte = bits.charCodeAt(6);
+            byte = bits.charCodeAt(7);
             parseComboBox(byte, 'sword_mode');
-            flags = bits.charCodeAt(7);
-            parseFlags(flags, ['skip_rematch_bosses']);
+            flags = bits.charCodeAt(8);
+            parseFlags(flags, ['skip_rematch_bosses', 'race_mode']);
 
             $(element).notify('Settings applied from the Permalink.', {
                 autoHideDelay: 5000,
@@ -92,11 +96,11 @@ function showBrokenPermalink(element, wrongVersion) {
 }
 
 function getFlagString() {
-    var flagNames = ['D', 'GF', 'PSC', 'CSC', 'SSQ', 'LSQ', 'ST', 'MG', 'FG', 'MAI', 'PR', 'SUB', 'ERC', 'BOG', 'TRI', 'TRE', 'EP', 'MIS', 'TIN', 'KL', 'RDE', 'RCH', 'SWO', 'SRB', 'STS'];
+    var flagNames = ['D', 'GF', 'PSC', 'CSC', 'SSQ', 'LSQ', 'ST', 'MG', 'FG', 'MAI', 'PR', 'SUB', 'ERC', 'BOG', 'TRI', 'TRE', 'EP', 'MIS', 'TIN', 'KL', 'REN', 'RCH', 'SWO', 'SRB', 'STS', 'RM', 'SAV', 'SSM'];
     var buttonNames = ['dungeons', 'great_fairies', 'puzzle_secret_caves', 'combat_secret_caves', 'short_sidequests', 'long_sidequests', 'spoils_trading', 'minigames',
         'free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts',
-        'expensive_purchases', 'misc', 'tingle_chests', 'key_lunacy', 'randomize_dungeon_entrances', 'randomize_charts', 'sword_mode',
-        'skip_rematch_bosses', 'num_starting_triforce_shards'];
+        'expensive_purchases', 'misc', 'tingle_chests', 'key_lunacy', 'randomize_entrances', 'randomize_charts', 'sword_mode',
+        'skip_rematch_bosses', 'num_starting_triforce_shards', 'race_mode', 'savage_labyrinth', 'sinking_ships'];
 
     var result = '';
     for (var i = 0; i < buttonNames.length; i++) {

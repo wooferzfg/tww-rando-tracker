@@ -40,18 +40,30 @@ function loadFlags() {
         }
         isKeyLunacy = getLocalStorageBool('isKeyLunacy', isKeyLunacy);
         isRandomEntrances = getLocalStorageBool('isRandomEntrances', isRandomEntrances);
+        isRandomCaves = getLocalStorageBool('isRandomCaves', isRandomCaves);
         isRandomCharts = getLocalStorageBool('isRandomCharts', isRandomCharts);
         swordMode = getLocalStorageItem('swordMode', swordMode);
         skipRematchBosses = getLocalStorageBool('skipRematchBosses', skipRematchBosses);
         startingTriforceShards = getLocalStorageInt('startingTriforceShards', startingTriforceShards);
+        isRaceMode = getLocalStorageBool('isRaceMode', isRaceMode);
         return;
     }
 
     isKeyLunacy = getParamBool('KL', isKeyLunacy);
-    isRandomEntrances = getParamBool('RDE', isRandomEntrances);
     isRandomCharts = getParamBool('RCH', isRandomCharts);
     skipRematchBosses = getParamBool('SRB', skipRematchBosses);
     startingTriforceShards = getParamValue('STS', startingTriforceShards);
+    isRaceMode = getParamBool('RM', isRaceMode);
+
+    var entrancesValue = getParamValue('REN', 0);
+    if (entrancesValue == 1) {
+        isRandomEntrances = true;
+    } else if (entrancesValue == 2) {
+        isRandomCaves = true;
+    } else if (entrancesValue == 3 || entrancesValue == 4) {
+        isRandomEntrances = true;
+        isRandomCaves = true;
+    }
 
     var swordValue = getParamValue('SWO', 0);
     if (swordValue == 2) {
@@ -86,6 +98,8 @@ function loadFlags() {
     checkAddFlags('EP', ['Expensive Purchase']);
     checkAddFlags('MIS', ['Other Chest', 'Misc']);
     checkAddFlags('TIN', ['Tingle Chest']);
+    checkAddFlags('SAV', ['Savage Labyrinth']);
+    checkAddFlags('SSM', ['Sinking Ships']);
 }
 
 function getParamBool(param, defaultVal) {
@@ -182,10 +196,12 @@ function saveProgress(element) {
         localStorage.setItem('flags', flags.join(','));
         localStorage.setItem('isKeyLunacy', isKeyLunacy);
         localStorage.setItem('isRandomEntrances', isRandomEntrances);
+        localStorage.setItem('isRandomCaves', isRandomCaves);
         localStorage.setItem('isRandomCharts', isRandomCharts);
         localStorage.setItem('swordMode', swordMode);
         localStorage.setItem('skipRematchBosses', skipRematchBosses);
         localStorage.setItem('startingTriforceShards', startingTriforceShards);
+        localStorage.setItem('isRaceMode', isRaceMode);
         localStorage.setItem('version', versionParam);
         localStorage.setItem('progress', 'true');
 
