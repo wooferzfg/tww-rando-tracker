@@ -625,9 +625,12 @@ legend {
     min-width: 300px;
 }
 
-.statistics dt.hide,
-.statistics dd.hide,
 .item-tracker .hide {
+    visibility: hidden;
+}
+
+.statistics dt.hide,
+.statistics dd.hide {
     display: none;
 }
 
