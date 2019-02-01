@@ -292,7 +292,7 @@ function expressionSubsumes(firstExpression, secondExpression, tiebreaker) {
 }
 
 function replaceItemNames(expression, isParentExprTrue) {
-    if (!expression) {
+    if (!expression || !expression.items) {
         return;
     }
     if (!expression.type) {
