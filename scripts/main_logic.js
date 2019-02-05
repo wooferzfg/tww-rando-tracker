@@ -54,7 +54,8 @@ const islands = [
     'Boating Course',
     'Five-Star Isles',
     'Mailbox',
-    'The Great Sea'
+    'The Great Sea',
+    'Hyrule'
 ];
 const charts = [
     'Treasure Chart 25',
