@@ -911,12 +911,14 @@
         </div>
         <div class="buttons">
             <button id="save-progress-button" type="button" onclick="saveProgress(this)">Save Progress</button>
+            <button id="toggle-locations-button" type="button" onclick="toggleNonProgressLocations(this)">Show
+                Non-Progress Locations</button>
+            <button id="show-entrances-button" type="button" onclick="toggleEntrancesDisplay(this)" disabled>View Entrances</button>
+            <br>
             <button id="toggle-auto-save-button" type="button" onclick="toggleAutoSave(this)">
                 <input id="toggle-auto-save-checkbox" type="checkbox">
                 Auto-Save
             </button>
-            <button id="toggle-locations-button" type="button" onclick="toggleNonProgressLocations(this)">Show
-                Non-Progress Locations</button>
             <button id="toggle-logic-button" type="button" onclick="toggleLocationLogic(this)">Hide Location Logic</button>
             <button id="toggle-background-button" type="button" onclick="toggleSingleColorBackground(this)">Show Single
                 Color Background</button>
