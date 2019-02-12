@@ -492,9 +492,8 @@ function toggleMap(index, isDungeon) {
         return;
     }
 
-    setHeaderTexts("X Close", "", true);
-
     openZoomMap();
+    setHeaderTexts("X Close", "", true);    
 
     if (isDungeon) {
         currentGeneralLocation = dungeons[index];
@@ -506,11 +505,10 @@ function toggleMap(index, isDungeon) {
         setBackgroundUrl('zoommap-background', 'mapfull' + index + '.png');
     }
 
-    var fullClear = document.getElementById('full-clear').parentElement;
     if (isRaceMode && isDungeon && dungeons[index] != "Ganon's Tower") {
-        fullClear.style.display = 'block';
+        setFullClearStyle('block');
     } else {
-        fullClear.style.display = 'none';
+        setFullClearStyle('none');
     }
 
     var detailedLocations = getDetailedLocations(currentGeneralLocation, isDungeon);
@@ -520,12 +518,20 @@ function toggleMap(index, isDungeon) {
     recreateTooltips();
 }
 
-function viewEntrances() {
+function viewEntrances(choosingEntrance) {
     openZoomMap();
-
-    setHeaderTexts('Randomized Entrances', 'X Cancel', false);
-
+    setHeaderTexts('Randomized Entrances', 'X Close', false);
     setBackgroundUrl('zoommap-background', 'mapempty.png');
+    setFullClearStyle('none');
+
+    var showAllEntrances = !choosingEntrance || isRandomTogether;
+    var entrancesList = getRandomEntrances(true, showAllEntrances);
+    setLocationsList(entrancesList);
+}
+
+function openZoomMap() {
+    document.getElementById('chartmap').style.display = 'none';
+    document.getElementById('zoommap').style.display = 'block';
 }
 
 function setHeaderTexts(firstText, secondText, firstPointer) {
@@ -549,9 +555,9 @@ function setHeaderTexts(firstText, secondText, firstPointer) {
     }
 }
 
-function openZoomMap() {
-    document.getElementById('chartmap').style.display = 'none';
-    document.getElementById('zoommap').style.display = 'block';
+function setFullClearStyle(styleText) {
+    var fullClear = document.getElementById('full-clear').parentElement;
+    fullClear.style.display = styleText;
 }
 
 function setLocationsList(locationsList) {

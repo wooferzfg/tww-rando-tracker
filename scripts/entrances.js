@@ -41,3 +41,22 @@ function getCaveName(index) {
 function getCaveEntryName(index) {
     return 'Entered ' + getCaveName(index);
 }
+
+function getRandomEntrances(isCaveExit, showAllEntrances) {
+    var entrancesList = [];
+    if (isRandomEntrances && (!isCaveExit || showAllEntrances)) {
+        for (var i = 0; i < dungeons.length; i++) {
+            var dungeonName = dungeons[i];
+            if (isMainDungeon(dungeonName)) {
+                entrancesList.push(dungeonName);
+            }
+        }
+    }
+    if (isRandomCaves && (isCaveExit || showAllEntrances)) {
+        for (var i = 0; i < caves.length; i++) {
+            var caveName = getCaveName(i);
+            entrancesList.push(caveName);
+        }
+    }
+    return entrancesList;
+}

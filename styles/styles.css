@@ -486,7 +486,7 @@ legend {
 }
 
 .detailspan {
-    line-height: 1em;
+    line-height: 0.95em;
     padding-bottom: 5px;
     cursor: pointer;
 }
@@ -496,7 +496,7 @@ legend {
 }
 
 .detail-smallest {
-    font-size: 10px;
+    font-size: 10.5px;
 }
 
 .black-text {
