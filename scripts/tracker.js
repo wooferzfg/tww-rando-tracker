@@ -4,7 +4,8 @@ const arrow = " \u2192 ";
 var disableMap = false;
 var currentGeneralLocation = '';
 var currentLocationIsDungeon = false;
-var currentExit = '';
+var currentExit = ''; // The full name of the exit; for example, 'Dragon Roost Cavern'
+var currentEntryName = ''; // The name of the entry item; for example, 'Entered DRC'
 var showNonProgressLocations = false;
 var singleColorBackground = false;
 var hideLocationLogic = false;
@@ -337,6 +338,7 @@ function shrinkMap() {
     document.getElementById('zoommap').style.display = 'none';
     currentGeneralLocation = '';
     currentExit = '';
+    currentEntryName = '';
     recreateTooltips();
 }
 
@@ -472,7 +474,7 @@ function recreateTooltips() {
                     if (!hideLocationLogic) {
                         addTooltipToLocationElement(element);
                     }
-                } else {
+                } else if (currentExit.length > 0) {
                     addTooltipToEntranceElement(element);
                 }
             }
@@ -510,6 +512,7 @@ function toggleMap(index, isDungeon) {
     }
 
     currentExit = '';
+    currentEntryName = '';
     openZoomMap();
     setHeaderTexts("X Close", "", true);
 
@@ -536,19 +539,26 @@ function toggleMap(index, isDungeon) {
     recreateTooltips();
 }
 
-function viewEntrances(choosingEntrance) {
+function viewEntrances(choosingEntrance, isCaveExit) {
     currentGeneralLocation = '';
     if (!choosingEntrance) {
         currentExit = 'ViewEntrances';
+        currentEntryName = '';
     }
 
     openZoomMap();
-    setHeaderTexts('Randomized Entrances', 'X Close', false);
+
+    if (choosingEntrance) {
+        setHeaderTexts('Choose Entrance', 'X Cancel', false);
+    } else {
+        setHeaderTexts('Randomized Entrances', 'X Close', false);
+    }
+
     setBackgroundUrl('zoommap-background', 'mapempty.png');
     setFullClearStyle('none');
 
     var showAllEntrances = !choosingEntrance || isRandomTogether;
-    var entrancesList = getRandomEntrances(true, showAllEntrances);
+    var entrancesList = getRandomEntrances(isCaveExit, showAllEntrances);
     setLocationsList(entrancesList, choosingEntrance);
 
     refreshEntranceColors();
@@ -672,9 +682,18 @@ function refreshEntranceColors() {
 }
 
 function toggleLocation(element) {
-    var detailedLocation = element.innerText;
-    var newLocationChecked = !locationsChecked[currentGeneralLocation][detailedLocation];
-    locationsChecked[currentGeneralLocation][detailedLocation] = newLocationChecked;
+    if (currentGeneralLocation.length > 0) {
+        var detailedLocation = element.innerText;
+        var newLocationChecked = !locationsChecked[currentGeneralLocation][detailedLocation];
+        locationsChecked[currentGeneralLocation][detailedLocation] = newLocationChecked;
+    } else if (currentEntryName.length > 0) {
+        var entranceName = element.innerText;
+        if (!getExitForEntrance(entranceName)) {
+            items[currentEntryName] = 1;
+            entrances[currentExit] = entranceName;
+            shrinkMap();
+        }
+    }
     dataChanged();
 }
 
@@ -738,9 +757,18 @@ function chartInfo(index) {
 function toggleDungeonEntry(index) {
     disableMap = true;
     var entryName = getDungeonEntryName(index);
-    toggleItem(entryName, 1);
-    dungeonEntryInfo(index);
-    dungeonMapInfo(index);
+    var exitName = dungeons[index];
+    if (items[entryName] === 0) {
+        currentExit = exitName;
+        currentEntryName = entryName;
+        viewEntrances(true, false);
+    } else {
+        items[entryName] = 0;
+        entrances[exitName] = null;
+        dungeonEntryInfo(index);
+        dungeonMapInfo(index);
+        dataChanged();
+    }
 }
 
 function dungeonEntryInfo(index) {
@@ -757,9 +785,18 @@ function dungeonEntryInfo(index) {
 function toggleCaveEntry(caveIndex, islandIndex) {
     disableMap = true;
     var entryName = getCaveEntryName(caveIndex);
-    toggleItem(entryName, 1);
-    caveEntryInfo(caveIndex);
-    mapInfo(islandIndex);
+    var exitName = getCaveName(caveIndex);
+    if (items[entryName] === 0) {
+        currentExit = exitName;
+        currentEntryName = entryName;
+        viewEntrances(true, true);
+    } else {
+        items[entryName] = 0;
+        entrances[exitName] = null;
+        caveEntryInfo(caveIndex);
+        mapInfo(islandIndex);
+        dataChanged();
+    }
 }
 
 function caveEntryInfo(index) {

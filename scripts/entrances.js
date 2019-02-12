@@ -83,4 +83,5 @@ function getExitForEntrance(entranceName) {
             return exit;
         }
     }
+    return null;
 }
