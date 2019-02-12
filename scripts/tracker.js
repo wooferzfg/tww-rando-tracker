@@ -1,5 +1,6 @@
 const imageDir = 'images/';
 const arrow = " \u2192 ";
+const totalDetailedLocations = 39;
 
 var disableMap = false;
 var currentGeneralLocation = '';
@@ -465,7 +466,7 @@ function removeTooltipFromElement(element) {
 function recreateTooltips() {
     if (document.getElementById('zoommap').style.display == 'block') {
         removeVisibleTooltips();
-        for (var i = 0; i < 36; i++) {
+        for (var i = 0; i < totalDetailedLocations; i++) {
             var l = 'detaillocation' + i.toString();
             var element = document.getElementById(l);
             removeTooltipFromElement(element);
@@ -605,7 +606,7 @@ function setLocationsList(locationsList, isInteractive) {
         fontSize = 'small';
     }
 
-    for (var i = 0; i < 36; i++) {
+    for (var i = 0; i < totalDetailedLocations; i++) {
         var l = 'detaillocation' + i.toString();
         var element = document.getElementById(l);
         if (i < locationsList.length) {
@@ -633,7 +634,7 @@ function refreshLocationColors() {
         return;
     }
 
-    for (var i = 0; i < 36; i++) {
+    for (var i = 0; i < totalDetailedLocations; i++) {
         var l = 'detaillocation' + i.toString();
         var element = document.getElementById(l);
         if (element.parentElement.style.display == 'table-cell') {
@@ -660,7 +661,7 @@ function refreshEntranceColors() {
         return;
     }
 
-    for (var i = 0; i < 36; i++) {
+    for (var i = 0; i < totalDetailedLocations; i++) {
         var l = 'detaillocation' + i.toString();
         var element = document.getElementById(l);
         if (element.parentElement.style.display == 'table-cell') {
