@@ -599,10 +599,10 @@ function setFullClearStyle(styleText) {
 
 function setLocationsList(locationsList, isInteractive) {
     var fontSize = 'normal';
-    if (locationsList.length > 24) { // 3 columns
+    if (locationsList.length > 26) { // 3 columns
         fontSize = 'smallest';
     }
-    else if (locationsList.length > 12) { // 2 columns
+    else if (locationsList.length > 13) { // 2 columns
         fontSize = 'small';
     }
 
