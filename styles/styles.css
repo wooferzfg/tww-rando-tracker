@@ -491,6 +491,10 @@ legend {
     cursor: pointer;
 }
 
+.detailspan.detail-not-interactive {
+    cursor: auto;
+}
+
 .detail-small {
     font-size: 13.5px;
 }

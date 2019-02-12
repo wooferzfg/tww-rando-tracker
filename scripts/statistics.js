@@ -33,7 +33,8 @@ function updateStatistics() {
     $('#stat-locationsRemaining').text(locationsRemaining);
 
     // Items Needed to Finish Game
-    var finishGameItems = itemsRequiredForLocation("Ganon's Tower", 'Defeat Ganondorf');
+    var finishRequirements = getLocationRequirements("Ganon's Tower - Defeat Ganondorf");
+    var finishGameItems = itemsRequiredForExpression(finishRequirements);
     var countdown = finishGameItems.countdown;
     $('#stat-progressionRemaining').text(countdown);
 

@@ -60,3 +60,25 @@ function getRandomEntrances(isCaveExit, showAllEntrances) {
     }
     return entrancesList;
 }
+
+function getMacroForEntranceName(entranceName) {
+    var dungeonIndex = dungeons.indexOf(entranceName);
+    if (dungeonIndex >= 0) {
+        return "Can Access Dungeon Entrance " + dungeonEntrances[dungeonIndex];
+    }
+
+    for (var i = 0; i < caves.length; i++) {
+        var caveName = getCaveName(i);
+        if (caveName == entranceName) {
+            return "Can Access Secret Cave Entrance on " + caveEntrances[i];
+        }
+    }
+}
+
+function getExitForEntrance(entranceName) {
+    for (var [exit, entrance] of Object.entries(entrances)) {
+        if (entrance == entranceName) {
+            return exit;
+        }
+    }
+}

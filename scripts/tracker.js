@@ -377,8 +377,8 @@ function getTextForExpression(expression, isParentExprTrue) {
     return result;
 }
 
-function setTooltipText(generalLocation, detailedLocation) {
-    var itemsRequiredExpr = itemsRequiredForLocation(generalLocation, detailedLocation);
+function setTooltipTextForLocation(locationRequirements) {
+    var itemsRequiredExpr = itemsRequiredForExpression(locationRequirements);
     if (!itemsRequiredExpr || !itemsRequiredExpr.items || itemsRequiredExpr.items == 'None') {
         var element = document.createElement('span');
         element.innerText = 'None';
@@ -409,32 +409,40 @@ function setTooltipText(generalLocation, detailedLocation) {
     $('.tool-tip-text').html(list.outerHTML);
 }
 
-function addTooltipToElement(element) {
+function addTooltipToLocationElement(element) {
     var detailedLocation = element.innerText;
     if (!locationsChecked[currentGeneralLocation][detailedLocation]) {
-        setTooltipText(currentGeneralLocation, detailedLocation);
-        $(element).qtip({
-            content: {
-                text: $('.tool-tip-text').clone(),
-                title: 'Items Required'
-            },
-            position: {
-                target: 'mouse',
-                adjust: {
-                    x: 15
-                }
-            }
-        });
+        var fullLocationName = getFullLocationName(currentGeneralLocation, detailedLocation);
+        var locationRequirements = getLocationRequirements(fullLocationName);
+        setTooltipTextForLocation(locationRequirements);
+        createTooltip(element, $('.tool-tip-text').clone(), 'Items Required');
+    }
+}
+
+function addTooltipToEntranceElement(element) {
+    var entranceName = element.innerText;
+    var macroName = getMacroForEntranceName(entranceName);
+    var exitName = getExitForEntrance(entranceName);
+    if (exitName) {
+        createTooltip(element, exitName, 'Entrance Leads To');
+    } else if (!hideLocationLogic) {
+        var requirements = getSplitExpression(macroName);
+        setTooltipTextForLocation(requirements);
+        createTooltip(element, $('.tool-tip-text').clone(), 'Items Required');
     }
 }
 
 function addSongTooltip(element) {
     var id = '#' + element.id + '-notes';
     var songName = element.name;
+    createTooltip(element, $(id).clone(), songName);
+}
+
+function createTooltip(element, text, title) {
     $(element).qtip({
         content: {
-            text: $(id).clone(),
-            title: songName
+            text: text,
+            title: title
         },
         position: {
             target: 'mouse',
@@ -449,15 +457,21 @@ function removeTooltipFromElement(element) {
     $(element).qtip('destroy', true);
 }
 
-function recreateTooltips() {
+function recreateTooltips(showLocations) {
     if (document.getElementById('zoommap').style.display == 'block') {
         removeVisibleTooltips();
         for (var i = 0; i < 36; i++) {
             var l = 'detaillocation' + i.toString();
             var element = document.getElementById(l);
             removeTooltipFromElement(element);
-            if (!hideLocationLogic && element.parentElement.style.display == 'table-cell') {
-                addTooltipToElement(element);
+            if (element.parentElement.style.display == 'table-cell') {
+                if (showLocations) {
+                    if (!hideLocationLogic) {
+                        addTooltipToLocationElement(element);
+                    }
+                } else {
+                    addTooltipToEntranceElement(element);
+                }
             }
         }
     }
@@ -512,10 +526,10 @@ function toggleMap(index, isDungeon) {
     }
 
     var detailedLocations = getDetailedLocations(currentGeneralLocation, isDungeon);
-    setLocationsList(detailedLocations);
+    setLocationsList(detailedLocations, true);
 
     refreshLocationColors();
-    recreateTooltips();
+    recreateTooltips(true);
 }
 
 function viewEntrances(choosingEntrance) {
@@ -526,7 +540,9 @@ function viewEntrances(choosingEntrance) {
 
     var showAllEntrances = !choosingEntrance || isRandomTogether;
     var entrancesList = getRandomEntrances(true, showAllEntrances);
-    setLocationsList(entrancesList);
+    setLocationsList(entrancesList, choosingEntrance);
+
+    recreateTooltips(false);
 }
 
 function openZoomMap() {
@@ -560,7 +576,7 @@ function setFullClearStyle(styleText) {
     fullClear.style.display = styleText;
 }
 
-function setLocationsList(locationsList) {
+function setLocationsList(locationsList, isInteractive) {
     var fontSize = 'normal';
     if (locationsList.length > 24) { // 3 columns
         fontSize = 'smallest';
@@ -577,10 +593,14 @@ function setLocationsList(locationsList) {
             element.innerText = locationsList[i];
             element.classList.remove('detail-small');
             element.classList.remove('detail-smallest');
+            element.classList.remove('detail-not-interactive');
             if (fontSize == 'small') {
                 element.classList.add('detail-small');
             } else if (fontSize == 'smallest') {
                 element.classList.add('detail-smallest');
+            }
+            if (!isInteractive) {
+                element.classList.add('detail-not-interactive');
             }
         } else {
             element.parentElement.style.display = 'none';
@@ -690,7 +710,8 @@ function toggleDungeonEntry(index) {
 function dungeonEntryInfo(index) {
     var entryName = getDungeonEntryName(index);
     if (items[entryName] > 0) {
-        var text = entrances[entryName] + arrow + shortDungeonNames[index];
+        var dungeonName = dungeons[index];
+        var text = entrances[dungeonName] + arrow + shortDungeonNames[index];
     } else {
         var text = entryName;
     }
@@ -709,7 +730,7 @@ function caveEntryInfo(index) {
     var entryName = getCaveEntryName(index);
     if (items[entryName] > 0) {
         var caveName = getCaveName(index);
-        var text = entrances[entryName] + arrow + caveName;
+        var text = entrances[caveName] + arrow + caveName;
     } else {
         var text = entryName;
     }
