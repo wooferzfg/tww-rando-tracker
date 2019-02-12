@@ -1,7 +1,7 @@
 function itemsRequiredForOtherLocation(reqName) {
     var otherLocation = reqName.substring('Can Access Other Location "'.length, reqName.length - 1);
-    var splitExpression = getSplitExpression(itemLocations[otherLocation].Need)
-    return itemsRequiredForLogicalExpression(splitExpression);
+    var requirements = getLocationRequirements(otherLocation);
+    return itemsRequiredForLogicalExpression(requirements);
 }
 
 function itemsForRequirement(reqName) {
@@ -341,10 +341,8 @@ function sortItems(itemsReq, isExprTrue) {
     });
 }
 
-function itemsRequiredForLocation(generalLocation, detailedLocation) {
-    var fullName = getFullLocationName(generalLocation, detailedLocation);
-    var splitExpression = getSplitExpression(itemLocations[fullName].Need);
-    var itemsReq = itemsRequiredForLogicalExpression(splitExpression);
+function itemsRequiredForExpression(locationRequirements) {
+    var itemsReq = itemsRequiredForLogicalExpression(locationRequirements);
     for (var i = 1; i <= 3; i++) { // repeat so we can catch new duplicates that appear as we simplify
         itemsReq = removeDuplicateItems(itemsReq);
         itemsReq = removeChildren(itemsReq);

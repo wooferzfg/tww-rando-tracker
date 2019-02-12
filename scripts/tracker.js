@@ -1,8 +1,11 @@
 const imageDir = 'images/';
+const arrow = " \u2192 ";
 
 var disableMap = false;
 var currentGeneralLocation = '';
 var currentLocationIsDungeon = false;
+var currentExit = ''; // The full name of the exit; for example, 'Dragon Roost Cavern'
+var currentEntryName = ''; // The name of the entry item; for example, 'Entered DRC'
 var showNonProgressLocations = false;
 var singleColorBackground = false;
 var hideLocationLogic = false;
@@ -144,7 +147,7 @@ function refreshAllImagesAndCounts() {
             // dungeon entry
             var l = 'entry' + i.toString();
             if (isRandomEntrances) {
-                var entryName = document.getElementById(l).innerText;
+                var entryName = getDungeonEntryName(i);
                 if (items[entryName] === 0) {
                     setBackgroundUrl(l, 'dungeon_noentry.png');
                 } else {
@@ -213,6 +216,11 @@ function refreshAllImagesAndCounts() {
         var chests = getChestCountsForLocation(dungeons[i], true);
         setChestsForElement(document.getElementById(l), chests.progress, chests.available, chests.total);
     }
+
+    // entrances
+    if (isRandomEntrances || isRandomCaves) {
+        document.getElementById('view-entrances-button').removeAttribute('disabled');
+    }
 }
 
 function setImage(id, path) {
@@ -246,6 +254,7 @@ function setChestsForElement(element, progress, available, total) {
 
 function setElementColor(element, color) {
     element.classList.remove('black-text');
+    element.classList.remove('black-text-strikethrough');
     element.classList.remove('red-text');
     element.classList.remove('yellow-text');
     element.classList.remove('blue-text');
@@ -323,19 +332,13 @@ function toggleKey(element, maxKeys, dungeonIndex) {
     dungeonMapInfo(dungeonIndex);
 }
 
-function toggleEntry(element, dungeonIndex) {
-    disableMap = true;
-    var entryName = element.innerText;
-    toggleItem(entryName, 1);
-    mapItemInfo(element);
-    dungeonMapInfo(dungeonIndex);
-}
-
 function shrinkMap() {
     removeVisibleTooltips();
     document.getElementById('chartmap').style.display = 'block';
     document.getElementById('zoommap').style.display = 'none';
     currentGeneralLocation = '';
+    currentExit = '';
+    currentEntryName = '';
     recreateTooltips();
 }
 
@@ -379,8 +382,8 @@ function getTextForExpression(expression, isParentExprTrue) {
     return result;
 }
 
-function setTooltipText(generalLocation, detailedLocation) {
-    var itemsRequiredExpr = itemsRequiredForLocation(generalLocation, detailedLocation);
+function setTooltipTextForLocation(locationRequirements) {
+    var itemsRequiredExpr = itemsRequiredForExpression(locationRequirements);
     if (!itemsRequiredExpr || !itemsRequiredExpr.items || itemsRequiredExpr.items == 'None') {
         var element = document.createElement('span');
         element.innerText = 'None';
@@ -411,32 +414,40 @@ function setTooltipText(generalLocation, detailedLocation) {
     $('.tool-tip-text').html(list.outerHTML);
 }
 
-function addTooltipToElement(element) {
+function addTooltipToLocationElement(element) {
     var detailedLocation = element.innerText;
     if (!locationsChecked[currentGeneralLocation][detailedLocation]) {
-        setTooltipText(currentGeneralLocation, detailedLocation);
-        $(element).qtip({
-            content: {
-                text: $('.tool-tip-text').clone(),
-                title: 'Items Required'
-            },
-            position: {
-                target: 'mouse',
-                adjust: {
-                    x: 15
-                }
-            }
-        });
+        var fullLocationName = getFullLocationName(currentGeneralLocation, detailedLocation);
+        var locationRequirements = getLocationRequirements(fullLocationName);
+        setTooltipTextForLocation(locationRequirements);
+        createTooltip(element, $('.tool-tip-text').clone(), 'Items Required');
+    }
+}
+
+function addTooltipToEntranceElement(element) {
+    var entranceName = element.innerText;
+    var macroName = getMacroForEntranceName(entranceName);
+    var exitName = getExitForEntrance(entranceName);
+    if (exitName) {
+        createTooltip(element, exitName, 'Entrance Leads To');
+    } else if (!hideLocationLogic) {
+        var requirements = getSplitExpression(macroName);
+        setTooltipTextForLocation(requirements);
+        createTooltip(element, $('.tool-tip-text').clone(), 'Items Required');
     }
 }
 
 function addSongTooltip(element) {
     var id = '#' + element.id + '-notes';
     var songName = element.name;
+    createTooltip(element, $(id).clone(), songName);
+}
+
+function createTooltip(element, text, title) {
     $(element).qtip({
         content: {
-            text: $(id).clone(),
-            title: songName
+            text: text,
+            title: title
         },
         position: {
             target: 'mouse',
@@ -458,8 +469,14 @@ function recreateTooltips() {
             var l = 'detaillocation' + i.toString();
             var element = document.getElementById(l);
             removeTooltipFromElement(element);
-            if (!hideLocationLogic && element.style.display == 'block') {
-                addTooltipToElement(element);
+            if (element.parentElement.style.display == 'table-cell') {
+                if (currentGeneralLocation.length > 0) {
+                    if (!hideLocationLogic) {
+                        addTooltipToLocationElement(element);
+                    }
+                } else if (currentExit.length > 0) {
+                    addTooltipToEntranceElement(element);
+                }
             }
         }
     }
@@ -494,57 +511,121 @@ function toggleMap(index, isDungeon) {
         return;
     }
 
-    document.getElementById('chartmap').style.display = 'none';
-    document.getElementById('zoommap').style.display = 'block';
+    currentExit = '';
+    currentEntryName = '';
+    openZoomMap();
+    setHeaderTexts("X Close", "", true);
 
-    var zoommapBackground = document.getElementById('zoommap-background');
     if (isDungeon) {
         currentGeneralLocation = dungeons[index];
         currentLocationIsDungeon = true;
-        zoommapBackground.style.backgroundImage = 'url(\'' + imageDir + 'dungeon_mapfull' + index + '.png\')';
+        setBackgroundUrl('zoommap-background', 'dungeon_mapfull' + index + '.png');
     } else {
         currentGeneralLocation = islands[index];
         currentLocationIsDungeon = false;
-        zoommapBackground.style.backgroundImage = 'url(\'' + imageDir + 'mapfull' + index + '.png\')';
+        setBackgroundUrl('zoommap-background', 'mapfull' + index + '.png');
     }
 
-    var fullClear = document.getElementById('full-clear');
     if (isRaceMode && isDungeon && dungeons[index] != "Ganon's Tower") {
-        fullClear.style.display = 'block';
+        setFullClearStyle('block');
     } else {
-        fullClear.style.display = 'none';
+        setFullClearStyle('none');
     }
 
     var detailedLocations = getDetailedLocations(currentGeneralLocation, isDungeon);
+    setLocationsList(detailedLocations, true);
 
+    refreshLocationColors();
+    recreateTooltips();
+}
+
+function viewEntrances(choosingEntrance, isCaveExit) {
+    currentGeneralLocation = '';
+    if (!choosingEntrance) {
+        currentExit = 'ViewEntrances';
+        currentEntryName = '';
+    }
+
+    openZoomMap();
+
+    if (choosingEntrance) {
+        setHeaderTexts('Choose Entrance', 'X Cancel', false);
+    } else {
+        setHeaderTexts('Randomized Entrances', 'X Close', false);
+    }
+
+    setBackgroundUrl('zoommap-background', 'mapempty.png');
+    setFullClearStyle('none');
+
+    var showAllEntrances = !choosingEntrance || isRandomTogether;
+    var entrancesList = getRandomEntrances(isCaveExit, showAllEntrances);
+    setLocationsList(entrancesList, choosingEntrance);
+
+    refreshEntranceColors();
+    recreateTooltips();
+}
+
+function openZoomMap() {
+    document.getElementById('chartmap').style.display = 'none';
+    document.getElementById('zoommap').style.display = 'block';
+}
+
+function setHeaderTexts(firstText, secondText, firstPointer) {
+    var firstHeader = document.getElementById('first-header');
+    var secondHeader = document.getElementById('second-header');
+
+    firstHeader.innerText = firstText;
+    if (firstPointer) {
+        firstHeader.style.cursor = 'pointer';
+        firstHeader.style.pointerEvents = 'auto';
+    } else {
+        firstHeader.style.cursor = 'default';
+        firstHeader.style.pointerEvents = 'none';
+    }
+
+    if (secondText) {
+        secondHeader.innerText = secondText;
+        secondHeader.parentElement.style.display = 'block';
+    } else {
+        secondHeader.parentElement.style.display = 'none';
+    }
+}
+
+function setFullClearStyle(styleText) {
+    var fullClear = document.getElementById('full-clear').parentElement;
+    fullClear.style.display = styleText;
+}
+
+function setLocationsList(locationsList, isInteractive) {
     var fontSize = 'normal';
-    if (detailedLocations.length > 24) { // 3 columns
+    if (locationsList.length > 24) { // 3 columns
         fontSize = 'smallest';
     }
-    else if (detailedLocations.length > 12) { // 2 columns
+    else if (locationsList.length > 12) { // 2 columns
         fontSize = 'small';
     }
 
     for (var i = 0; i < 36; i++) {
         var l = 'detaillocation' + i.toString();
         var element = document.getElementById(l);
-        if (i < detailedLocations.length) {
-            element.style.display = 'block';
-            element.innerText = detailedLocations[i];
+        if (i < locationsList.length) {
+            element.parentElement.style.display = 'table-cell';
+            element.innerText = locationsList[i];
             element.classList.remove('detail-small');
             element.classList.remove('detail-smallest');
+            element.classList.remove('detail-not-interactive');
             if (fontSize == 'small') {
                 element.classList.add('detail-small');
             } else if (fontSize == 'smallest') {
                 element.classList.add('detail-smallest');
             }
+            if (!isInteractive) {
+                element.classList.add('detail-not-interactive');
+            }
         } else {
-            element.style.display = 'none';
+            element.parentElement.style.display = 'none';
         }
     }
-
-    refreshLocationColors();
-    recreateTooltips();
 }
 
 function refreshLocationColors() {
@@ -555,29 +636,64 @@ function refreshLocationColors() {
     for (var i = 0; i < 36; i++) {
         var l = 'detaillocation' + i.toString();
         var element = document.getElementById(l);
-        var detailedLocation = element.innerText;
-        if (locationsChecked[currentGeneralLocation][detailedLocation]) {
-            setElementColor(element, 'black-text');
-            element.style.setProperty('text-decoration', 'line-through');
-        } else {
-            element.style.setProperty('text-decoration', 'none');
-            if (locationsAreAvailable[currentGeneralLocation][detailedLocation]) {
-                if (locationsAreProgress[currentGeneralLocation][detailedLocation]) {
+        if (element.parentElement.style.display == 'table-cell') {
+            var detailedLocation = element.innerText;
+            if (locationsChecked[currentGeneralLocation][detailedLocation]) {
+                setElementColor(element, 'black-text-strikethrough');
+            } else {
+                if (locationsAreAvailable[currentGeneralLocation][detailedLocation]) {
+                    if (locationsAreProgress[currentGeneralLocation][detailedLocation]) {
+                        setElementColor(element, 'blue-text');
+                    } else {
+                        setElementColor(element, 'yellow-text');
+                    }
+                } else {
+                    setElementColor(element, 'red-text');
+                }
+            }
+        }
+    }
+}
+
+function refreshEntranceColors() {
+    if (currentExit.length === 0) {
+        return;
+    }
+
+    for (var i = 0; i < 36; i++) {
+        var l = 'detaillocation' + i.toString();
+        var element = document.getElementById(l);
+        if (element.parentElement.style.display == 'table-cell') {
+            var entranceName = element.innerText;
+            var exitName = getExitForEntrance(entranceName);
+            if (exitName) {
+                setElementColor(element, 'black-text-strikethrough');
+            } else {
+                var macroName = getMacroForEntranceName(entranceName);
+                var requirements = getSplitExpression(macroName);
+                if (hideLocationLogic || checkLogicalExpressionReq(requirements)) {
                     setElementColor(element, 'blue-text');
                 } else {
-                    setElementColor(element, 'yellow-text');
+                    setElementColor(element, 'red-text');
                 }
-            } else {
-                setElementColor(element, 'red-text');
             }
         }
     }
 }
 
 function toggleLocation(element) {
-    var detailedLocation = element.innerText;
-    var newLocationChecked = !locationsChecked[currentGeneralLocation][detailedLocation];
-    locationsChecked[currentGeneralLocation][detailedLocation] = newLocationChecked;
+    if (currentGeneralLocation.length > 0) {
+        var detailedLocation = element.innerText;
+        var newLocationChecked = !locationsChecked[currentGeneralLocation][detailedLocation];
+        locationsChecked[currentGeneralLocation][detailedLocation] = newLocationChecked;
+    } else if (currentEntryName.length > 0) {
+        var entranceName = element.innerText;
+        if (!getExitForEntrance(entranceName)) {
+            items[currentEntryName] = 1;
+            entrances[currentExit] = entranceName;
+            shrinkMap();
+        }
+    }
     dataChanged();
 }
 
@@ -638,17 +754,60 @@ function chartInfo(index) {
     document.getElementById('map-item-info').innerText = chartName;
 }
 
+function toggleDungeonEntry(index) {
+    disableMap = true;
+    var entryName = getDungeonEntryName(index);
+    var exitName = dungeons[index];
+    if (items[entryName] === 0) {
+        currentExit = exitName;
+        currentEntryName = entryName;
+        viewEntrances(true, false);
+    } else {
+        items[entryName] = 0;
+        entrances[exitName] = null;
+        dungeonEntryInfo(index);
+        dungeonMapInfo(index);
+        dataChanged();
+    }
+}
+
+function dungeonEntryInfo(index) {
+    var entryName = getDungeonEntryName(index);
+    if (items[entryName] > 0) {
+        var dungeonName = dungeons[index];
+        var text = entrances[dungeonName] + arrow + shortDungeonNames[index];
+    } else {
+        var text = entryName;
+    }
+    document.getElementById('map-item-info').innerText = text;
+}
+
 function toggleCaveEntry(caveIndex, islandIndex) {
     disableMap = true;
     var entryName = getCaveEntryName(caveIndex);
-    toggleItem(entryName, 1);
-    caveEntryInfo(caveIndex);
-    mapInfo(islandIndex);
+    var exitName = getCaveName(caveIndex);
+    if (items[entryName] === 0) {
+        currentExit = exitName;
+        currentEntryName = entryName;
+        viewEntrances(true, true);
+    } else {
+        items[entryName] = 0;
+        entrances[exitName] = null;
+        caveEntryInfo(caveIndex);
+        mapInfo(islandIndex);
+        dataChanged();
+    }
 }
 
 function caveEntryInfo(index) {
-    var entryName = getCaveEntryName(index)
-    document.getElementById('map-item-info').innerText = entryName;
+    var entryName = getCaveEntryName(index);
+    if (items[entryName] > 0) {
+        var caveName = getCaveName(index);
+        var text = entrances[caveName] + arrow + caveName;
+    } else {
+        var text = entryName;
+    }
+    document.getElementById('map-item-info').innerText = text;
 }
 
 function fullClear() {

@@ -142,8 +142,8 @@ function getProgressiveRequirementName(itemName, numRequired) {
 
 function checkOtherLocationReq(reqName) {
     var otherLocation = reqName.substring('Can Access Other Location "'.length, reqName.length - 1);
-    var splitExpression = getSplitExpression(itemLocations[otherLocation].Need)
-    return checkLogicalExpressionReq(splitExpression);
+    var requirements = getLocationRequirements(otherLocation);
+    return checkLogicalExpressionReq(requirements);
 }
 
 function getSplitExpression(expression) {
@@ -179,8 +179,8 @@ function checkLogicalExpressionReq(splitExpression) {
 }
 
 function isLocationAvailable(locationName) {
-    var splitExpression = getSplitExpression(itemLocations[locationName].Need)
-    return checkLogicalExpressionReq(splitExpression);
+    var requirements = getLocationRequirements(locationName);
+    return checkLogicalExpressionReq(requirements);
 }
 
 function isLocationProgress(locationName) {
@@ -196,4 +196,8 @@ function isLocationProgress(locationName) {
         }
     }
     return true;
+}
+
+function getLocationRequirements(locationName) {
+    return getSplitExpression(itemLocations[locationName].Need);
 }

@@ -88,6 +88,7 @@ body {
 .select-container select {
     height: 34px;
     font-size: 1em;
+    cursor: pointer;
 }
 
 #num_starting_triforce_shards {
@@ -200,14 +201,14 @@ button,
 select {
     background: linear-gradient(#d2d2d2,#c8c8c8);
     font-family: 'Fira Sans', sans-serif;
-    cursor: pointer;
     min-width: 120px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-button:hover {
+button:hover:enabled {
     border-color: #323232;
+    cursor: pointer;
 }
 
 fieldset {
@@ -348,7 +349,7 @@ legend {
     margin-right: 8px;
     width: 364px;
     height: 346px;
-    margin-bottom: 80px;
+    margin-bottom: 100px;
 }
 
 #chartmap {
@@ -456,6 +457,7 @@ legend {
 #zoommap table {
     padding-top: 5px;
     width: 100%;
+    table-layout: fixed;
 }
 
 #zoommap td {
@@ -484,9 +486,13 @@ legend {
 }
 
 .detailspan {
-    line-height: 1em;
+    line-height: 0.95em;
     padding-bottom: 5px;
     cursor: pointer;
+}
+
+.detailspan.detail-not-interactive {
+    cursor: auto;
 }
 
 .detail-small {
@@ -494,11 +500,15 @@ legend {
 }
 
 .detail-smallest {
-    font-size: 10px;
+    font-size: 10.5px;
 }
 
 .black-text {
     color: #000000;
+}
+
+.black-text-strikethrough {
+    text-decoration: line-through;
 }
 
 .red-text {
@@ -634,17 +644,11 @@ legend {
     display: none;
 }
 
-#save-progress-button {
+.tracker-container button {
     margin-left: 0;
-}
-
-#toggle-locations-button,
-#toggle-background-button {
-    min-width: 225px;
-}
-
-#toggle-logic-button {
-    min-width: 150px;
+    margin-right: 0;
+    margin-top: 5px;
+    width: 225px;
 }
 
 #toggle-auto-save-checkbox {
