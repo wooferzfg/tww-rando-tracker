@@ -249,7 +249,7 @@ var keys = {
     'WT Small Key': 0,
 };
 var locationsChecked = {};
-var entrances = {};
+var entrances = {}; // the key is the exit name, the value is the entrance name
 var flags = [];
 var isKeyLunacy = false;
 var isRandomEntrances = false;
