@@ -507,6 +507,10 @@ legend {
     color: #000000;
 }
 
+.black-text-strikethrough {
+    text-decoration: line-through;
+}
+
 .red-text {
     color: #CC2929;
 }

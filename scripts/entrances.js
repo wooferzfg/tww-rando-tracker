@@ -2,8 +2,10 @@ const dungeonEntrances = [
     'On Dragon Roost Island',
     'In Forest Haven Sector',
     'In Tower of the Gods Sector',
+    '',
     'On Headstone Island',
-    'On Gale Isle'
+    'On Gale Isle',
+    ''
 ];
 const caveEntrances = [
     'Outset Island',

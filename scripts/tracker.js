@@ -4,6 +4,7 @@ const arrow = " \u2192 ";
 var disableMap = false;
 var currentGeneralLocation = '';
 var currentLocationIsDungeon = false;
+var currentExit = '';
 var showNonProgressLocations = false;
 var singleColorBackground = false;
 var hideLocationLogic = false;
@@ -252,6 +253,7 @@ function setChestsForElement(element, progress, available, total) {
 
 function setElementColor(element, color) {
     element.classList.remove('black-text');
+    element.classList.remove('black-text-strikethrough');
     element.classList.remove('red-text');
     element.classList.remove('yellow-text');
     element.classList.remove('blue-text');
@@ -334,6 +336,7 @@ function shrinkMap() {
     document.getElementById('chartmap').style.display = 'block';
     document.getElementById('zoommap').style.display = 'none';
     currentGeneralLocation = '';
+    currentExit = '';
     recreateTooltips();
 }
 
@@ -457,7 +460,7 @@ function removeTooltipFromElement(element) {
     $(element).qtip('destroy', true);
 }
 
-function recreateTooltips(showLocations) {
+function recreateTooltips() {
     if (document.getElementById('zoommap').style.display == 'block') {
         removeVisibleTooltips();
         for (var i = 0; i < 36; i++) {
@@ -465,7 +468,7 @@ function recreateTooltips(showLocations) {
             var element = document.getElementById(l);
             removeTooltipFromElement(element);
             if (element.parentElement.style.display == 'table-cell') {
-                if (showLocations) {
+                if (currentGeneralLocation.length > 0) {
                     if (!hideLocationLogic) {
                         addTooltipToLocationElement(element);
                     }
@@ -506,8 +509,9 @@ function toggleMap(index, isDungeon) {
         return;
     }
 
+    currentExit = '';
     openZoomMap();
-    setHeaderTexts("X Close", "", true);    
+    setHeaderTexts("X Close", "", true);
 
     if (isDungeon) {
         currentGeneralLocation = dungeons[index];
@@ -529,10 +533,15 @@ function toggleMap(index, isDungeon) {
     setLocationsList(detailedLocations, true);
 
     refreshLocationColors();
-    recreateTooltips(true);
+    recreateTooltips();
 }
 
 function viewEntrances(choosingEntrance) {
+    currentGeneralLocation = '';
+    if (!choosingEntrance) {
+        currentExit = 'ViewEntrances';
+    }
+
     openZoomMap();
     setHeaderTexts('Randomized Entrances', 'X Close', false);
     setBackgroundUrl('zoommap-background', 'mapempty.png');
@@ -542,7 +551,8 @@ function viewEntrances(choosingEntrance) {
     var entrancesList = getRandomEntrances(true, showAllEntrances);
     setLocationsList(entrancesList, choosingEntrance);
 
-    recreateTooltips(false);
+    refreshEntranceColors();
+    recreateTooltips();
 }
 
 function openZoomMap() {
@@ -616,20 +626,46 @@ function refreshLocationColors() {
     for (var i = 0; i < 36; i++) {
         var l = 'detaillocation' + i.toString();
         var element = document.getElementById(l);
-        var detailedLocation = element.innerText;
-        if (locationsChecked[currentGeneralLocation][detailedLocation]) {
-            setElementColor(element, 'black-text');
-            element.style.setProperty('text-decoration', 'line-through');
-        } else {
-            element.style.setProperty('text-decoration', 'none');
-            if (locationsAreAvailable[currentGeneralLocation][detailedLocation]) {
-                if (locationsAreProgress[currentGeneralLocation][detailedLocation]) {
+        if (element.parentElement.style.display == 'table-cell') {
+            var detailedLocation = element.innerText;
+            if (locationsChecked[currentGeneralLocation][detailedLocation]) {
+                setElementColor(element, 'black-text-strikethrough');
+            } else {
+                if (locationsAreAvailable[currentGeneralLocation][detailedLocation]) {
+                    if (locationsAreProgress[currentGeneralLocation][detailedLocation]) {
+                        setElementColor(element, 'blue-text');
+                    } else {
+                        setElementColor(element, 'yellow-text');
+                    }
+                } else {
+                    setElementColor(element, 'red-text');
+                }
+            }
+        }
+    }
+}
+
+function refreshEntranceColors() {
+    if (currentExit.length === 0) {
+        return;
+    }
+
+    for (var i = 0; i < 36; i++) {
+        var l = 'detaillocation' + i.toString();
+        var element = document.getElementById(l);
+        if (element.parentElement.style.display == 'table-cell') {
+            var entranceName = element.innerText;
+            var exitName = getExitForEntrance(entranceName);
+            if (exitName) {
+                setElementColor(element, 'black-text-strikethrough');
+            } else {
+                var macroName = getMacroForEntranceName(entranceName);
+                var requirements = getSplitExpression(macroName);
+                if (hideLocationLogic || checkLogicalExpressionReq(requirements)) {
                     setElementColor(element, 'blue-text');
                 } else {
-                    setElementColor(element, 'yellow-text');
+                    setElementColor(element, 'red-text');
                 }
-            } else {
-                setElementColor(element, 'red-text');
             }
         }
     }

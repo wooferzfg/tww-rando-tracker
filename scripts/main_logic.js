@@ -294,6 +294,7 @@ function dataChanged() {
     setLocationsAreAvailable();
     refreshAllImagesAndCounts();
     refreshLocationColors();
+    refreshEntranceColors();
     recreateTooltips();
     updateStatistics();
 }
