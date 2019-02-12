@@ -38,7 +38,7 @@ const islands = [
     'Southern Triangle Island',
     'Private Oasis',
     'Bomb Island',
-    'Bird\'s Peak Rock',
+    "Bird's Peak Rock",
     'Diamond Steppe Island',
     'Five-Eye Reef',
     'Shark Island',
@@ -435,8 +435,16 @@ function incrementShield() {
     }
 }
 
-function getCaveEntryName(index) {
-    return 'Entered ' + caves[index]
+function getDungeonEntryName(index) {
+    return 'Entered ' + shortDungeonNames[index];
+}
+
+function getCaveName(index) {
+    return caves[index]
         .replace('Secret ', '')
         .replace('Warp Maze ', '');
+}
+
+function getCaveEntryName(index) {
+    return 'Entered ' + getCaveName(index);
 }

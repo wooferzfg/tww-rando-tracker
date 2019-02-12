@@ -1,4 +1,5 @@
 const imageDir = 'images/';
+const arrow = " \u2192 ";
 
 var disableMap = false;
 var currentGeneralLocation = '';
@@ -144,7 +145,7 @@ function refreshAllImagesAndCounts() {
             // dungeon entry
             var l = 'entry' + i.toString();
             if (isRandomEntrances) {
-                var entryName = document.getElementById(l).innerText;
+                var entryName = getDungeonEntryName(i);
                 if (items[entryName] === 0) {
                     setBackgroundUrl(l, 'dungeon_noentry.png');
                 } else {
@@ -320,14 +321,6 @@ function toggleKey(element, maxKeys, dungeonIndex) {
     if (keyName.includes('Small')) {
         smallKeyInfo(element, maxKeys);
     }
-    dungeonMapInfo(dungeonIndex);
-}
-
-function toggleEntry(element, dungeonIndex) {
-    disableMap = true;
-    var entryName = element.innerText;
-    toggleItem(entryName, 1);
-    mapItemInfo(element);
     dungeonMapInfo(dungeonIndex);
 }
 
@@ -638,6 +631,24 @@ function chartInfo(index) {
     document.getElementById('map-item-info').innerText = chartName;
 }
 
+function toggleDungeonEntry(index) {
+    disableMap = true;
+    var entryName = getDungeonEntryName(index);
+    toggleItem(entryName, 1);
+    dungeonEntryInfo(index);
+    dungeonMapInfo(index);
+}
+
+function dungeonEntryInfo(index) {
+    var entryName = getDungeonEntryName(index);
+    if (items[entryName] > 0) {
+        var text = entrances[entryName] + arrow + shortDungeonNames[index];
+    } else {
+        var text = entryName;
+    }
+    document.getElementById('map-item-info').innerText = text;
+}
+
 function toggleCaveEntry(caveIndex, islandIndex) {
     disableMap = true;
     var entryName = getCaveEntryName(caveIndex);
@@ -647,8 +658,14 @@ function toggleCaveEntry(caveIndex, islandIndex) {
 }
 
 function caveEntryInfo(index) {
-    var entryName = getCaveEntryName(index)
-    document.getElementById('map-item-info').innerText = entryName;
+    var entryName = getCaveEntryName(index);
+    if (items[entryName] > 0) {
+        var caveName = getCaveName(index);
+        var text = entrances[entryName] + arrow + caveName;
+    } else {
+        var text = entryName;
+    }
+    document.getElementById('map-item-info').innerText = text;
 }
 
 function fullClear() {
