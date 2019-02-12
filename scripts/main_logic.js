@@ -147,6 +147,35 @@ const shortDungeonNames = [
     'WT',
     'GT'
 ];
+const dungeonEntrances = [
+    'On Dragon Roost Island',
+    'In Forest Haven Sector',
+    'In Tower of the Gods Sector',
+    'On Headstone Island',
+    'On Gale Isle'
+];
+const caveEntrances = [
+    'Outset Island',
+    'Dragon Roost Island',
+    'Fire Mountain',
+    'Ice Ring Isle',
+    'Private Oasis',
+    'Needle Rock Isle',
+    'Angular Isles',
+    'Boating Course',
+    'Stone Watcher Island',
+    'Overlook Island',
+    "Bird's Peak Rock",
+    'Pawprint Isle',
+    'Pawprint Isle Side Isle',
+    'Diamond Steppe Island',
+    'Bomb Island',
+    'Rock Spire Isle',
+    'Shark Island',
+    'Cliff Plateau Isles',
+    'Horseshoe Island',
+    'Star Island'
+];
 
 // tracker should modify these
 var items = {
@@ -220,6 +249,7 @@ var keys = {
     'WT Small Key': 0,
 };
 var locationsChecked = {};
+var entrances = {};
 var flags = [];
 var isKeyLunacy = false;
 var isRandomEntrances = false;
