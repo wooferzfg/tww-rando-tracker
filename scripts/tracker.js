@@ -498,11 +498,11 @@ function toggleMap(index, isDungeon) {
     if (isDungeon) {
         currentGeneralLocation = dungeons[index];
         currentLocationIsDungeon = true;
-        setBackgroundUrl('zoommap', 'dungeon_mapfull' + index + '.png');
+        setBackgroundUrl('zoommap-background', 'dungeon_mapfull' + index + '.png');
     } else {
         currentGeneralLocation = islands[index];
         currentLocationIsDungeon = false;
-        setBackgroundUrl('zoommap', 'mapfull' + index + '.png');
+        setBackgroundUrl('zoommap-background', 'mapfull' + index + '.png');
     }
 
     var fullClear = document.getElementById('full-clear');
