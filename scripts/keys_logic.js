@@ -57,7 +57,9 @@ function isPotentialUnavailableKeyLocation(dungeonName, detailedLocation) {
 }
 
 function getKeyRequirementsForLocation(dungeonName, detailedLocation) {
-    var expression = itemsRequiredForLocation(dungeonName, detailedLocation);
+    var fullName = getFullLocationName(dungeonName, detailedLocation);
+    var requirements = getLocationRequirements(fullName);
+    var expression = itemsRequiredForExpression(requirements);
     var itemsReq = expression.items;
     if (!itemsReq) {
         itemsReq = [];

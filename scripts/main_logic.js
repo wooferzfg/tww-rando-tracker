@@ -38,7 +38,7 @@ const islands = [
     'Southern Triangle Island',
     'Private Oasis',
     'Bomb Island',
-    'Bird\'s Peak Rock',
+    "Bird's Peak Rock",
     'Diamond Steppe Island',
     'Five-Eye Reef',
     'Shark Island',
@@ -220,10 +220,12 @@ var keys = {
     'WT Small Key': 0,
 };
 var locationsChecked = {};
+var entrances = {}; // the key is the exit name, the value is the entrance name
 var flags = [];
 var isKeyLunacy = false;
 var isRandomEntrances = false;
 var isRandomCaves = false;
+var isRandomTogether = false;
 var isRandomCharts = false;
 var swordMode = 'sword';
 var skipRematchBosses = false; // on by default in settings, but we set it to false for backwards compatibility
@@ -292,6 +294,7 @@ function dataChanged() {
     setLocationsAreAvailable();
     refreshAllImagesAndCounts();
     refreshLocationColors();
+    refreshEntranceColors();
     recreateTooltips();
     updateStatistics();
 }
@@ -402,10 +405,4 @@ function incrementShield() {
         items["Hero's Shield"] = 0;
         items['Mirror Shield'] = 0;
     }
-}
-
-function getCaveEntryName(index) {
-    return 'Entered ' + caves[index]
-        .replace('Secret ', '')
-        .replace('Warp Maze ', '');
 }

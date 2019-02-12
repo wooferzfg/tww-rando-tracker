@@ -23,7 +23,7 @@ function updateDungeonEntranceMacros() {
             var dungeonName = dungeons[i];
             if (isMainDungeon(dungeonName)) {
                 var macroName = 'Can Access ' + dungeonName;
-                var entryName = 'Entered ' + shortDungeonNames[i];
+                var entryName = getDungeonEntryName(i);
                 macros[macroName] = entryName;
                 items[entryName] = 0;
             }
