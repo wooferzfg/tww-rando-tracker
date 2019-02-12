@@ -495,15 +495,14 @@ function toggleMap(index, isDungeon) {
     document.getElementById('chartmap').style.display = 'none';
     document.getElementById('zoommap').style.display = 'block';
 
-    var zoommapBackground = document.getElementById('zoommap-background');
     if (isDungeon) {
         currentGeneralLocation = dungeons[index];
         currentLocationIsDungeon = true;
-        zoommapBackground.style.backgroundImage = 'url(\'' + imageDir + 'dungeon_mapfull' + index + '.png\')';
+        setBackgroundUrl('zoommap', 'dungeon_mapfull' + index + '.png');
     } else {
         currentGeneralLocation = islands[index];
         currentLocationIsDungeon = false;
-        zoommapBackground.style.backgroundImage = 'url(\'' + imageDir + 'mapfull' + index + '.png\')';
+        setBackgroundUrl('zoommap', 'mapfull' + index + '.png');
     }
 
     var fullClear = document.getElementById('full-clear');
@@ -514,21 +513,27 @@ function toggleMap(index, isDungeon) {
     }
 
     var detailedLocations = getDetailedLocations(currentGeneralLocation, isDungeon);
+    setLocationsList(detailedLocations);
 
+    refreshLocationColors();
+    recreateTooltips();
+}
+
+function setLocationsList(locationsList) {
     var fontSize = 'normal';
-    if (detailedLocations.length > 24) { // 3 columns
+    if (locationsList.length > 24) { // 3 columns
         fontSize = 'smallest';
     }
-    else if (detailedLocations.length > 12) { // 2 columns
+    else if (locationsList.length > 12) { // 2 columns
         fontSize = 'small';
     }
 
     for (var i = 0; i < 36; i++) {
         var l = 'detaillocation' + i.toString();
         var element = document.getElementById(l);
-        if (i < detailedLocations.length) {
+        if (i < locationsList.length) {
             element.style.display = 'block';
-            element.innerText = detailedLocations[i];
+            element.innerText = locationsList[i];
             element.classList.remove('detail-small');
             element.classList.remove('detail-smallest');
             if (fontSize == 'small') {
@@ -540,9 +545,6 @@ function toggleMap(index, isDungeon) {
             element.style.display = 'none';
         }
     }
-
-    refreshLocationColors();
-    recreateTooltips();
 }
 
 function refreshLocationColors() {
