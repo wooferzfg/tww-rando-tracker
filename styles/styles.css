@@ -88,6 +88,7 @@ body {
 .select-container select {
     height: 34px;
     font-size: 1em;
+    cursor: pointer;
 }
 
 #num_starting_triforce_shards {
