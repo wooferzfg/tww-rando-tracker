@@ -214,6 +214,11 @@ function refreshAllImagesAndCounts() {
         var chests = getChestCountsForLocation(dungeons[i], true);
         setChestsForElement(document.getElementById(l), chests.progress, chests.available, chests.total);
     }
+
+    // entrances
+    if (isRandomEntrances || isRandomCaves) {
+        document.getElementById('view-entrances-button').removeAttribute('disabled');
+    }
 }
 
 function setImage(id, path) {
