@@ -457,6 +457,7 @@ legend {
 #zoommap table {
     padding-top: 5px;
     width: 100%;
+    table-layout: fixed;
 }
 
 #zoommap td {

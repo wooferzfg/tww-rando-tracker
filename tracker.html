@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css">
     <script src="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
     <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+    <script src="./scripts/entrances.js"></script>
     <script src="./scripts/items_required_logic.js"></script>
     <script src="./scripts/keys_logic.js"></script>
     <script src="./scripts/locations_logic.js"></script>
@@ -618,10 +619,13 @@
                     <table>
                         <tr>
                             <td>
-                                <div onclick="shrinkMap();" class="detailspan">X Close</div>
+                                <div onclick="shrinkMap();" id="first-header" class="detailspan"></div>
                             </td>
                             <td>
                                 <div onclick="fullClear();" id="full-clear" class="detailspan">&check; Clear All</div>
+                            </td>
+                            <td>
+                                <div onclick="shrinkMap();" id="second-header" class="detailspan"></div>
                             </td>
                         </tr>
                         <tr>

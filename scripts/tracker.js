@@ -456,7 +456,7 @@ function recreateTooltips() {
             var l = 'detaillocation' + i.toString();
             var element = document.getElementById(l);
             removeTooltipFromElement(element);
-            if (!hideLocationLogic && element.style.display == 'block') {
+            if (!hideLocationLogic && element.parentElement.style.display == 'table-cell') {
                 addTooltipToElement(element);
             }
         }
@@ -492,8 +492,9 @@ function toggleMap(index, isDungeon) {
         return;
     }
 
-    document.getElementById('chartmap').style.display = 'none';
-    document.getElementById('zoommap').style.display = 'block';
+    setHeaderTexts("X Close", "", true);
+
+    openZoomMap();
 
     if (isDungeon) {
         currentGeneralLocation = dungeons[index];
@@ -505,7 +506,7 @@ function toggleMap(index, isDungeon) {
         setBackgroundUrl('zoommap-background', 'mapfull' + index + '.png');
     }
 
-    var fullClear = document.getElementById('full-clear');
+    var fullClear = document.getElementById('full-clear').parentElement;
     if (isRaceMode && isDungeon && dungeons[index] != "Ganon's Tower") {
         fullClear.style.display = 'block';
     } else {
@@ -517,6 +518,40 @@ function toggleMap(index, isDungeon) {
 
     refreshLocationColors();
     recreateTooltips();
+}
+
+function viewEntrances() {
+    openZoomMap();
+
+    setHeaderTexts('Randomized Entrances', 'X Cancel', false);
+
+    setBackgroundUrl('zoommap-background', 'mapempty.png');
+}
+
+function setHeaderTexts(firstText, secondText, firstPointer) {
+    var firstHeader = document.getElementById('first-header');
+    var secondHeader = document.getElementById('second-header');
+
+    firstHeader.innerText = firstText;
+    if (firstPointer) {
+        firstHeader.style.cursor = 'pointer';
+        firstHeader.style.pointerEvents = 'auto';
+    } else {
+        firstHeader.style.cursor = 'default';
+        firstHeader.style.pointerEvents = 'none';
+    }
+
+    if (secondText) {
+        secondHeader.innerText = secondText;
+        secondHeader.parentElement.style.display = 'block';
+    } else {
+        secondHeader.parentElement.style.display = 'none';
+    }
+}
+
+function openZoomMap() {
+    document.getElementById('chartmap').style.display = 'none';
+    document.getElementById('zoommap').style.display = 'block';
 }
 
 function setLocationsList(locationsList) {
@@ -532,7 +567,7 @@ function setLocationsList(locationsList) {
         var l = 'detaillocation' + i.toString();
         var element = document.getElementById(l);
         if (i < locationsList.length) {
-            element.style.display = 'block';
+            element.parentElement.style.display = 'table-cell';
             element.innerText = locationsList[i];
             element.classList.remove('detail-small');
             element.classList.remove('detail-smallest');
@@ -542,7 +577,7 @@ function setLocationsList(locationsList) {
                 element.classList.add('detail-smallest');
             }
         } else {
-            element.style.display = 'none';
+            element.parentElement.style.display = 'none';
         }
     }
 }
