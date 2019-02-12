@@ -146,6 +146,12 @@ function loadProgress() {
                     locationsChecked[generalLocation][detailedLocation] = getLocalStorageBool(locationName, false);
                 });
             });
+            var allEntrances = getRandomEntrances(false, true);
+            for (var i = 0; i < allEntrances.length; i++) {
+                var curExit = allEntrances[i];
+                var entranceName = getLocalStorageItem(curExit, "");
+                entrances[curExit] = entranceName;
+            }
 
             if (isCurrentVersionParam == '1') {
                 var notificationMessage = 'Progress loaded.';
@@ -198,6 +204,9 @@ function saveProgress(element) {
                 localStorage.setItem(locationName, locationValue);
             });
         })
+        Object.keys(entrances).forEach(function (exitName) {
+            localStorage.setItem(exitName, entrances[exitName]);
+        });
         localStorage.setItem('flags', flags.join(','));
         localStorage.setItem('isKeyLunacy', isKeyLunacy);
         localStorage.setItem('isRandomEntrances', isRandomEntrances);
