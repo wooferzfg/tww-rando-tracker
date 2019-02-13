@@ -40,6 +40,14 @@ function getFullLocationName(generalLocation, detailedLocation) {
     return generalLocation + ' - ' + detailedLocation;
 }
 
+function getSplitLocationName(fullName) {
+    var split = fullName.indexOf(' - ');
+    return {
+        general: fullName.substring(0, split),
+        detailed: fullName.substring(split + 3)
+    };
+}
+
 function getChestCountsForLocation(generalLocation, isDungeon) {
     var curChecked = 0;
     var curProgress = 0;
@@ -80,9 +88,9 @@ function getChestCountsForLocation(generalLocation, isDungeon) {
 function setLocations(valueCallback) {
     result = {};
     Object.keys(itemLocations).forEach(function (locationName) {
-        var split = locationName.indexOf(' - ');
-        var generalLocation = locationName.substring(0, split);
-        var detailedLocation = locationName.substring(split + 3);
+        var splitName = getSplitLocationName(locationName);
+        var generalLocation = splitName.general;
+        var detailedLocation = splitName.detailed;
         if (!(generalLocation in result)) {
             result[generalLocation] = {};
         }

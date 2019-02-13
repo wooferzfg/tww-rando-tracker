@@ -78,3 +78,21 @@ function updateTingleStatueReward() {
         tingleStatueReward.Need = 'Tingle Statue x5';
     }
 }
+
+function clearRaceModeBannedLocations() {
+    var mailbox = locationsChecked["Mailbox"];
+    if (currentGeneralLocation == "Forbidden Woods") {
+        mailbox["Letter from Orca"] = true;
+    } else if (currentGeneralLocation == "Forsaken Fortress") {
+        mailbox["Letter from Aryll"] = true;
+        mailbox["Letter from Tingle"] = true;
+        Object.keys(itemLocations).forEach(function (locationName) {
+            if (itemLocations[locationName].Types.includes("Eye Reef Chest")) {
+                var splitName = getSplitLocationName(locationName);
+                locationsChecked[splitName.general][splitName.detailed] = true;
+            }
+        });
+    } else if (currentGeneralLocation == "Earth Temple") {
+        mailbox["Letter from Baito"] = true;
+    }
+}
