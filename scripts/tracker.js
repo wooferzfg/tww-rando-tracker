@@ -467,8 +467,7 @@ function recreateTooltips() {
     if (document.getElementById('zoommap').style.display == 'block') {
         removeVisibleTooltips();
         for (var i = 0; i < totalDetailedLocations; i++) {
-            var l = 'detaillocation' + i.toString();
-            var element = document.getElementById(l);
+            var element = getDetailedLocationElement(i);
             removeTooltipFromElement(element);
             if (element.parentElement.style.display == 'table-cell') {
                 if (currentGeneralLocation.length > 0) {
@@ -528,7 +527,7 @@ function toggleMap(index, isDungeon) {
     }
 
     if (isRaceMode && isDungeon && dungeons[index] != "Ganon's Tower") {
-        setFullClearStyle('block');
+        setFullClearStyle('table-cell');
     } else {
         setFullClearStyle('none');
     }
@@ -598,19 +597,21 @@ function setFullClearStyle(styleText) {
 }
 
 function setLocationsList(locationsList, isInteractive) {
+    var needToExpandLocations = false;
     var fontSize = 'normal';
-    if (locationsList.length > 26) { // 3 columns
+    if (locationsList.length > totalDetailedLocations * 2 / 3) { // 3 columns
         fontSize = 'smallest';
-    }
-    else if (locationsList.length > 13) { // 2 columns
+    } else if (locationsList.length > totalDetailedLocations / 3) { // 2 columns
         fontSize = 'small';
+    } else {
+        needToExpandLocations = true;
     }
 
     for (var i = 0; i < totalDetailedLocations; i++) {
-        var l = 'detaillocation' + i.toString();
-        var element = document.getElementById(l);
+        var element = getDetailedLocationElement(i);
         if (i < locationsList.length) {
             element.parentElement.style.display = 'table-cell';
+            element.parentElement.colSpan = 1;
             element.innerText = locationsList[i];
             element.classList.remove('detail-small');
             element.classList.remove('detail-smallest');
@@ -627,6 +628,26 @@ function setLocationsList(locationsList, isInteractive) {
             element.parentElement.style.display = 'none';
         }
     }
+
+    if (needToExpandLocations) {
+        expandLocationsIfNecessary();
+    }
+}
+
+function getDetailedLocationElement(i) {
+    var l = 'detaillocation' + i.toString();
+    return document.getElementById(l);
+}
+
+function expandLocationsIfNecessary() {
+    var fullClear = document.getElementById('full-clear').parentElement;
+    var secondHeader = document.getElementById('second-header').parentElement;
+    if (fullClear.style.display == 'table-cell' || secondHeader.style.display == 'table-cell') {
+        for (var i = 0; i < totalDetailedLocations / 3; i++) {
+            var element = getDetailedLocationElement(i);
+            element.parentElement.colSpan = 2;
+        }
+    }
 }
 
 function refreshLocationColors() {
@@ -635,8 +656,7 @@ function refreshLocationColors() {
     }
 
     for (var i = 0; i < totalDetailedLocations; i++) {
-        var l = 'detaillocation' + i.toString();
-        var element = document.getElementById(l);
+        var element = getDetailedLocationElement(i);
         if (element.parentElement.style.display == 'table-cell') {
             var detailedLocation = element.innerText;
             if (locationsChecked[currentGeneralLocation][detailedLocation]) {
@@ -662,8 +682,7 @@ function refreshEntranceColors() {
     }
 
     for (var i = 0; i < totalDetailedLocations; i++) {
-        var l = 'detaillocation' + i.toString();
-        var element = document.getElementById(l);
+        var element = getDetailedLocationElement(i);
         if (element.parentElement.style.display == 'table-cell') {
             var entranceName = element.innerText;
             var exitName = getExitForEntrance(entranceName);
