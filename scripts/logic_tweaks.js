@@ -63,7 +63,7 @@ function updateSwordModeMacros() {
     if (swordMode == 'swordless') {
         macros['Can Sword Fight with Orca'] = 'Can Sword Fight with Orca in Swordless';
         macros['Can Defeat Phantom Ganon'] = 'Can Defeat Phantom Ganon in Swordless';
-        macros['Can Access Hyrule'] = 'Can Access Hyrule in Swordless';
+        macros['Can Get Past Hyrule Barrier'] = 'Can Get Past Hyrule Barrier in Swordless';
         macros['Can Defeat Ganondorf'] = 'Can Defeat Ganondorf in Swordless';
     }
 }
