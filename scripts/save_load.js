@@ -146,7 +146,7 @@ function loadProgress() {
                     locationsChecked[generalLocation][detailedLocation] = getLocalStorageBool(locationName, false);
                 });
             });
-            var allEntrances = getRandomEntrances(false, true);
+            var allEntrances = getAllRandomEntrances();
             for (var i = 0; i < allEntrances.length; i++) {
                 var curExit = allEntrances[i];
                 var entranceName = getLocalStorageItem(curExit, "");
@@ -203,10 +203,12 @@ function saveProgress(element) {
                 var locationValue = locationsChecked[generalLocation][detailedLocation];
                 localStorage.setItem(locationName, locationValue);
             });
-        })
-        Object.keys(entrances).forEach(function (exitName) {
-            localStorage.setItem(exitName, entrances[exitName]);
         });
+        var allEntrances = getAllRandomEntrances();
+        for (var i = 0; i < allEntrances.length; i++) {
+            var curExit = allEntrances[i];
+            localStorage.setItem(curExit, entrances[curExit]);
+        }
         localStorage.setItem('flags', flags.join(','));
         localStorage.setItem('isKeyLunacy', isKeyLunacy);
         localStorage.setItem('isRandomEntrances', isRandomEntrances);

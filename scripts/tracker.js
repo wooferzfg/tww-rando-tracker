@@ -558,7 +558,7 @@ function viewEntrances(choosingEntrance, isCaveExit) {
     setFullClearStyle('none');
 
     var showAllEntrances = !choosingEntrance || isRandomTogether;
-    var entrancesList = getRandomEntrances(isCaveExit, showAllEntrances);
+    var entrancesList = getRandomEntrancesToShow(isCaveExit, showAllEntrances);
     setLocationsList(entrancesList, choosingEntrance);
 
     refreshEntranceColors();

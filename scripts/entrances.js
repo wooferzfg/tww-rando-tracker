@@ -44,9 +44,19 @@ function getCaveEntryName(index) {
     return 'Entered ' + getCaveName(index);
 }
 
-function getRandomEntrances(isCaveExit, showAllEntrances) {
+function getRandomEntrancesToShow(isCaveExit, showAllEntrances) {
+    var showDungeons = isRandomEntrances && (!isCaveExit || showAllEntrances);
+    var showCaves = isRandomCaves && (isCaveExit || showAllEntrances);
+    return getRandomEntrances(showDungeons, showCaves);
+}
+
+function getAllRandomEntrances() {
+    return getRandomEntrances(true, true);
+}
+
+function getRandomEntrances(showDungeons, showCaves) {
     var entrancesList = [];
-    if (isRandomEntrances && (!isCaveExit || showAllEntrances)) {
+    if (showDungeons) {
         for (var i = 0; i < dungeons.length; i++) {
             var dungeonName = dungeons[i];
             if (isMainDungeon(dungeonName)) {
@@ -54,7 +64,7 @@ function getRandomEntrances(isCaveExit, showAllEntrances) {
             }
         }
     }
-    if (isRandomCaves && (isCaveExit || showAllEntrances)) {
+    if (showCaves) {
         for (var i = 0; i < caves.length; i++) {
             var caveName = getCaveName(i);
             entrancesList.push(caveName);
