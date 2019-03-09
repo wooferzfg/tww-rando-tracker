@@ -56,7 +56,7 @@ function applyflags(element) {
             flags = bits.charCodeAt(1);
             parseFlags(flags, ['free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts']);
             flags = bits.charCodeAt(2);
-            parseFlags(flags, ['expensive_purchases', 'misc', 'tingle_chests', 'sinking_ships', 'savage_labyrinth', 'key_lunacy']);
+            parseFlags(flags, ['expensive_purchases', 'misc', 'tingle_chests', 'battlesquid', 'savage_labyrinth', 'key_lunacy']);
             var byte = bits.charCodeAt(3);
             parseComboBox(byte, 'randomize_entrances');
             flags = bits.charCodeAt(4);
@@ -96,11 +96,11 @@ function showBrokenPermalink(element, wrongVersion) {
 }
 
 function getFlagString() {
-    var flagNames = ['D', 'GF', 'PSC', 'CSC', 'SSQ', 'LSQ', 'ST', 'MG', 'FG', 'MAI', 'PR', 'SUB', 'ERC', 'BOG', 'TRI', 'TRE', 'EP', 'MIS', 'TIN', 'KL', 'REN', 'RCH', 'SWO', 'SRB', 'STS', 'RM', 'SAV', 'SSM'];
+    var flagNames = ['D', 'GF', 'PSC', 'CSC', 'SSQ', 'LSQ', 'ST', 'MG', 'FG', 'MAI', 'PR', 'SUB', 'ERC', 'BOG', 'TRI', 'TRE', 'EP', 'MIS', 'TIN', 'KL', 'REN', 'RCH', 'SWO', 'SRB', 'STS', 'RM', 'SAV', 'BSM'];
     var buttonNames = ['dungeons', 'great_fairies', 'puzzle_secret_caves', 'combat_secret_caves', 'short_sidequests', 'long_sidequests', 'spoils_trading', 'minigames',
         'free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts',
         'expensive_purchases', 'misc', 'tingle_chests', 'key_lunacy', 'randomize_entrances', 'randomize_charts', 'sword_mode',
-        'skip_rematch_bosses', 'num_starting_triforce_shards', 'race_mode', 'savage_labyrinth', 'sinking_ships'];
+        'skip_rematch_bosses', 'num_starting_triforce_shards', 'race_mode', 'savage_labyrinth', 'battlesquid'];
 
     var result = '';
     for (var i = 0; i < buttonNames.length; i++) {

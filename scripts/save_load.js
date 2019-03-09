@@ -104,7 +104,7 @@ function loadFlags() {
     checkAddFlags('MIS', ['Other Chest', 'Misc']);
     checkAddFlags('TIN', ['Tingle Chest']);
     checkAddFlags('SAV', ['Savage Labyrinth']);
-    checkAddFlags('SSM', ['Sinking Ships']);
+    checkAddFlags('BSM', ['Battlesquid']);
 }
 
 function getParamBool(param, defaultVal) {
