@@ -84,16 +84,18 @@ function loadStartingItems() {
     startingItems['Song of Passing'] = 1;
     startingItems['Triforce Shard'] = startingTriforceShards;
 
-    var gearRemaining = startingGear;
-    for (var i = 0; i < regularItems.length; i++) {
-        var itemName = regularItems[i];
-        startingItems[itemName] = gearRemaining % 2;
-        gearRemaining = Math.floor(gearRemaining / 2);
-    }
-    for (var i = 0; i < progressiveItems.length; i++) {
-        var itemName = progressiveItems[i];
-        startingItems[itemName] = gearRemaining % 4;
-        gearRemaining = Math.floor(gearRemaining / 4);
+    if (!isRaceMode) {
+        var gearRemaining = startingGear;
+        for (var i = 0; i < regularItems.length; i++) {
+            var itemName = regularItems[i];
+            startingItems[itemName] = gearRemaining % 2;
+            gearRemaining = Math.floor(gearRemaining / 2);
+        }
+        for (var i = 0; i < progressiveItems.length; i++) {
+            var itemName = progressiveItems[i];
+            startingItems[itemName] = gearRemaining % 4;
+            gearRemaining = Math.floor(gearRemaining / 4);
+        }
     }
 
     Object.keys(startingItems).forEach(function (item) {
