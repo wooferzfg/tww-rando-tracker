@@ -1,4 +1,5 @@
 const currentVersion = '1.6.0';
+var startingGear = 0;
 
 function parseFlags(bits, ids) {
     for (var i = 0; i < ids.length; i++) {
@@ -11,29 +12,36 @@ function parseFlags(bits, ids) {
 }
 
 function parseComboBox(bits, id) {
-    var byteValue = 0;
-    for (var i = 0; i < 8; i++) {
+    var byteValue = getValueOfBits(bits, 8);
+    var element = document.getElementById(id);
+    element.selectedIndex = byteValue;
+}
+
+function setStartingGear(bits) {
+    startingGear = getValueOfBits(bits, bits.length);
+}
+
+function getValueOfBits(bits, count) {
+    var value = 0;
+    for (var i = 0; i < count; i++) {
         if (bits[0]) {
-            byteValue += Math.pow(2, i);
+            value += Math.pow(2, i);
         }
         bits.shift();
     }
-    var element = document.getElementById(id);
-    element.selectedIndex = byteValue;
+    return value;
 }
 
 function getBitString(bits) {
     var bitString = [];
     for (var i = 0; i < bits.length; i++) {
         var curByte = bits.charCodeAt(i);
-        var curVal = 1;
-        while (curVal <= 128) {
+        for (var j = 0; j < 8; j++) {
             if (curByte % 2 == 1) {
                 bitString.push(true);
             } else {
                 bitString.push(false);
             }
-            curVal *= 2;
             curByte = Math.floor(curByte / 2);
         }
     }
@@ -77,6 +85,8 @@ function applyflags(element) {
             parseFlags(bits, ['', '']);
             parseComboBox(bits, 'sword_mode');
             parseFlags(bits, ['skip_rematch_bosses', 'race_mode']);
+            parseFlags(bits, ['']);
+            setStartingGear(bits);
 
             $(element).notify('Settings applied from the Permalink.', {
                 autoHideDelay: 5000,
@@ -145,7 +155,7 @@ function openTracker(loadProgress) {
     var h = 550;
     var w = 1327;
 
-    open('tracker.html?f=' + flagStr + '&p=' + progressStr + '&v=' + versionStr + '&c=' + isCurrentVersionStr,
+    open(`tracker.html?f=${flagStr}&g=${startingGear}&p=${progressStr}&v=${versionStr}&c=${isCurrentVersionStr}`,
         '',
         'width=' + w + ',height=' + h + ',titlebar=0,menubar=0,toolbar=0');
 }
