@@ -1,26 +1,43 @@
 const currentVersion = '1.6.0';
 
-function parseFlags(flags, ids) {
-    var i = ids.length - 1;
-    var curVal = Math.pow(2, i);
-    while (curVal >= 1) {
-        var element = document.getElementById(ids[i])
-        if (flags >= curVal) {
-            if (element) {
-                element.checked = true;
-            }
-            flags = flags - curVal;
-        } else if (element) {
-            element.checked = false;
+function parseFlags(bits, ids) {
+    for (var i = 0; i < ids.length; i++) {
+        var element = document.getElementById(ids[i]);
+        if (element) {
+            element.checked = bits[0];
         }
-        i--;
-        curVal /= 2;
+        bits.shift();
     }
 }
 
-function parseComboBox(byte, id) {
+function parseComboBox(bits, id) {
+    var byteValue = 0;
+    for (var i = 0; i < 8; i++) {
+        if (bits[0]) {
+            byteValue += Math.pow(2, i);
+        }
+        bits.shift();
+    }
     var element = document.getElementById(id);
-    element.selectedIndex = byte;
+    element.selectedIndex = byteValue;
+}
+
+function getBitString(bits) {
+    var bitString = [];
+    for (var i = 0; i < bits.length; i++) {
+        var curByte = bits.charCodeAt(i);
+        var curVal = 1;
+        while (curVal <= 128) {
+            if (curByte % 2 == 1) {
+                bitString.push(true);
+            } else {
+                bitString.push(false);
+            }
+            curVal *= 2;
+            curByte = Math.floor(curByte / 2);
+        }
+    }
+    return bitString;
 }
 
 function applyflags(element) {
@@ -49,24 +66,17 @@ function applyflags(element) {
 
         if (decodedData.length > 0) {
             decodedData = decodedData.substring(1); // space between seed and flags
-            bits = decodedData;
+            bits = getBitString(decodedData);
 
-            var flags = bits.charCodeAt(0);
-            parseFlags(flags, ['dungeons', 'great_fairies', 'puzzle_secret_caves', 'combat_secret_caves', 'short_sidequests', 'long_sidequests', 'spoils_trading', 'minigames']);
-            flags = bits.charCodeAt(1);
-            parseFlags(flags, ['free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts']);
-            flags = bits.charCodeAt(2);
-            parseFlags(flags, ['expensive_purchases', 'misc', 'tingle_chests', 'battlesquid', 'savage_labyrinth', 'key_lunacy']);
-            var byte = bits.charCodeAt(3);
-            parseComboBox(byte, 'randomize_entrances');
-            flags = bits.charCodeAt(4);
-            parseFlags(flags, ['randomize_charts', '', '', '', '']);
-            byte = bits.charCodeAt(5);
-            parseComboBox(byte, 'num_starting_triforce_shards');
-            byte = bits.charCodeAt(7);
-            parseComboBox(byte, 'sword_mode');
-            flags = bits.charCodeAt(8);
-            parseFlags(flags, ['skip_rematch_bosses', 'race_mode']);
+            parseFlags(bits, ['dungeons', 'great_fairies', 'puzzle_secret_caves', 'combat_secret_caves', 'short_sidequests', 'long_sidequests', 'spoils_trading', 'minigames']);
+            parseFlags(bits, ['free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts']);
+            parseFlags(bits, ['expensive_purchases', 'misc', 'tingle_chests', 'battlesquid', 'savage_labyrinth', 'key_lunacy']);
+            parseComboBox(bits, 'randomize_entrances');
+            parseFlags(bits, ['randomize_charts', '', '', '', '']);
+            parseComboBox(bits, 'num_starting_triforce_shards');
+            parseFlags(bits, ['', '']);
+            parseComboBox(bits, 'sword_mode');
+            parseFlags(bits, ['skip_rematch_bosses', 'race_mode']);
 
             $(element).notify('Settings applied from the Permalink.', {
                 autoHideDelay: 5000,
