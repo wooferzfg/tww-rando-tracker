@@ -145,25 +145,42 @@ const shortDungeonNames = [
 ];
 
 const regularItems = [
+    'Bait Bag',
     'Bombs',
     'Boomerang',
+    'Cabana Deed',
+    'Command Melody',
     'Deku Leaf',
+    'Delivery Bag',
+    "Din's Pearl",
+    "Earth God's Lyric",
+    'Empty Bottle',
+    "Farore's Pearl",
+    'Ghost Ship Chart',
     'Grappling Hook',
     "Hero's Charm",
     'Hookshot',
     'Hurricane Spin',
     'Iron Boots',
+    "Maggie's Letter",
     'Magic Armor',
     'Mirror Shield',
+    "Moblin's Letter",
+    "Nayru's Pearl",
+    'Note to Mom',
     'Power Bracelets',
     'Skull Hammer',
-    'Telescope'
+    'Spoils Bag',
+    'Telescope',
+    'Tingle Tuner',
+    "Wind God's Aria"
 ];
 const progressiveItems = [
     'Progressive Bomb Bag',
     'Progressive Bow',
     'Progressive Picto Box',
     'Progressive Quiver',
+    'Progressive Sword',
     'Progressive Wallet'
 ];
 

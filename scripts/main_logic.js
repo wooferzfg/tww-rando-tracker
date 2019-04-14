@@ -67,15 +67,6 @@ function dataChanged() {
 }
 
 function loadStartingItems() {
-    if (swordMode == 'sword') {
-        startingItems['Progressive Sword'] = 1;
-    } else if (swordMode == 'swordless') {
-        impossibleItems.push('Progressive Sword x1');
-        impossibleItems.push('Progressive Sword x2');
-        impossibleItems.push('Progressive Sword x3');
-        impossibleItems.push('Progressive Sword x4');
-        impossibleItems.push('Hurricane Spin');
-    }
     startingItems["Hero's Shield"] = 1;
     startingItems['Wind Waker'] = 1;
     startingItems["Boat's Sail"] = 1;
@@ -94,6 +85,16 @@ function loadStartingItems() {
         var itemName = progressiveItems[i];
         startingItems[itemName] = gearRemaining % 4;
         gearRemaining = Math.floor(gearRemaining / 4);
+    }
+
+    if (swordMode == 'sword') {
+        startingItems['Progressive Sword'] += 1;
+    } else if (swordMode == 'swordless') {
+        impossibleItems.push('Progressive Sword x1');
+        impossibleItems.push('Progressive Sword x2');
+        impossibleItems.push('Progressive Sword x3');
+        impossibleItems.push('Progressive Sword x4');
+        impossibleItems.push('Hurricane Spin');
     }
 
     Object.keys(startingItems).forEach(function (item) {
