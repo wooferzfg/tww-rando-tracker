@@ -1,4 +1,5 @@
 const flagParam = getParameterByName('f');
+const gearParam = getParameterByName('g');
 const versionParam = getParameterByName('v');
 const progressParam = getParameterByName('p');
 const isCurrentVersionParam = getParameterByName('c');
@@ -33,7 +34,7 @@ function showLoadingError() {
 }
 
 function loadFlags() {
-    if (progressParam == '1' && getLocalStorageBool('progress', false)) {
+    if (progressParam == '1') {
         var flagString = localStorage.getItem('flags');
         if (flagString) {
             flags = flagString.split(',');
@@ -47,6 +48,7 @@ function loadFlags() {
         skipRematchBosses = getLocalStorageBool('skipRematchBosses', skipRematchBosses);
         startingTriforceShards = getLocalStorageInt('startingTriforceShards', startingTriforceShards);
         isRaceMode = getLocalStorageBool('isRaceMode', isRaceMode);
+        startingGear = getLocalStorageInt('startingGear', startingGear);
         return;
     }
 
@@ -55,6 +57,7 @@ function loadFlags() {
     skipRematchBosses = getParamBool('SRB', skipRematchBosses);
     startingTriforceShards = getParamValue('STS', startingTriforceShards);
     isRaceMode = getParamBool('RM', isRaceMode);
+    startingGear = gearParam;
 
     var entrancesValue = getParamValue('REN', 0);
     if (entrancesValue == 1) {
@@ -104,7 +107,7 @@ function loadFlags() {
     checkAddFlags('MIS', ['Other Chest', 'Misc']);
     checkAddFlags('TIN', ['Tingle Chest']);
     checkAddFlags('SAV', ['Savage Labyrinth']);
-    checkAddFlags('SSM', ['Sinking Ships']);
+    checkAddFlags('BSM', ['Battlesquid']);
 }
 
 function getParamBool(param, defaultVal) {
@@ -133,43 +136,35 @@ function checkAddFlags(param, flagsToAdd) {
 
 function loadProgress() {
     if (progressParam == '1') {
-        if (getLocalStorageBool('progress', false)) {
-            Object.keys(items).forEach(function (itemName) {
-                items[itemName] = getLocalStorageInt(itemName, items[itemName]);
+        Object.keys(items).forEach(function (itemName) {
+            items[itemName] = getLocalStorageInt(itemName, items[itemName]);
+        });
+        Object.keys(keys).forEach(function (keyName) {
+            keys[keyName] = getLocalStorageInt(keyName, keys[keyName]);
+        });
+        Object.keys(locationsChecked).forEach(function (generalLocation) {
+            Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
+                var locationName = getFullLocationName(generalLocation, detailedLocation);
+                locationsChecked[generalLocation][detailedLocation] = getLocalStorageBool(locationName, false);
             });
-            Object.keys(keys).forEach(function (keyName) {
-                keys[keyName] = getLocalStorageInt(keyName, keys[keyName]);
-            });
-            Object.keys(locationsChecked).forEach(function (generalLocation) {
-                Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
-                    var locationName = getFullLocationName(generalLocation, detailedLocation);
-                    locationsChecked[generalLocation][detailedLocation] = getLocalStorageBool(locationName, false);
-                });
-            });
-            var allEntrances = getAllRandomEntrances();
-            for (var i = 0; i < allEntrances.length; i++) {
-                var curExit = allEntrances[i];
-                var entranceName = getLocalStorageItem(curExit, "");
-                entrances[curExit] = entranceName;
-            }
-
-            if (isCurrentVersionParam == '1') {
-                var notificationMessage = 'Progress loaded.';
-            } else {
-                var notificationMessage = 'Progress loaded for Wind Waker Randomizer ' + versionParam + '.'
-            }
-            $.notify(notificationMessage, {
-                autoHideDelay: 5000,
-                className: 'success',
-                position: 'top left'
-            });
-        } else {
-            $.notify('Progress could not be loaded.', {
-                autoHideDelay: 5000,
-                className: 'error',
-                position: 'top left'
-            });
+        });
+        var allEntrances = getAllRandomEntrances();
+        for (var i = 0; i < allEntrances.length; i++) {
+            var curExit = allEntrances[i];
+            var entranceName = getLocalStorageItem(curExit, "");
+            entrances[curExit] = entranceName;
         }
+
+        if (isCurrentVersionParam == '1') {
+            var notificationMessage = 'Progress loaded.';
+        } else {
+            var notificationMessage = 'Progress loaded for Wind Waker Randomizer ' + versionParam + '.'
+        }
+        $.notify(notificationMessage, {
+            autoHideDelay: 5000,
+            className: 'success',
+            position: 'top left'
+        });
     }
 }
 
@@ -219,8 +214,8 @@ function saveProgress(element) {
         localStorage.setItem('skipRematchBosses', skipRematchBosses);
         localStorage.setItem('startingTriforceShards', startingTriforceShards);
         localStorage.setItem('isRaceMode', isRaceMode);
+        localStorage.setItem('startingGear', startingGear);
         localStorage.setItem('version', versionParam);
-        localStorage.setItem('progress', 'true');
 
         $(element).notify('Progress saved.', {
             autoHideDelay: 5000,

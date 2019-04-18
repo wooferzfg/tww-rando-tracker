@@ -836,16 +836,6 @@ function fullClear() {
         var detailedLocation = detailedLocations[i];
         locationsChecked[currentGeneralLocation][detailedLocation] = true;
     }
-
-    var mailbox = locationsChecked["Mailbox"];
-    if (currentGeneralLocation == "Forbidden Woods") {
-        mailbox["Letter from Orca"] = true;
-    } else if (currentGeneralLocation == "Forsaken Fortress") {
-        mailbox["Letter from Aryll"] = true;
-        mailbox["Letter from Tingle"] = true;
-    } else if (currentGeneralLocation == "Earth Temple") {
-        mailbox["Letter from Baito"] = true;
-    }
-
+    clearRaceModeBannedLocations();
     dataChanged();
 }

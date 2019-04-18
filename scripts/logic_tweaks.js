@@ -63,7 +63,7 @@ function updateSwordModeMacros() {
     if (swordMode == 'swordless') {
         macros['Can Sword Fight with Orca'] = 'Can Sword Fight with Orca in Swordless';
         macros['Can Defeat Phantom Ganon'] = 'Can Defeat Phantom Ganon in Swordless';
-        macros['Can Access Hyrule'] = 'Can Access Hyrule in Swordless';
+        macros['Can Get Past Hyrule Barrier'] = 'Can Get Past Hyrule Barrier in Swordless';
         macros['Can Defeat Ganondorf'] = 'Can Defeat Ganondorf in Swordless';
     }
 }
@@ -76,5 +76,17 @@ function updateTingleStatueReward() {
     var tingleStatueReward = itemLocations['Tingle Island - Ankle - Reward for All Tingle Statues'];
     if (tingleStatueReward) {
         tingleStatueReward.Need = 'Tingle Statue x5';
+    }
+}
+
+function clearRaceModeBannedLocations() {
+    var mailbox = locationsChecked["Mailbox"];
+    if (currentGeneralLocation == "Forbidden Woods") {
+        mailbox["Letter from Orca"] = true;
+    } else if (currentGeneralLocation == "Forsaken Fortress") {
+        mailbox["Letter from Aryll"] = true;
+        mailbox["Letter from Tingle"] = true;
+    } else if (currentGeneralLocation == "Earth Temple") {
+        mailbox["Letter from Baito"] = true;
     }
 }
