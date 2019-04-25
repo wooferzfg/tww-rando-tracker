@@ -557,7 +557,7 @@ function viewEntrances(choosingEntrance, isCaveExit) {
   setBackgroundUrl('zoommap-background', 'mapempty.png');
   setFullClearStyle('none');
 
-  var showAllEntrances = !choosingEntrance || options.randomize_entrances.includes('Together');
+  var showAllEntrances = !choosingEntrance || isRandomTogether();
   var entrancesList = getRandomEntrancesToShow(isCaveExit, showAllEntrances);
   setLocationsList(entrancesList, choosingEntrance);
 

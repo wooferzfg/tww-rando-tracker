@@ -38,6 +38,10 @@ function isRandomCaves() {
   return options.randomize_entrances.includes('Secret Caves');
 }
 
+function isRandomTogether() {
+  return options.randomize_entrances.includes('Together');
+}
+
 function getDungeonEntryName(index) {
   return 'Entered ' + shortDungeonNames[index];
 }
