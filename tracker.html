@@ -1,979 +1,936 @@
 <html>
 
 <head>
-    <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
-    <meta http-equiv="cache-control" content="max-age=0" />
-    <meta http-equiv="expires" content="0" />
-    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-    <meta http-equiv="pragma" content="no-cache" />
-    <title>TWW Randomizer Tracker</title>
-    <link rel="icon" href="./images/icon.ico" />
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="./styles/styles.css">
-    <script src="https://cdn.jsdelivr.net/es5.shim/4.4.1/es5-shim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.12.0/js-yaml.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css">
-    <script src="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
-    <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
-    <script src="./scripts/entrances.js"></script>
-    <script src="./scripts/items_required_logic.js"></script>
-    <script src="./scripts/keys_logic.js"></script>
-    <script src="./scripts/locations_logic.js"></script>
-    <script src="./scripts/logic_tweaks.js"></script>
-    <script src="./scripts/main_logic.js"></script>
-    <script src="./scripts/save_load.js"></script>
-    <script src="./scripts/statistics.js"></script>
-    <script src="./scripts/tracker.js"></script>
-    <script src="./scripts/variables.js"></script>
+  <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
+  <meta http-equiv="cache-control" content="max-age=0" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <title>TWW Randomizer Tracker</title>
+  <link rel="icon" href="./images/icon.ico" />
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <script src="https://cdn.jsdelivr.net/es5.shim/4.4.1/es5-shim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.12.0/js-yaml.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css">
+  <script src="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
+  <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+  <script src="./scripts/entrances.js"></script>
+  <script src="./scripts/items_required_logic.js"></script>
+  <script src="./scripts/keys_logic.js"></script>
+  <script src="./scripts/locations_logic.js"></script>
+  <script src="./scripts/logic_tweaks.js"></script>
+  <script src="./scripts/main_logic.js"></script>
+  <script src="./scripts/save_load.js"></script>
+  <script src="./scripts/statistics.js"></script>
+  <script src="./scripts/tracker.js"></script>
+  <script src="./scripts/variables.js"></script>
 </head>
 
 <body>
-    <div class="tracker-container">
-        <div class="tracker">
-            <div class="item-tracker canUseSingleColor">
-                <div class="menu-items">
-                    <table>
-                        <tr>
-                            <td>
-                                <img id="item0" name="Telescope" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item0.png" />
-                            </td>
-                            <td>
-                                <img id="item1" name="Boat's Sail" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item1.png" />
-                            </td>
-                            <td>
-                                <img id="item2" name="Wind Waker" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item2.png" />
-                            </td>
-                            <td>
-                                <img id="item3" name="Grappling Hook" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item3.png" />
-                            </td>
-                            <td>
-                                <img id="item4" name="Spoils Bag" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item4.png" />
-                            </td>
-                            <td>
-                                <img id="item5" name="Boomerang" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item5.png" />
-                            </td>
-                            <td>
-                                <img id="item6" name="Deku Leaf" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item6.png" />
-                            </td>
-                            <td>
-                                <img id="item21" name="Progressive Sword" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 4);"
-                                    src="./images/item21.png" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img id="item7" name="Tingle Tuner" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item7.png" />
-                            </td>
-                            <td>
-                                <img id="item8" name="Progressive Picto Box" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 2);"
-                                    src="./images/item8.png" />
-                            </td>
-                            <td>
-                                <img id="item9" name="Iron Boots" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item9.png" />
-                            </td>
-                            <td>
-                                <img id="item10" name="Magic Armor" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item10.png" />
-                            </td>
-                            <td>
-                                <img id="item11" name="Bait Bag" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item11.png" />
-                            </td>
-                            <td>
-                                <img id="item12" name="Progressive Bow" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 3);"
-                                    src="./images/item12.png" />
-                            </td>
-                            <td>
-                                <img id="item13" name="Bombs" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item13.png" />
-                            </td>
-                            <td>
-                                <img id="shield" name="Hero's Shield" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleShield(this);"
-                                    src="./images/noshield.png" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img id="item24" name="Cabana Deed" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item24.png" />
-                            </td>
-                            <td>
-                                <img id="item15" name="Maggie's Letter" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item15.png" />
-                            </td>
-                            <td>
-                                <img id="item16" name="Moblin's Letter" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item16.png" />
-                            </td>
-                            <td>
-                                <img id="item17" name="Note to Mom" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item17.png" />
-                            </td>
-                            <td>
-                                <img id="item18" name="Delivery Bag" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item18.png" />
-                            </td>
-                            <td>
-                                <img id="item19" name="Hookshot" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item19.png" />
-                            </td>
-                            <td>
-                                <img id="item20" name="Skull Hammer" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item20.png" />
-                            </td>
-                            <td>
-                                <img id="item22" name="Power Bracelets" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item22.png" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img id="item14" name="Empty Bottle" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 4);"
-                                    src="./images/item14.png" />
-                            </td>
-                            <td>
-                                <img id="song0" name="Wind's Requiem" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/song0.png" />
-                                <div class="song-notes" id="song0-notes">
-                                    <img src="./images/song_up.png" />
-                                    <img src="./images/song_left.png" />
-                                    <img src="./images/song_right.png" />
-                                </div>
-                            </td>
-                            <td>
-                                <img id="song1" name="Ballad of Gales" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/song1.png" />
-                                <div class="song-notes" id="song1-notes">
-                                    <img src="./images/song_down.png" />
-                                    <img src="./images/song_right.png" />
-                                    <img src="./images/song_left.png" />
-                                    <img src="./images/song_up.png" />
-                                </div>
-                            </td>
-                            <td>
-                                <img id="song2" name="Command Melody" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/song2.png" />
-                                <div class="song-notes" id="song2-notes">
-                                    <img src="./images/song_left.png" />
-                                    <img src="./images/song_neutral.png" />
-                                    <img src="./images/song_right.png" />
-                                    <img src="./images/song_neutral.png" />
-                                </div>
-                            </td>
-                            <td>
-                                <img id="song3" name="Earth God's Lyric" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/song3.png" />
-                                <div class="song-notes" id="song3-notes">
-                                    <img src="./images/song_down.png" />
-                                    <img src="./images/song_down.png" />
-                                    <img src="./images/song_neutral.png" />
-                                    <img src="./images/song_right.png" />
-                                    <img src="./images/song_left.png" />
-                                    <img src="./images/song_neutral.png" />
-                                </div>
-                            </td>
-                            <td>
-                                <img id="song4" name="Wind God's Aria" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/song4.png" />
-                                <div class="song-notes" id="song4-notes">
-                                    <img src="./images/song_up.png" />
-                                    <img src="./images/song_up.png" />
-                                    <img src="./images/song_down.png" />
-                                    <img src="./images/song_right.png" />
-                                    <img src="./images/song_left.png" />
-                                    <img src="./images/song_right.png" />
-                                </div>
-                            </td>
-                            <td>
-                                <img id="song5" name="Song of Passing" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/song5.png" />
-                                <div class="song-notes" id="song5-notes">
-                                    <img src="./images/song_right.png" />
-                                    <img src="./images/song_left.png" />
-                                    <img src="./images/song_down.png" />
-                                </div>
-                            </td>
-                            <td>
-                                <img id="item27" name="Hero's Charm" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                    src="./images/item27.png" />
-                            </td>
-                        </tr>
-                    </table>
+  <div class="tracker-container">
+    <div class="tracker">
+      <div class="item-tracker canUseSingleColor">
+        <div class="menu-items">
+          <table>
+            <tr>
+              <td>
+                <img id="item0" name="Telescope" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item0.png" />
+              </td>
+              <td>
+                <img id="item1" name="Boat's Sail" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item1.png" />
+              </td>
+              <td>
+                <img id="item2" name="Wind Waker" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item2.png" />
+              </td>
+              <td>
+                <img id="item3" name="Grappling Hook" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item3.png" />
+              </td>
+              <td>
+                <img id="item4" name="Spoils Bag" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item4.png" />
+              </td>
+              <td>
+                <img id="item5" name="Boomerang" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item5.png" />
+              </td>
+              <td>
+                <img id="item6" name="Deku Leaf" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item6.png" />
+              </td>
+              <td>
+                <img id="item21" name="Progressive Sword" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 4);" src="./images/item21.png" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img id="item7" name="Tingle Tuner" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item7.png" />
+              </td>
+              <td>
+                <img id="item8" name="Progressive Picto Box" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 2);" src="./images/item8.png" />
+              </td>
+              <td>
+                <img id="item9" name="Iron Boots" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item9.png" />
+              </td>
+              <td>
+                <img id="item10" name="Magic Armor" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item10.png" />
+              </td>
+              <td>
+                <img id="item11" name="Bait Bag" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item11.png" />
+              </td>
+              <td>
+                <img id="item12" name="Progressive Bow" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 3);" src="./images/item12.png" />
+              </td>
+              <td>
+                <img id="item13" name="Bombs" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item13.png" />
+              </td>
+              <td>
+                <img id="shield" name="Hero's Shield" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleShield(this);" src="./images/noshield.png" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img id="item24" name="Cabana Deed" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item24.png" />
+              </td>
+              <td>
+                <img id="item15" name="Maggie's Letter" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item15.png" />
+              </td>
+              <td>
+                <img id="item16" name="Moblin's Letter" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item16.png" />
+              </td>
+              <td>
+                <img id="item17" name="Note to Mom" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item17.png" />
+              </td>
+              <td>
+                <img id="item18" name="Delivery Bag" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item18.png" />
+              </td>
+              <td>
+                <img id="item19" name="Hookshot" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item19.png" />
+              </td>
+              <td>
+                <img id="item20" name="Skull Hammer" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item20.png" />
+              </td>
+              <td>
+                <img id="item22" name="Power Bracelets" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item22.png" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img id="item14" name="Empty Bottle" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 4);" src="./images/item14.png" />
+              </td>
+              <td>
+                <img id="song0" name="Wind's Requiem" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/song0.png" />
+                <div class="song-notes" id="song0-notes">
+                  <img src="./images/song_up.png" />
+                  <img src="./images/song_left.png" />
+                  <img src="./images/song_right.png" />
                 </div>
-                <div class="other-items">
-                    <table class="triforce-and-pearls">
-                        <tr>
-                            <td>
-                                <div class="pearls">
-                                    <img id="pearl0" name="Nayru's Pearl" onmouseout="clearItemInfo();"
-                                        onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                        src="./images/pearl0.png" />
-                                    <br>
-                                    <img id="pearl1" name="Din's Pearl" onmouseout="clearItemInfo();"
-                                        onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                        src="./images/pearl1.png" class="dins-pearl" />
-                                    <img id="pearl2" name="Farore's Pearl" onmouseout="clearItemInfo();"
-                                        onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                        src="./images/pearl2.png" class="farores-pearl" />
-                                    <div class="pearl-holder">
-                                        <img src="./images/pearl_holder.png" />
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <img id="triforce" name="Triforce Shard" onmouseout="clearItemInfo();"
-                                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 8);"
-                                    src="./images/triforce0.png" />
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="misc-items">
-                        <table>
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <img id="item31" name="Tingle Statue" onmouseout="clearItemInfo();"
-                                        onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 5);"
-                                        src="./images/item31.png" />
-                                </td>
-                                <td>
-                                    <img id="item23" name="Ghost Ship Chart" onmouseout="clearItemInfo();"
-                                        onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                        src="./images/item23.png" />
-                                </td>
-                                <td>
-                                    <img id="item30" name="Hurricane Spin" onmouseout="clearItemInfo();"
-                                        onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                        src="./images/item30.png" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img id="item29" name="Progressive Bomb Bag" onmouseout="clearItemInfo();"
-                                        onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 2);"
-                                        src="./images/item29.png" />
-                                </td>
-
-                                <td>
-                                    <img id="item28" name="Progressive Quiver" onmouseout="clearItemInfo();"
-                                        onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 2);"
-                                        src="./images/item28.png" />
-                                </td>
-                                <td>
-                                    <img id="item25" name="Progressive Wallet" onmouseout="clearItemInfo();"
-                                        onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 2);"
-                                        src="./images/item25.png" />
-                                </td>
-                                <td>
-                                    <img id="item26" name="Magic Meter Upgrade" onmouseout="clearItemInfo();"
-                                        onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);"
-                                        src="./images/item26.png" />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+              </td>
+              <td>
+                <img id="song1" name="Ballad of Gales" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/song1.png" />
+                <div class="song-notes" id="song1-notes">
+                  <img src="./images/song_down.png" />
+                  <img src="./images/song_right.png" />
+                  <img src="./images/song_left.png" />
+                  <img src="./images/song_up.png" />
                 </div>
-                <span id="item-info"></span>
-            </div>
-            <div class="chart-map-container">
-                <div id="chartmap">
-                    <div class="maps">
-                        <div id="map0" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(0);"
-                            onclick="toggleMap(0, false);">
-                            <div id="chart0" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(0);"
-                                onclick="toggleChart(0);" class="treasure-chart"></div>
-                            <div id="mapchests0" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map1" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(1);"
-                            onclick="toggleMap(1, false);">
-                            <div id="chart1" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(1);"
-                                onclick="toggleChart(1);" class="treasure-chart"></div>
-                            <div id="caveentry19" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(19);"
-                                onclick="toggleCaveEntry(19, 1);" class="cave-entry"></div>
-                            <div id="mapchests1" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map2" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(2);"
-                            onclick="toggleMap(2, false);">
-                            <div id="chart2" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(2);"
-                                onclick="toggleChart(2);" class="treasure-chart"></div>
-                            <div id="mapchests2" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map3" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(3);"
-                            onclick="toggleMap(3, false);">
-                            <div id="chart3" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(3);"
-                                onclick="toggleChart(3);" class="treasure-chart"></div>
-                            <div id="mapchests3" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map4" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(4);"
-                            onclick="toggleMap(4, false);">
-                            <div id="chart4" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(4);"
-                                onclick="toggleChart(4);" class="treasure-chart"></div>
-                            <div id="mapchests4" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map5" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(5);"
-                            onclick="toggleMap(5, false);">
-                            <div id="chart5" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(5);"
-                                onclick="toggleChart(5);" class="treasure-chart"></div>
-                            <div id="mapchests5" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map6" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(6);"
-                            onclick="toggleMap(6, false);">
-                            <div id="chart6" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(6);"
-                                onclick="toggleChart(6);" class="treasure-chart"></div>
-                            <div id="caveentry9" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(9);"
-                                onclick="toggleCaveEntry(9, 6);" class="cave-entry"></div>
-                            <div id="mapchests6" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map7" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(7);"
-                            onclick="toggleMap(7, false);">
-                            <div id="chart7" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(7);"
-                                onclick="toggleChart(7);" class="treasure-chart"></div>
-                            <div id="mapchests7" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map8" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(8);"
-                            onclick="toggleMap(8, false);">
-                            <div id="chart8" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(8);"
-                                onclick="toggleChart(8);" class="treasure-chart"></div>
-                            <div id="mapchests8" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map9" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(9);"
-                            onclick="toggleMap(9, false);">
-                            <div id="chart9" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(9);"
-                                onclick="toggleChart(9);" class="treasure-chart"></div>
-                            <div id="mapchests9" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map10" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(10);"
-                            onclick="toggleMap(10, false);">
-                            <div id="chart10" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(10);"
-                                onclick="toggleChart(10);" class="treasure-chart"></div>
-                            <div id="mapchests10" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map11" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(11);"
-                            onclick="toggleMap(11, false);">
-                            <div id="chart11" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(11);"
-                                onclick="toggleChart(11);" class="treasure-chart"></div>
-                            <div id="caveentry11" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(11);"
-                                onclick="toggleCaveEntry(11, 11);" class="cave-entry"></div>
-                            <div id="caveentry12" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(12);"
-                                onclick="toggleCaveEntry(12, 11);" class="cave-entry"></div>
-                            <div id="mapchests11" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map12" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(12);"
-                            onclick="toggleMap(12, false);">
-                            <div id="chart12" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(12);"
-                                onclick="toggleChart(12);" class="treasure-chart"></div>
-                            <div id="caveentry1" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(1);"
-                                onclick="toggleCaveEntry(1, 12);" class="cave-entry"></div>
-                            <div id="mapchests12" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map13" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(13);"
-                            onclick="toggleMap(13, false);">
-                            <div id="chart13" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(13);"
-                                onclick="toggleChart(13);" class="treasure-chart"></div>
-                            <div id="mapchests13" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map14" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(14);"
-                            onclick="toggleMap(14, false);">
-                            <div id="chart14" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(14);"
-                                onclick="toggleChart(14);" class="treasure-chart"></div>
-                            <div id="mapchests14" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map15" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(15);"
-                            onclick="toggleMap(15, false);">
-                            <div id="chart15" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(15);"
-                                onclick="toggleChart(15);" class="treasure-chart"></div>
-                            <div id="caveentry15" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(15);"
-                                onclick="toggleCaveEntry(15, 15);" class="cave-entry"></div>
-                            <div id="mapchests15" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map16" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(16);"
-                            onclick="toggleMap(16, false);">
-                            <div id="chart16" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(16);"
-                                onclick="toggleChart(16);" class="treasure-chart"></div>
-                            <div id="mapchests16" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map17" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(17);"
-                            onclick="toggleMap(17, false);">
-                            <div id="chart17" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(17);"
-                                onclick="toggleChart(17);" class="treasure-chart"></div>
-                            <div id="mapchests17" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map18" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(18);"
-                            onclick="toggleMap(18, false);">
-                            <div id="chart18" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(18);"
-                                onclick="toggleChart(18);" class="treasure-chart"></div>
-                            <div id="mapchests18" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map19" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(19);"
-                            onclick="toggleMap(19, false);">
-                            <div id="chart19" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(19);"
-                                onclick="toggleChart(19);" class="treasure-chart"></div>
-                            <div id="caveentry2" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(2);"
-                                onclick="toggleCaveEntry(2, 19);" class="cave-entry"></div>
-                            <div id="mapchests19" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map20" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(20);"
-                            onclick="toggleMap(20, false);">
-                            <div id="chart20" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(20);"
-                                onclick="toggleChart(20);" class="treasure-chart"></div>
-                            <div id="mapchests20" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map21" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(21);"
-                            onclick="toggleMap(21, false);">
-                            <div id="chart21" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(21);"
-                                onclick="toggleChart(21);" class="treasure-chart"></div>
-                            <div id="mapchests21" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map22" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(22);"
-                            onclick="toggleMap(22, false);">
-                            <div id="chart22" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(22);"
-                                onclick="toggleChart(22);" class="treasure-chart"></div>
-                            <div id="mapchests22" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map23" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(23);"
-                            onclick="toggleMap(23, false);">
-                            <div id="chart23" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(23);"
-                                onclick="toggleChart(23);" class="treasure-chart"></div>
-                            <div id="mapchests23" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map24" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(24);"
-                            onclick="toggleMap(24, false);">
-                            <div id="chart24" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(24);"
-                                onclick="toggleChart(24);" class="treasure-chart"></div>
-                            <div id="mapchests24" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map25" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(25);"
-                            onclick="toggleMap(25, false);">
-                            <div id="chart25" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(25);"
-                                onclick="toggleChart(25);" class="treasure-chart"></div>
-                            <div id="mapchests25" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map26" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(26);"
-                            onclick="toggleMap(26, false);">
-                            <div id="chart26" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(26);"
-                                onclick="toggleChart(26);" class="treasure-chart"></div>
-                            <div id="mapchests26" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map27" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(27);"
-                            onclick="toggleMap(27, false);">
-                            <div id="chart27" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(27);"
-                                onclick="toggleChart(27);" class="treasure-chart"></div>
-                            <div id="mapchests27" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map28" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(28);"
-                            onclick="toggleMap(28, false);">
-                            <div id="chart28" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(28);"
-                                onclick="toggleChart(28);" class="treasure-chart"></div>
-                            <div id="caveentry5" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(5);"
-                                onclick="toggleCaveEntry(5, 28);" class="cave-entry"></div>
-                            <div id="mapchests28" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map29" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(29);"
-                            onclick="toggleMap(29, false);">
-                            <div id="chart29" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(29);"
-                                onclick="toggleChart(29);" class="treasure-chart"></div>
-                            <div id="mapchests29" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map30" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(30);"
-                            onclick="toggleMap(30, false);">
-                            <div id="chart30" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(30);"
-                                onclick="toggleChart(30);" class="treasure-chart"></div>
-                            <div id="caveentry8" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(8);"
-                                onclick="toggleCaveEntry(8, 30);" class="cave-entry"></div>
-                            <div id="mapchests30" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map31" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(31);"
-                            onclick="toggleMap(31, false);">
-                            <div id="chart31" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(31);"
-                                onclick="toggleChart(31);" class="treasure-chart"></div>
-                            <div id="mapchests31" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map32" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(32);"
-                            onclick="toggleMap(32, false);">
-                            <div id="chart32" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(32);"
-                                onclick="toggleChart(32);" class="treasure-chart"></div>
-                            <div id="caveentry4" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(4);"
-                                onclick="toggleCaveEntry(4, 32);" class="cave-entry"></div>
-                            <div id="mapchests32" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map33" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(33);"
-                            onclick="toggleMap(33, false);">
-                            <div id="chart33" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(33);"
-                                onclick="toggleChart(33);" class="treasure-chart"></div>
-                            <div id="caveentry14" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(14);"
-                                onclick="toggleCaveEntry(14, 33);" class="cave-entry"></div>
-                            <div id="mapchests33" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map34" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(34);"
-                            onclick="toggleMap(34, false);">
-                            <div id="chart34" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(34);"
-                                onclick="toggleChart(34);" class="treasure-chart"></div>
-                            <div id="caveentry10" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(10);"
-                                onclick="toggleCaveEntry(10, 34);" class="cave-entry"></div>
-                            <div id="mapchests34" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map35" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(35);"
-                            onclick="toggleMap(35, false);">
-                            <div id="chart35" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(35);"
-                                onclick="toggleChart(35);" class="treasure-chart"></div>
-                            <div id="caveentry13" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(13);"
-                                onclick="toggleCaveEntry(13, 35);" class="cave-entry"></div>
-                            <div id="mapchests35" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map36" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(36);"
-                            onclick="toggleMap(36, false);">
-                            <div id="chart36" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(36);"
-                                onclick="toggleChart(36);" class="treasure-chart"></div>
-                            <div id="mapchests36" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map37" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(37);"
-                            onclick="toggleMap(37, false);">
-                            <div id="chart37" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(37);"
-                                onclick="toggleChart(37);" class="treasure-chart"></div>
-                            <div id="caveentry16" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(16);"
-                                onclick="toggleCaveEntry(16, 37);" class="cave-entry"></div>
-                            <div id="mapchests37" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map38" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(38);"
-                            onclick="toggleMap(38, false);">
-                            <div id="chart38" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(38);"
-                                onclick="toggleChart(38);" class="treasure-chart"></div>
-                            <div id="mapchests38" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map39" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(39);"
-                            onclick="toggleMap(39, false);">
-                            <div id="chart39" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(39);"
-                                onclick="toggleChart(39);" class="treasure-chart"></div>
-                            <div id="caveentry3" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(3);"
-                                onclick="toggleCaveEntry(3, 39);" class="cave-entry"></div>
-                            <div id="mapchests39" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map40" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(40);"
-                            onclick="toggleMap(40, false);">
-                            <div id="chart40" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(40);"
-                                onclick="toggleChart(40);" class="treasure-chart"></div>
-                            <div id="mapchests40" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map41" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(41);"
-                            onclick="toggleMap(41, false);">
-                            <div id="chart41" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(41);"
-                                onclick="toggleChart(41);" class="treasure-chart"></div>
-                            <div id="caveentry17" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(17);"
-                                onclick="toggleCaveEntry(17, 41);" class="cave-entry"></div>
-                            <div id="mapchests41" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map42" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(42);"
-                            onclick="toggleMap(42, false);">
-                            <div id="chart42" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(42);"
-                                onclick="toggleChart(42);" class="treasure-chart"></div>
-                            <div id="caveentry18" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(18);"
-                                onclick="toggleCaveEntry(18, 42);" class="cave-entry"></div>
-                            <div id="mapchests42" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map43" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(43);"
-                            onclick="toggleMap(43, false);">
-                            <div id="chart43" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(43);"
-                                onclick="toggleChart(43);" class="treasure-chart"></div>
-                            <div id="caveentry0" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(0);"
-                                onclick="toggleCaveEntry(0, 43);" class="cave-entry"></div>
-                            <div id="mapchests43" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map44" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(44);"
-                            onclick="toggleMap(44, false);">
-                            <div id="chart44" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(44);"
-                                onclick="toggleChart(44);" class="treasure-chart"></div>
-                            <div id="mapchests44" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map45" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(45);"
-                            onclick="toggleMap(45, false);">
-                            <div id="chart45" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(45);"
-                                onclick="toggleChart(45);" class="treasure-chart"></div>
-                            <div id="mapchests45" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map46" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(46);"
-                            onclick="toggleMap(46, false);">
-                            <div id="chart46" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(46);"
-                                onclick="toggleChart(46);" class="treasure-chart"></div>
-                            <div id="caveentry6" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(6);"
-                                onclick="toggleCaveEntry(6, 46);" class="cave-entry"></div>
-                            <div id="mapchests46" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map47" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(47);"
-                            onclick="toggleMap(47, false);">
-                            <div id="chart47" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(47);"
-                                onclick="toggleChart(47);" class="treasure-chart"></div>
-                            <div id="caveentry7" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(7);"
-                                onclick="toggleCaveEntry(7, 47);" class="cave-entry"></div>
-                            <div id="mapchests47" class="chests-counter">10/10</div>
-                        </div>
-                        <div id="map48" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(48);"
-                            onclick="toggleMap(48, false);">
-                            <div id="chart48" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(48);"
-                                onclick="toggleChart(48);" class="treasure-chart"></div>
-                            <div id="mapchests48" class="chests-counter">10/10</div>
-                        </div>
-                        <br>
-                    </div>
+              </td>
+              <td>
+                <img id="song2" name="Command Melody" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/song2.png" />
+                <div class="song-notes" id="song2-notes">
+                  <img src="./images/song_left.png" />
+                  <img src="./images/song_neutral.png" />
+                  <img src="./images/song_right.png" />
+                  <img src="./images/song_neutral.png" />
                 </div>
-                <div id="zoommap">
-                    <div class="zoommap-cover"></div>
-                    <div id="zoommap-background"></div>
-                    <table>
-                        <tr>
-                            <td>
-                                <div onclick="shrinkMap();" id="first-header" class="detailspan"></div>
-                            </td>
-                            <td>
-                                <div onclick="fullClear();" id="full-clear" class="detailspan">&check; Clear All</div>
-                            </td>
-                            <td>
-                                <div onclick="shrinkMap();" id="second-header" class="detailspan"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation0" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation13" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation26" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation1" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation14" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation27" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation2" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation15" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation28" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation3" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation16" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation29" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation4" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation17" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation30" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation5" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation18" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation31" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation6" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation19" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation32" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation7" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation20" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation33" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation8" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation21" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation34" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation9" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation22" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation35" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation10" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation23" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation36" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation11" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation24" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation37" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        <tr>
-                        <tr>
-                            <td>
-                                <div id="detaillocation12" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation25" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                            <td>
-                                <div id="detaillocation38" class="detailspan" onclick="toggleLocation(this);"></div>
-                            </td>
-                        <tr>
-                    </table>
-
+              </td>
+              <td>
+                <img id="song3" name="Earth God's Lyric" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/song3.png" />
+                <div class="song-notes" id="song3-notes">
+                  <img src="./images/song_down.png" />
+                  <img src="./images/song_down.png" />
+                  <img src="./images/song_neutral.png" />
+                  <img src="./images/song_right.png" />
+                  <img src="./images/song_left.png" />
+                  <img src="./images/song_neutral.png" />
                 </div>
-                <div class="map-info-container">
-                    <div id="map-info"></div>
-                    <div id="chest-counts">
-                        <span id="chests-avail-container">
-                            <span id="chests-avail"></span> Accessible,
-                        </span>
-                        <span id="chests-total"></span> Remaining</div>
+              </td>
+              <td>
+                <img id="song4" name="Wind God's Aria" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/song4.png" />
+                <div class="song-notes" id="song4-notes">
+                  <img src="./images/song_up.png" />
+                  <img src="./images/song_up.png" />
+                  <img src="./images/song_down.png" />
+                  <img src="./images/song_right.png" />
+                  <img src="./images/song_left.png" />
+                  <img src="./images/song_right.png" />
                 </div>
-                <div class="map-item-info-container">
-                    <span id="map-item-info"></span>
+              </td>
+              <td>
+                <img id="song5" name="Song of Passing" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/song5.png" />
+                <div class="song-notes" id="song5-notes">
+                  <img src="./images/song_right.png" />
+                  <img src="./images/song_left.png" />
+                  <img src="./images/song_down.png" />
                 </div>
-                <div class="tool-tip-text"></div>
-            </div>
-            <div class="extra-locations canUseSingleColor">
-                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(0);" onclick="toggleMap(0, true);"
-                    class="extra-location">
-                    <div class="dungeon-items">
-                        <div id="smallkey0" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 4);"
-                            onclick="toggleKey(this, 4, 0);" class="dungeon-item small-key">DRC Small Key</div>
-                        <div id="entry0" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(0);"
-                            onclick="toggleDungeonEntry(0);" class="dungeon-item dungeon-entry"></div>
-                        <div id="bosskey0" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
-                            onclick="toggleKey(this, 1, 0);" class="dungeon-item boss-key">DRC Big Key</div>
-                    </div>
-                    <div class="dungeon-icon">
-                        <img id="extralocation0" src="./images/boss0.png">
-                    </div>
-                    <div id="dungeonchests0" class="extra-location-chests">10/10</div>
-                </div>
-                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(1);" onclick="toggleMap(1, true);"
-                    class="extra-location">
-                    <div class="dungeon-items">
-                        <div id="smallkey1" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 1);"
-                            onclick="toggleKey(this, 1, 1);" class="dungeon-item small-key">FW Small Key</div>
-                        <div id="entry1" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(1);"
-                            onclick="toggleDungeonEntry(1);" class="dungeon-item dungeon-entry"></div>
-                        <div id="bosskey1" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
-                            onclick="toggleKey(this, 1, 1);" class="dungeon-item boss-key">FW Big Key</div>
-                    </div>
-                    <div class="dungeon-icon">
-                        <img id="extralocation1" src="./images/boss1.png">
-                    </div>
-                    <div id="dungeonchests1" class="extra-location-chests">10/10</div>
-                </div>
-                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(2);" onclick="toggleMap(2, true);"
-                    class="extra-location">
-                    <div class="dungeon-items">
-                        <div id="smallkey2" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 2);"
-                            onclick="toggleKey(this, 2, 2);" class="dungeon-item small-key">TotG Small Key</div>
-                        <div id="entry2" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(2);"
-                            onclick="toggleDungeonEntry(2);" class="dungeon-item dungeon-entry"></div>
-                        <div id="bosskey2" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
-                            onclick="toggleKey(this, 1, 2);" class="dungeon-item boss-key">TotG Big Key</div>
-                    </div>
-                    <div class="dungeon-icon">
-                        <img id="extralocation2" src="./images/boss2.png">
-                    </div>
-                    <div id="dungeonchests2" class="extra-location-chests">10/10</div>
-                </div>
-                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(4);" onclick="toggleMap(4, true);"
-                    class="extra-location">
-                    <div class="dungeon-items">
-                        <div id="smallkey4" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 3);"
-                            onclick="toggleKey(this, 3, 4);" class="dungeon-item small-key">ET Small Key</div>
-                        <div id="entry4" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(4);"
-                            onclick="toggleDungeonEntry(4);" class="dungeon-item dungeon-entry"></div>
-                        <div id="bosskey4" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
-                            onclick="toggleKey(this, 1, 4);" class="dungeon-item boss-key">ET Big Key</div>
-                    </div>
-                    <div class="dungeon-icon">
-                        <img id="extralocation4" src="./images/boss4.png">
-                    </div>
-                    <div id="dungeonchests4" class="extra-location-chests">10/10</div>
-                </div>
-                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(5);" onclick="toggleMap(5, true);"
-                    class="extra-location">
-                    <div class="dungeon-items">
-                        <div id="smallkey5" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 2);"
-                            onclick="toggleKey(this, 2, 5);" class="dungeon-item small-key">WT Small Key</div>
-                        <div id="entry5" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(5);"
-                            onclick="toggleDungeonEntry(5);" class="dungeon-item dungeon-entry"></div>
-                        <div id="bosskey5" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
-                            onclick="toggleKey(this, 1, 5);" class="dungeon-item boss-key">WT Big Key</div>
-                    </div>
-                    <div class="dungeon-icon">
-                        <img id="extralocation5" src="./images/boss5.png">
-                    </div>
-                    <div id="dungeonchests5" class="extra-location-chests">10/10</div>
-                </div>
-                <br>
-                <div onmouseout="clearMapInfo();" onmouseover="mapInfo(49);" onclick="toggleMap(49, false);"
-                    class="extra-location">
-                    <div class="dungeon-icon">
-                        <img id="extralocation7" src="./images/mailbox.png">
-                    </div>
-                    <div id="mapchests49" class="extra-location-chests">10/10</div>
-                </div>
-                <div onmouseout="clearMapInfo();" onmouseover="mapInfo(50);" onclick="toggleMap(50, false);"
-                    class="extra-location">
-                    <div class="dungeon-icon">
-                        <img id="extralocation8" src="./images/greatsea.png">
-                    </div>
-                    <div id="mapchests50" class="extra-location-chests">10/10</div>
-                </div>
-                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(3);" onclick="toggleMap(3, true);"
-                    class="extra-location">
-                    <div class="dungeon-icon">
-                        <img id="extralocation3" src="./images/boss3.png">
-                    </div>
-                    <div id="dungeonchests3" class="extra-location-chests">10/10</div>
-                </div>
-                <div onmouseout="clearMapInfo();" onmouseover="mapInfo(51);" onclick="toggleMap(51, false);"
-                    class="extra-location">
-                    <div class="dungeon-icon">
-                        <img id="extralocation9" src="./images/hyrule.png">
-                    </div>
-                    <div id="mapchests51" class="extra-location-chests">10/10</div>
-                </div>
-                <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(6);" onclick="toggleMap(6, true);"
-                    class="extra-location">
-                    <div class="dungeon-icon">
-                        <img id="extralocation6" src="./images/boss6.png">
-                    </div>
-                    <div id="dungeonchests6" class="extra-location-chests">10/10</div>
-                </div>
-            </div>
-            <dl class="statistics canUseSingleColor">
-                <dt>Locations Checked</dt>
-                <dd id="stat-locationsChecked"></dd>
-                <dt class="requireLocationLogic">Locations Accessible</dt>
-                <dd class="requireLocationLogic" id="stat-locationsAvailable"></dd>
-                <dt>Locations Remaining</dt>
-                <dd id="stat-locationsRemaining"></dd>
-                <dt class="requireLocationLogic">Items Needed to Finish Game</dt>
-                <dd class="requireLocationLogic" id="stat-progressionRemaining"></dd>
-                <dt class="requireLocationLogic">Estimated Locations Left to Check</dt>
-                <dd class="requireLocationLogic" id="stat-estimatedLeftToCheck"></dd>
-            </dl>
+              </td>
+              <td>
+                <img id="item27" name="Hero's Charm" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 1);" src="./images/item27.png" />
+              </td>
+            </tr>
+          </table>
         </div>
-        <div class="buttons">
-            <button id="save-progress-button" type="button" onclick="saveProgress(this)">Save Progress</button>
-            <button id="toggle-locations-button" type="button" onclick="toggleNonProgressLocations(this)">Show
-                Non-Progress Locations</button>
-            <button id="view-entrances-button" type="button" onclick="viewEntrances(false, false)" disabled>View
-                Entrances</button>
+        <div class="other-items">
+          <table class="triforce-and-pearls">
+            <tr>
+              <td>
+                <div class="pearls">
+                  <img id="pearl0" name="Nayru's Pearl" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                    onclick="toggleInventoryItem(this, 1);" src="./images/pearl0.png" />
+                  <br>
+                  <img id="pearl1" name="Din's Pearl" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                    onclick="toggleInventoryItem(this, 1);" src="./images/pearl1.png" class="dins-pearl" />
+                  <img id="pearl2" name="Farore's Pearl" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                    onclick="toggleInventoryItem(this, 1);" src="./images/pearl2.png" class="farores-pearl" />
+                  <div class="pearl-holder">
+                    <img src="./images/pearl_holder.png" />
+                  </div>
+                </div>
+              </td>
+              <td>
+                <img id="triforce" name="Triforce Shard" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                  onclick="toggleInventoryItem(this, 8);" src="./images/triforce0.png" />
+              </td>
+            </tr>
+          </table>
+          <div class="misc-items">
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <img id="item31" name="Tingle Statue" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                    onclick="toggleInventoryItem(this, 5);" src="./images/item31.png" />
+                </td>
+                <td>
+                  <img id="item23" name="Ghost Ship Chart" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                    onclick="toggleInventoryItem(this, 1);" src="./images/item23.png" />
+                </td>
+                <td>
+                  <img id="item30" name="Hurricane Spin" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                    onclick="toggleInventoryItem(this, 1);" src="./images/item30.png" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img id="item29" name="Progressive Bomb Bag" onmouseout="clearItemInfo();"
+                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 2);" src="./images/item29.png" />
+                </td>
+
+                <td>
+                  <img id="item28" name="Progressive Quiver" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                    onclick="toggleInventoryItem(this, 2);" src="./images/item28.png" />
+                </td>
+                <td>
+                  <img id="item25" name="Progressive Wallet" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
+                    onclick="toggleInventoryItem(this, 2);" src="./images/item25.png" />
+                </td>
+                <td>
+                  <img id="item26" name="Magic Meter Upgrade" onmouseout="clearItemInfo();"
+                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);" src="./images/item26.png" />
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <span id="item-info"></span>
+      </div>
+      <div class="chart-map-container">
+        <div id="chartmap">
+          <div class="maps">
+            <div id="map0" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(0);"
+              onclick="toggleMap(0, false);">
+              <div id="chart0" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(0);" onclick="toggleChart(0);"
+                class="treasure-chart"></div>
+              <div id="mapchests0" class="chests-counter">10/10</div>
+            </div>
+            <div id="map1" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(1);"
+              onclick="toggleMap(1, false);">
+              <div id="chart1" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(1);" onclick="toggleChart(1);"
+                class="treasure-chart"></div>
+              <div id="caveentry19" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(19);"
+                onclick="toggleCaveEntry(19, 1);" class="cave-entry"></div>
+              <div id="mapchests1" class="chests-counter">10/10</div>
+            </div>
+            <div id="map2" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(2);"
+              onclick="toggleMap(2, false);">
+              <div id="chart2" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(2);" onclick="toggleChart(2);"
+                class="treasure-chart"></div>
+              <div id="mapchests2" class="chests-counter">10/10</div>
+            </div>
+            <div id="map3" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(3);"
+              onclick="toggleMap(3, false);">
+              <div id="chart3" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(3);" onclick="toggleChart(3);"
+                class="treasure-chart"></div>
+              <div id="mapchests3" class="chests-counter">10/10</div>
+            </div>
+            <div id="map4" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(4);"
+              onclick="toggleMap(4, false);">
+              <div id="chart4" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(4);" onclick="toggleChart(4);"
+                class="treasure-chart"></div>
+              <div id="mapchests4" class="chests-counter">10/10</div>
+            </div>
+            <div id="map5" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(5);"
+              onclick="toggleMap(5, false);">
+              <div id="chart5" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(5);" onclick="toggleChart(5);"
+                class="treasure-chart"></div>
+              <div id="mapchests5" class="chests-counter">10/10</div>
+            </div>
+            <div id="map6" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(6);"
+              onclick="toggleMap(6, false);">
+              <div id="chart6" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(6);" onclick="toggleChart(6);"
+                class="treasure-chart"></div>
+              <div id="caveentry9" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(9);"
+                onclick="toggleCaveEntry(9, 6);" class="cave-entry"></div>
+              <div id="mapchests6" class="chests-counter">10/10</div>
+            </div>
+            <div id="map7" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(7);"
+              onclick="toggleMap(7, false);">
+              <div id="chart7" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(7);" onclick="toggleChart(7);"
+                class="treasure-chart"></div>
+              <div id="mapchests7" class="chests-counter">10/10</div>
+            </div>
+            <div id="map8" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(8);"
+              onclick="toggleMap(8, false);">
+              <div id="chart8" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(8);" onclick="toggleChart(8);"
+                class="treasure-chart"></div>
+              <div id="mapchests8" class="chests-counter">10/10</div>
+            </div>
+            <div id="map9" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(9);"
+              onclick="toggleMap(9, false);">
+              <div id="chart9" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(9);" onclick="toggleChart(9);"
+                class="treasure-chart"></div>
+              <div id="mapchests9" class="chests-counter">10/10</div>
+            </div>
+            <div id="map10" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(10);"
+              onclick="toggleMap(10, false);">
+              <div id="chart10" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(10);" onclick="toggleChart(10);"
+                class="treasure-chart"></div>
+              <div id="mapchests10" class="chests-counter">10/10</div>
+            </div>
+            <div id="map11" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(11);"
+              onclick="toggleMap(11, false);">
+              <div id="chart11" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(11);" onclick="toggleChart(11);"
+                class="treasure-chart"></div>
+              <div id="caveentry11" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(11);"
+                onclick="toggleCaveEntry(11, 11);" class="cave-entry"></div>
+              <div id="caveentry12" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(12);"
+                onclick="toggleCaveEntry(12, 11);" class="cave-entry"></div>
+              <div id="mapchests11" class="chests-counter">10/10</div>
+            </div>
+            <div id="map12" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(12);"
+              onclick="toggleMap(12, false);">
+              <div id="chart12" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(12);" onclick="toggleChart(12);"
+                class="treasure-chart"></div>
+              <div id="caveentry1" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(1);"
+                onclick="toggleCaveEntry(1, 12);" class="cave-entry"></div>
+              <div id="mapchests12" class="chests-counter">10/10</div>
+            </div>
+            <div id="map13" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(13);"
+              onclick="toggleMap(13, false);">
+              <div id="chart13" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(13);" onclick="toggleChart(13);"
+                class="treasure-chart"></div>
+              <div id="mapchests13" class="chests-counter">10/10</div>
+            </div>
+            <div id="map14" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(14);"
+              onclick="toggleMap(14, false);">
+              <div id="chart14" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(14);" onclick="toggleChart(14);"
+                class="treasure-chart"></div>
+              <div id="mapchests14" class="chests-counter">10/10</div>
+            </div>
+            <div id="map15" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(15);"
+              onclick="toggleMap(15, false);">
+              <div id="chart15" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(15);" onclick="toggleChart(15);"
+                class="treasure-chart"></div>
+              <div id="caveentry15" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(15);"
+                onclick="toggleCaveEntry(15, 15);" class="cave-entry"></div>
+              <div id="mapchests15" class="chests-counter">10/10</div>
+            </div>
+            <div id="map16" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(16);"
+              onclick="toggleMap(16, false);">
+              <div id="chart16" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(16);" onclick="toggleChart(16);"
+                class="treasure-chart"></div>
+              <div id="mapchests16" class="chests-counter">10/10</div>
+            </div>
+            <div id="map17" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(17);"
+              onclick="toggleMap(17, false);">
+              <div id="chart17" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(17);" onclick="toggleChart(17);"
+                class="treasure-chart"></div>
+              <div id="mapchests17" class="chests-counter">10/10</div>
+            </div>
+            <div id="map18" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(18);"
+              onclick="toggleMap(18, false);">
+              <div id="chart18" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(18);" onclick="toggleChart(18);"
+                class="treasure-chart"></div>
+              <div id="mapchests18" class="chests-counter">10/10</div>
+            </div>
+            <div id="map19" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(19);"
+              onclick="toggleMap(19, false);">
+              <div id="chart19" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(19);" onclick="toggleChart(19);"
+                class="treasure-chart"></div>
+              <div id="caveentry2" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(2);"
+                onclick="toggleCaveEntry(2, 19);" class="cave-entry"></div>
+              <div id="mapchests19" class="chests-counter">10/10</div>
+            </div>
+            <div id="map20" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(20);"
+              onclick="toggleMap(20, false);">
+              <div id="chart20" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(20);" onclick="toggleChart(20);"
+                class="treasure-chart"></div>
+              <div id="mapchests20" class="chests-counter">10/10</div>
+            </div>
+            <div id="map21" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(21);"
+              onclick="toggleMap(21, false);">
+              <div id="chart21" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(21);" onclick="toggleChart(21);"
+                class="treasure-chart"></div>
+              <div id="mapchests21" class="chests-counter">10/10</div>
+            </div>
+            <div id="map22" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(22);"
+              onclick="toggleMap(22, false);">
+              <div id="chart22" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(22);" onclick="toggleChart(22);"
+                class="treasure-chart"></div>
+              <div id="mapchests22" class="chests-counter">10/10</div>
+            </div>
+            <div id="map23" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(23);"
+              onclick="toggleMap(23, false);">
+              <div id="chart23" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(23);" onclick="toggleChart(23);"
+                class="treasure-chart"></div>
+              <div id="mapchests23" class="chests-counter">10/10</div>
+            </div>
+            <div id="map24" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(24);"
+              onclick="toggleMap(24, false);">
+              <div id="chart24" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(24);" onclick="toggleChart(24);"
+                class="treasure-chart"></div>
+              <div id="mapchests24" class="chests-counter">10/10</div>
+            </div>
+            <div id="map25" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(25);"
+              onclick="toggleMap(25, false);">
+              <div id="chart25" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(25);" onclick="toggleChart(25);"
+                class="treasure-chart"></div>
+              <div id="mapchests25" class="chests-counter">10/10</div>
+            </div>
+            <div id="map26" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(26);"
+              onclick="toggleMap(26, false);">
+              <div id="chart26" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(26);" onclick="toggleChart(26);"
+                class="treasure-chart"></div>
+              <div id="mapchests26" class="chests-counter">10/10</div>
+            </div>
+            <div id="map27" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(27);"
+              onclick="toggleMap(27, false);">
+              <div id="chart27" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(27);" onclick="toggleChart(27);"
+                class="treasure-chart"></div>
+              <div id="mapchests27" class="chests-counter">10/10</div>
+            </div>
+            <div id="map28" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(28);"
+              onclick="toggleMap(28, false);">
+              <div id="chart28" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(28);" onclick="toggleChart(28);"
+                class="treasure-chart"></div>
+              <div id="caveentry5" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(5);"
+                onclick="toggleCaveEntry(5, 28);" class="cave-entry"></div>
+              <div id="mapchests28" class="chests-counter">10/10</div>
+            </div>
+            <div id="map29" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(29);"
+              onclick="toggleMap(29, false);">
+              <div id="chart29" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(29);" onclick="toggleChart(29);"
+                class="treasure-chart"></div>
+              <div id="mapchests29" class="chests-counter">10/10</div>
+            </div>
+            <div id="map30" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(30);"
+              onclick="toggleMap(30, false);">
+              <div id="chart30" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(30);" onclick="toggleChart(30);"
+                class="treasure-chart"></div>
+              <div id="caveentry8" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(8);"
+                onclick="toggleCaveEntry(8, 30);" class="cave-entry"></div>
+              <div id="mapchests30" class="chests-counter">10/10</div>
+            </div>
+            <div id="map31" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(31);"
+              onclick="toggleMap(31, false);">
+              <div id="chart31" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(31);" onclick="toggleChart(31);"
+                class="treasure-chart"></div>
+              <div id="mapchests31" class="chests-counter">10/10</div>
+            </div>
+            <div id="map32" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(32);"
+              onclick="toggleMap(32, false);">
+              <div id="chart32" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(32);" onclick="toggleChart(32);"
+                class="treasure-chart"></div>
+              <div id="caveentry4" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(4);"
+                onclick="toggleCaveEntry(4, 32);" class="cave-entry"></div>
+              <div id="mapchests32" class="chests-counter">10/10</div>
+            </div>
+            <div id="map33" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(33);"
+              onclick="toggleMap(33, false);">
+              <div id="chart33" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(33);" onclick="toggleChart(33);"
+                class="treasure-chart"></div>
+              <div id="caveentry14" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(14);"
+                onclick="toggleCaveEntry(14, 33);" class="cave-entry"></div>
+              <div id="mapchests33" class="chests-counter">10/10</div>
+            </div>
+            <div id="map34" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(34);"
+              onclick="toggleMap(34, false);">
+              <div id="chart34" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(34);" onclick="toggleChart(34);"
+                class="treasure-chart"></div>
+              <div id="caveentry10" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(10);"
+                onclick="toggleCaveEntry(10, 34);" class="cave-entry"></div>
+              <div id="mapchests34" class="chests-counter">10/10</div>
+            </div>
+            <div id="map35" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(35);"
+              onclick="toggleMap(35, false);">
+              <div id="chart35" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(35);" onclick="toggleChart(35);"
+                class="treasure-chart"></div>
+              <div id="caveentry13" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(13);"
+                onclick="toggleCaveEntry(13, 35);" class="cave-entry"></div>
+              <div id="mapchests35" class="chests-counter">10/10</div>
+            </div>
+            <div id="map36" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(36);"
+              onclick="toggleMap(36, false);">
+              <div id="chart36" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(36);" onclick="toggleChart(36);"
+                class="treasure-chart"></div>
+              <div id="mapchests36" class="chests-counter">10/10</div>
+            </div>
+            <div id="map37" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(37);"
+              onclick="toggleMap(37, false);">
+              <div id="chart37" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(37);" onclick="toggleChart(37);"
+                class="treasure-chart"></div>
+              <div id="caveentry16" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(16);"
+                onclick="toggleCaveEntry(16, 37);" class="cave-entry"></div>
+              <div id="mapchests37" class="chests-counter">10/10</div>
+            </div>
+            <div id="map38" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(38);"
+              onclick="toggleMap(38, false);">
+              <div id="chart38" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(38);" onclick="toggleChart(38);"
+                class="treasure-chart"></div>
+              <div id="mapchests38" class="chests-counter">10/10</div>
+            </div>
+            <div id="map39" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(39);"
+              onclick="toggleMap(39, false);">
+              <div id="chart39" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(39);" onclick="toggleChart(39);"
+                class="treasure-chart"></div>
+              <div id="caveentry3" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(3);"
+                onclick="toggleCaveEntry(3, 39);" class="cave-entry"></div>
+              <div id="mapchests39" class="chests-counter">10/10</div>
+            </div>
+            <div id="map40" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(40);"
+              onclick="toggleMap(40, false);">
+              <div id="chart40" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(40);" onclick="toggleChart(40);"
+                class="treasure-chart"></div>
+              <div id="mapchests40" class="chests-counter">10/10</div>
+            </div>
+            <div id="map41" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(41);"
+              onclick="toggleMap(41, false);">
+              <div id="chart41" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(41);" onclick="toggleChart(41);"
+                class="treasure-chart"></div>
+              <div id="caveentry17" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(17);"
+                onclick="toggleCaveEntry(17, 41);" class="cave-entry"></div>
+              <div id="mapchests41" class="chests-counter">10/10</div>
+            </div>
+            <div id="map42" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(42);"
+              onclick="toggleMap(42, false);">
+              <div id="chart42" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(42);" onclick="toggleChart(42);"
+                class="treasure-chart"></div>
+              <div id="caveentry18" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(18);"
+                onclick="toggleCaveEntry(18, 42);" class="cave-entry"></div>
+              <div id="mapchests42" class="chests-counter">10/10</div>
+            </div>
+            <div id="map43" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(43);"
+              onclick="toggleMap(43, false);">
+              <div id="chart43" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(43);" onclick="toggleChart(43);"
+                class="treasure-chart"></div>
+              <div id="caveentry0" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(0);"
+                onclick="toggleCaveEntry(0, 43);" class="cave-entry"></div>
+              <div id="mapchests43" class="chests-counter">10/10</div>
+            </div>
+            <div id="map44" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(44);"
+              onclick="toggleMap(44, false);">
+              <div id="chart44" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(44);" onclick="toggleChart(44);"
+                class="treasure-chart"></div>
+              <div id="mapchests44" class="chests-counter">10/10</div>
+            </div>
+            <div id="map45" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(45);"
+              onclick="toggleMap(45, false);">
+              <div id="chart45" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(45);" onclick="toggleChart(45);"
+                class="treasure-chart"></div>
+              <div id="mapchests45" class="chests-counter">10/10</div>
+            </div>
+            <div id="map46" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(46);"
+              onclick="toggleMap(46, false);">
+              <div id="chart46" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(46);" onclick="toggleChart(46);"
+                class="treasure-chart"></div>
+              <div id="caveentry6" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(6);"
+                onclick="toggleCaveEntry(6, 46);" class="cave-entry"></div>
+              <div id="mapchests46" class="chests-counter">10/10</div>
+            </div>
+            <div id="map47" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(47);"
+              onclick="toggleMap(47, false);">
+              <div id="chart47" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(47);" onclick="toggleChart(47);"
+                class="treasure-chart"></div>
+              <div id="caveentry7" onmouseout="clearMapItemInfo();" onmouseover="caveEntryInfo(7);"
+                onclick="toggleCaveEntry(7, 47);" class="cave-entry"></div>
+              <div id="mapchests47" class="chests-counter">10/10</div>
+            </div>
+            <div id="map48" class="sea-sector" onmouseout="clearMapInfo();" onmouseover="mapInfo(48);"
+              onclick="toggleMap(48, false);">
+              <div id="chart48" onmouseout="clearMapItemInfo();" onmouseover="chartInfo(48);" onclick="toggleChart(48);"
+                class="treasure-chart"></div>
+              <div id="mapchests48" class="chests-counter">10/10</div>
+            </div>
             <br>
-            <button id="toggle-auto-save-button" type="button" onclick="toggleAutoSave(this)">
-                <input id="toggle-auto-save-checkbox" type="checkbox">
-                Auto-Save
-            </button>
-            <button id="toggle-logic-button" type="button" onclick="toggleLocationLogic(this)">Hide Location
-                Logic</button>
-            <button id="toggle-background-button" type="button" onclick="toggleSingleColorBackground(this)">Show Single
-                Color Background</button>
+          </div>
         </div>
+        <div id="zoommap">
+          <div class="zoommap-cover"></div>
+          <div id="zoommap-background"></div>
+          <table>
+            <tr>
+              <td>
+                <div onclick="shrinkMap();" id="first-header" class="detailspan"></div>
+              </td>
+              <td>
+                <div onclick="fullClear();" id="full-clear" class="detailspan">&check; Clear All</div>
+              </td>
+              <td>
+                <div onclick="shrinkMap();" id="second-header" class="detailspan"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="detaillocation0" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation13" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation26" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="detaillocation1" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation14" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation27" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="detaillocation2" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation15" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation28" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="detaillocation3" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation16" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation29" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="detaillocation4" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation17" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation30" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="detaillocation5" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation18" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation31" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="detaillocation6" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation19" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation32" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="detaillocation7" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation20" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation33" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="detaillocation8" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation21" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation34" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="detaillocation9" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation22" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation35" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="detaillocation10" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation23" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation36" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="detaillocation11" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation24" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation37" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            <tr>
+            <tr>
+              <td>
+                <div id="detaillocation12" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation25" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+              <td>
+                <div id="detaillocation38" class="detailspan" onclick="toggleLocation(this);"></div>
+              </td>
+            <tr>
+          </table>
+
+        </div>
+        <div class="map-info-container">
+          <div id="map-info"></div>
+          <div id="chest-counts">
+            <span id="chests-avail-container">
+              <span id="chests-avail"></span> Accessible,
+            </span>
+            <span id="chests-total"></span> Remaining</div>
+        </div>
+        <div class="map-item-info-container">
+          <span id="map-item-info"></span>
+        </div>
+        <div class="tool-tip-text"></div>
+      </div>
+      <div class="extra-locations canUseSingleColor">
+        <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(0);" onclick="toggleMap(0, true);"
+          class="extra-location">
+          <div class="dungeon-items">
+            <div id="smallkey0" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 4);"
+              onclick="toggleKey(this, 4, 0);" class="dungeon-item small-key">DRC Small Key</div>
+            <div id="entry0" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(0);"
+              onclick="toggleDungeonEntry(0);" class="dungeon-item dungeon-entry"></div>
+            <div id="bosskey0" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleKey(this, 1, 0);" class="dungeon-item boss-key">DRC Big Key</div>
+          </div>
+          <div class="dungeon-icon">
+            <img id="extralocation0" src="./images/boss0.png">
+          </div>
+          <div id="dungeonchests0" class="extra-location-chests">10/10</div>
+        </div>
+        <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(1);" onclick="toggleMap(1, true);"
+          class="extra-location">
+          <div class="dungeon-items">
+            <div id="smallkey1" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 1);"
+              onclick="toggleKey(this, 1, 1);" class="dungeon-item small-key">FW Small Key</div>
+            <div id="entry1" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(1);"
+              onclick="toggleDungeonEntry(1);" class="dungeon-item dungeon-entry"></div>
+            <div id="bosskey1" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleKey(this, 1, 1);" class="dungeon-item boss-key">FW Big Key</div>
+          </div>
+          <div class="dungeon-icon">
+            <img id="extralocation1" src="./images/boss1.png">
+          </div>
+          <div id="dungeonchests1" class="extra-location-chests">10/10</div>
+        </div>
+        <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(2);" onclick="toggleMap(2, true);"
+          class="extra-location">
+          <div class="dungeon-items">
+            <div id="smallkey2" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 2);"
+              onclick="toggleKey(this, 2, 2);" class="dungeon-item small-key">TotG Small Key</div>
+            <div id="entry2" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(2);"
+              onclick="toggleDungeonEntry(2);" class="dungeon-item dungeon-entry"></div>
+            <div id="bosskey2" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleKey(this, 1, 2);" class="dungeon-item boss-key">TotG Big Key</div>
+          </div>
+          <div class="dungeon-icon">
+            <img id="extralocation2" src="./images/boss2.png">
+          </div>
+          <div id="dungeonchests2" class="extra-location-chests">10/10</div>
+        </div>
+        <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(4);" onclick="toggleMap(4, true);"
+          class="extra-location">
+          <div class="dungeon-items">
+            <div id="smallkey4" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 3);"
+              onclick="toggleKey(this, 3, 4);" class="dungeon-item small-key">ET Small Key</div>
+            <div id="entry4" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(4);"
+              onclick="toggleDungeonEntry(4);" class="dungeon-item dungeon-entry"></div>
+            <div id="bosskey4" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleKey(this, 1, 4);" class="dungeon-item boss-key">ET Big Key</div>
+          </div>
+          <div class="dungeon-icon">
+            <img id="extralocation4" src="./images/boss4.png">
+          </div>
+          <div id="dungeonchests4" class="extra-location-chests">10/10</div>
+        </div>
+        <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(5);" onclick="toggleMap(5, true);"
+          class="extra-location">
+          <div class="dungeon-items">
+            <div id="smallkey5" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 2);"
+              onclick="toggleKey(this, 2, 5);" class="dungeon-item small-key">WT Small Key</div>
+            <div id="entry5" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(5);"
+              onclick="toggleDungeonEntry(5);" class="dungeon-item dungeon-entry"></div>
+            <div id="bosskey5" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleKey(this, 1, 5);" class="dungeon-item boss-key">WT Big Key</div>
+          </div>
+          <div class="dungeon-icon">
+            <img id="extralocation5" src="./images/boss5.png">
+          </div>
+          <div id="dungeonchests5" class="extra-location-chests">10/10</div>
+        </div>
+        <br>
+        <div onmouseout="clearMapInfo();" onmouseover="mapInfo(49);" onclick="toggleMap(49, false);"
+          class="extra-location">
+          <div class="dungeon-icon">
+            <img id="extralocation7" src="./images/mailbox.png">
+          </div>
+          <div id="mapchests49" class="extra-location-chests">10/10</div>
+        </div>
+        <div onmouseout="clearMapInfo();" onmouseover="mapInfo(50);" onclick="toggleMap(50, false);"
+          class="extra-location">
+          <div class="dungeon-icon">
+            <img id="extralocation8" src="./images/greatsea.png">
+          </div>
+          <div id="mapchests50" class="extra-location-chests">10/10</div>
+        </div>
+        <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(3);" onclick="toggleMap(3, true);"
+          class="extra-location">
+          <div class="dungeon-icon">
+            <img id="extralocation3" src="./images/boss3.png">
+          </div>
+          <div id="dungeonchests3" class="extra-location-chests">10/10</div>
+        </div>
+        <div onmouseout="clearMapInfo();" onmouseover="mapInfo(51);" onclick="toggleMap(51, false);"
+          class="extra-location">
+          <div class="dungeon-icon">
+            <img id="extralocation9" src="./images/hyrule.png">
+          </div>
+          <div id="mapchests51" class="extra-location-chests">10/10</div>
+        </div>
+        <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(6);" onclick="toggleMap(6, true);"
+          class="extra-location">
+          <div class="dungeon-icon">
+            <img id="extralocation6" src="./images/boss6.png">
+          </div>
+          <div id="dungeonchests6" class="extra-location-chests">10/10</div>
+        </div>
+      </div>
+      <dl class="statistics canUseSingleColor">
+        <dt>Locations Checked</dt>
+        <dd id="stat-locationsChecked"></dd>
+        <dt class="requireLocationLogic">Locations Accessible</dt>
+        <dd class="requireLocationLogic" id="stat-locationsAvailable"></dd>
+        <dt>Locations Remaining</dt>
+        <dd id="stat-locationsRemaining"></dd>
+        <dt class="requireLocationLogic">Items Needed to Finish Game</dt>
+        <dd class="requireLocationLogic" id="stat-progressionRemaining"></dd>
+        <dt class="requireLocationLogic">Estimated Locations Left to Check</dt>
+        <dd class="requireLocationLogic" id="stat-estimatedLeftToCheck"></dd>
+      </dl>
     </div>
+    <div class="buttons">
+      <button id="save-progress-button" type="button" onclick="saveProgress(this)">Save Progress</button>
+      <button id="toggle-locations-button" type="button" onclick="toggleNonProgressLocations(this)">Show
+        Non-Progress Locations</button>
+      <button id="view-entrances-button" type="button" onclick="viewEntrances(false, false)" disabled>View
+        Entrances</button>
+      <br>
+      <button id="toggle-auto-save-button" type="button" onclick="toggleAutoSave(this)">
+        <input id="toggle-auto-save-checkbox" type="checkbox">
+        Auto-Save
+      </button>
+      <button id="toggle-logic-button" type="button" onclick="toggleLocationLogic(this)">Hide Location
+        Logic</button>
+      <button id="toggle-background-button" type="button" onclick="toggleSingleColorBackground(this)">Show Single
+        Color Background</button>
+    </div>
+  </div>
 </body>
 
 </html>
