@@ -5,7 +5,7 @@ function transferKeys() {
 }
 
 function setGuaranteedKeys() {
-    if (!isKeyLunacy) {
+    if (!options.key_lunacy) {
         for (var i = 0; i < dungeons.length; i++) {
             var dungeonName = dungeons[i];
             var shortDungeonName = shortDungeonNames[i];

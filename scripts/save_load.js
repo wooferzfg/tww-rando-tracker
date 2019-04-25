@@ -39,49 +39,65 @@ function loadFlags() {
         if (flagString) {
             flags = flagString.split(',');
         }
-        isKeyLunacy = getLocalStorageBool('isKeyLunacy', isKeyLunacy);
-        isRandomEntrances = getLocalStorageBool('isRandomEntrances', isRandomEntrances);
-        isRandomCaves = getLocalStorageBool('isRandomCaves', isRandomCaves);
-        isRandomTogether = getLocalStorageBool('isRandomTogether', isRandomTogether);
-        isRandomCharts = getLocalStorageBool('isRandomCharts', isRandomCharts);
-        swordMode = getLocalStorageItem('swordMode', swordMode);
-        skipRematchBosses = getLocalStorageBool('skipRematchBosses', skipRematchBosses);
-        startingTriforceShards = getLocalStorageInt('startingTriforceShards', startingTriforceShards);
-        isRaceMode = getLocalStorageBool('isRaceMode', isRaceMode);
-        startingGear = getLocalStorageInt('startingGear', startingGear);
+        Object.keys(options).forEach(function (optionName) {
+            var defaultValue = options[optionName];
+            var optionType = typeof defaultValue;
+            switch (optionType) {
+                case 'boolean':
+                    options[optionName] = getLocalStorageBool(optionName, defaultValue);
+                    break;
+                case 'number':
+                    options[optionName] = getLocalStorageInt(optionName, defaultValue);
+                    break;
+                case 'string':
+                    options[optionName] = getLocalStorageItem(optionName, defaultValue);
+                    break;
+            }
+        });
         return;
     }
 
-    isKeyLunacy = getParamBool('KL', isKeyLunacy);
-    isRandomCharts = getParamBool('RCH', isRandomCharts);
-    skipRematchBosses = getParamBool('SRB', skipRematchBosses);
-    startingTriforceShards = getParamValue('STS', startingTriforceShards);
-    isRaceMode = getParamBool('RM', isRaceMode);
-    startingGear = gearParam;
+    options.key_lunacy = getParamBool('KL', options.key_lunacy);
+    options.randomize_charts = getParamBool('RCH', options.randomize_charts);
+    options.skip_rematch_bosses = getParamBool('SRB', options.skip_rematch_bosses);
+    options.num_starting_triforce_shards = getParamInt('STS', options.num_starting_triforce_shards);
+    options.race_mode = getParamBool('RM', options.race_mode);
+    options.starting_gear = parseInt(gearParam);
 
-    var entrancesValue = getParamValue('REN', 0);
-    if (entrancesValue == 1) {
-        isRandomEntrances = true;
-    } else if (entrancesValue == 2) {
-        isRandomCaves = true;
-    } else if (entrancesValue == 3) {
-        isRandomEntrances = true;
-        isRandomCaves = true;
-    } else if (entrancesValue == 4) {
-        isRandomEntrances = true;
-        isRandomCaves = true;
-        isRandomTogether = true;
+    var entrancesValue = getParamInt('REN', 0);
+    switch (entrancesValue) {
+        case 0:
+            options.randomize_entrances = 'Disabled';
+            break;
+        case 1:
+            options.randomize_entrances = 'Dungeons';
+            break;
+        case 2:
+            options.randomize_entrances = 'Secret Caves';
+            break;
+        case 3:
+            options.randomize_entrances = 'Dungeons & Secret Caves (Separately)';
+            break;
+        case 4:
+            options.randomize_entrances = 'Dungeons & Secret Caves (Together)';
+            break;
     }
 
-    var swordValue = getParamValue('SWO', 0);
-    if (swordValue == 2) {
-        swordMode = 'swordless';
-    } else if (swordValue == 1) {
-        swordMode = 'swordless-start';
+    var swordValue = getParamInt('SWO', 0);
+    switch (swordValue) {
+        case 0:
+            options.sword_mode = 'Start with Sword';
+            break;
+        case 1:
+            options.sword_mode = 'Randomized Sword';
+            break;
+        case 2:
+            options.sword_mode = 'Swordless';
+            break;
     }
 
     if (getParamBool('TRI', false)) {
-        if (isRandomCharts) {
+        if (options.randomize_charts) {
             flags.push('Sunken Treasure');
         } else {
             flags.push('Sunken Triforce'); // need to account for this case separately
@@ -121,6 +137,10 @@ function getParamValue(param, defaultVal) {
         return match[1];
     }
     return defaultVal;
+}
+
+function getParamInt(param, defaultVal) {
+    return parseInt(getParamValue(param, defaultVal));
 }
 
 function checkAddFlags(param, flagsToAdd) {
@@ -205,16 +225,9 @@ function saveProgress(element) {
             localStorage.setItem(curExit, entrances[curExit]);
         }
         localStorage.setItem('flags', flags.join(','));
-        localStorage.setItem('isKeyLunacy', isKeyLunacy);
-        localStorage.setItem('isRandomEntrances', isRandomEntrances);
-        localStorage.setItem('isRandomCaves', isRandomCaves);
-        localStorage.setItem('isRandomCharts', isRandomCharts);
-        localStorage.setItem('isRandomTogether', isRandomTogether);
-        localStorage.setItem('swordMode', swordMode);
-        localStorage.setItem('skipRematchBosses', skipRematchBosses);
-        localStorage.setItem('startingTriforceShards', startingTriforceShards);
-        localStorage.setItem('isRaceMode', isRaceMode);
-        localStorage.setItem('startingGear', startingGear);
+        Object.keys(options).forEach(function (optionName) {
+            localStorage.setItem(optionName, options[optionName]);
+        });
         localStorage.setItem('version', versionParam);
 
         $(element).notify('Progress saved.', {

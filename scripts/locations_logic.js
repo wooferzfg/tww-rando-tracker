@@ -195,7 +195,7 @@ function isLocationProgress(locationName) {
     var types = itemLocations[locationName].Types.split(',').map(x => x.trim());
     for (var i = 0; i < types.length; i++) {
         var type = types[i];
-        if (!isRandomCharts
+        if (!options.randomize_charts
             && type == 'Sunken Treasure'
             && itemLocations[locationName]['Original item'].startsWith('Triforce Shard')) {
             return flags.includes('Sunken Triforce');

@@ -92,7 +92,7 @@ function refreshAllImagesAndCounts() {
     }
 
     // sword mode
-    if (swordMode == 'swordless') {
+    if (options.sword_mode == 'Swordless') {
         var swordElement = document.getElementById('item21');
         swordElement.classList.add('hide');
         var hurricaneSpinElement = document.getElementById('item30');
@@ -147,7 +147,7 @@ function refreshAllImagesAndCounts() {
 
             // dungeon entry
             var l = 'entry' + i.toString();
-            if (isRandomEntrances) {
+            if (isRandomEntrances()) {
                 var entryName = getDungeonEntryName(i);
                 if (items[entryName] === 0) {
                     setBackgroundUrl(l, 'dungeon_noentry.png');
@@ -175,7 +175,7 @@ function refreshAllImagesAndCounts() {
         var l = 'chart' + i.toString();
         var chartName = charts[i];
         var chartCount = items[chartName];
-        if (!isRandomCharts && chartName.includes('Triforce')) {
+        if (!options.randomize_charts && chartName.includes('Triforce')) {
             if (chartCount === 1) {
                 setBackgroundUrl(l, 'triforcechartopen.png');
             } else {
@@ -194,7 +194,7 @@ function refreshAllImagesAndCounts() {
     // cave entry
     for (var i = 0; i < caves.length; i++) {
         var l = 'caveentry' + i.toString();
-        if (isRandomCaves) {
+        if (isRandomCaves()) {
             var entryName = getCaveEntryName(i);
             if (items[entryName] === 0) {
                 setBackgroundUrl(l, 'cave_noentry.png');
@@ -219,7 +219,7 @@ function refreshAllImagesAndCounts() {
     }
 
     // entrances
-    if (isRandomEntrances || isRandomCaves) {
+    if (isRandomEntrances() || isRandomCaves()) {
         document.getElementById('view-entrances-button').removeAttribute('disabled');
     }
 }
@@ -526,7 +526,7 @@ function toggleMap(index, isDungeon) {
         setBackgroundUrl('zoommap-background', 'mapfull' + index + '.png');
     }
 
-    if (isRaceMode && isDungeon && dungeons[index] != "Ganon's Tower") {
+    if (options.race_mode && isDungeon && dungeons[index] != "Ganon's Tower") {
         setFullClearStyle('table-cell');
     } else {
         setFullClearStyle('none');
@@ -557,7 +557,7 @@ function viewEntrances(choosingEntrance, isCaveExit) {
     setBackgroundUrl('zoommap-background', 'mapempty.png');
     setFullClearStyle('none');
 
-    var showAllEntrances = !choosingEntrance || isRandomTogether;
+    var showAllEntrances = !choosingEntrance || options.randomize_entrances.includes('Together');
     var entrancesList = getRandomEntrancesToShow(isCaveExit, showAllEntrances);
     setLocationsList(entrancesList, choosingEntrance);
 

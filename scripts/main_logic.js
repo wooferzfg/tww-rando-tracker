@@ -73,9 +73,9 @@ function loadStartingItems() {
     startingItems["Wind's Requiem"] = 1;
     startingItems['Ballad of Gales'] = 1;
     startingItems['Song of Passing'] = 1;
-    startingItems['Triforce Shard'] = startingTriforceShards;
+    startingItems['Triforce Shard'] = options.num_starting_triforce_shards;
 
-    var gearRemaining = startingGear;
+    var gearRemaining = options.starting_gear;
     for (var i = 0; i < regularItems.length; i++) {
         var itemName = regularItems[i];
         startingItems[itemName] = gearRemaining % 2;
@@ -87,9 +87,9 @@ function loadStartingItems() {
         gearRemaining = Math.floor(gearRemaining / 4);
     }
 
-    if (swordMode == 'sword') {
+    if (options.sword_mode == 'Start with Sword') {
         startingItems['Progressive Sword'] += 1;
-    } else if (swordMode == 'swordless') {
+    } else if (options.sword_mode == 'Swordless') {
         impossibleItems.push('Progressive Sword x1');
         impossibleItems.push('Progressive Sword x2');
         impossibleItems.push('Progressive Sword x3');
@@ -169,7 +169,7 @@ function getNameForItem(itemName) {
         }
     } else if (itemName == "Boat's Sail") {
         return 'Swift Sail';
-    } else if (isRandomCharts && (itemName.startsWith('Triforce Chart') || itemName.startsWith('Treasure Chart'))) {
+    } else if (options.randomize_charts && (itemName.startsWith('Triforce Chart') || itemName.startsWith('Treasure Chart'))) {
         var islandIndex = charts.indexOf(itemName);
         return 'Chart for ' + islands[islandIndex];
     }

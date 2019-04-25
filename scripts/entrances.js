@@ -30,6 +30,14 @@ const caveEntrances = [
     'Star Island'
 ];
 
+function isRandomEntrances() {
+    return options.randomize_entrances.includes('Dungeons');
+}
+
+function isRandomCaves() {
+    return options.randomize_entrances.includes('Secret Caves');
+}
+
 function getDungeonEntryName(index) {
     return 'Entered ' + shortDungeonNames[index];
 }
@@ -45,8 +53,8 @@ function getCaveEntryName(index) {
 }
 
 function getRandomEntrancesToShow(isCaveExit, showAllEntrances) {
-    var showDungeons = isRandomEntrances && (!isCaveExit || showAllEntrances);
-    var showCaves = isRandomCaves && (isCaveExit || showAllEntrances);
+    var showDungeons = isRandomEntrances() && (!isCaveExit || showAllEntrances);
+    var showCaves = isRandomCaves() && (isCaveExit || showAllEntrances);
     return getRandomEntrances(showDungeons, showCaves);
 }
 

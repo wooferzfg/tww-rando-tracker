@@ -18,7 +18,7 @@ function addDefeatGanondorf() {
 }
 
 function updateDungeonEntranceMacros() {
-    if (isRandomEntrances) {
+    if (isRandomEntrances()) {
         for (var i = 0; i < dungeons.length; i++) {
             var dungeonName = dungeons[i];
             if (isMainDungeon(dungeonName)) {
@@ -32,7 +32,7 @@ function updateDungeonEntranceMacros() {
 }
 
 function updateCaveEntranceMacros() {
-    if (isRandomCaves) {
+    if (isRandomCaves()) {
         for (var i = 0; i < caves.length; i++) {
             var macroName = 'Can Access ' + caves[i];
             var entryName = getCaveEntryName(i);
@@ -46,7 +46,7 @@ function updateChartMacros() {
     for (var i = 0; i < charts.length; i++) {
         var chartName = charts[i];
         items[chartName] = 0;
-        if (isRandomCharts) {
+        if (options.randomize_charts) {
             var macroName = 'Chart for Island ' + (i + 1);
             macros[macroName] = chartName; // we assume everything is a Treasure Chart and clear any additional requirements like wallet upgrades
         }
@@ -54,13 +54,13 @@ function updateChartMacros() {
 }
 
 function updateRematchBossesMacros() {
-    if (skipRematchBosses) {
+    if (options.skip_rematch_bosses) {
         macros["Can Unlock Ganon's Tower Four Boss Door"] = 'Nothing';
     }
 }
 
 function updateSwordModeMacros() {
-    if (swordMode == 'swordless') {
+    if (options.sword_mode == 'Swordless') {
         macros['Can Sword Fight with Orca'] = 'Can Sword Fight with Orca in Swordless';
         macros['Can Defeat Phantom Ganon'] = 'Can Defeat Phantom Ganon in Swordless';
         macros['Can Get Past Hyrule Barrier'] = 'Can Get Past Hyrule Barrier in Swordless';

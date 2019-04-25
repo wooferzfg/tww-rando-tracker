@@ -257,16 +257,16 @@ var keys = {
 var locationsChecked = {};
 var entrances = {}; // the key is the exit name, the value is the entrance name
 var flags = [];
-var isKeyLunacy = false;
-var isRandomEntrances = false;
-var isRandomCaves = false;
-var isRandomTogether = false;
-var isRandomCharts = false;
-var swordMode = 'sword';
-var skipRematchBosses = false; // on by default in settings, but we set it to false for backwards compatibility
-var startingTriforceShards = 0;
-var isRaceMode = false;
-var startingGear = 0;
+var options = {
+    keylunacy: false,
+    randomize_entrances: 'Disabled',
+    randomize_charts: false,
+    sword_mode: 'Start with Sword',
+    skip_rematch_bosses: false,
+    num_starting_triforce_shards: 0,
+    race_mode: false,
+    starting_gear: 0
+};
 
 var locationsAreProgress = {};
 var locationsAreAvailable = {};
