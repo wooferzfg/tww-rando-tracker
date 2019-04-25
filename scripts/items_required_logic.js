@@ -20,6 +20,10 @@ function itemsForRequirement(reqName) {
     }
   } else if (reqName.startsWith('Can Access Other Location "')) {
     return itemsRequiredForOtherLocation(reqName);
+  } else if (reqName.startsWith('Option "')) {
+    var reqMet = checkOptionEnabledRequirement(reqName);
+    var requiredItems = reqMet ? 'None' : 'Impossible';
+    var remainingProgress = reqMet ? 0 : NaN;
   } else if (reqName in items) {
     var reqMet = items[reqName] > 0;
     if (reqMet && startingItems[reqName] > 0) {

@@ -3,8 +3,6 @@ function updateMacrosAndLocations() {
   updateDungeonEntranceMacros();
   updateCaveEntranceMacros();
   updateChartMacros();
-  updateRematchBossesMacros();
-  updateSwordModeMacros();
   updateTriforceMacro();
   updateTingleStatueReward();
 }
@@ -50,21 +48,6 @@ function updateChartMacros() {
       var macroName = 'Chart for Island ' + (i + 1);
       macros[macroName] = chartName; // we assume everything is a Treasure Chart and clear any additional requirements like wallet upgrades
     }
-  }
-}
-
-function updateRematchBossesMacros() {
-  if (options.skip_rematch_bosses) {
-    macros["Can Unlock Ganon's Tower Four Boss Door"] = 'Nothing';
-  }
-}
-
-function updateSwordModeMacros() {
-  if (options.sword_mode == 'Swordless') {
-    macros['Can Sword Fight with Orca'] = 'Can Sword Fight with Orca in Swordless';
-    macros['Can Defeat Phantom Ganon'] = 'Can Defeat Phantom Ganon in Swordless';
-    macros['Can Get Past Hyrule Barrier'] = 'Can Get Past Hyrule Barrier in Swordless';
-    macros['Can Defeat Ganondorf'] = 'Can Defeat Ganondorf in Swordless';
   }
 }
 

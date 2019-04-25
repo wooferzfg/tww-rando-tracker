@@ -107,6 +107,9 @@ function checkRequirementMet(reqName) {
   if (reqName.startsWith('Can Access Other Location "')) {
     return checkOtherLocationReq(reqName);
   }
+  if (reqName.startsWith('Option "')) {
+    return checkOptionEnabledRequirement(reqName);
+  }
   if (reqName in items) {
     return items[reqName] > 0;
   }
@@ -152,6 +155,31 @@ function checkOtherLocationReq(reqName) {
   var otherLocation = reqName.substring('Can Access Other Location "'.length, reqName.length - 1);
   var requirements = getLocationRequirements(otherLocation);
   return checkLogicalExpressionReq(requirements);
+}
+
+function checkOptionEnabledRequirement(reqName) {
+  var positiveBooleanMatch = reqName.match(/^Option "([^"]+)" Enabled$/);
+  var negativeBooleanMatch = reqName.match(/^Option "([^"]+)" Disabled$/);
+  var positiveDropdownMatch = reqName.match(/^Option "([^"]+)" Is "([^"]+)"$/);
+  var negativeDropdownMatch = reqName.match(/^Option "([^"]+)" Is Not "([^"]+)"$/);
+  if (positiveBooleanMatch) {
+    var optionName = positiveBooleanMatch[1];
+    return options[optionName];
+  }
+  if (negativeBooleanMatch) {
+    var optionName = negativeBooleanMatch[1];
+    return !options[optionName];
+  }
+  if (positiveDropdownMatch) {
+    var optionName = positiveDropdownMatch[1];
+    var expectedValue = positiveDropdownMatch[2];
+    return options[optionName] == expectedValue;
+  }
+  if (negativeDropdownMatch) {
+    var optionName = negativeDropdownMatch[1];
+    var expectedValue = negativeDropdownMatch[2];
+    return options[optionName] != expectedValue;
+  }
 }
 
 function getSplitExpression(expression) {
