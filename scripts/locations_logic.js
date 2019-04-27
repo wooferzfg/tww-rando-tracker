@@ -162,6 +162,8 @@ function checkOptionEnabledRequirement(reqName) {
   var negativeBooleanMatch = reqName.match(/^Option "([^"]+)" Disabled$/);
   var positiveDropdownMatch = reqName.match(/^Option "([^"]+)" Is "([^"]+)"$/);
   var negativeDropdownMatch = reqName.match(/^Option "([^"]+)" Is Not "([^"]+)"$/);
+  var positiveListMatch = reqName.match(/^Option "([^"]+)" Contains "([^"]+)"$/);
+  var negativeListMatch = reqName.match(/^Option "([^"]+)" Does Not Contain "([^"]+)"$/);
   if (positiveBooleanMatch) {
     var optionName = positiveBooleanMatch[1];
     return options[optionName];
@@ -179,6 +181,16 @@ function checkOptionEnabledRequirement(reqName) {
     var optionName = negativeDropdownMatch[1];
     var expectedValue = negativeDropdownMatch[2];
     return options[optionName] != expectedValue;
+  }
+  if (positiveListMatch) {
+    var optionName = positiveListMatch[1];
+    var expectedValue = positiveListMatch[2];
+    return options[optionName].includes(expectedValue);
+  }
+  if (negativeListMatch) {
+    var optionName = negativeListMatch[1];
+    var expectedValue = negativeListMatch[2];
+    return !options[optionName].includes(expectedValue);
   }
 }
 
