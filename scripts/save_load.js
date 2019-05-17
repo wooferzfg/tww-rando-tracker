@@ -190,6 +190,7 @@ function getSaveData() {
 
 function saveProgress() {
   localStorage.setItem('saveData', getSaveData());
+  localStorage.setItem('version', versionParam);
 }
 
 function exportProgress() {

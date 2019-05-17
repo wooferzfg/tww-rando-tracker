@@ -169,7 +169,14 @@ function launch() {
 }
 
 function loadFileContents() {
-  localStorage.setItem('saveData', this.result);
+  try {
+    var saveData = this.result;
+    localStorage.setItem('saveData', saveData);
+
+    var version = JSON.parse(saveData).version;
+    localStorage.setItem('version', version);
+  } catch (err) {}
+  
   openTracker(true);
 }
 
