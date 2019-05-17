@@ -28,18 +28,18 @@ function updateStatistics() {
   } else {
     checkedCount--;
   }
-  $('#stat-locationsChecked').text(checkedCount);
-  $('#stat-locationsAvailable').text(availableCount);
-  $('#stat-locationsRemaining').text(locationsRemaining);
+  document.getElementById('stat-locationsChecked').innerText = checkedCount;
+  document.getElementById('stat-locationsAvailable').innerText = availableCount;
+  document.getElementById('stat-locationsRemaining').innerText = locationsRemaining;
 
   // Items Needed to Finish Game
   var finishRequirements = getLocationRequirements("Ganon's Tower - Defeat Ganondorf");
   var finishGameItems = itemsRequiredForExpression(finishRequirements);
   var countdown = finishGameItems.countdown;
-  $('#stat-progressionRemaining').text(countdown);
+  document.getElementById('stat-progressionRemaining').innerText = countdown;
 
   // Estimated Locations Left Over at End
   // average checks remaining = average draws without replacement probability
   var averageChecksRemaining = Math.min(progressLocationsRemaining, (countdown * (progressLocationsRemaining + 1)) / (countdown + 1));
-  $('#stat-estimatedLeftToCheck').text(Math.round(averageChecksRemaining));
+  document.getElementById('stat-estimatedLeftToCheck').innerText = Math.round(averageChecksRemaining);
 }
