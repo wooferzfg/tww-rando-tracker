@@ -64,6 +64,7 @@ function dataChanged() {
   refreshEntranceColors();
   recreateTooltips();
   updateStatistics();
+  saveProgress();
 }
 
 function loadStartingItems() {

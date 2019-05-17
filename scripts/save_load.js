@@ -204,63 +204,28 @@ function getLocalStorageItem(itemName, defaultVal) {
   return defaultVal.toString();
 }
 
-function saveProgress(element) {
-  try {
-    Object.keys(items).forEach(function (itemName) {
-      localStorage.setItem(itemName, items[itemName]);
+function saveProgress() {
+  Object.keys(items).forEach(function (itemName) {
+    localStorage.setItem(itemName, items[itemName]);
+  });
+  Object.keys(keys).forEach(function (keyName) {
+    localStorage.setItem(keyName, keys[keyName]);
+  });
+  Object.keys(locationsChecked).forEach(function (generalLocation) {
+    Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
+      var locationName = getFullLocationName(generalLocation, detailedLocation);
+      var locationValue = locationsChecked[generalLocation][detailedLocation];
+      localStorage.setItem(locationName, locationValue);
     });
-    Object.keys(keys).forEach(function (keyName) {
-      localStorage.setItem(keyName, keys[keyName]);
-    });
-    Object.keys(locationsChecked).forEach(function (generalLocation) {
-      Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
-        var locationName = getFullLocationName(generalLocation, detailedLocation);
-        var locationValue = locationsChecked[generalLocation][detailedLocation];
-        localStorage.setItem(locationName, locationValue);
-      });
-    });
-    var allEntrances = getAllRandomEntrances();
-    for (var i = 0; i < allEntrances.length; i++) {
-      var curExit = allEntrances[i];
-      localStorage.setItem(curExit, entrances[curExit]);
-    }
-    localStorage.setItem('flags', flags.join(','));
-    Object.keys(options).forEach(function (optionName) {
-      localStorage.setItem(optionName, options[optionName]);
-    });
-    localStorage.setItem('version', versionParam);
-
-    $(element).notify('Progress saved.', {
-      autoHideDelay: 5000,
-      className: 'success',
-      position: 'top left'
-    });
+  });
+  var allEntrances = getAllRandomEntrances();
+  for (var i = 0; i < allEntrances.length; i++) {
+    var curExit = allEntrances[i];
+    localStorage.setItem(curExit, entrances[curExit]);
   }
-  catch (err) {
-    $(element).notify('Progress could not be saved.', {
-      autoHideDelay: 5000,
-      className: 'error',
-      position: 'top left'
-    });
-  }
-}
-
-function toggleAutoSave(element) {
-  var autoSaveCheckbox = document.getElementById('toggle-auto-save-checkbox');
-
-  if (autoSaveCheckbox.checked) {
-    clearInterval(autoSaveInterval);
-    autoSaveCheckbox.checked = false;
-  }
-  else {
-    // save every 2 minutes
-    autoSaveInterval = setInterval(function () { saveProgress(element) }, 120000);
-    autoSaveCheckbox.checked = true;
-
-    $(element).notify('Progress will be saved every 2 minutes.', {
-      autoHideDelay: 5000,
-      className: 'success',
-      position: 'top left'
-    });
-  }
+  localStorage.setItem('flags', flags.join(','));
+  Object.keys(options).forEach(function (optionName) {
+    localStorage.setItem(optionName, options[optionName]);
+  });
+  localStorage.setItem('version', versionParam);
 }

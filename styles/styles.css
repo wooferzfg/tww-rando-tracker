@@ -650,10 +650,3 @@ cursor: pointer;
   margin-top: 5px;
   width: 225px;
 }
-
-#toggle-auto-save-checkbox {
-  vertical-align: middle;
-  pointer-events: none;
-  margin: 0;
-  margin-right: 3px;
-}
