@@ -1,7 +1,7 @@
 const flagParam = getParameterByName('f');
 const gearParam = getParameterByName('g');
 const versionParam = getParameterByName('v');
-const loadingProgress = getParameterByName('p') == '1';
+var loadingProgress = getParameterByName('p') == '1';
 const isCurrentVersionParam = getParameterByName('c');
 
 var loadingErrorShown = false;
@@ -148,19 +148,28 @@ function loadSaveData(saveDataString) {
 
 function loadProgress() {
   if (loadingProgress) {
-    var saveData = localStorage.getItem('saveData');
-    loadSaveData(saveData);
+    try {
+      var saveData = localStorage.getItem('saveData');
+      loadSaveData(saveData);
 
-    if (isCurrentVersionParam == '1') {
-      var notificationMessage = 'Progress loaded.';
-    } else {
-      var notificationMessage = 'Progress loaded for Wind Waker Randomizer ' + versionParam + '.'
+      if (isCurrentVersionParam == '1') {
+        var notificationMessage = 'Progress loaded.';
+      } else {
+        var notificationMessage = 'Progress loaded for Wind Waker Randomizer ' + versionParam + '.'
+      }
+      $.notify(notificationMessage, {
+        autoHideDelay: 5000,
+        className: 'success',
+        position: 'top left'
+      });
+    } catch (err) {
+      loadingProgress = false;
+      $.notify('Progress could not be loaded.', {
+        autoHideDelay: 5000,
+        className: 'error',
+        position: 'top left'
+      });
     }
-    $.notify(notificationMessage, {
-      autoHideDelay: 5000,
-      className: 'success',
-      position: 'top left'
-    });
   }
 }
 
