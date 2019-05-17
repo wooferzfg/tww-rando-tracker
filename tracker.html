@@ -15,7 +15,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css">
   <script src="https://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
-  <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/jpillora/notifyjs/dist/notify.jss"></script>
+  <script src="https://cdn.jsdelivr.net/gh/koffsyrup/FileSaver.js/FileSaver.js"></script>
   <script src="./scripts/entrances.js"></script>
   <script src="./scripts/items_required_logic.js"></script>
   <script src="./scripts/keys_logic.js"></script>
@@ -915,13 +916,14 @@
       </dl>
     </div>
     <div class="buttons">
-      <button id="toggle-locations-button" type="button" onclick="toggleNonProgressLocations(this)">Show
+      <button type="button" onclick="exportProgress()">Export Progress</button>
+      <button type="button" onclick="toggleNonProgressLocations(this)">Show
         Non-Progress Locations</button>
       <button id="view-entrances-button" type="button" onclick="viewEntrances(false, false)" disabled>View
         Entrances</button>
-      <button id="toggle-logic-button" type="button" onclick="toggleLocationLogic(this)">Hide Location
+      <button type="button" onclick="toggleLocationLogic(this)">Hide Location
         Logic</button>
-      <button id="toggle-background-button" type="button" onclick="toggleSingleColorBackground(this)">Show Single
+      <button type="button" onclick="toggleSingleColorBackground(this)">Show Single
         Color Background</button>
     </div>
   </div>

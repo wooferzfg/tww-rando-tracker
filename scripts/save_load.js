@@ -182,3 +182,7 @@ function getSaveData() {
 function saveProgress() {
   localStorage.setItem('saveData', getSaveData());
 }
+
+function exportProgress() {
+  saveTextAs(getSaveData(), 'tww_rando_tracker_progress.json');
+}
