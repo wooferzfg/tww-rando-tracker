@@ -167,3 +167,22 @@ function loadMostRecent() {
 function launch() {
   openTracker(false);
 }
+
+function loadFileContents() {
+  localStorage.setItem('saveData', this.result);
+  openTracker(true);
+}
+
+function loadFromFileClicked() {
+  var file = this.files[0];
+  var reader = new FileReader();
+  reader.addEventListener('loadend', loadFileContents);
+  reader.readAsText(file);
+  this.value = '';
+}
+
+function loadFromFile() {
+  var loadProgressElement = document.getElementById('load-progress');
+  loadProgressElement.addEventListener('input', loadFromFileClicked);
+  loadProgressElement.click();
+}

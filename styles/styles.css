@@ -42,6 +42,10 @@ body {
   flex-wrap: wrap;
 }
 
+#load-progress {
+  display: none;
+}
+
 .settings,
 .attribution,
 #item-info,
