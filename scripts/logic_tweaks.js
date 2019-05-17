@@ -1,10 +1,13 @@
 function updateMacrosAndLocations() {
   addDefeatGanondorf();
-  updateDungeonEntranceMacros();
-  updateCaveEntranceMacros();
-  updateChartMacros();
-  updateTriforceMacro();
   updateTingleStatueReward();
+
+  if (!loadingProgress) {
+    updateDungeonEntranceMacros();
+    updateCaveEntranceMacros();
+    updateChartMacros();
+    updateTriforceMacro();
+  }
 }
 
 function addDefeatGanondorf() {

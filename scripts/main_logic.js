@@ -4,8 +4,6 @@ var macrosLoaded = false;
 var itemLocationsLoaded = false;
 
 $(document).ready(function () {
-  loadFlags();
-  loadStartingItems();
   loadMacros();
   loadItemLocations();
 });
@@ -48,10 +46,12 @@ function getLogicFilesUrl() {
 
 function afterLoad() {
   if (macrosLoaded && itemLocationsLoaded) {
-    updateMacrosAndLocations();
-    setLocationsAreProgress();
     initializeLocationsChecked();
     loadProgress();
+    loadFlags();
+    loadStartingItems();
+    updateMacrosAndLocations();
+    setLocationsAreProgress();
     dataChanged();
   }
 }
@@ -98,9 +98,11 @@ function loadStartingItems() {
     impossibleItems.push('Hurricane Spin');
   }
 
-  Object.keys(startingItems).forEach(function (item) {
-    items[item] = startingItems[item];
-  });
+  if (!loadingProgress) {
+    Object.keys(startingItems).forEach(function (item) {
+      items[item] = startingItems[item];
+    });
+  }
 }
 
 function isMainDungeon(dungeonName) {

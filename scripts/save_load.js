@@ -1,7 +1,7 @@
 const flagParam = getParameterByName('f');
 const gearParam = getParameterByName('g');
 const versionParam = getParameterByName('v');
-const progressParam = getParameterByName('p');
+const loadingProgress = getParameterByName('p') == '1';
 const isCurrentVersionParam = getParameterByName('c');
 
 var loadingErrorShown = false;
@@ -34,26 +34,7 @@ function showLoadingError() {
 }
 
 function loadFlags() {
-  if (progressParam == '1') {
-    var flagString = localStorage.getItem('flags');
-    if (flagString) {
-      flags = flagString.split(',');
-    }
-    Object.keys(options).forEach(function (optionName) {
-      var defaultValue = options[optionName];
-      var optionType = typeof defaultValue;
-      switch (optionType) {
-        case 'boolean':
-          options[optionName] = getLocalStorageBool(optionName, defaultValue);
-          break;
-        case 'number':
-          options[optionName] = getLocalStorageInt(optionName, defaultValue);
-          break;
-        case 'string':
-          options[optionName] = getLocalStorageItem(optionName, defaultValue);
-          break;
-      }
-    });
+  if (loadingProgress) {
     return;
   }
 
@@ -154,26 +135,21 @@ function checkAddFlags(param, flagsToAdd) {
   }
 }
 
+function loadSaveData(saveDataString) {
+  var saveData = JSON.parse(saveDataString);
+  items = saveData.items;
+  keys = saveData.keys;
+  locationsChecked = saveData.locationsChecked;
+  macros = saveData.macros;
+  entrances = saveData.entrances;
+  flags = saveData.flags;
+  options = saveData.options;
+}
+
 function loadProgress() {
-  if (progressParam == '1') {
-    Object.keys(items).forEach(function (itemName) {
-      items[itemName] = getLocalStorageInt(itemName, items[itemName]);
-    });
-    Object.keys(keys).forEach(function (keyName) {
-      keys[keyName] = getLocalStorageInt(keyName, keys[keyName]);
-    });
-    Object.keys(locationsChecked).forEach(function (generalLocation) {
-      Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
-        var locationName = getFullLocationName(generalLocation, detailedLocation);
-        locationsChecked[generalLocation][detailedLocation] = getLocalStorageBool(locationName, false);
-      });
-    });
-    var allEntrances = getAllRandomEntrances();
-    for (var i = 0; i < allEntrances.length; i++) {
-      var curExit = allEntrances[i];
-      var entranceName = getLocalStorageItem(curExit, "");
-      entrances[curExit] = entranceName;
-    }
+  if (loadingProgress) {
+    var saveData = localStorage.getItem('saveData');
+    loadSaveData(saveData);
 
     if (isCurrentVersionParam == '1') {
       var notificationMessage = 'Progress loaded.';
@@ -188,44 +164,21 @@ function loadProgress() {
   }
 }
 
-function getLocalStorageInt(itemName, defaultVal) {
-  return parseInt(getLocalStorageItem(itemName, defaultVal));
-}
+function getSaveData() {
+  var saveData = {};
 
-function getLocalStorageBool(itemName, defaultVal) {
-  return getLocalStorageItem(itemName, defaultVal) == 'true';
-}
+  saveData.items = items;
+  saveData.keys = keys;
+  saveData.locationsChecked = locationsChecked;
+  saveData.macros = macros;
+  saveData.entrances = entrances;
+  saveData.flags = flags;
+  saveData.options = options;
+  saveData.version = versionParam;
 
-function getLocalStorageItem(itemName, defaultVal) {
-  var itemValue = localStorage.getItem(itemName);
-  if (itemValue) {
-    return itemValue;
-  }
-  return defaultVal.toString();
+  return JSON.stringify(saveData);
 }
 
 function saveProgress() {
-  Object.keys(items).forEach(function (itemName) {
-    localStorage.setItem(itemName, items[itemName]);
-  });
-  Object.keys(keys).forEach(function (keyName) {
-    localStorage.setItem(keyName, keys[keyName]);
-  });
-  Object.keys(locationsChecked).forEach(function (generalLocation) {
-    Object.keys(locationsChecked[generalLocation]).forEach(function (detailedLocation) {
-      var locationName = getFullLocationName(generalLocation, detailedLocation);
-      var locationValue = locationsChecked[generalLocation][detailedLocation];
-      localStorage.setItem(locationName, locationValue);
-    });
-  });
-  var allEntrances = getAllRandomEntrances();
-  for (var i = 0; i < allEntrances.length; i++) {
-    var curExit = allEntrances[i];
-    localStorage.setItem(curExit, entrances[curExit]);
-  }
-  localStorage.setItem('flags', flags.join(','));
-  Object.keys(options).forEach(function (optionName) {
-    localStorage.setItem(optionName, options[optionName]);
-  });
-  localStorage.setItem('version', versionParam);
+  localStorage.setItem('saveData', getSaveData());
 }
