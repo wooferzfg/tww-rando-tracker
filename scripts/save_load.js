@@ -189,8 +189,12 @@ function getSaveData() {
 }
 
 function saveProgress() {
-  localStorage.setItem('saveData', getSaveData());
-  localStorage.setItem('version', versionParam);
+  if (dataHasChanged) {
+    localStorage.setItem('saveData', getSaveData());
+    localStorage.setItem('version', versionParam);
+  } else {
+    dataHasChanged = true;
+  }
 }
 
 function exportProgress() {

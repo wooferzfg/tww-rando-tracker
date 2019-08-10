@@ -2,6 +2,7 @@ var macros; // contents of macros.txt
 var itemLocations; // contents of item_locations.txt
 var macrosLoaded = false;
 var itemLocationsLoaded = false;
+var dataHasChanged = false;
 
 $(document).ready(function () {
   loadMacros();
