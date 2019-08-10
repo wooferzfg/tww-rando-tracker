@@ -1,4 +1,4 @@
-const currentVersion = '1.6.0';
+const currentVersion = '1.6.1';
 var startingGear = 0;
 
 function parseFlags(bits, ids) {
