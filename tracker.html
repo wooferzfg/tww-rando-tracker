@@ -37,8 +37,8 @@
           <table>
             <tr>
               <td>
-                <img class="hide" id="item0" name="Telescope" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
-                  onclick="toggleInventoryItem(this, 1);" src="./images/item0.png" />
+                <img class="hide" id="item0" name="Telescope" onmouseout="clearItemInfo();"
+                  onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);" src="./images/item0.png" />
               </td>
               <td>
                 <img id="item1" name="Boat's Sail" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
@@ -83,8 +83,8 @@
                   onclick="toggleInventoryItem(this, 1);" src="./images/item9.png" />
               </td>
               <td>
-                <img class="hide" id="item10" name="Magic Armor" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
-                  onclick="toggleInventoryItem(this, 1);" src="./images/item10.png" />
+                <img class="hide" id="item10" name="Magic Armor" onmouseout="clearItemInfo();"
+                  onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);" src="./images/item10.png" />
               </td>
               <td>
                 <img id="item11" name="Bait Bag" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
@@ -205,8 +205,8 @@
                 </div>
               </td>
               <td>
-                <img class="hide" id="item27" name="Hero's Charm" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
-                  onclick="toggleInventoryItem(this, 1);" src="./images/item27.png" />
+                <img class="hide" id="item27" name="Hero's Charm" onmouseout="clearItemInfo();"
+                  onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);" src="./images/item27.png" />
               </td>
             </tr>
           </table>
@@ -247,8 +247,8 @@
                     onclick="toggleInventoryItem(this, 1);" src="./images/item23.png" />
                 </td>
                 <td>
-                  <img class="hide" id="item30" name="Hurricane Spin" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
-                    onclick="toggleInventoryItem(this, 1);" src="./images/item30.png" />
+                  <img class="hide" id="item30" name="Hurricane Spin" onmouseout="clearItemInfo();"
+                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 1);" src="./images/item30.png" />
                 </td>
               </tr>
               <tr>
@@ -258,8 +258,8 @@
                 </td>
 
                 <td>
-                  <img class="hide" id="item28" name="Progressive Quiver" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
-                    onclick="toggleInventoryItem(this, 2);" src="./images/item28.png" />
+                  <img class="hide" id="item28" name="Progressive Quiver" onmouseout="clearItemInfo();"
+                    onmouseover="itemInfo(this);" onclick="toggleInventoryItem(this, 2);" src="./images/item28.png" />
                 </td>
                 <td>
                   <img id="item25" name="Progressive Wallet" onmouseout="clearItemInfo();" onmouseover="itemInfo(this);"
@@ -793,6 +793,10 @@
         <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(0);" onclick="toggleMap(0, true);"
           class="extra-location">
           <div class="dungeon-items">
+            <div id="dungeonmap0" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleDungeonItem(this, 0);" class="dungeon-item dungeonmap">DRC Dungeon Map</div>
+            <div id="compass0" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleDungeonItem(this, 0);" class="dungeon-item compass">DRC Compass</div>
             <div id="smallkey0" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 4);"
               onclick="toggleKey(this, 4, 0);" class="dungeon-item small-key">DRC Small Key</div>
             <div id="entry0" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(0);"
@@ -808,6 +812,10 @@
         <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(1);" onclick="toggleMap(1, true);"
           class="extra-location">
           <div class="dungeon-items">
+            <div id="dungeonmap1" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleDungeonItem(this, 1);" class="dungeon-item dungeonmap">FW Dungeon Map</div>
+            <div id="compass1" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleDungeonItem(this, 1);" class="dungeon-item compass">FW Compass</div>
             <div id="smallkey1" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 1);"
               onclick="toggleKey(this, 1, 1);" class="dungeon-item small-key">FW Small Key</div>
             <div id="entry1" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(1);"
@@ -823,6 +831,10 @@
         <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(2);" onclick="toggleMap(2, true);"
           class="extra-location">
           <div class="dungeon-items">
+            <div id="dungeonmap2" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleDungeonItem(this, 2);" class="dungeon-item dungeonmap">TotG Dungeon Map</div>
+            <div id="compass2" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleDungeonItem(this, 2);" class="dungeon-item compass">TotG Compass</div>
             <div id="smallkey2" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 2);"
               onclick="toggleKey(this, 2, 2);" class="dungeon-item small-key">TotG Small Key</div>
             <div id="entry2" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(2);"
@@ -838,6 +850,10 @@
         <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(4);" onclick="toggleMap(4, true);"
           class="extra-location">
           <div class="dungeon-items">
+            <div id="dungeonmap4" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleDungeonItem(this, 4);" class="dungeon-item dungeonmap">ET Dungeon Map</div>
+            <div id="compass4" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleDungeonItem(this, 4);" class="dungeon-item compass">ET Compass</div>
             <div id="smallkey4" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 3);"
               onclick="toggleKey(this, 3, 4);" class="dungeon-item small-key">ET Small Key</div>
             <div id="entry4" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(4);"
@@ -853,6 +869,10 @@
         <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(5);" onclick="toggleMap(5, true);"
           class="extra-location">
           <div class="dungeon-items">
+            <div id="dungeonmap5" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleDungeonItem(this, 5);" class="dungeon-item dungeonmap">WT Dungeon Map</div>
+            <div id="compass5" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleDungeonItem(this, 5);" class="dungeon-item compass">WT Compass</div>
             <div id="smallkey5" onmouseout="clearMapItemInfo();" onmouseover="smallKeyInfo(this, 2);"
               onclick="toggleKey(this, 2, 5);" class="dungeon-item small-key">WT Small Key</div>
             <div id="entry5" onmouseout="clearMapItemInfo();" onmouseover="dungeonEntryInfo(5);"
@@ -882,6 +902,12 @@
         </div>
         <div onmouseout="clearMapInfo();" onmouseover="dungeonMapInfo(3);" onclick="toggleMap(3, true);"
           class="extra-location">
+          <div class="dungeon-items">
+            <div id="dungeonmap3" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleDungeonItem(this, 3);" class="dungeon-item dungeonmap">FF Dungeon Map</div>
+            <div id="compass3" onmouseout="clearMapItemInfo();" onmouseover="mapItemInfo(this);"
+              onclick="toggleDungeonItem(this, 3);" class="dungeon-item compass">FF Compass</div>
+          </div>
           <div class="dungeon-icon">
             <img id="extralocation3" src="./images/boss3.png">
           </div>
