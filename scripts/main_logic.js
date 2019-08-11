@@ -49,6 +49,7 @@ function afterLoad() {
   if (macrosLoaded && itemLocationsLoaded) {
     updateLocations();
     initializeLocationsChecked();
+    initializeItemsForLocations();
     loadProgress();
     loadFlags();
     loadStartingItems();
@@ -66,6 +67,7 @@ function dataChanged() {
   refreshEntranceColors();
   recreateTooltips();
   updateStatistics();
+  calculateSpheres();
   saveProgress();
 }
 
@@ -186,6 +188,7 @@ function incrementShield() {
     items["Hero's Shield"] = 1;
   } else if (items['Mirror Shield'] == 0) {
     items['Mirror Shield'] = 1;
+    setItemToLocation('Mirror Shield');
   } else {
     items["Hero's Shield"] = 0;
     items['Mirror Shield'] = 0;

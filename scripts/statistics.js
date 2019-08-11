@@ -34,7 +34,7 @@ function updateStatistics() {
 
   // Items Needed to Finish Game
   var finishRequirements = getLocationRequirements("Ganon's Tower - Defeat Ganondorf");
-  var finishGameItems = itemsRequiredForExpression(finishRequirements);
+  var finishGameItems = itemsRequiredForExpression(items, finishRequirements);
   var countdown = finishGameItems.countdown;
   document.getElementById('stat-progressionRemaining').innerText = countdown;
 

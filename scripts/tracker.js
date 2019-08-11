@@ -4,6 +4,7 @@ const totalDetailedLocations = 39;
 
 var disableMap = false;
 var currentGeneralLocation = '';
+var currentDetailedLocation = '';
 var currentLocationIsDungeon = false;
 var currentExit = ''; // The full name of the exit; for example, 'Dragon Roost Cavern'
 var currentEntryName = ''; // The name of the entry item; for example, 'Entered DRC'
@@ -336,7 +337,27 @@ function toggleItem(itemName, maxItems) {
     curCount = 0;
   }
   items[itemName] = curCount;
+  if (curCount > 0) {
+    setItemToLocation(itemName);
+  }
   dataChanged();
+}
+
+function setItemToLocation(itemName) {
+  if (currentGeneralLocation && currentDetailedLocation) {
+      itemsForLocations[currentGeneralLocation][currentDetailedLocation] = itemName;
+      $.notify(itemName + " at " + currentDetailedLocation, {
+          autoHideDelay: 5000,
+          className: 'success',
+          position: 'bottom left'
+      });
+  } else {
+      $.notify("Could not set " + itemName, {
+          autoHideDelay: 5000,
+          className: 'error',
+          position: 'bottom left'
+      });
+  }
 }
 
 function toggleKey(element, maxKeys, dungeonIndex) {
@@ -348,6 +369,9 @@ function toggleKey(element, maxKeys, dungeonIndex) {
     keyCount = 0;
   }
   keys[keyName] = keyCount;
+  if (keyCount > 0) {
+    setItemToLocation(keyName);
+  }
   dataChanged();
   if (keyName.includes('Small')) {
     smallKeyInfo(element, maxKeys);
@@ -415,7 +439,7 @@ function getTextForExpression(expression, isParentExprTrue) {
 }
 
 function setTooltipTextForLocation(locationRequirements) {
-  var itemsRequiredExpr = itemsRequiredForExpression(locationRequirements);
+  var itemsRequiredExpr = itemsRequiredForExpression(items, locationRequirements);
   if (!itemsRequiredExpr || !itemsRequiredExpr.items || itemsRequiredExpr.items == 'None') {
     var element = document.createElement('span');
     element.innerText = 'None';
@@ -446,13 +470,31 @@ function setTooltipTextForLocation(locationRequirements) {
   $('.tool-tip-text').html(list.outerHTML);
 }
 
+function getLocationName(element) {
+  return element.innerText.substring(element.innerText.indexOf(" ") + 1)
+}
+
 function addTooltipToLocationElement(element) {
-  var detailedLocation = element.innerText;
+  var detailedLocation = getLocationName(element);
   if (!locationsChecked[currentGeneralLocation][detailedLocation]) {
     var fullLocationName = getFullLocationName(currentGeneralLocation, detailedLocation);
     var locationRequirements = getLocationRequirements(fullLocationName);
     setTooltipTextForLocation(locationRequirements);
     createTooltip(element, $('.tool-tip-text').clone(), 'Items Required');
+  } else if (itemsForLocations[currentGeneralLocation][detailedLocation]) {
+    $('.tool-tip-text').html('');
+    $(element).qtip({
+        content: {
+            text: $('.tool-tip-text').clone(),
+            title: itemsForLocations[currentGeneralLocation][detailedLocation]
+        },
+        position: {
+            target: 'mouse',
+            adjust: {
+                x: 15
+            }
+        }
+    });
   }
 }
 
@@ -689,7 +731,7 @@ function refreshLocationColors() {
   for (var i = 0; i < totalDetailedLocations; i++) {
     var element = getDetailedLocationElement(i);
     if (element.parentElement.style.display == 'table-cell') {
-      var detailedLocation = element.innerText;
+      var detailedLocation = getLocationName(element);
       if (locationsChecked[currentGeneralLocation][detailedLocation]) {
         setElementColor(element, 'black-text-strikethrough');
       } else {
@@ -722,7 +764,7 @@ function refreshEntranceColors() {
       } else {
         var macroName = getMacroForEntranceName(entranceName);
         var requirements = getSplitExpression(macroName);
-        if (hideLocationLogic || checkLogicalExpressionReq(requirements)) {
+        if (hideLocationLogic || checkLogicalExpressionReq(requirements, items)) {
           setElementColor(element, 'blue-text');
         } else {
           setElementColor(element, 'red-text');
@@ -734,8 +776,13 @@ function refreshEntranceColors() {
 
 function toggleLocation(element) {
   if (currentGeneralLocation.length > 0) {
-    var detailedLocation = element.innerText;
+    var detailedLocation = getLocationName(element);
     var newLocationChecked = !locationsChecked[currentGeneralLocation][detailedLocation];
+    if (newLocationChecked) {
+      currentDetailedLocation = detailedLocation;
+    } else {
+      itemsForLocations[currentGeneralLocation][detailedLocation] = "";
+    } 
     locationsChecked[currentGeneralLocation][detailedLocation] = newLocationChecked;
   } else if (currentEntryName.length > 0) {
     var entranceName = element.innerText;

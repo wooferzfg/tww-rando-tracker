@@ -284,3 +284,5 @@ var options = {
 
 var locationsAreProgress = {};
 var locationsAreAvailable = {};
+var itemsForLocations = {};
+var spheres = {};

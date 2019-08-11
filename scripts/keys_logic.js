@@ -4,34 +4,34 @@ function transferKeys() {
   });
 }
 
-function setGuaranteedKeys() {
+function setGuaranteedKeys(itemSet, keySet, onlyInLogic) {
   if (!options.key_lunacy) {
     for (var i = 0; i < dungeons.length; i++) {
       var dungeonName = dungeons[i];
       var shortDungeonName = shortDungeonNames[i];
       if (isMainDungeon(dungeonName)) {
-        setGuaranteedKeysForDungeon(dungeonName, shortDungeonName);
+        setGuaranteedKeysForDungeon(itemSet, keySet, dungeonName, shortDungeonName, onlyInLogic);
       }
     }
   }
 }
 
-function setGuaranteedKeysForDungeon(dungeonName, shortDungeonName) {
-  var guaranteedKeys = getGuaranteedKeysForDungeon(dungeonName);
+function setGuaranteedKeysForDungeon(itemSet, keySet, dungeonName, shortDungeonName, onlyInLogic) {
+  var guaranteedKeys = getGuaranteedKeysForDungeon(itemSet, dungeonName, onlyInLogic);
   var smallKeyName = shortDungeonName + ' Small Key';
   var bigKeyName = shortDungeonName + ' Big Key';
-  items[smallKeyName] = Math.max(guaranteedKeys.small, keys[smallKeyName]);
-  items[bigKeyName] = Math.max(guaranteedKeys.big, keys[bigKeyName]);
-  locationsAreAvailable = setLocations(isLocationAvailable);
+  itemSet[smallKeyName] = Math.max(guaranteedKeys.small, keySet[smallKeyName]);
+  itemSet[bigKeyName] = Math.max(guaranteedKeys.big, keySet[bigKeyName]);
+  locationsAreAvailable = setLocations(isLocationAvailable, itemSet);
 }
 
 // guaranteed keys are the minimum keys required to access any location that is blocked by non-key requirements
-function getGuaranteedKeysForDungeon(dungeonName) {
+function getGuaranteedKeysForDungeon(itemSet, dungeonName, onlyInLogic) {
   var guaranteedSmallKeys = 4;
   var guaranteedBigKeys = 1;
   Object.keys(locationsAreAvailable[dungeonName]).forEach(function (detailedLocation) {
-    if (isPotentialUnavailableKeyLocation(dungeonName, detailedLocation)) {
-      var keyReqs = getKeyRequirementsForLocation(dungeonName, detailedLocation);
+    if (isPotentialUnavailableKeyLocation(dungeonName, detailedLocation, onlyInLogic)) {
+      var keyReqs = getKeyRequirementsForLocation(itemSet, dungeonName, detailedLocation);
       if (!keyReqs.nonKeyReqs) {
         guaranteedBigKeys = Math.min(guaranteedBigKeys, keyReqs.big);
         if (keyReqs.big === 0) { // bosses can't drop small keys
@@ -43,7 +43,7 @@ function getGuaranteedKeysForDungeon(dungeonName) {
   return { small: guaranteedSmallKeys, big: guaranteedBigKeys };
 }
 
-function isPotentialUnavailableKeyLocation(dungeonName, detailedLocation) {
+function isPotentialUnavailableKeyLocation(dungeonName, detailedLocation, onlyInLogic) {
   if (!isValidForLocation(dungeonName, detailedLocation, true)) {
     return false;
   }
@@ -53,13 +53,13 @@ function isPotentialUnavailableKeyLocation(dungeonName, detailedLocation) {
     return false; // small keys can only appear in tingle chests if the tingle chests flag is set
   }
   return !locationsAreAvailable[dungeonName][detailedLocation]
-    && !locationsChecked[dungeonName][detailedLocation];
+    && (onlyInLogic || !locationsChecked[dungeonName][detailedLocation]);
 }
 
-function getKeyRequirementsForLocation(dungeonName, detailedLocation) {
+function getKeyRequirementsForLocation(itemSet, dungeonName, detailedLocation) {
   var fullName = getFullLocationName(dungeonName, detailedLocation);
   var requirements = getLocationRequirements(fullName);
-  var expression = itemsRequiredForExpression(requirements);
+  var expression = itemsRequiredForExpression(itemSet, requirements);
   var itemsReq = expression.items;
   if (!itemsReq) {
     itemsReq = [];

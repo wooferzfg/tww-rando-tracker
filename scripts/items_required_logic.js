@@ -1,16 +1,16 @@
-function itemsRequiredForOtherLocation(reqName) {
+function itemsRequiredForOtherLocation(itemSet, reqName) {
   var otherLocation = reqName.substring('Can Access Other Location "'.length, reqName.length - 1);
   var requirements = getLocationRequirements(otherLocation);
-  return itemsRequiredForLogicalExpression(requirements);
+  return itemsRequiredForLogicalExpression(itemSet, requirements);
 }
 
-function itemsForRequirement(reqName) {
+function itemsForRequirement(itemSet, reqName) {
   if (impossibleItems.includes(reqName) || reqName == 'Impossible') {
     var requiredItems = 'Impossible';
     var reqMet = false;
     var remainingProgress = NaN;
   } else if (isProgressiveRequirement(reqName)) {
-    var progressCheck = checkProgressiveItemRequirementRemaining(reqName, items);
+    var progressCheck = checkProgressiveItemRequirementRemaining(reqName, itemSet);
     var reqMet = progressCheck <= 0;
     var remainingProgress = Math.max(0, progressCheck);
     if (reqMet && checkProgressiveItemRequirementRemaining(reqName, startingItems) <= 0) {
@@ -19,18 +19,13 @@ function itemsForRequirement(reqName) {
       var requiredItems = reqName; // don't replace names yet. we do some logic with them and then replace them later
     }
   } else if (reqName.startsWith('Can Access Other Location "')) {
-    return itemsRequiredForOtherLocation(reqName);
-  } else if (reqName.startsWith('Has Accessed Other Location "')) {
-    var otherLocation = reqName.substring('Has Accessed Other Location "'.length, reqName.length - 1);
-    var reqMet = checkHasAccessedOtherLocationReq(reqName);
-    var requiredItems = otherLocation;
-    var remainingProgress = reqMet ? 0 : 1;
+    return itemsRequiredForOtherLocation(itemSet, reqName);
   } else if (reqName.startsWith('Option "')) {
     var reqMet = checkOptionEnabledRequirement(reqName);
     var requiredItems = reqMet ? 'None' : 'Impossible';
     var remainingProgress = reqMet ? 0 : NaN;
-  } else if (reqName in items) {
-    var reqMet = items[reqName] > 0;
+  } else if (reqName in itemSet) {
+    var reqMet = itemSet[reqName] > 0;
     if (reqMet && startingItems[reqName] > 0) {
       var requiredItems = 'None';
     } else {
@@ -41,7 +36,7 @@ function itemsForRequirement(reqName) {
   else if (reqName in macros) {
     var macro = macros[reqName];
     var splitExpression = getSplitExpression(macro);
-    return itemsRequiredForLogicalExpression(splitExpression);
+    return itemsRequiredForLogicalExpression(itemSet, splitExpression);
   }
   else if (reqName == 'Nothing') {
     var requiredItems = 'None';
@@ -54,7 +49,7 @@ function itemsForRequirement(reqName) {
   return { items: requiredItems, eval: reqMet, countdown: remainingProgress };
 }
 
-function itemsRequiredForLogicalExpression(splitExpression) {
+function itemsRequiredForLogicalExpression(itemSet, splitExpression) {
   var expressionType = '';
   var subexpressionResults = [];
   while (splitExpression.length > 0) {
@@ -66,14 +61,14 @@ function itemsRequiredForLogicalExpression(splitExpression) {
       } else if (cur == '&') {
         expressionType = 'AND';
       } else if (cur == '(') {
-        var result = itemsRequiredForLogicalExpression(splitExpression);
+        var result = itemsRequiredForLogicalExpression(itemSet, splitExpression);
         if (result) {
           subexpressionResults.push(result);
         }
       } else if (cur == ')') {
         break;
       } else {
-        var result = itemsForRequirement(cur);
+        var result = itemsForRequirement(itemSet, cur);
         if (result) {
           subexpressionResults.push(result);
         }
@@ -353,8 +348,8 @@ function sortItems(itemsReq, isExprTrue) {
   });
 }
 
-function itemsRequiredForExpression(locationRequirements) {
-  var itemsReq = itemsRequiredForLogicalExpression(locationRequirements);
+function itemsRequiredForExpression(itemSet, locationRequirements) {
+  var itemsReq = itemsRequiredForLogicalExpression(itemSet, locationRequirements);
   for (var i = 1; i <= 3; i++) { // repeat so we can catch new duplicates that appear as we simplify
     itemsReq = removeDuplicateItems(itemsReq);
     itemsReq = removeChildren(itemsReq);
