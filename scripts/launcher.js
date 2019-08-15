@@ -85,7 +85,7 @@ function applyflags(element) {
       parseFlags(bits, ['', '']);
       parseComboBox(bits, 'sword_mode');
       parseFlags(bits, ['skip_rematch_bosses', 'race_mode']);
-      parseFlags(bits, ['']);
+      parseFlags(bits, ['', '']);
       setStartingGear(bits);
 
       $(element).notify('Settings applied from the Permalink.', {
