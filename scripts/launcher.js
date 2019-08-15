@@ -164,7 +164,7 @@ function openTracker(loadProgress) {
   }
 
   //Chrome defaults
-  var h = 852;
+  var h = 912;
   var w = 910;
 
   open(`tracker.html?f=${flagStr}&g=${startingGear}&p=${progressStr}&v=${versionStr}&c=${isCurrentVersionStr}`,
