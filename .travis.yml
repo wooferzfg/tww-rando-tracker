@@ -1,0 +1,17 @@
+language: bash
+
+branches:
+  only:
+  - master
+  - speedrun
+
+after_success:
+  - git config --global user.email "travis@travis-ci.org"
+  - git config --global user.name "Travis CI"
+  - git clone https://wooferzfg:${GITHUB_API_KEY}@github.com/wooferzfg/tww-rando-tracker.git ./repo
+  - git clone -b speedrun https://wooferzfg:${GITHUB_API_KEY}@github.com/wooferzfg/tww-rando-tracker.git ./repo/speedrun
+  - cd repo
+  - git add speedrun/
+  - git add .
+  - git commit -m "Update site"
+  - git push --force origin master:gh-pages
