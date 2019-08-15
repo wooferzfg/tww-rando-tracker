@@ -470,12 +470,12 @@ function setTooltipTextForLocation(locationRequirements) {
   $('.tool-tip-text').html(list.outerHTML);
 }
 
-function getLocationName(element) {
-  return element.innerText.substring(element.innerText.indexOf(" ") + 1)
+function getLocationName(text) {
+  return text.substring(text.indexOf(" ") + 1)
 }
 
 function addTooltipToLocationElement(element) {
-  var detailedLocation = getLocationName(element);
+  var detailedLocation = getLocationName(element.innerText);
   if (!locationsChecked[currentGeneralLocation][detailedLocation]) {
     var fullLocationName = getFullLocationName(currentGeneralLocation, detailedLocation);
     var locationRequirements = getLocationRequirements(fullLocationName);
@@ -731,7 +731,7 @@ function refreshLocationColors() {
   for (var i = 0; i < totalDetailedLocations; i++) {
     var element = getDetailedLocationElement(i);
     if (element.parentElement.style.display == 'table-cell') {
-      var detailedLocation = getLocationName(element);
+      var detailedLocation = getLocationName(element.innerText);
       if (locationsChecked[currentGeneralLocation][detailedLocation]) {
         setElementColor(element, 'black-text-strikethrough');
       } else {
@@ -776,7 +776,7 @@ function refreshEntranceColors() {
 
 function toggleLocation(element) {
   if (currentGeneralLocation.length > 0) {
-    var detailedLocation = getLocationName(element);
+    var detailedLocation = getLocationName(element.innerText);
     var newLocationChecked = !locationsChecked[currentGeneralLocation][detailedLocation];
     if (newLocationChecked) {
       currentDetailedLocation = detailedLocation;
@@ -911,7 +911,7 @@ function caveEntryInfo(index) {
 function fullClear() {
   var detailedLocations = getDetailedLocations(currentGeneralLocation, true);
   for (var i = 0; i < detailedLocations.length; i++) {
-    var detailedLocation = detailedLocations[i];
+    var detailedLocation = getLocationName(detailedLocations[i]);
     locationsChecked[currentGeneralLocation][detailedLocation] = true;
   }
   clearRaceModeBannedLocations();
