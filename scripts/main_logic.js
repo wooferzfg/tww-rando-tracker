@@ -47,11 +47,12 @@ function getLogicFilesUrl() {
 
 function afterLoad() {
   if (macrosLoaded && itemLocationsLoaded) {
+    updateLocations();
     initializeLocationsChecked();
     loadProgress();
     loadFlags();
     loadStartingItems();
-    updateMacrosAndLocations();
+    updateMacros();
     setLocationsAreProgress();
     dataChanged();
   }

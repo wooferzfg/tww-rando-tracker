@@ -1,7 +1,9 @@
-function updateMacrosAndLocations() {
+function updateLocations() {
   addDefeatGanondorf();
   updateTingleStatueReward();
+}
 
+function updateMacros() {
   if (!loadingProgress) {
     updateDungeonEntranceMacros();
     updateCaveEntranceMacros();
@@ -11,7 +13,9 @@ function updateMacrosAndLocations() {
 }
 
 function addDefeatGanondorf() {
-  flags.push('Finish Game');
+  if (!loadingProgress) {
+    flags.push('Finish Game');
+  }
   itemLocations["Ganon's Tower - Defeat Ganondorf"] = {
     Need: 'Can Reach and Defeat Ganondorf',
     Types: 'Finish Game'
