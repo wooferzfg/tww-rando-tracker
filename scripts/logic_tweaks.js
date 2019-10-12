@@ -80,7 +80,7 @@ function addMailRequirements() {
 
   for (var i = 0; i < mailToChange.length; i++) {
     var locationName = mailToChange[i];
-    itemLocations[loctioName].Need.replace("Can Access Other Location", "Has Accessed Other Location");
+    itemLocations[locationName].Need.replace("Can Access Other Location", "Has Accessed Other Location");
   }
 }
 
