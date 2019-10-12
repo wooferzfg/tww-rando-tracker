@@ -77,6 +77,10 @@ function loadStartingItems() {
   startingItems['Ballad of Gales'] = 1;
   startingItems['Song of Passing'] = 1;
   startingItems['Triforce Shard'] = options.num_starting_triforce_shards;
+  
+  Object.keys(letterTooltipItems).forEach(function (tooltip) {
+    startingItems[tooltip] = 1;
+  })
 
   var gearRemaining = options.starting_gear;
   for (var i = 0; i < regularItems.length; i++) {

@@ -1,6 +1,7 @@
 function updateLocations() {
   addDefeatGanondorf();
   updateTingleStatueReward();
+  addMailTooltips();
 }
 
 function updateMacros() {
@@ -67,6 +68,19 @@ function updateTingleStatueReward() {
   if (tingleStatueReward) {
     tingleStatueReward.Need = 'Tingle Statue x5';
   }
+}
+
+function addMailTooltips() {
+  addNeedToItem("Mailbox - Letter from Baito", letterTooltipItems.beatET);
+  addNeedToItem("Mailbox - Letter from Orca", letterTooltipItems.beatFW);
+  addNeedToItem("Mailbox - Letter from Aryll", letterTooltipItems.beatFF);
+  addNeedToItem("Mailbox - Letter from Tingle", letterTooltipItems.beatFF);
+}
+
+function addNeedToItem(itemName, requiredItem) {
+  var oldNeeds = itemLocations[itemName].Need;
+  var newNeeds = "(" + oldNeeds + ") & " + requiredItem;
+  itemLocations[itemName].Need = newNeeds;
 }
 
 function clearRaceModeBannedLocations() {
