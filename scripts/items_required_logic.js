@@ -43,6 +43,9 @@ function itemsForRequirement(reqName) {
     var reqMet = true;
     var remainingProgress = 0;
   }
+  else {
+    console.log('Unrecognized reqName: "' + reqName + '"');
+  }
   return { items: requiredItems, eval: reqMet, countdown: remainingProgress };
 }
 

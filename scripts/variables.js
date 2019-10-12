@@ -186,10 +186,10 @@ const progressiveItems = [
 // These "items" are just tooltips for some letters.
 // They are given to the player at the start of the game.
 const letterTooltipItems = {
-  beatFW: 'Beat Kalle Demos (Forbidden Woods)',
-  beatET: 'Beat Jalhalla (Earth Temple)',
-  beatFF: 'Beat Helmaroc King (Forsaken Fortress)'
-]
+  beatFW: 'Beat Kalle Demos in Forbidden Woods',
+  beatET: 'Beat Jalhalla in Earth Temple',
+  beatFF: 'Beat Helmaroc King in Forsaken Fortress'
+};
 
 var items = {
   'Tingle Tuner': 0,
@@ -245,16 +245,14 @@ var items = {
   "Hero's Charm": 0,
   'Progressive Quiver': 0,
   'Progressive Bomb Bag': 0,
-  'Hurricane Spin': 0
+  'Hurricane Spin': 0,
+
+  'Beat Kalle Demos in Forbidden Woods': 0,
+  'Beat Jalhalla in Earth Temple': 0,
+  'Beat Helmaroc King in Forsaken Fortress': 0
 };
 
-// the items you get at the start of a new playthrough
-var startingItems = {
-  // These "items" are just tooltips for some letters.
-  'Beat Kalle Demos (Forbidden Woods)',
-  'Beat Jalhalla (Earth Temple)',
-  'Beat Helmaroc King (Forsaken Fortress)'
-};
+var startingItems = {}; // the items you get at the start of a new playthrough
 var impossibleItems = []; // the items that are missing from the item pool and are impossible to obtain
 var keys = {
   'DRC Big Key': 0,

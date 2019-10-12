@@ -79,7 +79,7 @@ function addMailTooltips() {
 
 function addNeedToItem(itemName, requiredItem) {
   var oldNeeds = itemLocations[itemName].Need;
-  var newNeeds = "(" + oldNeeds + ") & " + requiredItem;
+  var newNeeds = "( " + oldNeeds + " ) & " + requiredItem;
   itemLocations[itemName].Need = newNeeds;
 }
 
