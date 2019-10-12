@@ -107,6 +107,9 @@ function checkRequirementMet(reqName) {
   if (reqName.startsWith('Can Access Other Location "')) {
     return checkOtherLocationReq(reqName);
   }
+  if (reqName.startsWith('Has Accessed Other Location "')) {
+    return checkHasAccessedOtherLocationReq(reqName);
+  }
   if (reqName.startsWith('Option "')) {
     return checkOptionEnabledRequirement(reqName);
   }
@@ -155,6 +158,12 @@ function checkOtherLocationReq(reqName) {
   var otherLocation = reqName.substring('Can Access Other Location "'.length, reqName.length - 1);
   var requirements = getLocationRequirements(otherLocation);
   return checkLogicalExpressionReq(requirements);
+}
+
+function checkHasAccessedOtherLocationReq(reqName) {
+  var otherLocation = reqName.substring('Has Accessed Other Location "'.length, reqName.length - 1);
+  var split = getSplitLocationName(otherLocation);
+  return locationsChecked[split.general][split.detailed];
 }
 
 function checkOptionEnabledRequirement(reqName) {

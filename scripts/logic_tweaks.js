@@ -1,6 +1,7 @@
 function updateLocations() {
   addDefeatGanondorf();
   updateTingleStatueReward();
+  addMailRequirements();
 }
 
 function updateMacros() {
@@ -66,6 +67,20 @@ function updateTingleStatueReward() {
   var tingleStatueReward = itemLocations['Tingle Island - Ankle - Reward for All Tingle Statues'];
   if (tingleStatueReward) {
     tingleStatueReward.Need = 'Tingle Statue x5';
+  }
+}
+
+function addMailRequirements() {
+  const mailToChange = [
+    "Mailbox - Letter from Baito",
+    "Mailbox - Letter from Orca",
+    "Mailbox - Letter from Aryll",
+    "Mailbox - Letter from Tingle"
+  ];
+
+  for (var i = 0; i < mailToChange.length; i++) {
+    var locationName = mailToChange[i];
+    itemLocations[loctioName].Need.replace("Can Access Other Location", "Has Accessed Other Location");
   }
 }
 
