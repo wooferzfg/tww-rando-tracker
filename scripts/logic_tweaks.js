@@ -1,6 +1,18 @@
+// These letters are sent after the boss is defeated. However, the normal
+// randomizer logic file doesn't distinguish between "can access the boss" and
+// "has beaten the boss". These items are updated to require checking the referenced
+// location, rather than just having access to it.
+const mustAccessLocationTweaks = [
+  "Mailbox - Letter from Baito",
+  "Mailbox - Letter from Orca",
+  "Mailbox - Letter from Aryll",
+  "Mailbox - Letter from Tingle"
+];
+
 function updateLocations() {
   addDefeatGanondorf();
   updateTingleStatueReward();
+  applyMustAccessTweaks();
 }
 
 function updateMacros() {
@@ -66,6 +78,15 @@ function updateTingleStatueReward() {
   var tingleStatueReward = itemLocations['Tingle Island - Ankle - Reward for All Tingle Statues'];
   if (tingleStatueReward) {
     tingleStatueReward.Need = 'Tingle Statue x5';
+  }
+}
+
+function applyMustAccessTweaks() {
+  for (var i = 0; i < mustAccessLocationTweaks.length; i++) {
+    var locationName = mustAccessLocationTweaks[i];
+    var oldNeeds = itemLocations[locationName].Need;
+    var newNeeds = oldNeeds.replace("Can Access Other Location", "Has Accessed Other Location");
+    itemLocations[locationName].Need = newNeeds;
   }
 }
 
