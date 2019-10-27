@@ -127,6 +127,7 @@ function checkRequirementMet(reqName) {
   if (reqName == 'Impossible') {
     return false;
   }
+  throw Error("Unrecognized reqName: " + reqName);
 }
 
 function isProgressiveRequirement(reqName) {
@@ -154,16 +155,20 @@ function getProgressiveRequirementName(itemName, numRequired) {
   return `${itemName} x${numRequired}`;
 }
 
+function getOtherLocationName(reqName) {
+  return reqName.match(/(?:Can Access|Has Accessed) Other Location "([^"]+)"/)[1];
+}
+
 function checkOtherLocationReq(reqName) {
-  var otherLocation = reqName.substring('Can Access Other Location "'.length, reqName.length - 1);
+  var otherLocation = getOtherLocationName(reqName);
   var requirements = getLocationRequirements(otherLocation);
   return checkLogicalExpressionReq(requirements);
 }
 
 function checkHasAccessedOtherLocationReq(reqName) {
-  var otherLocation = reqName.substring('Has Accessed Other Location "'.length, reqName.length - 1);
+  var otherLocation = getOtherLocationName(reqName);
   var split = getSplitLocationName(otherLocation);
-  return locationsChecked[split.general][split.detailed];
+  return locationsChecked[split.general][split.detailed] || checkOtherLocationReq(reqName);
 }
 
 function checkOptionEnabledRequirement(reqName) {

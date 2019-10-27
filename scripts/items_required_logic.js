@@ -22,8 +22,7 @@ function itemsForRequirement(reqName) {
     return itemsRequiredForOtherLocation(reqName);
   } else if (reqName.startsWith('Has Accessed Other Location "')) {
     var otherLocation = reqName.substring('Has Accessed Other Location "'.length, reqName.length - 1);
-    var splitName = getSplitLocationName(otherLocation);
-    var reqMet = locationsChecked[splitName.general][splitName.detailed];
+    var reqMet = checkHasAccessedOtherLocationReq(reqName);
     var requiredItems = otherLocation;
     var remainingProgress = reqMet ? 0 : 1;
   } else if (reqName.startsWith('Option "')) {
@@ -50,7 +49,7 @@ function itemsForRequirement(reqName) {
     var remainingProgress = 0;
   }
   else {
-    console.log("Unrecognized reqName: " + reqName);
+    throw Error("Unrecognized reqName: " + reqName);
   }
   return { items: requiredItems, eval: reqMet, countdown: remainingProgress };
 }

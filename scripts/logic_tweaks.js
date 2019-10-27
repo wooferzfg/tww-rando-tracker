@@ -1,18 +1,22 @@
-// These letters are sent after the boss is defeated. However, the normal
-// randomizer logic file doesn't distinguish between "can access the boss" and
-// "has beaten the boss". These items are updated to require checking the referenced
-// location, rather than just having access to it.
-const mustAccessLocationTweaks = [
-  "Mailbox - Letter from Baito",
-  "Mailbox - Letter from Orca",
-  "Mailbox - Letter from Aryll",
-  "Mailbox - Letter from Tingle"
-];
+// Some locations and macros require another location in order to be completed.
+// For these locations, the requirements for the other location should be displayed
+// as the name of that location instead of the items required for that location.
+const hasAccessedLocationTweaks = {
+  itemLocations: [
+    "Mailbox - Letter from Baito",
+    "Mailbox - Letter from Orca",
+    "Mailbox - Letter from Aryll",
+    "Mailbox - Letter from Tingle"
+  ],
+  macros: [
+    "Can Farm Knight's Crests"
+  ]
+};
 
 function updateLocations() {
   addDefeatGanondorf();
   updateTingleStatueReward();
-  applyMustAccessTweaks();
+  applyHasAccessedLocationTweaksForLocations();
 }
 
 function updateMacros() {
@@ -21,6 +25,7 @@ function updateMacros() {
     updateCaveEntranceMacros();
     updateChartMacros();
     updateTriforceMacro();
+    applyHasAccessedLocationTweaksForMacros();
   }
 }
 
@@ -81,12 +86,25 @@ function updateTingleStatueReward() {
   }
 }
 
-function applyMustAccessTweaks() {
-  for (var i = 0; i < mustAccessLocationTweaks.length; i++) {
-    var locationName = mustAccessLocationTweaks[i];
-    var oldNeeds = itemLocations[locationName].Need;
-    var newNeeds = oldNeeds.replace("Can Access Other Location", "Has Accessed Other Location");
+function replaceCanAccessOtherLocation(requirements) {
+  return requirements.replace(/Can Access Other Location/g, 'Has Accessed Other Location');
+}
+
+function applyHasAccessedLocationTweaksForLocations() {
+  var itemLocationTweaks = hasAccessedLocationTweaks.itemLocations;
+  for (var i = 0; i < itemLocationTweaks.length; i++) {
+    var locationName = itemLocationTweaks[i];
+    var newNeeds = replaceCanAccessOtherLocation(itemLocations[locationName].Need);
     itemLocations[locationName].Need = newNeeds;
+  }
+}
+
+function applyHasAccessedLocationTweaksForMacros() {
+  var macrosTweaks = hasAccessedLocationTweaks.macros;
+  for (var i = 0; i < macrosTweaks.length; i++) {
+    var macroName = macrosTweaks[i];
+    var newMacro = replaceCanAccessOtherLocation(macros[macroName]);
+    macros[macroName] = newMacro;
   }
 }
 
