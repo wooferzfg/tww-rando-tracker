@@ -1,5 +1,5 @@
 const currentVersion = '1.8.0';
-var startingGear = 0;
+var startingGear = 1;
 
 function parseFlags(bits, ids) {
   for (var i = 0; i < ids.length; i++) {
