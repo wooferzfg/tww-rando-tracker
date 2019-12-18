@@ -9,10 +9,10 @@ function calculateSpheres() {
     tempItems[item] = startingItems[item];
   });
 
-  spheres = setLocations(() => 0);
+  spheres = setLocations(() => '?');
   var newLocations = true;
   var newKeys = false;
-  var curSphere = 1;
+  var curSphere = 0;
   while (newLocations) {
     newLocations = false;
     newKeys = false;
@@ -20,7 +20,7 @@ function calculateSpheres() {
       var split = locationName.indexOf(' - ');
       var generalLocation = locationName.substring(0, split);
       var detailedLocation = locationName.substring(split + 3);
-      if (spheres[generalLocation][detailedLocation] == 0
+      if (spheres[generalLocation][detailedLocation] == '?'
         && isLocationAvailable(locationName, tempItems)) {
         if (itemsForLocations[generalLocation][detailedLocation].endsWith(" Key")) {
           spheres[generalLocation][detailedLocation] = curSphere;
@@ -42,7 +42,7 @@ function calculateSpheres() {
       var split = locationName.indexOf(' - ');
       var generalLocation = locationName.substring(0, split);
       var detailedLocation = locationName.substring(split + 3);
-      if (spheres[generalLocation][detailedLocation] == 0
+      if (spheres[generalLocation][detailedLocation] == '?'
         && isLocationAvailable(locationName, tempItems)) {
         newLocations = true;
         spheres[generalLocation][detailedLocation] = curSphere;
