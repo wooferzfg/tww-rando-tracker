@@ -1,4 +1,4 @@
-const currentVersion = '1.6.1';
+const currentVersion = '1.7.0';
 var startingGear = 0;
 
 function parseFlags(bits, ids) {
@@ -17,8 +17,18 @@ function parseComboBox(bits, id) {
   element.selectedIndex = byteValue;
 }
 
+function parseSpinBox(bits, id, min_val, max_val) {
+  var numBits = (max_val - min_val).toString(2).length;
+  var byteValue = getValueOfBits(bits, numBits);
+  var element = document.getElementById(id);
+  if (element) {
+    element.value = byteValue;
+  }
+}
+
 function setStartingGear(bits) {
-  startingGear = getValueOfBits(bits, bits.length);
+  var numBits = (regularItems.length + progressiveItems.length*2);
+  startingGear = getValueOfBits(bits, numBits);
 }
 
 function getValueOfBits(bits, count) {
@@ -85,8 +95,10 @@ function applyflags(element) {
       parseFlags(bits, ['', '']);
       parseComboBox(bits, 'sword_mode');
       parseFlags(bits, ['skip_rematch_bosses', 'race_mode']);
-      parseFlags(bits, ['', '']);
+      parseFlags(bits, ['', '', '', '']);
       setStartingGear(bits);
+      parseSpinBox(bits, '', 0, 44);
+      parseSpinBox(bits, '', 0, 6);
 
       $(element).notify('Settings applied from the Permalink.', {
         autoHideDelay: 5000,

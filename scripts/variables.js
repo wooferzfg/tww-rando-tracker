@@ -164,6 +164,7 @@ const regularItems = [
   'Iron Boots',
   "Maggie's Letter",
   'Magic Armor',
+  'Magic Meter Upgrade',
   'Mirror Shield',
   "Moblin's Letter",
   "Nayru's Pearl",
