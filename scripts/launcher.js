@@ -17,8 +17,8 @@ function parseComboBox(bits, id) {
   element.selectedIndex = byteValue;
 }
 
-function parseSpinBox(bits, id, min_val, max_val) {
-  var numBits = (max_val - min_val).toString(2).length;
+function parseSpinBox(bits, id, minVal, maxVal) {
+  var numBits = (maxVal - minVal).toString(2).length;
   var byteValue = getValueOfBits(bits, numBits);
   var element = document.getElementById(id);
   if (element) {
@@ -27,7 +27,7 @@ function parseSpinBox(bits, id, min_val, max_val) {
 }
 
 function setStartingGear(bits) {
-  var numBits = (regularItems.length + progressiveItems.length*2);
+  var numBits = regularItems.length + progressiveItems.length * 2;
   startingGear = getValueOfBits(bits, numBits);
 }
 
@@ -90,15 +90,15 @@ function applyflags(element) {
       parseFlags(bits, ['free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts']);
       parseFlags(bits, ['expensive_purchases', 'misc', 'tingle_chests', 'battlesquid', 'savage_labyrinth', 'key_lunacy']);
       parseComboBox(bits, 'randomize_entrances');
-      parseFlags(bits, ['randomize_charts', '', '', '', '']);
+      parseFlags(bits, ['randomize_charts', '' /* randomize_starting_island */, '' /* swift_sail */, '' /* instant_text_boxes */, '' /* reveal_full_sea_chart */]);
       parseComboBox(bits, 'num_starting_triforce_shards');
-      parseFlags(bits, ['', '']);
+      parseFlags(bits, ['' /* add_shortcut_warps_between_dungeons */, '' /* generate_spoiler_log */]);
       parseComboBox(bits, 'sword_mode');
       parseFlags(bits, ['skip_rematch_bosses', 'race_mode']);
-      parseFlags(bits, ['', '', '', '']);
+      parseFlags(bits, ['' /* randomize_bgm */, '' /* disable_tingle_chests_with_tingle_bombs */, '' /* randomize_enemy_palettes */, '' /* remove_title_and_ending_videos */]);
       setStartingGear(bits);
-      parseSpinBox(bits, '', 0, 44);
-      parseSpinBox(bits, '', 0, 6);
+      parseSpinBox(bits, '' /* starting_pohs */, 0, 44);
+      parseSpinBox(bits, '' /* starting_hcs */, 0, 6);
 
       $(element).notify('Settings applied from the Permalink.', {
         autoHideDelay: 5000,
