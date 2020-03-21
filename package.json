@@ -24,6 +24,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "js-yaml": "^3.13.1",
+    "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "regenerator-runtime": "^0.13.5"
