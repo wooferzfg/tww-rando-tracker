@@ -1,0 +1,26 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "comma-dangle": ["error", "never"]
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/**/*.test.js"
+      ],
+      "env": {
+        "jest": true
+      },
+      "plugins": [
+        "jest"
+      ]
+    }
+  ]
+}
