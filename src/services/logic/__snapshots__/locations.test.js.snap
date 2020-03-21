@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Locations allLocations creates an array with all location names 1`] = `
+Array [
+  Object {
+    "detailedLocation": "Savage Labyrinth - Floor 30",
+    "generalLocation": "Outset Island",
+  },
+  Object {
+    "detailedLocation": "Bird's Nest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+]
+`;
+
+exports[`Locations initialize initializes the locations 1`] = `
+Object {
+  "Dragon Roost Cavern": Object {
+    "Bird's Nest": Object {
+      "need": "Can Access Dragon Roost Cavern & DRC Small Key x3",
+      "originalItem": "Small Key",
+      "types": "Dungeon",
+    },
+  },
+  "Outset Island": Object {
+    "Savage Labyrinth - Floor 30": Object {
+      "need": "Can Access Savage Labyrinth & Can Defeat Keese & Can Defeat Miniblins",
+      "originalItem": "Triforce Chart 6",
+      "types": "Savage Labyrinth",
+    },
+  },
+}
+`;
