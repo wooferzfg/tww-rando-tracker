@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TrackerState initialize initializes the checked locations 1`] = `
+Object {
+  "Dragon Roost Cavern": Object {
+    "Bird's Nest": false,
+  },
+  "Outset Island": Object {
+    "Savage Labyrinth - Floor 30": false,
+  },
+}
+`;
+
+exports[`TrackerState initialize initializes the items 1`] = `
+Object {
+  "Bait Bag": 0,
+  "Ballad of Gales": 0,
+  "Boat's Sail": 0,
+  "Bombs": 0,
+  "Boomerang": 0,
+  "Cabana Deed": 0,
+  "Command Melody": 0,
+  "DRC Big Key": 0,
+  "DRC Small Key": 0,
+  "Deku Leaf": 0,
+  "Delivery Bag": 0,
+  "Din's Pearl": 0,
+  "ET Big Key": 0,
+  "ET Small Key": 0,
+  "Earth God's Lyric": 0,
+  "Empty Bottle": 0,
+  "FW Big Key": 0,
+  "FW Small Key": 0,
+  "Farore's Pearl": 0,
+  "Ghost Ship Chart": 0,
+  "Grappling Hook": 0,
+  "Hero's Charm": 0,
+  "Hero's Shield": 0,
+  "Hookshot": 0,
+  "Hurricane Spin": 0,
+  "Iron Boots": 0,
+  "Maggie's Letter": 0,
+  "Magic Armor": 0,
+  "Magic Meter Upgrade": 0,
+  "Mirror Shield": 0,
+  "Moblin's Letter": 0,
+  "Nayru's Pearl": 0,
+  "Note to Mom": 0,
+  "Power Bracelets": 0,
+  "Progressive Bomb Bag": 0,
+  "Progressive Bow": 0,
+  "Progressive Picto Box": 0,
+  "Progressive Quiver": 0,
+  "Progressive Sword": 0,
+  "Progressive Wallet": 0,
+  "Skull Hammer": 0,
+  "Song of Passing": 0,
+  "Spoils Bag": 0,
+  "Telescope": 0,
+  "Tingle Statue": 0,
+  "Tingle Tuner": 0,
+  "TotG Big Key": 0,
+  "TotG Small Key": 0,
+  "Triforce Shard": 0,
+  "WT Big Key": 0,
+  "WT Small Key": 0,
+  "Wind God's Aria": 0,
+  "Wind Waker": 0,
+  "Wind's Requiem": 0,
+}
+`;
