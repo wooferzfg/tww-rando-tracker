@@ -8,14 +8,7 @@ export default class TrackerState {
   static initialize() {
     this.entrances = {};
     this.items = _.reduce(ITEMS, (accumulator, item) => _.set(accumulator, item, 0), {});
-    this.locationsChecked = _.reduce(
-      Locations.allLocations(),
-      (
-        accumulator,
-        { generalLocation, detailedLocation }
-      ) => _.set(accumulator, [generalLocation, detailedLocation], false),
-      {}
-    );
+    this.locationsChecked = Locations.mapLocations(() => false);
   }
 
   static getItemValue(itemName) {

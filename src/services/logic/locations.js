@@ -20,17 +20,20 @@ export default class Locations {
     });
   }
 
-  static allLocations() {
-    return _.flatMap(
-      this.locations,
-      (generalLocationData, generalLocationName) => _.map(
-        _.keys(generalLocationData),
-        (detailedLocationName) => ({
-          generalLocation: generalLocationName,
-          detailedLocation: detailedLocationName
-        })
-      )
-    );
+  static mapLocations(locationIteratee) {
+    const newLocations = {};
+
+    _.forEach(this.locations, (generalLocationData, generalLocationName) => {
+      _.forEach(_.keys(generalLocationData), (detailedLocationName) => {
+        _.set(
+          newLocations,
+          [generalLocationName, detailedLocationName],
+          locationIteratee(generalLocationName, detailedLocationName)
+        );
+      });
+    });
+
+    return newLocations;
   }
 
   static getLocation(generalLocation, detailedLocation) {
