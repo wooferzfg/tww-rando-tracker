@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout commit
+      uses: actions/checkout@v1
+
+    - name: Install Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+
+    - name: Install npm packages
+      run: |
+        set -e
+        npm install
+
+    - name: Run eslint
+      run: |
+        set -e
+        npm run lint
+
+    - name: Run tests
+      run: |
+        set -e
+        npm run test
+
+    - name: Build UI
+      run: |
+        set -e
+        npm run publish
