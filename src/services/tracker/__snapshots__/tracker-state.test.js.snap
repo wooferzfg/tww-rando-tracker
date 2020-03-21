@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TrackerState initialize initializes the checked locations 1`] = `
+exports[`TrackerState default initializes the checked locations 1`] = `
 Object {
   "Dragon Roost Cavern": Object {
     "Bird's Nest": false,
@@ -11,7 +11,7 @@ Object {
 }
 `;
 
-exports[`TrackerState initialize initializes the items 1`] = `
+exports[`TrackerState default initializes the items 1`] = `
 Object {
   "Bait Bag": 0,
   "Ballad of Gales": 0,

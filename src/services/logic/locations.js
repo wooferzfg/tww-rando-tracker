@@ -37,11 +37,11 @@ export default class Locations {
   }
 
   static getLocation(generalLocation, detailedLocation) {
-    return _.get(this.options, [generalLocation, detailedLocation]);
+    return _.get(this.locations, [generalLocation, detailedLocation]);
   }
 
-  static setLocation(generalLocation, detailedLocation, options) {
-    _.set(this.locations, [generalLocation, detailedLocation], options);
+  static setLocation(generalLocation, detailedLocation, locationInfo) {
+    _.set(this.locations, [generalLocation, detailedLocation], locationInfo);
   }
 
   static _splitLocationName(fullLocationName) {

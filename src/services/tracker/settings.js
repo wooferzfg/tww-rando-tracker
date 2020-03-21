@@ -1,5 +1,9 @@
 export default class Settings {
-  static get VERSION() {
-    return '1.7.0';
+  static initialize(options) {
+    this._version = options.version;
+  }
+
+  static get version() {
+    return this._version;
   }
 }

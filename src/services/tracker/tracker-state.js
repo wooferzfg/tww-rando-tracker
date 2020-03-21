@@ -5,33 +5,53 @@ import ITEMS from '../../data/items';
 import Locations from '../logic/locations';
 
 export default class TrackerState {
-  static initialize() {
-    this.entrances = {};
-    this.items = _.reduce(ITEMS, (accumulator, item) => _.set(accumulator, item, 0), {});
-    this.locationsChecked = Locations.mapLocations(() => false);
+  static default() {
+    const newState = new TrackerState();
+
+    newState.entrances = {};
+    newState.items = _.reduce(ITEMS, (accumulator, item) => _.set(accumulator, item, 0), {});
+    newState.locationsChecked = Locations.mapLocations(() => false);
+
+    return newState;
   }
 
-  static getItemValue(itemName) {
+  getItemValue(itemName) {
     return _.get(this.items, itemName);
   }
 
-  static setItemValue(itemName, value) {
-    _.set(this.items, itemName, value);
+  setItemValue(itemName, value) {
+    const newState = this._clone();
+    _.set(newState.items, itemName, value);
+    return newState;
   }
 
-  static getEntranceValue(entranceName) {
+  getEntranceValue(entranceName) {
     return _.get(this.entrances, entranceName);
   }
 
-  static setEntranceValue(entranceName, value) {
-    _.set(this.entrances, entranceName, value);
+  setEntranceValue(entranceName, value) {
+    const newState = this._clone();
+    _.set(newState.entrances, entranceName, value);
+    return newState;
   }
 
-  static isLocationChecked(generalLocation, detailedLocation) {
+  isLocationChecked(generalLocation, detailedLocation) {
     return _.get(this.locationsChecked, [generalLocation, detailedLocation]);
   }
 
-  static setLocationChecked(generalLocation, detailedLocation, isChecked) {
-    _.set(this.locationsChecked, [generalLocation, detailedLocation], isChecked);
+  setLocationChecked(generalLocation, detailedLocation, isChecked) {
+    const newState = this._clone();
+    _.set(newState.locationsChecked, [generalLocation, detailedLocation], isChecked);
+    return newState;
+  }
+
+  _clone() {
+    const newState = new TrackerState();
+
+    newState.entrances = _.clone(this.entrances);
+    newState.items = _.clone(this.items);
+    newState.locationsChecked = _.cloneDeep(this.locationsChecked);
+
+    return newState;
   }
 }

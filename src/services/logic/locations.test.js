@@ -53,6 +53,47 @@ describe('Locations', () => {
     });
   });
 
+  describe('getLocation', () => {
+    let expectedLocation;
+
+    beforeEach(() => {
+      expectedLocation = {
+        test: 'info'
+      };
+
+      Locations.locations = {
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': expectedLocation
+        }
+      };
+    });
+
+    test('returns the info for the location', () => {
+      const location = Locations.getLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+      expect(location).toEqual(expectedLocation);
+    });
+  });
+
+  describe('setLocation', () => {
+    beforeEach(() => {
+      Locations.locations = {
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': {
+            test: 'data'
+          }
+        }
+      };
+    });
+
+    test('updates the location with the provided info', () => {
+      const locationInfo = { expected: 'info' };
+      Locations.setLocation('Outset Island', 'Savage Labyrinth - Floor 30', locationInfo);
+
+      expect(Locations.locations['Outset Island']['Savage Labyrinth - Floor 30']).toEqual(locationInfo);
+    });
+  });
+
   describe('_splitLocationName', () => {
     test('returns the general location and detailed location', () => {
       const input = 'Outset Island - Savage Labyrinth - Floor 30';
