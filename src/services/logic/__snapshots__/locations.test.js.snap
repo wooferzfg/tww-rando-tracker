@@ -1,18 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Locations allLocations creates an array with all location names 1`] = `
-Array [
-  Object {
-    "detailedLocation": "Savage Labyrinth - Floor 30",
-    "generalLocation": "Outset Island",
-  },
-  Object {
-    "detailedLocation": "Bird's Nest",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-]
-`;
-
 exports[`Locations initialize initializes the locations 1`] = `
 Object {
   "Dragon Roost Cavern": Object {
@@ -28,6 +15,17 @@ Object {
       "originalItem": "Triforce Chart 6",
       "types": "Savage Labyrinth",
     },
+  },
+}
+`;
+
+exports[`Locations mapLocations creates an object by calling the iteratee on each location 1`] = `
+Object {
+  "Dragon Roost Cavern": Object {
+    "Bird's Nest": "Bird's Nest $$$ Dragon Roost Cavern",
+  },
+  "Outset Island": Object {
+    "Savage Labyrinth - Floor 30": "Savage Labyrinth - Floor 30 $$$ Outset Island",
   },
 }
 `;
