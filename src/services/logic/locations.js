@@ -36,6 +36,10 @@ export default class Locations {
     return newLocations;
   }
 
+  static detailedLocationsForGeneralLocation(generalLocation) {
+    return _.keys(_.get(this.locations, generalLocation));
+  }
+
   static getLocation(generalLocation, detailedLocation) {
     return _.get(this.locations, [generalLocation, detailedLocation]);
   }
