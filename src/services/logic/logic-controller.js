@@ -7,6 +7,8 @@ import ITEMS from '../../data/items';
 import KEYS from '../../data/keys';
 import SHORT_DUNGEON_NAMES from '../../data/short-dungeon-names';
 
+import Settings from '../tracker/settings';
+
 export default class LogicController {
   static allItems() {
     return _.concat(
@@ -16,6 +18,13 @@ export default class LogicController {
       ITEMS,
       KEYS
     );
+  }
+
+  static isMainDungeon(dungeonName) {
+    if (dungeonName === 'Forsaken Fortress' || dungeonName === "Ganon's Tower") {
+      return false;
+    }
+    return _.includes(DUNGEONS, dungeonName);
   }
 
   static shortDungeonName(dungeonName) {
@@ -39,5 +48,21 @@ export default class LogicController {
 
   static _entryName(locationName) {
     return `Entered ${locationName}`;
+  }
+
+  static _randomizeEntrancesOption() {
+    return Settings.getOptionValue('randomizeEntrances');
+  }
+
+  static isRandomDungeonEntrances() {
+    return _.includes(this._randomizeEntrancesOption(), 'Dungeons');
+  }
+
+  static isRandomCaveEntrances() {
+    return _.includes(this._randomizeEntrancesOption(), 'Secret Caves');
+  }
+
+  static isRandomEntrancesTogether() {
+    return _.includes(this._randomizeEntrancesOption(), 'Together');
   }
 }

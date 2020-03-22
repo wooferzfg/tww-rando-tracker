@@ -1,5 +1,7 @@
 import LogicTweaks from './logic-tweaks';
 import Locations from './locations';
+import Macros from './macros';
+import Settings from '../tracker/settings';
 
 describe('LogicTweaks', () => {
   describe('updateLocations', () => {
@@ -31,6 +33,70 @@ describe('LogicTweaks', () => {
       LogicTweaks.updateLocations();
 
       expect(Locations.locations).toMatchSnapshot();
+    });
+  });
+
+  describe('updateMacros', () => {
+    beforeEach(() => {
+      Macros.macros = {
+        "Can Farm Knight's Crests": 'Grappling Hook & Can Access Other Location "Ice Ring Isle - Inner Cave - Chest"'
+      };
+    });
+
+    describe('when no options are set', () => {
+      test('updates the macros', () => {
+        LogicTweaks.updateMacros();
+
+        expect(Macros.macros).toMatchSnapshot();
+      });
+    });
+
+    describe('when dungeon entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            randomizeEntrances: 'Dungeons'
+          }
+        });
+      });
+
+      test('updates the macros', () => {
+        LogicTweaks.updateMacros();
+
+        expect(Macros.macros).toMatchSnapshot();
+      });
+    });
+
+    describe('when cave entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            randomizeEntrances: 'Secret Caves'
+          }
+        });
+      });
+
+      test('updates the macros', () => {
+        LogicTweaks.updateMacros();
+
+        expect(Macros.macros).toMatchSnapshot();
+      });
+    });
+
+    describe('when charts are randomized', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            randomizeCharts: true
+          }
+        });
+      });
+
+      test('updates the macros', () => {
+        LogicTweaks.updateMacros();
+
+        expect(Macros.macros).toMatchSnapshot();
+      });
     });
   });
 });
