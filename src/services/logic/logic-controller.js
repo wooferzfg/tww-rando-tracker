@@ -15,7 +15,7 @@ export default class LogicController {
       _.map(CAVES, (cave) => this.caveEntryName(cave)),
       CHARTS,
       _.map(DUNGEONS, (dungeon) => this.dungeonEntryName(dungeon)),
-      ITEMS,
+      _.keys(ITEMS),
       _.keys(KEYS)
     );
   }
