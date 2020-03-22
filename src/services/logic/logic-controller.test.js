@@ -10,6 +10,103 @@ describe('LogicController', () => {
     });
   });
 
+  describe('setStartingAndImpossibleItems', () => {
+    describe('with no starting shards, no starting gear, and starting with a sword', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            numStartingTriforceShards: 0,
+            startingGear: 0,
+            swordMode: 'Start with Sword'
+          }
+        });
+      });
+
+      test('sets the starting and impossible items', () => {
+        LogicController.setStartingAndImpossibleItems();
+
+        expect(LogicController.startingItems).toMatchSnapshot();
+        expect(LogicController.impossibleItems).toEqual([]);
+      });
+    });
+
+    describe('with starting shards', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            numStartingTriforceShards: 7,
+            startingGear: 0,
+            swordMode: 'Start with Sword'
+          }
+        });
+      });
+
+      test('sets the number of starting shards', () => {
+        LogicController.setStartingAndImpossibleItems();
+
+        expect(LogicController.startingItems).toMatchSnapshot();
+        expect(LogicController.impossibleItems).toEqual([]);
+      });
+    });
+
+    describe('with starting gear', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            numStartingTriforceShards: 0,
+            startingGear: 549755813922, // Bombs, Deku Leaf, and 2 sword upgrades
+            swordMode: 'Start with Sword'
+          }
+        });
+      });
+
+      test('sets the starting items based on the starting gear', () => {
+        LogicController.setStartingAndImpossibleItems();
+
+        expect(LogicController.startingItems).toMatchSnapshot();
+        expect(LogicController.impossibleItems).toEqual([]);
+      });
+    });
+
+    describe('when starting without a sword', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            numStartingTriforceShards: 0,
+            startingGear: 0,
+            swordMode: 'Randomized Sword'
+          }
+        });
+      });
+
+      test('sets sword to 0 in the starting items', () => {
+        LogicController.setStartingAndImpossibleItems();
+
+        expect(LogicController.startingItems).toMatchSnapshot();
+        expect(LogicController.impossibleItems).toEqual([]);
+      });
+    });
+
+    describe('when in swordless mode', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            numStartingTriforceShards: 0,
+            startingGear: 0,
+            swordMode: 'Swordless'
+          }
+        });
+      });
+
+      test('sets sword to 0 in the starting items and adds impossible items', () => {
+        LogicController.setStartingAndImpossibleItems();
+
+        expect(LogicController.startingItems).toMatchSnapshot();
+        expect(LogicController.impossibleItems).toMatchSnapshot();
+      });
+    });
+  });
+
   describe('isMainDungeon', () => {
     describe('when the dungeon is a main dungeon', () => {
       test('returns true', () => {
