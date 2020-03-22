@@ -11,7 +11,7 @@ import SHORT_DUNGEON_NAMES from '../../data/short-dungeon-names';
 
 import Settings from '../tracker/settings';
 
-export default class LogicController {
+export default class LogicHelper {
   static allItems() {
     return _.concat(
       _.map(CAVES, (cave) => this.caveEntryName(cave)),

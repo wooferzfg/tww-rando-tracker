@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import Locations from '../logic/locations';
-import LogicController from '../logic/logic-controller';
+import LogicHelper from '../logic/logic-helper';
 
 export default class TrackerState {
   static default() {
@@ -9,7 +9,7 @@ export default class TrackerState {
 
     newState.entrances = {};
     newState.items = _.reduce(
-      LogicController.allItems(),
+      LogicHelper.allItems(),
       (accumulator, item) => _.set(accumulator, item, 0),
       {}
     );

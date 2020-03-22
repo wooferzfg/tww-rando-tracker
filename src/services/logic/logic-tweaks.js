@@ -6,7 +6,7 @@ import DUNGEONS from '../../data/dungeons';
 import HAS_ACCESSED_LOCATION_TWEAKS from '../../data/has-accessed-location-tweaks';
 
 import Locations from './locations';
-import LogicController from './logic-controller';
+import LogicHelper from './logic-helper';
 import Macros from './macros';
 import Settings from '../tracker/settings';
 
@@ -78,11 +78,11 @@ export default class LogicTweaks {
   }
 
   static _updateDungeonEntranceMacros() {
-    if (LogicController.isRandomDungeonEntrances()) {
+    if (LogicHelper.isRandomDungeonEntrances()) {
       _.forEach(DUNGEONS, (dungeon) => {
-        if (LogicController.isMainDungeon(dungeon)) {
+        if (LogicHelper.isMainDungeon(dungeon)) {
           const macroName = this._canAccessMacroName(dungeon);
-          const entryName = LogicController.dungeonEntryName(dungeon);
+          const entryName = LogicHelper.dungeonEntryName(dungeon);
           Macros.setMacro(macroName, entryName);
         }
       });
@@ -90,10 +90,10 @@ export default class LogicTweaks {
   }
 
   static _updateCaveEntranceMacros() {
-    if (LogicController.isRandomCaveEntrances()) {
+    if (LogicHelper.isRandomCaveEntrances()) {
       _.forEach(CAVES, (cave) => {
         const macroName = this._canAccessMacroName(cave);
-        const entryName = LogicController.caveEntryName(cave);
+        const entryName = LogicHelper.caveEntryName(cave);
         Macros.setMacro(macroName, entryName);
       });
     }

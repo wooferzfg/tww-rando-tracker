@@ -1,10 +1,10 @@
-import LogicController from './logic-controller';
+import LogicHelper from './logic-helper';
 import Settings from '../tracker/settings';
 
-describe('LogicController', () => {
+describe('LogicHelper', () => {
   describe('allItems', () => {
     test('returns a list of all the items, including entrances, charts, and keys', () => {
-      const allItems = LogicController.allItems();
+      const allItems = LogicHelper.allItems();
 
       expect(allItems).toMatchSnapshot();
     });
@@ -23,10 +23,10 @@ describe('LogicController', () => {
       });
 
       test('sets the starting and impossible items', () => {
-        LogicController.setStartingAndImpossibleItems();
+        LogicHelper.setStartingAndImpossibleItems();
 
-        expect(LogicController.startingItems).toMatchSnapshot();
-        expect(LogicController.impossibleItems).toEqual([]);
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual([]);
       });
     });
 
@@ -42,10 +42,10 @@ describe('LogicController', () => {
       });
 
       test('sets the number of starting shards', () => {
-        LogicController.setStartingAndImpossibleItems();
+        LogicHelper.setStartingAndImpossibleItems();
 
-        expect(LogicController.startingItems).toMatchSnapshot();
-        expect(LogicController.impossibleItems).toEqual([]);
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual([]);
       });
     });
 
@@ -61,10 +61,10 @@ describe('LogicController', () => {
       });
 
       test('sets the starting items based on the starting gear', () => {
-        LogicController.setStartingAndImpossibleItems();
+        LogicHelper.setStartingAndImpossibleItems();
 
-        expect(LogicController.startingItems).toMatchSnapshot();
-        expect(LogicController.impossibleItems).toEqual([]);
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual([]);
       });
     });
 
@@ -80,10 +80,10 @@ describe('LogicController', () => {
       });
 
       test('sets sword to 0 in the starting items', () => {
-        LogicController.setStartingAndImpossibleItems();
+        LogicHelper.setStartingAndImpossibleItems();
 
-        expect(LogicController.startingItems).toMatchSnapshot();
-        expect(LogicController.impossibleItems).toEqual([]);
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual([]);
       });
     });
 
@@ -99,10 +99,10 @@ describe('LogicController', () => {
       });
 
       test('sets sword to 0 in the starting items and adds impossible items', () => {
-        LogicController.setStartingAndImpossibleItems();
+        LogicHelper.setStartingAndImpossibleItems();
 
-        expect(LogicController.startingItems).toMatchSnapshot();
-        expect(LogicController.impossibleItems).toMatchSnapshot();
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toMatchSnapshot();
       });
     });
   });
@@ -110,7 +110,7 @@ describe('LogicController', () => {
   describe('isMainDungeon', () => {
     describe('when the dungeon is a main dungeon', () => {
       test('returns true', () => {
-        const isMainDungeon = LogicController.isMainDungeon('Dragon Roost Cavern');
+        const isMainDungeon = LogicHelper.isMainDungeon('Dragon Roost Cavern');
 
         expect(isMainDungeon).toEqual(true);
       });
@@ -118,7 +118,7 @@ describe('LogicController', () => {
 
     describe('when the dungeon is Forsaken Fortress', () => {
       test('returns false', () => {
-        const isMainDungeon = LogicController.isMainDungeon('Forsaken Fortress');
+        const isMainDungeon = LogicHelper.isMainDungeon('Forsaken Fortress');
 
         expect(isMainDungeon).toEqual(false);
       });
@@ -126,7 +126,7 @@ describe('LogicController', () => {
 
     describe("when the dungeon is Ganon's Tower", () => {
       test('returns false', () => {
-        const isMainDungeon = LogicController.isMainDungeon("Ganon's Tower");
+        const isMainDungeon = LogicHelper.isMainDungeon("Ganon's Tower");
 
         expect(isMainDungeon).toEqual(false);
       });
@@ -134,7 +134,7 @@ describe('LogicController', () => {
 
     describe('when the argument is not a dungeon', () => {
       test('returns false', () => {
-        const isMainDungeon = LogicController.isMainDungeon('Pawprint Isle');
+        const isMainDungeon = LogicHelper.isMainDungeon('Pawprint Isle');
 
         expect(isMainDungeon).toEqual(false);
       });
@@ -143,7 +143,7 @@ describe('LogicController', () => {
 
   describe('shortDungeonName', () => {
     test('returns the short dungeon name based on the dungeon name', () => {
-      const shortDungeonName = LogicController.shortDungeonName('Dragon Roost Cavern');
+      const shortDungeonName = LogicHelper.shortDungeonName('Dragon Roost Cavern');
 
       expect(shortDungeonName).toEqual('DRC');
     });
@@ -151,7 +151,7 @@ describe('LogicController', () => {
 
   describe('dungeonEntryName', () => {
     test('returns the entry name based on a dungeon name', () => {
-      const entryName = LogicController.dungeonEntryName('Dragon Roost Cavern');
+      const entryName = LogicHelper.dungeonEntryName('Dragon Roost Cavern');
 
       expect(entryName).toEqual('Entered DRC');
     });
@@ -159,13 +159,13 @@ describe('LogicController', () => {
 
   describe('shortCaveName', () => {
     test('returns the cave name without mentioning secret caves', () => {
-      const shortCaveName = LogicController.shortCaveName('Dragon Roost Island Secret Cave');
+      const shortCaveName = LogicHelper.shortCaveName('Dragon Roost Island Secret Cave');
 
       expect(shortCaveName).toEqual('Dragon Roost Island Cave');
     });
 
     test('returns the cave name without mentioning warp maze caves', () => {
-      const shortCaveName = LogicController.shortCaveName('Diamond Steppe Island Warp Maze Cave');
+      const shortCaveName = LogicHelper.shortCaveName('Diamond Steppe Island Warp Maze Cave');
 
       expect(shortCaveName).toEqual('Diamond Steppe Island Cave');
     });
@@ -173,7 +173,7 @@ describe('LogicController', () => {
 
   describe('caveEntryName', () => {
     test('returns the entry name based on a cave name', () => {
-      const entryName = LogicController.caveEntryName('Dragon Roost Island Secret Cave');
+      const entryName = LogicHelper.caveEntryName('Dragon Roost Island Secret Cave');
 
       expect(entryName).toEqual('Entered Dragon Roost Island Cave');
     });
@@ -190,7 +190,7 @@ describe('LogicController', () => {
       });
 
       test('returns true', () => {
-        const isRandomDungeonEntrances = LogicController.isRandomDungeonEntrances();
+        const isRandomDungeonEntrances = LogicHelper.isRandomDungeonEntrances();
 
         expect(isRandomDungeonEntrances).toEqual(true);
       });
@@ -206,7 +206,7 @@ describe('LogicController', () => {
       });
 
       test('returns false', () => {
-        const isRandomDungeonEntrances = LogicController.isRandomDungeonEntrances();
+        const isRandomDungeonEntrances = LogicHelper.isRandomDungeonEntrances();
 
         expect(isRandomDungeonEntrances).toEqual(false);
       });
@@ -224,7 +224,7 @@ describe('LogicController', () => {
       });
 
       test('returns true', () => {
-        const isRandomCaveEntrances = LogicController.isRandomCaveEntrances();
+        const isRandomCaveEntrances = LogicHelper.isRandomCaveEntrances();
 
         expect(isRandomCaveEntrances).toEqual(true);
       });
@@ -240,7 +240,7 @@ describe('LogicController', () => {
       });
 
       test('returns false', () => {
-        const isRandomCaveEntrances = LogicController.isRandomCaveEntrances();
+        const isRandomCaveEntrances = LogicHelper.isRandomCaveEntrances();
 
         expect(isRandomCaveEntrances).toEqual(false);
       });
@@ -258,7 +258,7 @@ describe('LogicController', () => {
       });
 
       test('returns true', () => {
-        const isRandomEntrancesTogether = LogicController.isRandomEntrancesTogether();
+        const isRandomEntrancesTogether = LogicHelper.isRandomEntrancesTogether();
 
         expect(isRandomEntrancesTogether).toEqual(true);
       });
@@ -274,7 +274,7 @@ describe('LogicController', () => {
       });
 
       test('returns false', () => {
-        const isRandomEntrancesTogether = LogicController.isRandomEntrancesTogether();
+        const isRandomEntrancesTogether = LogicHelper.isRandomEntrancesTogether();
 
         expect(isRandomEntrancesTogether).toEqual(false);
       });
