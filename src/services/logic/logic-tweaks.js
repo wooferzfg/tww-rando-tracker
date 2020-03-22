@@ -3,6 +3,7 @@ import _ from 'lodash';
 import CAVES from '../../data/caves';
 import CHARTS from '../../data/charts';
 import DUNGEONS from '../../data/dungeons';
+import HAS_ACCESSED_LOCATION_TWEAKS from '../../data/has-accessed-location-tweaks';
 
 import Locations from './locations';
 import LogicController from './logic-controller';
@@ -22,27 +23,6 @@ export default class LogicTweaks {
     this._updateChartMacros();
     this._updateTriforceMacro();
     this._applyHasAccessedLocationTweaksForMacros();
-  }
-
-  /**
-   * Some locations and macros require another location in order to be completed. For these
-   * locations, the requirements for the other location should be displayed as the name of that
-   * location instead of the items required for that location.
-   */
-  static get _HAS_ACCESSED_LOCATION_TWEAKS() {
-    return {
-      itemLocations: {
-        Mailbox: [
-          'Letter from Baito',
-          'Letter from Orca',
-          'Letter from Aryll',
-          'Letter from Tingle'
-        ]
-      },
-      macros: [
-        "Can Farm Knight's Crests"
-      ]
-    };
   }
 
   static _addDefeatGanondorf() {
@@ -68,7 +48,7 @@ export default class LogicTweaks {
   }
 
   static _applyHasAccessedLocationTweaksForLocations() {
-    const itemLocationTweaks = this._HAS_ACCESSED_LOCATION_TWEAKS.itemLocations;
+    const itemLocationTweaks = HAS_ACCESSED_LOCATION_TWEAKS.itemLocations;
     _.forEach(itemLocationTweaks, (generalLocationInfo, generalLocation) => {
       _.forEach(generalLocationInfo, (detailedLocation) => {
         const requirements = Locations.getLocation(generalLocation, detailedLocation).need;
@@ -85,7 +65,7 @@ export default class LogicTweaks {
   }
 
   static _applyHasAccessedLocationTweaksForMacros() {
-    const macrosTweaks = this._HAS_ACCESSED_LOCATION_TWEAKS.macros;
+    const macrosTweaks = HAS_ACCESSED_LOCATION_TWEAKS.macros;
     _.forEach(macrosTweaks, (macroName) => {
       const macroValue = Macros.getMacro(macroName);
       const newMacro = this._replaceCanAccessOtherLocation(macroValue);
