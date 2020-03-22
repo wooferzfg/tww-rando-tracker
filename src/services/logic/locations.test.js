@@ -53,6 +53,30 @@ describe('Locations', () => {
     });
   });
 
+  describe('detailedLocationsForGeneralLocation', () => {
+    beforeEach(() => {
+      Locations.locations = {
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': {
+            test: 'data'
+          },
+          'Savage Labyrinth - Floor 50': {
+            test: 'data'
+          }
+        }
+      };
+    });
+
+    test('creates an object by calling the iteratee on each location', () => {
+      const detailedLocations = Locations.detailedLocationsForGeneralLocation('Outset Island');
+
+      expect(detailedLocations).toEqual([
+        'Savage Labyrinth - Floor 30',
+        'Savage Labyrinth - Floor 50'
+      ]);
+    });
+  });
+
   describe('getLocation', () => {
     let expectedLocation;
 
