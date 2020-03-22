@@ -4,6 +4,7 @@ import Macros from '../logic/macros';
 import TrackerState from './tracker-state';
 import Settings from './settings';
 import LogicTweaks from '../logic/logic-tweaks';
+import LogicController from '../logic/logic-controller';
 
 export default class TrackerController {
   static async initialize() {
@@ -19,6 +20,8 @@ export default class TrackerController {
 
     Macros.initialize(macrosFile);
     LogicTweaks.updateMacros();
+
+    LogicController.setStartingAndImpossibleItems();
 
     this.state = TrackerState.default();
   }
