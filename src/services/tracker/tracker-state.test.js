@@ -39,6 +39,32 @@ describe('TrackerState', () => {
     });
   });
 
+  describe('createStateManually', () => {
+    test('creates the state with the provided entrances, items, and locations checked', () => {
+      const items = {
+        'Test Item': 2
+      };
+      const entrances = {
+        'Test Entrance': 'Other Entrance'
+      };
+      const locationsChecked = {
+        'Dragon Roost Cavern': {
+          "Bird's Nest": true
+        }
+      };
+
+      const newState = TrackerState.createStateManually({
+        entrances,
+        items,
+        locationsChecked
+      });
+
+      expect(newState.entrances).toEqual(entrances);
+      expect(newState.items).toEqual(items);
+      expect(newState.locationsChecked).toEqual(locationsChecked);
+    });
+  });
+
   describe('getItemValue', () => {
     let state;
 

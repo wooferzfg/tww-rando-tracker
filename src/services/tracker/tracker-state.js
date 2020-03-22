@@ -15,6 +15,16 @@ export default class TrackerState {
     return newState;
   }
 
+  static createStateManually({ entrances, items, locationsChecked }) {
+    const newState = new TrackerState();
+
+    newState.entrances = entrances;
+    newState.items = items;
+    newState.locationsChecked = locationsChecked;
+
+    return newState;
+  }
+
   getItemValue(itemName) {
     return _.get(this.items, itemName);
   }
