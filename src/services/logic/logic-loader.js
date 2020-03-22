@@ -14,13 +14,14 @@ export default class LogicLoader {
   }
 
   static async _loadLogicFile(fileName) {
-    const response = await fetch(`${this._LOGIC_FILES_URL_PREFIX}/${fileName}`);
+    const fileUrl = this._logicFileUrl(fileName);
+    const response = await fetch(fileUrl);
     const fileData = await response.text();
     const parsedFile = yaml.safeLoad(fileData);
     return parsedFile;
   }
 
-  static get _LOGIC_FILES_URL_PREFIX() {
-    return `https://raw.githubusercontent.com/LagoLunatic/wwrando/${Settings.VERSION}/logic/`;
+  static _logicFileUrl(fileName) {
+    return `https://raw.githubusercontent.com/LagoLunatic/wwrando/${Settings.getVersion()}/logic/${fileName}`;
   }
 }
