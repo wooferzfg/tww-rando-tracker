@@ -2,7 +2,8 @@ import LogicLoader from './logic-loader';
 import Settings from '../tracker/settings';
 
 describe('LogicLoader', () => {
-  let itemLocationsFile, macrosFile;
+  let itemLocationsFile;
+  let macrosFile;
 
   beforeEach(() => {
     itemLocationsFile = {
@@ -32,6 +33,7 @@ describe('LogicLoader', () => {
       if (fileName === 'macros.txt') {
         return Promise.resolve(macrosFile);
       }
+      throw Error(`File not found: ${fileName}`);
     });
   });
 
