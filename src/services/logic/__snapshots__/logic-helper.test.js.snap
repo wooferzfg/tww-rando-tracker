@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LogicController allItems returns a list of all the items, including entrances, charts, and keys 1`] = `
+exports[`LogicHelper allItems returns a list of all the items, including entrances, charts, and keys 1`] = `
 Array [
   "Entered Savage Labyrinth",
   "Entered Dragon Roost Island Cave",
@@ -135,7 +135,7 @@ Array [
 ]
 `;
 
-exports[`LogicController setStartingAndImpossibleItems when in swordless mode sets sword to 0 in the starting items and adds impossible items 1`] = `
+exports[`LogicHelper setStartingAndImpossibleItems when in swordless mode sets sword to 0 in the starting items and adds impossible items 1`] = `
 Object {
   "Bait Bag": 0,
   "Ballad of Gales": 1,
@@ -183,7 +183,7 @@ Object {
 }
 `;
 
-exports[`LogicController setStartingAndImpossibleItems when in swordless mode sets sword to 0 in the starting items and adds impossible items 2`] = `
+exports[`LogicHelper setStartingAndImpossibleItems when in swordless mode sets sword to 0 in the starting items and adds impossible items 2`] = `
 Array [
   "Progressive Sword x1",
   "Progressive Sword x2",
@@ -193,7 +193,7 @@ Array [
 ]
 `;
 
-exports[`LogicController setStartingAndImpossibleItems when starting without a sword sets sword to 0 in the starting items 1`] = `
+exports[`LogicHelper setStartingAndImpossibleItems when starting without a sword sets sword to 0 in the starting items 1`] = `
 Object {
   "Bait Bag": 0,
   "Ballad of Gales": 1,
@@ -241,7 +241,7 @@ Object {
 }
 `;
 
-exports[`LogicController setStartingAndImpossibleItems with no starting shards, no starting gear, and starting with a sword sets the starting and impossible items 1`] = `
+exports[`LogicHelper setStartingAndImpossibleItems with no starting shards, no starting gear, and starting with a sword sets the starting and impossible items 1`] = `
 Object {
   "Bait Bag": 0,
   "Ballad of Gales": 1,
@@ -289,7 +289,7 @@ Object {
 }
 `;
 
-exports[`LogicController setStartingAndImpossibleItems with starting gear sets the starting items based on the starting gear 1`] = `
+exports[`LogicHelper setStartingAndImpossibleItems with starting gear sets the starting items based on the starting gear 1`] = `
 Object {
   "Bait Bag": 0,
   "Ballad of Gales": 1,
@@ -337,7 +337,7 @@ Object {
 }
 `;
 
-exports[`LogicController setStartingAndImpossibleItems with starting shards sets the number of starting shards 1`] = `
+exports[`LogicHelper setStartingAndImpossibleItems with starting shards sets the number of starting shards 1`] = `
 Object {
   "Bait Bag": 0,
   "Ballad of Gales": 1,
