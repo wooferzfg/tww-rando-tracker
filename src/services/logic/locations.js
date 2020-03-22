@@ -10,13 +10,11 @@ export default class Locations {
         detailedLocation
       } = this._splitLocationName(locationName);
 
-      const filteredLocationData = _
-        .chain(locationData)
-        .pick(['Need', 'Original item', 'Types'])
-        .mapKeys((value, key) => _.camelCase(key))
-        .value();
+      const filteredLocationData = _.pick(locationData, ['Need', 'Original item', 'Types']);
 
-      this.setLocation(generalLocation, detailedLocation, filteredLocationData);
+      _.forEach(filteredLocationData, (infoValue, infoKey) => {
+        this.setLocation(generalLocation, detailedLocation, _.camelCase(infoKey), infoValue);
+      });
     });
   }
 
@@ -44,8 +42,8 @@ export default class Locations {
     return _.get(this.locations, [generalLocation, detailedLocation]);
   }
 
-  static setLocation(generalLocation, detailedLocation, locationInfo) {
-    _.set(this.locations, [generalLocation, detailedLocation], locationInfo);
+  static setLocation(generalLocation, detailedLocation, infoKey, infoValue) {
+    _.set(this.locations, [generalLocation, detailedLocation, infoKey], infoValue);
   }
 
   static _splitLocationName(fullLocationName) {

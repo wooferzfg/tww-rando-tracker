@@ -227,7 +227,9 @@ describe('TrackerState', () => {
     test('returns a new state with the location checked value modified', () => {
       const newState = state.setLocationChecked('Dragon Roost Cavern', "Bird's Nest", false);
 
-      expect(newState.locationsChecked['Dragon Roost Cavern']["Bird's Nest"]).toEqual(false);
+      const newIsLocationChecked = _.get(newState.locationsChecked, ['Dragon Roost Cavern', "Bird's Nest"]);
+
+      expect(newIsLocationChecked).toEqual(false);
     });
 
     test('keeps the other values unmodified', () => {

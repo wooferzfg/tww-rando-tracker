@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import Locations from './locations';
 
 describe('Locations', () => {
@@ -110,11 +112,12 @@ describe('Locations', () => {
       };
     });
 
-    test('updates the location with the provided info', () => {
-      const locationInfo = { expected: 'info' };
-      Locations.setLocation('Outset Island', 'Savage Labyrinth - Floor 30', locationInfo);
+    test('updates the location with the provided info key and value', () => {
+      Locations.setLocation('Outset Island', 'Savage Labyrinth - Floor 30', 'need', 'expected value');
 
-      expect(Locations.locations['Outset Island']['Savage Labyrinth - Floor 30']).toEqual(locationInfo);
+      const newValue = _.get(Locations.locations, ['Outset Island', 'Savage Labyrinth - Floor 30', 'need']);
+
+      expect(newValue).toEqual('expected value');
     });
   });
 
