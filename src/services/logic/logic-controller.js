@@ -16,7 +16,7 @@ export default class LogicController {
       CHARTS,
       _.map(DUNGEONS, (dungeon) => this.dungeonEntryName(dungeon)),
       ITEMS,
-      KEYS
+      _.keys(KEYS)
     );
   }
 
