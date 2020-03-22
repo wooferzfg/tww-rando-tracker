@@ -28,3 +28,105 @@ Object {
   },
 }
 `;
+
+exports[`LogicTweaks updateMacros when cave entrances are randomized updates the macros 1`] = `
+Object {
+  "All 8 Triforce Shards": "Triforce Shard x8",
+  "Can Access Angular Isles Secret Cave": "Entered Angular Isles Cave",
+  "Can Access Bird's Peak Rock Secret Cave": "Entered Bird's Peak Rock Cave",
+  "Can Access Boating Course Secret Cave": "Entered Boating Course Cave",
+  "Can Access Bomb Island Secret Cave": "Entered Bomb Island Cave",
+  "Can Access Cabana Labyrinth": "Entered Cabana Labyrinth",
+  "Can Access Cliff Plateau Isles Secret Cave": "Entered Cliff Plateau Isles Cave",
+  "Can Access Diamond Steppe Island Warp Maze Cave": "Entered Diamond Steppe Island Cave",
+  "Can Access Dragon Roost Island Secret Cave": "Entered Dragon Roost Island Cave",
+  "Can Access Fire Mountain Secret Cave": "Entered Fire Mountain Cave",
+  "Can Access Horseshoe Island Secret Cave": "Entered Horseshoe Island Cave",
+  "Can Access Ice Ring Isle Secret Cave": "Entered Ice Ring Isle Cave",
+  "Can Access Needle Rock Isle Secret Cave": "Entered Needle Rock Isle Cave",
+  "Can Access Overlook Island Secret Cave": "Entered Overlook Island Cave",
+  "Can Access Pawprint Isle Chuchu Cave": "Entered Pawprint Isle Chuchu Cave",
+  "Can Access Pawprint Isle Wizzrobe Cave": "Entered Pawprint Isle Wizzrobe Cave",
+  "Can Access Rock Spire Isle Secret Cave": "Entered Rock Spire Isle Cave",
+  "Can Access Savage Labyrinth": "Entered Savage Labyrinth",
+  "Can Access Shark Island Secret Cave": "Entered Shark Island Cave",
+  "Can Access Star Island Secret Cave": "Entered Star Island Cave",
+  "Can Access Stone Watcher Island Secret Cave": "Entered Stone Watcher Island Cave",
+  "Can Farm Knight's Crests": "Grappling Hook & Has Accessed Other Location \\"Ice Ring Isle - Inner Cave - Chest\\"",
+}
+`;
+
+exports[`LogicTweaks updateMacros when charts are randomized updates the macros 1`] = `
+Object {
+  "All 8 Triforce Shards": "Triforce Shard x8",
+  "Can Farm Knight's Crests": "Grappling Hook & Has Accessed Other Location \\"Ice Ring Isle - Inner Cave - Chest\\"",
+  "Chart for Island 1": "Treasure Chart 25",
+  "Chart for Island 10": "Treasure Chart 22",
+  "Chart for Island 11": "Treasure Chart 18",
+  "Chart for Island 12": "Treasure Chart 30",
+  "Chart for Island 13": "Treasure Chart 39",
+  "Chart for Island 14": "Treasure Chart 19",
+  "Chart for Island 15": "Treasure Chart 8",
+  "Chart for Island 16": "Treasure Chart 2",
+  "Chart for Island 17": "Treasure Chart 10",
+  "Chart for Island 18": "Treasure Chart 26",
+  "Chart for Island 19": "Treasure Chart 3",
+  "Chart for Island 2": "Treasure Chart 7",
+  "Chart for Island 20": "Treasure Chart 37",
+  "Chart for Island 21": "Treasure Chart 27",
+  "Chart for Island 22": "Treasure Chart 38",
+  "Chart for Island 23": "Triforce Chart 1",
+  "Chart for Island 24": "Treasure Chart 21",
+  "Chart for Island 25": "Treasure Chart 6",
+  "Chart for Island 26": "Treasure Chart 14",
+  "Chart for Island 27": "Treasure Chart 34",
+  "Chart for Island 28": "Treasure Chart 5",
+  "Chart for Island 29": "Treasure Chart 28",
+  "Chart for Island 3": "Treasure Chart 24",
+  "Chart for Island 30": "Treasure Chart 35",
+  "Chart for Island 31": "Triforce Chart 3",
+  "Chart for Island 32": "Triforce Chart 6",
+  "Chart for Island 33": "Treasure Chart 1",
+  "Chart for Island 34": "Treasure Chart 20",
+  "Chart for Island 35": "Treasure Chart 36",
+  "Chart for Island 36": "Treasure Chart 23",
+  "Chart for Island 37": "Treasure Chart 12",
+  "Chart for Island 38": "Treasure Chart 16",
+  "Chart for Island 39": "Treasure Chart 4",
+  "Chart for Island 4": "Triforce Chart 2",
+  "Chart for Island 40": "Treasure Chart 17",
+  "Chart for Island 41": "Treasure Chart 31",
+  "Chart for Island 42": "Triforce Chart 5",
+  "Chart for Island 43": "Treasure Chart 9",
+  "Chart for Island 44": "Triforce Chart 4",
+  "Chart for Island 45": "Treasure Chart 40",
+  "Chart for Island 46": "Triforce Chart 8",
+  "Chart for Island 47": "Treasure Chart 15",
+  "Chart for Island 48": "Treasure Chart 32",
+  "Chart for Island 49": "Treasure Chart 33",
+  "Chart for Island 5": "Treasure Chart 11",
+  "Chart for Island 6": "Triforce Chart 7",
+  "Chart for Island 7": "Treasure Chart 13",
+  "Chart for Island 8": "Treasure Chart 41",
+  "Chart for Island 9": "Treasure Chart 29",
+}
+`;
+
+exports[`LogicTweaks updateMacros when dungeon entrances are randomized updates the macros 1`] = `
+Object {
+  "All 8 Triforce Shards": "Triforce Shard x8",
+  "Can Access Dragon Roost Cavern": "Entered DRC",
+  "Can Access Earth Temple": "Entered ET",
+  "Can Access Forbidden Woods": "Entered FW",
+  "Can Access Tower of the Gods": "Entered TotG",
+  "Can Access Wind Temple": "Entered WT",
+  "Can Farm Knight's Crests": "Grappling Hook & Has Accessed Other Location \\"Ice Ring Isle - Inner Cave - Chest\\"",
+}
+`;
+
+exports[`LogicTweaks updateMacros when no options are set updates the macros 1`] = `
+Object {
+  "All 8 Triforce Shards": "Triforce Shard x8",
+  "Can Farm Knight's Crests": "Grappling Hook & Has Accessed Other Location \\"Ice Ring Isle - Inner Cave - Chest\\"",
+}
+`;
