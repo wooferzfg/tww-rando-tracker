@@ -1,15 +1,18 @@
 import _ from 'lodash';
 
-import ITEMS from '../../data/items';
-
 import Locations from '../logic/locations';
+import LogicController from '../logic/logic-controller';
 
 export default class TrackerState {
   static default() {
     const newState = new TrackerState();
 
     newState.entrances = {};
-    newState.items = _.reduce(ITEMS, (accumulator, item) => _.set(accumulator, item, 0), {});
+    newState.items = _.reduce(
+      LogicController.allItems(),
+      (accumulator, item) => _.set(accumulator, item, 0),
+      {}
+    );
     newState.locationsChecked = Locations.mapLocations(() => false);
 
     return newState;
