@@ -101,11 +101,7 @@ export default class BooleanExpression {
     });
   }
 
-  simplify({
-    implies,
-    isAlwaysFalse,
-    isAlwaysTrue
-  }) {
+  simplify({ implies }) {
     return this._flatten();
   }
 

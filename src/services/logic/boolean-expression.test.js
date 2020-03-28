@@ -156,11 +156,15 @@ describe('BooleanExpression', () => {
 
   describe('simplify', () => {
     let mockImplies;
-    let mockIsAlwaysFalse;
-    let mockIsAlwaysTrue;
 
     beforeAll(() => {
       mockImplies = (first, second) => {
+        if (first === 'Never') {
+          return true;
+        }
+        if (second === 'Always') {
+          return true;
+        }
         if (first === second) {
           return true;
         }
@@ -171,38 +175,31 @@ describe('BooleanExpression', () => {
 
         if (firstMatch && secondMatch) {
           return firstMatch[2] === secondMatch[2]
-            && _.toSafeInteger(firstMatch[1]) < _.toSafeInteger(secondMatch[1]);
+            && _.toSafeInteger(firstMatch[1]) > _.toSafeInteger(secondMatch[1]);
         }
         return false;
       };
 
-      expect(mockImplies('4x Apple', '5x Apple')).toEqual(true);
+      expect(mockImplies('6x Apple', '5x Apple')).toEqual(true);
       expect(mockImplies('5x Apple', '5x Apple')).toEqual(true);
       expect(mockImplies('Banana', 'Banana')).toEqual(true);
-      expect(mockImplies('6x Apple', '5x Apple')).toEqual(false);
-      expect(mockImplies('4x Apple', '5x Banana')).toEqual(false);
+      expect(mockImplies('6x Apple', 'Always')).toEqual(true);
+      expect(mockImplies('Banana', 'Always')).toEqual(true);
+      expect(mockImplies('Never', '6x Apple')).toEqual(true);
+      expect(mockImplies('Never', 'Banana')).toEqual(true);
+
+      expect(mockImplies('4x Apple', '5x Apple')).toEqual(false);
+      expect(mockImplies('6x Apple', '5x Banana')).toEqual(false);
       expect(mockImplies('Banana', 'Coconut')).toEqual(false);
-
-      mockIsAlwaysFalse = (item) => item === 'Never';
-
-      expect(mockIsAlwaysFalse('Never')).toEqual(true);
-      expect(mockIsAlwaysFalse('Always')).toEqual(false);
-      expect(mockIsAlwaysFalse('Apple')).toEqual(false);
-
-      mockIsAlwaysTrue = (item) => item === 'Always';
-
-      expect(mockIsAlwaysTrue('Never')).toEqual(false);
-      expect(mockIsAlwaysTrue('Always')).toEqual(true);
-      expect(mockIsAlwaysTrue('Apple')).toEqual(false);
+      expect(mockImplies('Always', '6x Apple')).toEqual(false);
+      expect(mockImplies('Always', 'Banana')).toEqual(false);
+      expect(mockImplies('6x Apple', 'Never')).toEqual(false);
+      expect(mockImplies('Banana', 'Never')).toEqual(false);
     });
 
     const testSimplification = (message, { initial, expected }) => {
       test(message, () => {
-        const simplified = initial.simplify({
-          implies: mockImplies,
-          isAlwaysFalse: mockIsAlwaysFalse,
-          isAlwaysTrue: mockIsAlwaysTrue
-        });
+        const simplified = initial.simplify({ implies: mockImplies });
 
         expect(simplified).toEqual(expected);
       });
