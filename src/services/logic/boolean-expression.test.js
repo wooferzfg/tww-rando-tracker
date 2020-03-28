@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import BooleanExpression from './boolean-expression';
 
 describe('BooleanExpression', () => {
@@ -18,6 +20,54 @@ describe('BooleanExpression', () => {
       expect(expression).toEqual(
         new BooleanExpression(['Apple', 'Banana', 'Coconut'], BooleanExpression.TYPES.OR)
       );
+    });
+  });
+
+  describe('isAnd', () => {
+    let expression;
+
+    describe('when the expression has type "and"', () => {
+      beforeEach(() => {
+        expression = BooleanExpression.and('Apple');
+      });
+
+      test('returns true', () => {
+        expect(expression.isAnd()).toEqual(true);
+      });
+    });
+
+    describe('when the expression has type "or"', () => {
+      beforeEach(() => {
+        expression = BooleanExpression.or('Apple');
+      });
+
+      test('returns false', () => {
+        expect(expression.isAnd()).toEqual(false);
+      });
+    });
+  });
+
+  describe('isOr', () => {
+    let expression;
+
+    describe('when the expression has type "or"', () => {
+      beforeEach(() => {
+        expression = BooleanExpression.or('Apple');
+      });
+
+      test('returns true', () => {
+        expect(expression.isOr()).toEqual(true);
+      });
+    });
+
+    describe('when the expression has type "and"', () => {
+      beforeEach(() => {
+        expression = BooleanExpression.and('Apple');
+      });
+
+      test('returns false', () => {
+        expect(expression.isOr()).toEqual(false);
+      });
     });
   });
 
@@ -100,6 +150,144 @@ describe('BooleanExpression', () => {
         });
 
         expect(evaluation).toEqual(false);
+      });
+    });
+  });
+
+  describe('simplify', () => {
+    let mockImplies; let
+      mockIsEquivalent;
+
+    beforeAll(() => {
+      mockImplies = (first, second) => {
+        if (first === second) {
+          return true;
+        }
+
+        const quantifiedItemRegex = /(\d+)x (\w+)/;
+        const firstMatch = first.match(quantifiedItemRegex);
+        const secondMatch = second.match(quantifiedItemRegex);
+
+        if (firstMatch && secondMatch) {
+          return firstMatch[2] === secondMatch[2]
+            && _.toSafeInteger(firstMatch[1]) < _.toSafeInteger(secondMatch[1]);
+        }
+        return false;
+      };
+
+      expect(mockImplies('4x Apple', '5x Apple')).toEqual(true);
+      expect(mockImplies('5x Apple', '5x Apple')).toEqual(true);
+      expect(mockImplies('Banana', 'Banana')).toEqual(true);
+      expect(mockImplies('6x Apple', '5x Apple')).toEqual(false);
+      expect(mockImplies('4x Apple', '5x Banana')).toEqual(false);
+      expect(mockImplies('Banana', 'Coconut')).toEqual(false);
+
+      mockIsEquivalent = (first, second) => first === second;
+
+      expect(mockIsEquivalent('4x Apple', '5x Apple')).toEqual(false);
+      expect(mockIsEquivalent('5x Apple', '5x Apple')).toEqual(true);
+      expect(mockIsEquivalent('Banana', 'Banana')).toEqual(true);
+      expect(mockIsEquivalent('6x Apple', '5x Apple')).toEqual(false);
+      expect(mockIsEquivalent('4x Apple', '5x Banana')).toEqual(false);
+      expect(mockIsEquivalent('Banana', 'Coconut')).toEqual(false);
+    });
+
+    const testSimplification = (message, { initial, expected }) => {
+      test(message, () => {
+        const simplified = initial.simplify({
+          implies: mockImplies,
+          isEquivalent: mockIsEquivalent
+        });
+
+        expect(simplified).toEqual(expected);
+      });
+    };
+
+    describe('when the expression cannot be simplified', () => {
+      testSimplification('test 1', {
+        initial: BooleanExpression.or('Apple', 'Banana'),
+        expected: BooleanExpression.or('Apple', 'Banana')
+      });
+
+      testSimplification('test 2', {
+        initial: BooleanExpression.and('Banana', 'Coconut'),
+        expected: BooleanExpression.and('Banana', 'Coconut')
+      });
+
+      testSimplification('test 3', {
+        initial: BooleanExpression.and(
+          'Apple',
+          BooleanExpression.or('Banana', 'Coconut'),
+          'Durian'
+        ),
+        expected: BooleanExpression.and(
+          'Apple',
+          BooleanExpression.or('Banana', 'Coconut'),
+          'Durian'
+        )
+      });
+
+      testSimplification('test 4', {
+        initial: BooleanExpression.and(
+          BooleanExpression.or('Apple', 'Banana'),
+          BooleanExpression.or('Apple', 'Coconut')
+        ),
+        expected: BooleanExpression.and(
+          BooleanExpression.or('Apple', 'Banana'),
+          BooleanExpression.or('Apple', 'Coconut')
+        )
+      });
+    });
+
+    describe('when the expression can be flattened', () => {
+      testSimplification('test 5', {
+        initial: BooleanExpression.or(
+          'Apple',
+          BooleanExpression.or('Banana', 'Coconut')
+        ),
+        expected: BooleanExpression.or('Apple', 'Banana', 'Coconut')
+      });
+
+      testSimplification('test 6', {
+        initial: BooleanExpression.and(
+          BooleanExpression.and('Banana', 'Coconut'),
+          'Apple'
+        ),
+        expected: BooleanExpression.and('Banana', 'Coconut', 'Apple')
+      });
+
+      testSimplification('test 7', {
+        initial: BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and(),
+          BooleanExpression.or(
+            BooleanExpression.and()
+          )
+        ),
+        expected: BooleanExpression.or('Apple')
+      });
+
+      testSimplification('test 8', {
+        initial: BooleanExpression.and(
+          BooleanExpression.or(
+            'Apple',
+            'Banana',
+            BooleanExpression.or(
+              'Coconut',
+              'Durian'
+            )
+          ),
+          'Egg'
+        ),
+        expected: BooleanExpression.and(
+          BooleanExpression.or(
+            'Apple',
+            'Banana',
+            'Coconut',
+            'Durian'
+          ),
+          'Egg'
+        )
       });
     });
   });
