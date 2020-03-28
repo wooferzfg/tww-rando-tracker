@@ -21,6 +21,14 @@ export default class BooleanExpression {
     return new BooleanExpression(items, this.TYPES.OR);
   }
 
+  isAnd() {
+    return this.type === BooleanExpression.TYPES.AND;
+  }
+
+  isOr() {
+    return this.type === BooleanExpression.TYPES.OR;
+  }
+
   reduce({
     andInitialValue,
     andReducer,
@@ -91,5 +99,31 @@ export default class BooleanExpression {
         isReduced
       }) => accumulator || (isReduced ? item : isItemTrue(item))
     });
+  }
+
+  simplify({ implies, isEquivalent }) {
+    return this._flatten();
+  }
+
+  _flatten() {
+    let newItems = [];
+
+    _.forEach(this.items, (item) => {
+      if (item instanceof BooleanExpression) {
+        const flatItem = item._flatten();
+
+        if (!_.isEmpty(flatItem.items)) {
+          if (flatItem.type === this.type) {
+            newItems = _.concat(newItems, flatItem.items);
+          } else {
+            newItems = _.concat(newItems, flatItem);
+          }
+        }
+      } else {
+        newItems.push(item);
+      }
+    });
+
+    return new BooleanExpression(newItems, this.type);
   }
 }
