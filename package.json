@@ -5,7 +5,7 @@
   "main": "dist/bundle.js",
   "scripts": {
     "build": "webpack",
-    "lint": "eslint src/**/*.jsx src/**/*.js *.js",
+    "lint": "eslint \"src/**/*.jsx\" \"src/**/*.js\" \"*.js\"",
     "publish": "webpack -p",
     "serve": "webpack-dev-server",
     "start": "webpack-dev-server --open",
