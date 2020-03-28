@@ -210,16 +210,21 @@ describe('BooleanExpression', () => {
 
     describe('when the expression cannot be simplified', () => {
       testSimplification('test 1', {
+        initial: BooleanExpression.or(),
+        expected: BooleanExpression.or()
+      });
+
+      testSimplification('test 2', {
         initial: BooleanExpression.or('Apple', 'Banana'),
         expected: BooleanExpression.or('Apple', 'Banana')
       });
 
-      testSimplification('test 2', {
+      testSimplification('test 3', {
         initial: BooleanExpression.and('Banana', 'Coconut'),
         expected: BooleanExpression.and('Banana', 'Coconut')
       });
 
-      testSimplification('test 3', {
+      testSimplification('test 4', {
         initial: BooleanExpression.and(
           'Apple',
           BooleanExpression.or('Banana', 'Coconut'),
@@ -232,7 +237,7 @@ describe('BooleanExpression', () => {
         )
       });
 
-      testSimplification('test 4', {
+      testSimplification('test 5', {
         initial: BooleanExpression.and(
           BooleanExpression.or('Apple', 'Banana'),
           BooleanExpression.or('Apple', 'Coconut')
@@ -245,7 +250,15 @@ describe('BooleanExpression', () => {
     });
 
     describe('when the expression can be flattened', () => {
-      testSimplification('test 5', {
+      testSimplification('test 6', {
+        initial: BooleanExpression.and(
+          BooleanExpression.or(),
+          BooleanExpression.or()
+        ),
+        expected: BooleanExpression.and()
+      });
+
+      testSimplification('test 7', {
         initial: BooleanExpression.or(
           'Apple',
           BooleanExpression.or('Banana', 'Coconut')
@@ -253,7 +266,7 @@ describe('BooleanExpression', () => {
         expected: BooleanExpression.or('Apple', 'Banana', 'Coconut')
       });
 
-      testSimplification('test 6', {
+      testSimplification('test 8', {
         initial: BooleanExpression.and(
           BooleanExpression.and('Banana', 'Coconut'),
           'Apple'
@@ -261,7 +274,7 @@ describe('BooleanExpression', () => {
         expected: BooleanExpression.and('Banana', 'Coconut', 'Apple')
       });
 
-      testSimplification('test 7', {
+      testSimplification('test 9', {
         initial: BooleanExpression.or(
           'Apple',
           BooleanExpression.and(),
@@ -272,7 +285,7 @@ describe('BooleanExpression', () => {
         expected: BooleanExpression.or('Apple')
       });
 
-      testSimplification('test 8', {
+      testSimplification('test 10', {
         initial: BooleanExpression.and(
           BooleanExpression.or(
             'Apple',
