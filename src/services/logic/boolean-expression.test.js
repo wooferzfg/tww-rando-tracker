@@ -158,7 +158,6 @@ describe('BooleanExpression', () => {
     let mockImplies;
     let mockIsAlwaysFalse;
     let mockIsAlwaysTrue;
-    let mockIsEquivalent;
 
     beforeAll(() => {
       mockImplies = (first, second) => {
@@ -195,15 +194,6 @@ describe('BooleanExpression', () => {
       expect(mockIsAlwaysTrue('Never')).toEqual(false);
       expect(mockIsAlwaysTrue('Always')).toEqual(true);
       expect(mockIsAlwaysTrue('Apple')).toEqual(false);
-
-      mockIsEquivalent = (first, second) => first === second;
-
-      expect(mockIsEquivalent('4x Apple', '5x Apple')).toEqual(false);
-      expect(mockIsEquivalent('5x Apple', '5x Apple')).toEqual(true);
-      expect(mockIsEquivalent('Banana', 'Banana')).toEqual(true);
-      expect(mockIsEquivalent('6x Apple', '5x Apple')).toEqual(false);
-      expect(mockIsEquivalent('4x Apple', '5x Banana')).toEqual(false);
-      expect(mockIsEquivalent('Banana', 'Coconut')).toEqual(false);
     });
 
     const testSimplification = (message, { initial, expected }) => {
@@ -211,8 +201,7 @@ describe('BooleanExpression', () => {
         const simplified = initial.simplify({
           implies: mockImplies,
           isAlwaysFalse: mockIsAlwaysFalse,
-          isAlwaysTrue: mockIsAlwaysTrue,
-          isEquivalent: mockIsEquivalent
+          isAlwaysTrue: mockIsAlwaysTrue
         });
 
         expect(simplified).toEqual(expected);

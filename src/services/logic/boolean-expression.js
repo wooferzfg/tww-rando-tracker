@@ -104,8 +104,7 @@ export default class BooleanExpression {
   simplify({
     implies,
     isAlwaysFalse,
-    isAlwaysTrue,
-    isEquivalent
+    isAlwaysTrue
   }) {
     return this._flatten();
   }
