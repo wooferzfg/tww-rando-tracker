@@ -127,7 +127,7 @@ export default class BooleanExpression {
     return new BooleanExpression(newItems, this.type);
   }
 
-  _itemIsSubsumed(itemToCheck, indexToCheck, implies) {
+  _itemIsSubsumed(itemToCheck, implies, indexToCheck = this.items.length) {
     let itemIsSubsumed = false;
 
     _.forEach(this.items, (item, index) => {
@@ -157,7 +157,7 @@ export default class BooleanExpression {
       if (item instanceof BooleanExpression) {
         const itemWithoutDuplicates = item._removeDuplicates(implies);
         newItems.push(itemWithoutDuplicates);
-      } else if (!this._itemIsSubsumed(item, index, implies)) {
+      } else if (!this._itemIsSubsumed(item, implies, index)) {
         newItems.push(item);
       }
     });
