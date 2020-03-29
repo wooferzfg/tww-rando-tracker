@@ -246,10 +246,11 @@ export default class BooleanExpression {
 
     return _.every(
       otherExpression.items,
-      (otherItem) => this._itemIsSubsumed({
-        item: otherItem,
-        implies
-      })
+      (otherItem) => !(otherItem instanceof BooleanExpression)
+        && this._itemIsSubsumed({
+          item: otherItem,
+          implies
+        })
     );
   }
 
