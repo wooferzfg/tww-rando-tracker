@@ -653,6 +653,38 @@ describe('BooleanExpression', () => {
           'Durian'
         )
       });
+
+      testSimplification('test 30', {
+        initial: BooleanExpression.and(
+          BooleanExpression.or(
+            'Apple',
+            BooleanExpression.and('Banana', 'Eclair'),
+            'Durian'
+          ),
+          BooleanExpression.or(
+            'Apple',
+            BooleanExpression.and('Banana', 'Coconut'),
+            'Durian'
+          ),
+          BooleanExpression.or(
+            'Apple',
+            BooleanExpression.and('Banana', 'Coconut'),
+            'Durian'
+          )
+        ),
+        expected: BooleanExpression.and(
+          BooleanExpression.or(
+            'Apple',
+            BooleanExpression.and('Banana', 'Eclair'),
+            'Durian'
+          ),
+          BooleanExpression.or(
+            'Apple',
+            BooleanExpression.and('Banana', 'Coconut'),
+            'Durian'
+          )
+        )
+      });
     });
   });
 });
