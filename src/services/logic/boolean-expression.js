@@ -29,6 +29,39 @@ export default class BooleanExpression {
     return this.type === BooleanExpression.TYPES.OR;
   }
 
+  isEqualTo({
+    otherExpression,
+    areItemsEqual
+  }) {
+    if (!(otherExpression instanceof BooleanExpression)
+      || this.type !== otherExpression.type
+      || this.items.length !== otherExpression.items.length) {
+      return false;
+    }
+
+    const difference = _.xorWith(
+      this.items,
+      otherExpression.items,
+      (item, otherItem) => {
+        if (item instanceof BooleanExpression) {
+          return item.isEqualTo({
+            otherExpression: otherItem,
+            areItemsEqual
+          });
+        }
+        if (otherItem instanceof BooleanExpression) {
+          return false;
+        }
+
+        return areItemsEqual({
+          item,
+          otherItem
+        });
+      }
+    );
+    return difference.length === 0;
+  }
+
   reduce({
     andInitialValue,
     andReducer,
@@ -101,8 +134,18 @@ export default class BooleanExpression {
     });
   }
 
-  simplify({ implies }) {
-    return this._removeDuplicates(implies);
+  simplify({
+    depth = 3,
+    implies
+  }) {
+    let updatedExpression = this;
+
+    for (let i = 1; i <= depth; i += 1) {
+      updatedExpression = updatedExpression._removeDuplicateItems(implies);
+      updatedExpression = updatedExpression._removeDuplicateExpressions(implies);
+    }
+
+    return updatedExpression;
   }
 
   _flatten() {
@@ -127,18 +170,22 @@ export default class BooleanExpression {
     return new BooleanExpression(newItems, this.type);
   }
 
-  _itemIsSubsumed(itemToCheck, implies, indexToCheck = this.items.length) {
+  _itemIsSubsumed({
+    item,
+    index = this.items.length,
+    implies
+  }) {
     let itemIsSubsumed = false;
 
-    _.forEach(this.items, (item, index) => {
-      if (index !== indexToCheck && !(item instanceof BooleanExpression)) {
+    _.forEach(this.items, (otherItem, otherIndex) => {
+      if (otherItem !== index && !(otherItem instanceof BooleanExpression)) {
         if (this.isAnd()) {
-          if (implies(item, itemToCheck) && (!implies(itemToCheck, item) || index < indexToCheck)) {
+          if (implies(otherItem, item) && (!implies(item, otherItem) || otherIndex < index)) {
             itemIsSubsumed = true;
             return false; // break loop
           }
         } else if (this.isOr()) {
-          if (implies(itemToCheck, item) && (!implies(item, itemToCheck) || index < indexToCheck)) {
+          if (implies(item, otherItem) && (!implies(otherItem, item) || otherIndex < index)) {
             itemIsSubsumed = true;
             return false; // break loop
           }
@@ -150,14 +197,88 @@ export default class BooleanExpression {
     return itemIsSubsumed;
   }
 
-  _removeDuplicates(implies) {
+  _removeDuplicateItems(implies) {
     const newItems = [];
 
     _.forEach(this.items, (item, index) => {
       if (item instanceof BooleanExpression) {
-        const itemWithoutDuplicates = item._removeDuplicates(implies);
+        const itemWithoutDuplicates = item._removeDuplicateItems(implies);
         newItems.push(itemWithoutDuplicates);
-      } else if (!this._itemIsSubsumed(item, implies, index)) {
+      } else if (!this._itemIsSubsumed({
+        item,
+        index,
+        implies
+      })) {
+        newItems.push(item);
+      }
+    });
+
+    const newExpression = new BooleanExpression(newItems, this.type);
+    return newExpression._flatten();
+  }
+
+  _isSubsumedBy({
+    otherExpression,
+    implies,
+    removeIfIdentical
+  }) {
+    if (this.type !== otherExpression.type) {
+      return false;
+    }
+
+    if (this.isEqualTo({
+      otherExpression,
+      areItemsEqual: ({ item, otherItem }) => implies(item, otherItem) && implies(otherItem, item)
+    })) {
+      return removeIfIdentical;
+    }
+
+    return _.every(
+      otherExpression.items,
+      (otherItem) => this._itemIsSubsumed({
+        item: otherItem,
+        implies
+      })
+    );
+  }
+
+  _expressionIsSubsumed({ expression, index, implies }) {
+    let expressionIsSubsumed = false;
+
+    _.forEach(this.items, (otherExpression, otherIndex) => {
+      if (otherIndex !== index && otherExpression instanceof BooleanExpression) {
+        const isSubsumed = expression._isSubsumedBy({
+          otherExpression,
+          implies,
+          removeIfIdentical: otherIndex < index
+        });
+
+        if (isSubsumed) {
+          expressionIsSubsumed = true;
+          return false; // break loop
+        }
+      }
+      return true; // continue
+    });
+
+    return expressionIsSubsumed;
+  }
+
+  _removeDuplicateExpressions(implies) {
+    const newItems = [];
+
+    _.forEach(this.items, (item, index) => {
+      if (item instanceof BooleanExpression) {
+        const simplifiedExpression = item._removeDuplicateExpressions(implies);
+
+        if (!this._expressionIsSubsumed({
+          expression: simplifiedExpression,
+          index,
+          implies
+        })) {
+          newItems.push(simplifiedExpression);
+        }
+      } else {
         newItems.push(item);
       }
     });

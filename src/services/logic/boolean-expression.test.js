@@ -71,6 +71,156 @@ describe('BooleanExpression', () => {
     });
   });
 
+  describe('isEqualTo', () => {
+    let expression; let
+      mockAreItemsEqual;
+
+    beforeEach(() => {
+      expression = BooleanExpression.or(
+        BooleanExpression.and('Apple ', ' Banana'),
+        'Coconut '
+      );
+
+      mockAreItemsEqual = ({ item, otherItem }) => _.trim(item) === _.trim(otherItem);
+    });
+
+    describe('when the other object is not a boolean expression', () => {
+      let otherExpression;
+
+      beforeEach(() => {
+        otherExpression = { a: '1' };
+      });
+
+      test('returns false', () => {
+        const isEqualTo = expression.isEqualTo({
+          otherExpression,
+          areItemsEqual: mockAreItemsEqual
+        });
+
+        expect(isEqualTo).toEqual(false);
+      });
+    });
+
+    describe('when the other expression has a different type', () => {
+      let otherExpression;
+
+      beforeEach(() => {
+        otherExpression = BooleanExpression.and(
+          BooleanExpression.and('Apple', 'Banana'),
+          'Coconut'
+        );
+      });
+
+      test('returns false', () => {
+        const isEqualTo = expression.isEqualTo({
+          otherExpression,
+          areItemsEqual: mockAreItemsEqual
+        });
+
+        expect(isEqualTo).toEqual(false);
+      });
+    });
+
+    describe('when the other expression has a different number of items', () => {
+      let otherExpression;
+
+      beforeEach(() => {
+        otherExpression = BooleanExpression.or(
+          BooleanExpression.and('Apple', 'Banana')
+        );
+      });
+
+      test('returns false', () => {
+        const isEqualTo = expression.isEqualTo({
+          otherExpression,
+          areItemsEqual: mockAreItemsEqual
+        });
+
+        expect(isEqualTo).toEqual(false);
+      });
+    });
+
+    describe('when the other expression has a different shallow item', () => {
+      let otherExpression;
+
+      beforeEach(() => {
+        otherExpression = BooleanExpression.or(
+          BooleanExpression.and('Apple', 'Banana'),
+          'Durian'
+        );
+      });
+
+      test('returns false', () => {
+        const isEqualTo = expression.isEqualTo({
+          otherExpression,
+          areItemsEqual: mockAreItemsEqual
+        });
+
+        expect(isEqualTo).toEqual(false);
+      });
+    });
+
+    describe('when the other expression has a different deep item', () => {
+      let otherExpression;
+
+      beforeEach(() => {
+        otherExpression = BooleanExpression.or(
+          BooleanExpression.and('Apple', 'Durian'),
+          'Coconut'
+        );
+      });
+
+      test('returns false', () => {
+        const isEqualTo = expression.isEqualTo({
+          otherExpression,
+          areItemsEqual: mockAreItemsEqual
+        });
+
+        expect(isEqualTo).toEqual(false);
+      });
+    });
+
+    describe('when the expressions have the same items in a different order', () => {
+      let otherExpression;
+
+      beforeEach(() => {
+        otherExpression = BooleanExpression.or(
+          'Coconut',
+          BooleanExpression.and('Banana', 'Apple')
+        );
+      });
+
+      test('returns true', () => {
+        const isEqualTo = expression.isEqualTo({
+          otherExpression,
+          areItemsEqual: mockAreItemsEqual
+        });
+
+        expect(isEqualTo).toEqual(true);
+      });
+    });
+
+    describe('when the expressions are identical', () => {
+      let otherExpression;
+
+      beforeEach(() => {
+        otherExpression = BooleanExpression.or(
+          BooleanExpression.and('Apple', 'Banana'),
+          'Coconut'
+        );
+      });
+
+      test('returns true', () => {
+        const isEqualTo = expression.isEqualTo({
+          otherExpression,
+          areItemsEqual: mockAreItemsEqual
+        });
+
+        expect(isEqualTo).toEqual(true);
+      });
+    });
+  });
+
   describe('reduce', () => {
     let expression;
 
@@ -410,6 +560,79 @@ describe('BooleanExpression', () => {
         ),
         expected: BooleanExpression.and(
           '6x Apple'
+        )
+      });
+    });
+
+    describe('when an expression is a duplicate of another', () => {
+      testSimplification('test 20', {
+        initial: BooleanExpression.and(
+          BooleanExpression.or('Apple'),
+          BooleanExpression.or('Apple')
+        ),
+        expected: BooleanExpression.and(
+          'Apple'
+        )
+      });
+
+      testSimplification('test 21', {
+        initial: BooleanExpression.or(
+          BooleanExpression.and('Apple', 'Banana'),
+          BooleanExpression.and('Apple', 'Banana')
+        ),
+        expected: BooleanExpression.or(
+          BooleanExpression.and('Apple', 'Banana')
+        )
+      });
+
+      testSimplification('test 22', {
+        initial: BooleanExpression.or(
+          BooleanExpression.and('Apple', 'Banana', 'Coconut'),
+          BooleanExpression.and('Apple', 'Banana')
+        ),
+        expected: BooleanExpression.or(
+          BooleanExpression.and('Apple', 'Banana')
+        )
+      });
+
+      testSimplification('test 23', {
+        initial: BooleanExpression.or(
+          BooleanExpression.and('Apple', '5x Banana', 'Coconut'),
+          BooleanExpression.and('Apple', '4x Banana')
+        ),
+        expected: BooleanExpression.or(
+          BooleanExpression.and('Apple', '4x Banana')
+        )
+      });
+
+      testSimplification('test 24', {
+        initial: BooleanExpression.and(
+          BooleanExpression.or('3x Apple', '7x Banana', 'Coconut'),
+          BooleanExpression.or('2x Apple', '4x Banana'),
+          BooleanExpression.or('5x Apple', '6x Banana'),
+          BooleanExpression.or('4x Apple', '5x Banana', 'Durian')
+        ),
+        expected: BooleanExpression.and(
+          BooleanExpression.or('3x Apple', '7x Banana', 'Coconut'),
+          BooleanExpression.or('5x Apple', '6x Banana')
+        )
+      });
+
+      testSimplification('test 25', {
+        initial: BooleanExpression.or(
+          BooleanExpression.and(
+            BooleanExpression.or('Apple', 'Banana'),
+            BooleanExpression.or('Apple', 'Banana', 'Coconut'),
+            BooleanExpression.or('Eclair', 'Fruit')
+          ),
+          'Durian'
+        ),
+        expected: BooleanExpression.or(
+          BooleanExpression.and(
+            BooleanExpression.or('Apple', 'Banana'),
+            BooleanExpression.or('Eclair', 'Fruit')
+          ),
+          'Durian'
         )
       });
     });
