@@ -305,5 +305,106 @@ describe('BooleanExpression', () => {
         )
       });
     });
+
+    describe('when there are duplicate items in the same expression', () => {
+      testSimplification('test 11', {
+        initial: BooleanExpression.and(
+          'Apple',
+          'Banana',
+          'Banana'
+        ),
+        expected: BooleanExpression.and(
+          'Apple',
+          'Banana'
+        )
+      });
+
+      testSimplification('test 12', {
+        initial: BooleanExpression.or(
+          BooleanExpression.and(
+            'Apple',
+            'Apple',
+            'Banana'
+          ),
+          BooleanExpression.and(
+            'Durian',
+            'Durian'
+          )
+        ),
+        expected: BooleanExpression.or(
+          BooleanExpression.and(
+            'Apple',
+            'Banana'
+          ),
+          BooleanExpression.and(
+            'Durian'
+          )
+        )
+      });
+
+      testSimplification('test 13', {
+        initial: BooleanExpression.or(
+          '5x Apple',
+          '6x Apple'
+        ),
+        expected: BooleanExpression.or(
+          '5x Apple'
+        )
+      });
+
+      testSimplification('test 14', {
+        initial: BooleanExpression.and(
+          '5x Apple',
+          '6x Apple'
+        ),
+        expected: BooleanExpression.and(
+          '6x Apple'
+        )
+      });
+
+      testSimplification('test 15', {
+        initial: BooleanExpression.or(
+          '5x Apple',
+          '6x Apple',
+          'Never'
+        ),
+        expected: BooleanExpression.or(
+          '5x Apple'
+        )
+      });
+
+      testSimplification('test 16', {
+        initial: BooleanExpression.or(
+          '5x Apple',
+          '6x Apple',
+          'Always'
+        ),
+        expected: BooleanExpression.or(
+          'Always'
+        )
+      });
+
+      testSimplification('test 17', {
+        initial: BooleanExpression.and(
+          '5x Apple',
+          '6x Apple',
+          'Never'
+        ),
+        expected: BooleanExpression.and(
+          'Never'
+        )
+      });
+
+      testSimplification('test 18', {
+        initial: BooleanExpression.and(
+          '5x Apple',
+          '6x Apple',
+          'Always'
+        ),
+        expected: BooleanExpression.and(
+          '6x Apple'
+        )
+      });
+    });
   });
 });
