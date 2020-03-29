@@ -357,8 +357,8 @@ describe('BooleanExpression', () => {
 
     describe('when the expression cannot be simplified', () => {
       testSimplification('test 1', {
-        initial: BooleanExpression.or(),
-        expected: BooleanExpression.or()
+        initial: BooleanExpression.and(),
+        expected: BooleanExpression.and()
       });
 
       testSimplification('test 2', {
@@ -406,6 +406,23 @@ describe('BooleanExpression', () => {
       });
 
       testSimplification('test 7', {
+        initial: BooleanExpression.or(),
+        expected: BooleanExpression.and()
+      });
+
+      testSimplification('test 8', {
+        initial: BooleanExpression.or('Apple'),
+        expected: BooleanExpression.and('Apple')
+      });
+
+      testSimplification('test 9', {
+        initial: BooleanExpression.or(
+          BooleanExpression.and('Apple')
+        ),
+        expected: BooleanExpression.and('Apple')
+      });
+
+      testSimplification('test 10', {
         initial: BooleanExpression.and(
           BooleanExpression.or(
             BooleanExpression.and('Apple')
@@ -414,7 +431,14 @@ describe('BooleanExpression', () => {
         expected: BooleanExpression.and('Apple')
       });
 
-      testSimplification('test 8', {
+      testSimplification('test 11', {
+        initial: BooleanExpression.and(
+          BooleanExpression.or('Apple', 'Banana')
+        ),
+        expected: BooleanExpression.or('Apple', 'Banana')
+      });
+
+      testSimplification('test 12', {
         initial: BooleanExpression.or(
           'Apple',
           BooleanExpression.or('Banana', 'Coconut')
@@ -422,7 +446,7 @@ describe('BooleanExpression', () => {
         expected: BooleanExpression.or('Apple', 'Banana', 'Coconut')
       });
 
-      testSimplification('test 9', {
+      testSimplification('test 13', {
         initial: BooleanExpression.and(
           BooleanExpression.and('Banana', 'Coconut'),
           'Apple'
@@ -430,7 +454,7 @@ describe('BooleanExpression', () => {
         expected: BooleanExpression.and('Banana', 'Coconut', 'Apple')
       });
 
-      testSimplification('test 10', {
+      testSimplification('test 14', {
         initial: BooleanExpression.or(
           'Apple',
           BooleanExpression.and(),
@@ -438,10 +462,10 @@ describe('BooleanExpression', () => {
             BooleanExpression.and()
           )
         ),
-        expected: BooleanExpression.or('Apple')
+        expected: BooleanExpression.and('Apple')
       });
 
-      testSimplification('test 11', {
+      testSimplification('test 15', {
         initial: BooleanExpression.and(
           BooleanExpression.or(
             'Apple',
@@ -466,7 +490,7 @@ describe('BooleanExpression', () => {
     });
 
     describe('when there are duplicate items in the same expression', () => {
-      testSimplification('test 12', {
+      testSimplification('test 16', {
         initial: BooleanExpression.and(
           'Apple',
           'Banana',
@@ -478,7 +502,7 @@ describe('BooleanExpression', () => {
         )
       });
 
-      testSimplification('test 13', {
+      testSimplification('test 17', {
         initial: BooleanExpression.or(
           BooleanExpression.and(
             'Apple',
@@ -499,60 +523,60 @@ describe('BooleanExpression', () => {
         )
       });
 
-      testSimplification('test 14', {
-        initial: BooleanExpression.or(
-          '5x Apple',
-          '6x Apple'
-        ),
-        expected: BooleanExpression.or(
-          '5x Apple'
-        )
-      });
-
-      testSimplification('test 15', {
-        initial: BooleanExpression.and(
-          '5x Apple',
-          '6x Apple'
-        ),
-        expected: BooleanExpression.and(
-          '6x Apple'
-        )
-      });
-
-      testSimplification('test 16', {
-        initial: BooleanExpression.or(
-          '5x Apple',
-          '6x Apple',
-          'Never'
-        ),
-        expected: BooleanExpression.or(
-          '5x Apple'
-        )
-      });
-
-      testSimplification('test 17', {
-        initial: BooleanExpression.or(
-          '5x Apple',
-          '6x Apple',
-          'Always'
-        ),
-        expected: BooleanExpression.or(
-          'Always'
-        )
-      });
-
       testSimplification('test 18', {
-        initial: BooleanExpression.and(
+        initial: BooleanExpression.or(
           '5x Apple',
-          '6x Apple',
-          'Never'
+          '6x Apple'
         ),
         expected: BooleanExpression.and(
-          'Never'
+          '5x Apple'
         )
       });
 
       testSimplification('test 19', {
+        initial: BooleanExpression.and(
+          '5x Apple',
+          '6x Apple'
+        ),
+        expected: BooleanExpression.and(
+          '6x Apple'
+        )
+      });
+
+      testSimplification('test 20', {
+        initial: BooleanExpression.or(
+          '5x Apple',
+          '6x Apple',
+          'Never'
+        ),
+        expected: BooleanExpression.and(
+          '5x Apple'
+        )
+      });
+
+      testSimplification('test 21', {
+        initial: BooleanExpression.or(
+          '5x Apple',
+          '6x Apple',
+          'Always'
+        ),
+        expected: BooleanExpression.and(
+          'Always'
+        )
+      });
+
+      testSimplification('test 22', {
+        initial: BooleanExpression.and(
+          '5x Apple',
+          '6x Apple',
+          'Never'
+        ),
+        expected: BooleanExpression.and(
+          'Never'
+        )
+      });
+
+      testSimplification('test 23', {
         initial: BooleanExpression.and(
           '5x Apple',
           '6x Apple',
@@ -565,7 +589,7 @@ describe('BooleanExpression', () => {
     });
 
     describe('when an expression is a duplicate of another', () => {
-      testSimplification('test 20', {
+      testSimplification('test 24', {
         initial: BooleanExpression.and(
           BooleanExpression.or('Apple'),
           BooleanExpression.or('Apple')
@@ -575,37 +599,31 @@ describe('BooleanExpression', () => {
         )
       });
 
-      testSimplification('test 21', {
+      testSimplification('test 25', {
         initial: BooleanExpression.or(
           BooleanExpression.and('Apple', 'Banana'),
           BooleanExpression.and('Apple', 'Banana')
         ),
-        expected: BooleanExpression.or(
-          BooleanExpression.and('Apple', 'Banana')
-        )
+        expected: BooleanExpression.and('Apple', 'Banana')
       });
 
-      testSimplification('test 22', {
+      testSimplification('test 26', {
         initial: BooleanExpression.or(
           BooleanExpression.and('Apple', 'Banana', 'Coconut'),
           BooleanExpression.and('Apple', 'Banana')
         ),
-        expected: BooleanExpression.or(
-          BooleanExpression.and('Apple', 'Banana')
-        )
+        expected: BooleanExpression.and('Apple', 'Banana')
       });
 
-      testSimplification('test 23', {
+      testSimplification('test 27', {
         initial: BooleanExpression.or(
           BooleanExpression.and('Apple', '5x Banana', 'Coconut'),
           BooleanExpression.and('Apple', '4x Banana')
         ),
-        expected: BooleanExpression.or(
-          BooleanExpression.and('Apple', '4x Banana')
-        )
+        expected: BooleanExpression.and('Apple', '4x Banana')
       });
 
-      testSimplification('test 24', {
+      testSimplification('test 28', {
         initial: BooleanExpression.and(
           BooleanExpression.or('3x Apple', '7x Banana', 'Coconut'),
           BooleanExpression.or('2x Apple', '4x Banana'),
@@ -618,7 +636,7 @@ describe('BooleanExpression', () => {
         )
       });
 
-      testSimplification('test 25', {
+      testSimplification('test 29', {
         initial: BooleanExpression.or(
           BooleanExpression.and(
             BooleanExpression.or('Apple', 'Banana'),
