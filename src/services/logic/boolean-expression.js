@@ -61,7 +61,7 @@ export default class BooleanExpression {
       };
     };
 
-    if (this.type === BooleanExpression.TYPES.AND) {
+    if (this.isAnd()) {
       return _.reduce(
         this.items,
         (...args) => andReducer(
@@ -71,7 +71,7 @@ export default class BooleanExpression {
       );
     }
 
-    if (this.type === BooleanExpression.TYPES.OR) {
+    if (this.isOr()) {
       return _.reduce(
         this.items,
         (...args) => orReducer(
@@ -102,7 +102,7 @@ export default class BooleanExpression {
   }
 
   simplify({ implies }) {
-    return this._flatten();
+    return this._removeDuplicates(implies);
   }
 
   _flatten() {
@@ -125,5 +125,44 @@ export default class BooleanExpression {
     });
 
     return new BooleanExpression(newItems, this.type);
+  }
+
+  _itemIsSubsumed(itemToCheck, indexToCheck, implies) {
+    let itemIsSubsumed = false;
+
+    _.forEach(this.items, (item, index) => {
+      if (index !== indexToCheck && !(item instanceof BooleanExpression)) {
+        if (this.isAnd()) {
+          if (implies(item, itemToCheck) && (!implies(itemToCheck, item) || index < indexToCheck)) {
+            itemIsSubsumed = true;
+            return false; // break loop
+          }
+        } else if (this.isOr()) {
+          if (implies(itemToCheck, item) && (!implies(item, itemToCheck) || index < indexToCheck)) {
+            itemIsSubsumed = true;
+            return false; // break loop
+          }
+        }
+      }
+      return true; // continue
+    });
+
+    return itemIsSubsumed;
+  }
+
+  _removeDuplicates(implies) {
+    const newItems = [];
+
+    _.forEach(this.items, (item, index) => {
+      if (item instanceof BooleanExpression) {
+        const itemWithoutDuplicates = item._removeDuplicates(implies);
+        newItems.push(itemWithoutDuplicates);
+      } else if (!this._itemIsSubsumed(item, index, implies)) {
+        newItems.push(item);
+      }
+    });
+
+    const newExpression = new BooleanExpression(newItems, this.type);
+    return newExpression._flatten();
   }
 }
