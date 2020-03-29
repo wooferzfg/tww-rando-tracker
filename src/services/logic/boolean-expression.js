@@ -113,7 +113,7 @@ export default class BooleanExpression {
         const flatItem = item._flatten();
 
         if (!_.isEmpty(flatItem.items)) {
-          if (flatItem.type === this.type) {
+          if (flatItem.type === this.type || flatItem.items.length === 1) {
             newItems = _.concat(newItems, flatItem.items);
           } else {
             newItems = _.concat(newItems, flatItem);
