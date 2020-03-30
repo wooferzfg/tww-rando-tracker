@@ -59,7 +59,7 @@ export default class BooleanExpression {
         });
       }
     );
-    return difference.length === 0;
+    return _.isEmpty(difference);
   }
 
   reduce({
@@ -142,10 +142,21 @@ export default class BooleanExpression {
 
     for (let i = 1; i <= depth; i += 1) {
       updatedExpression = updatedExpression._removeDuplicateItems(implies);
+      updatedExpression = updatedExpression._removeDuplicateChildren(implies);
       updatedExpression = updatedExpression._removeDuplicateExpressions(implies);
     }
 
     return updatedExpression;
+  }
+
+  _oppositeType() {
+    if (this.isAnd()) {
+      return BooleanExpression.TYPES.OR;
+    }
+    if (this.isOr()) {
+      return BooleanExpression.TYPES.AND;
+    }
+    throw Error(`Invalid type: ${this.type}`);
   }
 
   _flatten() {
@@ -181,21 +192,28 @@ export default class BooleanExpression {
     return new BooleanExpression(newItems, this.type);
   }
 
-  _itemIsSubsumed({
+  static _createFlatExpression(items, type) {
+    const newExpression = new BooleanExpression(items, type);
+    return newExpression._flatten();
+  }
+
+  static _itemIsSubsumed({
+    itemsCollection,
     item,
-    index = this.items.length,
+    index,
+    expressionType,
     implies
   }) {
     let itemIsSubsumed = false;
 
-    _.forEach(this.items, (otherItem, otherIndex) => {
+    _.forEach(itemsCollection, (otherItem, otherIndex) => {
       if (otherItem !== index && !(otherItem instanceof BooleanExpression)) {
-        if (this.isAnd()) {
+        if (expressionType === BooleanExpression.TYPES.AND) {
           if (implies(otherItem, item) && (!implies(item, otherItem) || otherIndex < index)) {
             itemIsSubsumed = true;
             return false; // break loop
           }
-        } else if (this.isOr()) {
+        } else if (expressionType === BooleanExpression.TYPES.OR) {
           if (implies(item, otherItem) && (!implies(otherItem, item) || otherIndex < index)) {
             itemIsSubsumed = true;
             return false; // break loop
@@ -215,17 +233,123 @@ export default class BooleanExpression {
       if (item instanceof BooleanExpression) {
         const itemWithoutDuplicates = item._removeDuplicateItems(implies);
         newItems.push(itemWithoutDuplicates);
-      } else if (!this._itemIsSubsumed({
+      } else if (!BooleanExpression._itemIsSubsumed({
+        itemsCollection: this.items,
         item,
         index,
+        expressionType: this.type,
         implies
       })) {
         newItems.push(item);
       }
     });
 
-    const newExpression = new BooleanExpression(newItems, this.type);
-    return newExpression._flatten();
+    return BooleanExpression._createFlatExpression(newItems, this.type);
+  }
+
+  _getUpdatedParentItems(parentItems) {
+    return _.mergeWith(
+      {},
+      parentItems,
+      { [this.type]: this.items },
+      (objectValue, sourceValue) => {
+        if (_.isArray(objectValue)) {
+          return _.concat(
+            objectValue,
+            _.filter(sourceValue, (value) => !(value instanceof BooleanExpression))
+          );
+        }
+        return undefined;
+      }
+    );
+  }
+
+  _removeDuplicateChildrenHelper({
+    implies,
+    parentItems
+  }) {
+    const newItems = [];
+
+    const updatedParentItems = this._getUpdatedParentItems(parentItems);
+
+    const sameTypeItems = _.get(parentItems, this.type);
+    const oppositeTypeItems = _.get(parentItems, this._oppositeType());
+
+    let removeSelf = false;
+
+    _.forEach(this.items, (item) => {
+      if (item instanceof BooleanExpression) {
+        const {
+          expression: childExpression,
+          removeParent: childRemoveParent
+        } = item._removeDuplicateChildrenHelper({
+          implies,
+          parentItems: updatedParentItems
+        });
+
+        if (childRemoveParent) {
+          removeSelf = true;
+          return false; // break loop
+        }
+
+        newItems.push(childExpression);
+      } else {
+        if (BooleanExpression._itemIsSubsumed({
+          itemsCollection: oppositeTypeItems,
+          item,
+          index: oppositeTypeItems.length,
+          expressionType: this._oppositeType(),
+          implies
+        })) {
+          removeSelf = true;
+          return false; // break loop
+        }
+
+        if (!BooleanExpression._itemIsSubsumed({
+          itemsCollection: sameTypeItems,
+          item,
+          index: sameTypeItems.length,
+          expressionType: this.type,
+          implies
+        })) {
+          newItems.push(item);
+        }
+      }
+      return true; // continue
+    });
+
+    if (removeSelf) {
+      return {
+        expression: BooleanExpression.and(),
+        removeParent: false
+      };
+    }
+
+    if (_.isEmpty(newItems)) {
+      return {
+        expression: BooleanExpression.and(),
+        removeParent: true
+      };
+    }
+
+    const expression = BooleanExpression._createFlatExpression(newItems, this.type);
+
+    return {
+      expression,
+      removeParent: false
+    };
+  }
+
+  _removeDuplicateChildren(implies) {
+    const { expression } = this._removeDuplicateChildrenHelper({
+      implies,
+      parentItems: {
+        [BooleanExpression.TYPES.AND]: [],
+        [BooleanExpression.TYPES.OR]: []
+      }
+    });
+
+    return expression;
   }
 
   _isSubsumedBy({
@@ -247,8 +371,11 @@ export default class BooleanExpression {
     return _.every(
       otherExpression.items,
       (otherItem) => !(otherItem instanceof BooleanExpression)
-        && this._itemIsSubsumed({
+        && BooleanExpression._itemIsSubsumed({
+          itemsCollection: this.items,
           item: otherItem,
+          index: this.items.length,
+          expressionType: this.type,
           implies
         })
     );
@@ -295,7 +422,6 @@ export default class BooleanExpression {
       }
     });
 
-    const newExpression = new BooleanExpression(newItems, this.type);
-    return newExpression._flatten();
+    return BooleanExpression._createFlatExpression(newItems, this.type);
   }
 }
