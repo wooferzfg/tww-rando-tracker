@@ -686,5 +686,225 @@ describe('BooleanExpression', () => {
         )
       });
     });
+
+    describe('when children are duplicates of parents', () => {
+      testSimplification('test 31', {
+        initial: BooleanExpression.and(
+          'Apple',
+          'Banana',
+          BooleanExpression.or(
+            'Coconut',
+            BooleanExpression.and('Apple', 'Banana')
+          )
+        ),
+        expected: BooleanExpression.and('Apple', 'Banana')
+      });
+
+      testSimplification('test 32', {
+        initial: BooleanExpression.or(
+          'Apple',
+          'Banana',
+          BooleanExpression.and(
+            'Coconut',
+            BooleanExpression.or('Apple', 'Banana')
+          )
+        ),
+        expected: BooleanExpression.or('Apple', 'Banana')
+      });
+
+      testSimplification('test 33', {
+        initial: BooleanExpression.and(
+          'Apple',
+          'Banana',
+          BooleanExpression.or('Banana', 'Coconut')
+        ),
+        expected: BooleanExpression.and('Apple', 'Banana')
+      });
+
+      testSimplification('test 34', {
+        initial: BooleanExpression.or(
+          'Apple',
+          'Banana',
+          BooleanExpression.and('Banana', 'Coconut')
+        ),
+        expected: BooleanExpression.or('Apple', 'Banana')
+      });
+
+      testSimplification('test 35', {
+        initial: BooleanExpression.and(
+          'Apple',
+          'Banana',
+          BooleanExpression.or(
+            'Coconut',
+            BooleanExpression.and('Apple', 'Durian')
+          )
+        ),
+        expected: BooleanExpression.and(
+          'Apple',
+          'Banana',
+          BooleanExpression.or(
+            'Coconut',
+            'Durian'
+          )
+        )
+      });
+
+      testSimplification('test 36', {
+        initial: BooleanExpression.or(
+          'Apple',
+          'Banana',
+          BooleanExpression.and(
+            'Coconut',
+            BooleanExpression.or('Apple', 'Durian')
+          )
+        ),
+        expected: BooleanExpression.or(
+          'Apple',
+          'Banana',
+          BooleanExpression.and(
+            'Coconut',
+            'Durian'
+          )
+        )
+      });
+
+      testSimplification('test 37', {
+        initial: BooleanExpression.and(
+          'Apple',
+          'Banana',
+          BooleanExpression.or(
+            'Coconut',
+            BooleanExpression.and('Apple', 'Coconut')
+          )
+        ),
+        expected: BooleanExpression.and('Apple', 'Banana', 'Coconut')
+      });
+
+      testSimplification('test 38', {
+        initial: BooleanExpression.or(
+          'Apple',
+          'Banana',
+          BooleanExpression.and(
+            'Coconut',
+            BooleanExpression.or('Apple', 'Coconut')
+          )
+        ),
+        expected: BooleanExpression.or('Apple', 'Banana', 'Coconut')
+      });
+
+      testSimplification('test 39', {
+        initial: BooleanExpression.and(
+          'Apple',
+          'Banana',
+          BooleanExpression.or(
+            'Coconut',
+            BooleanExpression.and('Apple', 'Coconut', 'Durian')
+          )
+        ),
+        expected: BooleanExpression.and('Apple', 'Banana', 'Coconut')
+      });
+
+      testSimplification('test 40', {
+        initial: BooleanExpression.or(
+          'Apple',
+          'Banana',
+          BooleanExpression.and(
+            'Coconut',
+            BooleanExpression.or('Apple', 'Coconut', 'Durian')
+          )
+        ),
+        expected: BooleanExpression.or('Apple', 'Banana', 'Coconut')
+      });
+
+      testSimplification('test 41', {
+        initial: BooleanExpression.and(
+          'Apple',
+          'Banana',
+          BooleanExpression.or(
+            'Apple',
+            BooleanExpression.and('Apple', 'Banana')
+          )
+        ),
+        expected: BooleanExpression.and('Apple', 'Banana')
+      });
+
+      testSimplification('test 42', {
+        initial: BooleanExpression.or(
+          'Apple',
+          'Banana',
+          BooleanExpression.and(
+            'Apple',
+            BooleanExpression.or('Apple', 'Banana')
+          )
+        ),
+        expected: BooleanExpression.or('Apple', 'Banana')
+      });
+
+      testSimplification('test 43', {
+        initial: BooleanExpression.and(
+          '5x Apple',
+          '5x Banana',
+          BooleanExpression.or('4x Apple', '4x Banana')
+        ),
+        expected: BooleanExpression.and('5x Apple', '5x Banana')
+      });
+
+      testSimplification('test 44', {
+        initial: BooleanExpression.or(
+          '5x Apple',
+          '5x Banana',
+          BooleanExpression.and('6x Apple', '6x Banana')
+        ),
+        expected: BooleanExpression.or('5x Apple', '5x Banana')
+      });
+
+      testSimplification('test 45', {
+        initial: BooleanExpression.and(
+          '5x Apple',
+          '5x Banana',
+          BooleanExpression.or(
+            'Coconut',
+            BooleanExpression.and('4x Apple', '6x Banana')
+          )
+        ),
+        expected: BooleanExpression.and(
+          '5x Apple',
+          '5x Banana',
+          BooleanExpression.or('Coconut', '6x Banana')
+        )
+      });
+
+      testSimplification('test 46', {
+        initial: BooleanExpression.or(
+          '5x Apple',
+          '5x Banana',
+          BooleanExpression.and(
+            'Coconut',
+            BooleanExpression.or('4x Apple', '6x Banana')
+          )
+        ),
+        expected: BooleanExpression.or(
+          '5x Apple',
+          '5x Banana',
+          BooleanExpression.and('Coconut', '4x Apple')
+        )
+      });
+
+      testSimplification('test 47', {
+        initial: BooleanExpression.and(
+          'Apple',
+          BooleanExpression.or('Always', 'Banana')
+        ),
+        expected: BooleanExpression.and('Apple')
+      });
+
+      testSimplification('test 48', {
+        initial: BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and('Never', 'Banana')
+        ),
+        expected: BooleanExpression.and('Apple')
+      });
+    });
   });
 });
