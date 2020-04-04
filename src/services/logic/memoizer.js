@@ -64,4 +64,26 @@ export default class Memoizer {
       _.unset(parentObject._memoizedValues, functionName);
     });
   }
+
+  static invalidate({
+    parentObject,
+    functionsToInvalidate
+  }) {
+    if (_.isNil(parentObject)) {
+      throw Error('parentObject not provided!');
+    }
+    if (_.isEmpty(functionsToInvalidate)) {
+      throw Error('functionsToInvalidate not provided!');
+    }
+
+    this.unmemoize({
+      parentObject,
+      functionsToUnmemoize: functionsToInvalidate
+    });
+
+    this.memoize({
+      parentObject,
+      functionsToMemoize: functionsToInvalidate
+    });
+  }
 }
