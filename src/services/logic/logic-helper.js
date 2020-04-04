@@ -79,47 +79,50 @@ export default class LogicHelper {
   }
 
   static _checkOptionEnabledRequirement(requirement) {
-    const positiveBooleanMatch = requirement.match(/^Option "([^"]+)" Enabled$/);
-    if (positiveBooleanMatch) {
-      const optionName = _.camelCase(positiveBooleanMatch[1]);
-      return Settings.getOptionValue(optionName);
-    }
+    const matchers = [
+      {
+        regex: /^Option "([^"]+)" Enabled$/,
+        value: (optionValue) => optionValue
+      },
+      {
+        regex: /^Option "([^"]+)" Disabled$/,
+        value: (optionValue) => !optionValue
+      },
+      {
+        regex: /^Option "([^"]+)" Is "([^"]+)"$/,
+        value: (optionValue, expectedValue) => optionValue === expectedValue
+      },
+      {
+        regex: /^Option "([^"]+)" Is Not "([^"]+)"$/,
+        value: (optionValue, expectedValue) => optionValue !== expectedValue
+      },
+      {
+        regex: /^Option "([^"]+)" Contains "([^"]+)"$/,
+        value: (optionValue, expectedValue) => _.includes(optionValue, expectedValue)
+      },
+      {
+        regex: /^Option "([^"]+)" Does Not Contain "([^"]+)"$/,
+        value: (optionValue, expectedValue) => !_.includes(optionValue, expectedValue)
+      }
+    ];
 
-    const negativeBooleanMatch = requirement.match(/^Option "([^"]+)" Disabled$/);
-    if (negativeBooleanMatch) {
-      const optionName = _.camelCase(negativeBooleanMatch[1]);
-      return !Settings.getOptionValue(optionName);
-    }
+    let optionEnabledRequirementValue;
 
-    const positiveDropdownMatch = requirement.match(/^Option "([^"]+)" Is "([^"]+)"$/);
-    if (positiveDropdownMatch) {
-      const optionName = _.camelCase(positiveDropdownMatch[1]);
-      const expectedValue = positiveDropdownMatch[2];
-      return Settings.getOptionValue(optionName) === expectedValue;
-    }
+    _.forEach(matchers, (matcher) => {
+      const requirementMatch = requirement.match(matcher.regex);
+      if (requirementMatch) {
+        const optionName = _.camelCase(requirementMatch[1]);
+        const optionValue = Settings.getOptionValue(optionName);
+        const expectedValue = requirementMatch[2];
 
-    const negativeDropdownMatch = requirement.match(/^Option "([^"]+)" Is Not "([^"]+)"$/);
-    if (negativeDropdownMatch) {
-      const optionName = _.camelCase(negativeDropdownMatch[1]);
-      const expectedValue = negativeDropdownMatch[2];
-      return Settings.getOptionValue(optionName) !== expectedValue;
-    }
+        optionEnabledRequirementValue = matcher.value(optionValue, expectedValue);
 
-    const positiveListMatch = requirement.match(/^Option "([^"]+)" Contains "([^"]+)"$/);
-    if (positiveListMatch) {
-      const optionName = _.camelCase(positiveListMatch[1]);
-      const expectedValue = positiveListMatch[2];
-      return _.includes(Settings.getOptionValue(optionName), expectedValue);
-    }
+        return false; // break loop
+      }
+      return true; // continue
+    });
 
-    const negativeListMatch = requirement.match(/^Option "([^"]+)" Does Not Contain "([^"]+)"$/);
-    if (negativeListMatch) {
-      const optionName = _.camelCase(negativeListMatch[1]);
-      const expectedValue = negativeListMatch[2];
-      return !_.includes(Settings.getOptionValue(optionName), expectedValue);
-    }
-
-    return null;
+    return optionEnabledRequirementValue;
   }
 
   static _checkOtherLocationRequirement(requirement) {
