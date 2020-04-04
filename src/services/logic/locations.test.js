@@ -26,7 +26,22 @@ describe('Locations', () => {
     test('initializes the locations', () => {
       Locations.initialize(itemLocationsFile);
 
-      expect(Locations.locations).toMatchSnapshot();
+      expect(Locations.locations).toEqual({
+        'Dragon Roost Cavern': {
+          "Bird's Nest": {
+            need: 'Can Access Dragon Roost Cavern & DRC Small Key x3',
+            originalItem: 'Small Key',
+            types: 'Dungeon'
+          }
+        },
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': {
+            need: 'Can Access Savage Labyrinth & Can Defeat Keese & Can Defeat Miniblins',
+            originalItem: 'Triforce Chart 6',
+            types: 'Savage Labyrinth'
+          }
+        }
+      });
     });
   });
 
@@ -51,7 +66,14 @@ describe('Locations', () => {
         (generalLocation, detailedLocation) => `${detailedLocation} $$$ ${generalLocation}`
       );
 
-      expect(mappedLocations).toMatchSnapshot();
+      expect(mappedLocations).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': 'Savage Labyrinth - Floor 30 $$$ Outset Island'
+        },
+        'Dragon Roost Cavern': {
+          "Bird's Nest": "Bird's Nest $$$ Dragon Roost Cavern"
+        }
+      });
     });
   });
 
