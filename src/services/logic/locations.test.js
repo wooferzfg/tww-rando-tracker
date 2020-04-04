@@ -143,14 +143,14 @@ describe('Locations', () => {
     });
   });
 
-  describe('_splitLocationName', () => {
+  describe('splitLocationName', () => {
     test('returns the general location and detailed location', () => {
       const input = 'Outset Island - Savage Labyrinth - Floor 30';
 
       const {
         generalLocation,
         detailedLocation
-      } = Locations._splitLocationName(input);
+      } = Locations.splitLocationName(input);
 
       expect(generalLocation).toEqual('Outset Island');
       expect(detailedLocation).toEqual('Savage Labyrinth - Floor 30');
