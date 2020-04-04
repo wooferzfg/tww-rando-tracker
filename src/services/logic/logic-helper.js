@@ -126,7 +126,7 @@ export default class LogicHelper {
   }
 
   static _checkOtherLocationRequirement(requirement) {
-    const otherLocationMatch = requirement.match(/(?:Can Access|Has Accessed) Other Location "([^"]+)"/);
+    const otherLocationMatch = requirement.match(/Can Access Other Location "([^"]+)"/);
     if (otherLocationMatch) {
       const {
         generalLocation,
