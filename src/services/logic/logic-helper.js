@@ -12,9 +12,19 @@ import SHORT_DUNGEON_NAMES from '../../data/short-dungeon-names';
 import BooleanExpression from './boolean-expression';
 import Locations from './locations';
 import Macros from './macros';
+import Memoizer from './memoizer';
 import Settings from '../tracker/settings';
 
 export default class LogicHelper {
+  static initialize() {
+    Memoizer.memoize({
+      parentObject: this,
+      functionsToMemoize: ['getRequirementsForLocation']
+    });
+
+    this._setStartingAndImpossibleItems();
+  }
+
   static get TOKENS() {
     return {
       AND: '&',
@@ -36,7 +46,7 @@ export default class LogicHelper {
     );
   }
 
-  static setStartingAndImpossibleItems() {
+  static _setStartingAndImpossibleItems() {
     this.startingItems = {
       "Hero's Shield": 1,
       'Wind Waker': 1,

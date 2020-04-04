@@ -21,7 +21,7 @@ export default class TrackerController {
     Macros.initialize(macrosFile);
     LogicTweaks.updateMacros();
 
-    LogicHelper.setStartingAndImpossibleItems();
+    LogicHelper.initialize();
 
     this.state = TrackerState.default();
   }
