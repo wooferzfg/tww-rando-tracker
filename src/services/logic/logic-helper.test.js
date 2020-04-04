@@ -13,7 +13,7 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('setStartingAndImpossibleItems', () => {
+  describe('_setStartingAndImpossibleItems', () => {
     describe('with no starting shards, no starting gear, and starting with a sword', () => {
       beforeEach(() => {
         Settings.initialize({
@@ -26,7 +26,7 @@ describe('LogicHelper', () => {
       });
 
       test('sets the starting and impossible items', () => {
-        LogicHelper.setStartingAndImpossibleItems();
+        LogicHelper._setStartingAndImpossibleItems();
 
         expect(LogicHelper.startingItems).toMatchSnapshot();
         expect(LogicHelper.impossibleItems).toEqual([]);
@@ -45,7 +45,7 @@ describe('LogicHelper', () => {
       });
 
       test('sets the number of starting shards', () => {
-        LogicHelper.setStartingAndImpossibleItems();
+        LogicHelper._setStartingAndImpossibleItems();
 
         expect(LogicHelper.startingItems).toMatchSnapshot();
         expect(LogicHelper.impossibleItems).toEqual([]);
@@ -64,7 +64,7 @@ describe('LogicHelper', () => {
       });
 
       test('sets the starting items based on the starting gear', () => {
-        LogicHelper.setStartingAndImpossibleItems();
+        LogicHelper._setStartingAndImpossibleItems();
 
         expect(LogicHelper.startingItems).toMatchSnapshot();
         expect(LogicHelper.impossibleItems).toEqual([]);
@@ -83,7 +83,7 @@ describe('LogicHelper', () => {
       });
 
       test('sets sword to 0 in the starting items', () => {
-        LogicHelper.setStartingAndImpossibleItems();
+        LogicHelper._setStartingAndImpossibleItems();
 
         expect(LogicHelper.startingItems).toMatchSnapshot();
         expect(LogicHelper.impossibleItems).toEqual([]);
@@ -102,7 +102,7 @@ describe('LogicHelper', () => {
       });
 
       test('sets sword to 0 in the starting items and adds impossible items', () => {
-        LogicHelper.setStartingAndImpossibleItems();
+        LogicHelper._setStartingAndImpossibleItems();
 
         expect(LogicHelper.startingItems).toMatchSnapshot();
         expect(LogicHelper.impossibleItems).toMatchSnapshot();
