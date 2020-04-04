@@ -9,9 +9,23 @@ import PROGRESSIVE_STARTING_ITEMS from '../../data/progressive-starting-items';
 import REGULAR_STARTING_ITEMS from '../../data/regular-starting-items';
 import SHORT_DUNGEON_NAMES from '../../data/short-dungeon-names';
 
+import BooleanExpression from './boolean-expression';
+import Locations from './locations';
+import Macros from './macros';
 import Settings from '../tracker/settings';
 
 export default class LogicHelper {
+  static get TOKENS() {
+    return {
+      AND: '&',
+      CLOSING_PAREN: ')',
+      IMPOSSIBLE: 'Impossible',
+      NOTHING: 'Nothing',
+      OPENING_PAREN: '(',
+      OR: '|'
+    };
+  }
+
   static allItems() {
     return _.concat(
       _.map(CAVES, (cave) => this.caveEntryName(cave)),
@@ -56,6 +70,124 @@ export default class LogicHelper {
         'Hurricane Spin'
       ];
     }
+  }
+
+  static _splitExpression(expression) {
+    return _.compact(
+      _.map(expression.split(/\s*([(&|)])\s*/g), _.trim)
+    );
+  }
+
+  static _checkOptionEnabledRequirement(requirement) {
+    const positiveBooleanMatch = requirement.match(/^Option "([^"]+)" Enabled$/);
+    if (positiveBooleanMatch) {
+      const optionName = _.camelCase(positiveBooleanMatch[1]);
+      return Settings.getOptionValue(optionName);
+    }
+
+    const negativeBooleanMatch = requirement.match(/^Option "([^"]+)" Disabled$/);
+    if (negativeBooleanMatch) {
+      const optionName = _.camelCase(negativeBooleanMatch[1]);
+      return !Settings.getOptionValue(optionName);
+    }
+
+    const positiveDropdownMatch = requirement.match(/^Option "([^"]+)" Is "([^"]+)"$/);
+    if (positiveDropdownMatch) {
+      const optionName = _.camelCase(positiveDropdownMatch[1]);
+      const expectedValue = positiveDropdownMatch[2];
+      return Settings.getOptionValue(optionName) === expectedValue;
+    }
+
+    const negativeDropdownMatch = requirement.match(/^Option "([^"]+)" Is Not "([^"]+)"$/);
+    if (negativeDropdownMatch) {
+      const optionName = _.camelCase(negativeDropdownMatch[1]);
+      const expectedValue = negativeDropdownMatch[2];
+      return Settings.getOptionValue(optionName) !== expectedValue;
+    }
+
+    const positiveListMatch = requirement.match(/^Option "([^"]+)" Contains "([^"]+)"$/);
+    if (positiveListMatch) {
+      const optionName = _.camelCase(positiveListMatch[1]);
+      const expectedValue = positiveListMatch[2];
+      return _.includes(Settings.getOptionValue(optionName), expectedValue);
+    }
+
+    const negativeListMatch = requirement.match(/^Option "([^"]+)" Does Not Contain "([^"]+)"$/);
+    if (negativeListMatch) {
+      const optionName = _.camelCase(negativeListMatch[1]);
+      const expectedValue = negativeListMatch[2];
+      return !_.includes(Settings.getOptionValue(optionName), expectedValue);
+    }
+
+    return null;
+  }
+
+  static _checkOtherLocationRequirement(requirement) {
+    const otherLocationMatch = requirement.match(/(?:Can Access|Has Accessed) Other Location "([^"]+)"/);
+    if (otherLocationMatch) {
+      const {
+        generalLocation,
+        detailedLocation
+      } = Locations.splitLocationName(otherLocationMatch[1]);
+
+      return this.getRequirementsForLocation(generalLocation, detailedLocation);
+    }
+    return null;
+  }
+
+  static _parseRequirement(requirement) {
+    const macroValue = Macros.getMacro(requirement);
+    if (macroValue) {
+      return this._booleanExpressionForRequirements(macroValue);
+    }
+
+    const optionEnabledRequirementValue = this._checkOptionEnabledRequirement(requirement);
+    if (!_.isNil(optionEnabledRequirementValue)) {
+      return optionEnabledRequirementValue ? this.TOKENS.NOTHING : this.TOKENS.IMPOSSIBLE;
+    }
+
+    const otherLocationRequirementValue = this._checkOtherLocationRequirement(requirement);
+    if (!_.isNil(otherLocationRequirementValue)) {
+      return otherLocationRequirementValue;
+    }
+
+    return requirement;
+  }
+
+  static _booleanExpressionForTokens(expressionTokens) {
+    const itemsForExpression = [];
+    let expressionTypeToken;
+
+    while (!_.isEmpty(expressionTokens)) {
+      const currentToken = expressionTokens.shift();
+
+      if (currentToken === this.TOKENS.AND || currentToken === this.TOKENS.OR) {
+        expressionTypeToken = currentToken;
+      } else if (currentToken === this.TOKENS.OPENING_PAREN) {
+        const childExpression = this._booleanExpressionForTokens(expressionTokens);
+        itemsForExpression.push(childExpression);
+      } else if (currentToken === this.TOKENS.CLOSING_PAREN) {
+        break;
+      } else {
+        const parsedRequirement = this._parseRequirement(currentToken);
+        itemsForExpression.push(parsedRequirement);
+      }
+    }
+
+    if (expressionTypeToken === this.TOKENS.OR) {
+      return BooleanExpression.or(...itemsForExpression);
+    }
+    return BooleanExpression.and(...itemsForExpression);
+  }
+
+  static _booleanExpressionForRequirements(requirements) {
+    const expressionTokens = this._splitExpression(requirements);
+    return this._booleanExpressionForTokens(expressionTokens);
+  }
+
+  static getRequirementsForLocation(generalLocation, detailedLocation) {
+    const requirements = Locations.getLocation(generalLocation, detailedLocation).need;
+    return this._booleanExpressionForRequirements(requirements);
   }
 
   static isMainDungeon(dungeonName) {

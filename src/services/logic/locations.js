@@ -8,7 +8,7 @@ export default class Locations {
       const {
         generalLocation,
         detailedLocation
-      } = this._splitLocationName(locationName);
+      } = this.splitLocationName(locationName);
 
       const filteredLocationData = _.pick(locationData, ['Need', 'Original item', 'Types']);
 
@@ -46,7 +46,7 @@ export default class Locations {
     _.set(this.locations, [generalLocation, detailedLocation, infoKey], infoValue);
   }
 
-  static _splitLocationName(fullLocationName) {
+  static splitLocationName(fullLocationName) {
     const locationMatch = fullLocationName.match(/([^-]+) - (.+)/);
 
     if (!locationMatch) {
