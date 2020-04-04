@@ -17,10 +17,7 @@ import Settings from '../tracker/settings';
 
 export default class LogicHelper {
   static initialize() {
-    Memoizer.memoize({
-      parentObject: this,
-      functionsToMemoize: ['getRequirementsForLocation']
-    });
+    Memoizer.memoize(this, ['getRequirementsForLocation']);
 
     this._setStartingAndImpossibleItems();
   }

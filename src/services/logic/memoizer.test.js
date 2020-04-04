@@ -36,42 +36,9 @@ describe('Memoizer', () => {
   });
 
   describe('when calling a static method', () => {
-    describe('when the static method is unmemoized', () => {
-      beforeEach(() => {
-        Memoizer.memoize({
-          parentObject: MockClass,
-          functionsToMemoize: ['mockStaticMethod']
-        });
-
-        Memoizer.unmemoize({
-          parentObject: MockClass,
-          functionsToUnmemoize: ['mockStaticMethod']
-        });
-      });
-
-      test('returns different values when the method is called twice with the same parameter', () => {
-        const firstResult = MockClass.mockStaticMethod(5);
-        const secondResult = MockClass.mockStaticMethod(5);
-
-        expect(firstResult).toEqual('First! param:5');
-        expect(secondResult).toEqual('Repeated! param:5 previousValue:5');
-      });
-
-      test('returns different values when the method is called twice with different parameters', () => {
-        const firstResult = MockClass.mockStaticMethod(5);
-        const secondResult = MockClass.mockStaticMethod(13);
-
-        expect(firstResult).toEqual('First! param:5');
-        expect(secondResult).toEqual('Repeated! param:13 previousValue:5');
-      });
-    });
-
     describe('when the static method is memoized', () => {
       beforeEach(() => {
-        Memoizer.memoize({
-          parentObject: MockClass,
-          functionsToMemoize: ['mockStaticMethod']
-        });
+        Memoizer.memoize(MockClass, ['mockStaticMethod']);
       });
 
       test('returns the same value when the method is called twice with the same parameter', () => {
@@ -93,18 +60,12 @@ describe('Memoizer', () => {
 
     describe('when a static method is memoized, called, and then invalidated', () => {
       beforeEach(() => {
-        Memoizer.memoize({
-          parentObject: MockClass,
-          functionsToMemoize: ['mockStaticMethod']
-        });
+        Memoizer.memoize(MockClass, ['mockStaticMethod']);
 
         MockClass.previousValue = 'yeet';
         MockClass.mockStaticMethod(5);
 
-        Memoizer.invalidate({
-          parentObject: MockClass,
-          functionsToInvalidate: ['mockStaticMethod']
-        });
+        Memoizer.invalidate(MockClass, ['mockStaticMethod']);
 
         MockClass.previousValue = null;
       });
@@ -120,10 +81,7 @@ describe('Memoizer', () => {
 
     describe('when multiple static methods are memoized', () => {
       beforeEach(() => {
-        Memoizer.memoize({
-          parentObject: MockClass,
-          functionsToMemoize: ['mockStaticMethod', 'mockStaticMethod2']
-        });
+        Memoizer.memoize(MockClass, ['mockStaticMethod', 'mockStaticMethod2']);
       });
 
       test('returns the same value when each method is called twice with the same parameter', () => {
@@ -148,42 +106,9 @@ describe('Memoizer', () => {
       mockInstance = new MockClass(2);
     });
 
-    describe('when the instance method is unmemoized', () => {
-      beforeEach(() => {
-        Memoizer.memoize({
-          parentObject: mockInstance,
-          functionsToMemoize: ['mockInstanceMethod']
-        });
-
-        Memoizer.unmemoize({
-          parentObject: mockInstance,
-          functionsToUnmemoize: ['mockInstanceMethod']
-        });
-      });
-
-      test('returns different values when the method is called twice with the same parameter', () => {
-        const firstResult = mockInstance.mockInstanceMethod(5);
-        const secondResult = mockInstance.mockInstanceMethod(5);
-
-        expect(firstResult).toEqual('First! param:5 initialValue:2');
-        expect(secondResult).toEqual('Repeated! param:5 previousValue:5 initialValue:2');
-      });
-
-      test('returns different values when the method is called twice with different parameters', () => {
-        const firstResult = mockInstance.mockInstanceMethod(5);
-        const secondResult = mockInstance.mockInstanceMethod(13);
-
-        expect(firstResult).toEqual('First! param:5 initialValue:2');
-        expect(secondResult).toEqual('Repeated! param:13 previousValue:5 initialValue:2');
-      });
-    });
-
     describe('when the instance method is memoized', () => {
       beforeEach(() => {
-        Memoizer.memoize({
-          parentObject: mockInstance,
-          functionsToMemoize: ['mockInstanceMethod']
-        });
+        Memoizer.memoize(mockInstance, ['mockInstanceMethod']);
       });
 
       test('returns the same value when the method is called twice with the same parameter', () => {
