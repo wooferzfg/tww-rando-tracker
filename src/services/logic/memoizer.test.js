@@ -91,7 +91,7 @@ describe('Memoizer', () => {
       });
     });
 
-    describe('when a static method is memoized, called, unmemoized, and memoized again', () => {
+    describe('when a static method is memoized, called, and then invalidated', () => {
       beforeEach(() => {
         Memoizer.memoize({
           parentObject: MockClass,
@@ -101,14 +101,9 @@ describe('Memoizer', () => {
         MockClass.previousValue = 'yeet';
         MockClass.mockStaticMethod(5);
 
-        Memoizer.unmemoize({
+        Memoizer.invalidate({
           parentObject: MockClass,
-          functionsToUnmemoize: ['mockStaticMethod']
-        });
-
-        Memoizer.memoize({
-          parentObject: MockClass,
-          functionsToMemoize: ['mockStaticMethod']
+          functionsToInvalidate: ['mockStaticMethod']
         });
 
         MockClass.previousValue = null;
