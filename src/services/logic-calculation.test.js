@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import Locations from './locations';
 import LogicCalculation from './logic-calculation';
 import TrackerState from './tracker-state';
@@ -130,6 +132,32 @@ describe('LogicCalculation', () => {
 
         test('returns false', () => {
           const isItemAvailable = logic._isRequirementMet('Triforce Shard x5');
+
+          expect(isItemAvailable).toEqual(false);
+        });
+      });
+    });
+
+    describe('when the requirement is a small key', () => {
+      describe('when the key count meets the requirement', () => {
+        beforeEach(() => {
+          _.set(logic.guaranteedKeys, 'DRC Small Key', 2);
+        });
+
+        test('returns true', () => {
+          const isItemAvailable = logic._isRequirementMet('DRC Small Key x2');
+
+          expect(isItemAvailable).toEqual(true);
+        });
+      });
+
+      describe('when the key count does not meet the requirement', () => {
+        beforeEach(() => {
+          _.set(logic.guaranteedKeys, 'DRC Small Key', 1);
+        });
+
+        test('returns false', () => {
+          const isItemAvailable = logic._isRequirementMet('DRC Small Key x2');
 
           expect(isItemAvailable).toEqual(false);
         });
