@@ -16,6 +16,10 @@ export default class LogicCalculation {
   }
 
   isLocationAvailable(generalLocation, detailedLocation) {
+    if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
+      return true;
+    }
+
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
       detailedLocation
@@ -27,6 +31,10 @@ export default class LogicCalculation {
   }
 
   itemsRemainingForLocation(generalLocation, detailedLocation) {
+    if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
+      return 0;
+    }
+
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
       detailedLocation
@@ -129,9 +137,6 @@ export default class LogicCalculation {
         detailedLocation
       } = Locations.splitLocationName(otherLocationMatch[1]);
 
-      if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
-        return 0;
-      }
       return this.itemsRemainingForLocation(generalLocation, detailedLocation);
     }
 

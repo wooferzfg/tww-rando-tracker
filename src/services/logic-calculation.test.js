@@ -12,6 +12,28 @@ describe('LogicCalculation', () => {
   });
 
   describe('isLocationAvailable', () => {
+    describe('when the location is checked', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Deku Leaf & Grappling Hook'
+            }
+          }
+        };
+
+        logic = new LogicCalculation(
+          logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', true)
+        );
+      });
+
+      test('returns true', () => {
+        const isLocationAvailable = logic.isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(isLocationAvailable).toEqual(true);
+      });
+    });
+
     describe('when the location requirements are met', () => {
       beforeEach(() => {
         Locations.locations = {
@@ -62,7 +84,29 @@ describe('LogicCalculation', () => {
   });
 
   describe('itemsRemainingForLocation', () => {
-    describe('when multiple items are all requirement', () => {
+    describe('when the location is checked', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Deku Leaf & Grappling Hook'
+            }
+          }
+        };
+
+        logic = new LogicCalculation(
+          logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', true)
+        );
+      });
+
+      test('returns 0', () => {
+        const isLocationAvailable = logic.itemsRemainingForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(isLocationAvailable).toEqual(0);
+      });
+    });
+
+    describe('when multiple items are all required', () => {
       beforeEach(() => {
         Locations.locations = {
           "Ganon's Tower": {
