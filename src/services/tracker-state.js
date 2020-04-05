@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
-import Locations from '../logic/locations';
-import LogicHelper from '../logic/logic-helper';
+import Locations from './locations';
+import LogicHelper from './logic-helper';
 
 export default class TrackerState {
   static default() {

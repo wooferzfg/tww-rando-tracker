@@ -1,6 +1,6 @@
 import yaml from 'js-yaml';
 
-import Settings from '../tracker/settings';
+import Settings from './settings';
 
 export default class LogicLoader {
   static async loadLogicFiles() {
