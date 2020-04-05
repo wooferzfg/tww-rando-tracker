@@ -13,125 +13,6 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('_setStartingAndImpossibleItems', () => {
-    describe('with no starting shards, no starting gear, and starting with a sword', () => {
-      beforeEach(() => {
-        Settings.initialize({
-          options: {
-            numStartingTriforceShards: 0,
-            startingGear: 0,
-            swordMode: 'Start with Sword'
-          }
-        });
-      });
-
-      test('sets the starting and impossible items', () => {
-        LogicHelper._setStartingAndImpossibleItems();
-
-        expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toEqual([]);
-      });
-    });
-
-    describe('with starting shards', () => {
-      beforeEach(() => {
-        Settings.initialize({
-          options: {
-            numStartingTriforceShards: 7,
-            startingGear: 0,
-            swordMode: 'Start with Sword'
-          }
-        });
-      });
-
-      test('sets the number of starting shards', () => {
-        LogicHelper._setStartingAndImpossibleItems();
-
-        expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toEqual([]);
-      });
-    });
-
-    describe('with starting gear', () => {
-      beforeEach(() => {
-        Settings.initialize({
-          options: {
-            numStartingTriforceShards: 0,
-            startingGear: 549755813922, // Bombs, Deku Leaf, and 2 sword upgrades
-            swordMode: 'Start with Sword'
-          }
-        });
-      });
-
-      test('sets the starting items based on the starting gear', () => {
-        LogicHelper._setStartingAndImpossibleItems();
-
-        expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toEqual([]);
-      });
-    });
-
-    describe('when starting without a sword', () => {
-      beforeEach(() => {
-        Settings.initialize({
-          options: {
-            numStartingTriforceShards: 0,
-            startingGear: 0,
-            swordMode: 'Randomized Sword'
-          }
-        });
-      });
-
-      test('sets sword to 0 in the starting items', () => {
-        LogicHelper._setStartingAndImpossibleItems();
-
-        expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toEqual([]);
-      });
-    });
-
-    describe('when in swordless mode', () => {
-      beforeEach(() => {
-        Settings.initialize({
-          options: {
-            numStartingTriforceShards: 0,
-            startingGear: 0,
-            swordMode: 'Swordless'
-          }
-        });
-      });
-
-      test('sets sword to 0 in the starting items and adds impossible items', () => {
-        LogicHelper._setStartingAndImpossibleItems();
-
-        expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toMatchSnapshot();
-      });
-    });
-  });
-
-  describe('_splitExpression', () => {
-    test('splits and trims an expression', () => {
-      const input = "Can Defeat Darknuts & Can Play Wind's Requiem & (Grappling Hook | Hero's Sword | Skull Hammer)";
-
-      const splitExpression = LogicHelper._splitExpression(input);
-
-      expect(splitExpression).toEqual([
-        'Can Defeat Darknuts',
-        '&',
-        "Can Play Wind's Requiem",
-        '&',
-        '(',
-        'Grappling Hook',
-        '|',
-        "Hero's Sword",
-        '|',
-        'Skull Hammer',
-        ')'
-      ]);
-    });
-  });
-
   describe('getRequirementsForLocation', () => {
     describe('when the location has no requirements', () => {
       beforeEach(() => {
@@ -562,6 +443,125 @@ describe('LogicHelper', () => {
 
         expect(isRandomEntrancesTogether).toEqual(false);
       });
+    });
+  });
+
+  describe('_setStartingAndImpossibleItems', () => {
+    describe('with no starting shards, no starting gear, and starting with a sword', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            numStartingTriforceShards: 0,
+            startingGear: 0,
+            swordMode: 'Start with Sword'
+          }
+        });
+      });
+
+      test('sets the starting and impossible items', () => {
+        LogicHelper._setStartingAndImpossibleItems();
+
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual([]);
+      });
+    });
+
+    describe('with starting shards', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            numStartingTriforceShards: 7,
+            startingGear: 0,
+            swordMode: 'Start with Sword'
+          }
+        });
+      });
+
+      test('sets the number of starting shards', () => {
+        LogicHelper._setStartingAndImpossibleItems();
+
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual([]);
+      });
+    });
+
+    describe('with starting gear', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            numStartingTriforceShards: 0,
+            startingGear: 549755813922, // Bombs, Deku Leaf, and 2 sword upgrades
+            swordMode: 'Start with Sword'
+          }
+        });
+      });
+
+      test('sets the starting items based on the starting gear', () => {
+        LogicHelper._setStartingAndImpossibleItems();
+
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual([]);
+      });
+    });
+
+    describe('when starting without a sword', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            numStartingTriforceShards: 0,
+            startingGear: 0,
+            swordMode: 'Randomized Sword'
+          }
+        });
+      });
+
+      test('sets sword to 0 in the starting items', () => {
+        LogicHelper._setStartingAndImpossibleItems();
+
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual([]);
+      });
+    });
+
+    describe('when in swordless mode', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            numStartingTriforceShards: 0,
+            startingGear: 0,
+            swordMode: 'Swordless'
+          }
+        });
+      });
+
+      test('sets sword to 0 in the starting items and adds impossible items', () => {
+        LogicHelper._setStartingAndImpossibleItems();
+
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('_splitExpression', () => {
+    test('splits and trims an expression', () => {
+      const input = "Can Defeat Darknuts & Can Play Wind's Requiem & (Grappling Hook | Hero's Sword | Skull Hammer)";
+
+      const splitExpression = LogicHelper._splitExpression(input);
+
+      expect(splitExpression).toEqual([
+        'Can Defeat Darknuts',
+        '&',
+        "Can Play Wind's Requiem",
+        '&',
+        '(',
+        'Grappling Hook',
+        '|',
+        "Hero's Sword",
+        '|',
+        'Skull Hammer',
+        ')'
+      ]);
     });
   });
 });
