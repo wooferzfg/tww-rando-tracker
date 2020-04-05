@@ -9,7 +9,7 @@
     "publish": "webpack -p",
     "serve": "webpack-dev-server",
     "start": "webpack-dev-server --open",
-    "test": "jest --env=node --maxWorkers=4"
+    "test": "jest --env=node --maxWorkers=5"
   },
   "repository": {
     "type": "git",
