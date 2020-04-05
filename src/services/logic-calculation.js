@@ -11,8 +11,8 @@ export default class LogicCalculation {
     this.state = state;
 
     Memoizer.memoize(this, [
-      'isLocationAvailable',
-      'itemsRemainingForLocation'
+      this.isLocationAvailable,
+      this.itemsRemainingForLocation
     ]);
 
     this._setGuaranteedKeys();

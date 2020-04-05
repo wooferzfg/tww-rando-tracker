@@ -17,7 +17,7 @@ import Settings from './settings';
 
 export default class LogicHelper {
   static initialize() {
-    Memoizer.memoize(this, ['requirementsForLocation']);
+    Memoizer.memoize(this, [this.requirementsForLocation]);
 
     this._setStartingAndImpossibleItems();
   }
