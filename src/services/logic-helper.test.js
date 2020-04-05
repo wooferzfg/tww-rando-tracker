@@ -13,7 +13,7 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('getRequirementsForLocation', () => {
+  describe('requirementsForLocation', () => {
     describe('when the location has no requirements', () => {
       beforeEach(() => {
         Locations.locations = {
@@ -26,7 +26,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper.getRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(expression).toEqual(
           BooleanExpression.and('Nothing')
@@ -46,7 +46,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper.getRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(expression).toEqual(
           BooleanExpression.or('Grappling Hook', "Hero's Sword", 'Skull Hammer')
@@ -66,7 +66,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper.getRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(expression).toEqual(
           BooleanExpression.or(
@@ -97,7 +97,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper.getRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(expression).toEqual(
           BooleanExpression.or(
@@ -127,7 +127,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper.getRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(expression).toEqual(
           BooleanExpression.and(
@@ -156,7 +156,7 @@ describe('LogicHelper', () => {
         });
 
         test('returns the requirements expression', () => {
-          const expression = LogicHelper.getRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+          const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
           expect(expression).toEqual(expectedExpression);
         });

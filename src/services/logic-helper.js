@@ -17,7 +17,7 @@ import Settings from './settings';
 
 export default class LogicHelper {
   static initialize() {
-    Memoizer.memoize(this, ['getRequirementsForLocation']);
+    Memoizer.memoize(this, ['requirementsForLocation']);
 
     this._setStartingAndImpossibleItems();
   }
@@ -43,7 +43,7 @@ export default class LogicHelper {
     );
   }
 
-  static getRequirementsForLocation(generalLocation, detailedLocation) {
+  static requirementsForLocation(generalLocation, detailedLocation) {
     const requirements = Locations.getLocation(generalLocation, detailedLocation).need;
     return this._booleanExpressionForRequirements(requirements);
   }
@@ -183,8 +183,9 @@ export default class LogicHelper {
         detailedLocation
       } = Locations.splitLocationName(otherLocationMatch[1]);
 
-      return this.getRequirementsForLocation(generalLocation, detailedLocation);
+      return this.requirementsForLocation(generalLocation, detailedLocation);
     }
+
     return null;
   }
 
