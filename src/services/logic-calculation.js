@@ -26,6 +26,28 @@ export default class LogicCalculation {
     });
   }
 
+  itemsRemainingForLocation(generalLocation, detailedLocation) {
+    const requirementsForLocation = LogicHelper.requirementsForLocation(
+      generalLocation,
+      detailedLocation
+    );
+
+    return requirementsForLocation.reduce({
+      andInitialValue: 0,
+      andReducer: ({
+        accumulator,
+        item,
+        isReduced
+      }) => accumulator + (isReduced ? item : this._itemsRemainingForRequirement(item)),
+      orInitialValue: 0,
+      orReducer: ({
+        accumulator,
+        item,
+        isReduced
+      }) => Math.max(accumulator, (isReduced ? item : this._itemsRemainingForRequirement(item)))
+    });
+  }
+
   _setGuaranteedKeys() {
     this.guaranteedKeys = _.reduce(
       _.keys(KEYS),
@@ -35,39 +57,44 @@ export default class LogicCalculation {
   }
 
   _isRequirementMet(requirement) {
-    const requirementsMet = [
-      LogicCalculation._impossibleRequirementMet(requirement),
-      LogicCalculation._nothingRequirementMet(requirement),
-      this._itemCountRequirementMet(requirement),
-      this._itemRequirementMet(requirement),
-      this._hasAccessedOtherLocationRequirementMet(requirement)
+    const itemsRemaining = this._itemsRemainingForRequirement(requirement);
+    return itemsRemaining === 0;
+  }
+
+  _itemsRemainingForRequirement(requirement) {
+    const remainingItemsForRequirements = [
+      LogicCalculation._impossibleRequirementRemaining(requirement),
+      LogicCalculation._nothingRequirementRemaining(requirement),
+      this._itemCountRequirementRemaining(requirement),
+      this._itemRequirementRemaining(requirement),
+      this._hasAccessedOtherLocationRequirementRemaining(requirement)
     ];
 
-    const requirementMet = _.find(requirementsMet, (result) => !_.isNil(result));
+    const remainingItems = _.find(remainingItemsForRequirements, (result) => !_.isNil(result));
 
-    if (!_.isNil(requirementMet)) {
-      return requirementMet;
+    if (!_.isNil(remainingItems)) {
+      return remainingItems;
     }
     throw Error(`Could not parse requirement: ${requirement}`);
   }
 
-  static _impossibleRequirementMet(requirement) {
+  static _impossibleRequirementRemaining(requirement) {
     if (requirement === LogicHelper.TOKENS.IMPOSSIBLE) {
-      return false;
+      return 1;
     }
 
     return null;
   }
 
-  static _nothingRequirementMet(requirement) {
+  static _nothingRequirementRemaining(requirement) {
     if (requirement === LogicHelper.TOKENS.NOTHING) {
-      return true;
+      return 0;
     }
 
     return null;
   }
 
-  _itemCountRequirementMet(requirement) {
+  _itemCountRequirementRemaining(requirement) {
     const itemCountRequirement = LogicCalculation._parseItemCountRequirement(requirement);
     if (!_.isNil(itemCountRequirement)) {
       const {
@@ -76,22 +103,25 @@ export default class LogicCalculation {
       } = itemCountRequirement;
 
       const itemCount = this._currentItemValue(itemName);
-      return itemCount >= countRequired;
+      return Math.max(countRequired - itemCount, 0);
     }
 
     return null;
   }
 
-  _itemRequirementMet(requirement) {
+  _itemRequirementRemaining(requirement) {
     const itemValue = this._currentItemValue(requirement);
     if (!_.isNil(itemValue)) {
-      return itemValue > 0;
+      if (itemValue > 0) {
+        return 0;
+      }
+      return 1;
     }
 
     return null;
   }
 
-  _hasAccessedOtherLocationRequirementMet(requirement) {
+  _hasAccessedOtherLocationRequirementRemaining(requirement) {
     const otherLocationMatch = requirement.match(/Has Accessed Other Location "([^"]+)"/);
     if (otherLocationMatch) {
       const {
@@ -99,8 +129,10 @@ export default class LogicCalculation {
         detailedLocation
       } = Locations.splitLocationName(otherLocationMatch[1]);
 
-      return this.state.isLocationChecked(generalLocation, detailedLocation)
-        || this.isLocationAvailable(generalLocation, detailedLocation);
+      if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
+        return 0;
+      }
+      return this.itemsRemainingForLocation(generalLocation, detailedLocation);
     }
 
     return null;

@@ -61,6 +61,58 @@ describe('LogicCalculation', () => {
     });
   });
 
+  describe('itemsRemainingForLocation', () => {
+    describe('when multiple items are all requirement', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          "Ganon's Tower": {
+            'Defeat Ganondorf': {
+              need: 'Triforce Shard x8 & Progressive Sword x4 & Progressive Bow x3 & Boomerang & Grappling Hook & Hookshot'
+            }
+          }
+        };
+
+        logic = new LogicCalculation(
+          logic.state
+            .setItemValue('Triforce Shard', 1)
+            .setItemValue('Progressive Sword', 1)
+            .setItemValue('Grappling Hook', 1)
+        );
+      });
+
+      test('returns the number of items remaining for the location', () => {
+        const itemsRemaining = logic.itemsRemainingForLocation("Ganon's Tower", 'Defeat Ganondorf');
+
+        expect(itemsRemaining).toEqual(15);
+      });
+    });
+
+    describe('when at least one of the items is required', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          "Ganon's Tower": {
+            'Defeat Ganondorf': {
+              need: 'Triforce Shard x8 | Progressive Sword x4 | Progressive Bow x3 | Boomerang | Grappling Hook | Hookshot'
+            }
+          }
+        };
+
+        logic = new LogicCalculation(
+          logic.state
+            .setItemValue('Triforce Shard', 1)
+            .setItemValue('Progressive Sword', 1)
+            .setItemValue('Grappling Hook', 1)
+        );
+      });
+
+      test('returns the number of items remaining for the location', () => {
+        const itemsRemaining = logic.itemsRemainingForLocation("Ganon's Tower", 'Defeat Ganondorf');
+
+        expect(itemsRemaining).toEqual(7);
+      });
+    });
+  });
+
   describe('_isRequirementMet', () => {
     describe('when the requirement is nothing', () => {
       test('returns true', () => {
