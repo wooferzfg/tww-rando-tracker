@@ -5,6 +5,11 @@ import Macros from './macros';
 import Settings from './settings';
 
 describe('LogicHelper', () => {
+  beforeEach(() => {
+    LogicHelper.impossibleItems = null;
+    LogicHelper.startingItems = null;
+  });
+
   describe('allItems', () => {
     test('returns a list of all the items, including entrances, charts, and keys', () => {
       const allItems = LogicHelper.allItems();
@@ -51,6 +56,166 @@ describe('LogicHelper', () => {
         expect(expression).toEqual(
           BooleanExpression.or('Grappling Hook', "Hero's Sword", 'Skull Hammer')
         );
+      });
+    });
+
+    describe('when the location requirements contain a starting item', () => {
+      describe('when the starting item is progressive', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Outset Island': {
+              'Savage Labyrinth - Floor 30': {
+                need: 'Progressive Sword x2'
+              }
+            }
+          };
+        });
+
+        describe('when the starting item meets the requirement', () => {
+          beforeEach(() => {
+            LogicHelper.startingItems = {
+              'Progressive Sword': 2
+            };
+          });
+
+          test('replaces the item in the requirements expression', () => {
+            const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+            expect(expression).toEqual(
+              BooleanExpression.and('Nothing')
+            );
+          });
+        });
+
+        describe('when the starting item does not meet the requirement', () => {
+          beforeEach(() => {
+            LogicHelper.startingItems = {
+              'Progressive Sword': 1
+            };
+          });
+
+          test('does not replace the item in the requirements expression', () => {
+            const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+            expect(expression).toEqual(
+              BooleanExpression.and('Progressive Sword x2')
+            );
+          });
+        });
+      });
+
+      describe('when the starting item is a normal item', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Outset Island': {
+              'Savage Labyrinth - Floor 30': {
+                need: 'Wind Waker'
+              }
+            }
+          };
+        });
+
+        describe('when the starting item meets the requirement', () => {
+          beforeEach(() => {
+            LogicHelper.startingItems = {
+              'Wind Waker': 1
+            };
+          });
+
+          test('replaces the item in the requirements expression', () => {
+            const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+            expect(expression).toEqual(
+              BooleanExpression.and('Nothing')
+            );
+          });
+        });
+
+        describe('when the starting item does not meet the requirement', () => {
+          beforeEach(() => {
+            LogicHelper.startingItems = {
+              'Wind Waker': 0
+            };
+          });
+
+          test('does not replace the item in the requirements expression', () => {
+            const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+            expect(expression).toEqual(
+              BooleanExpression.and('Wind Waker')
+            );
+          });
+        });
+      });
+    });
+
+    describe('when the location requirements contain an impossible item', () => {
+      describe('when the impossible item is progressive', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Outset Island': {
+              'Savage Labyrinth - Floor 30': {
+                need: 'Progressive Sword x2'
+              }
+            }
+          };
+        });
+
+        describe('when the impossible item meets the requirement', () => {
+          beforeEach(() => {
+            LogicHelper.impossibleItems = {
+              'Progressive Sword': 2
+            };
+          });
+
+          test('replaces the item in the requirements expression', () => {
+            const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+            expect(expression).toEqual(
+              BooleanExpression.and('Impossible')
+            );
+          });
+        });
+
+        describe('when the impossible item is more than the requirement', () => {
+          beforeEach(() => {
+            LogicHelper.impossibleItems = {
+              'Progressive Sword': 3
+            };
+          });
+
+          test('does not replace the item in the requirements expression', () => {
+            const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+            expect(expression).toEqual(
+              BooleanExpression.and('Progressive Sword x2')
+            );
+          });
+        });
+      });
+
+      describe('when the impossible item is a normal item', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Outset Island': {
+              'Savage Labyrinth - Floor 30': {
+                need: 'Wind Waker'
+              }
+            }
+          };
+
+          LogicHelper.impossibleItems = {
+            'Wind Waker': 1
+          };
+        });
+
+        test('replaces the item in the requirements expression', () => {
+          const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+          expect(expression).toEqual(
+            BooleanExpression.and('Impossible')
+          );
+        });
       });
     });
 
@@ -442,6 +607,26 @@ describe('LogicHelper', () => {
         const isRandomEntrancesTogether = LogicHelper.isRandomEntrancesTogether();
 
         expect(isRandomEntrancesTogether).toEqual(false);
+      });
+    });
+  });
+
+  describe('parseItemCountRequirement', () => {
+    test('progressive item', () => {
+      const itemCountRequirement = LogicHelper.parseItemCountRequirement('Progressive Sword x4');
+
+      expect(itemCountRequirement).toEqual({
+        itemName: 'Progressive Sword',
+        countRequired: 4
+      });
+    });
+
+    test('small key', () => {
+      const itemCountRequirement = LogicHelper.parseItemCountRequirement('DRC Small Key x2');
+
+      expect(itemCountRequirement).toEqual({
+        itemName: 'DRC Small Key',
+        countRequired: 2
       });
     });
   });

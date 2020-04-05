@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import TrackerState from './tracker-state';
 import Locations from './locations';
+import LogicHelper from './logic-helper';
 
 describe('TrackerState', () => {
   describe('default', () => {
@@ -17,6 +18,16 @@ describe('TrackerState', () => {
             test: 'data'
           }
         }
+      };
+
+      LogicHelper.startingItems = {
+        "Hero's Shield": 1,
+        'Wind Waker': 1,
+        "Boat's Sail": 1,
+        "Wind's Requiem": 1,
+        'Ballad of Gales': 1,
+        'Song of Passing': 1,
+        'Progressive Sword': 1
       };
     });
 

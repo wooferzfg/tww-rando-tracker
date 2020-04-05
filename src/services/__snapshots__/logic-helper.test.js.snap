@@ -49,13 +49,10 @@ Object {
 `;
 
 exports[`LogicHelper _setStartingAndImpossibleItems when in swordless mode sets sword to 0 in the starting items and adds impossible items 2`] = `
-Array [
-  "Progressive Sword x1",
-  "Progressive Sword x2",
-  "Progressive Sword x3",
-  "Progressive Sword x4",
-  "Hurricane Spin",
-]
+Object {
+  "Hurricane Spin": 1,
+  "Progressive Sword": 1,
+}
 `;
 
 exports[`LogicHelper _setStartingAndImpossibleItems when starting without a sword sets sword to 0 in the starting items 1`] = `

@@ -13,6 +13,7 @@ export default class TrackerState {
       (accumulator, item) => _.set(accumulator, item, 0),
       {}
     );
+    newState._setStartingItems();
     newState.locationsChecked = Locations.mapLocations(() => false);
 
     return newState;
@@ -66,5 +67,13 @@ export default class TrackerState {
     newState.locationsChecked = _.cloneDeep(this.locationsChecked);
 
     return newState;
+  }
+
+  _setStartingItems() {
+    const startingItems = LogicHelper.getStartingItems();
+
+    _.forEach(startingItems, (itemValue, itemName) => {
+      _.set(this.items, itemName, itemValue);
+    });
   }
 }

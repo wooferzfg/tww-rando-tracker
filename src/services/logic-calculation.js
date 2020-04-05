@@ -106,7 +106,7 @@ export default class LogicCalculation {
   }
 
   _itemCountRequirementRemaining(requirement) {
-    const itemCountRequirement = LogicCalculation._parseItemCountRequirement(requirement);
+    const itemCountRequirement = LogicHelper.parseItemCountRequirement(requirement);
     if (!_.isNil(itemCountRequirement)) {
       const {
         countRequired,
@@ -153,18 +153,5 @@ export default class LogicCalculation {
     }
 
     return this.state.getItemValue(itemName);
-  }
-
-  static _parseItemCountRequirement(requirement) {
-    const itemCountRequirementMatch = requirement.match(/((?:\w|\s)+) x(\d)/);
-
-    if (itemCountRequirementMatch) {
-      return {
-        itemName: itemCountRequirementMatch[1],
-        countRequired: _.toSafeInteger(itemCountRequirementMatch[2])
-      };
-    }
-
-    return null;
   }
 }
