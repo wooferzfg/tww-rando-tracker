@@ -4,15 +4,15 @@ import memoize from 'memoizee';
 /* eslint-disable no-param-reassign */
 export default class Memoizer {
   static memoize(parentObject, functionsToMemoize) {
-    _.forEach(functionsToMemoize, (functionName) => {
-      const existingFunction = parentObject[functionName];
-      parentObject[functionName] = memoize(existingFunction.bind(parentObject));
+    _.forEach(functionsToMemoize, (functionToMemoize) => {
+      const functionName = functionToMemoize.name;
+      const memoizedFunction = memoize(functionToMemoize.bind(parentObject));
+
+      _.set(parentObject, functionName, memoizedFunction);
     });
   }
 
-  static invalidate(parentObject, functionsToInvalidate) {
-    _.forEach(functionsToInvalidate, (functionName) => {
-      parentObject[functionName].clear();
-    });
+  static invalidate(functionToInvalidate) {
+    functionToInvalidate.clear();
   }
 }
