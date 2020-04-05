@@ -43,6 +43,49 @@ export default class LogicHelper {
     );
   }
 
+  static getRequirementsForLocation(generalLocation, detailedLocation) {
+    const requirements = Locations.getLocation(generalLocation, detailedLocation).need;
+    return this._booleanExpressionForRequirements(requirements);
+  }
+
+  static isMainDungeon(dungeonName) {
+    if (dungeonName === 'Forsaken Fortress' || dungeonName === "Ganon's Tower") {
+      return false;
+    }
+    return _.includes(DUNGEONS, dungeonName);
+  }
+
+  static shortDungeonName(dungeonName) {
+    const dungeonIndex = _.indexOf(DUNGEONS, dungeonName);
+    return SHORT_DUNGEON_NAMES[dungeonIndex];
+  }
+
+  static dungeonEntryName(dungeonName) {
+    const shortDungeonName = this.shortDungeonName(dungeonName);
+    return this._entryName(shortDungeonName);
+  }
+
+  static shortCaveName(caveName) {
+    return _.replace(caveName, /Secret |Warp Maze /g, '');
+  }
+
+  static caveEntryName(caveName) {
+    const shortCaveName = this.shortCaveName(caveName);
+    return this._entryName(shortCaveName);
+  }
+
+  static isRandomDungeonEntrances() {
+    return _.includes(this._randomizeEntrancesOption(), 'Dungeons');
+  }
+
+  static isRandomCaveEntrances() {
+    return _.includes(this._randomizeEntrancesOption(), 'Secret Caves');
+  }
+
+  static isRandomEntrancesTogether() {
+    return _.includes(this._randomizeEntrancesOption(), 'Together');
+  }
+
   static _setStartingAndImpossibleItems() {
     this.startingItems = {
       "Hero's Shield": 1,
@@ -195,54 +238,11 @@ export default class LogicHelper {
     return this._booleanExpressionForTokens(expressionTokens);
   }
 
-  static getRequirementsForLocation(generalLocation, detailedLocation) {
-    const requirements = Locations.getLocation(generalLocation, detailedLocation).need;
-    return this._booleanExpressionForRequirements(requirements);
-  }
-
-  static isMainDungeon(dungeonName) {
-    if (dungeonName === 'Forsaken Fortress' || dungeonName === "Ganon's Tower") {
-      return false;
-    }
-    return _.includes(DUNGEONS, dungeonName);
-  }
-
-  static shortDungeonName(dungeonName) {
-    const dungeonIndex = _.indexOf(DUNGEONS, dungeonName);
-    return SHORT_DUNGEON_NAMES[dungeonIndex];
-  }
-
-  static dungeonEntryName(dungeonName) {
-    const shortDungeonName = this.shortDungeonName(dungeonName);
-    return this._entryName(shortDungeonName);
-  }
-
-  static shortCaveName(caveName) {
-    return _.replace(caveName, /Secret |Warp Maze /g, '');
-  }
-
-  static caveEntryName(caveName) {
-    const shortCaveName = this.shortCaveName(caveName);
-    return this._entryName(shortCaveName);
-  }
-
   static _entryName(locationName) {
     return `Entered ${locationName}`;
   }
 
   static _randomizeEntrancesOption() {
     return Settings.getOptionValue('randomizeEntrances');
-  }
-
-  static isRandomDungeonEntrances() {
-    return _.includes(this._randomizeEntrancesOption(), 'Dungeons');
-  }
-
-  static isRandomCaveEntrances() {
-    return _.includes(this._randomizeEntrancesOption(), 'Secret Caves');
-  }
-
-  static isRandomEntrancesTogether() {
-    return _.includes(this._randomizeEntrancesOption(), 'Together');
   }
 }
