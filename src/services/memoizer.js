@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import memoize from 'memoizee';
 
-/* eslint-disable no-param-reassign */
 export default class Memoizer {
   static memoize(parentObject, functionsToMemoize) {
     _.forEach(functionsToMemoize, (functionToMemoize) => {
