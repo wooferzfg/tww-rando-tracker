@@ -10,15 +10,21 @@ describe('LogicCalculation', () => {
   });
 
   describe('isLocationAvailable', () => {
-    describe('when the location has no requirements', () => {
+    describe('when the location requirements are met', () => {
       beforeEach(() => {
         Locations.locations = {
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Nothing'
+              need: 'Deku Leaf & Grappling Hook'
             }
           }
         };
+
+        logic = new LogicCalculation(
+          logic.state
+            .setItemValue('Grappling Hook', 1)
+            .setItemValue('Deku Leaf', 1)
+        );
       });
 
       test('returns true', () => {
@@ -28,18 +34,24 @@ describe('LogicCalculation', () => {
       });
     });
 
-    describe('when the location is impossible', () => {
+    describe('when the location requirements are not met', () => {
       beforeEach(() => {
         Locations.locations = {
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Impossible'
+              need: 'Deku Leaf & Grappling Hook'
             }
           }
         };
+
+        logic = new LogicCalculation(
+          logic.state
+            .setItemValue('Grappling Hook', 0)
+            .setItemValue('Deku Leaf', 1)
+        );
       });
 
-      test('returns true', () => {
+      test('returns false', () => {
         const isLocationAvailable = logic.isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(isLocationAvailable).toEqual(false);
