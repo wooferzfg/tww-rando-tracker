@@ -320,24 +320,4 @@ describe('LogicCalculation', () => {
       });
     });
   });
-
-  describe('_parseItemCountRequirement', () => {
-    test('progressive item', () => {
-      const itemCountRequirement = LogicCalculation._parseItemCountRequirement('Progressive Sword x4');
-
-      expect(itemCountRequirement).toEqual({
-        itemName: 'Progressive Sword',
-        countRequired: 4
-      });
-    });
-
-    test('small key', () => {
-      const itemCountRequirement = LogicCalculation._parseItemCountRequirement('DRC Small Key x2');
-
-      expect(itemCountRequirement).toEqual({
-        itemName: 'DRC Small Key',
-        countRequired: 2
-      });
-    });
-  });
 });

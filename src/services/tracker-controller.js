@@ -8,7 +8,10 @@ import LogicHelper from './logic-helper';
 
 export default class TrackerController {
   static async initialize() {
-    Settings.initialize({ version: '1.7.0' });
+    Settings.initialize({
+      version: '1.7.0',
+      options: { skipRematchBosses: true }
+    });
 
     const {
       itemLocationsFile,

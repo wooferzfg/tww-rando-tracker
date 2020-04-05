@@ -43,6 +43,10 @@ export default class LogicHelper {
     );
   }
 
+  static getStartingItems() {
+    return this.startingItems;
+  }
+
   static requirementsForLocation(generalLocation, detailedLocation) {
     const requirements = Locations.getLocation(generalLocation, detailedLocation).need;
     return this._booleanExpressionForRequirements(requirements);
@@ -86,6 +90,19 @@ export default class LogicHelper {
     return _.includes(this._randomizeEntrancesOption(), 'Together');
   }
 
+  static parseItemCountRequirement(requirement) {
+    const itemCountRequirementMatch = requirement.match(/((?:\w|\s)+) x(\d)/);
+
+    if (itemCountRequirementMatch) {
+      return {
+        itemName: itemCountRequirementMatch[1],
+        countRequired: _.toSafeInteger(itemCountRequirementMatch[2])
+      };
+    }
+
+    return null;
+  }
+
   static _setStartingAndImpossibleItems() {
     this.startingItems = {
       "Hero's Shield": 1,
@@ -112,13 +129,10 @@ export default class LogicHelper {
     if (swordMode === 'Start with Sword') {
       this.startingItems['Progressive Sword'] += 1;
     } else if (swordMode === 'Swordless') {
-      this.impossibleItems = [
-        'Progressive Sword x1',
-        'Progressive Sword x2',
-        'Progressive Sword x3',
-        'Progressive Sword x4',
-        'Hurricane Spin'
-      ];
+      this.impossibleItems = {
+        'Progressive Sword': 1,
+        'Hurricane Spin': 1
+      };
     }
   }
 
@@ -189,6 +203,31 @@ export default class LogicHelper {
     return null;
   }
 
+  static _checkPredeterminedItemRequirement(requirement) {
+    let itemName;
+    let countRequired;
+
+    const itemCountRequirement = LogicHelper.parseItemCountRequirement(requirement);
+    if (!_.isNil(itemCountRequirement)) {
+      ({ itemName, countRequired } = itemCountRequirement);
+    } else {
+      itemName = requirement;
+      countRequired = 1;
+    }
+
+    const startingItemValue = _.get(this.startingItems, itemName);
+    if (!_.isNil(startingItemValue) && startingItemValue >= countRequired) {
+      return true;
+    }
+
+    const impossibleItemValue = _.get(this.impossibleItems, itemName);
+    if (!_.isNil(impossibleItemValue) && impossibleItemValue <= countRequired) {
+      return false;
+    }
+
+    return null;
+  }
+
   static _parseRequirement(requirement) {
     const macroValue = Macros.getMacro(requirement);
     if (macroValue) {
@@ -203,6 +242,11 @@ export default class LogicHelper {
     const otherLocationRequirementValue = this._checkOtherLocationRequirement(requirement);
     if (!_.isNil(otherLocationRequirementValue)) {
       return otherLocationRequirementValue;
+    }
+
+    const predeterminedItemRequirementValue = this._checkPredeterminedItemRequirement(requirement);
+    if (!_.isNil(predeterminedItemRequirementValue)) {
+      return predeterminedItemRequirementValue ? this.TOKENS.NOTHING : this.TOKENS.IMPOSSIBLE;
     }
 
     return requirement;

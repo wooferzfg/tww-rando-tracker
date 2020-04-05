@@ -14,8 +14,8 @@ Object {
 exports[`TrackerState default initializes the items 1`] = `
 Object {
   "Bait Bag": 0,
-  "Ballad of Gales": 0,
-  "Boat's Sail": 0,
+  "Ballad of Gales": 1,
+  "Boat's Sail": 1,
   "Bombs": 0,
   "Boomerang": 0,
   "Cabana Deed": 0,
@@ -62,7 +62,7 @@ Object {
   "Ghost Ship Chart": 0,
   "Grappling Hook": 0,
   "Hero's Charm": 0,
-  "Hero's Shield": 0,
+  "Hero's Shield": 1,
   "Hookshot": 0,
   "Hurricane Spin": 0,
   "Iron Boots": 0,
@@ -78,10 +78,10 @@ Object {
   "Progressive Bow": 0,
   "Progressive Picto Box": 0,
   "Progressive Quiver": 0,
-  "Progressive Sword": 0,
+  "Progressive Sword": 1,
   "Progressive Wallet": 0,
   "Skull Hammer": 0,
-  "Song of Passing": 0,
+  "Song of Passing": 1,
   "Spoils Bag": 0,
   "Telescope": 0,
   "Tingle Statue": 0,
@@ -141,7 +141,7 @@ Object {
   "WT Big Key": 0,
   "WT Small Key": 0,
   "Wind God's Aria": 0,
-  "Wind Waker": 0,
-  "Wind's Requiem": 0,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
 }
 `;
