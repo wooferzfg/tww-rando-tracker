@@ -1,14 +1,14 @@
 import _ from 'lodash';
 
-import CAVES from '../../data/caves';
-import CHARTS from '../../data/charts';
-import DUNGEONS from '../../data/dungeons';
-import HAS_ACCESSED_LOCATION_TWEAKS from '../../data/has-accessed-location-tweaks';
+import CAVES from '../data/caves';
+import CHARTS from '../data/charts';
+import DUNGEONS from '../data/dungeons';
+import HAS_ACCESSED_LOCATION_TWEAKS from '../data/has-accessed-location-tweaks';
 
 import Locations from './locations';
 import LogicHelper from './logic-helper';
 import Macros from './macros';
-import Settings from '../tracker/settings';
+import Settings from './settings';
 
 export default class LogicTweaks {
   static updateLocations() {

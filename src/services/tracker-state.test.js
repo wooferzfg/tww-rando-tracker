@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import TrackerState from './tracker-state';
-import Locations from '../logic/locations';
+import Locations from './locations';
 
 describe('TrackerState', () => {
   describe('default', () => {

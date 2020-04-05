@@ -1,7 +1,7 @@
 import LogicTweaks from './logic-tweaks';
 import Locations from './locations';
 import Macros from './macros';
-import Settings from '../tracker/settings';
+import Settings from './settings';
 
 describe('LogicTweaks', () => {
   describe('updateLocations', () => {

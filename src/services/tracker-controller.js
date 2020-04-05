@@ -1,10 +1,10 @@
-import Locations from '../logic/locations';
-import LogicLoader from '../logic/logic-loader';
-import Macros from '../logic/macros';
+import Locations from './locations';
+import LogicLoader from './logic-loader';
+import Macros from './macros';
 import TrackerState from './tracker-state';
 import Settings from './settings';
-import LogicTweaks from '../logic/logic-tweaks';
-import LogicHelper from '../logic/logic-helper';
+import LogicTweaks from './logic-tweaks';
+import LogicHelper from './logic-helper';
 
 export default class TrackerController {
   static async initialize() {

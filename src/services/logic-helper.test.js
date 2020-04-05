@@ -2,7 +2,7 @@ import BooleanExpression from './boolean-expression';
 import Locations from './locations';
 import LogicHelper from './logic-helper';
 import Macros from './macros';
-import Settings from '../tracker/settings';
+import Settings from './settings';
 
 describe('LogicHelper', () => {
   describe('allItems', () => {

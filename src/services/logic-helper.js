@@ -1,19 +1,19 @@
 import _ from 'lodash';
 
-import CAVES from '../../data/caves';
-import CHARTS from '../../data/charts';
-import DUNGEONS from '../../data/dungeons';
-import ITEMS from '../../data/items';
-import KEYS from '../../data/keys';
-import PROGRESSIVE_STARTING_ITEMS from '../../data/progressive-starting-items';
-import REGULAR_STARTING_ITEMS from '../../data/regular-starting-items';
-import SHORT_DUNGEON_NAMES from '../../data/short-dungeon-names';
+import CAVES from '../data/caves';
+import CHARTS from '../data/charts';
+import DUNGEONS from '../data/dungeons';
+import ITEMS from '../data/items';
+import KEYS from '../data/keys';
+import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items';
+import REGULAR_STARTING_ITEMS from '../data/regular-starting-items';
+import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names';
 
 import BooleanExpression from './boolean-expression';
 import Locations from './locations';
 import Macros from './macros';
 import Memoizer from './memoizer';
-import Settings from '../tracker/settings';
+import Settings from './settings';
 
 export default class LogicHelper {
   static initialize() {

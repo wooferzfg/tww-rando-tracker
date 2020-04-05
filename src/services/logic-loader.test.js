@@ -1,5 +1,5 @@
 import LogicLoader from './logic-loader';
-import Settings from '../tracker/settings';
+import Settings from './settings';
 
 describe('LogicLoader', () => {
   let itemLocationsFile;
