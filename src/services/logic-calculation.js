@@ -67,6 +67,73 @@ export default class LogicCalculation {
     );
   }
 
+  _keysToMakeLocationAvailable(generalLocation, detailedLocation) {
+    const smallKeyName = LogicHelper.smallKeyName(generalLocation);
+    const bigKeyName = LogicHelper.bigKeyName(generalLocation);
+
+    const maxSmallKeys = _.get(KEYS, smallKeyName);
+    const maxBigKeys = _.get(KEYS, bigKeyName);
+
+    for (let numBigKeys = 0; numBigKeys <= maxBigKeys; numBigKeys += 1) {
+      for (let numSmallKeys = 0; numSmallKeys <= maxSmallKeys; numSmallKeys += 1) {
+        if (this._isLocationAvailableWithKeys({
+          generalLocation,
+          detailedLocation,
+          numSmallKeys,
+          numBigKeys
+        })) {
+          return {
+            small: numSmallKeys,
+            big: numBigKeys
+          };
+        }
+      }
+    }
+
+    return false;
+  }
+
+  _isLocationAvailableWithKeys({
+    generalLocation,
+    detailedLocation,
+    numSmallKeys,
+    numBigKeys
+  }) {
+    if (this.isLocationAvailable(generalLocation, detailedLocation)) {
+      return true;
+    }
+
+    const requirementsForLocation = LogicHelper.requirementsForLocation(
+      generalLocation,
+      detailedLocation
+    );
+
+    const smallKeyName = LogicHelper.smallKeyName(generalLocation);
+    const bigKeyName = LogicHelper.bigKeyName(generalLocation);
+
+    return requirementsForLocation.evaluate({
+      isItemTrue: (requirement) => {
+        const itemCountRequirement = LogicHelper.parseItemCountRequirement(requirement);
+
+        if (!_.isNil(itemCountRequirement)) {
+          const {
+            countRequired,
+            itemName
+          } = itemCountRequirement;
+
+          if (itemName === smallKeyName) {
+            return numSmallKeys >= countRequired;
+          }
+          if (itemName === bigKeyName) {
+            return numBigKeys >= countRequired;
+          }
+        }
+
+        return this._isRequirementMet(requirement);
+      }
+    });
+  }
+
   _isRequirementMet(requirement) {
     const itemsRemaining = this._itemsRemainingForRequirement(requirement);
     return itemsRemaining === 0;
