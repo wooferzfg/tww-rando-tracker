@@ -631,6 +631,114 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('isValidDungeonLocation', () => {
+    describe('when the location is in a unique dungeon', () => {
+      test('returns true', () => {
+        const isValidDungeonLocation = LogicHelper.isValidDungeonLocation("Ganon's Tower", 'Defeat Ganondorf');
+
+        expect(isValidDungeonLocation).toEqual(true);
+      });
+    });
+
+    describe('when the location is on an island', () => {
+      test('returns false', () => {
+        const isValidDungeonLocation = LogicHelper.isValidDungeonLocation('Outset Island', 'Great Fairy');
+
+        expect(isValidDungeonLocation).toEqual(false);
+      });
+    });
+
+    describe('when the location is in a dungeon that is also an island', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Tower of the Gods': {
+            'Light Two Torches': {
+              types: 'Dungeon'
+            }
+          }
+        };
+      });
+
+      test('returns true', () => {
+        const isValidDungeonLocation = LogicHelper.isValidDungeonLocation('Tower of the Gods', 'Light Two Torches');
+
+        expect(isValidDungeonLocation).toEqual(true);
+      });
+    });
+
+    describe('when the location is on an island that is also a dungeon', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Tower of the Gods': {
+            'Sunken Treasure': {
+              types: 'Sunken Treasure'
+            }
+          }
+        };
+      });
+
+      test('returns false', () => {
+        const isValidDungeonLocation = LogicHelper.isValidDungeonLocation('Tower of the Gods', 'Sunken Treasure');
+
+        expect(isValidDungeonLocation).toEqual(false);
+      });
+    });
+  });
+
+  describe('isValidIslandLocation', () => {
+    describe('when the location is on a unique island', () => {
+      test('returns true', () => {
+        const isValidIslandLocation = LogicHelper.isValidIslandLocation('Windfall Island', 'Tott');
+
+        expect(isValidIslandLocation).toEqual(true);
+      });
+    });
+
+    describe('when the location is in a dungeon', () => {
+      test('returns false', () => {
+        const isValidIslandLocation = LogicHelper.isValidIslandLocation('Forbidden Woods', 'First Room');
+
+        expect(isValidIslandLocation).toEqual(false);
+      });
+    });
+
+    describe('when the location is on an island that is also a dungeon', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Forsaken Fortress': {
+            'Sunken Treasure': {
+              types: 'Sunken Treasure'
+            }
+          }
+        };
+      });
+
+      test('returns true', () => {
+        const isValidIslandLocation = LogicHelper.isValidIslandLocation('Forsaken Fortress', 'Sunken Treasure');
+
+        expect(isValidIslandLocation).toEqual(true);
+      });
+    });
+
+    describe('when the location is in a dungeon that is also an island', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Forsaken Fortress': {
+            'Phantom Ganon': {
+              types: 'Dungeon'
+            }
+          }
+        };
+      });
+
+      test('returns false', () => {
+        const isValidIslandLocation = LogicHelper.isValidIslandLocation('Forsaken Fortress', 'Phantom Ganon');
+
+        expect(isValidIslandLocation).toEqual(false);
+      });
+    });
+  });
+
   describe('_setStartingAndImpossibleItems', () => {
     describe('with no starting shards, no starting gear, and starting with a sword', () => {
       beforeEach(() => {
