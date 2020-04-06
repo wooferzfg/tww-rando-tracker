@@ -3,6 +3,7 @@ import _ from 'lodash';
 import CAVES from '../data/caves';
 import CHARTS from '../data/charts';
 import DUNGEONS from '../data/dungeons';
+import ISLANDS from '../data/islands';
 import ITEMS from '../data/items';
 import KEYS from '../data/keys';
 import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items';
@@ -101,6 +102,20 @@ export default class LogicHelper {
     }
 
     return null;
+  }
+
+  static isValidDungeonLocation(generalLocation, detailedLocation) {
+    if (_.includes(DUNGEONS, generalLocation)) {
+      return this._isValidLocation(generalLocation, detailedLocation, true);
+    }
+    return false;
+  }
+
+  static isValidIslandLocation(generalLocation, detailedLocation) {
+    if (_.includes(ISLANDS, generalLocation)) {
+      return this._isValidLocation(generalLocation, detailedLocation, false);
+    }
+    return false;
   }
 
   static _setStartingAndImpossibleItems() {
@@ -289,5 +304,15 @@ export default class LogicHelper {
 
   static _randomizeEntrancesOption() {
     return Settings.getOptionValue('randomizeEntrances');
+  }
+
+  static _isValidLocation(generalLocation, detailedLocation, isDungeon) {
+    if (_.includes(ISLANDS, generalLocation) && _.includes(DUNGEONS, generalLocation)) {
+      const locationTypes = Locations.getLocation(generalLocation, detailedLocation).types;
+      const hasDungeonType = _.includes(locationTypes, 'Dungeon');
+
+      return hasDungeonType === isDungeon;
+    }
+    return true;
   }
 }
