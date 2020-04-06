@@ -136,12 +136,26 @@ export default class LogicHelper {
       return false;
     }
 
+    if (!this.isMainDungeon(generalLocation)) {
+      return false;
+    }
+
     const locationTypes = Locations.getLocation(generalLocation, detailedLocation).types;
     if (_.includes(locationTypes, 'Tingle Chest') && !Settings.isFlagActive('Tingle Chest')) {
       return false;
     }
 
     return true;
+  }
+
+  static smallKeyName(dungeonName) {
+    const shortDungeonName = this.shortDungeonName(dungeonName);
+    return `${shortDungeonName} Small Key`;
+  }
+
+  static bigKeyName(dungeonName) {
+    const shortDungeonName = this.shortDungeonName(dungeonName);
+    return `${shortDungeonName} Big Key`;
   }
 
   static _setStartingAndImpossibleItems() {

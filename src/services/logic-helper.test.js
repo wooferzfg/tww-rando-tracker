@@ -799,6 +799,24 @@ describe('LogicHelper', () => {
       });
     });
 
+    describe('when the location is not in a main dungeon', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Forsaken Fortress': {
+            'Phantom Ganon': {
+              types: 'Dungeon'
+            }
+          }
+        };
+      });
+
+      test('returns false', () => {
+        const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Forsaken Fortress', 'Phantom Ganon');
+
+        expect(isPotentialBigKeyLocation).toEqual(false);
+      });
+    });
+
     describe('when the location is on an island that is also a dungeon', () => {
       beforeEach(() => {
         Locations.locations = {
@@ -852,6 +870,22 @@ describe('LogicHelper', () => {
           expect(isPotentialBigKeyLocation).toEqual(false);
         });
       });
+    });
+  });
+
+  describe('smallKeyName', () => {
+    test('returns the name of the small key for the dungeon', () => {
+      const smallKeyName = LogicHelper.smallKeyName('Dragon Roost Cavern');
+
+      expect(smallKeyName).toEqual('DRC Small Key');
+    });
+  });
+
+  describe('bigKeyName', () => {
+    test('returns the name of the small key for the dungeon', () => {
+      const bigKeyName = LogicHelper.bigKeyName('Forbidden Woods');
+
+      expect(bigKeyName).toEqual('FW Big Key');
     });
   });
 
