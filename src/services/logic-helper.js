@@ -118,6 +118,32 @@ export default class LogicHelper {
     return false;
   }
 
+  static isPotentialSmallKeyLocation(generalLocation, detailedLocation) {
+    if (!this.isPotentialBigKeyLocation(generalLocation, detailedLocation)) {
+      return false;
+    }
+
+    const locationRequirements = Locations.getLocation(generalLocation, detailedLocation).need;
+    if (_.includes(locationRequirements, 'Big Key')) {
+      return false;
+    }
+
+    return true;
+  }
+
+  static isPotentialBigKeyLocation(generalLocation, detailedLocation) {
+    if (!this.isValidDungeonLocation(generalLocation, detailedLocation)) {
+      return false;
+    }
+
+    const locationTypes = Locations.getLocation(generalLocation, detailedLocation).types;
+    if (_.includes(locationTypes, 'Tingle Chest') && !Settings.isFlagActive('Tingle Chest')) {
+      return false;
+    }
+
+    return true;
+  }
+
   static _setStartingAndImpossibleItems() {
     this.startingItems = {
       "Hero's Shield": 1,

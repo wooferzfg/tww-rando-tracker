@@ -739,6 +739,122 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('isPotentialSmallKeyLocation', () => {
+    describe('when the location is a valid small key location', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'Big Key Chest': {
+              need: 'Can Access Dragon Roost Cavern',
+              types: 'Dungeon'
+            }
+          }
+        };
+      });
+
+      test('returns true', () => {
+        const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Dragon Roost Cavern', 'Big Key Chest');
+
+        expect(isPotentialSmallKeyLocation).toEqual(true);
+      });
+    });
+
+    describe('when the location is a boss item drop', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'Gohma Heart Container': {
+              need: 'Grappling Hook & DRC Big Key',
+              types: 'Dungeon'
+            }
+          }
+        };
+      });
+
+      test('returns false', () => {
+        const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Dragon Roost Cavern', 'Gohma Heart Container');
+
+        expect(isPotentialSmallKeyLocation).toEqual(false);
+      });
+    });
+  });
+
+  describe('isPotentialBigKeyLocation', () => {
+    describe('when the location is a valid big key location', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Wind Temple': {
+            'Big Key Chest': {
+              need: 'Can Access Wind Temple',
+              types: 'Dungeon'
+            }
+          }
+        };
+      });
+
+      test('returns true', () => {
+        const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Wind Temple', 'Big Key Chest');
+
+        expect(isPotentialBigKeyLocation).toEqual(true);
+      });
+    });
+
+    describe('when the location is on an island that is also a dungeon', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Tower of the Gods': {
+            'Sunken Treasure': {
+              types: 'Sunken Treasure'
+            }
+          }
+        };
+      });
+
+      test('returns false', () => {
+        const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Tower of the Gods', 'Sunken Treasure');
+
+        expect(isPotentialBigKeyLocation).toEqual(false);
+      });
+    });
+
+    describe('when the location is a tingle chest', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Wind Temple': {
+            'Tingle Statue Chest': {
+              need: 'Can Access Wind Temple',
+              types: 'Tingle Chest, Dungeon'
+            }
+          }
+        };
+      });
+
+      describe('when the tingle chest flag is active', () => {
+        beforeEach(() => {
+          Settings.initialize({ flags: ['Tingle Chest'] });
+        });
+
+        test('returns true', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Wind Temple', 'Tingle Statue Chest');
+
+          expect(isPotentialBigKeyLocation).toEqual(true);
+        });
+      });
+
+      describe('when the tingle chest flag is not active', () => {
+        beforeEach(() => {
+          Settings.initialize({ flags: [] });
+        });
+
+        test('returns false', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Wind Temple', 'Tingle Statue Chest');
+
+          expect(isPotentialBigKeyLocation).toEqual(false);
+        });
+      });
+    });
+  });
+
   describe('_setStartingAndImpossibleItems', () => {
     describe('with no starting shards, no starting gear, and starting with a sword', () => {
       beforeEach(() => {
