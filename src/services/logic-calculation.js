@@ -1,10 +1,12 @@
 import _ from 'lodash';
 
+import DUNGEONS from '../data/dungeons';
 import KEYS from '../data/keys';
 
 import Locations from './locations';
 import LogicHelper from './logic-helper';
 import Memoizer from './memoizer';
+import Settings from './settings';
 
 export default class LogicCalculation {
   constructor(state) {
@@ -65,14 +67,83 @@ export default class LogicCalculation {
       (accumulator, keyName) => _.set(accumulator, keyName, this.state.getItemValue(keyName)),
       {}
     );
+
+    if (!Settings.getOptionValue('keyLunacy')) {
+      _.forEach(DUNGEONS, (dungeonName) => {
+        if (LogicHelper.isMainDungeon(dungeonName)) {
+          const {
+            guaranteedSmallKeys,
+            guaranteedBigKeys
+          } = this._guaranteedKeysForDungeon(dungeonName);
+
+          const smallKeyName = LogicHelper.smallKeyName(dungeonName);
+          const bigKeyName = LogicHelper.bigKeyName(dungeonName);
+
+          const currentSmallKeyCount = _.get(this.guaranteedKeys, smallKeyName);
+          const currentBigKeyCount = _.get(this.guaranteedKeys, bigKeyName);
+
+          if (guaranteedSmallKeys > currentSmallKeyCount) {
+            _.set(this.guaranteedKeys, smallKeyName, guaranteedSmallKeys);
+          }
+          if (guaranteedBigKeys > currentBigKeyCount) {
+            _.set(this.guaranteedKeys, bigKeyName, guaranteedBigKeys);
+          }
+        }
+      });
+    }
+
+    Memoizer.invalidate(this.isLocationAvailable);
+  }
+
+  _guaranteedKeysForDungeon(dungeonName) {
+    const detailedLocations = Locations.detailedLocationsForGeneralLocation(dungeonName);
+
+    const {
+      maxSmallKeys,
+      maxBigKeys
+    } = LogicHelper.maxKeysForDungeon(dungeonName);
+
+    let guaranteedSmallKeys = maxSmallKeys;
+    let guaranteedBigKeys = maxBigKeys;
+
+    _.forEach(detailedLocations, (detailedLocation) => {
+      const potentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation(
+        dungeonName,
+        detailedLocation
+      );
+      const potentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation(
+        dungeonName,
+        detailedLocation
+      );
+
+      if (potentialSmallKeyLocation || potentialBigKeyLocation) {
+        if (!this._nonKeyRequirementsMetForLocation(dungeonName, detailedLocation)) {
+          const {
+            smallKeysRequired,
+            bigKeysRequired
+          } = LogicCalculation._keysRequiredForLocation(dungeonName, detailedLocation);
+
+          if (potentialSmallKeyLocation && smallKeysRequired < guaranteedSmallKeys) {
+            guaranteedSmallKeys = smallKeysRequired;
+          }
+          if (potentialBigKeyLocation && bigKeysRequired < guaranteedBigKeys) {
+            guaranteedBigKeys = bigKeysRequired;
+          }
+        }
+      }
+    });
+
+    return {
+      guaranteedSmallKeys,
+      guaranteedBigKeys
+    };
   }
 
   static _keysRequiredForLocation(generalLocation, detailedLocation) {
-    const smallKeyName = LogicHelper.smallKeyName(generalLocation);
-    const bigKeyName = LogicHelper.bigKeyName(generalLocation);
-
-    const maxSmallKeys = _.get(KEYS, smallKeyName);
-    const maxBigKeys = _.get(KEYS, bigKeyName);
+    const {
+      maxSmallKeys,
+      maxBigKeys
+    } = LogicHelper.maxKeysForDungeon(generalLocation);
 
     for (let numBigKeys = 0; numBigKeys <= maxBigKeys; numBigKeys += 1) {
       for (let numSmallKeys = 0; numSmallKeys <= maxSmallKeys; numSmallKeys += 1) {
@@ -83,8 +154,8 @@ export default class LogicCalculation {
           numBigKeys
         })) {
           return {
-            small: numSmallKeys,
-            big: numBigKeys
+            smallKeysRequired: numSmallKeys,
+            bigKeysRequired: numBigKeys
           };
         }
       }
@@ -131,14 +202,21 @@ export default class LogicCalculation {
   }
 
   _nonKeyRequirementsMetForLocation(generalLocation, detailedLocation) {
+    if (this.isLocationAvailable(generalLocation, detailedLocation)) {
+      return true;
+    }
+
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
       detailedLocation
     );
 
+    const smallKeyName = LogicHelper.smallKeyName(generalLocation);
+    const bigKeyName = LogicHelper.bigKeyName(generalLocation);
+
     return requirementsForLocation.evaluate({
       isItemTrue: (requirement) => {
-        if (_.includes(requirement, ' Key ')) {
+        if (_.includes(requirement, smallKeyName) || requirement === bigKeyName) {
           return true; // assume we have all keys
         }
 
