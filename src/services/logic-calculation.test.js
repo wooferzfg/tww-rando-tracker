@@ -157,24 +157,7 @@ describe('LogicCalculation', () => {
     });
   });
 
-  describe('_keysToMakeLocationAvailable', () => {
-    describe('when the location is checked', () => {
-      beforeEach(() => {
-        logic = new LogicCalculation(
-          logic.state.setLocationChecked('Dragon Roost Cavern', 'First Room', true)
-        );
-      });
-
-      test('returns 0 small keys and 0 big keys', () => {
-        const keysRequired = logic._keysToMakeLocationAvailable('Dragon Roost Cavern', 'First Room');
-
-        expect(keysRequired).toEqual({
-          small: 0,
-          big: 0
-        });
-      });
-    });
-
+  describe('_keysRequiredForLocation', () => {
     describe('when the location has no requirements', () => {
       beforeEach(() => {
         Locations.locations = {
@@ -187,7 +170,7 @@ describe('LogicCalculation', () => {
       });
 
       test('returns 0 small keys and 0 big keys', () => {
-        const keysRequired = logic._keysToMakeLocationAvailable('Dragon Roost Cavern', 'First Room');
+        const keysRequired = LogicCalculation._keysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
         expect(keysRequired).toEqual({
           small: 0,
@@ -196,7 +179,7 @@ describe('LogicCalculation', () => {
       });
     });
 
-    describe('when the location has non-key requirements that are not met', () => {
+    describe('when the location only has non-key requirements', () => {
       beforeEach(() => {
         Locations.locations = {
           'Dragon Roost Cavern': {
@@ -207,10 +190,13 @@ describe('LogicCalculation', () => {
         };
       });
 
-      test('returns false', () => {
-        const keysRequired = logic._keysToMakeLocationAvailable('Dragon Roost Cavern', 'First Room');
+      test('returns 0 small keys and 0 big keys', () => {
+        const keysRequired = LogicCalculation._keysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
-        expect(keysRequired).toEqual(false);
+        expect(keysRequired).toEqual({
+          small: 0,
+          big: 0
+        });
       });
     });
 
@@ -226,7 +212,7 @@ describe('LogicCalculation', () => {
       });
 
       test('returns 1 small key and 0 big keys', () => {
-        const keysRequired = logic._keysToMakeLocationAvailable('Dragon Roost Cavern', 'First Room');
+        const keysRequired = LogicCalculation._keysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
         expect(keysRequired).toEqual({
           small: 1,
@@ -235,7 +221,7 @@ describe('LogicCalculation', () => {
       });
     });
 
-    describe('when the location requires some keys and some already obtained items', () => {
+    describe('when the location requires some keys and some other items', () => {
       beforeEach(() => {
         Locations.locations = {
           'Dragon Roost Cavern': {
@@ -244,16 +230,10 @@ describe('LogicCalculation', () => {
             }
           }
         };
-
-        logic = new LogicCalculation(
-          logic.state
-            .setItemValue('Grappling Hook', 1)
-            .setItemValue('Deku Leaf', 1)
-        );
       });
 
       test('returns 2 small keys and 1 big key', () => {
-        const keysRequired = logic._keysToMakeLocationAvailable('Dragon Roost Cavern', 'First Room');
+        const keysRequired = LogicCalculation._keysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
         expect(keysRequired).toEqual({
           small: 2,
@@ -273,39 +253,12 @@ describe('LogicCalculation', () => {
         };
       });
 
-      describe('when the non-key items have been obtained', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state
-              .setItemValue('Grappling Hook', 1)
-              .setItemValue('Progressive Bow', 2)
-          );
-        });
+      test('returns 1 small key and 0 big keys', () => {
+        const keysRequired = LogicCalculation._keysRequiredForLocation('Dragon Roost Cavern', 'Big Key Chest');
 
-        test('returns 1 small key and 0 big keys', () => {
-          const keysRequired = logic._keysToMakeLocationAvailable('Dragon Roost Cavern', 'Big Key Chest');
-
-          expect(keysRequired).toEqual({
-            small: 1,
-            big: 0
-          });
-        });
-      });
-
-      describe('when the non-key items have not been obtained', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state.setItemValue('Grappling Hook', 1)
-          );
-        });
-
-        test('returns 4 small keys and 0 big keys', () => {
-          const keysRequired = logic._keysToMakeLocationAvailable('Dragon Roost Cavern', 'Big Key Chest');
-
-          expect(keysRequired).toEqual({
-            small: 4,
-            big: 0
-          });
+        expect(keysRequired).toEqual({
+          small: 1,
+          big: 0
         });
       });
     });
