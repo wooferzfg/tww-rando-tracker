@@ -444,7 +444,7 @@ describe('LogicCalculation', () => {
         });
       });
 
-      test('returns 1', () => {
+      test('returns the 1 small key', () => {
         const keysRequired = LogicCalculation._smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
         expect(keysRequired).toEqual(1);
@@ -462,7 +462,7 @@ describe('LogicCalculation', () => {
         });
       });
 
-      test('returns 2', () => {
+      test('returns the number of small keys', () => {
         const keysRequired = LogicCalculation._smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
         expect(keysRequired).toEqual(2);
@@ -480,7 +480,7 @@ describe('LogicCalculation', () => {
         });
       });
 
-      test('returns 1', () => {
+      test('returns the number of small keys that are strictly required', () => {
         const keysRequired = LogicCalculation._smallKeysRequiredForLocation('Dragon Roost Cavern', 'Big Key Chest');
 
         expect(keysRequired).toEqual(1);
