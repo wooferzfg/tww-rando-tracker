@@ -18,13 +18,17 @@ import Settings from './settings';
 
 export default class LogicHelper {
   static initialize() {
-    Memoizer.memoize(this, [this.requirementsForLocation]);
+    Memoizer.memoize(this, [
+      this.requirementsForLocation,
+      this.smallKeysRequiredForLocation
+    ]);
 
     this._setStartingAndImpossibleItems();
   }
 
   static reset() {
     Memoizer.invalidate(this.requirementsForLocation);
+    Memoizer.invalidate(this.smallKeysRequiredForLocation);
 
     this.startingItems = null;
     this.impossibleItems = null;
@@ -160,6 +164,46 @@ export default class LogicHelper {
   static maxSmallKeysForDungeon(dungeonName) {
     const smallKeyName = this.smallKeyName(dungeonName);
     return _.get(KEYS, smallKeyName);
+  }
+
+  static smallKeysRequiredForLocation(generalLocation, detailedLocation) {
+    const maxSmallKeys = this.maxSmallKeysForDungeon(generalLocation);
+
+    for (let numSmallKeys = 0; numSmallKeys <= maxSmallKeys; numSmallKeys += 1) {
+      if (this._isLocationAvailableWithSmallKeys(generalLocation, detailedLocation, numSmallKeys)) {
+        return numSmallKeys;
+      }
+    }
+
+    throw Error(`Could not determine keys required for location: ${generalLocation} - ${detailedLocation}`);
+  }
+
+  static _isLocationAvailableWithSmallKeys(generalLocation, detailedLocation, numSmallKeys) {
+    const requirementsForLocation = this.requirementsForLocation(
+      generalLocation,
+      detailedLocation
+    );
+
+    const smallKeyName = this.smallKeyName(generalLocation);
+
+    return requirementsForLocation.evaluate({
+      isItemTrue: (requirement) => {
+        const itemCountRequirement = this.parseItemCountRequirement(requirement);
+
+        if (!_.isNil(itemCountRequirement)) {
+          const {
+            countRequired,
+            itemName
+          } = itemCountRequirement;
+
+          if (itemName === smallKeyName) {
+            return numSmallKeys >= countRequired;
+          }
+        }
+
+        return true; // assume we have all items that aren't keys
+      }
+    });
   }
 
   static _setStartingAndImpossibleItems() {

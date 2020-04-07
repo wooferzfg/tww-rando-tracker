@@ -14,7 +14,8 @@ export default class LogicCalculation {
 
     Memoizer.memoize(this, [
       this.isLocationAvailable,
-      this.itemsRemainingForLocation
+      this.itemsRemainingForLocation,
+      this._itemsRemainingForRequirement
     ]);
 
     this._setGuaranteedKeys();
@@ -93,6 +94,7 @@ export default class LogicCalculation {
     }
 
     Memoizer.invalidate(this.isLocationAvailable);
+    Memoizer.invalidate(this._itemsRemainingForRequirement);
   }
 
   _guaranteedKeysForDungeon(dungeonName) {
@@ -104,7 +106,7 @@ export default class LogicCalculation {
     _.forEach(detailedLocations, (detailedLocation) => {
       if (LogicHelper.isPotentialKeyLocation(dungeonName, detailedLocation)
       && !this._nonKeyRequirementsMetForLocation(dungeonName, detailedLocation)) {
-        const smallKeysRequired = LogicCalculation._smallKeysRequiredForLocation(
+        const smallKeysRequired = LogicHelper.smallKeysRequiredForLocation(
           dungeonName,
           detailedLocation
         );
@@ -120,46 +122,6 @@ export default class LogicCalculation {
       guaranteedSmallKeys,
       guaranteedBigKeys
     };
-  }
-
-  static _smallKeysRequiredForLocation(generalLocation, detailedLocation) {
-    const maxSmallKeys = LogicHelper.maxSmallKeysForDungeon(generalLocation);
-
-    for (let numSmallKeys = 0; numSmallKeys <= maxSmallKeys; numSmallKeys += 1) {
-      if (this._isLocationAvailableWithSmallKeys(generalLocation, detailedLocation, numSmallKeys)) {
-        return numSmallKeys;
-      }
-    }
-
-    throw Error(`Could not determine keys required for location: ${generalLocation} - ${detailedLocation}`);
-  }
-
-  static _isLocationAvailableWithSmallKeys(generalLocation, detailedLocation, numSmallKeys) {
-    const requirementsForLocation = LogicHelper.requirementsForLocation(
-      generalLocation,
-      detailedLocation
-    );
-
-    const smallKeyName = LogicHelper.smallKeyName(generalLocation);
-
-    return requirementsForLocation.evaluate({
-      isItemTrue: (requirement) => {
-        const itemCountRequirement = LogicHelper.parseItemCountRequirement(requirement);
-
-        if (!_.isNil(itemCountRequirement)) {
-          const {
-            countRequired,
-            itemName
-          } = itemCountRequirement;
-
-          if (itemName === smallKeyName) {
-            return numSmallKeys >= countRequired;
-          }
-        }
-
-        return true; // assume we have all items that aren't keys
-      }
-    });
   }
 
   _nonKeyRequirementsMetForLocation(generalLocation, detailedLocation) {
