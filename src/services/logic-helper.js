@@ -158,6 +158,16 @@ export default class LogicHelper {
     return `${shortDungeonName} Big Key`;
   }
 
+  static maxKeysForDungeon(dungeonName) {
+    const smallKeyName = this.smallKeyName(dungeonName);
+    const bigKeyName = this.bigKeyName(dungeonName);
+
+    return {
+      maxSmallKeys: _.get(KEYS, smallKeyName),
+      maxBigKeys: _.get(KEYS, bigKeyName)
+    };
+  }
+
   static _setStartingAndImpossibleItems() {
     this.startingItems = {
       "Hero's Shield": 1,

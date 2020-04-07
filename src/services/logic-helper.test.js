@@ -889,6 +889,53 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('maxKeysForDungeon', () => {
+    test('returns the max keys for DRC', () => {
+      const maxKeys = LogicHelper.maxKeysForDungeon('Dragon Roost Cavern');
+
+      expect(maxKeys).toEqual({
+        maxSmallKeys: 4,
+        maxBigKeys: 1
+      });
+    });
+
+    test('returns the max keys for FW', () => {
+      const maxKeys = LogicHelper.maxKeysForDungeon('Forbidden Woods');
+
+      expect(maxKeys).toEqual({
+        maxSmallKeys: 1,
+        maxBigKeys: 1
+      });
+    });
+
+    test('returns the max keys for TotG', () => {
+      const maxKeys = LogicHelper.maxKeysForDungeon('Tower of the Gods');
+
+      expect(maxKeys).toEqual({
+        maxSmallKeys: 2,
+        maxBigKeys: 1
+      });
+    });
+
+    test('returns the max keys for ET', () => {
+      const maxKeys = LogicHelper.maxKeysForDungeon('Earth Temple');
+
+      expect(maxKeys).toEqual({
+        maxSmallKeys: 3,
+        maxBigKeys: 1
+      });
+    });
+
+    test('returns the max keys for WT', () => {
+      const maxKeys = LogicHelper.maxKeysForDungeon('Wind Temple');
+
+      expect(maxKeys).toEqual({
+        maxSmallKeys: 2,
+        maxBigKeys: 1
+      });
+    });
+  });
+
   describe('_setStartingAndImpossibleItems', () => {
     describe('with no starting shards, no starting gear, and starting with a sword', () => {
       beforeEach(() => {
