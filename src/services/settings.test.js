@@ -1,6 +1,12 @@
 import Settings from './settings';
 
 describe('Settings', () => {
+  afterEach(() => {
+    Settings.flags = null;
+    Settings.options = null;
+    Settings.version = null;
+  });
+
   describe('initialize', () => {
     test('initializes the flags, options, and version', () => {
       const flags = ['Tingle Chests'];

@@ -1,6 +1,10 @@
 import Macros from './macros';
 
 describe('Macros', () => {
+  afterEach(() => {
+    Macros.macros = null;
+  });
+
   describe('initialize', () => {
     test('initializes the macros', () => {
       const macros = {

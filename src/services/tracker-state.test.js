@@ -5,6 +5,12 @@ import Locations from './locations';
 import LogicHelper from './logic-helper';
 
 describe('TrackerState', () => {
+  afterEach(() => {
+    Locations.locations = null;
+    LogicHelper.impossibleItems = null;
+    LogicHelper.startingItems = null;
+  });
+
   describe('default', () => {
     beforeEach(() => {
       Locations.locations = {
