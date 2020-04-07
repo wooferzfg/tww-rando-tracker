@@ -118,20 +118,7 @@ export default class LogicHelper {
     return false;
   }
 
-  static isPotentialSmallKeyLocation(generalLocation, detailedLocation) {
-    if (!this.isPotentialBigKeyLocation(generalLocation, detailedLocation)) {
-      return false;
-    }
-
-    const locationRequirements = Locations.getLocation(generalLocation, detailedLocation).need;
-    if (_.includes(locationRequirements, 'Big Key')) {
-      return false;
-    }
-
-    return true;
-  }
-
-  static isPotentialBigKeyLocation(generalLocation, detailedLocation) {
+  static isPotentialKeyLocation(generalLocation, detailedLocation) {
     if (!this.isValidDungeonLocation(generalLocation, detailedLocation)) {
       return false;
     }
@@ -142,6 +129,11 @@ export default class LogicHelper {
 
     const locationTypes = Locations.getLocation(generalLocation, detailedLocation).types;
     if (_.includes(locationTypes, 'Tingle Chest') && !Settings.isFlagActive('Tingle Chest')) {
+      return false;
+    }
+
+    const locationRequirements = Locations.getLocation(generalLocation, detailedLocation).need;
+    if (_.includes(locationRequirements, 'Big Key')) {
       return false;
     }
 
@@ -158,14 +150,9 @@ export default class LogicHelper {
     return `${shortDungeonName} Big Key`;
   }
 
-  static maxKeysForDungeon(dungeonName) {
+  static maxSmallKeysForDungeon(dungeonName) {
     const smallKeyName = this.smallKeyName(dungeonName);
-    const bigKeyName = this.bigKeyName(dungeonName);
-
-    return {
-      maxSmallKeys: _.get(KEYS, smallKeyName),
-      maxBigKeys: _.get(KEYS, bigKeyName)
-    };
+    return _.get(KEYS, smallKeyName);
   }
 
   static _setStartingAndImpossibleItems() {
