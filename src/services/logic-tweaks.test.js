@@ -4,6 +4,12 @@ import Macros from './macros';
 import Settings from './settings';
 
 describe('LogicTweaks', () => {
+  afterEach(() => {
+    Locations.locations = null;
+    Macros.macros = null;
+    Settings.options = null;
+  });
+
   describe('updateLocations', () => {
     beforeEach(() => {
       Locations.locations = {

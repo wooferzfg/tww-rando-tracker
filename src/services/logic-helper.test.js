@@ -5,9 +5,12 @@ import Macros from './macros';
 import Settings from './settings';
 
 describe('LogicHelper', () => {
-  beforeEach(() => {
+  afterEach(() => {
+    Locations.locations = null;
     LogicHelper.impossibleItems = null;
     LogicHelper.startingItems = null;
+    Macros.macros = null;
+    Settings.options = null;
   });
 
   describe('allItems', () => {

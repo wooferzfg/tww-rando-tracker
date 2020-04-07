@@ -37,6 +37,10 @@ describe('LogicLoader', () => {
     });
   });
 
+  afterEach(() => {
+    Settings.version = null;
+  });
+
   test('returns the item locations file and macros file', async () => {
     const logicFiles = await LogicLoader.loadLogicFiles();
 
