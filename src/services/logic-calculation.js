@@ -130,6 +130,23 @@ export default class LogicCalculation {
     });
   }
 
+  _nonKeyRequirementsMetForLocation(generalLocation, detailedLocation) {
+    const requirementsForLocation = LogicHelper.requirementsForLocation(
+      generalLocation,
+      detailedLocation
+    );
+
+    return requirementsForLocation.evaluate({
+      isItemTrue: (requirement) => {
+        if (_.includes(requirement, ' Key ')) {
+          return true; // assume we have all keys
+        }
+
+        return this._isRequirementMet(requirement);
+      }
+    });
+  }
+
   _isRequirementMet(requirement) {
     const itemsRemaining = this._itemsRemainingForRequirement(requirement);
     return itemsRemaining === 0;
