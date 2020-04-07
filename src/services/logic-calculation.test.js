@@ -264,6 +264,108 @@ describe('LogicCalculation', () => {
     });
   });
 
+  describe('_nonKeyRequirementsMetForLocation', () => {
+    describe('when the location has no requirements', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'Nothing'
+            }
+          }
+        };
+      });
+
+      test('returns true', () => {
+        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation('Dragon Roost Cavern', 'First Room');
+
+        expect(nonKeyRequirementsMet).toEqual(true);
+      });
+    });
+
+    describe('when the location requires an item that is not obtained yet', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'Grappling Hook & DRC Big Key'
+            }
+          }
+        };
+      });
+
+      test('returns false', () => {
+        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation('Dragon Roost Cavern', 'First Room');
+
+        expect(nonKeyRequirementsMet).toEqual(false);
+      });
+    });
+
+    describe('when the location only requires a small key', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'DRC Small Key x1'
+            }
+          }
+        };
+      });
+
+      test('returns true', () => {
+        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation('Dragon Roost Cavern', 'First Room');
+
+        expect(nonKeyRequirementsMet).toEqual(true);
+      });
+    });
+
+    describe('when all non-key requirements are met', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'DRC Small Key x1 & Grappling Hook & Deku Leaf'
+            }
+          }
+        };
+
+        logic = new LogicCalculation(
+          logic.state
+            .setItemValue('Grappling Hook', 1)
+            .setItemValue('Deku Leaf', 1)
+        );
+      });
+
+      test('returns true', () => {
+        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation('Dragon Roost Cavern', 'First Room');
+
+        expect(nonKeyRequirementsMet).toEqual(true);
+      });
+    });
+
+    describe('when the only non-key requirements are obsoleted by a key requirement', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'Big Key Chest': {
+              need: 'DRC Small Key x1 & Grappling Hook & (DRC Small Key x4 | Deku Leaf | Progressive Bow x2)'
+            }
+          }
+        };
+
+        logic = new LogicCalculation(
+          logic.state.setItemValue('Grappling Hook', 1)
+        );
+      });
+
+      test('returns true', () => {
+        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation('Dragon Roost Cavern', 'Big Key Chest');
+
+        expect(nonKeyRequirementsMet).toEqual(true);
+      });
+    });
+  });
+
   describe('_isRequirementMet', () => {
     describe('when the requirement is nothing', () => {
       test('returns true', () => {
