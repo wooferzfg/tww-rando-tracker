@@ -6,11 +6,10 @@ import Settings from './settings';
 
 describe('LogicHelper', () => {
   afterEach(() => {
-    Locations.locations = null;
-    LogicHelper.impossibleItems = null;
-    LogicHelper.startingItems = null;
-    Macros.macros = null;
-    Settings.options = null;
+    Locations.reset();
+    LogicHelper.reset();
+    Macros.reset();
+    Settings.reset();
   });
 
   describe('allItems', () => {

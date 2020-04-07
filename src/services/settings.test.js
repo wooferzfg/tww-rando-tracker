@@ -2,9 +2,7 @@ import Settings from './settings';
 
 describe('Settings', () => {
   afterEach(() => {
-    Settings.flags = null;
-    Settings.options = null;
-    Settings.version = null;
+    Settings.reset();
   });
 
   describe('initialize', () => {

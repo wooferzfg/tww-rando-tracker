@@ -8,7 +8,6 @@ import LogicCalculation from './logic-calculation';
 import LogicHelper from './logic-helper';
 import LogicTweaks from './logic-tweaks';
 import Macros from './macros';
-import Memoizer from './memoizer';
 import Settings from './settings';
 import TrackerState from './tracker-state';
 
@@ -17,7 +16,7 @@ describe('LogicCalculation', () => {
 
   const setLocations = (locationsList) => {
     Locations.locations = locationsList;
-    Memoizer.invalidate(LogicHelper.requirementsForLocation);
+    LogicHelper.reset();
   };
 
   beforeEach(() => {
@@ -25,13 +24,10 @@ describe('LogicCalculation', () => {
   });
 
   afterEach(() => {
-    Locations.locations = null;
-    LogicHelper.impossibleItems = null;
-    LogicHelper.startingItems = null;
-    Macros.macros = null;
-    Settings.options = null;
-
-    Memoizer.invalidate(LogicHelper.requirementsForLocation);
+    Locations.reset();
+    LogicHelper.reset();
+    Macros.reset();
+    Settings.reset();
   });
 
   describe('constructor', () => {

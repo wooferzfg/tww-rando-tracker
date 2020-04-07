@@ -5,6 +5,10 @@ export default class Macros {
     this.macros = macrosFile;
   }
 
+  static reset() {
+    this.macros = null;
+  }
+
   static getMacro(macroName) {
     return _.get(this.macros, macroName);
   }

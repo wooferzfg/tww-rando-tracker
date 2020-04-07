@@ -7,6 +7,12 @@ export default class Settings {
     this.version = settings.version;
   }
 
+  static reset() {
+    this.flags = null;
+    this.options = null;
+    this.version = null;
+  }
+
   static isFlagActive(flag) {
     return _.includes(this.flags, flag);
   }

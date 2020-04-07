@@ -23,6 +23,13 @@ export default class LogicHelper {
     this._setStartingAndImpossibleItems();
   }
 
+  static reset() {
+    Memoizer.invalidate(this.requirementsForLocation);
+
+    this.startingItems = null;
+    this.impossibleItems = null;
+  }
+
   static get TOKENS() {
     return {
       AND: '&',

@@ -2,7 +2,7 @@ import Macros from './macros';
 
 describe('Macros', () => {
   afterEach(() => {
-    Macros.macros = null;
+    Macros.reset();
   });
 
   describe('initialize', () => {

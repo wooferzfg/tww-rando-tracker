@@ -18,6 +18,10 @@ export default class Locations {
     });
   }
 
+  static reset() {
+    this.locations = null;
+  }
+
   static mapLocations(locationIteratee) {
     const newLocations = {};
 
