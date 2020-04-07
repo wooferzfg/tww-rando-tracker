@@ -902,6 +902,98 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('smallKeysRequiredForLocation', () => {
+    describe('when the location has no requirements', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'Nothing'
+            }
+          }
+        };
+      });
+
+      test('returns 0', () => {
+        const keysRequired = LogicHelper.smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
+
+        expect(keysRequired).toEqual(0);
+      });
+    });
+
+    describe('when the location only has non-key requirements', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'Grappling Hook'
+            }
+          }
+        };
+      });
+
+      test('returns 0', () => {
+        const keysRequired = LogicHelper.smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
+
+        expect(keysRequired).toEqual(0);
+      });
+    });
+
+    describe('when the location only requires a small key', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'DRC Small Key x1'
+            }
+          }
+        };
+      });
+
+      test('returns the 1 small key', () => {
+        const keysRequired = LogicHelper.smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
+
+        expect(keysRequired).toEqual(1);
+      });
+    });
+
+    describe('when the location requires some keys and some other items', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'Grappling Hook & Deku Leaf & DRC Small Key x2 & DRC Big Key'
+            }
+          }
+        };
+      });
+
+      test('returns the number of small keys', () => {
+        const keysRequired = LogicHelper.smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
+
+        expect(keysRequired).toEqual(2);
+      });
+    });
+
+    describe('when the location has nested key requirements', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'Big Key Chest': {
+              need: 'DRC Small Key x1 & Grappling Hook & (DRC Small Key x4 | Deku Leaf | Progressive Bow x2)'
+            }
+          }
+        };
+      });
+
+      test('returns the number of small keys that are strictly required', () => {
+        const keysRequired = LogicHelper.smallKeysRequiredForLocation('Dragon Roost Cavern', 'Big Key Chest');
+
+        expect(keysRequired).toEqual(1);
+      });
+    });
+  });
+
   describe('_setStartingAndImpossibleItems', () => {
     describe('with no starting shards, no starting gear, and starting with a sword', () => {
       beforeEach(() => {
