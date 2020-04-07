@@ -12,6 +12,8 @@ export default class Memoizer {
   }
 
   static invalidate(functionToInvalidate) {
-    functionToInvalidate.clear();
+    if (functionToInvalidate.clear) {
+      functionToInvalidate.clear();
+    }
   }
 }

@@ -100,6 +100,12 @@ describe('Memoizer', () => {
         expect(secondResultMethod2).toEqual('Method 2! First! param:5');
       });
     });
+
+    describe('when a method is invalidated immediately', () => {
+      test('does not do anything to the method', () => {
+        Memoizer.invalidate(MockClass.mockStaticMethod);
+      });
+    });
   });
 
   describe('when calling an instance method', () => {
