@@ -742,47 +742,7 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('isPotentialSmallKeyLocation', () => {
-    describe('when the location is a valid small key location', () => {
-      beforeEach(() => {
-        Locations.locations = {
-          'Dragon Roost Cavern': {
-            'Big Key Chest': {
-              need: 'Can Access Dragon Roost Cavern',
-              types: 'Dungeon'
-            }
-          }
-        };
-      });
-
-      test('returns true', () => {
-        const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Dragon Roost Cavern', 'Big Key Chest');
-
-        expect(isPotentialSmallKeyLocation).toEqual(true);
-      });
-    });
-
-    describe('when the location is a boss item drop', () => {
-      beforeEach(() => {
-        Locations.locations = {
-          'Dragon Roost Cavern': {
-            'Gohma Heart Container': {
-              need: 'Grappling Hook & DRC Big Key',
-              types: 'Dungeon'
-            }
-          }
-        };
-      });
-
-      test('returns false', () => {
-        const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Dragon Roost Cavern', 'Gohma Heart Container');
-
-        expect(isPotentialSmallKeyLocation).toEqual(false);
-      });
-    });
-  });
-
-  describe('isPotentialBigKeyLocation', () => {
+  describe('isPotentialKeyLocation', () => {
     describe('when the location is a valid big key location', () => {
       beforeEach(() => {
         Locations.locations = {
@@ -796,9 +756,9 @@ describe('LogicHelper', () => {
       });
 
       test('returns true', () => {
-        const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Wind Temple', 'Big Key Chest');
+        const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Big Key Chest');
 
-        expect(isPotentialBigKeyLocation).toEqual(true);
+        expect(isPotentialKeyLocation).toEqual(true);
       });
     });
 
@@ -814,9 +774,9 @@ describe('LogicHelper', () => {
       });
 
       test('returns false', () => {
-        const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Forsaken Fortress', 'Phantom Ganon');
+        const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Forsaken Fortress', 'Phantom Ganon');
 
-        expect(isPotentialBigKeyLocation).toEqual(false);
+        expect(isPotentialKeyLocation).toEqual(false);
       });
     });
 
@@ -832,9 +792,9 @@ describe('LogicHelper', () => {
       });
 
       test('returns false', () => {
-        const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Tower of the Gods', 'Sunken Treasure');
+        const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Tower of the Gods', 'Sunken Treasure');
 
-        expect(isPotentialBigKeyLocation).toEqual(false);
+        expect(isPotentialKeyLocation).toEqual(false);
       });
     });
 
@@ -856,9 +816,9 @@ describe('LogicHelper', () => {
         });
 
         test('returns true', () => {
-          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Wind Temple', 'Tingle Statue Chest');
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Tingle Statue Chest');
 
-          expect(isPotentialBigKeyLocation).toEqual(true);
+          expect(isPotentialKeyLocation).toEqual(true);
         });
       });
 
@@ -868,10 +828,29 @@ describe('LogicHelper', () => {
         });
 
         test('returns false', () => {
-          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Wind Temple', 'Tingle Statue Chest');
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Tingle Statue Chest');
 
-          expect(isPotentialBigKeyLocation).toEqual(false);
+          expect(isPotentialKeyLocation).toEqual(false);
         });
+      });
+    });
+
+    describe('when the location is a boss item drop', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'Gohma Heart Container': {
+              need: 'Grappling Hook & DRC Big Key',
+              types: 'Dungeon'
+            }
+          }
+        };
+      });
+
+      test('returns false', () => {
+        const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Dragon Roost Cavern', 'Gohma Heart Container');
+
+        expect(isPotentialKeyLocation).toEqual(false);
       });
     });
   });
@@ -892,50 +871,35 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('maxKeysForDungeon', () => {
-    test('returns the max keys for DRC', () => {
-      const maxKeys = LogicHelper.maxKeysForDungeon('Dragon Roost Cavern');
+  describe('maxSmallKeysForDungeon', () => {
+    test('returns the max small keys for DRC', () => {
+      const maxKeys = LogicHelper.maxSmallKeysForDungeon('Dragon Roost Cavern');
 
-      expect(maxKeys).toEqual({
-        maxSmallKeys: 4,
-        maxBigKeys: 1
-      });
+      expect(maxKeys).toEqual(4);
     });
 
-    test('returns the max keys for FW', () => {
-      const maxKeys = LogicHelper.maxKeysForDungeon('Forbidden Woods');
+    test('returns the max small keys for FW', () => {
+      const maxKeys = LogicHelper.maxSmallKeysForDungeon('Forbidden Woods');
 
-      expect(maxKeys).toEqual({
-        maxSmallKeys: 1,
-        maxBigKeys: 1
-      });
+      expect(maxKeys).toEqual(1);
     });
 
-    test('returns the max keys for TotG', () => {
-      const maxKeys = LogicHelper.maxKeysForDungeon('Tower of the Gods');
+    test('returns the max small keys for TotG', () => {
+      const maxKeys = LogicHelper.maxSmallKeysForDungeon('Tower of the Gods');
 
-      expect(maxKeys).toEqual({
-        maxSmallKeys: 2,
-        maxBigKeys: 1
-      });
+      expect(maxKeys).toEqual(2);
     });
 
-    test('returns the max keys for ET', () => {
-      const maxKeys = LogicHelper.maxKeysForDungeon('Earth Temple');
+    test('returns the max small keys for ET', () => {
+      const maxKeys = LogicHelper.maxSmallKeysForDungeon('Earth Temple');
 
-      expect(maxKeys).toEqual({
-        maxSmallKeys: 3,
-        maxBigKeys: 1
-      });
+      expect(maxKeys).toEqual(3);
     });
 
-    test('returns the max keys for WT', () => {
-      const maxKeys = LogicHelper.maxKeysForDungeon('Wind Temple');
+    test('returns the max small keys for WT', () => {
+      const maxKeys = LogicHelper.maxSmallKeysForDungeon('Wind Temple');
 
-      expect(maxKeys).toEqual({
-        maxSmallKeys: 2,
-        maxBigKeys: 1
-      });
+      expect(maxKeys).toEqual(2);
     });
   });
 

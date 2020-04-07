@@ -218,6 +218,35 @@ describe('LogicCalculation', () => {
           });
         });
       });
+
+      describe('when checking or unlocking all potential key locations in FW', () => {
+        beforeEach(() => {
+          state = TrackerState.default()
+            .setItemValue('Grappling Hook', 1)
+            .setItemValue('Deku Leaf', 1)
+            .setItemValue('Hookshot', 1)
+            .setLocationChecked('Forbidden Woods', 'Chest Across Red Hanging Flower', true)
+            .setLocationChecked('Forbidden Woods', 'Chest in Locked Tree Trunk', true)
+            .setLocationChecked('Forbidden Woods', 'Big Key Chest', true);
+        });
+
+        test('guarantees all the keys in FW', () => {
+          logic = new LogicCalculation(state);
+
+          expect(logic.guaranteedKeys).toEqual({
+            'DRC Small Key': 4,
+            'DRC Big Key': 1,
+            'FW Small Key': 1,
+            'FW Big Key': 1,
+            'TotG Small Key': 0,
+            'TotG Big Key': 0,
+            'ET Small Key': 0,
+            'ET Big Key': 0,
+            'WT Small Key': 0,
+            'WT Big Key': 0
+          });
+        });
+      });
     });
   });
 
@@ -367,7 +396,7 @@ describe('LogicCalculation', () => {
     });
   });
 
-  describe('_keysRequiredForLocation', () => {
+  describe('_smallKeysRequiredForLocation', () => {
     describe('when the location has no requirements', () => {
       beforeEach(() => {
         setLocations({
@@ -379,13 +408,10 @@ describe('LogicCalculation', () => {
         });
       });
 
-      test('returns 0 small keys and 0 big keys', () => {
-        const keysRequired = LogicCalculation._keysRequiredForLocation('Dragon Roost Cavern', 'First Room');
+      test('returns 0', () => {
+        const keysRequired = LogicCalculation._smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
-        expect(keysRequired).toEqual({
-          smallKeysRequired: 0,
-          bigKeysRequired: 0
-        });
+        expect(keysRequired).toEqual(0);
       });
     });
 
@@ -400,13 +426,10 @@ describe('LogicCalculation', () => {
         });
       });
 
-      test('returns 0 small keys and 0 big keys', () => {
-        const keysRequired = LogicCalculation._keysRequiredForLocation('Dragon Roost Cavern', 'First Room');
+      test('returns 0', () => {
+        const keysRequired = LogicCalculation._smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
-        expect(keysRequired).toEqual({
-          smallKeysRequired: 0,
-          bigKeysRequired: 0
-        });
+        expect(keysRequired).toEqual(0);
       });
     });
 
@@ -421,13 +444,10 @@ describe('LogicCalculation', () => {
         });
       });
 
-      test('returns 1 small key and 0 big keys', () => {
-        const keysRequired = LogicCalculation._keysRequiredForLocation('Dragon Roost Cavern', 'First Room');
+      test('returns 1', () => {
+        const keysRequired = LogicCalculation._smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
-        expect(keysRequired).toEqual({
-          smallKeysRequired: 1,
-          bigKeysRequired: 0
-        });
+        expect(keysRequired).toEqual(1);
       });
     });
 
@@ -436,19 +456,16 @@ describe('LogicCalculation', () => {
         setLocations({
           'Dragon Roost Cavern': {
             'First Room': {
-              need: 'Grappling Hook & Deku Leaf & DRC Small Key x2 & DRC Big Key x1'
+              need: 'Grappling Hook & Deku Leaf & DRC Small Key x2 & DRC Big Key'
             }
           }
         });
       });
 
-      test('returns 2 small keys and 1 big key', () => {
-        const keysRequired = LogicCalculation._keysRequiredForLocation('Dragon Roost Cavern', 'First Room');
+      test('returns 2', () => {
+        const keysRequired = LogicCalculation._smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
-        expect(keysRequired).toEqual({
-          smallKeysRequired: 2,
-          bigKeysRequired: 1
-        });
+        expect(keysRequired).toEqual(2);
       });
     });
 
@@ -463,13 +480,10 @@ describe('LogicCalculation', () => {
         });
       });
 
-      test('returns 1 small key and 0 big keys', () => {
-        const keysRequired = LogicCalculation._keysRequiredForLocation('Dragon Roost Cavern', 'Big Key Chest');
+      test('returns 1', () => {
+        const keysRequired = LogicCalculation._smallKeysRequiredForLocation('Dragon Roost Cavern', 'Big Key Chest');
 
-        expect(keysRequired).toEqual({
-          smallKeysRequired: 1,
-          bigKeysRequired: 0
-        });
+        expect(keysRequired).toEqual(1);
       });
     });
   });
