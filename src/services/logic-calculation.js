@@ -67,7 +67,7 @@ export default class LogicCalculation {
     );
   }
 
-  _keysToMakeLocationAvailable(generalLocation, detailedLocation) {
+  static _keysRequiredForLocation(generalLocation, detailedLocation) {
     const smallKeyName = LogicHelper.smallKeyName(generalLocation);
     const bigKeyName = LogicHelper.bigKeyName(generalLocation);
 
@@ -90,19 +90,15 @@ export default class LogicCalculation {
       }
     }
 
-    return false;
+    throw Error(`Could not determine keys required for location: ${generalLocation} - ${detailedLocation}`);
   }
 
-  _isLocationAvailableWithKeys({
+  static _isLocationAvailableWithKeys({
     generalLocation,
     detailedLocation,
     numSmallKeys,
     numBigKeys
   }) {
-    if (this.isLocationAvailable(generalLocation, detailedLocation)) {
-      return true;
-    }
-
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
       detailedLocation
@@ -129,7 +125,7 @@ export default class LogicCalculation {
           }
         }
 
-        return this._isRequirementMet(requirement);
+        return true; // assume we have all items that aren't keys
       }
     });
   }
