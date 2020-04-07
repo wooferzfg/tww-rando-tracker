@@ -3,6 +3,10 @@ import _ from 'lodash';
 import Locations from './locations';
 
 describe('Locations', () => {
+  afterEach(() => {
+    Locations.reset();
+  });
+
   describe('initialize', () => {
     let itemLocationsFile;
 

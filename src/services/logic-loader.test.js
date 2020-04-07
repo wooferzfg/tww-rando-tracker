@@ -38,7 +38,7 @@ describe('LogicLoader', () => {
   });
 
   afterEach(() => {
-    Settings.version = null;
+    Settings.reset();
   });
 
   test('returns the item locations file and macros file', async () => {

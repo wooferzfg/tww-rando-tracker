@@ -5,9 +5,9 @@ import Settings from './settings';
 
 describe('LogicTweaks', () => {
   afterEach(() => {
-    Locations.locations = null;
-    Macros.macros = null;
-    Settings.options = null;
+    Locations.reset();
+    Macros.reset();
+    Settings.reset();
   });
 
   describe('updateLocations', () => {
