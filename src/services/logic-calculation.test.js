@@ -38,6 +38,7 @@ describe('LogicCalculation', () => {
           numStartingTriforceShards: 0,
           raceMode: false,
           randomizeCharts: false,
+          randomizeEntrances: 'Disabled',
           skipRematchBosses: true,
           startingGear: 0,
           swordMode: 'Start with Sword'

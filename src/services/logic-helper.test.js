@@ -587,6 +587,7 @@ describe('LogicHelper', () => {
           numStartingTriforceShards: 0,
           raceMode: false,
           randomizeCharts: false,
+          randomizeEntrances: 'Disabled',
           skipRematchBosses: true,
           startingGear: 0,
           swordMode: 'Randomized Sword'
@@ -622,6 +623,49 @@ describe('LogicHelper', () => {
 
     test('returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container', () => {
       const requirements = LogicHelper.requirementsForLocation('Dragon Roost Cavern', 'Gohma Heart Container');
+
+      expect(requirements).toMatchSnapshot();
+    });
+  });
+
+  describe('requirementsForEntrance', () => {
+    beforeEach(() => {
+      Settings.initialize({
+        options: {
+          keyLunacy: false,
+          numStartingTriforceShards: 0,
+          raceMode: false,
+          randomizeCharts: false,
+          randomizeEntrances: 'Dungeons & Secret Caves (Separately)',
+          skipRematchBosses: true,
+          startingGear: 0,
+          swordMode: 'Randomized Sword'
+        }
+      });
+
+      Locations.initialize(TEST_ITEM_LOCATIONS);
+      LogicTweaks.updateLocations();
+
+      Macros.initialize(TEST_MACROS);
+      LogicTweaks.updateMacros();
+
+      LogicHelper.initialize();
+    });
+
+    test('returns no requirements for Dragon Roost Cavern', () => {
+      const requirements = LogicHelper.requirementsForEntrance('Dragon Roost Cavern');
+
+      expect(requirements).toEqual(BooleanExpression.and('Nothing'));
+    });
+
+    test('returns simplified requirements for Forbidden Woods', () => {
+      const requirements = LogicHelper.requirementsForEntrance('Forbidden Woods');
+
+      expect(requirements).toMatchSnapshot();
+    });
+
+    test('returns simplified requirements for Bomb Island Secret Cave', () => {
+      const requirements = LogicHelper.requirementsForEntrance('Bomb Island Secret Cave');
 
       expect(requirements).toMatchSnapshot();
     });
@@ -1043,6 +1087,20 @@ describe('LogicHelper', () => {
           });
         });
       });
+    });
+  });
+
+  describe('_macroNameForEntrance', () => {
+    test('returns the correct macro name for a dungeon', () => {
+      const macroName = LogicHelper._macroNameForEntrance('Forbidden Woods');
+
+      expect(macroName).toEqual('Can Access Dungeon Entrance In Forest Haven Sector');
+    });
+
+    test('returns the correct macro name for a cave', () => {
+      const macroName = LogicHelper._macroNameForEntrance('Pawprint Isle Wizzrobe Cave');
+
+      expect(macroName).toEqual('Can Access Secret Cave Entrance on Pawprint Isle Side Isle');
     });
   });
 

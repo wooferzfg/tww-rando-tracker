@@ -1,7 +1,9 @@
 import _ from 'lodash';
 
+import CAVE_ENTRANCES from '../data/cave-entrances';
 import CAVES from '../data/caves';
 import CHARTS from '../data/charts';
+import DUNGEON_ENTRANCES from '../data/dungeon-entrances';
 import DUNGEONS from '../data/dungeons';
 import ISLANDS from '../data/islands';
 import ITEMS from '../data/items';
@@ -19,6 +21,7 @@ import Settings from './settings';
 export default class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
+      this.requirementsForEntrance,
       this.requirementsForLocation,
       this.smallKeysRequiredForLocation
     ]);
@@ -27,6 +30,7 @@ export default class LogicHelper {
   }
 
   static reset() {
+    Memoizer.invalidate(this.requirementsForEntrance);
     Memoizer.invalidate(this.requirementsForLocation);
     Memoizer.invalidate(this.smallKeysRequiredForLocation);
 
@@ -178,9 +182,31 @@ export default class LogicHelper {
     return this._simplifiedItemRequirements(rawRequirements);
   }
 
+  static requirementsForEntrance(entranceName) {
+    const macroName = this._macroNameForEntrance(entranceName);
+    const rawRequirements = this._booleanExpressionForRequirements(macroName);
+    return this._simplifiedItemRequirements(rawRequirements);
+  }
+
   static _rawRequirementsForLocation(generalLocation, detailedLocation) {
     const requirements = Locations.getLocation(generalLocation, detailedLocation).need;
     return this._booleanExpressionForRequirements(requirements);
+  }
+
+  static _macroNameForEntrance(dungeonOrCaveName) {
+    const dungeonIndex = _.indexOf(DUNGEONS, dungeonOrCaveName);
+    if (dungeonIndex >= 0) {
+      const dungeonEntranceName = _.get(DUNGEON_ENTRANCES, dungeonIndex);
+      return `Can Access Dungeon Entrance ${dungeonEntranceName}`;
+    }
+
+    const caveIndex = _.indexOf(CAVES, dungeonOrCaveName);
+    if (caveIndex >= 0) {
+      const caveEntranceName = _.get(CAVE_ENTRANCES, caveIndex);
+      return `Can Access Secret Cave Entrance on ${caveEntranceName}`;
+    }
+
+    throw Error(`Could not find macro name for entrance: ${dungeonOrCaveName}`);
   }
 
   static _isLocationAvailableWithSmallKeys(generalLocation, detailedLocation, numSmallKeys) {
