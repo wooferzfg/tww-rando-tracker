@@ -20,9 +20,7 @@ export default class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
       this.requirementsForLocation,
-      this.simplifiedItemRequirements,
-      this.smallKeysRequiredForLocation,
-      this._requirementImplies
+      this.smallKeysRequiredForLocation
     ]);
 
     this._setStartingAndImpossibleItems();
@@ -30,9 +28,7 @@ export default class LogicHelper {
 
   static reset() {
     Memoizer.invalidate(this.requirementsForLocation);
-    Memoizer.invalidate(this.simplifiedItemRequirements);
     Memoizer.invalidate(this.smallKeysRequiredForLocation);
-    Memoizer.invalidate(this._requirementImplies);
 
     this.startingItems = null;
     this.impossibleItems = null;
@@ -61,11 +57,6 @@ export default class LogicHelper {
 
   static getStartingItems() {
     return this.startingItems;
-  }
-
-  static requirementsForLocation(generalLocation, detailedLocation) {
-    const requirements = Locations.getLocation(generalLocation, detailedLocation).need;
-    return this._booleanExpressionForRequirements(requirements);
   }
 
   static isMainDungeon(dungeonName) {
@@ -182,13 +173,14 @@ export default class LogicHelper {
     throw Error(`Could not determine keys required for location: ${generalLocation} - ${detailedLocation}`);
   }
 
-  static simplifiedItemRequirements(requirements) {
-    return requirements.simplify({
-      implies: (
-        firstRequirement,
-        secondRequirement
-      ) => this._requirementImplies(firstRequirement, secondRequirement)
-    });
+  static requirementsForLocation(generalLocation, detailedLocation) {
+    const rawRequirements = this._rawRequirementsForLocation(generalLocation, detailedLocation);
+    return this._simplifiedItemRequirements(rawRequirements);
+  }
+
+  static _rawRequirementsForLocation(generalLocation, detailedLocation) {
+    const requirements = Locations.getLocation(generalLocation, detailedLocation).need;
+    return this._booleanExpressionForRequirements(requirements);
   }
 
   static _isLocationAvailableWithSmallKeys(generalLocation, detailedLocation, numSmallKeys) {
@@ -216,6 +208,15 @@ export default class LogicHelper {
 
         return true; // assume we have all items that aren't keys
       }
+    });
+  }
+
+  static _simplifiedItemRequirements(requirements) {
+    return requirements.simplify({
+      implies: (
+        firstRequirement,
+        secondRequirement
+      ) => this._requirementImplies(firstRequirement, secondRequirement)
     });
   }
 
@@ -338,7 +339,7 @@ export default class LogicHelper {
         detailedLocation
       } = Locations.splitLocationName(otherLocationMatch[1]);
 
-      return this.requirementsForLocation(generalLocation, detailedLocation);
+      return this._rawRequirementsForLocation(generalLocation, detailedLocation);
     }
 
     return null;
