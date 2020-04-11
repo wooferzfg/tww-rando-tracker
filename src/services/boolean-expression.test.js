@@ -72,8 +72,8 @@ describe('BooleanExpression', () => {
   });
 
   describe('isEqualTo', () => {
-    let expression; let
-      mockAreItemsEqual;
+    let expression;
+    let mockAreItemsEqual;
 
     beforeEach(() => {
       expression = BooleanExpression.or(

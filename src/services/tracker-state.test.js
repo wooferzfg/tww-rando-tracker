@@ -58,10 +58,10 @@ describe('TrackerState', () => {
   describe('createStateManually', () => {
     test('creates the state with the provided entrances, items, and locations checked', () => {
       const items = {
-        'Test Item': 2
+        'Deku Leaf': 2
       };
       const entrances = {
-        'Test Entrance': 'Other Entrance'
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern'
       };
       const locationsChecked = {
         'Dragon Roost Cavern': {
@@ -87,27 +87,29 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.items = {
-        'Test Item': 2
+        'Deku Leaf': 2
       };
     });
 
     test('returns the value of the item', () => {
-      const itemValue = state.getItemValue('Test Item');
+      const itemValue = state.getItemValue('Deku Leaf');
 
       expect(itemValue).toEqual(2);
     });
   });
 
   describe('setItemValue', () => {
-    let state; let initialItems; let initialEntrances; let
-      initialLocationsChecked;
+    let state;
+    let initialItems;
+    let initialEntrances;
+    let initialLocationsChecked;
 
     beforeEach(() => {
       initialItems = {
-        'Test Item': 2
+        'Deku Leaf': 2
       };
       initialEntrances = {
-        'Test Entrance': 'Other Entrance'
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern'
       };
       initialLocationsChecked = {
         'Dragon Roost Cavern': {
@@ -123,13 +125,13 @@ describe('TrackerState', () => {
     });
 
     test('returns a new state with the item value modified', () => {
-      const newState = state.setItemValue('Test Item', 3);
+      const newState = state.setItemValue('Deku Leaf', 3);
 
-      expect(newState.items['Test Item']).toEqual(3);
+      expect(newState.items['Deku Leaf']).toEqual(3);
     });
 
     test('keeps the other values unmodified', () => {
-      const newState = state.setItemValue('Test Item', 3);
+      const newState = state.setItemValue('Deku Leaf', 3);
 
       expect(state.items).toEqual(initialItems);
       expect(state.entrances).toEqual(initialEntrances);
@@ -145,27 +147,29 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.entrances = {
-        'Test Entrance': 'Other Entrance'
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern'
       };
     });
 
     test('returns the value of the entrance', () => {
-      const entranceValue = state.getEntranceValue('Test Entrance');
+      const entranceValue = state.getEntranceValue('Needle Rock Isle Secret Cave');
 
-      expect(entranceValue).toEqual('Other Entrance');
+      expect(entranceValue).toEqual('Dragon Roost Cavern');
     });
   });
 
   describe('setEntranceValue', () => {
-    let state; let initialItems; let initialEntrances; let
-      initialLocationsChecked;
+    let state;
+    let initialItems;
+    let initialEntrances;
+    let initialLocationsChecked;
 
     beforeEach(() => {
       initialItems = {
-        'Test Item': 2
+        'Deku Leaf': 2
       };
       initialEntrances = {
-        'Test Entrance': 'Other Entrance'
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern'
       };
       initialLocationsChecked = {
         'Dragon Roost Cavern': {
@@ -181,13 +185,13 @@ describe('TrackerState', () => {
     });
 
     test('returns a new state with the entrance value modified', () => {
-      const newState = state.setEntranceValue('Test Entrance', 'Other Entrance 2');
+      const newState = state.setEntranceValue('Needle Rock Isle Secret Cave', 'Forbidden Woods');
 
-      expect(newState.entrances['Test Entrance']).toEqual('Other Entrance 2');
+      expect(newState.entrances['Needle Rock Isle Secret Cave']).toEqual('Forbidden Woods');
     });
 
     test('keeps the other values unmodified', () => {
-      const newState = state.setEntranceValue('Test Entrance', 'Other Entrance 2');
+      const newState = state.setEntranceValue('Needle Rock Isle Secret Cave', 'Forbidden Woods');
 
       expect(state.items).toEqual(initialItems);
       expect(state.entrances).toEqual(initialEntrances);
@@ -217,15 +221,17 @@ describe('TrackerState', () => {
   });
 
   describe('setLocationChecked', () => {
-    let state; let initialItems; let initialEntrances; let
-      initialLocationsChecked;
+    let state;
+    let initialItems;
+    let initialEntrances;
+    let initialLocationsChecked;
 
     beforeEach(() => {
       initialItems = {
-        'Test Item': 2
+        'Deku Leaf': 2
       };
       initialEntrances = {
-        'Test Entrance': 'Other Entrance'
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern'
       };
       initialLocationsChecked = {
         'Dragon Roost Cavern': {
