@@ -182,8 +182,8 @@ export default class LogicHelper {
     return this._simplifiedItemRequirements(rawRequirements);
   }
 
-  static requirementsForEntrance(entranceName) {
-    const macroName = this._macroNameForEntrance(entranceName);
+  static requirementsForEntrance(dungeonOrCaveName) {
+    const macroName = this._macroNameForEntrance(dungeonOrCaveName);
     const rawRequirements = this._booleanExpressionForRequirements(macroName);
     return this._simplifiedItemRequirements(rawRequirements);
   }

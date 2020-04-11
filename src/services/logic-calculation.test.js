@@ -19,6 +19,11 @@ describe('LogicCalculation', () => {
     LogicHelper.reset();
   };
 
+  const setMacros = (macrosList) => {
+    Macros.macros = macrosList;
+    LogicHelper.reset();
+  };
+
   beforeEach(() => {
     logic = new LogicCalculation(TrackerState.default());
   });
@@ -315,6 +320,44 @@ describe('LogicCalculation', () => {
         const isLocationAvailable = logic.isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(isLocationAvailable).toEqual(false);
+      });
+    });
+  });
+
+  describe('isEntranceAvailable', () => {
+    describe('when the entrance requirements are met', () => {
+      beforeEach(() => {
+        setMacros({
+          'Can Access Dungeon Entrance On Headstone Island': 'Power Bracelets'
+        });
+
+        logic = new LogicCalculation(
+          logic.state.setItemValue('Power Bracelets', 1)
+        );
+      });
+
+      test('returns true', () => {
+        const isEntranceAvailable = logic.isEntranceAvailable('Earth Temple');
+
+        expect(isEntranceAvailable).toEqual(true);
+      });
+    });
+
+    describe('when the location requirements are not met', () => {
+      beforeEach(() => {
+        setMacros({
+          'Can Access Secret Cave Entrance on Diamond Steppe Island': 'Hookshot'
+        });
+
+        logic = new LogicCalculation(
+          logic.state.setItemValue('Hookshot', 0)
+        );
+      });
+
+      test('returns false', () => {
+        const isEntranceAvailable = logic.isEntranceAvailable('Diamond Steppe Island Warp Maze Cave');
+
+        expect(isEntranceAvailable).toEqual(false);
       });
     });
   });

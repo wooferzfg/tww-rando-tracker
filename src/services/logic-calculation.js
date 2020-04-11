@@ -13,6 +13,7 @@ export default class LogicCalculation {
     this.state = state;
 
     Memoizer.memoize(this, [
+      this.isEntranceAvailable,
       this.isLocationAvailable,
       this.itemsRemainingForLocation,
       this._itemsRemainingForRequirement
@@ -31,9 +32,13 @@ export default class LogicCalculation {
       detailedLocation
     );
 
-    return requirementsForLocation.evaluate({
-      isItemTrue: (requirement) => this._isRequirementMet(requirement)
-    });
+    return this._areRequirementsMet(requirementsForLocation);
+  }
+
+  isEntranceAvailable(dungeonOrCaveName) {
+    const requirementsForEntrance = LogicHelper.requirementsForEntrance(dungeonOrCaveName);
+
+    return this._areRequirementsMet(requirementsForEntrance);
   }
 
   itemsRemainingForLocation(generalLocation, detailedLocation) {
@@ -46,7 +51,17 @@ export default class LogicCalculation {
       detailedLocation
     );
 
-    return requirementsForLocation.reduce({
+    return this._itemsRemainingForRequirements(requirementsForLocation);
+  }
+
+  _areRequirementsMet(requirements) {
+    return requirements.evaluate({
+      isItemTrue: (requirement) => this._isRequirementMet(requirement)
+    });
+  }
+
+  _itemsRemainingForRequirements(requirements) {
+    return requirements.reduce({
       andInitialValue: 0,
       andReducer: ({
         accumulator,
