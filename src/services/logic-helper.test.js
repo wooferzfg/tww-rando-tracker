@@ -24,425 +24,6 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('requirementsForLocation', () => {
-    describe('when the location has no requirements', () => {
-      beforeEach(() => {
-        Locations.locations = {
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Nothing'
-            }
-          }
-        };
-      });
-
-      test('returns the requirements expression', () => {
-        const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-        expect(expression).toEqual(
-          BooleanExpression.and('Nothing')
-        );
-      });
-    });
-
-    describe('when the location requirements only contain items', () => {
-      beforeEach(() => {
-        Locations.locations = {
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: "Grappling Hook | Hero's Sword | Skull Hammer"
-            }
-          }
-        };
-      });
-
-      test('returns the requirements expression', () => {
-        const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-        expect(expression).toEqual(
-          BooleanExpression.or('Grappling Hook', "Hero's Sword", 'Skull Hammer')
-        );
-      });
-    });
-
-    describe('when the location requirements contain a starting item', () => {
-      describe('when the starting item is progressive', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Outset Island': {
-              'Savage Labyrinth - Floor 30': {
-                need: 'Progressive Sword x2'
-              }
-            }
-          };
-        });
-
-        describe('when the starting item meets the requirement', () => {
-          beforeEach(() => {
-            LogicHelper.startingItems = {
-              'Progressive Sword': 2
-            };
-          });
-
-          test('replaces the item in the requirements expression', () => {
-            const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-            expect(expression).toEqual(
-              BooleanExpression.and('Nothing')
-            );
-          });
-        });
-
-        describe('when the starting item does not meet the requirement', () => {
-          beforeEach(() => {
-            LogicHelper.startingItems = {
-              'Progressive Sword': 1
-            };
-          });
-
-          test('does not replace the item in the requirements expression', () => {
-            const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-            expect(expression).toEqual(
-              BooleanExpression.and('Progressive Sword x2')
-            );
-          });
-        });
-      });
-
-      describe('when the starting item is a normal item', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Outset Island': {
-              'Savage Labyrinth - Floor 30': {
-                need: 'Wind Waker'
-              }
-            }
-          };
-        });
-
-        describe('when the starting item meets the requirement', () => {
-          beforeEach(() => {
-            LogicHelper.startingItems = {
-              'Wind Waker': 1
-            };
-          });
-
-          test('replaces the item in the requirements expression', () => {
-            const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-            expect(expression).toEqual(
-              BooleanExpression.and('Nothing')
-            );
-          });
-        });
-
-        describe('when the starting item does not meet the requirement', () => {
-          beforeEach(() => {
-            LogicHelper.startingItems = {
-              'Wind Waker': 0
-            };
-          });
-
-          test('does not replace the item in the requirements expression', () => {
-            const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-            expect(expression).toEqual(
-              BooleanExpression.and('Wind Waker')
-            );
-          });
-        });
-      });
-    });
-
-    describe('when the location requirements contain an impossible item', () => {
-      describe('when the impossible item is progressive', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Outset Island': {
-              'Savage Labyrinth - Floor 30': {
-                need: 'Progressive Sword x2'
-              }
-            }
-          };
-        });
-
-        describe('when the impossible item meets the requirement', () => {
-          beforeEach(() => {
-            LogicHelper.impossibleItems = {
-              'Progressive Sword': 2
-            };
-          });
-
-          test('replaces the item in the requirements expression', () => {
-            const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-            expect(expression).toEqual(
-              BooleanExpression.and('Impossible')
-            );
-          });
-        });
-
-        describe('when the impossible item is more than the requirement', () => {
-          beforeEach(() => {
-            LogicHelper.impossibleItems = {
-              'Progressive Sword': 3
-            };
-          });
-
-          test('does not replace the item in the requirements expression', () => {
-            const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-            expect(expression).toEqual(
-              BooleanExpression.and('Progressive Sword x2')
-            );
-          });
-        });
-      });
-
-      describe('when the impossible item is a normal item', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Outset Island': {
-              'Savage Labyrinth - Floor 30': {
-                need: 'Wind Waker'
-              }
-            }
-          };
-
-          LogicHelper.impossibleItems = {
-            'Wind Waker': 1
-          };
-        });
-
-        test('replaces the item in the requirements expression', () => {
-          const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-          expect(expression).toEqual(
-            BooleanExpression.and('Impossible')
-          );
-        });
-      });
-    });
-
-    describe('when the location requirements have parentheses', () => {
-      beforeEach(() => {
-        Locations.locations = {
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: "Wind Waker | ((Grappling Hook & Hero's Bow) & Hero's Sword) | Skull Hammer"
-            }
-          }
-        };
-      });
-
-      test('returns the requirements expression', () => {
-        const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-        expect(expression).toEqual(
-          BooleanExpression.or(
-            'Wind Waker',
-            BooleanExpression.and(
-              BooleanExpression.and('Grappling Hook', "Hero's Bow"),
-              "Hero's Sword"
-            ),
-            'Skull Hammer'
-          )
-        );
-      });
-    });
-
-    describe('when the location requirements contain a macro', () => {
-      beforeEach(() => {
-        Locations.locations = {
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Grappling Hook | My Fake Macro | Skull Hammer'
-            }
-          }
-        };
-
-        Macros.macros = {
-          'My Fake Macro': "Grappling Hook | Hero's Sword"
-        };
-      });
-
-      test('returns the requirements expression', () => {
-        const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-        expect(expression).toEqual(
-          BooleanExpression.or(
-            'Grappling Hook',
-            BooleanExpression.or(
-              'Grappling Hook',
-              "Hero's Sword"
-            ),
-            'Skull Hammer'
-          )
-        );
-      });
-    });
-
-    describe('when the location requires another location', () => {
-      beforeEach(() => {
-        Locations.locations = {
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Can Access Other Location "Outset Island - Savage Labyrinth - Floor 50"'
-            },
-            'Savage Labyrinth - Floor 50': {
-              need: "Grappling Hook | Hero's Bow"
-            }
-          }
-        };
-      });
-
-      test('returns the requirements expression', () => {
-        const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-        expect(expression).toEqual(
-          BooleanExpression.and(
-            BooleanExpression.or('Grappling Hook', "Hero's Bow")
-          )
-        );
-      });
-    });
-
-    describe('option requirements', () => {
-      const testOptionRequirements = ({
-        requirements,
-        options,
-        expectedExpression
-      }) => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Outset Island': {
-              'Savage Labyrinth - Floor 30': {
-                need: requirements
-              }
-            }
-          };
-
-          Settings.initialize({ options });
-        });
-
-        test('returns the requirements expression', () => {
-          const expression = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-          expect(expression).toEqual(expectedExpression);
-        });
-      };
-
-      describe('when the location requires an option to be enabled', () => {
-        describe('when the option is enabled', () => {
-          testOptionRequirements({
-            requirements: 'Option "skip_rematch_bosses" Enabled',
-            options: { skipRematchBosses: true },
-            expectedExpression: BooleanExpression.and('Nothing')
-          });
-        });
-
-        describe('when the option is disabled', () => {
-          testOptionRequirements({
-            requirements: 'Option "skip_rematch_bosses" Enabled',
-            options: { skipRematchBosses: false },
-            expectedExpression: BooleanExpression.and('Impossible')
-          });
-        });
-      });
-
-      describe('when the location requires an option to be disabled', () => {
-        describe('when the option is enabled', () => {
-          testOptionRequirements({
-            requirements: 'Option "skip_rematch_bosses" Disabled',
-            options: { skipRematchBosses: true },
-            expectedExpression: BooleanExpression.and('Impossible')
-          });
-        });
-
-        describe('when the option is disabled', () => {
-          testOptionRequirements({
-            requirements: 'Option "skip_rematch_bosses" Disabled',
-            options: { skipRematchBosses: false },
-            expectedExpression: BooleanExpression.and('Nothing')
-          });
-        });
-      });
-
-      describe('when the location requires an option to match a value', () => {
-        describe('when the option matches the value', () => {
-          testOptionRequirements({
-            requirements: 'Option "sword_mode" Is "Swordless"',
-            options: { swordMode: 'Swordless' },
-            expectedExpression: BooleanExpression.and('Nothing')
-          });
-        });
-
-        describe('when the option does not match the value', () => {
-          testOptionRequirements({
-            requirements: 'Option "sword_mode" Is "Swordless"',
-            options: { swordMode: 'Swordless Start' },
-            expectedExpression: BooleanExpression.and('Impossible')
-          });
-        });
-      });
-
-      describe('when the location requires an option not to match a value', () => {
-        describe('when the option matches the value', () => {
-          testOptionRequirements({
-            requirements: 'Option "sword_mode" Is Not "Swordless"',
-            options: { swordMode: 'Swordless' },
-            expectedExpression: BooleanExpression.and('Impossible')
-          });
-        });
-
-        describe('when the option does not match the value', () => {
-          testOptionRequirements({
-            requirements: 'Option "sword_mode" Is Not "Swordless"',
-            options: { swordMode: 'Swordless Start' },
-            expectedExpression: BooleanExpression.and('Nothing')
-          });
-        });
-      });
-
-      describe('when the location requires an option to contain a value', () => {
-        describe('when the option contains the value', () => {
-          testOptionRequirements({
-            requirements: 'Option "starting_gear" Contains "Grappling Hook"',
-            options: { startingGear: ['Grappling Hook'] },
-            expectedExpression: BooleanExpression.and('Nothing')
-          });
-        });
-
-        describe('when the option does not contain the value', () => {
-          testOptionRequirements({
-            requirements: 'Option "starting_gear" Contains "Grappling Hook"',
-            options: { randomized_gear: ['Grappling Hook'] },
-            expectedExpression: BooleanExpression.and('Impossible')
-          });
-        });
-      });
-
-      describe('when the location requires an option not to contain a value', () => {
-        describe('when the option contains the value', () => {
-          testOptionRequirements({
-            requirements: 'Option "starting_gear" Does Not Contain "Grappling Hook"',
-            options: { startingGear: ['Grappling Hook'] },
-            expectedExpression: BooleanExpression.and('Impossible')
-          });
-        });
-
-        describe('when the option does not contain the value', () => {
-          testOptionRequirements({
-            requirements: 'Option "starting_gear" Does Not Contain "Grappling Hook"',
-            options: { randomized_gear: ['Grappling Hook'] },
-            expectedExpression: BooleanExpression.and('Nothing')
-          });
-        });
-      });
-    });
-  });
-
   describe('isMainDungeon', () => {
     describe('when the dungeon is a main dungeon', () => {
       test('returns true', () => {
@@ -998,9 +579,7 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('simplifiedItemRequirements', () => {
-    let requirements;
-
+  describe('requirementsForLocation', () => {
     beforeEach(() => {
       Settings.initialize({
         options: {
@@ -1023,51 +602,446 @@ describe('LogicHelper', () => {
       LogicHelper.initialize();
     });
 
-    describe('when the location is Dragon Roost Island - Wind Shrine', () => {
+    test('returns no requirements for Dragon Roost Island - Wind Shrine', () => {
+      const requirements = LogicHelper.requirementsForLocation('Dragon Roost Island', 'Wind Shrine');
+
+      expect(requirements).toEqual(BooleanExpression.and('Nothing'));
+    });
+
+    test('returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30', () => {
+      const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+      expect(requirements).toMatchSnapshot();
+    });
+
+    test('returns simplified requirements for Outset Island - Savage Labyrinth - Floor 50', () => {
+      const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 50');
+
+      expect(requirements).toMatchSnapshot();
+    });
+
+    test('returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container', () => {
+      const requirements = LogicHelper.requirementsForLocation('Dragon Roost Cavern', 'Gohma Heart Container');
+
+      expect(requirements).toMatchSnapshot();
+    });
+  });
+
+  describe('_rawRequirementsForLocation', () => {
+    describe('when the location has no requirements', () => {
       beforeEach(() => {
-        requirements = LogicHelper.requirementsForLocation('Dragon Roost Island', 'Wind Shrine');
+        Locations.locations = {
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Nothing'
+            }
+          }
+        };
       });
 
-      test('returns no requirements', () => {
-        const simplifiedRequirements = LogicHelper.simplifiedItemRequirements(requirements);
+      test('returns the requirements expression', () => {
+        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
-        expect(simplifiedRequirements).toEqual(BooleanExpression.and('Nothing'));
+        expect(expression).toEqual(
+          BooleanExpression.and('Nothing')
+        );
       });
     });
 
-    describe('when the location is Outset Island - Savage Labyrinth - Floor 30', () => {
+    describe('when the location requirements only contain items', () => {
       beforeEach(() => {
-        requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        Locations.locations = {
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: "Grappling Hook | Hero's Sword | Skull Hammer"
+            }
+          }
+        };
       });
 
-      test('returns the simplified requirements', () => {
-        const simplifiedRequirements = LogicHelper.simplifiedItemRequirements(requirements);
+      test('returns the requirements expression', () => {
+        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
-        expect(simplifiedRequirements).toMatchSnapshot();
+        expect(expression).toEqual(
+          BooleanExpression.or('Grappling Hook', "Hero's Sword", 'Skull Hammer')
+        );
       });
     });
 
-    describe('when the location is Outset Island - Savage Labyrinth - Floor 50', () => {
-      beforeEach(() => {
-        requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 50');
+    describe('when the location requirements contain a starting item', () => {
+      describe('when the starting item is progressive', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Outset Island': {
+              'Savage Labyrinth - Floor 30': {
+                need: 'Progressive Sword x2'
+              }
+            }
+          };
+        });
+
+        describe('when the starting item meets the requirement', () => {
+          beforeEach(() => {
+            LogicHelper.startingItems = {
+              'Progressive Sword': 2
+            };
+          });
+
+          test('replaces the item in the requirements expression', () => {
+            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+            expect(expression).toEqual(
+              BooleanExpression.and('Nothing')
+            );
+          });
+        });
+
+        describe('when the starting item does not meet the requirement', () => {
+          beforeEach(() => {
+            LogicHelper.startingItems = {
+              'Progressive Sword': 1
+            };
+          });
+
+          test('does not replace the item in the requirements expression', () => {
+            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+            expect(expression).toEqual(
+              BooleanExpression.and('Progressive Sword x2')
+            );
+          });
+        });
       });
 
-      test('returns the simplified requirements', () => {
-        const simplifiedRequirements = LogicHelper.simplifiedItemRequirements(requirements);
+      describe('when the starting item is a normal item', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Outset Island': {
+              'Savage Labyrinth - Floor 30': {
+                need: 'Wind Waker'
+              }
+            }
+          };
+        });
 
-        expect(simplifiedRequirements).toMatchSnapshot();
+        describe('when the starting item meets the requirement', () => {
+          beforeEach(() => {
+            LogicHelper.startingItems = {
+              'Wind Waker': 1
+            };
+          });
+
+          test('replaces the item in the requirements expression', () => {
+            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+            expect(expression).toEqual(
+              BooleanExpression.and('Nothing')
+            );
+          });
+        });
+
+        describe('when the starting item does not meet the requirement', () => {
+          beforeEach(() => {
+            LogicHelper.startingItems = {
+              'Wind Waker': 0
+            };
+          });
+
+          test('does not replace the item in the requirements expression', () => {
+            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+            expect(expression).toEqual(
+              BooleanExpression.and('Wind Waker')
+            );
+          });
+        });
       });
     });
 
-    describe('when the location is Dragon Roost Cavern - Gohma Heart Container', () => {
-      beforeEach(() => {
-        requirements = LogicHelper.requirementsForLocation('Dragon Roost Cavern', 'Gohma Heart Container');
+    describe('when the location requirements contain an impossible item', () => {
+      describe('when the impossible item is progressive', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Outset Island': {
+              'Savage Labyrinth - Floor 30': {
+                need: 'Progressive Sword x2'
+              }
+            }
+          };
+        });
+
+        describe('when the impossible item meets the requirement', () => {
+          beforeEach(() => {
+            LogicHelper.impossibleItems = {
+              'Progressive Sword': 2
+            };
+          });
+
+          test('replaces the item in the requirements expression', () => {
+            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+            expect(expression).toEqual(
+              BooleanExpression.and('Impossible')
+            );
+          });
+        });
+
+        describe('when the impossible item is more than the requirement', () => {
+          beforeEach(() => {
+            LogicHelper.impossibleItems = {
+              'Progressive Sword': 3
+            };
+          });
+
+          test('does not replace the item in the requirements expression', () => {
+            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+            expect(expression).toEqual(
+              BooleanExpression.and('Progressive Sword x2')
+            );
+          });
+        });
       });
 
-      test('returns the simplified requirements', () => {
-        const simplifiedRequirements = LogicHelper.simplifiedItemRequirements(requirements);
+      describe('when the impossible item is a normal item', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Outset Island': {
+              'Savage Labyrinth - Floor 30': {
+                need: 'Wind Waker'
+              }
+            }
+          };
 
-        expect(simplifiedRequirements).toMatchSnapshot();
+          LogicHelper.impossibleItems = {
+            'Wind Waker': 1
+          };
+        });
+
+        test('replaces the item in the requirements expression', () => {
+          const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+          expect(expression).toEqual(
+            BooleanExpression.and('Impossible')
+          );
+        });
+      });
+    });
+
+    describe('when the location requirements have parentheses', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: "Wind Waker | ((Grappling Hook & Hero's Bow) & Hero's Sword) | Skull Hammer"
+            }
+          }
+        };
+      });
+
+      test('returns the requirements expression', () => {
+        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(expression).toEqual(
+          BooleanExpression.or(
+            'Wind Waker',
+            BooleanExpression.and(
+              BooleanExpression.and('Grappling Hook', "Hero's Bow"),
+              "Hero's Sword"
+            ),
+            'Skull Hammer'
+          )
+        );
+      });
+    });
+
+    describe('when the location requirements contain a macro', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Grappling Hook | My Fake Macro | Skull Hammer'
+            }
+          }
+        };
+
+        Macros.macros = {
+          'My Fake Macro': "Grappling Hook | Hero's Sword"
+        };
+      });
+
+      test('returns the requirements expression', () => {
+        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(expression).toEqual(
+          BooleanExpression.or(
+            'Grappling Hook',
+            BooleanExpression.or(
+              'Grappling Hook',
+              "Hero's Sword"
+            ),
+            'Skull Hammer'
+          )
+        );
+      });
+    });
+
+    describe('when the location requires another location', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Can Access Other Location "Outset Island - Savage Labyrinth - Floor 50"'
+            },
+            'Savage Labyrinth - Floor 50': {
+              need: "Grappling Hook | Hero's Bow"
+            }
+          }
+        };
+      });
+
+      test('returns the requirements expression', () => {
+        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(expression).toEqual(
+          BooleanExpression.and(
+            BooleanExpression.or('Grappling Hook', "Hero's Bow")
+          )
+        );
+      });
+    });
+
+    describe('option requirements', () => {
+      const testOptionRequirements = ({
+        requirements,
+        options,
+        expectedExpression
+      }) => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Outset Island': {
+              'Savage Labyrinth - Floor 30': {
+                need: requirements
+              }
+            }
+          };
+
+          Settings.initialize({ options });
+        });
+
+        test('returns the requirements expression', () => {
+          const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+          expect(expression).toEqual(expectedExpression);
+        });
+      };
+
+      describe('when the location requires an option to be enabled', () => {
+        describe('when the option is enabled', () => {
+          testOptionRequirements({
+            requirements: 'Option "skip_rematch_bosses" Enabled',
+            options: { skipRematchBosses: true },
+            expectedExpression: BooleanExpression.and('Nothing')
+          });
+        });
+
+        describe('when the option is disabled', () => {
+          testOptionRequirements({
+            requirements: 'Option "skip_rematch_bosses" Enabled',
+            options: { skipRematchBosses: false },
+            expectedExpression: BooleanExpression.and('Impossible')
+          });
+        });
+      });
+
+      describe('when the location requires an option to be disabled', () => {
+        describe('when the option is enabled', () => {
+          testOptionRequirements({
+            requirements: 'Option "skip_rematch_bosses" Disabled',
+            options: { skipRematchBosses: true },
+            expectedExpression: BooleanExpression.and('Impossible')
+          });
+        });
+
+        describe('when the option is disabled', () => {
+          testOptionRequirements({
+            requirements: 'Option "skip_rematch_bosses" Disabled',
+            options: { skipRematchBosses: false },
+            expectedExpression: BooleanExpression.and('Nothing')
+          });
+        });
+      });
+
+      describe('when the location requires an option to match a value', () => {
+        describe('when the option matches the value', () => {
+          testOptionRequirements({
+            requirements: 'Option "sword_mode" Is "Swordless"',
+            options: { swordMode: 'Swordless' },
+            expectedExpression: BooleanExpression.and('Nothing')
+          });
+        });
+
+        describe('when the option does not match the value', () => {
+          testOptionRequirements({
+            requirements: 'Option "sword_mode" Is "Swordless"',
+            options: { swordMode: 'Swordless Start' },
+            expectedExpression: BooleanExpression.and('Impossible')
+          });
+        });
+      });
+
+      describe('when the location requires an option not to match a value', () => {
+        describe('when the option matches the value', () => {
+          testOptionRequirements({
+            requirements: 'Option "sword_mode" Is Not "Swordless"',
+            options: { swordMode: 'Swordless' },
+            expectedExpression: BooleanExpression.and('Impossible')
+          });
+        });
+
+        describe('when the option does not match the value', () => {
+          testOptionRequirements({
+            requirements: 'Option "sword_mode" Is Not "Swordless"',
+            options: { swordMode: 'Swordless Start' },
+            expectedExpression: BooleanExpression.and('Nothing')
+          });
+        });
+      });
+
+      describe('when the location requires an option to contain a value', () => {
+        describe('when the option contains the value', () => {
+          testOptionRequirements({
+            requirements: 'Option "starting_gear" Contains "Grappling Hook"',
+            options: { startingGear: ['Grappling Hook'] },
+            expectedExpression: BooleanExpression.and('Nothing')
+          });
+        });
+
+        describe('when the option does not contain the value', () => {
+          testOptionRequirements({
+            requirements: 'Option "starting_gear" Contains "Grappling Hook"',
+            options: { randomized_gear: ['Grappling Hook'] },
+            expectedExpression: BooleanExpression.and('Impossible')
+          });
+        });
+      });
+
+      describe('when the location requires an option not to contain a value', () => {
+        describe('when the option contains the value', () => {
+          testOptionRequirements({
+            requirements: 'Option "starting_gear" Does Not Contain "Grappling Hook"',
+            options: { startingGear: ['Grappling Hook'] },
+            expectedExpression: BooleanExpression.and('Impossible')
+          });
+        });
+
+        describe('when the option does not contain the value', () => {
+          testOptionRequirements({
+            requirements: 'Option "starting_gear" Does Not Contain "Grappling Hook"',
+            options: { randomized_gear: ['Grappling Hook'] },
+            expectedExpression: BooleanExpression.and('Nothing')
+          });
+        });
       });
     });
   });
