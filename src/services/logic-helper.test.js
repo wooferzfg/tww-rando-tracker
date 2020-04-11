@@ -1,6 +1,10 @@
+import TEST_ITEM_LOCATIONS from '../data/test-item-locations';
+import TEST_MACROS from '../data/test-macros';
+
 import BooleanExpression from './boolean-expression';
 import Locations from './locations';
 import LogicHelper from './logic-helper';
+import LogicTweaks from './logic-tweaks';
 import Macros from './macros';
 import Settings from './settings';
 
@@ -991,6 +995,148 @@ describe('LogicHelper', () => {
 
         expect(keysRequired).toEqual(1);
       });
+    });
+  });
+
+  describe('simplifiedItemRequirements', () => {
+    let requirements;
+
+    beforeEach(() => {
+      Settings.initialize({
+        options: {
+          keyLunacy: false,
+          numStartingTriforceShards: 0,
+          raceMode: false,
+          randomizeCharts: false,
+          skipRematchBosses: true,
+          startingGear: 0,
+          swordMode: 'Randomized Sword'
+        }
+      });
+
+      Locations.initialize(TEST_ITEM_LOCATIONS);
+      LogicTweaks.updateLocations();
+
+      Macros.initialize(TEST_MACROS);
+      LogicTweaks.updateMacros();
+
+      LogicHelper.initialize();
+    });
+
+    describe('when the location is Dragon Roost Island - Wind Shrine', () => {
+      beforeEach(() => {
+        requirements = LogicHelper.requirementsForLocation('Dragon Roost Island', 'Wind Shrine');
+      });
+
+      test('returns no requirements', () => {
+        const simplifiedRequirements = LogicHelper.simplifiedItemRequirements(requirements);
+
+        expect(simplifiedRequirements).toEqual(BooleanExpression.and('Nothing'));
+      });
+    });
+
+    describe('when the location is Outset Island - Savage Labyrinth - Floor 30', () => {
+      beforeEach(() => {
+        requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+      });
+
+      test('returns the simplified requirements', () => {
+        const simplifiedRequirements = LogicHelper.simplifiedItemRequirements(requirements);
+
+        expect(simplifiedRequirements).toMatchSnapshot();
+      });
+    });
+
+    describe('when the location is Outset Island - Savage Labyrinth - Floor 50', () => {
+      beforeEach(() => {
+        requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 50');
+      });
+
+      test('returns the simplified requirements', () => {
+        const simplifiedRequirements = LogicHelper.simplifiedItemRequirements(requirements);
+
+        expect(simplifiedRequirements).toMatchSnapshot();
+      });
+    });
+
+    describe('when the location is Dragon Roost Cavern - Gohma Heart Container', () => {
+      beforeEach(() => {
+        requirements = LogicHelper.requirementsForLocation('Dragon Roost Cavern', 'Gohma Heart Container');
+      });
+
+      test('returns the simplified requirements', () => {
+        const simplifiedRequirements = LogicHelper.simplifiedItemRequirements(requirements);
+
+        expect(simplifiedRequirements).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('_requirementImplies', () => {
+    test('returns true when the second requirement is nothing', () => {
+      const implies = LogicHelper._requirementImplies('Grappling Hook', 'Nothing');
+
+      expect(implies).toEqual(true);
+    });
+
+    test('returns false when the first requirement is nothing', () => {
+      const implies = LogicHelper._requirementImplies('Nothing', 'Grappling Hook');
+
+      expect(implies).toEqual(false);
+    });
+
+    test('returns true when the first requirement is impossible', () => {
+      const implies = LogicHelper._requirementImplies('Impossible', 'Grappling Hook');
+
+      expect(implies).toEqual(true);
+    });
+
+    test('returns false when the second requirement is impossible', () => {
+      const implies = LogicHelper._requirementImplies('Grappling Hook', 'Impossible');
+
+      expect(implies).toEqual(false);
+    });
+
+    test('returns true when both requirements are the same standard item', () => {
+      const implies = LogicHelper._requirementImplies('Grappling Hook', 'Grappling Hook');
+
+      expect(implies).toEqual(true);
+    });
+
+    test('returns false when the requirements are different standard items', () => {
+      const implies = LogicHelper._requirementImplies('Deku Leaf', 'Grappling Hook');
+
+      expect(implies).toEqual(false);
+    });
+
+    test('returns false when the one item is standard and the other is progressive', () => {
+      const implies = LogicHelper._requirementImplies('Deku Leaf', 'Progressive Sword x2');
+
+      expect(implies).toEqual(false);
+    });
+
+    test('returns true when both requirements are the same progressive item', () => {
+      const implies = LogicHelper._requirementImplies('Progressive Sword x2', 'Progressive Sword x2');
+
+      expect(implies).toEqual(true);
+    });
+
+    test('returns false when both requirements are different progressive items with the same count', () => {
+      const implies = LogicHelper._requirementImplies('Progressive Bow x2', 'Progressive Sword x2');
+
+      expect(implies).toEqual(false);
+    });
+
+    test('returns true when the first requirement is the same progressive item with a higher count', () => {
+      const implies = LogicHelper._requirementImplies('Progressive Sword x3', 'Progressive Sword x2');
+
+      expect(implies).toEqual(true);
+    });
+
+    test('returns false when the first requirement is the same progressive item with a lower count', () => {
+      const implies = LogicHelper._requirementImplies('Progressive Sword x3', 'Progressive Sword x4');
+
+      expect(implies).toEqual(false);
     });
   });
 
