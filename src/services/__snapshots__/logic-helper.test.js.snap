@@ -382,6 +382,36 @@ Array [
 ]
 `;
 
+exports[`LogicHelper requirementsForEntrance returns simplified requirements for Bomb Island Secret Cave 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Bombs",
+    "Power Bracelets",
+  ],
+  "type": "or",
+}
+`;
+
+exports[`LogicHelper requirementsForEntrance returns simplified requirements for Forbidden Woods 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Grappling Hook",
+    "Deku Leaf",
+    BooleanExpression {
+      "items": Array [
+        "Progressive Sword x1",
+        "Skull Hammer",
+        "Boomerang",
+        "Bombs",
+        "Magic Meter Upgrade",
+      ],
+      "type": "or",
+    },
+  ],
+  "type": "and",
+}
+`;
+
 exports[`LogicHelper requirementsForLocation returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container 1`] = `
 BooleanExpression {
   "items": Array [
