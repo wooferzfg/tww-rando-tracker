@@ -20,7 +20,9 @@ export default class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
       this.requirementsForLocation,
-      this.smallKeysRequiredForLocation
+      this.simplifiedItemRequirements,
+      this.smallKeysRequiredForLocation,
+      this._requirementImplies
     ]);
 
     this._setStartingAndImpossibleItems();
@@ -28,7 +30,9 @@ export default class LogicHelper {
 
   static reset() {
     Memoizer.invalidate(this.requirementsForLocation);
+    Memoizer.invalidate(this.simplifiedItemRequirements);
     Memoizer.invalidate(this.smallKeysRequiredForLocation);
+    Memoizer.invalidate(this._requirementImplies);
 
     this.startingItems = null;
     this.impossibleItems = null;
@@ -178,6 +182,15 @@ export default class LogicHelper {
     throw Error(`Could not determine keys required for location: ${generalLocation} - ${detailedLocation}`);
   }
 
+  static simplifiedItemRequirements(requirements) {
+    return requirements.simplify({
+      implies: (
+        firstRequirement,
+        secondRequirement
+      ) => this._requirementImplies(firstRequirement, secondRequirement)
+    });
+  }
+
   static _isLocationAvailableWithSmallKeys(generalLocation, detailedLocation, numSmallKeys) {
     const requirementsForLocation = this.requirementsForLocation(
       generalLocation,
@@ -204,6 +217,31 @@ export default class LogicHelper {
         return true; // assume we have all items that aren't keys
       }
     });
+  }
+
+  static _requirementImplies(firstRequirement, secondRequirement) {
+    if (firstRequirement === secondRequirement) {
+      return true;
+    }
+
+    if (firstRequirement === this.TOKENS.IMPOSSIBLE) {
+      return true;
+    }
+
+    if (secondRequirement === this.TOKENS.NOTHING) {
+      return true;
+    }
+
+    const firstItemCountRequirement = LogicHelper.parseItemCountRequirement(firstRequirement);
+    const secondItemCountRequirement = LogicHelper.parseItemCountRequirement(secondRequirement);
+
+    if (!_.isNil(firstItemCountRequirement) && !_.isNil(secondItemCountRequirement)) {
+      if (firstItemCountRequirement.itemName === secondItemCountRequirement.itemName) {
+        return firstItemCountRequirement.countRequired > secondItemCountRequirement.countRequired;
+      }
+    }
+
+    return false;
   }
 
   static _setStartingAndImpossibleItems() {

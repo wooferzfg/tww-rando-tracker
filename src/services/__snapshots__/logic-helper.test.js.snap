@@ -381,3 +381,122 @@ Array [
   "WT Small Key",
 ]
 `;
+
+exports[`LogicHelper simplifiedItemRequirements when the location is Dragon Roost Cavern - Gohma Heart Container returns the simplified requirements 1`] = `
+BooleanExpression {
+  "items": Array [
+    "DRC Small Key x4",
+    "Grappling Hook",
+    "DRC Big Key",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper simplifiedItemRequirements when the location is Outset Island - Savage Labyrinth - Floor 30 returns the simplified requirements 1`] = `
+BooleanExpression {
+  "items": Array [
+    BooleanExpression {
+      "items": Array [
+        BooleanExpression {
+          "items": Array [
+            BooleanExpression {
+              "items": Array [
+                "Progressive Sword x1",
+                "Boomerang",
+                "Skull Hammer",
+              ],
+              "type": "or",
+            },
+            "Deku Leaf",
+          ],
+          "type": "and",
+        },
+        "Hookshot",
+      ],
+      "type": "or",
+    },
+    "Power Bracelets",
+    BooleanExpression {
+      "items": Array [
+        "Boomerang",
+        BooleanExpression {
+          "items": Array [
+            "Hookshot",
+            "Progressive Sword x1",
+          ],
+          "type": "and",
+        },
+        BooleanExpression {
+          "items": Array [
+            "Deku Leaf",
+            "Progressive Sword x1",
+          ],
+          "type": "and",
+        },
+        "Skull Hammer",
+        "Progressive Bow x1",
+        "Bombs",
+      ],
+      "type": "or",
+    },
+    BooleanExpression {
+      "items": Array [
+        BooleanExpression {
+          "items": Array [
+            "Boomerang",
+            "Progressive Sword x1",
+          ],
+          "type": "and",
+        },
+        "Progressive Bow x1",
+        "Bombs",
+        BooleanExpression {
+          "items": Array [
+            "Deku Leaf",
+            "Progressive Sword x1",
+          ],
+          "type": "and",
+        },
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+    BooleanExpression {
+      "items": Array [
+        "Progressive Sword x1",
+        "Progressive Bow x3",
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+    BooleanExpression {
+      "items": Array [
+        "Grappling Hook",
+        "Progressive Sword x1",
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper simplifiedItemRequirements when the location is Outset Island - Savage Labyrinth - Floor 50 returns the simplified requirements 1`] = `
+BooleanExpression {
+  "items": Array [
+    BooleanExpression {
+      "items": Array [
+        "Deku Leaf",
+        "Hookshot",
+      ],
+      "type": "or",
+    },
+    "Power Bracelets",
+    "Mirror Shield",
+    "Skull Hammer",
+  ],
+  "type": "and",
+}
+`;
