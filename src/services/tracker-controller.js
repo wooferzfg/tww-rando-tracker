@@ -11,6 +11,8 @@ export default class TrackerController {
   static async initialize(settings, callbacks) {
     Settings.initialize(settings);
 
+    this.callbacks = callbacks;
+
     const {
       itemLocationsFile,
       macrosFile
@@ -23,9 +25,35 @@ export default class TrackerController {
 
     LogicHelper.initialize();
 
+    const trackerState = TrackerState.default();
+    this._refreshState(trackerState);
+  }
+
+  static initializeFromSaveData(settings, callbacks, saveData) {
+    Settings.initialize(settings);
+
     this.callbacks = callbacks;
 
-    this._refreshState(TrackerState.default());
+    const {
+      itemLocations,
+      macros,
+
+      entrances,
+      items,
+      locationsChecked
+    } = saveData;
+
+    Locations.initialize(itemLocations);
+    Macros.initialize(macros);
+
+    LogicHelper.initialize();
+
+    const trackerState = TrackerState.createStateManually({
+      entrances,
+      items,
+      locationsChecked
+    });
+    this._refreshState(trackerState);
   }
 
   static _refreshState(newState) {
