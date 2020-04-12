@@ -1,3 +1,6 @@
+import TEST_ITEM_LOCATIONS from '../data/test-item-locations';
+import TEST_MACROS from '../data/test-macros';
+
 import LogicTweaks from './logic-tweaks';
 import Locations from './locations';
 import Macros from './macros';
@@ -6,31 +9,8 @@ import Settings from './settings';
 describe('LogicTweaks', () => {
   describe('applyTweaks', () => {
     beforeEach(() => {
-      Locations.locations = {
-        Mailbox: {
-          'Letter from Baito': {
-            need: 'Delivery Bag & Note to Mom & Song of Passing & Can Access Other Location "Earth Temple - Jalhalla Heart Container"'
-          },
-          'Letter from Orca': {
-            need: 'Can Access Other Location "Forbidden Woods - Kalle Demos Heart Container"'
-          },
-          'Letter from Aryll': {
-            need: 'Can Access Other Location "Forsaken Fortress - Helmaroc King Heart Container" & Song of Passing'
-          },
-          'Letter from Tingle': {
-            need: 'Rescued Tingle & Any Wallet Upgrade & Can Access Other Location "Forsaken Fortress - Helmaroc King Heart Container" & Song of Passing'
-          }
-        },
-        'Tingle Island': {
-          'Ankle - Reward for All Tingle Statues': {
-            need: 'Dragon Tingle Statue & Forbidden Tingle Statue & Goddess Tingle Statue & Earth Tingle Statue & Wind Tingle Statue'
-          }
-        }
-      };
-
-      Macros.macros = {
-        "Can Farm Knight's Crests": 'Grappling Hook & Can Access Other Location "Ice Ring Isle - Inner Cave - Chest"'
-      };
+      Locations.initialize(TEST_ITEM_LOCATIONS);
+      Macros.initialize(TEST_MACROS);
     });
 
     afterEach(() => {
