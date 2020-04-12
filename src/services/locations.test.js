@@ -159,5 +159,29 @@ describe('Locations', () => {
       expect(generalLocation).toEqual('Outset Island');
       expect(detailedLocation).toEqual('Savage Labyrinth - Floor 30');
     });
+
+    test('returns the correct location when there are dashes in the general location', () => {
+      const input = 'Seven-Star Isles - Sunken Treasure';
+
+      const {
+        generalLocation,
+        detailedLocation
+      } = Locations.splitLocationName(input);
+
+      expect(generalLocation).toEqual('Seven-Star Isles');
+      expect(detailedLocation).toEqual('Sunken Treasure');
+    });
+
+    test('returns the correct location when there are dashes in the detailed location', () => {
+      const input = 'Windfall Island - Jail - Tingle - First Gift';
+
+      const {
+        generalLocation,
+        detailedLocation
+      } = Locations.splitLocationName(input);
+
+      expect(generalLocation).toEqual('Windfall Island');
+      expect(detailedLocation).toEqual('Jail - Tingle - First Gift');
+    });
   });
 });
