@@ -4,6 +4,7 @@ import CAVES from '../data/caves';
 import CHARTS from '../data/charts';
 import DUNGEONS from '../data/dungeons';
 import HAS_ACCESSED_LOCATION_TWEAKS from '../data/has-accessed-location-tweaks';
+import ISLANDS from '../data/islands';
 
 import Locations from './locations';
 import LogicHelper from './logic-helper';
@@ -19,6 +20,7 @@ export default class LogicTweaks {
   static _updateLocations() {
     this._addDefeatGanondorf();
     this._updateTingleStatueReward();
+    this._updateSunkenTriforceTypes();
     this._applyHasAccessedLocationTweaksForLocations();
   }
 
@@ -46,6 +48,21 @@ export default class LogicTweaks {
       'need',
       'Tingle Statue x5'
     );
+  }
+
+  static _updateSunkenTriforceTypes() {
+    _.forEach(ISLANDS, (islandName) => {
+      const { originalItem } = Locations.getLocation(islandName, 'Sunken Treasure');
+
+      if (_.startsWith(originalItem, 'Triforce Shard')) {
+        Locations.setLocation(
+          islandName,
+          'Sunken Treasure',
+          'types',
+          'Sunken Triforce'
+        );
+      }
+    });
   }
 
   static _replaceCanAccessOtherLocation(requirements) {
@@ -107,7 +124,7 @@ export default class LogicTweaks {
   static _updateChartMacros() {
     if (Settings.getOptionValue('randomizeCharts')) {
       _.forEach(CHARTS, (chart, index) => {
-        // We assume everything is a Treasure Chart and clear any additional requirements like
+        // Assume everything is a Treasure Chart and clear any additional requirements like
         // wallet upgrades
         const macroName = `Chart for Island ${index + 1}`;
         Macros.setMacro(macroName, chart);
