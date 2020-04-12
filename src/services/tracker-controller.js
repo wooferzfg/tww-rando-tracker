@@ -17,10 +17,9 @@ export default class TrackerController {
     } = await LogicLoader.loadLogicFiles();
 
     Locations.initialize(itemLocationsFile);
-    LogicTweaks.updateLocations();
-
     Macros.initialize(macrosFile);
-    LogicTweaks.updateMacros();
+
+    LogicTweaks.applyTweaks();
 
     LogicHelper.initialize();
 

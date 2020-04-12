@@ -4,13 +4,7 @@ import Macros from './macros';
 import Settings from './settings';
 
 describe('LogicTweaks', () => {
-  afterEach(() => {
-    Locations.reset();
-    Macros.reset();
-    Settings.reset();
-  });
-
-  describe('updateLocations', () => {
+  describe('applyTweaks', () => {
     beforeEach(() => {
       Locations.locations = {
         Mailbox: {
@@ -33,25 +27,27 @@ describe('LogicTweaks', () => {
           }
         }
       };
-    });
 
-    test('updates the locations', () => {
-      LogicTweaks.updateLocations();
-
-      expect(Locations.locations).toMatchSnapshot();
-    });
-  });
-
-  describe('updateMacros', () => {
-    beforeEach(() => {
       Macros.macros = {
         "Can Farm Knight's Crests": 'Grappling Hook & Can Access Other Location "Ice Ring Isle - Inner Cave - Chest"'
       };
     });
 
+    afterEach(() => {
+      Locations.reset();
+      Macros.reset();
+      Settings.reset();
+    });
+
     describe('when no options are set', () => {
+      test('updates the locations', () => {
+        LogicTweaks.applyTweaks();
+
+        expect(Locations.locations).toMatchSnapshot();
+      });
+
       test('updates the macros', () => {
-        LogicTweaks.updateMacros();
+        LogicTweaks.applyTweaks();
 
         expect(Macros.macros).toMatchSnapshot();
       });
@@ -67,7 +63,7 @@ describe('LogicTweaks', () => {
       });
 
       test('updates the macros', () => {
-        LogicTweaks.updateMacros();
+        LogicTweaks.applyTweaks();
 
         expect(Macros.macros).toMatchSnapshot();
       });
@@ -83,7 +79,7 @@ describe('LogicTweaks', () => {
       });
 
       test('updates the macros', () => {
-        LogicTweaks.updateMacros();
+        LogicTweaks.applyTweaks();
 
         expect(Macros.macros).toMatchSnapshot();
       });
@@ -99,7 +95,7 @@ describe('LogicTweaks', () => {
       });
 
       test('updates the macros', () => {
-        LogicTweaks.updateMacros();
+        LogicTweaks.applyTweaks();
 
         expect(Macros.macros).toMatchSnapshot();
       });

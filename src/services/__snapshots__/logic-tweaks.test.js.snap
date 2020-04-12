@@ -1,35 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LogicTweaks updateLocations updates the locations 1`] = `
-Object {
-  "Ganon's Tower": Object {
-    "Defeat Ganondorf": Object {
-      "need": "Can Reach and Defeat Ganondorf",
-    },
-  },
-  "Mailbox": Object {
-    "Letter from Aryll": Object {
-      "need": "Has Accessed Other Location \\"Forsaken Fortress - Helmaroc King Heart Container\\" & Song of Passing",
-    },
-    "Letter from Baito": Object {
-      "need": "Delivery Bag & Note to Mom & Song of Passing & Has Accessed Other Location \\"Earth Temple - Jalhalla Heart Container\\"",
-    },
-    "Letter from Orca": Object {
-      "need": "Has Accessed Other Location \\"Forbidden Woods - Kalle Demos Heart Container\\"",
-    },
-    "Letter from Tingle": Object {
-      "need": "Rescued Tingle & Any Wallet Upgrade & Has Accessed Other Location \\"Forsaken Fortress - Helmaroc King Heart Container\\" & Song of Passing",
-    },
-  },
-  "Tingle Island": Object {
-    "Ankle - Reward for All Tingle Statues": Object {
-      "need": "Tingle Statue x5",
-    },
-  },
-}
-`;
-
-exports[`LogicTweaks updateMacros when cave entrances are randomized updates the macros 1`] = `
+exports[`LogicTweaks applyTweaks when cave entrances are randomized updates the macros 1`] = `
 Object {
   "All 8 Triforce Shards": "Triforce Shard x8",
   "Can Access Angular Isles Secret Cave": "Entered Angular Isles Cave",
@@ -56,7 +27,7 @@ Object {
 }
 `;
 
-exports[`LogicTweaks updateMacros when charts are randomized updates the macros 1`] = `
+exports[`LogicTweaks applyTweaks when charts are randomized updates the macros 1`] = `
 Object {
   "All 8 Triforce Shards": "Triforce Shard x8",
   "Can Farm Knight's Crests": "Grappling Hook & Has Accessed Other Location \\"Ice Ring Isle - Inner Cave - Chest\\"",
@@ -112,7 +83,7 @@ Object {
 }
 `;
 
-exports[`LogicTweaks updateMacros when dungeon entrances are randomized updates the macros 1`] = `
+exports[`LogicTweaks applyTweaks when dungeon entrances are randomized updates the macros 1`] = `
 Object {
   "All 8 Triforce Shards": "Triforce Shard x8",
   "Can Access Dragon Roost Cavern": "Entered DRC",
@@ -124,7 +95,36 @@ Object {
 }
 `;
 
-exports[`LogicTweaks updateMacros when no options are set updates the macros 1`] = `
+exports[`LogicTweaks applyTweaks when no options are set updates the locations 1`] = `
+Object {
+  "Ganon's Tower": Object {
+    "Defeat Ganondorf": Object {
+      "need": "Can Reach and Defeat Ganondorf",
+    },
+  },
+  "Mailbox": Object {
+    "Letter from Aryll": Object {
+      "need": "Has Accessed Other Location \\"Forsaken Fortress - Helmaroc King Heart Container\\" & Song of Passing",
+    },
+    "Letter from Baito": Object {
+      "need": "Delivery Bag & Note to Mom & Song of Passing & Has Accessed Other Location \\"Earth Temple - Jalhalla Heart Container\\"",
+    },
+    "Letter from Orca": Object {
+      "need": "Has Accessed Other Location \\"Forbidden Woods - Kalle Demos Heart Container\\"",
+    },
+    "Letter from Tingle": Object {
+      "need": "Rescued Tingle & Any Wallet Upgrade & Has Accessed Other Location \\"Forsaken Fortress - Helmaroc King Heart Container\\" & Song of Passing",
+    },
+  },
+  "Tingle Island": Object {
+    "Ankle - Reward for All Tingle Statues": Object {
+      "need": "Tingle Statue x5",
+    },
+  },
+}
+`;
+
+exports[`LogicTweaks applyTweaks when no options are set updates the macros 1`] = `
 Object {
   "All 8 Triforce Shards": "Triforce Shard x8",
   "Can Farm Knight's Crests": "Grappling Hook & Has Accessed Other Location \\"Ice Ring Isle - Inner Cave - Chest\\"",
