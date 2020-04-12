@@ -51,7 +51,7 @@ export default class Locations {
   }
 
   static splitLocationName(fullLocationName) {
-    const locationMatch = fullLocationName.match(/([^-]+) - (.+)/);
+    const locationMatch = fullLocationName.match(/((?:(?! - ).)+) - (.+)/);
 
     if (!locationMatch) {
       throw Error(`Location name: "${fullLocationName}" could not be parsed!`);
