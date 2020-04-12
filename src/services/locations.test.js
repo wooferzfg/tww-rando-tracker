@@ -106,24 +106,23 @@ describe('Locations', () => {
   });
 
   describe('getLocation', () => {
-    let expectedLocation;
-
     beforeEach(() => {
-      expectedLocation = {
-        test: 'info'
-      };
-
       Locations.locations = {
         'Outset Island': {
-          'Savage Labyrinth - Floor 30': expectedLocation
+          'Savage Labyrinth - Floor 30': {
+            need: 'Requirements'
+          }
         }
       };
     });
 
-    test('returns the info for the location', () => {
-      const location = Locations.getLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+    test('returns the value for the location and provided info key', () => {
+      const location = Locations.getLocation(
+        'Outset Island', 'Savage Labyrinth - Floor 30',
+        Locations.KEYS.NEED
+      );
 
-      expect(location).toEqual(expectedLocation);
+      expect(location).toEqual('Requirements');
     });
   });
 
@@ -139,7 +138,12 @@ describe('Locations', () => {
     });
 
     test('updates the location with the provided info key and value', () => {
-      Locations.setLocation('Outset Island', 'Savage Labyrinth - Floor 30', 'need', 'expected value');
+      Locations.setLocation(
+        'Outset Island',
+        'Savage Labyrinth - Floor 30',
+        Locations.KEYS.NEED,
+        'expected value'
+      );
 
       const newValue = _.get(Locations.locations, ['Outset Island', 'Savage Labyrinth - Floor 30', 'need']);
 

@@ -36,7 +36,7 @@ export default class LogicTweaks {
     Locations.setLocation(
       "Ganon's Tower",
       'Defeat Ganondorf',
-      'need',
+      Locations.KEYS.NEED,
       'Can Reach and Defeat Ganondorf'
     );
   }
@@ -45,20 +45,24 @@ export default class LogicTweaks {
     Locations.setLocation(
       'Tingle Island',
       'Ankle - Reward for All Tingle Statues',
-      'need',
+      Locations.KEYS.NEED,
       'Tingle Statue x5'
     );
   }
 
   static _updateSunkenTriforceTypes() {
     _.forEach(ISLANDS, (islandName) => {
-      const { originalItem } = Locations.getLocation(islandName, 'Sunken Treasure');
+      const originalItem = Locations.getLocation(
+        islandName,
+        'Sunken Treasure',
+        Locations.KEYS.ORIGINAL_ITEM
+      );
 
       if (_.startsWith(originalItem, 'Triforce Shard')) {
         Locations.setLocation(
           islandName,
           'Sunken Treasure',
-          'types',
+          Locations.KEYS.TYPES,
           'Sunken Triforce'
         );
       }
@@ -73,13 +77,17 @@ export default class LogicTweaks {
     const itemLocationTweaks = HAS_ACCESSED_LOCATION_TWEAKS.itemLocations;
     _.forEach(itemLocationTweaks, (generalLocationInfo, generalLocation) => {
       _.forEach(generalLocationInfo, (detailedLocation) => {
-        const requirements = Locations.getLocation(generalLocation, detailedLocation).need;
+        const requirements = Locations.getLocation(
+          generalLocation,
+          detailedLocation,
+          Locations.KEYS.NEED
+        );
         const newNeeds = this._replaceCanAccessOtherLocation(requirements);
 
         Locations.setLocation(
           generalLocation,
           detailedLocation,
-          'need',
+          Locations.KEYS.NEED,
           newNeeds
         );
       });

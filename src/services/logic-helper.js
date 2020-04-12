@@ -137,12 +137,20 @@ export default class LogicHelper {
       return false;
     }
 
-    const locationTypes = Locations.getLocation(generalLocation, detailedLocation).types;
+    const locationTypes = Locations.getLocation(
+      generalLocation,
+      detailedLocation,
+      Locations.KEYS.TYPES
+    );
     if (_.includes(locationTypes, 'Tingle Chest') && !Settings.isFlagActive('Tingle Chest')) {
       return false;
     }
 
-    const locationRequirements = Locations.getLocation(generalLocation, detailedLocation).need;
+    const locationRequirements = Locations.getLocation(
+      generalLocation,
+      detailedLocation,
+      Locations.KEYS.NEED
+    );
     if (_.includes(locationRequirements, 'Big Key')) {
       return false;
     }
@@ -189,7 +197,11 @@ export default class LogicHelper {
   }
 
   static _rawRequirementsForLocation(generalLocation, detailedLocation) {
-    const requirements = Locations.getLocation(generalLocation, detailedLocation).need;
+    const requirements = Locations.getLocation(
+      generalLocation,
+      detailedLocation,
+      Locations.KEYS.NEED
+    );
     return this._booleanExpressionForRequirements(requirements);
   }
 
@@ -461,7 +473,11 @@ export default class LogicHelper {
 
   static _isValidLocation(generalLocation, detailedLocation, isDungeon) {
     if (_.includes(ISLANDS, generalLocation) && _.includes(DUNGEONS, generalLocation)) {
-      const locationTypes = Locations.getLocation(generalLocation, detailedLocation).types;
+      const locationTypes = Locations.getLocation(
+        generalLocation,
+        detailedLocation,
+        Locations.KEYS.TYPES
+      );
       const hasDungeonType = _.includes(locationTypes, 'Dungeon');
 
       return hasDungeonType === isDungeon;

@@ -25,6 +25,12 @@ describe('LogicCalculation', () => {
   };
 
   beforeEach(() => {
+    Settings.initialize({
+      options: {
+        keyLunacy: true // Don't run the guaranteed keys logic unless the test needs it
+      }
+    });
+
     logic = new LogicCalculation(TrackerState.default());
   });
 

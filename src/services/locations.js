@@ -22,6 +22,14 @@ export default class Locations {
     this.locations = null;
   }
 
+  static get KEYS() {
+    return {
+      NEED: 'need',
+      ORIGINAL_ITEM: 'originalItem',
+      TYPES: 'types'
+    };
+  }
+
   static mapLocations(locationIteratee) {
     const newLocations = {};
 
@@ -39,11 +47,21 @@ export default class Locations {
   }
 
   static detailedLocationsForGeneralLocation(generalLocation) {
-    return _.keys(_.get(this.locations, generalLocation));
+    const generalLocationInfo = _.get(this.locations, generalLocation);
+
+    if (!generalLocationInfo) {
+      throw Error(`General location not found: ${generalLocation}`);
+    }
+
+    return _.keys(generalLocationInfo);
   }
 
-  static getLocation(generalLocation, detailedLocation) {
-    return _.get(this.locations, [generalLocation, detailedLocation]);
+  static getLocation(generalLocation, detailedLocation, infoKey) {
+    if (!_.has(this.locations, [generalLocation, detailedLocation])) {
+      throw Error(`Location not found: ${generalLocation} - ${detailedLocation}`);
+    }
+
+    return _.get(this.locations, [generalLocation, detailedLocation, infoKey]);
   }
 
   static setLocation(generalLocation, detailedLocation, infoKey, infoValue) {
