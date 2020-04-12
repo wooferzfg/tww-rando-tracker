@@ -11,13 +11,18 @@ import Macros from './macros';
 import Settings from './settings';
 
 export default class LogicTweaks {
-  static updateLocations() {
+  static applyTweaks() {
+    this._updateLocations();
+    this._updateMacros();
+  }
+
+  static _updateLocations() {
     this._addDefeatGanondorf();
     this._updateTingleStatueReward();
     this._applyHasAccessedLocationTweaksForLocations();
   }
 
-  static updateMacros() {
+  static _updateMacros() {
     this._updateDungeonEntranceMacros();
     this._updateCaveEntranceMacros();
     this._updateChartMacros();

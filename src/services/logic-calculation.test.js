@@ -51,10 +51,9 @@ describe('LogicCalculation', () => {
       });
 
       Locations.initialize(TEST_ITEM_LOCATIONS);
-      LogicTweaks.updateLocations();
-
       Macros.initialize(TEST_MACROS);
-      LogicTweaks.updateMacros();
+
+      LogicTweaks.applyTweaks();
 
       LogicHelper.initialize();
     });
