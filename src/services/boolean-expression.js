@@ -29,39 +29,6 @@ export default class BooleanExpression {
     return this.type === BooleanExpression.TYPES.OR;
   }
 
-  isEqualTo({
-    otherExpression,
-    areItemsEqual
-  }) {
-    if (!(otherExpression instanceof BooleanExpression)
-      || this.type !== otherExpression.type
-      || this.items.length !== otherExpression.items.length) {
-      return false;
-    }
-
-    const difference = _.xorWith(
-      this.items,
-      otherExpression.items,
-      (item, otherItem) => {
-        if (item instanceof BooleanExpression) {
-          return item.isEqualTo({
-            otherExpression: otherItem,
-            areItemsEqual
-          });
-        }
-        if (otherItem instanceof BooleanExpression) {
-          return false;
-        }
-
-        return areItemsEqual({
-          item,
-          otherItem
-        });
-      }
-    );
-    return _.isEmpty(difference);
-  }
-
   reduce({
     andInitialValue,
     andReducer,
@@ -157,6 +124,39 @@ export default class BooleanExpression {
       return BooleanExpression.TYPES.AND;
     }
     throw Error(`Invalid type: ${this.type}`);
+  }
+
+  _isEqualTo({
+    otherExpression,
+    areItemsEqual
+  }) {
+    if (!(otherExpression instanceof BooleanExpression)
+      || this.type !== otherExpression.type
+      || this.items.length !== otherExpression.items.length) {
+      return false;
+    }
+
+    const difference = _.xorWith(
+      this.items,
+      otherExpression.items,
+      (item, otherItem) => {
+        if (item instanceof BooleanExpression) {
+          return item._isEqualTo({
+            otherExpression: otherItem,
+            areItemsEqual
+          });
+        }
+        if (otherItem instanceof BooleanExpression) {
+          return false;
+        }
+
+        return areItemsEqual({
+          item,
+          otherItem
+        });
+      }
+    );
+    return _.isEmpty(difference);
   }
 
   _flatten() {
@@ -361,7 +361,7 @@ export default class BooleanExpression {
       return false;
     }
 
-    if (this.isEqualTo({
+    if (this._isEqualTo({
       otherExpression,
       areItemsEqual: ({ item, otherItem }) => implies(item, otherItem) && implies(otherItem, item)
     })) {
