@@ -71,7 +71,7 @@ describe('BooleanExpression', () => {
     });
   });
 
-  describe('isEqualTo', () => {
+  describe('_isEqualTo', () => {
     let expression;
     let mockAreItemsEqual;
 
@@ -92,7 +92,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns false', () => {
-        const isEqualTo = expression.isEqualTo({
+        const isEqualTo = expression._isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual
         });
@@ -112,7 +112,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns false', () => {
-        const isEqualTo = expression.isEqualTo({
+        const isEqualTo = expression._isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual
         });
@@ -131,7 +131,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns false', () => {
-        const isEqualTo = expression.isEqualTo({
+        const isEqualTo = expression._isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual
         });
@@ -151,7 +151,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns false', () => {
-        const isEqualTo = expression.isEqualTo({
+        const isEqualTo = expression._isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual
         });
@@ -171,7 +171,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns false', () => {
-        const isEqualTo = expression.isEqualTo({
+        const isEqualTo = expression._isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual
         });
@@ -191,7 +191,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns true', () => {
-        const isEqualTo = expression.isEqualTo({
+        const isEqualTo = expression._isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual
         });
@@ -211,7 +211,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns true', () => {
-        const isEqualTo = expression.isEqualTo({
+        const isEqualTo = expression._isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual
         });
