@@ -32,7 +32,7 @@ jobs:
     - name: Run tests
       run: |
         set -e
-        npm run test
+        npm test
 
     - name: Build UI
       run: |
