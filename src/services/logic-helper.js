@@ -205,6 +205,25 @@ export default class LogicHelper {
     return this._simplifiedItemRequirements(rawRequirements);
   }
 
+  static prettyNameForItemRequirement(itemRequirement) {
+    const itemCountRequirement = this.parseItemCountRequirement(itemRequirement);
+
+    if (!_.isNil(itemCountRequirement)) {
+      const {
+        itemName,
+        countRequired
+      } = itemCountRequirement;
+
+      return this.prettyNameForItem(itemName, countRequired);
+    }
+
+    return this.prettyNameForItem(itemRequirement);
+  }
+
+  static prettyNameForItem(itemName, itemCount) {
+    return itemName;
+  }
+
   static _rawRequirementsForLocation(generalLocation, detailedLocation) {
     const requirements = Locations.getLocation(
       generalLocation,

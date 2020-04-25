@@ -350,6 +350,8 @@ export default class LogicCalculation {
 
   static _createReadableRequirementsHelper(requirements, isInconsequential) {
     if (requirements.item) {
+      const itemName = LogicHelper.prettyNameForItemRequirement(requirements.item);
+
       let itemColor;
       if (requirements.value) {
         itemColor = LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM;
@@ -361,7 +363,7 @@ export default class LogicCalculation {
 
       return [{
         color: itemColor,
-        text: requirements.item
+        text: itemName
       }];
     }
 
