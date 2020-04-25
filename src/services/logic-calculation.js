@@ -279,34 +279,38 @@ export default class LogicCalculation {
       if (isReduced) {
         const sortedExpression = LogicCalculation._sortRequirements(item);
 
-        accumulator.value = getAccumulatorValue(accumulator.value, sortedExpression.value);
-        accumulator.items.push(sortedExpression);
-      } else {
-        const itemValue = this._isRequirementMet(item);
-        const wrappedItem = {
-          item,
-          value: itemValue
+        return {
+          items: _.concat(accumulator.items, sortedExpression),
+          type: accumulator.type,
+          value: getAccumulatorValue(accumulator.value, sortedExpression.value)
         };
-
-        accumulator.value = getAccumulatorValue(accumulator.value, itemValue);
-        accumulator.items.push(wrappedItem);
       }
-      return accumulator;
+
+      const wrappedItem = {
+        item,
+        value: this._isRequirementMet(item)
+      };
+
+      return {
+        items: _.concat(accumulator.items, wrappedItem),
+        type: accumulator.type,
+        value: getAccumulatorValue(accumulator.value, wrappedItem.value)
+      };
     };
 
     return requirements.reduce({
       andInitialValue: {
-        value: true,
         items: [],
-        type: LogicCalculation._BOOLEAN_EXPRESSION_TYPES.AND
+        type: LogicCalculation._BOOLEAN_EXPRESSION_TYPES.AND,
+        value: true
       },
       andReducer: (reducerArgs) => generateReducerFunction(
         (accumulatorValue, itemValue) => accumulatorValue && itemValue
       )(reducerArgs),
       orInitialValue: {
-        value: false,
         items: [],
-        type: LogicCalculation._BOOLEAN_EXPRESSION_TYPES.OR
+        type: LogicCalculation._BOOLEAN_EXPRESSION_TYPES.OR,
+        value: false
       },
       orReducer: (reducerArgs) => generateReducerFunction(
         (accumulatorValue, itemValue) => accumulatorValue || itemValue

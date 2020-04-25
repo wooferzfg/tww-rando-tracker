@@ -368,6 +368,29 @@ describe('LogicCalculation', () => {
   });
 
   describe('formattedRequirementsForLocation', () => {
+    describe('when the location requirements are a single "or" expression', () => {
+      beforeEach(() => {
+        setLocations({
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Empty Bottle | Grappling Hook'
+            }
+          }
+        });
+      });
+
+      test('returns the formatted requirements', () => {
+        const formattedRequirements = logic.formattedRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(formattedRequirements).toEqual([
+          [
+            { text: 'Empty Bottle', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
+            { text: 'Grappling Hook', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }
+          ]
+        ]);
+      });
+    });
+
     describe('when the location requirements are partially met', () => {
       beforeEach(() => {
         setLocations({
@@ -397,6 +420,64 @@ describe('LogicCalculation', () => {
           ]
         ]);
       });
+    });
+
+    describe('when the location requirements are a complex expression that requires parentheses', () => {
+      beforeEach(() => {
+        setLocations({
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Deku Leaf | (Grappling Hook & (Bombs | Boomerang))'
+            }
+          }
+        });
+
+        logic = new LogicCalculation(
+          logic.state
+            .setItemValue('Deku Leaf', 1)
+            .setItemValue('Boomerang', 1)
+        );
+      });
+
+      test('returns the formatted requirements', () => {
+        const formattedRequirements = logic.formattedRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(formattedRequirements).toEqual([
+          [
+            { text: 'Deku Leaf', color: LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
+            { text: 'or', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: '(', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: 'Grappling Hook', color: LogicHelper.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
+            { text: 'and', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: '(', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: 'Boomerang', color: LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
+            { text: 'or', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: 'Bombs', color: LogicHelper.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
+            { text: ')', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: ')', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT }
+          ]
+        ]);
+      });
+    });
+  });
+
+  describe('formattedRequirementsForEntrance', () => {
+    beforeEach(() => {
+      setMacros({
+        'Can Access Dungeon Entrance On Headstone Island': 'Power Bracelets'
+      });
+
+      logic = new LogicCalculation(
+        logic.state.setItemValue('Power Bracelets', 1)
+      );
+    });
+
+    test('returns the formatted requirements', () => {
+      const formattedRequirements = logic.formattedRequirementsForEntrance('Earth Temple');
+
+      expect(formattedRequirements).toEqual([
+        [{ text: 'Power Bracelets', color: LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM }]
+      ]);
     });
   });
 
