@@ -8,7 +8,7 @@ describe('BooleanExpression', () => {
       const expression = BooleanExpression.and('Apple', 'Banana', 'Coconut');
 
       expect(expression).toEqual(
-        new BooleanExpression(['Apple', 'Banana', 'Coconut'], BooleanExpression.TYPES.AND)
+        new BooleanExpression(['Apple', 'Banana', 'Coconut'], BooleanExpression._TYPES.AND)
       );
     });
   });
@@ -18,7 +18,7 @@ describe('BooleanExpression', () => {
       const expression = BooleanExpression.or('Apple', 'Banana', 'Coconut');
 
       expect(expression).toEqual(
-        new BooleanExpression(['Apple', 'Banana', 'Coconut'], BooleanExpression.TYPES.OR)
+        new BooleanExpression(['Apple', 'Banana', 'Coconut'], BooleanExpression._TYPES.OR)
       );
     });
   });

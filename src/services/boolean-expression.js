@@ -6,27 +6,20 @@ export default class BooleanExpression {
     this.type = type;
   }
 
-  static get TYPES() {
-    return {
-      AND: 'and',
-      OR: 'or'
-    };
-  }
-
   static and(...items) {
-    return new BooleanExpression(items, this.TYPES.AND);
+    return new BooleanExpression(items, this._TYPES.AND);
   }
 
   static or(...items) {
-    return new BooleanExpression(items, this.TYPES.OR);
+    return new BooleanExpression(items, this._TYPES.OR);
   }
 
   isAnd() {
-    return this.type === BooleanExpression.TYPES.AND;
+    return this.type === BooleanExpression._TYPES.AND;
   }
 
   isOr() {
-    return this.type === BooleanExpression.TYPES.OR;
+    return this.type === BooleanExpression._TYPES.OR;
   }
 
   reduce({
@@ -116,12 +109,19 @@ export default class BooleanExpression {
     return updatedExpression;
   }
 
+  static get _TYPES() {
+    return {
+      AND: 'and',
+      OR: 'or'
+    };
+  }
+
   _oppositeType() {
     if (this.isAnd()) {
-      return BooleanExpression.TYPES.OR;
+      return BooleanExpression._TYPES.OR;
     }
     if (this.isOr()) {
-      return BooleanExpression.TYPES.AND;
+      return BooleanExpression._TYPES.AND;
     }
     throw Error(`Invalid type: ${this.type}`);
   }
@@ -208,12 +208,12 @@ export default class BooleanExpression {
 
     _.forEach(itemsCollection, (otherItem, otherIndex) => {
       if (otherItem !== index && !(otherItem instanceof BooleanExpression)) {
-        if (expressionType === BooleanExpression.TYPES.AND) {
+        if (expressionType === BooleanExpression._TYPES.AND) {
           if (implies(otherItem, item) && (!implies(item, otherItem) || otherIndex < index)) {
             itemIsSubsumed = true;
             return false; // break loop
           }
-        } else if (expressionType === BooleanExpression.TYPES.OR) {
+        } else if (expressionType === BooleanExpression._TYPES.OR) {
           if (implies(item, otherItem) && (!implies(otherItem, item) || otherIndex < index)) {
             itemIsSubsumed = true;
             return false; // break loop
@@ -344,8 +344,8 @@ export default class BooleanExpression {
     const { expression } = this._removeDuplicateChildrenHelper({
       implies,
       parentItems: {
-        [BooleanExpression.TYPES.AND]: [],
-        [BooleanExpression.TYPES.OR]: []
+        [BooleanExpression._TYPES.AND]: [],
+        [BooleanExpression._TYPES.OR]: []
       }
     });
 
