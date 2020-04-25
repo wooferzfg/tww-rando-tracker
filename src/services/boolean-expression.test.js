@@ -227,8 +227,11 @@ describe('BooleanExpression', () => {
     beforeEach(() => {
       expression = BooleanExpression.or(
         'Apple',
-        BooleanExpression.and('Banana', 'Coconut'),
-        'Durian'
+        BooleanExpression.and(
+          'Banana',
+          BooleanExpression.or('Coconut', 'Egg'),
+          'Durian'
+        )
       );
     });
 
@@ -256,7 +259,7 @@ describe('BooleanExpression', () => {
         }
       });
 
-      expect(reducedExpression).toEqual('[OR] Apple |3| ([AND] Banana &2& Coconut) |3| Durian');
+      expect(reducedExpression).toEqual('[OR] Apple |2| ([AND] Banana &3& ([OR] Coconut |2| Egg) &3& Durian)');
     });
   });
 
