@@ -29,12 +29,12 @@ export default class TrackerController {
     this._refreshState(trackerState);
   }
 
-  static initializeFromSaveData(settings, callbacks, saveData) {
-    Settings.initialize(settings);
-
-    this.callbacks = callbacks;
-
+  static initializeFromSaveData(saveData, callbacks) {
     const {
+      flags,
+      options,
+      version,
+
       itemLocations,
       macros,
 
@@ -42,6 +42,14 @@ export default class TrackerController {
       items,
       locationsChecked
     } = saveData;
+
+    Settings.initialize({
+      flags,
+      options,
+      version
+    });
+
+    this.callbacks = callbacks;
 
     Locations.initialize(itemLocations);
     Macros.initialize(macros);
