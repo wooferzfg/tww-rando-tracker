@@ -669,6 +669,174 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('prettyNameForItemRequirement', () => {
+    test('returns the pretty name for a multiple item requirement', () => {
+      const prettyName = LogicHelper.prettyNameForItemRequirement('Progressive Sword x2');
+
+      expect(prettyName).toEqual("Hero's Sword");
+    });
+
+    test('returns the pretty name for a regular item requirement', () => {
+      const prettyName = LogicHelper.prettyNameForItemRequirement("Boat's Sail");
+
+      expect(prettyName).toEqual('Swift Sail');
+    });
+  });
+
+  describe('prettyNameForItem', () => {
+    test("Hero's Sword", () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Sword', 1);
+
+      expect(prettyName).toEqual("Hero's Sword");
+    });
+
+    test('Master Sword', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Sword', 2);
+
+      expect(prettyName).toEqual('Master Sword');
+    });
+
+    test('Master Sword (Half Power)', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Sword', 3);
+
+      expect(prettyName).toEqual('Master Sword (Half Power)');
+    });
+
+    test('Master Sword (Full Power)', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Sword', 4);
+
+      expect(prettyName).toEqual('Master Sword (Full Power)');
+    });
+
+    test("Hero's Bow", () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Bow', 1);
+
+      expect(prettyName).toEqual("Hero's Bow");
+    });
+
+    test("Hero's Bow (Fire & Ice Arrows)", () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Bow', 2);
+
+      expect(prettyName).toEqual("Hero's Bow (Fire & Ice Arrows)");
+    });
+
+    test("Hero's Bow (All Arrows)", () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Bow', 3);
+
+      expect(prettyName).toEqual("Hero's Bow (All Arrows)");
+    });
+
+    test('Picto Box', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Picto Box', 1);
+
+      expect(prettyName).toEqual('Picto Box');
+    });
+
+    test('Deluxe Picto Box', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Picto Box', 2);
+
+      expect(prettyName).toEqual('Deluxe Picto Box');
+    });
+
+    test('Wallet (1000 Rupees)', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Wallet', 1);
+
+      expect(prettyName).toEqual('Wallet (1000 Rupees)');
+    });
+
+    test('Wallet (5000 Rupees)', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Wallet', 2);
+
+      expect(prettyName).toEqual('Wallet (5000 Rupees)');
+    });
+
+    test('Quiver (60 Arrows)', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Quiver', 1);
+
+      expect(prettyName).toEqual('Quiver (60 Arrows)');
+    });
+
+    test('Quiver (99 Arrows)', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Quiver', 2);
+
+      expect(prettyName).toEqual('Quiver (99 Arrows)');
+    });
+
+    test('Bomb Bag (60 Bombs)', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Bomb Bag', 1);
+
+      expect(prettyName).toEqual('Bomb Bag (60 Bombs)');
+    });
+
+    test('Bomb Bag (99 Bombs)', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Bomb Bag', 2);
+
+      expect(prettyName).toEqual('Bomb Bag (99 Bombs)');
+    });
+
+    test('Triforce Shards', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Triforce Shard', 5);
+
+      expect(prettyName).toEqual('Triforce Shard (5/8)');
+    });
+
+    test('Triforce of Courage', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Triforce Shard', 8);
+
+      expect(prettyName).toEqual('Triforce of Courage');
+    });
+
+    test('Swift Sail', () => {
+      const prettyName = LogicHelper.prettyNameForItem("Boat's Sail");
+
+      expect(prettyName).toEqual('Swift Sail');
+    });
+
+    describe('when charts are randomized', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            randomizeCharts: true
+          }
+        });
+      });
+
+      test('returns the pretty name for a Triforce Chart', () => {
+        const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7');
+
+        expect(prettyName).toEqual('Chart for Seven-Star Isles');
+      });
+
+      test('returns the pretty name for a Treasure Chart', () => {
+        const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25');
+
+        expect(prettyName).toEqual('Chart for Forsaken Fortress');
+      });
+    });
+
+    describe('when charts are not randomized', () => {
+      beforeEach(() => {
+        Settings.initialize({
+          options: {
+            randomizeCharts: false
+          }
+        });
+      });
+
+      test('returns the regular name for a Triforce Chart', () => {
+        const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7');
+
+        expect(prettyName).toEqual('Triforce Chart 7');
+      });
+
+      test('returns the regular name for a Treasure Chart', () => {
+        const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25');
+
+        expect(prettyName).toEqual('Treasure Chart 25');
+      });
+    });
+  });
+
   describe('_rawRequirementsForLocation', () => {
     describe('when the location has no requirements', () => {
       beforeEach(() => {
