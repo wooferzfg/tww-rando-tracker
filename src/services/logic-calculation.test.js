@@ -367,6 +367,39 @@ describe('LogicCalculation', () => {
     });
   });
 
+  describe('formattedRequirementsForLocation', () => {
+    describe('when the location requirements are partially met', () => {
+      beforeEach(() => {
+        setLocations({
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: '(Empty Bottle | Grappling Hook) & Deku Leaf'
+            }
+          }
+        });
+
+        logic = new LogicCalculation(
+          logic.state.setItemValue('Grappling Hook', 1)
+        );
+      });
+
+      test('returns the formatted requirements', () => {
+        const formattedRequirements = logic.formattedRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(formattedRequirements).toEqual([
+          [
+            { text: 'Deku Leaf', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }
+          ],
+          [
+            { text: 'Grappling Hook', color: LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
+            { text: 'or', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: 'Empty Bottle', color: LogicHelper.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM }
+          ]
+        ]);
+      });
+    });
+  });
+
   describe('itemsRemainingForLocation', () => {
     describe('when the location is checked', () => {
       beforeEach(() => {
