@@ -49,6 +49,15 @@ export default class LogicHelper {
     };
   }
 
+  static get ITEM_REQUIREMENT_COLORS() {
+    return {
+      AVAILABLE_ITEM: 'available-item',
+      INCONSEQUENTIAL_ITEM: 'inconsequential-item',
+      PLAIN_TEXT: 'plain-text',
+      UNAVAILABLE_ITEM: 'unavailable-item'
+    };
+  }
+
   static allItems() {
     return _.concat(
       _.map(CAVES, (cave) => this.caveEntryName(cave)),

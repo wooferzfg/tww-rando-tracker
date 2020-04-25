@@ -41,6 +41,21 @@ export default class LogicCalculation {
     return this._areRequirementsMet(requirementsForEntrance);
   }
 
+  formattedRequirementsForLocation(generalLocation, detailedLocation) {
+    const requirementsForLocation = LogicHelper.requirementsForLocation(
+      generalLocation,
+      detailedLocation
+    );
+
+    return this._formatRequirements(requirementsForLocation);
+  }
+
+  formattedRequirementsForEntrance(dungeonOrCaveName) {
+    const requirementsForEntrance = LogicHelper.requirementsForEntrance(dungeonOrCaveName);
+
+    return this._formatRequirements(requirementsForEntrance);
+  }
+
   itemsRemainingForLocation(generalLocation, detailedLocation) {
     if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
       return 0;
@@ -239,6 +254,83 @@ export default class LogicCalculation {
     }
 
     return null;
+  }
+
+  static get _BOOLEAN_EXPRESSION_TYPES() {
+    return {
+      AND: 'and',
+      OR: 'or'
+    };
+  }
+
+  _formatRequirements(requirements) {
+    const evaluatedRequirements = this._evaluatedRequirements(requirements);
+    const sortedRequirements = LogicCalculation._sortRequirements(evaluatedRequirements);
+    const readableRequirements = LogicCalculation._createReadableRequirements(sortedRequirements);
+    return readableRequirements;
+  }
+
+  _evaluatedRequirements(requirements) {
+    const generateReducerFunction = (getAccumulatorValue) => ({
+      accumulator,
+      item,
+      isReduced
+    }) => {
+      if (isReduced) {
+        const sortedExpression = LogicCalculation._sortRequirements(item);
+
+        accumulator.value = getAccumulatorValue(accumulator.value, sortedExpression.value);
+        accumulator.items.push(sortedExpression);
+      } else {
+        const itemValue = this._isRequirementMet(item);
+        const wrappedItem = {
+          item,
+          value: itemValue
+        };
+
+        accumulator.value = getAccumulatorValue(accumulator.value, itemValue);
+        accumulator.items.push(wrappedItem);
+      }
+      return accumulator;
+    };
+
+    return requirements.reduce({
+      andInitialValue: {
+        value: true,
+        items: [],
+        type: LogicCalculation._BOOLEAN_EXPRESSION_TYPES.AND
+      },
+      andReducer: (reducerArgs) => generateReducerFunction(
+        (accumulatorValue, itemValue) => accumulatorValue && itemValue
+      )(reducerArgs),
+      orInitialValue: {
+        value: false,
+        items: [],
+        type: LogicCalculation._BOOLEAN_EXPRESSION_TYPES.OR
+      },
+      orReducer: (reducerArgs) => generateReducerFunction(
+        (accumulatorValue, itemValue) => accumulatorValue || itemValue
+      )(reducerArgs)
+    });
+  }
+
+  static _sortRequirements(requirements) {
+    const sortedItems = _.sortBy(requirements.items, (item) => {
+      if (requirements.value) {
+        return item.value ? 0 : 1; // if the expression is true, we put items we have first
+      }
+      return item.value ? 1 : 0; // if the expression is false, we put items we're missing first
+    });
+
+    return {
+      items: sortedItems,
+      type: requirements.type,
+      value: requirements.value
+    };
+  }
+
+  static _createReadableRequirements(requirements) {
+    return requirements;
   }
 
   _currentItemValue(itemName) {
