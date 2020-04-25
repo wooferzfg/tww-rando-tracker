@@ -334,7 +334,75 @@ export default class LogicCalculation {
   }
 
   static _createReadableRequirements(requirements) {
-    return requirements;
+    if (requirements.type === this._BOOLEAN_EXPRESSION_TYPES.AND) {
+      return _.map(
+        requirements.items,
+        (item) => _.flattenDeep(this._createReadableRequirementsHelper(item, requirements.value))
+      );
+    }
+    if (requirements.type === this._BOOLEAN_EXPRESSION_TYPES.OR) {
+      return [
+        _.flattenDeep(this._createReadableRequirementsHelper(requirements, false))
+      ];
+    }
+    throw Error(`Invalid requirements: ${JSON.stringify(requirements)}`);
+  }
+
+  static _createReadableRequirementsHelper(requirements, isInconsequential) {
+    if (requirements.item) {
+      let itemColor;
+      if (requirements.value) {
+        itemColor = LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM;
+      } else if (isInconsequential) {
+        itemColor = LogicHelper.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM;
+      } else {
+        itemColor = LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM;
+      }
+
+      return [{
+        color: itemColor,
+        text: requirements.item
+      }];
+    }
+
+    return _.map(requirements.items, (item, index) => {
+      const currentResult = [];
+      const isInconsequentialForChild = isInconsequential || requirements.value;
+
+      if (item.items) { // if the item is an expression
+        currentResult.push([
+          {
+            color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
+            text: '('
+          },
+          this._createReadableRequirementsHelper(item, isInconsequentialForChild),
+          {
+            color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
+            text: ')'
+          }
+        ]);
+      } else {
+        currentResult.push(this._createReadableRequirementsHelper(item, isInconsequentialForChild));
+      }
+
+      if (index < requirements.items.length - 1) {
+        if (requirements.type === this._BOOLEAN_EXPRESSION_TYPES.AND) {
+          currentResult.push({
+            color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
+            text: 'and'
+          });
+        } else if (requirements.type === this._BOOLEAN_EXPRESSION_TYPES.OR) {
+          currentResult.push({
+            color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
+            text: 'or'
+          });
+        } else {
+          throw Error(`Invalid requirements: ${JSON.stringify(requirements)}`);
+        }
+      }
+
+      return currentResult;
+    });
   }
 
   _currentItemValue(itemName) {

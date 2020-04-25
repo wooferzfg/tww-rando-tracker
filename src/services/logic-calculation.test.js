@@ -385,8 +385,29 @@ describe('LogicCalculation', () => {
         expect(formattedRequirements).toEqual([
           [
             { text: 'Empty Bottle', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
+            { text: 'or', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
             { text: 'Grappling Hook', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }
           ]
+        ]);
+      });
+    });
+
+    describe('when the location requirements include a progressive item', () => {
+      beforeEach(() => {
+        setLocations({
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Progressive Sword x2'
+            }
+          }
+        });
+      });
+
+      test('uses the pretty name for the item', () => {
+        const formattedRequirements = logic.formattedRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(formattedRequirements).toEqual([
+          [{ text: 'Master Sword', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }]
         ]);
       });
     });
