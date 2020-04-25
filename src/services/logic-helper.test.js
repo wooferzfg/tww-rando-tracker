@@ -676,6 +676,12 @@ describe('LogicHelper', () => {
       expect(prettyName).toEqual("Hero's Sword");
     });
 
+    test('returns the regular name for a small key requirement', () => {
+      const prettyName = LogicHelper.prettyNameForItemRequirement('DRC Small Key x2');
+
+      expect(prettyName).toEqual('DRC Small Key x2');
+    });
+
     test('returns the pretty name for a regular item requirement', () => {
       const prettyName = LogicHelper.prettyNameForItemRequirement("Boat's Sail");
 
@@ -790,6 +796,18 @@ describe('LogicHelper', () => {
       const prettyName = LogicHelper.prettyNameForItem("Boat's Sail");
 
       expect(prettyName).toEqual('Swift Sail');
+    });
+
+    test('Small Keys', () => {
+      const prettyName = LogicHelper.prettyNameForItem('DRC Small Key', 2);
+
+      expect(prettyName).toEqual('DRC Small Key (2/4)');
+    });
+
+    test('returns the pretty name for an item with 0 count', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Sword', 0);
+
+      expect(prettyName).toEqual("Hero's Sword");
     });
 
     describe('when charts are randomized', () => {
