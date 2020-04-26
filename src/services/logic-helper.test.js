@@ -804,10 +804,16 @@ describe('LogicHelper', () => {
       expect(prettyName).toEqual('Swift Sail');
     });
 
-    test('Small Keys', () => {
+    test('DRC Small Key', () => {
       const prettyName = LogicHelper.prettyNameForItem('DRC Small Key', 2);
 
       expect(prettyName).toEqual('DRC Small Key (2/4)');
+    });
+
+    test('FW Small Key', () => {
+      const prettyName = LogicHelper.prettyNameForItem('FW Small Key', 0);
+
+      expect(prettyName).toEqual('FW Small Key');
     });
 
     test('Big Key', () => {
