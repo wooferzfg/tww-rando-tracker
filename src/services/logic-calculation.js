@@ -13,6 +13,8 @@ export default class LogicCalculation {
     this.state = state;
 
     Memoizer.memoize(this, [
+      this.formattedRequirementsForEntrance,
+      this.formattedRequirementsForLocation,
       this.isEntranceAvailable,
       this.isLocationAvailable,
       this.itemsRemainingForLocation,
