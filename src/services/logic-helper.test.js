@@ -673,13 +673,19 @@ describe('LogicHelper', () => {
     test('returns the pretty name for a multiple item requirement', () => {
       const prettyName = LogicHelper.prettyNameForItemRequirement('Progressive Sword x2');
 
-      expect(prettyName).toEqual("Hero's Sword");
+      expect(prettyName).toEqual('Master Sword');
     });
 
     test('returns the regular name for a small key requirement', () => {
       const prettyName = LogicHelper.prettyNameForItemRequirement('DRC Small Key x2');
 
       expect(prettyName).toEqual('DRC Small Key x2');
+    });
+
+    test('returns the regular name for a big key requirement', () => {
+      const prettyName = LogicHelper.prettyNameForItem('DRC Big Key', 1);
+
+      expect(prettyName).toEqual('DRC Big Key');
     });
 
     test('returns the pretty name for a regular item requirement', () => {
@@ -802,6 +808,12 @@ describe('LogicHelper', () => {
       const prettyName = LogicHelper.prettyNameForItem('DRC Small Key', 2);
 
       expect(prettyName).toEqual('DRC Small Key (2/4)');
+    });
+
+    test('Big Key', () => {
+      const prettyName = LogicHelper.prettyNameForItem('DRC Big Key', 1);
+
+      expect(prettyName).toEqual('DRC Big Key');
     });
 
     test('returns the pretty name for an item with 0 count', () => {

@@ -214,14 +214,90 @@ export default class LogicHelper {
         countRequired
       } = itemCountRequirement;
 
-      return this.prettyNameForItem(itemName, countRequired);
+      return this._prettyNameOverride(itemName, countRequired) || itemRequirement;
     }
 
-    return this.prettyNameForItem(itemRequirement);
+    return this._prettyNameOverride(itemRequirement) || itemRequirement;
   }
 
   static prettyNameForItem(itemName, itemCount) {
+    const prettyNameOverride = this._prettyNameOverride(itemName, itemCount);
+
+    if (!_.isNil(prettyNameOverride)) {
+      return prettyNameOverride;
+    }
+
+    const maxItemCount = _.get(ITEMS, itemName) || _.get(KEYS, itemName);
+    if (!_.isNil(maxItemCount) && maxItemCount > 1) {
+      return `${itemName} (${itemCount}/${maxItemCount})`;
+    }
+
     return itemName;
+  }
+
+  static _prettyNameOverride(itemName, itemCount) {
+    if (itemName === 'Progressive Sword') {
+      if (itemCount <= 1) {
+        return "Hero's Sword";
+      }
+      if (itemCount === 2) {
+        return 'Master Sword';
+      }
+      if (itemCount === 3) {
+        return 'Master Sword (Half Power)';
+      }
+      if (itemCount === 4) {
+        return 'Master Sword (Full Power)';
+      }
+    } else if (itemName === 'Progressive Bow') {
+      if (itemCount <= 1) {
+        return "Hero's Bow";
+      }
+      if (itemCount === 2) {
+        return "Hero's Bow (Fire & Ice Arrows)";
+      }
+      if (itemCount === 3) {
+        return "Hero's Bow (All Arrows)";
+      }
+    } else if (itemName === 'Progressive Picto Box') {
+      if (itemCount <= 1) {
+        return 'Picto Box';
+      }
+      if (itemCount === 2) {
+        return 'Deluxe Picto Box';
+      }
+    } else if (itemName === 'Progressive Wallet') {
+      if (itemCount <= 1) {
+        return 'Wallet (1000 Rupees)';
+      }
+      if (itemCount === 2) {
+        return 'Wallet (5000 Rupees)';
+      }
+    } else if (itemName === 'Progressive Quiver') {
+      if (itemCount <= 1) {
+        return 'Quiver (60 Arrows)';
+      }
+      if (itemCount === 2) {
+        return 'Quiver (99 Arrows)';
+      }
+    } else if (itemName === 'Progressive Bomb Bag') {
+      if (itemCount <= 1) {
+        return 'Bomb Bag (60 Bombs)';
+      }
+      if (itemCount === 2) {
+        return 'Bomb Bag (99 Bombs)';
+      }
+    } else if (itemName === 'Triforce Shard') {
+      if (itemCount === 8) {
+        return 'Triforce of Courage';
+      }
+    } else if (itemName === "Boat's Sail") {
+      return 'Swift Sail';
+    } else if (Settings.getOptionValue('randomizeCharts') && _.includes(itemName, ' Chart')) {
+      const islandIndex = _.indexOf(CHARTS, itemName);
+      return `Chart for ${_.get(ISLANDS, islandIndex)}`;
+    }
+    return null;
   }
 
   static _rawRequirementsForLocation(generalLocation, detailedLocation) {
