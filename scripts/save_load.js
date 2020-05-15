@@ -105,6 +105,7 @@ function loadFlags() {
   checkAddFlags('TIN', ['Tingle Chest']);
   checkAddFlags('SAV', ['Savage Labyrinth']);
   checkAddFlags('BSM', ['Battlesquid']);
+  checkAddFlags('IP', ['Island Puzzle']);
 }
 
 function getParamBool(param, defaultVal) {

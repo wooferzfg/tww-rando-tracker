@@ -1,4 +1,4 @@
-const currentVersion = '1.7.0';
+const currentVersion = '1.8.0';
 var startingGear = 0;
 
 function parseFlags(bits, ids) {
@@ -88,7 +88,7 @@ function applyflags(element) {
 
       parseFlags(bits, ['dungeons', 'great_fairies', 'puzzle_secret_caves', 'combat_secret_caves', 'short_sidequests', 'long_sidequests', 'spoils_trading', 'minigames']);
       parseFlags(bits, ['free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts']);
-      parseFlags(bits, ['expensive_purchases', 'misc', 'tingle_chests', 'battlesquid', 'savage_labyrinth', 'key_lunacy']);
+      parseFlags(bits, ['expensive_purchases', 'misc', 'tingle_chests', 'battlesquid', 'savage_labyrinth', 'island_puzzles', 'key_lunacy']);
       parseComboBox(bits, 'randomize_entrances');
       parseFlags(bits, ['randomize_charts', '' /* randomize_starting_island */, '' /* swift_sail */, '' /* instant_text_boxes */, '' /* reveal_full_sea_chart */]);
       parseComboBox(bits, 'num_starting_triforce_shards');
@@ -128,11 +128,11 @@ function showBrokenPermalink(element, wrongVersion) {
 }
 
 function getFlagString() {
-  var flagNames = ['D', 'GF', 'PSC', 'CSC', 'SSQ', 'LSQ', 'ST', 'MG', 'FG', 'MAI', 'PR', 'SUB', 'ERC', 'BOG', 'TRI', 'TRE', 'EP', 'MIS', 'TIN', 'KL', 'REN', 'RCH', 'SWO', 'SRB', 'STS', 'RM', 'SAV', 'BSM'];
+  var flagNames = ['D', 'GF', 'PSC', 'CSC', 'SSQ', 'LSQ', 'ST', 'MG', 'FG', 'MAI', 'PR', 'SUB', 'ERC', 'BOG', 'TRI', 'TRE', 'EP', 'MIS', 'TIN', 'KL', 'REN', 'RCH', 'SWO', 'SRB', 'STS', 'RM', 'SAV', 'BSM', 'IP'];
   var buttonNames = ['dungeons', 'great_fairies', 'puzzle_secret_caves', 'combat_secret_caves', 'short_sidequests', 'long_sidequests', 'spoils_trading', 'minigames',
     'free_gifts', 'mail', 'platforms_rafts', 'submarines', 'eye_reef_chests', 'big_octos_gunboats', 'triforce_charts', 'treasure_charts',
     'expensive_purchases', 'misc', 'tingle_chests', 'key_lunacy', 'randomize_entrances', 'randomize_charts', 'sword_mode',
-    'skip_rematch_bosses', 'num_starting_triforce_shards', 'race_mode', 'savage_labyrinth', 'battlesquid'];
+    'skip_rematch_bosses', 'num_starting_triforce_shards', 'race_mode', 'savage_labyrinth', 'battlesquid', 'island_puzzles'];
 
   var result = '';
   for (var i = 0; i < buttonNames.length; i++) {
