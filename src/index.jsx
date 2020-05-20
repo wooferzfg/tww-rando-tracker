@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import App from './ui/app';
+
 ReactDOM.render(
-  <div>YEET</div>,
+  <App />,
   document.getElementById('base')
 );
