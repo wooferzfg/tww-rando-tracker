@@ -8,6 +8,8 @@ import {
 import Launcher from './launcher';
 import Tracker from './tracker';
 
+import '../css/main.scss';
+
 export default function App() {
   return (
     <HashRouter>

@@ -9,7 +9,10 @@ class Launcher extends React.Component {
 
   render() {
     return (
-      <div>LAUNCHER</div>
+      <div class="full-container">
+        <div class="launcher-container">
+        </div>
+      </div>
     );
   }
 }
