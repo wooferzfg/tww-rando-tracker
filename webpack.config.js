@@ -48,6 +48,14 @@ module.exports = (env, argv) => {
               implementation: sass
             }
           }]
+        },
+        {
+          test: /\.png$/,
+          use: [
+            {
+              loader: 'url-loader'
+            }
+          ]
         }
       ]
     },
