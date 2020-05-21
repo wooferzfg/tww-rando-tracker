@@ -23,7 +23,7 @@ module.exports = (env, argv) => {
       port: 8080
     },
     resolve: {
-      extensions: ['.webpack.js', '.web.js', '.js', '.jsx', '.json']
+      extensions: ['.webpack.js', '.web.js', '.js', '.jsx', '.json', '.png']
     },
     plugins: [
       ...(isProduction ? [new CleanWebpackPlugin()] : []),
