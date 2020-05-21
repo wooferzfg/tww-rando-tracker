@@ -23,80 +23,188 @@ body {
 
 .launcher-container {
   width: 100%;
+
+  .header {
+    display: flex;
+    justify-content: center;
+  }
+
+  .permalink-container,
+  .launcher-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 4px 0px;
+  }
+
+  #flags {
+    font-size: 1em;
+    margin-left: 4px;
+    width: 450px;
+  }
+
+  .permalink-label {
+    font-size: 1.2em;
+  }
+
+  .permalink-input {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .launcher-button {
+    min-width: 200px;
+  }
+
+  fieldset {
+    margin: 4px 20px;
+    border: 1px solid #c8c8c8;
+    padding: 0px 4px 4px 4px;
+    border-radius: 4px;
+    background-color: rgba(50, 50, 50, 0.4);
+  }
+  
+  legend {
+    color: white;
+    padding: 2px;
+  }
+  
+  .attribution,
+  .attribution a {
+    text-align: center;
+    margin-top: 20px;
+    color: #c8c8c8;
+    font-size: 13px;
+  }
+  
+  .attribution a:hover {
+    color: #969696;
+  }
+
+  .settings {
+    background: url("../images/menubg.png");
+    background-size: contain;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    color: white;
+    width: 100%;
+    padding: 8px 0px;
+    flex-wrap: wrap;
+    text-shadow: 1.5px 1px rgba(0, 0, 0, 0.5);
+
+    button {
+      font-size: 1em;
+    }
+
+    table {
+      width: 100%;
+      max-width: 1500px;
+      font-size: 1.2em;
+      table-layout: fixed;
+      color: white;
+
+      td {
+        padding-top: 1px;
+        padding-bottom: 1px;
+
+        &.label-text {
+          padding-left: 20px;
+          padding-right: 10px;
+        }
+
+        &.option-container {
+          text-align: right;
+          padding-right: 20px;
+          position: relative;
+  
+          .select-container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            padding: inherit;
+  
+            select {
+              height: 34px;
+              font-size: 1em;
+              cursor: pointer;
+            }
+          }
+  
+          .switch {
+            position: relative;
+            width: 60px;
+            height: 34px;
+            float: right;
+  
+            .slider {
+              position: absolute;
+              cursor: pointer;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              -webkit-transition: 0.4s;
+              transition: 0.4s;
+              border-radius: 34px;
+              border: 1px solid #808080;
+              background-color: #d2d2d2;
+  
+              &:before {
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: 0.4s;
+                transition: 0.4s;
+                border-radius: 50%;
+              }
+            }
+  
+            input {
+              display: none;
+  
+              &:checked + .slider {
+                background-color: #2196f3;
+              }
+  
+              &:checked + .slider:before {
+                -webkit-transform: translateX(26px);
+                -ms-transform: translateX(26px);
+                transform: translateX(26px);
+              }
+  
+              &:focus + .slider {
+                box-shadow: 0 0 1px #2196f3;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .attribution {
+    text-shadow: 1.5px 1px rgba(0, 0, 0, 0.5);
+  }
 }
 
-.header {
-  display: block;
-  text-align: center;
+input {
+  box-sizing: border-box;
 }
 
-.settings {
-  background: url("../images/menubg.png");
-  background-size: contain;
-  background-position: center center;
-  display: flex;
-  justify-content: center;
-  color: white;
-  width: 100%;
-  padding: 8px 0px;
-  flex-wrap: wrap;
-}
-
-#load-progress {
-  display: none;
-}
-
-.settings,
-.attribution,
 #item-info,
 #map-info,
 #chest-counts,
 #map-item-info {
   text-shadow: 1.5px 1px rgba(0, 0, 0, 0.5);
-}
-
-.settings table {
-  width: 100%;
-  max-width: 1500px;
-  font-size: 1.2em;
-  table-layout: fixed;
-  color: white;
-}
-
-.settings td {
-  padding-top: 3px;
-  padding-bottom: 3px;
-}
-
-.label-text {
-  padding-left: 20px;
-  padding-right: 10px;
-}
-
-.slider-container {
-  text-align: right;
-  padding-right: 20px;
-  position: relative;
-}
-
-.select-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  padding: inherit;
-}
-
-.select-container select {
-  height: 34px;
-  font-size: 1em;
-  cursor: pointer;
-}
-
-#num_starting_triforce_shards {
-  min-width: 80px;
 }
 
 .text-col {
@@ -107,80 +215,6 @@ body {
   width: 6%;
 }
 
-.switch {
-  position: relative;
-  width: 60px;
-  height: 34px;
-  float: right;
-}
-
-.switch input {
-  display: none;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  border-radius: 34px;
-  border: 1px solid #808080;
-  background-color: #d2d2d2;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #2196f3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-.permalink-container,
-.launcher-button-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 4px 0px;
-}
-
-.permalink-label {
-  font-size: 1.2em;
-}
-
-.permalink-input {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-.launcher-button {
-  min-width: 200px;
-}
-
 button,
 #flags {
   padding: 6px;
@@ -189,16 +223,6 @@ button,
   border: 1px solid #808080;
   margin-left: 2px;
   margin-right: 2px;
-}
-
-.settings button,
-#flags {
-  font-size: 1em;
-}
-
-#flags {
-  margin-left: 4px;
-  width: 450px;
 }
 
 button,
@@ -213,31 +237,6 @@ select {
 button:hover:enabled {
   border-color: #323232;
   cursor: pointer;
-}
-
-fieldset {
-  margin: 4px 20px;
-  border: 1px solid #c8c8c8;
-  padding: 0px 4px 4px 4px;
-  border-radius: 4px;
-  background-color: rgba(50, 50, 50, 0.4);
-}
-
-legend {
-  color: white;
-  padding: 2px;
-}
-
-.attribution,
-.attribution a {
-  text-align: center;
-  margin-top: 20px;
-  color: #c8c8c8;
-  font-size: 13px;
-}
-
-.attribution a:hover {
-  color: #969696;
 }
 
 .tracker {
