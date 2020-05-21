@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const path = require('path');
 const sass = require('sass');
 
@@ -27,6 +28,10 @@ module.exports = (env, argv) => {
     },
     plugins: [
       ...(isProduction ? [new CleanWebpackPlugin()] : []),
+      new FaviconsWebpackPlugin({
+        logo: path.resolve('src/images/icon.ico'),
+        inject: true
+      }),
       new HtmlWebpackPlugin({
         template: './src/index.html'
       })
