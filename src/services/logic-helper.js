@@ -342,7 +342,7 @@ export default class LogicHelper {
       'Song of Passing': 1,
       'Triforce Shard': Settings.getOptionValue('numStartingTriforceShards')
     };
-    this.impossibleItems = [];
+    this.impossibleItems = {};
 
     let gearRemaining = Settings.getOptionValue('startingGear');
     _.forEach(REGULAR_STARTING_ITEMS, (itemName) => {
