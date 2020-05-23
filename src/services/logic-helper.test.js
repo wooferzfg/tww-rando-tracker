@@ -1390,7 +1390,7 @@ describe('LogicHelper', () => {
         LogicHelper._setStartingAndImpossibleItems();
 
         expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toEqual([]);
+        expect(LogicHelper.impossibleItems).toEqual({});
       });
     });
 
@@ -1409,7 +1409,7 @@ describe('LogicHelper', () => {
         LogicHelper._setStartingAndImpossibleItems();
 
         expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toEqual([]);
+        expect(LogicHelper.impossibleItems).toEqual({});
       });
     });
 
@@ -1428,7 +1428,7 @@ describe('LogicHelper', () => {
         LogicHelper._setStartingAndImpossibleItems();
 
         expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toEqual([]);
+        expect(LogicHelper.impossibleItems).toEqual({});
       });
     });
 
@@ -1447,7 +1447,7 @@ describe('LogicHelper', () => {
         LogicHelper._setStartingAndImpossibleItems();
 
         expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toEqual([]);
+        expect(LogicHelper.impossibleItems).toEqual({});
       });
     });
 
