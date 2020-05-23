@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Tracker extends React.Component {
+export default class Tracker extends React.Component {
   constructor() {
     super();
 
@@ -13,5 +13,3 @@ class Tracker extends React.Component {
     );
   }
 }
-
-export default Tracker;

@@ -3,7 +3,7 @@ import React from 'react';
 
 import header from '../images/header';
 
-class Launcher extends React.Component {
+export default class Launcher extends React.Component {
   static permalinkContainer() {
     return (
       <div className="permalink-container">
@@ -228,5 +228,3 @@ class Launcher extends React.Component {
     );
   }
 }
-
-export default Launcher;
