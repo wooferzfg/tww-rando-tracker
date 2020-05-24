@@ -20,12 +20,18 @@ export default class BinaryString {
       throw Error('Bit offset must be 0 to pop a string');
     }
 
-    const poppedBytes = _.takeWhile(this.binaryData, (byte) => byte !== 0);
-    const poppedString = BinaryString._binaryToString(poppedBytes);
+    const poppedBytes = [];
+    let currentByte;
 
-    this.binaryData = _.slice(this.binaryData, poppedBytes.length + 1);
+    while (currentByte !== 0) {
+      currentByte = this.popNumber(8);
 
-    return poppedString;
+      if (currentByte !== 0) {
+        poppedBytes.push(currentByte);
+      }
+    }
+
+    return BinaryString._binaryToString(poppedBytes);
   }
 
   popBoolean() {
@@ -65,7 +71,10 @@ export default class BinaryString {
 
     const bytesToAdd = BinaryString._stringToBinary(stringValue);
 
-    this.binaryData = _.concat(this.binaryData, bytesToAdd, [0]);
+    _.forEach(
+      bytesToAdd,
+      (byte) => this.addNumber(byte, 8)
+    );
   }
 
   addBoolean(booleanValue) {
