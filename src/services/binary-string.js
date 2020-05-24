@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
 export default class BinaryString {
-  constructor(binaryData = []) {
+  constructor(binaryData = [], bitOffset = 0) {
     this.binaryData = binaryData;
-    this.bitOffset = 0;
+    this.bitOffset = bitOffset;
   }
 
   static fromBase64(base64String) {

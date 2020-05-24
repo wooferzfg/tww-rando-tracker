@@ -18,8 +18,7 @@ describe('BinaryString', () => {
 
   describe('toBase64', () => {
     beforeEach(() => {
-      binaryString.binaryData = [49, 46, 56, 46, 48, 0, 121, 101, 101];
-      binaryString.bitOffset = 0;
+      binaryString = new BinaryString([49, 46, 56, 46, 48, 0, 121, 101, 101], 0);
     });
 
     test('returns the correct base64 string', () => {
@@ -50,13 +49,9 @@ describe('BinaryString', () => {
 
   describe('popBoolean', () => {
     describe('when the bit offset is at the start of a byte', () => {
-      beforeEach(() => {
-        binaryString.bitOffset = 0;
-      });
-
       describe('when the value is true', () => {
         beforeEach(() => {
-          binaryString.binaryData = [129]; // 129 = 1000000[1]
+          binaryString = new BinaryString([129], 0); // 129 = 1000000[1]
         });
 
         test('returns true', () => {
@@ -75,7 +70,7 @@ describe('BinaryString', () => {
 
       describe('when the value is false', () => {
         beforeEach(() => {
-          binaryString.binaryData = [128]; // 128 = 1000000[0]
+          binaryString = new BinaryString([128], 0); // 128 = 1000000[0]
         });
 
         test('returns false', () => {
@@ -94,13 +89,9 @@ describe('BinaryString', () => {
     });
 
     describe('when the bit offset is in the middle of a byte', () => {
-      beforeEach(() => {
-        binaryString.bitOffset = 3;
-      });
-
       describe('when the value is true', () => {
         beforeEach(() => {
-          binaryString.binaryData = [13]; // 13 = 0110[1]
+          binaryString = new BinaryString([13], 3); // 13 = 0110[1]
         });
 
         test('returns true', () => {
@@ -119,7 +110,7 @@ describe('BinaryString', () => {
 
       describe('when the value is false', () => {
         beforeEach(() => {
-          binaryString.binaryData = [14]; // 14 = 0111[0]
+          binaryString = new BinaryString([14], 3); // 14 = 0111[0]
         });
 
         test('returns false', () => {
@@ -138,13 +129,9 @@ describe('BinaryString', () => {
     });
 
     describe('when the bit offset is at the end of a byte', () => {
-      beforeEach(() => {
-        binaryString.bitOffset = 7;
-      });
-
       describe('when the value is true', () => {
         beforeEach(() => {
-          binaryString.binaryData = [1, 65];
+          binaryString = new BinaryString([1, 65], 7);
         });
 
         test('returns true', () => {
@@ -163,7 +150,7 @@ describe('BinaryString', () => {
 
       describe('when the value is false', () => {
         beforeEach(() => {
-          binaryString.binaryData = [0, 67];
+          binaryString = new BinaryString([0, 67], 7);
         });
 
         test('returns false', () => {
@@ -185,8 +172,7 @@ describe('BinaryString', () => {
   describe('popNumber', () => {
     describe('when a number is contained within a byte', () => {
       beforeEach(() => {
-        binaryString.binaryData = [82]; // 82 = 10[10010]
-        binaryString.bitOffset = 1;
+        binaryString = new BinaryString([82], 1); // 82 = 10[10010]
       });
 
       test('returns the correct number', () => {
@@ -205,8 +191,7 @@ describe('BinaryString', () => {
 
     describe('when a number is spread across multiple bytes', () => {
       beforeEach(() => {
-        binaryString.binaryData = [2, 190]; // 2 = [10], 190 = 1011[1110]
-        binaryString.bitOffset = 6;
+        binaryString = new BinaryString([2, 190], 6); // 2 = [10], 190 = 1011[1110]
       });
 
       test('returns the correct number', () => {
@@ -227,8 +212,7 @@ describe('BinaryString', () => {
   describe('addString', () => {
     describe('when the binary data is empty', () => {
       beforeEach(() => {
-        binaryString.binaryData = [];
-        binaryString.bitOffset = 0;
+        binaryString = new BinaryString([], 0);
       });
 
       test('adds the string to the binary data', () => {
@@ -241,8 +225,7 @@ describe('BinaryString', () => {
 
     describe('when the binary data is not empty', () => {
       beforeEach(() => {
-        binaryString.binaryData = [49, 46, 56, 46, 48, 0];
-        binaryString.bitOffset = 0;
+        binaryString = new BinaryString([49, 46, 56, 46, 48, 0], 0);
       });
 
       test('adds the string to the binary data', () => {
