@@ -169,6 +169,48 @@ describe('BinaryString', () => {
     });
   });
 
+  describe('popNumber', () => {
+    describe('when a number is contained within a byte', () => {
+      beforeEach(() => {
+        binaryString.bitOffset = 1;
+        binaryString.binaryData = [82]; // 82 = 10[10010]
+      });
+
+      test('returns the correct number', () => {
+        const poppedNumber = binaryString.popNumber(5);
+
+        expect(poppedNumber).toEqual(18);
+      });
+
+      test('removes the number from the binary data', () => {
+        binaryString.popNumber(5);
+
+        expect(binaryString.binaryData).toEqual([2]);
+        expect(binaryString.bitOffset).toEqual(6);
+      });
+    });
+
+    describe('when a number is spread across multiple bytes', () => {
+      beforeEach(() => {
+        binaryString.bitOffset = 6;
+        binaryString.binaryData = [2, 190]; // 2 = [10], 190 = 1011[1110]
+      });
+
+      test('returns the correct number', () => {
+        const poppedNumber = binaryString.popNumber(6);
+
+        expect(poppedNumber).toEqual(58); // 58 = 111010
+      });
+
+      test('removes the number from the binary data', () => {
+        binaryString.popNumber(6);
+
+        expect(binaryString.binaryData).toEqual([11]);
+        expect(binaryString.bitOffset).toEqual(4);
+      });
+    });
+  });
+
   describe('_binaryToBase64', () => {
     test('converts a binary array to a base64 string', () => {
       const binaryArrayInput = [49, 46, 56, 46, 48, 0, 121, 101, 101];

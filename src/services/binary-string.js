@@ -34,6 +34,21 @@ export default class BinaryString {
     return poppedBoolean;
   }
 
+  popNumber(numBits) {
+    let result = 0;
+    let currentMultiplier = 1;
+
+    for (let i = 0; i < numBits; i += 1) {
+      const currentBit = this.popBoolean();
+      if (currentBit) {
+        result += currentMultiplier;
+      }
+      currentMultiplier *= 2;
+    }
+
+    return result;
+  }
+
   static _base64ToBinary(base64String) {
     const buffer = Buffer.from(base64String, 'base64');
     return Array.from(buffer.values());
