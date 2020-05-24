@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
-export default class BitString {
+export default class BinaryString {
   constructor(base64String) {
-    this.binaryData = BitString._base64ToBinary(base64String);
+    this.binaryData = BinaryString._base64ToBinary(base64String);
     this.bitOffset = 0;
   }
 
@@ -12,11 +12,15 @@ export default class BitString {
     }
 
     const poppedBytes = _.takeWhile(this.binaryData, (byte) => byte !== 0);
-    const poppedString = BitString._binaryToString(poppedBytes);
+    const poppedString = BinaryString._binaryToString(poppedBytes);
 
     this.binaryData = _.slice(this.binaryData, poppedBytes.length + 1);
 
     return poppedString;
+  }
+
+  popBoolean() {
+
   }
 
   static _base64ToBinary(base64String) {
