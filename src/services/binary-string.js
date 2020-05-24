@@ -16,10 +16,6 @@ export default class BinaryString {
   }
 
   popString() {
-    if (this.bitOffset !== 0) {
-      throw Error('Bit offset must be 0 to pop a string');
-    }
-
     const poppedBytes = [];
     let currentByte;
 
@@ -65,10 +61,6 @@ export default class BinaryString {
   }
 
   addString(stringValue) {
-    if (this.bitOffset !== 0) {
-      throw Error('Bit offset must be 0 to add a string');
-    }
-
     const bytesToAdd = BinaryString._stringToBinary(stringValue);
 
     _.forEach(
