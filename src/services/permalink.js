@@ -1,8 +1,13 @@
 import _ from 'lodash';
 
+import BitString from './bit-string';
+
 export default class Permalink {
   static get OPTIONS() {
     const options = [
+      'seed_name',
+      'version',
+
       'progression_dungeons',
       'progression_great_fairies',
       'progression_puzzle_secret_caves',
@@ -61,16 +66,8 @@ export default class Permalink {
     );
   }
 
-  static _base64ToBinary(base64String) {
-    const buffer = Buffer.from(base64String, 'base64');
-    return Array.from(buffer.values());
-  }
-
-  static _binaryToBase64(binaryArray) {
-    return Buffer.from(binaryArray).toString('base64');
-  }
-
-  static _binaryToString(binaryArray) {
-    return Buffer.from(binaryArray).toString();
+  static decode(permalinkString) {
+    const binaryData = BitString._base64ToBinary(permalinkString);
+    return binaryData;
   }
 }

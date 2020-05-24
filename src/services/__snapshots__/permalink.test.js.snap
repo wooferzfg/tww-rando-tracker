@@ -42,11 +42,13 @@ Object {
   "REMOVE_MUSIC": "remove_music",
   "REMOVE_TITLE_AND_ENDING_VIDEOS": "remove_title_and_ending_videos",
   "REVEAL_FULL_SEA_CHART": "reveal_full_sea_chart",
+  "SEED_NAME": "seed_name",
   "SKIP_REMATCH_BOSSES": "skip_rematch_bosses",
   "STARTING_GEAR": "starting_gear",
   "STARTING_HCS": "starting_hcs",
   "STARTING_POHS": "starting_pohs",
   "SWIFT_SAIL": "swift_sail",
   "SWORD_MODE": "sword_mode",
+  "VERSION": "version",
 }
 `;
