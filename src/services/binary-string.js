@@ -49,6 +49,10 @@ export default class BinaryString {
     return result;
   }
 
+  toBase64() {
+    return BinaryString._binaryToBase64(this.binaryData);
+  }
+
   static _base64ToBinary(base64String) {
     const buffer = Buffer.from(base64String, 'base64');
     return Array.from(buffer.values());
