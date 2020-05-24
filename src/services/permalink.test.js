@@ -1,6 +1,12 @@
 import Permalink from './permalink';
 
 describe('Permalink', () => {
+  describe('OPTIONS', () => {
+    test('returns the correct options', () => {
+      expect(Permalink.OPTIONS).toMatchSnapshot();
+    });
+  });
+
   describe('_base64ToBinary', () => {
     test('returns a binary array from a base64 string', () => {
       const base64Input = 'MS44LjBfYjcy';
