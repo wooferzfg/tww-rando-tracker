@@ -69,4 +69,8 @@ export default class Permalink {
   static _binaryToBase64(binaryArray) {
     return Buffer.from(binaryArray).toString('base64');
   }
+
+  static _binaryToString(binaryArray) {
+    return Buffer.from(binaryArray).toString();
+  }
 }
