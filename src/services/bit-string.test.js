@@ -1,12 +1,33 @@
 import BitString from './bit-string';
 
 describe('BitString', () => {
-  describe('_base64ToBinary', () => {
-    test('converts a base64 string to a binary array', () => {
-      const base64Input = 'MS44LjAAeWVl';
-      const binaryArrayOutput = BitString._base64ToBinary(base64Input);
+  let bitString;
 
-      expect(binaryArrayOutput).toEqual([49, 46, 56, 46, 48, 0, 121, 101, 101]);
+  describe('constructor', () => {
+    test('sets the binary data and bit offset', () => {
+      bitString = new BitString('MS44LjAAeWVl');
+
+      expect(bitString.binaryData).toEqual([49, 46, 56, 46, 48, 0, 121, 101, 101]);
+      expect(bitString.bitOffset).toEqual(0);
+    });
+  });
+
+  describe('popString', () => {
+    beforeEach(() => {
+      bitString = new BitString('MS44LjAAeWVl');
+    });
+
+    test('returns the first string in the bit string', () => {
+      const poppedString = bitString.popString();
+
+      expect(poppedString).toEqual('1.8.0');
+    });
+
+    test('removes the string and trailing null character from the binary data', () => {
+      bitString.popString();
+
+      expect(bitString.binaryData).toEqual([121, 101, 101]);
+      expect(bitString.bitOffset).toEqual(0);
     });
   });
 
