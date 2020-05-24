@@ -11,10 +11,6 @@ export default class BinaryString {
     return new BinaryString(binaryData);
   }
 
-  static get _BYTE_SIZE() {
-    return 8;
-  }
-
   toBase64() {
     return BinaryString._binaryToBase64(this.binaryData);
   }
@@ -107,6 +103,10 @@ export default class BinaryString {
 
       remainingValue = _.floor(remainingValue / 2);
     }
+  }
+
+  static get _BYTE_SIZE() {
+    return 8;
   }
 
   static _base64ToBinary(base64String) {
