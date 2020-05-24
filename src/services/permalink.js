@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import BitString from './bit-string';
+import BinaryString from './binary-string';
 
 export default class Permalink {
   static get OPTIONS() {
@@ -67,7 +67,7 @@ export default class Permalink {
   }
 
   static decode(permalinkString) {
-    const binaryData = BitString._base64ToBinary(permalinkString);
+    const binaryData = BinaryString._base64ToBinary(permalinkString);
     return binaryData;
   }
 }
