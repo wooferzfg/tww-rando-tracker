@@ -11,6 +11,10 @@ export default class BinaryString {
     return new BinaryString(binaryData);
   }
 
+  toBase64() {
+    return BinaryString._binaryToBase64(this.binaryData);
+  }
+
   popString() {
     if (this.bitOffset !== 0) {
       throw Error('Bit offset must be 0 to pop a string');
@@ -52,10 +56,6 @@ export default class BinaryString {
     }
 
     return result;
-  }
-
-  toBase64() {
-    return BinaryString._binaryToBase64(this.binaryData);
   }
 
   static _base64ToBinary(base64String) {
