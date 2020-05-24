@@ -20,7 +20,18 @@ export default class BinaryString {
   }
 
   popBoolean() {
+    const firstByte = _.first(this.binaryData);
+    const poppedBoolean = firstByte % 2 === 1;
 
+    if (this.bitOffset < 7) {
+      _.set(this.binaryData, 0, _.floor(firstByte / 2));
+      this.bitOffset += 1;
+    } else {
+      this.binaryData = _.slice(this.binaryData, 1);
+      this.bitOffset = 0;
+    }
+
+    return poppedBoolean;
   }
 
   static _base64ToBinary(base64String) {
