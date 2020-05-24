@@ -79,16 +79,18 @@ export default class BinaryString {
       bytesToAdd,
       (byte) => this.addNumber(byte, BinaryString._BYTE_SIZE)
     );
+
+    this.addNumber(0, BinaryString._BYTE_SIZE);
   }
 
   addBoolean(booleanValue) {
     if (this.bitOffset > 0) {
       this.bitOffset -= 1;
 
-      const firstByte = _.first(this.binaryData);
+      const lastByte = _.last(this.binaryData);
       const newValue = booleanValue ? (2 ** (BinaryString._BYTE_SIZE - this.bitOffset - 1)) : 0;
 
-      _.set(this.binaryData, 0, firstByte + newValue);
+      _.set(this.binaryData, this.binaryData.length - 1, lastByte + newValue);
     } else {
       this.binaryData.push(booleanValue ? 1 : 0);
       this.bitOffset = BinaryString._BYTE_SIZE - 1;
@@ -96,7 +98,14 @@ export default class BinaryString {
   }
 
   addNumber(numberValue, numBits) {
+    let remainingValue = numberValue;
 
+    for (let i = 0; i < numBits; i += 1) {
+      const currentValue = remainingValue % 2 === 1;
+      this.addBoolean(currentValue);
+
+      remainingValue = _.floor(remainingValue / 2);
+    }
   }
 
   static _base64ToBinary(base64String) {
