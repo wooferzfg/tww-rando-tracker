@@ -36,14 +36,134 @@ describe('BinaryString', () => {
   });
 
   describe('popBoolean', () => {
-    describe('when the bit offset is 0', () => {
+    describe('when the bit offset is at the start of a byte', () => {
       beforeEach(() => {
         binaryString.bitOffset = 0;
       });
 
       describe('when the value is true', () => {
-        test('removes the value from the binary data', () => {
+        beforeEach(() => {
+          binaryString.binaryData = [129]; // 129 = 1000000[1]
+        });
 
+        test('returns true', () => {
+          const poppedBoolean = binaryString.popBoolean();
+
+          expect(poppedBoolean).toEqual(true);
+        });
+
+        test('removes the value from the binary data', () => {
+          binaryString.popBoolean();
+
+          expect(binaryString.binaryData).toEqual([64]);
+          expect(binaryString.bitOffset).toEqual(1);
+        });
+      });
+
+      describe('when the value is false', () => {
+        beforeEach(() => {
+          binaryString.binaryData = [128]; // 128 = 1000000[0]
+        });
+
+        test('returns false', () => {
+          const poppedBoolean = binaryString.popBoolean();
+
+          expect(poppedBoolean).toEqual(false);
+        });
+
+        test('removes the value from the binary data', () => {
+          binaryString.popBoolean();
+
+          expect(binaryString.binaryData).toEqual([64]);
+          expect(binaryString.bitOffset).toEqual(1);
+        });
+      });
+    });
+
+    describe('when the bit offset is in the middle of a byte', () => {
+      beforeEach(() => {
+        binaryString.bitOffset = 3;
+      });
+
+      describe('when the value is true', () => {
+        beforeEach(() => {
+          binaryString.binaryData = [13]; // 13 = 0110[1]
+        });
+
+        test('returns true', () => {
+          const poppedBoolean = binaryString.popBoolean();
+
+          expect(poppedBoolean).toEqual(true);
+        });
+
+        test('removes the value from the binary data', () => {
+          binaryString.popBoolean();
+
+          expect(binaryString.binaryData).toEqual([6]);
+          expect(binaryString.bitOffset).toEqual(4);
+        });
+      });
+
+      describe('when the value is false', () => {
+        beforeEach(() => {
+          binaryString.binaryData = [14]; // 14 = 0111[0]
+        });
+
+        test('returns false', () => {
+          const poppedBoolean = binaryString.popBoolean();
+
+          expect(poppedBoolean).toEqual(false);
+        });
+
+        test('removes the value from the binary data', () => {
+          binaryString.popBoolean();
+
+          expect(binaryString.binaryData).toEqual([7]);
+          expect(binaryString.bitOffset).toEqual(4);
+        });
+      });
+    });
+
+    describe('when the bit offset is at the end of a byte', () => {
+      beforeEach(() => {
+        binaryString.bitOffset = 7;
+      });
+
+      describe('when the value is true', () => {
+        beforeEach(() => {
+          binaryString.binaryData = [1, 65];
+        });
+
+        test('returns true', () => {
+          const poppedBoolean = binaryString.popBoolean();
+
+          expect(poppedBoolean).toEqual(true);
+        });
+
+        test('removes the value from the binary data', () => {
+          binaryString.popBoolean();
+
+          expect(binaryString.binaryData).toEqual([65]);
+          expect(binaryString.bitOffset).toEqual(0);
+        });
+      });
+
+      describe('when the value is false', () => {
+        beforeEach(() => {
+          binaryString.binaryData = [0, 67];
+        });
+
+        test('returns false', () => {
+          const poppedBoolean = binaryString.popBoolean();
+
+          expect(poppedBoolean).toEqual(false);
+        });
+
+        test('removes the value from the binary data', () => {
+          binaryString.popBoolean();
+
+          expect(binaryString.binaryData).toEqual([67]);
+          expect(binaryString.bitOffset).toEqual(0);
         });
       });
     });
