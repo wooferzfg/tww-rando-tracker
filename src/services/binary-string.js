@@ -11,6 +11,10 @@ export default class BinaryString {
     return new BinaryString(binaryData);
   }
 
+  static get _BYTE_SIZE() {
+    return 8;
+  }
+
   toBase64() {
     return BinaryString._binaryToBase64(this.binaryData);
   }
@@ -24,7 +28,7 @@ export default class BinaryString {
     let currentByte;
 
     while (currentByte !== 0) {
-      currentByte = this.popNumber(8);
+      currentByte = this.popNumber(BinaryString._BYTE_SIZE);
 
       if (currentByte !== 0) {
         poppedBytes.push(currentByte);
@@ -38,7 +42,7 @@ export default class BinaryString {
     const firstByte = _.first(this.binaryData);
     const poppedBoolean = firstByte % 2 === 1;
 
-    if (this.bitOffset < 7) {
+    if (this.bitOffset < BinaryString._BYTE_SIZE - 1) {
       _.set(this.binaryData, 0, _.floor(firstByte / 2));
       this.bitOffset += 1;
     } else {
@@ -73,12 +77,22 @@ export default class BinaryString {
 
     _.forEach(
       bytesToAdd,
-      (byte) => this.addNumber(byte, 8)
+      (byte) => this.addNumber(byte, BinaryString._BYTE_SIZE)
     );
   }
 
   addBoolean(booleanValue) {
+    if (this.bitOffset > 0) {
+      this.bitOffset -= 1;
 
+      const firstByte = _.first(this.binaryData);
+      const newValue = booleanValue ? (2 ** (BinaryString._BYTE_SIZE - this.bitOffset - 1)) : 0;
+
+      _.set(this.binaryData, 0, firstByte + newValue);
+    } else {
+      this.binaryData.push(booleanValue ? 1 : 0);
+      this.bitOffset = BinaryString._BYTE_SIZE - 1;
+    }
   }
 
   addNumber(numberValue, numBits) {
