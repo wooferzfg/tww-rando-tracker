@@ -185,8 +185,8 @@ describe('BinaryString', () => {
   describe('popNumber', () => {
     describe('when a number is contained within a byte', () => {
       beforeEach(() => {
-        binaryString.bitOffset = 1;
         binaryString.binaryData = [82]; // 82 = 10[10010]
+        binaryString.bitOffset = 1;
       });
 
       test('returns the correct number', () => {
@@ -205,8 +205,8 @@ describe('BinaryString', () => {
 
     describe('when a number is spread across multiple bytes', () => {
       beforeEach(() => {
-        binaryString.bitOffset = 6;
         binaryString.binaryData = [2, 190]; // 2 = [10], 190 = 1011[1110]
+        binaryString.bitOffset = 6;
       });
 
       test('returns the correct number', () => {
@@ -222,5 +222,43 @@ describe('BinaryString', () => {
         expect(binaryString.bitOffset).toEqual(4);
       });
     });
+  });
+
+  describe('addString', () => {
+    describe('when the binary data is empty', () => {
+      beforeEach(() => {
+        binaryString.binaryData = [];
+        binaryString.bitOffset = 0;
+      });
+
+      test('adds the string to the binary data', () => {
+        binaryString.addString('yeet');
+
+        expect(binaryString.binaryData).toEqual([121, 101, 101, 116, 0]);
+        expect(binaryString.bitOffset).toEqual(0);
+      });
+    });
+
+    describe('when the binary data is not empty', () => {
+      beforeEach(() => {
+        binaryString.binaryData = [49, 46, 56, 46, 48, 0];
+        binaryString.bitOffset = 0;
+      });
+
+      test('adds the string to the binary data', () => {
+        binaryString.addString('yeet');
+
+        expect(binaryString.binaryData).toEqual([49, 46, 56, 46, 48, 0, 121, 101, 101, 116, 0]);
+        expect(binaryString.bitOffset).toEqual(0);
+      });
+    });
+  });
+
+  describe('addBoolean', () => {
+
+  });
+
+  describe('addNumber', () => {
+
   });
 });

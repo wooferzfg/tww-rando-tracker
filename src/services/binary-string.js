@@ -58,6 +58,24 @@ export default class BinaryString {
     return result;
   }
 
+  addString(stringValue) {
+    if (this.bitOffset !== 0) {
+      throw Error('Bit offset must be 0 to add a string');
+    }
+
+    const bytesToAdd = BinaryString._stringToBinary(stringValue);
+
+    this.binaryData = _.concat(this.binaryData, bytesToAdd, [0]);
+  }
+
+  addBoolean(booleanValue) {
+
+  }
+
+  addNumber(numberValue, numBits) {
+
+  }
+
   static _base64ToBinary(base64String) {
     const buffer = Buffer.from(base64String, 'base64');
     return Array.from(buffer.values());
@@ -65,6 +83,11 @@ export default class BinaryString {
 
   static _binaryToBase64(binaryArray) {
     return Buffer.from(binaryArray).toString('base64');
+  }
+
+  static _stringToBinary(utf8String) {
+    const buffer = Buffer.from(utf8String);
+    return Array.from(buffer.values());
   }
 
   static _binaryToString(binaryArray) {
