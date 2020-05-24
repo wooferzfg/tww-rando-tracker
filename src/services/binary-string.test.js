@@ -211,10 +211,14 @@ describe('BinaryString', () => {
     });
   });
 
-  describe('_binaryToBase64', () => {
-    test('converts a binary array to a base64 string', () => {
-      const binaryArrayInput = [49, 46, 56, 46, 48, 0, 121, 101, 101];
-      const base64Output = BinaryString._binaryToBase64(binaryArrayInput);
+  describe('toBase64', () => {
+    beforeEach(() => {
+      binaryString.binaryData = [49, 46, 56, 46, 48, 0, 121, 101, 101];
+      binaryString.bitOffset = 0;
+    });
+
+    test('returns the correct base64 string', () => {
+      const base64Output = binaryString.toBase64();
 
       expect(base64Output).toEqual('MS44LjAAeWVl');
     });
