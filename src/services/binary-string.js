@@ -88,9 +88,10 @@ export default class BinaryString {
       this.bitOffset -= 1;
 
       const lastByte = _.last(this.binaryData);
+      const lastIndex = this.binaryData.length - 1;
       const newValue = booleanValue ? (2 ** (BinaryString._BYTE_SIZE - this.bitOffset - 1)) : 0;
 
-      _.set(this.binaryData, this.binaryData.length - 1, lastByte + newValue);
+      _.set(this.binaryData, lastIndex, lastByte + newValue);
     } else {
       this.binaryData.push(booleanValue ? 1 : 0);
       this.bitOffset = BinaryString._BYTE_SIZE - 1;
