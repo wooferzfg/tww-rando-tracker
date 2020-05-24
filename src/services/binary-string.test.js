@@ -4,12 +4,12 @@ describe('BinaryString', () => {
   let binaryString;
 
   beforeEach(() => {
-    binaryString = new BinaryString('');
+    binaryString = new BinaryString();
   });
 
-  describe('constructor', () => {
+  describe('fromBase64', () => {
     test('sets the binary data and bit offset', () => {
-      binaryString = new BinaryString('MS44LjAAeWVl');
+      binaryString = BinaryString.fromBase64('MS44LjAAeWVl');
 
       expect(binaryString.binaryData).toEqual([49, 46, 56, 46, 48, 0, 121, 101, 101]);
       expect(binaryString.bitOffset).toEqual(0);
@@ -18,7 +18,7 @@ describe('BinaryString', () => {
 
   describe('popString', () => {
     beforeEach(() => {
-      binaryString = new BinaryString('MS44LjAAeWVl');
+      binaryString = BinaryString.fromBase64('MS44LjAAeWVl');
     });
 
     test('returns the first string in the bit string', () => {
