@@ -45,6 +45,16 @@ describe('BinaryString', () => {
       expect(binaryString.binaryData).toEqual([121, 101, 101]); // yee
       expect(binaryString.bitOffset).toEqual(0);
     });
+
+    describe('when the binary string is empty', () => {
+      beforeEach(() => {
+        binaryString = new BinaryString([], 0);
+      });
+
+      test('throws an error', () => {
+        expect(() => binaryString.popString()).toThrow();
+      });
+    });
   });
 
   describe('popBoolean', () => {
@@ -167,6 +177,16 @@ describe('BinaryString', () => {
         });
       });
     });
+
+    describe('when the binary string is empty', () => {
+      beforeEach(() => {
+        binaryString = new BinaryString([], 0);
+      });
+
+      test('throws an error', () => {
+        expect(() => binaryString.popBoolean()).toThrow();
+      });
+    });
   });
 
   describe('popNumber', () => {
@@ -205,6 +225,16 @@ describe('BinaryString', () => {
 
         expect(binaryString.binaryData).toEqual([11]); // 11 = 1011
         expect(binaryString.bitOffset).toEqual(4);
+      });
+    });
+
+    describe('when the binary string is empty', () => {
+      beforeEach(() => {
+        binaryString = new BinaryString([], 0);
+      });
+
+      test('throws an error', () => {
+        expect(() => binaryString.popNumber(5)).toThrow();
       });
     });
   });
