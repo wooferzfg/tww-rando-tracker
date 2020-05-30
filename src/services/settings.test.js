@@ -6,28 +6,33 @@ describe('Settings', () => {
   });
 
   describe('initialize', () => {
-    test('initializes the flags, options, and version', () => {
+    test('initializes the flags, options, starting gear, and version', () => {
       const flags = ['Tingle Chests'];
       const options = {
         randomizeEntrances: true
       };
+      const startingGear = {
+        'Grappling Hook': 1
+      };
       const version = '1.0.0';
 
-      Settings.initialize({
+      Settings.initializeManually({
         flags,
         options,
+        startingGear,
         version
       });
 
       expect(Settings.flags).toEqual(flags);
       expect(Settings.options).toEqual(options);
+      expect(Settings.startingGear).toEqual(startingGear);
       expect(Settings.version).toEqual(version);
     });
   });
 
   describe('isFlagActive', () => {
     beforeEach(() => {
-      Settings.initialize({
+      Settings.initializeManually({
         flags: ['Tingle Chests']
       });
     });
@@ -51,7 +56,7 @@ describe('Settings', () => {
 
   describe('getOptionValue', () => {
     beforeEach(() => {
-      Settings.initialize({
+      Settings.initializeManually({
         options: {
           numStartingTriforceShards: 7
         }
@@ -65,9 +70,25 @@ describe('Settings', () => {
     });
   });
 
+  describe('getStartingGear', () => {
+    beforeEach(() => {
+      Settings.initializeManually({
+        startingGear: {
+          'Deku Leaf': 1
+        }
+      });
+    });
+
+    test('returns the provided starting gear', () => {
+      const startingGear = Settings.getStartingGear();
+
+      expect(startingGear).toEqual({ 'Deku Leaf': 1 });
+    });
+  });
+
   describe('getVersion', () => {
     beforeEach(() => {
-      Settings.initialize({
+      Settings.initializeManually({
         version: '1.0.0'
       });
     });
