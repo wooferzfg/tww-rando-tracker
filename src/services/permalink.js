@@ -69,7 +69,30 @@ export default class Permalink {
   static get _CONFIG() {
     return [
       this._stringConfig(this.OPTIONS.VERSION),
-      this._stringConfig(this.OPTIONS.SEED_NAME)
+      this._stringConfig(this.OPTIONS.SEED_NAME),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_DUNGEONS),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_GREAT_FAIRIES),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_PUZZLE_SECRET_CAVES),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_COMBAT_SECRET_CAVES),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_SHORT_SIDEQUESTS),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_LONG_SIDEQUESTS),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_SPOILS_TRADING),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_MINIGAMES),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_FREE_GIFTS),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_MAIL),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_PLATFORMS_RAFTS),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_SUBMARINES),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_EYE_REEF_CHESTS),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_BIG_OCTOS_GUNBOATS),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_TRIFORCE_CHARTS),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_TREASURE_CHARTS),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_MISC),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_TINGLE_CHESTS),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_BATTLESQUID),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH),
+      this._booleanConfig(this.OPTIONS.PROGRESSION_ISLAND_PUZZLES),
+      this._booleanConfig(this.OPTIONS.KEYLUNACY)
     ];
   }
 
@@ -82,6 +105,19 @@ export default class Permalink {
       encode: (binaryString, options) => {
         const stringValue = _.get(options, optionName);
         binaryString.addString(stringValue);
+      }
+    };
+  }
+
+  static _booleanConfig(optionName) {
+    return {
+      decode: (binaryString, options) => {
+        const booleanValue = binaryString.popBoolean();
+        _.set(options, optionName, booleanValue);
+      },
+      encode: (binaryString, options) => {
+        const booleanValue = _.get(options, optionName);
+        binaryString.addBoolean(booleanValue);
       }
     };
   }
