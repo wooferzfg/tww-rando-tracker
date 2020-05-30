@@ -4,6 +4,7 @@ import TEST_MACROS from '../data/test-macros';
 import LogicTweaks from './logic-tweaks';
 import Locations from './locations';
 import Macros from './macros';
+import Permalink from './permalink';
 import Settings from './settings';
 
 describe('LogicTweaks', () => {
@@ -35,9 +36,9 @@ describe('LogicTweaks', () => {
 
     describe('when dungeon entrances are randomized', () => {
       beforeEach(() => {
-        Settings.initialize({
+        Settings.initializeManually({
           options: {
-            randomizeEntrances: 'Dungeons'
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS
           }
         });
       });
@@ -51,9 +52,10 @@ describe('LogicTweaks', () => {
 
     describe('when cave entrances are randomized', () => {
       beforeEach(() => {
-        Settings.initialize({
+        Settings.initializeManually({
           options: {
-            randomizeEntrances: 'Secret Caves'
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES
           }
         });
       });
@@ -67,9 +69,9 @@ describe('LogicTweaks', () => {
 
     describe('when charts are randomized', () => {
       beforeEach(() => {
-        Settings.initialize({
+        Settings.initializeManually({
           options: {
-            randomizeCharts: true
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true
           }
         });
       });

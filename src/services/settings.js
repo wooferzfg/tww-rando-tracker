@@ -1,6 +1,17 @@
 import _ from 'lodash';
 
+import Constants from './constants';
+import Permalink from './permalink';
+
+import FLAGS from '../data/flags';
+
 export default class Settings {
+  static FLAGS = Constants.createFromArray(FLAGS);
+
+  static initializeFromPermalink(permalinkString) {
+    const decodedOptions = Permalink.decode(permalinkString);
+  }
+
   static initializeManually(settings) {
     this.flags = settings.flags;
     this.options = settings.options;

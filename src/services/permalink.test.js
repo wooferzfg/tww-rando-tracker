@@ -7,6 +7,18 @@ describe('Permalink', () => {
     });
   });
 
+  describe('RANDOMIZE_ENTRANCES_OPTIONS', () => {
+    test('returns the correct options', () => {
+      expect(Permalink.RANDOMIZE_ENTRANCES_OPTIONS).toMatchSnapshot();
+    });
+  });
+
+  describe('SWORD_MODE_OPTIONS', () => {
+    test('returns the correct options', () => {
+      expect(Permalink.SWORD_MODE_OPTIONS).toMatchSnapshot();
+    });
+  });
+
   describe('DROPDOWN_OPTIONS', () => {
     test('returns the correct dropdown options', () => {
       expect(Permalink.DROPDOWN_OPTIONS).toMatchSnapshot();

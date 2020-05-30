@@ -33,13 +33,13 @@ describe('Settings', () => {
   describe('isFlagActive', () => {
     beforeEach(() => {
       Settings.initializeManually({
-        flags: ['Tingle Chests']
+        flags: [Settings.FLAGS.TINGLE_CHEST]
       });
     });
 
     describe('when the flag is in the list of flags', () => {
       test('returns true', () => {
-        const isFlagActive = Settings.isFlagActive('Tingle Chests');
+        const isFlagActive = Settings.isFlagActive(Settings.FLAGS.TINGLE_CHEST);
 
         expect(isFlagActive).toEqual(true);
       });
@@ -47,7 +47,7 @@ describe('Settings', () => {
 
     describe('when the flag is not in the list of flags', () => {
       test('returns true', () => {
-        const isFlagActive = Settings.isFlagActive('Dungeons');
+        const isFlagActive = Settings.isFlagActive(Settings.FLAGS.DUNGEON);
 
         expect(isFlagActive).toEqual(false);
       });

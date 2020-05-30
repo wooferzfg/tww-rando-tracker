@@ -1,83 +1,25 @@
 import _ from 'lodash';
 
 import BinaryString from './binary-string';
+import Constants from './constants';
 
+import OPTIONS from '../data/options';
 import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items';
+import RANDOMIZE_ENTRANCES_OPTIONS from '../data/randomize-entrances-options';
 import REGULAR_STARTING_ITEMS from '../data/regular-starting-items';
+import SWORD_MODE_OPTIONS from '../data/sword-mode-options';
 
 export default class Permalink {
-  static OPTIONS = _.reduce(
-    [
-      'seed_name',
-      'version',
+  static OPTIONS = Constants.createFromArray(OPTIONS);
 
-      'progression_dungeons',
-      'progression_great_fairies',
-      'progression_puzzle_secret_caves',
-      'progression_combat_secret_caves',
-      'progression_short_sidequests',
-      'progression_long_sidequests',
-      'progression_spoils_trading',
-      'progression_minigames',
-      'progression_free_gifts',
-      'progression_mail',
-      'progression_platforms_rafts',
-      'progression_submarines',
-      'progression_eye_reef_chests',
-      'progression_big_octos_gunboats',
-      'progression_triforce_charts',
-      'progression_treasure_charts',
-      'progression_expensive_purchases',
-      'progression_misc',
-      'progression_tingle_chests',
-      'progression_battlesquid',
-      'progression_savage_labyrinth',
-      'progression_island_puzzles',
+  static RANDOMIZE_ENTRANCES_OPTIONS = Constants.createFromArray(RANDOMIZE_ENTRANCES_OPTIONS);
 
-      'keylunacy',
-      'randomize_entrances',
-      'randomize_charts',
-      'randomize_starting_island',
-
-      'swift_sail',
-      'instant_text_boxes',
-      'reveal_full_sea_chart',
-      'num_starting_triforce_shards',
-      'add_shortcut_warps_between_dungeons',
-      'do_not_generate_spoiler_log',
-      'sword_mode',
-      'skip_rematch_bosses',
-      'invert_camera_x_axis',
-      'race_mode',
-      'randomize_music',
-      'disable_tingle_chests_with_tingle_bombs',
-      'randomize_enemy_palettes',
-      'remove_title_and_ending_videos',
-
-      'starting_gear',
-      'starting_pohs',
-      'starting_hcs',
-      'remove_music',
-      'randomize_enemies'
-    ],
-    (accumulator, option) => _.set(accumulator, _.toUpper(option), option),
-    {}
-  );
+  static SWORD_MODE_OPTIONS = Constants.createFromArray(SWORD_MODE_OPTIONS);
 
   static DROPDOWN_OPTIONS = {
-    [this.OPTIONS.RANDOMIZE_ENTRANCES]: [
-      'Disabled',
-      'Dungeons',
-      'Secret Caves',
-      'Dungeons & Secret Caves (Separately)',
-      'Dungeons & Secret Caves (Together)'
-    ],
+    [this.OPTIONS.RANDOMIZE_ENTRANCES]: RANDOMIZE_ENTRANCES_OPTIONS,
     [this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: _.range(0, 9),
-    [this.OPTIONS.SWORD_MODE]: [
-      'Start with Sword',
-      'Randomized Sword',
-      'Swordless'
-    ]
+    [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS
   };
 
   static _CONFIG = [
