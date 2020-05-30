@@ -14,4 +14,20 @@ describe('Permalink', () => {
       expect(options).toMatchSnapshot();
     });
   });
+
+  describe('encode', () => {
+    let options;
+    let permalink;
+
+    beforeEach(() => {
+      permalink = 'MS44LjAAeWVldAAHAQMBP0DAyAAAACBQMgA=';
+      options = Permalink.decode(permalink);
+    });
+
+    test('encodes a permalink', () => {
+      const encodedPermalink = Permalink.encode(options);
+
+      expect(encodedPermalink).toEqual(permalink);
+    });
+  });
 });
