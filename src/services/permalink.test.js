@@ -9,7 +9,9 @@ describe('Permalink', () => {
 
   describe('decode', () => {
     test('decodes a default permalink', () => {
-      Permalink.decode('MS44LjAAeWVldAAHAQMADgBACAAAAAAAAAA=');
+      const options = Permalink.decode('MS44LjAAeWVldAAHAQMADgBACAAAAAAAAAA=');
+
+      expect(options).toMatchSnapshot();
     });
   });
 });
