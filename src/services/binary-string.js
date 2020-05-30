@@ -36,6 +36,11 @@ export default class BinaryString {
 
   popBoolean() {
     const firstByte = _.first(this.binaryData);
+
+    if (_.isNil(firstByte)) {
+      throw Error('Tried to pop when the binary data was empty');
+    }
+
     const poppedBoolean = firstByte % 2 === 1;
 
     if (this.bitOffset < BinaryString.BYTE_SIZE - 1) {
