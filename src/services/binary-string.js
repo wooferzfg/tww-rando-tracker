@@ -6,9 +6,7 @@ export default class BinaryString {
     this.bitOffset = bitOffset;
   }
 
-  static get BYTE_SIZE() {
-    return 8;
-  }
+  static BYTE_SIZE = 8;
 
   static fromBase64(base64String) {
     const binaryData = BinaryString._base64ToBinary(base64String);

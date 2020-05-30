@@ -258,12 +258,10 @@ export default class LogicCalculation {
     return null;
   }
 
-  static get _BOOLEAN_EXPRESSION_TYPES() {
-    return {
-      AND: 'and',
-      OR: 'or'
-    };
-  }
+  static _BOOLEAN_EXPRESSION_TYPES = {
+    AND: 'and',
+    OR: 'or'
+  };
 
   _formatRequirements(requirements) {
     const evaluatedRequirements = this._evaluatedRequirements(requirements);

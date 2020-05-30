@@ -109,12 +109,10 @@ export default class BooleanExpression {
     return updatedExpression;
   }
 
-  static get _TYPES() {
-    return {
-      AND: 'and',
-      OR: 'or'
-    };
-  }
+  static _TYPES = {
+    AND: 'and',
+    OR: 'or'
+  };
 
   _oppositeType() {
     if (this.isAnd()) {
