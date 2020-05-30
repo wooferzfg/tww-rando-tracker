@@ -129,7 +129,11 @@ export default class Permalink {
       this._booleanConfig(this.OPTIONS.DISABLE_TINGLE_CHESTS_WITH_TINGLE_BOMBS),
       this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
       this._booleanConfig(this.OPTIONS.REMOVE_TITLE_AND_ENDING_VIDEOS),
-      this._startingGearConfig()
+      this._startingGearConfig(),
+      this._spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
+      this._spinBoxConfig(this.OPTIONS.STARTING_HCS, 0, 6),
+      this._booleanConfig(this.OPTIONS.REMOVE_MUSIC),
+      this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES)
     ];
   }
 
@@ -230,13 +234,47 @@ export default class Permalink {
       encode: (binaryString, options) => {
         _.forEach(REGULAR_STARTING_ITEMS, (item) => {
           const itemValue = _.get(options, [optionName, item]);
+
+          if (_.isNil(itemValue)) {
+            throw Error(`Invalid value for starting item: ${item}`);
+          }
+
           binaryString.addNumber(itemValue, 1);
         });
 
         _.forEach(PROGRESSIVE_STARTING_ITEMS, (item) => {
           const itemValue = _.get(options, [optionName, item]);
+
+          if (_.isNil(itemValue)) {
+            throw Error(`Invalid value for starting item: ${item}`);
+          }
+
           binaryString.addNumber(itemValue, 2);
         });
+      }
+    };
+  }
+
+  static _spinBoxConfig(optionName, minValue, maxValue) {
+    if (_.isNil(optionName)) {
+      throw Error('Invalid spin box option config');
+    }
+
+    const numBits = (maxValue - minValue).toString(2).length;
+
+    return {
+      decode: (binaryString, options) => {
+        const spinBoxValue = binaryString.popNumber(numBits);
+        _.set(options, optionName, spinBoxValue);
+      },
+      encode: (binaryString, options) => {
+        const spinBoxValue = _.get(options, optionName);
+
+        if (_.isNil(spinBoxValue)) {
+          throw Error(`Invalid value for option: ${spinBoxValue}`);
+        }
+
+        binaryString.addNumber(spinBoxValue, numBits);
       }
     };
   }
