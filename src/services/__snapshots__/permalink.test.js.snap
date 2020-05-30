@@ -52,3 +52,10 @@ Object {
   "VERSION": "version",
 }
 `;
+
+exports[`Permalink decode decodes a default permalink 1`] = `
+Object {
+  "seed_name": "yeet",
+  "version": "1.8.0",
+}
+`;

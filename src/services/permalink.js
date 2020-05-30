@@ -66,8 +66,34 @@ export default class Permalink {
     );
   }
 
+  static get _CONFIG() {
+    return [
+      this._stringConfig(this.OPTIONS.VERSION),
+      this._stringConfig(this.OPTIONS.SEED_NAME)
+    ];
+  }
+
+  static _stringConfig(optionName) {
+    return {
+      decode: (binaryString, options) => {
+        const stringValue = binaryString.popString();
+        _.set(options, optionName, stringValue);
+      },
+      encode: (binaryString, options) => {
+        const stringValue = _.get(options, optionName);
+        binaryString.addString(stringValue);
+      }
+    };
+  }
+
   static decode(permalinkString) {
-    const binaryData = BinaryString._base64ToBinary(permalinkString);
-    return binaryData;
+    const binaryString = BinaryString.fromBase64(permalinkString);
+    const options = {};
+
+    _.forEach(this._CONFIG, (configItem) => {
+      configItem.decode(binaryString, options);
+    });
+
+    return options;
   }
 }
