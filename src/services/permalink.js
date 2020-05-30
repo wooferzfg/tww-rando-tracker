@@ -2,6 +2,9 @@ import _ from 'lodash';
 
 import BinaryString from './binary-string';
 
+import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items';
+import REGULAR_STARTING_ITEMS from '../data/regular-starting-items';
+
 export default class Permalink {
   static get OPTIONS() {
     const options = [
@@ -51,7 +54,6 @@ export default class Permalink {
       'randomize_enemy_palettes',
       'remove_title_and_ending_videos',
 
-      'randomized_gear',
       'starting_gear',
       'starting_pohs',
       'starting_hcs',
@@ -126,7 +128,8 @@ export default class Permalink {
       this._booleanConfig(this.OPTIONS.RANDOMIZE_MUSIC),
       this._booleanConfig(this.OPTIONS.DISABLE_TINGLE_CHESTS_WITH_TINGLE_BOMBS),
       this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
-      this._booleanConfig(this.OPTIONS.REMOVE_TITLE_AND_ENDING_VIDEOS)
+      this._booleanConfig(this.OPTIONS.REMOVE_TITLE_AND_ENDING_VIDEOS),
+      this._startingGearConfig()
     ];
   }
 
@@ -205,6 +208,35 @@ export default class Permalink {
         }
 
         binaryString.addNumber(dropdownIndex);
+      }
+    };
+  }
+
+  static _startingGearConfig() {
+    const optionName = this.OPTIONS.STARTING_GEAR;
+
+    return {
+      decode: (binaryString, options) => {
+        _.forEach(REGULAR_STARTING_ITEMS, (item) => {
+          const itemValue = binaryString.popNumber(1);
+          _.set(options, [optionName, item], itemValue);
+        });
+
+        _.forEach(PROGRESSIVE_STARTING_ITEMS, (item) => {
+          const itemValue = binaryString.popNumber(2);
+          _.set(options, [optionName, item], itemValue);
+        });
+      },
+      encode: (binaryString, options) => {
+        _.forEach(REGULAR_STARTING_ITEMS, (item) => {
+          const itemValue = _.get(options, [optionName, item]);
+          binaryString.addNumber(itemValue, 1);
+        });
+
+        _.forEach(PROGRESSIVE_STARTING_ITEMS, (item) => {
+          const itemValue = _.get(options, [optionName, item]);
+          binaryString.addNumber(itemValue, 2);
+        });
       }
     };
   }
