@@ -8,6 +8,7 @@ import LogicCalculation from './logic-calculation';
 import LogicHelper from './logic-helper';
 import LogicTweaks from './logic-tweaks';
 import Macros from './macros';
+import Permalink from './permalink';
 import Settings from './settings';
 import TrackerState from './tracker-state';
 
@@ -25,9 +26,10 @@ describe('LogicCalculation', () => {
   };
 
   beforeEach(() => {
-    Settings.initialize({
+    Settings.initializeManually({
       options: {
-        keyLunacy: true // Don't run the guaranteed keys logic unless the test needs it
+        // Don't run the guaranteed keys logic unless the test needs it
+        [Permalink.OPTIONS.KEY_LUNACY]: true
       }
     });
 
@@ -43,16 +45,18 @@ describe('LogicCalculation', () => {
 
   describe('constructor', () => {
     beforeEach(() => {
-      Settings.initialize({
+      Settings.initializeManually({
         options: {
-          keyLunacy: false,
-          numStartingTriforceShards: 0,
-          raceMode: false,
-          randomizeCharts: false,
-          randomizeEntrances: 'Disabled',
-          skipRematchBosses: true,
-          startingGear: 0,
-          swordMode: 'Start with Sword'
+          [Permalink.OPTIONS.KEY_LUNACY]: false,
+          [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+          [Permalink.OPTIONS.RACE_MODE]: false,
+          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+          [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
+          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD
+        },
+        startingGear: {
+          'Progressive Sword': 0
         }
       });
 
@@ -69,9 +73,9 @@ describe('LogicCalculation', () => {
 
       describe('when doing key lunacy', () => {
         beforeEach(() => {
-          Settings.initialize({
+          Settings.initializeManually({
             options: {
-              keyLunacy: true
+              [Permalink.OPTIONS.KEY_LUNACY]: true
             }
           });
 

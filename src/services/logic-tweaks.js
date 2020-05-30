@@ -9,6 +9,7 @@ import ISLANDS from '../data/islands';
 import Locations from './locations';
 import LogicHelper from './logic-helper';
 import Macros from './macros';
+import Permalink from './permalink';
 import Settings from './settings';
 
 export default class LogicTweaks {
@@ -130,7 +131,7 @@ export default class LogicTweaks {
   }
 
   static _updateChartMacros() {
-    if (Settings.getOptionValue('randomizeCharts')) {
+    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
       _.forEach(CHARTS, (chart, index) => {
         // Assume everything is a Treasure Chart and clear any additional requirements like
         // wallet upgrades

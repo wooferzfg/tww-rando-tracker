@@ -9,14 +9,13 @@ import ISLANDS from '../data/islands';
 import ITEMS from '../data/items';
 import KEYS from '../data/keys';
 import PRETTY_ITEM_NAMES from '../data/pretty-item-names';
-import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items';
-import REGULAR_STARTING_ITEMS from '../data/regular-starting-items';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names';
 
 import BooleanExpression from './boolean-expression';
 import Locations from './locations';
 import Macros from './macros';
 import Memoizer from './memoizer';
+import Permalink from './permalink';
 import Settings from './settings';
 
 export default class LogicHelper {
@@ -96,15 +95,32 @@ export default class LogicHelper {
   }
 
   static isRandomDungeonEntrances() {
-    return _.includes(this._randomizeEntrancesOption(), 'Dungeons');
+    return _.includes(
+      [
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER
+      ],
+      this._randomizeEntrancesOption()
+    );
   }
 
   static isRandomCaveEntrances() {
-    return _.includes(this._randomizeEntrancesOption(), 'Secret Caves');
+    return _.includes(
+      [
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER
+      ],
+      this._randomizeEntrancesOption()
+    );
   }
 
   static isRandomEntrancesTogether() {
-    return _.includes(this._randomizeEntrancesOption(), 'Together');
+    return _.includes(
+      this._randomizeEntrancesOption(),
+      Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER
+    );
   }
 
   static parseItemCountRequirement(requirement) {
@@ -148,7 +164,7 @@ export default class LogicHelper {
       detailedLocation,
       Locations.KEYS.TYPES
     );
-    if (_.includes(locationTypes, 'Tingle Chest') && !Settings.isFlagActive('Tingle Chest')) {
+    if (_.includes(locationTypes, 'Tingle Chest') && !Settings.isFlagActive(Settings.FLAGS.TINGLE_CHEST)) {
       return false;
     }
 
@@ -233,7 +249,7 @@ export default class LogicHelper {
   }
 
   static _prettyNameOverride(itemName, itemCount) {
-    if (Settings.getOptionValue('randomizeCharts') && _.includes(itemName, ' Chart')) {
+    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) && _.includes(itemName, ' Chart')) {
       const islandIndex = _.indexOf(CHARTS, itemName);
       return `Chart for ${_.get(ISLANDS, islandIndex)}`;
     }
@@ -336,24 +352,17 @@ export default class LogicHelper {
       "Wind's Requiem": 1,
       'Ballad of Gales': 1,
       'Song of Passing': 1,
-      'Triforce Shard': Settings.getOptionValue('numStartingTriforceShards')
+      'Triforce Shard': Settings.getOptionValue(Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS)
     };
     this.impossibleItems = {};
 
-    let gearRemaining = Settings.getOptionValue('startingGear');
-    _.forEach(REGULAR_STARTING_ITEMS, (itemName) => {
-      this.startingItems[itemName] = gearRemaining % 2;
-      gearRemaining = _.floor(gearRemaining / 2);
-    });
-    _.forEach(PROGRESSIVE_STARTING_ITEMS, (itemName) => {
-      this.startingItems[itemName] = gearRemaining % 4;
-      gearRemaining = _.floor(gearRemaining / 4);
-    });
+    const startingGear = Settings.getStartingGear();
+    _.merge(this.startingItems, startingGear);
 
-    const swordMode = Settings.getOptionValue('swordMode');
-    if (swordMode === 'Start with Sword') {
+    const swordMode = Settings.getOptionValue(Permalink.OPTIONS.SWORD_MODE);
+    if (swordMode === Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD) {
       this.startingItems['Progressive Sword'] += 1;
-    } else if (swordMode === 'Swordless') {
+    } else if (swordMode === Permalink.SWORD_MODE_OPTIONS.SWORDLESS) {
       this.impossibleItems = {
         'Progressive Sword': 1,
         'Hurricane Spin': 1
@@ -400,7 +409,7 @@ export default class LogicHelper {
     _.forEach(matchers, (matcher) => {
       const requirementMatch = requirement.match(matcher.regex);
       if (requirementMatch) {
-        const optionName = _.camelCase(requirementMatch[1]);
+        const optionName = requirementMatch[1];
         const optionValue = Settings.getOptionValue(optionName);
         const expectedValue = requirementMatch[2];
 
@@ -513,7 +522,7 @@ export default class LogicHelper {
   }
 
   static _randomizeEntrancesOption() {
-    return Settings.getOptionValue('randomizeEntrances');
+    return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_ENTRANCES);
   }
 
   static _isValidLocation(generalLocation, detailedLocation, isDungeon) {

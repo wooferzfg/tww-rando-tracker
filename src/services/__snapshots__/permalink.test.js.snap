@@ -17,8 +17,8 @@ Object {
     "Disabled",
     "Dungeons",
     "Secret Caves",
-    "Dungeons & Secret Caves (Separately)",
-    "Dungeons & Secret Caves (Together)",
+    "Dungeons and Secret Caves (Separately)",
+    "Dungeons and Secret Caves (Together)",
   ],
   "sword_mode": Array [
     "Start with Sword",
@@ -77,6 +77,24 @@ Object {
   "SWIFT_SAIL": "swift_sail",
   "SWORD_MODE": "sword_mode",
   "VERSION": "version",
+}
+`;
+
+exports[`Permalink RANDOMIZE_ENTRANCES_OPTIONS returns the correct options 1`] = `
+Object {
+  "DISABLED": "Disabled",
+  "DUNGEONS": "Dungeons",
+  "DUNGEONS_AND_SECRET_CAVES_SEPARATELY": "Dungeons and Secret Caves (Separately)",
+  "DUNGEONS_AND_SECRET_CAVES_TOGETHER": "Dungeons and Secret Caves (Together)",
+  "SECRET_CAVES": "Secret Caves",
+}
+`;
+
+exports[`Permalink SWORD_MODE_OPTIONS returns the correct options 1`] = `
+Object {
+  "RANDOMIZED_SWORD": "Randomized Sword",
+  "START_WITH_SWORD": "Start with Sword",
+  "SWORDLESS": "Swordless",
 }
 `;
 

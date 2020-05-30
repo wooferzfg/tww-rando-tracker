@@ -9,7 +9,7 @@ import TrackerState from './tracker-state';
 
 export default class TrackerController {
   static async initialize(settings, callbacks) {
-    Settings.initialize(settings);
+    Settings.initializeManually(settings);
 
     this.callbacks = callbacks;
 
@@ -43,7 +43,7 @@ export default class TrackerController {
       locationsChecked
     } = saveData;
 
-    Settings.initialize({
+    Settings.initializeManually({
       flags,
       options,
       version

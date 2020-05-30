@@ -6,6 +6,7 @@ import KEYS from '../data/keys';
 import Locations from './locations';
 import LogicHelper from './logic-helper';
 import Memoizer from './memoizer';
+import Permalink from './permalink';
 import Settings from './settings';
 
 export default class LogicCalculation {
@@ -101,7 +102,7 @@ export default class LogicCalculation {
       {}
     );
 
-    if (!Settings.getOptionValue('keyLunacy')) {
+    if (!Settings.getOptionValue(Permalink.OPTIONS.KEY_LUNACY)) {
       _.forEach(DUNGEONS, (dungeonName) => {
         if (LogicHelper.isMainDungeon(dungeonName)) {
           const {
