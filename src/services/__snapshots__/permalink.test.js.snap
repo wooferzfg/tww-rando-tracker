@@ -55,7 +55,12 @@ Object {
 
 exports[`Permalink decode decodes a default permalink 1`] = `
 Object {
+  "add_shortcut_warps_between_dungeons": false,
+  "disable_tingle_chests_with_tingle_bombs": false,
+  "do_not_generate_spoiler_log": false,
+  "instant_text_boxes": true,
   "keylunacy": false,
+  "num_starting_triforce_shards": 0,
   "progression_battlesquid": false,
   "progression_big_octos_gunboats": false,
   "progression_combat_secret_caves": false,
@@ -78,7 +83,18 @@ Object {
   "progression_tingle_chests": false,
   "progression_treasure_charts": false,
   "progression_triforce_charts": false,
+  "race_mode": false,
+  "randomize_charts": false,
+  "randomize_enemy_palettes": false,
+  "randomize_entrances": "Disabled",
+  "randomize_music": false,
+  "randomize_starting_island": false,
+  "remove_title_and_ending_videos": true,
+  "reveal_full_sea_chart": true,
   "seed_name": "yeet",
+  "skip_rematch_bosses": true,
+  "swift_sail": true,
+  "sword_mode": "Start with Sword",
   "version": "1.8.0",
 }
 `;
