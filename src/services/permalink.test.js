@@ -19,6 +19,19 @@ describe('Permalink', () => {
 
       expect(options).toMatchSnapshot();
     });
+
+    test('throws errors for invalid permalinks', () => {
+      expect(() => Permalink.decode('')).toThrow();
+      expect(() => Permalink.decode('H')).toThrow();
+      expect(() => Permalink.decode('AAAA')).toThrow();
+      expect(() => Permalink.decode('BBBBBBBBBBBBBBBBBBBBBBB')).toThrow();
+      expect(() => Permalink.decode('MS44LjAAeWVldAAfiwofnaslyAAAACBQMgA=')).toThrow();
+      expect(() => Permalink.decode('VIOEWJAFOEIWAJVEOWAIVJN')).toThrow();
+      expect(() => Permalink.decode('vdsccccccccccccccccccccccccccccccccc')).toThrow();
+      expect(() => Permalink.decode('AAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHH')).toThrow();
+      expect(() => Permalink.decode('abcdefghijklmnopqrstuvwxyzABCDEFGHIJ')).toThrow();
+      expect(() => Permalink.decode('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz')).toThrow();
+    });
   });
 
   describe('encode', () => {
