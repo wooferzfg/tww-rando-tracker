@@ -66,6 +66,24 @@ export default class Permalink {
     );
   }
 
+  static get DROPDOWN_OPTIONS() {
+    return {
+      [this.OPTIONS.RANDOMIZE_ENTRANCES]: [
+        'Disabled',
+        'Dungeons',
+        'Secret Caves',
+        'Dungeons & Secret Caves (Separately)',
+        'Dungeons & Secret Caves (Together)'
+      ],
+      [this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: _.range(0, 9),
+      [this.OPTIONS.SWORD_MODE]: [
+        'Start with Sword',
+        'Randomized Sword',
+        'Swordless'
+      ]
+    };
+  }
+
   static get _CONFIG() {
     return [
       this._stringConfig(this.OPTIONS.VERSION),
@@ -92,11 +110,31 @@ export default class Permalink {
       this._booleanConfig(this.OPTIONS.PROGRESSION_BATTLESQUID),
       this._booleanConfig(this.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH),
       this._booleanConfig(this.OPTIONS.PROGRESSION_ISLAND_PUZZLES),
-      this._booleanConfig(this.OPTIONS.KEYLUNACY)
+      this._booleanConfig(this.OPTIONS.KEYLUNACY),
+      this._dropdownConfig(this.OPTIONS.RANDOMIZE_ENTRANCES),
+      this._booleanConfig(this.OPTIONS.RANDOMIZE_CHARTS),
+      this._booleanConfig(this.OPTIONS.RANDOMIZE_STARTING_ISLAND),
+      this._booleanConfig(this.OPTIONS.SWIFT_SAIL),
+      this._booleanConfig(this.OPTIONS.INSTANT_TEXT_BOXES),
+      this._booleanConfig(this.OPTIONS.REVEAL_FULL_SEA_CHART),
+      this._dropdownConfig(this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS),
+      this._booleanConfig(this.OPTIONS.ADD_SHORTCUT_WARPS_BETWEEN_DUNGEONS),
+      this._booleanConfig(this.OPTIONS.DO_NOT_GENERATE_SPOILER_LOG),
+      this._dropdownConfig(this.OPTIONS.SWORD_MODE),
+      this._booleanConfig(this.OPTIONS.SKIP_REMATCH_BOSSES),
+      this._booleanConfig(this.OPTIONS.RACE_MODE),
+      this._booleanConfig(this.OPTIONS.RANDOMIZE_MUSIC),
+      this._booleanConfig(this.OPTIONS.DISABLE_TINGLE_CHESTS_WITH_TINGLE_BOMBS),
+      this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
+      this._booleanConfig(this.OPTIONS.REMOVE_TITLE_AND_ENDING_VIDEOS)
     ];
   }
 
   static _stringConfig(optionName) {
+    if (_.isNil(optionName)) {
+      throw Error('Invalid string option config');
+    }
+
     return {
       decode: (binaryString, options) => {
         const stringValue = binaryString.popString();
@@ -104,12 +142,21 @@ export default class Permalink {
       },
       encode: (binaryString, options) => {
         const stringValue = _.get(options, optionName);
+
+        if (_.isNil(stringValue)) {
+          throw Error(`Invalid value for option: ${optionName}`);
+        }
+
         binaryString.addString(stringValue);
       }
     };
   }
 
   static _booleanConfig(optionName) {
+    if (_.isNil(optionName)) {
+      throw Error('Invalid boolean option config');
+    }
+
     return {
       decode: (binaryString, options) => {
         const booleanValue = binaryString.popBoolean();
@@ -117,7 +164,47 @@ export default class Permalink {
       },
       encode: (binaryString, options) => {
         const booleanValue = _.get(options, optionName);
+
+        if (_.isNil(booleanValue)) {
+          throw Error(`Invalid value for option: ${booleanValue}`);
+        }
+
         binaryString.addBoolean(booleanValue);
+      }
+    };
+  }
+
+  static _dropdownConfig(optionName) {
+    if (_.isNil(optionName)) {
+      throw Error('Invalid dropdown option config');
+    }
+
+    const dropdownOptions = _.get(this.DROPDOWN_OPTIONS, optionName);
+
+    if (_.isNil(dropdownOptions)) {
+      throw Error(`Invalid dropdown options for option: ${optionName}`);
+    }
+
+    return {
+      decode: (binaryString, options) => {
+        const dropdownIndex = binaryString.popNumber(BinaryString.BYTE_SIZE);
+        const dropdownValue = _.get(dropdownOptions, dropdownIndex);
+
+        if (_.isNil(dropdownValue)) {
+          throw Error(`Invalid dropdown index: ${dropdownIndex} for option: ${optionName}`);
+        }
+
+        _.set(options, optionName, dropdownValue);
+      },
+      encode: (binaryString, options) => {
+        const dropdownValue = _.get(options, optionName);
+        const dropdownIndex = _.indexOf(dropdownOptions, dropdownValue);
+
+        if (dropdownIndex < 0) {
+          throw Error(`Invalid dropdown value: ${dropdownValue} for option: ${optionName}`);
+        }
+
+        binaryString.addNumber(dropdownIndex);
       }
     };
   }
