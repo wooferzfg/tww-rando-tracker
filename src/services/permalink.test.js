@@ -8,8 +8,8 @@ describe('Permalink', () => {
   });
 
   describe('decode', () => {
-    test('decodes a default permalink', () => {
-      const options = Permalink.decode('MS44LjAAeWVldAAHAQMADgBACAAAAAAAAAA=');
+    test('decodes a permalink', () => {
+      const options = Permalink.decode('MS44LjAAeWVldAAHAQMBP0DAyAAAACBQMgA=');
 
       expect(options).toMatchSnapshot();
     });
