@@ -7,6 +7,12 @@ describe('Permalink', () => {
     });
   });
 
+  describe('DROPDOWN_OPTIONS', () => {
+    test('returns the correct dropdown options', () => {
+      expect(Permalink.DROPDOWN_OPTIONS).toMatchSnapshot();
+    });
+  });
+
   describe('decode', () => {
     test('decodes a permalink', () => {
       const options = Permalink.decode('MS44LjAAeWVldAAHAQMBP0DAyAAAACBQMgA=');
