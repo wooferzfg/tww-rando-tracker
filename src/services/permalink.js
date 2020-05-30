@@ -211,7 +211,7 @@ export default class Permalink {
           throw Error(`Invalid dropdown value: ${dropdownValue} for option: ${optionName}`);
         }
 
-        binaryString.addNumber(dropdownIndex);
+        binaryString.addNumber(dropdownIndex, BinaryString.BYTE_SIZE);
       }
     };
   }
@@ -288,5 +288,15 @@ export default class Permalink {
     });
 
     return options;
+  }
+
+  static encode(options) {
+    const binaryString = new BinaryString();
+
+    _.forEach(this._CONFIG, (configItem) => {
+      configItem.encode(binaryString, options);
+    });
+
+    return binaryString.toBase64();
   }
 }
