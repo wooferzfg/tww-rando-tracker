@@ -39,25 +39,21 @@ export default class LogicHelper {
     this.impossibleItems = null;
   }
 
-  static get TOKENS() {
-    return {
-      AND: '&',
-      CLOSING_PAREN: ')',
-      IMPOSSIBLE: 'Impossible',
-      NOTHING: 'Nothing',
-      OPENING_PAREN: '(',
-      OR: '|'
-    };
-  }
+  static TOKENS = {
+    AND: '&',
+    CLOSING_PAREN: ')',
+    IMPOSSIBLE: 'Impossible',
+    NOTHING: 'Nothing',
+    OPENING_PAREN: '(',
+    OR: '|'
+  };
 
-  static get ITEM_REQUIREMENT_COLORS() {
-    return {
-      AVAILABLE_ITEM: 'available-item',
-      INCONSEQUENTIAL_ITEM: 'inconsequential-item',
-      PLAIN_TEXT: 'plain-text',
-      UNAVAILABLE_ITEM: 'unavailable-item'
-    };
-  }
+  static ITEM_REQUIREMENT_COLORS = {
+    AVAILABLE_ITEM: 'available-item',
+    INCONSEQUENTIAL_ITEM: 'inconsequential-item',
+    PLAIN_TEXT: 'plain-text',
+    UNAVAILABLE_ITEM: 'unavailable-item'
+  };
 
   static allItems() {
     return _.concat(

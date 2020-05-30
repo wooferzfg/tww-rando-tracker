@@ -6,8 +6,8 @@ import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items';
 import REGULAR_STARTING_ITEMS from '../data/regular-starting-items';
 
 export default class Permalink {
-  static get OPTIONS() {
-    const options = [
+  static OPTIONS = _.reduce(
+    [
       'seed_name',
       'version',
 
@@ -59,83 +59,75 @@ export default class Permalink {
       'starting_hcs',
       'remove_music',
       'randomize_enemies'
-    ];
+    ],
+    (accumulator, option) => _.set(accumulator, _.toUpper(option), option),
+    {}
+  );
 
-    return _.reduce(
-      options,
-      (accumulator, option) => _.set(accumulator, _.toUpper(option), option),
-      {}
-    );
-  }
+  static DROPDOWN_OPTIONS = {
+    [this.OPTIONS.RANDOMIZE_ENTRANCES]: [
+      'Disabled',
+      'Dungeons',
+      'Secret Caves',
+      'Dungeons & Secret Caves (Separately)',
+      'Dungeons & Secret Caves (Together)'
+    ],
+    [this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: _.range(0, 9),
+    [this.OPTIONS.SWORD_MODE]: [
+      'Start with Sword',
+      'Randomized Sword',
+      'Swordless'
+    ]
+  };
 
-  static get DROPDOWN_OPTIONS() {
-    return {
-      [this.OPTIONS.RANDOMIZE_ENTRANCES]: [
-        'Disabled',
-        'Dungeons',
-        'Secret Caves',
-        'Dungeons & Secret Caves (Separately)',
-        'Dungeons & Secret Caves (Together)'
-      ],
-      [this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: _.range(0, 9),
-      [this.OPTIONS.SWORD_MODE]: [
-        'Start with Sword',
-        'Randomized Sword',
-        'Swordless'
-      ]
-    };
-  }
-
-  static get _CONFIG() {
-    return [
-      this._stringConfig(this.OPTIONS.VERSION),
-      this._stringConfig(this.OPTIONS.SEED_NAME),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_DUNGEONS),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_GREAT_FAIRIES),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_PUZZLE_SECRET_CAVES),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_COMBAT_SECRET_CAVES),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_SHORT_SIDEQUESTS),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_LONG_SIDEQUESTS),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_SPOILS_TRADING),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_MINIGAMES),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_FREE_GIFTS),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_MAIL),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_PLATFORMS_RAFTS),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_SUBMARINES),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_EYE_REEF_CHESTS),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_BIG_OCTOS_GUNBOATS),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_TRIFORCE_CHARTS),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_TREASURE_CHARTS),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_MISC),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_TINGLE_CHESTS),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_BATTLESQUID),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH),
-      this._booleanConfig(this.OPTIONS.PROGRESSION_ISLAND_PUZZLES),
-      this._booleanConfig(this.OPTIONS.KEYLUNACY),
-      this._dropdownConfig(this.OPTIONS.RANDOMIZE_ENTRANCES),
-      this._booleanConfig(this.OPTIONS.RANDOMIZE_CHARTS),
-      this._booleanConfig(this.OPTIONS.RANDOMIZE_STARTING_ISLAND),
-      this._booleanConfig(this.OPTIONS.SWIFT_SAIL),
-      this._booleanConfig(this.OPTIONS.INSTANT_TEXT_BOXES),
-      this._booleanConfig(this.OPTIONS.REVEAL_FULL_SEA_CHART),
-      this._dropdownConfig(this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS),
-      this._booleanConfig(this.OPTIONS.ADD_SHORTCUT_WARPS_BETWEEN_DUNGEONS),
-      this._booleanConfig(this.OPTIONS.DO_NOT_GENERATE_SPOILER_LOG),
-      this._dropdownConfig(this.OPTIONS.SWORD_MODE),
-      this._booleanConfig(this.OPTIONS.SKIP_REMATCH_BOSSES),
-      this._booleanConfig(this.OPTIONS.RACE_MODE),
-      this._booleanConfig(this.OPTIONS.RANDOMIZE_MUSIC),
-      this._booleanConfig(this.OPTIONS.DISABLE_TINGLE_CHESTS_WITH_TINGLE_BOMBS),
-      this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
-      this._booleanConfig(this.OPTIONS.REMOVE_TITLE_AND_ENDING_VIDEOS),
-      this._startingGearConfig(),
-      this._spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
-      this._spinBoxConfig(this.OPTIONS.STARTING_HCS, 0, 6),
-      this._booleanConfig(this.OPTIONS.REMOVE_MUSIC),
-      this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES)
-    ];
-  }
+  static _CONFIG = [
+    this._stringConfig(this.OPTIONS.VERSION),
+    this._stringConfig(this.OPTIONS.SEED_NAME),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_DUNGEONS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_GREAT_FAIRIES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_PUZZLE_SECRET_CAVES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_COMBAT_SECRET_CAVES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_SHORT_SIDEQUESTS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_LONG_SIDEQUESTS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_SPOILS_TRADING),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_MINIGAMES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_FREE_GIFTS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_MAIL),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_PLATFORMS_RAFTS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_SUBMARINES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_EYE_REEF_CHESTS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_BIG_OCTOS_GUNBOATS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_TRIFORCE_CHARTS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_TREASURE_CHARTS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_MISC),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_TINGLE_CHESTS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_BATTLESQUID),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_ISLAND_PUZZLES),
+    this._booleanConfig(this.OPTIONS.KEYLUNACY),
+    this._dropdownConfig(this.OPTIONS.RANDOMIZE_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_CHARTS),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_STARTING_ISLAND),
+    this._booleanConfig(this.OPTIONS.SWIFT_SAIL),
+    this._booleanConfig(this.OPTIONS.INSTANT_TEXT_BOXES),
+    this._booleanConfig(this.OPTIONS.REVEAL_FULL_SEA_CHART),
+    this._dropdownConfig(this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS),
+    this._booleanConfig(this.OPTIONS.ADD_SHORTCUT_WARPS_BETWEEN_DUNGEONS),
+    this._booleanConfig(this.OPTIONS.DO_NOT_GENERATE_SPOILER_LOG),
+    this._dropdownConfig(this.OPTIONS.SWORD_MODE),
+    this._booleanConfig(this.OPTIONS.SKIP_REMATCH_BOSSES),
+    this._booleanConfig(this.OPTIONS.RACE_MODE),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_MUSIC),
+    this._booleanConfig(this.OPTIONS.DISABLE_TINGLE_CHESTS_WITH_TINGLE_BOMBS),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
+    this._booleanConfig(this.OPTIONS.REMOVE_TITLE_AND_ENDING_VIDEOS),
+    this._startingGearConfig(),
+    this._spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
+    this._spinBoxConfig(this.OPTIONS.STARTING_HCS, 0, 6),
+    this._booleanConfig(this.OPTIONS.REMOVE_MUSIC),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES)
+  ];
 
   static _stringConfig(optionName) {
     if (_.isNil(optionName)) {

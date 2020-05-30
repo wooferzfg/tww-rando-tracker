@@ -22,13 +22,11 @@ export default class Locations {
     this.locations = null;
   }
 
-  static get KEYS() {
-    return {
-      NEED: 'need',
-      ORIGINAL_ITEM: 'originalItem',
-      TYPES: 'types'
-    };
-  }
+  static KEYS = {
+    NEED: 'need',
+    ORIGINAL_ITEM: 'originalItem',
+    TYPES: 'types'
+  };
 
   static mapLocations(locationIteratee) {
     const newLocations = {};
