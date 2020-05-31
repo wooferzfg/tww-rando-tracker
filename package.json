@@ -1,6 +1,8 @@
 {
   "name": "tww-rando-tracker",
   "version": "1.0.0",
+  "description": "Tracker for The Wind Waker Randomizer",
+  "license": "GPL-3.0-or-later",
   "scripts": {
     "build": "webpack",
     "build:production": "webpack -p",
