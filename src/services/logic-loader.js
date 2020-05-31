@@ -15,10 +15,15 @@ export default class LogicLoader {
 
   static async _loadLogicFile(fileName) {
     const fileUrl = this._logicFileUrl(fileName);
-    const response = await fetch(fileUrl);
-    const fileData = await response.text();
+    const fileData = await this._loadFileFromUrl(fileUrl);
     const parsedFile = yaml.safeLoad(fileData);
     return parsedFile;
+  }
+
+  static async _loadFileFromUrl(url) {
+    const response = await fetch(url);
+    const fileData = await response.text();
+    return fileData;
   }
 
   static _logicFileUrl(fileName) {
