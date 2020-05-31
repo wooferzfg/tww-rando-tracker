@@ -24,17 +24,17 @@ jobs:
         set -e
         npm install
 
-    - name: Run eslint
+    - name: Build UI
       run: |
         set -e
-        npm run lint
+        npm run build:production
 
     - name: Run tests
       run: |
         set -e
         npm test
 
-    - name: Build UI
+    - name: Run eslint
       run: |
         set -e
-        npm run publish
+        npm run lint

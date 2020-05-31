@@ -5,8 +5,8 @@
   "main": "dist/bundle.js",
   "scripts": {
     "build": "webpack",
+    "build:production": "webpack -p",
     "lint": "eslint \"src/**/*.jsx\" \"src/**/*.js\" \"*.js\"",
-    "publish": "webpack -p",
     "serve": "webpack-dev-server",
     "start": "webpack-dev-server --open",
     "test": "jest --env=node --maxWorkers=5"
