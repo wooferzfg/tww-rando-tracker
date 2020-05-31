@@ -35,7 +35,7 @@ export default class LogicTweaks {
 
   static _addDefeatGanondorf() {
     Locations.setLocation(
-      "Ganon's Tower",
+      LogicHelper.DUNGEONS.GANONS_TOWER,
       'Defeat Ganondorf',
       Locations.KEYS.NEED,
       'Can Reach and Defeat Ganondorf'
@@ -44,7 +44,7 @@ export default class LogicTweaks {
 
   static _updateTingleStatueReward() {
     Locations.setLocation(
-      'Tingle Island',
+      LogicHelper.ISLANDS.TINGLE_ISLAND,
       'Ankle - Reward for All Tingle Statues',
       Locations.KEYS.NEED,
       'Tingle Statue x5'

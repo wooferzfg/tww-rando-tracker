@@ -12,6 +12,7 @@ import PRETTY_ITEM_NAMES from '../data/pretty-item-names';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names';
 
 import BooleanExpression from './boolean-expression';
+import Constants from './constants';
 import Locations from './locations';
 import Macros from './macros';
 import Memoizer from './memoizer';
@@ -37,6 +38,12 @@ export default class LogicHelper {
     this.startingItems = null;
     this.impossibleItems = null;
   }
+
+  static DUNGEONS = Constants.createFromArray(DUNGEONS);
+
+  static ISLANDS = Constants.createFromArray(ISLANDS);
+
+  static ITEMS = Constants.createFromArray(_.keys(ITEMS));
 
   static TOKENS = {
     AND: '&',
@@ -69,7 +76,8 @@ export default class LogicHelper {
   }
 
   static isMainDungeon(dungeonName) {
-    if (dungeonName === 'Forsaken Fortress' || dungeonName === "Ganon's Tower") {
+    if (dungeonName === this.DUNGEONS.FORSAKEN_FORTRESS
+      || dungeonName === this.DUNGEONS.GANONS_TOWER) {
       return false;
     }
     return _.includes(DUNGEONS, dungeonName);
@@ -164,7 +172,8 @@ export default class LogicHelper {
       detailedLocation,
       Locations.KEYS.TYPES
     );
-    if (_.includes(locationTypes, 'Tingle Chest') && !Settings.isFlagActive(Settings.FLAGS.TINGLE_CHEST)) {
+    if (_.includes(locationTypes, Settings.FLAGS.TINGLE_CHEST)
+      && !Settings.isFlagActive(Settings.FLAGS.TINGLE_CHEST)) {
       return false;
     }
 
@@ -346,13 +355,15 @@ export default class LogicHelper {
 
   static _setStartingAndImpossibleItems() {
     this.startingItems = {
-      "Hero's Shield": 1,
-      'Wind Waker': 1,
-      "Boat's Sail": 1,
-      "Wind's Requiem": 1,
-      'Ballad of Gales': 1,
-      'Song of Passing': 1,
-      'Triforce Shard': Settings.getOptionValue(Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS)
+      [this.ITEMS.HEROS_SHIELD]: 1,
+      [this.ITEMS.WIND_WAKER]: 1,
+      [this.ITEMS.BOATS_SAIL]: 1,
+      [this.ITEMS.WINDS_REQUIEM]: 1,
+      [this.ITEMS.BALLAD_OF_GALES]: 1,
+      [this.ITEMS.SONG_OF_PASSING]: 1,
+      [this.ITEMS.TRIFORCE_SHARD]: Settings.getOptionValue(
+        Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS
+      )
     };
     this.impossibleItems = {};
 
@@ -361,11 +372,11 @@ export default class LogicHelper {
 
     const swordMode = Settings.getOptionValue(Permalink.OPTIONS.SWORD_MODE);
     if (swordMode === Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD) {
-      this.startingItems['Progressive Sword'] += 1;
+      this.startingItems[this.ITEMS.PROGRESSIVE_SWORD] += 1;
     } else if (swordMode === Permalink.SWORD_MODE_OPTIONS.SWORDLESS) {
       this.impossibleItems = {
-        'Progressive Sword': 1,
-        'Hurricane Spin': 1
+        [this.ITEMS.PROGRESSIVE_SWORD]: 1,
+        [this.ITEMS.HURRICANE_SPIN]: 1
       };
     }
   }
@@ -532,7 +543,7 @@ export default class LogicHelper {
         detailedLocation,
         Locations.KEYS.TYPES
       );
-      const hasDungeonType = _.includes(locationTypes, 'Dungeon');
+      const hasDungeonType = _.includes(locationTypes, Settings.FLAGS.DUNGEON);
 
       return hasDungeonType === isDungeon;
     }

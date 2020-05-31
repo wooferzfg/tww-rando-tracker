@@ -17,6 +17,24 @@ describe('LogicHelper', () => {
     Settings.reset();
   });
 
+  describe('DUNGEONS', () => {
+    test('returns the correct dungeons', () => {
+      expect(LogicHelper.DUNGEONS).toMatchSnapshot();
+    });
+  });
+
+  describe('ISLANDS', () => {
+    test('returns the correct islands', () => {
+      expect(LogicHelper.ISLANDS).toMatchSnapshot();
+    });
+  });
+
+  describe('ITEMS', () => {
+    test('returns the correct items', () => {
+      expect(LogicHelper.ITEMS).toMatchSnapshot();
+    });
+  });
+
   describe('allItems', () => {
     test('returns a list of all the items, including entrances, charts, and keys', () => {
       const allItems = LogicHelper.allItems();
@@ -1416,7 +1434,7 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD
           },
           startingGear: {
-            'Progressive Sword': 0
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0
           }
         });
       });
@@ -1437,7 +1455,7 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD
           },
           startingGear: {
-            'Progressive Sword': 0
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0
           }
         });
       });
@@ -1458,9 +1476,9 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD
           },
           startingGear: {
-            Bombs: 1,
-            'Deku Leaf': 1,
-            'Progressive Sword': 2
+            [LogicHelper.ITEMS.BOMBS]: 1,
+            [LogicHelper.ITEMS.DEKU_LEAF]: 1,
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 2
           }
         });
       });
@@ -1481,7 +1499,7 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD
           },
           startingGear: {
-            'Progressive Sword': 0
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0
           }
         });
       });
@@ -1502,7 +1520,7 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS
           },
           startingGear: {
-            'Progressive Sword': 0
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0
           }
         });
       });

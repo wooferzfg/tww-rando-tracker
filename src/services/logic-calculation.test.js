@@ -56,7 +56,7 @@ describe('LogicCalculation', () => {
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD
         },
         startingGear: {
-          'Progressive Sword': 0
+          [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0
         }
       });
 

@@ -6,8 +6,6 @@ import Permalink from './permalink';
 import FLAGS from '../data/flags';
 
 export default class Settings {
-  static FLAGS = Constants.createFromArray(FLAGS);
-
   static initializeFromPermalink(permalinkString) {
     const decodedOptions = Permalink.decode(permalinkString);
   }
@@ -25,6 +23,8 @@ export default class Settings {
     this.startingGear = null;
     this.version = null;
   }
+
+  static FLAGS = Constants.createFromArray(FLAGS);
 
   static isFlagActive(flag) {
     return _.includes(this.flags, flag);
