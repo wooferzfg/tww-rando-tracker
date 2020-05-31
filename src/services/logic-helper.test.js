@@ -1302,7 +1302,9 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "starting_gear" Contains "Grappling Hook"',
             options: {
-              [Permalink.OPTIONS.STARTING_GEAR]: ['Grappling Hook']
+              [Permalink.OPTIONS.STARTING_GEAR]: {
+                'Grappling Hook': 1
+              }
             },
             expectedExpression: BooleanExpression.and('Nothing')
           });
@@ -1312,7 +1314,10 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "starting_gear" Contains "Grappling Hook"',
             options: {
-              [Permalink.OPTIONS.STARTING_GEAR]: ['Deku Leaf']
+              [Permalink.OPTIONS.STARTING_GEAR]: {
+                'Deku Leaf': 1,
+                'Grappling Hook': 0
+              }
             },
             expectedExpression: BooleanExpression.and('Impossible')
           });
@@ -1324,7 +1329,9 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "starting_gear" Does Not Contain "Grappling Hook"',
             options: {
-              [Permalink.OPTIONS.STARTING_GEAR]: ['Grappling Hook']
+              [Permalink.OPTIONS.STARTING_GEAR]: {
+                'Grappling Hook': 1
+              }
             },
             expectedExpression: BooleanExpression.and('Impossible')
           });
@@ -1334,7 +1341,9 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "starting_gear" Does Not Contain "Grappling Hook"',
             options: {
-              [Permalink.OPTIONS.STARTING_GEAR]: ['Deku Leaf']
+              [Permalink.OPTIONS.STARTING_GEAR]: {
+                'Deku Leaf': 1
+              }
             },
             expectedExpression: BooleanExpression.and('Nothing')
           });

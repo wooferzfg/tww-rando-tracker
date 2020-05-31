@@ -407,11 +407,11 @@ export default class LogicHelper {
       },
       {
         regex: /^Option "([^"]+)" Contains "([^"]+)"$/,
-        value: (optionValue, expectedValue) => _.includes(optionValue, expectedValue)
+        value: (optionValue, expectedValue) => _.get(optionValue, expectedValue)
       },
       {
         regex: /^Option "([^"]+)" Does Not Contain "([^"]+)"$/,
-        value: (optionValue, expectedValue) => !_.includes(optionValue, expectedValue)
+        value: (optionValue, expectedValue) => !_.get(optionValue, expectedValue)
       }
     ];
 
