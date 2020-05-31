@@ -22,6 +22,27 @@ export default class Permalink {
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS
   };
 
+  static decode(permalinkString) {
+    const binaryString = BinaryString.fromBase64(permalinkString);
+    const options = {};
+
+    _.forEach(this._CONFIG, (configItem) => {
+      configItem.decode(binaryString, options);
+    });
+
+    return options;
+  }
+
+  static encode(options) {
+    const binaryString = new BinaryString();
+
+    _.forEach(this._CONFIG, (configItem) => {
+      configItem.encode(binaryString, options);
+    });
+
+    return binaryString.toBase64();
+  }
+
   static _CONFIG = [
     this._stringConfig(this.OPTIONS.VERSION),
     this._stringConfig(this.OPTIONS.SEED_NAME),
@@ -211,26 +232,5 @@ export default class Permalink {
         binaryString.addNumber(spinBoxValue, numBits);
       }
     };
-  }
-
-  static decode(permalinkString) {
-    const binaryString = BinaryString.fromBase64(permalinkString);
-    const options = {};
-
-    _.forEach(this._CONFIG, (configItem) => {
-      configItem.decode(binaryString, options);
-    });
-
-    return options;
-  }
-
-  static encode(options) {
-    const binaryString = new BinaryString();
-
-    _.forEach(this._CONFIG, (configItem) => {
-      configItem.encode(binaryString, options);
-    });
-
-    return binaryString.toBase64();
   }
 }
