@@ -1,6 +1,3 @@
-import TEST_ITEM_LOCATIONS from '../data/test-item-locations';
-import TEST_MACROS from '../data/test-macros';
-
 import BooleanExpression from './boolean-expression';
 import Locations from './locations';
 import LogicHelper from './logic-helper';
@@ -8,6 +5,9 @@ import LogicTweaks from './logic-tweaks';
 import Macros from './macros';
 import Permalink from './permalink';
 import Settings from './settings';
+
+import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
+import TEST_MACROS from '../data/test-macros.json';
 
 describe('LogicHelper', () => {
   afterEach(() => {
@@ -121,8 +121,8 @@ describe('LogicHelper', () => {
         Settings.initializeManually({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY
-          }
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+          },
         });
       });
 
@@ -138,8 +138,8 @@ describe('LogicHelper', () => {
         Settings.initializeManually({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES
-          }
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+          },
         });
       });
 
@@ -157,8 +157,8 @@ describe('LogicHelper', () => {
         Settings.initializeManually({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY
-          }
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+          },
         });
       });
 
@@ -173,8 +173,8 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeManually({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS
-          }
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+          },
         });
       });
 
@@ -192,8 +192,8 @@ describe('LogicHelper', () => {
         Settings.initializeManually({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER
-          }
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+          },
         });
       });
 
@@ -209,8 +209,8 @@ describe('LogicHelper', () => {
         Settings.initializeManually({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY
-          }
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+          },
         });
       });
 
@@ -228,7 +228,7 @@ describe('LogicHelper', () => {
 
       expect(itemCountRequirement).toEqual({
         itemName: 'Progressive Sword',
-        countRequired: 4
+        countRequired: 4,
       });
     });
 
@@ -237,7 +237,7 @@ describe('LogicHelper', () => {
 
       expect(itemCountRequirement).toEqual({
         itemName: 'DRC Small Key',
-        countRequired: 2
+        countRequired: 2,
       });
     });
   });
@@ -264,9 +264,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Tower of the Gods': {
             'Light Two Torches': {
-              types: 'Dungeon'
-            }
-          }
+              types: 'Dungeon',
+            },
+          },
         };
       });
 
@@ -282,9 +282,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Tower of the Gods': {
             'Sunken Treasure': {
-              types: 'Sunken Treasure'
-            }
-          }
+              types: 'Sunken Treasure',
+            },
+          },
         };
       });
 
@@ -318,9 +318,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Forsaken Fortress': {
             'Sunken Treasure': {
-              types: 'Sunken Treasure'
-            }
-          }
+              types: 'Sunken Treasure',
+            },
+          },
         };
       });
 
@@ -336,9 +336,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Forsaken Fortress': {
             'Phantom Ganon': {
-              types: 'Dungeon'
-            }
-          }
+              types: 'Dungeon',
+            },
+          },
         };
       });
 
@@ -357,9 +357,9 @@ describe('LogicHelper', () => {
           'Wind Temple': {
             'Big Key Chest': {
               need: 'Can Access Wind Temple',
-              types: 'Dungeon'
-            }
-          }
+              types: 'Dungeon',
+            },
+          },
         };
       });
 
@@ -375,9 +375,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Forsaken Fortress': {
             'Phantom Ganon': {
-              types: 'Dungeon'
-            }
-          }
+              types: 'Dungeon',
+            },
+          },
         };
       });
 
@@ -393,9 +393,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Tower of the Gods': {
             'Sunken Treasure': {
-              types: 'Sunken Treasure'
-            }
-          }
+              types: 'Sunken Treasure',
+            },
+          },
         };
       });
 
@@ -412,16 +412,16 @@ describe('LogicHelper', () => {
           'Wind Temple': {
             'Tingle Statue Chest': {
               need: 'Can Access Wind Temple',
-              types: 'Tingle Chest, Dungeon'
-            }
-          }
+              types: 'Tingle Chest, Dungeon',
+            },
+          },
         };
       });
 
       describe('when the tingle chest flag is active', () => {
         beforeEach(() => {
           Settings.initializeManually({
-            flags: [Settings.FLAGS.TINGLE_CHEST]
+            flags: [Settings.FLAGS.TINGLE_CHEST],
           });
         });
 
@@ -451,9 +451,9 @@ describe('LogicHelper', () => {
           'Dragon Roost Cavern': {
             'Gohma Heart Container': {
               need: 'Grappling Hook & DRC Big Key',
-              types: 'Dungeon'
-            }
-          }
+              types: 'Dungeon',
+            },
+          },
         };
       });
 
@@ -519,9 +519,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Dragon Roost Cavern': {
             'First Room': {
-              need: 'Nothing'
-            }
-          }
+              need: 'Nothing',
+            },
+          },
         };
       });
 
@@ -537,9 +537,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Dragon Roost Cavern': {
             'First Room': {
-              need: 'Grappling Hook'
-            }
-          }
+              need: 'Grappling Hook',
+            },
+          },
         };
       });
 
@@ -555,9 +555,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Dragon Roost Cavern': {
             'First Room': {
-              need: 'DRC Small Key x1'
-            }
-          }
+              need: 'DRC Small Key x1',
+            },
+          },
         };
       });
 
@@ -573,9 +573,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Dragon Roost Cavern': {
             'First Room': {
-              need: 'Grappling Hook & Deku Leaf & DRC Small Key x2 & DRC Big Key'
-            }
-          }
+              need: 'Grappling Hook & Deku Leaf & DRC Small Key x2 & DRC Big Key',
+            },
+          },
         };
       });
 
@@ -591,9 +591,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Dragon Roost Cavern': {
             'Big Key Chest': {
-              need: 'DRC Small Key x1 & Grappling Hook & (DRC Small Key x4 | Deku Leaf | Progressive Bow x2)'
-            }
-          }
+              need: 'DRC Small Key x1 & Grappling Hook & (DRC Small Key x4 | Deku Leaf | Progressive Bow x2)',
+            },
+          },
         };
       });
 
@@ -615,9 +615,9 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
           [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD
+          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
         },
-        startingGear: {}
+        startingGear: {},
       });
 
       Locations.initialize(TEST_ITEM_LOCATIONS);
@@ -664,9 +664,9 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
             Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD
+          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
         },
-        startingGear: {}
+        startingGear: {},
       });
 
       Locations.initialize(TEST_ITEM_LOCATIONS);
@@ -859,8 +859,8 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeManually({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true
-          }
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+          },
         });
       });
 
@@ -881,8 +881,8 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeManually({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false
-          }
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+          },
         });
       });
 
@@ -906,9 +906,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Nothing'
-            }
-          }
+              need: 'Nothing',
+            },
+          },
         };
       });
 
@@ -916,7 +916,7 @@ describe('LogicHelper', () => {
         const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(expression).toEqual(
-          BooleanExpression.and('Nothing')
+          BooleanExpression.and('Nothing'),
         );
       });
     });
@@ -926,9 +926,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: "Grappling Hook | Hero's Sword | Skull Hammer"
-            }
-          }
+              need: "Grappling Hook | Hero's Sword | Skull Hammer",
+            },
+          },
         };
       });
 
@@ -936,7 +936,7 @@ describe('LogicHelper', () => {
         const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(expression).toEqual(
-          BooleanExpression.or('Grappling Hook', "Hero's Sword", 'Skull Hammer')
+          BooleanExpression.or('Grappling Hook', "Hero's Sword", 'Skull Hammer'),
         );
       });
     });
@@ -947,16 +947,16 @@ describe('LogicHelper', () => {
           Locations.locations = {
             'Outset Island': {
               'Savage Labyrinth - Floor 30': {
-                need: 'Progressive Sword x2'
-              }
-            }
+                need: 'Progressive Sword x2',
+              },
+            },
           };
         });
 
         describe('when the starting item meets the requirement', () => {
           beforeEach(() => {
             LogicHelper.startingItems = {
-              'Progressive Sword': 2
+              'Progressive Sword': 2,
             };
           });
 
@@ -964,7 +964,7 @@ describe('LogicHelper', () => {
             const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
             expect(expression).toEqual(
-              BooleanExpression.and('Nothing')
+              BooleanExpression.and('Nothing'),
             );
           });
         });
@@ -972,7 +972,7 @@ describe('LogicHelper', () => {
         describe('when the starting item does not meet the requirement', () => {
           beforeEach(() => {
             LogicHelper.startingItems = {
-              'Progressive Sword': 1
+              'Progressive Sword': 1,
             };
           });
 
@@ -980,7 +980,7 @@ describe('LogicHelper', () => {
             const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
             expect(expression).toEqual(
-              BooleanExpression.and('Progressive Sword x2')
+              BooleanExpression.and('Progressive Sword x2'),
             );
           });
         });
@@ -991,16 +991,16 @@ describe('LogicHelper', () => {
           Locations.locations = {
             'Outset Island': {
               'Savage Labyrinth - Floor 30': {
-                need: 'Wind Waker'
-              }
-            }
+                need: 'Wind Waker',
+              },
+            },
           };
         });
 
         describe('when the starting item meets the requirement', () => {
           beforeEach(() => {
             LogicHelper.startingItems = {
-              'Wind Waker': 1
+              'Wind Waker': 1,
             };
           });
 
@@ -1008,7 +1008,7 @@ describe('LogicHelper', () => {
             const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
             expect(expression).toEqual(
-              BooleanExpression.and('Nothing')
+              BooleanExpression.and('Nothing'),
             );
           });
         });
@@ -1016,7 +1016,7 @@ describe('LogicHelper', () => {
         describe('when the starting item does not meet the requirement', () => {
           beforeEach(() => {
             LogicHelper.startingItems = {
-              'Wind Waker': 0
+              'Wind Waker': 0,
             };
           });
 
@@ -1024,7 +1024,7 @@ describe('LogicHelper', () => {
             const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
             expect(expression).toEqual(
-              BooleanExpression.and('Wind Waker')
+              BooleanExpression.and('Wind Waker'),
             );
           });
         });
@@ -1037,16 +1037,16 @@ describe('LogicHelper', () => {
           Locations.locations = {
             'Outset Island': {
               'Savage Labyrinth - Floor 30': {
-                need: 'Progressive Sword x2'
-              }
-            }
+                need: 'Progressive Sword x2',
+              },
+            },
           };
         });
 
         describe('when the impossible item meets the requirement', () => {
           beforeEach(() => {
             LogicHelper.impossibleItems = {
-              'Progressive Sword': 2
+              'Progressive Sword': 2,
             };
           });
 
@@ -1054,7 +1054,7 @@ describe('LogicHelper', () => {
             const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
             expect(expression).toEqual(
-              BooleanExpression.and('Impossible')
+              BooleanExpression.and('Impossible'),
             );
           });
         });
@@ -1062,7 +1062,7 @@ describe('LogicHelper', () => {
         describe('when the impossible item is more than the requirement', () => {
           beforeEach(() => {
             LogicHelper.impossibleItems = {
-              'Progressive Sword': 3
+              'Progressive Sword': 3,
             };
           });
 
@@ -1070,7 +1070,7 @@ describe('LogicHelper', () => {
             const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
             expect(expression).toEqual(
-              BooleanExpression.and('Progressive Sword x2')
+              BooleanExpression.and('Progressive Sword x2'),
             );
           });
         });
@@ -1081,13 +1081,13 @@ describe('LogicHelper', () => {
           Locations.locations = {
             'Outset Island': {
               'Savage Labyrinth - Floor 30': {
-                need: 'Wind Waker'
-              }
-            }
+                need: 'Wind Waker',
+              },
+            },
           };
 
           LogicHelper.impossibleItems = {
-            'Wind Waker': 1
+            'Wind Waker': 1,
           };
         });
 
@@ -1095,7 +1095,7 @@ describe('LogicHelper', () => {
           const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
           expect(expression).toEqual(
-            BooleanExpression.and('Impossible')
+            BooleanExpression.and('Impossible'),
           );
         });
       });
@@ -1106,9 +1106,9 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: "Wind Waker | ((Grappling Hook & Hero's Bow) & Hero's Sword) | Skull Hammer"
-            }
-          }
+              need: "Wind Waker | ((Grappling Hook & Hero's Bow) & Hero's Sword) | Skull Hammer",
+            },
+          },
         };
       });
 
@@ -1120,10 +1120,10 @@ describe('LogicHelper', () => {
             'Wind Waker',
             BooleanExpression.and(
               BooleanExpression.and('Grappling Hook', "Hero's Bow"),
-              "Hero's Sword"
+              "Hero's Sword",
             ),
-            'Skull Hammer'
-          )
+            'Skull Hammer',
+          ),
         );
       });
     });
@@ -1133,13 +1133,13 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Grappling Hook | My Fake Macro | Skull Hammer'
-            }
-          }
+              need: 'Grappling Hook | My Fake Macro | Skull Hammer',
+            },
+          },
         };
 
         Macros.macros = {
-          'My Fake Macro': "Grappling Hook | Hero's Sword"
+          'My Fake Macro': "Grappling Hook | Hero's Sword",
         };
       });
 
@@ -1151,10 +1151,10 @@ describe('LogicHelper', () => {
             'Grappling Hook',
             BooleanExpression.or(
               'Grappling Hook',
-              "Hero's Sword"
+              "Hero's Sword",
             ),
-            'Skull Hammer'
-          )
+            'Skull Hammer',
+          ),
         );
       });
     });
@@ -1164,12 +1164,12 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Can Access Other Location "Outset Island - Savage Labyrinth - Floor 50"'
+              need: 'Can Access Other Location "Outset Island - Savage Labyrinth - Floor 50"',
             },
             'Savage Labyrinth - Floor 50': {
-              need: "Grappling Hook | Hero's Bow"
-            }
-          }
+              need: "Grappling Hook | Hero's Bow",
+            },
+          },
         };
       });
 
@@ -1178,8 +1178,8 @@ describe('LogicHelper', () => {
 
         expect(expression).toEqual(
           BooleanExpression.and(
-            BooleanExpression.or('Grappling Hook', "Hero's Bow")
-          )
+            BooleanExpression.or('Grappling Hook', "Hero's Bow"),
+          ),
         );
       });
     });
@@ -1188,15 +1188,15 @@ describe('LogicHelper', () => {
       const testOptionRequirements = ({
         requirements,
         options,
-        expectedExpression
+        expectedExpression,
       }) => {
         beforeEach(() => {
           Locations.locations = {
             'Outset Island': {
               'Savage Labyrinth - Floor 30': {
-                need: requirements
-              }
-            }
+                need: requirements,
+              },
+            },
           };
 
           Settings.initializeManually({ options });
@@ -1214,9 +1214,9 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "skip_rematch_bosses" Enabled',
             options: {
-              [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true
+              [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             },
-            expectedExpression: BooleanExpression.and('Nothing')
+            expectedExpression: BooleanExpression.and('Nothing'),
           });
         });
 
@@ -1224,9 +1224,9 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "skip_rematch_bosses" Enabled',
             options: {
-              [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: false
+              [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: false,
             },
-            expectedExpression: BooleanExpression.and('Impossible')
+            expectedExpression: BooleanExpression.and('Impossible'),
           });
         });
       });
@@ -1236,9 +1236,9 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "skip_rematch_bosses" Disabled',
             options: {
-              [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true
+              [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             },
-            expectedExpression: BooleanExpression.and('Impossible')
+            expectedExpression: BooleanExpression.and('Impossible'),
           });
         });
 
@@ -1246,9 +1246,9 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "skip_rematch_bosses" Disabled',
             options: {
-              [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: false
+              [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: false,
             },
-            expectedExpression: BooleanExpression.and('Nothing')
+            expectedExpression: BooleanExpression.and('Nothing'),
           });
         });
       });
@@ -1258,9 +1258,9 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "sword_mode" Is "Swordless"',
             options: {
-              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS
+              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,
             },
-            expectedExpression: BooleanExpression.and('Nothing')
+            expectedExpression: BooleanExpression.and('Nothing'),
           });
         });
 
@@ -1268,9 +1268,9 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "sword_mode" Is "Swordless"',
             options: {
-              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD
+              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
             },
-            expectedExpression: BooleanExpression.and('Impossible')
+            expectedExpression: BooleanExpression.and('Impossible'),
           });
         });
       });
@@ -1280,9 +1280,9 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "sword_mode" Is Not "Swordless"',
             options: {
-              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS
+              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,
             },
-            expectedExpression: BooleanExpression.and('Impossible')
+            expectedExpression: BooleanExpression.and('Impossible'),
           });
         });
 
@@ -1290,9 +1290,9 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "sword_mode" Is Not "Swordless"',
             options: {
-              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD
+              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
             },
-            expectedExpression: BooleanExpression.and('Nothing')
+            expectedExpression: BooleanExpression.and('Nothing'),
           });
         });
       });
@@ -1303,10 +1303,10 @@ describe('LogicHelper', () => {
             requirements: 'Option "starting_gear" Contains "Grappling Hook"',
             options: {
               [Permalink.OPTIONS.STARTING_GEAR]: {
-                'Grappling Hook': 1
-              }
+                'Grappling Hook': 1,
+              },
             },
-            expectedExpression: BooleanExpression.and('Nothing')
+            expectedExpression: BooleanExpression.and('Nothing'),
           });
         });
 
@@ -1316,10 +1316,10 @@ describe('LogicHelper', () => {
             options: {
               [Permalink.OPTIONS.STARTING_GEAR]: {
                 'Deku Leaf': 1,
-                'Grappling Hook': 0
-              }
+                'Grappling Hook': 0,
+              },
             },
-            expectedExpression: BooleanExpression.and('Impossible')
+            expectedExpression: BooleanExpression.and('Impossible'),
           });
         });
       });
@@ -1330,10 +1330,10 @@ describe('LogicHelper', () => {
             requirements: 'Option "starting_gear" Does Not Contain "Grappling Hook"',
             options: {
               [Permalink.OPTIONS.STARTING_GEAR]: {
-                'Grappling Hook': 1
-              }
+                'Grappling Hook': 1,
+              },
             },
-            expectedExpression: BooleanExpression.and('Impossible')
+            expectedExpression: BooleanExpression.and('Impossible'),
           });
         });
 
@@ -1342,10 +1342,10 @@ describe('LogicHelper', () => {
             requirements: 'Option "starting_gear" Does Not Contain "Grappling Hook"',
             options: {
               [Permalink.OPTIONS.STARTING_GEAR]: {
-                'Deku Leaf': 1
-              }
+                'Deku Leaf': 1,
+              },
             },
-            expectedExpression: BooleanExpression.and('Nothing')
+            expectedExpression: BooleanExpression.and('Nothing'),
           });
         });
       });
@@ -1440,11 +1440,11 @@ describe('LogicHelper', () => {
         Settings.initializeManually({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
           },
           startingGear: {
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0
-          }
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+          },
         });
       });
 
@@ -1461,11 +1461,11 @@ describe('LogicHelper', () => {
         Settings.initializeManually({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 7,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
           },
           startingGear: {
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0
-          }
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+          },
         });
       });
 
@@ -1482,13 +1482,13 @@ describe('LogicHelper', () => {
         Settings.initializeManually({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
           },
           startingGear: {
             [LogicHelper.ITEMS.BOMBS]: 1,
             [LogicHelper.ITEMS.DEKU_LEAF]: 1,
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 2
-          }
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 2,
+          },
         });
       });
 
@@ -1505,11 +1505,11 @@ describe('LogicHelper', () => {
         Settings.initializeManually({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
           },
           startingGear: {
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0
-          }
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+          },
         });
       });
 
@@ -1526,11 +1526,11 @@ describe('LogicHelper', () => {
         Settings.initializeManually({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,
           },
           startingGear: {
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0
-          }
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+          },
         });
       });
 
@@ -1560,7 +1560,7 @@ describe('LogicHelper', () => {
         "Hero's Sword",
         '|',
         'Skull Hammer',
-        ')'
+        ')',
       ]);
     });
   });

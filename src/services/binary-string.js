@@ -72,7 +72,7 @@ export default class BinaryString {
 
     _.forEach(
       bytesToAdd,
-      (byte) => this.addNumber(byte, BinaryString.BYTE_SIZE)
+      (byte) => this.addNumber(byte, BinaryString.BYTE_SIZE),
     );
 
     this.addNumber(0, BinaryString.BYTE_SIZE);

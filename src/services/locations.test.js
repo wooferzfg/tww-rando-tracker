@@ -16,14 +16,14 @@ describe('Locations', () => {
           Need: 'Can Access Savage Labyrinth & Can Defeat Keese & Can Defeat Miniblins',
           'Original item': 'Triforce Chart 6',
           Types: 'Savage Labyrinth',
-          Paths: ['Cave09/Room20.arc/Chest000']
+          Paths: ['Cave09/Room20.arc/Chest000'],
         },
         "Dragon Roost Cavern - Bird's Nest": {
           Need: 'Can Access Dragon Roost Cavern & DRC Small Key x3',
           'Original item': 'Small Key',
           Types: 'Dungeon',
-          Paths: ['M_NewD2/Room3.arc/Actor016']
-        }
+          Paths: ['M_NewD2/Room3.arc/Actor016'],
+        },
       };
     });
 
@@ -35,16 +35,16 @@ describe('Locations', () => {
           "Bird's Nest": {
             need: 'Can Access Dragon Roost Cavern & DRC Small Key x3',
             originalItem: 'Small Key',
-            types: 'Dungeon'
-          }
+            types: 'Dungeon',
+          },
         },
         'Outset Island': {
           'Savage Labyrinth - Floor 30': {
             need: 'Can Access Savage Labyrinth & Can Defeat Keese & Can Defeat Miniblins',
             originalItem: 'Triforce Chart 6',
-            types: 'Savage Labyrinth'
-          }
-        }
+            types: 'Savage Labyrinth',
+          },
+        },
       });
     });
   });
@@ -54,29 +54,29 @@ describe('Locations', () => {
       Locations.locations = {
         'Outset Island': {
           'Savage Labyrinth - Floor 30': {
-            test: 'data'
-          }
+            test: 'data',
+          },
         },
         'Dragon Roost Cavern': {
           "Bird's Nest": {
-            test: 'data'
-          }
-        }
+            test: 'data',
+          },
+        },
       };
     });
 
     test('creates an object by calling the iteratee on each location', () => {
       const mappedLocations = Locations.mapLocations(
-        (generalLocation, detailedLocation) => `${detailedLocation} $$$ ${generalLocation}`
+        (generalLocation, detailedLocation) => `${detailedLocation} $$$ ${generalLocation}`,
       );
 
       expect(mappedLocations).toEqual({
         'Outset Island': {
-          'Savage Labyrinth - Floor 30': 'Savage Labyrinth - Floor 30 $$$ Outset Island'
+          'Savage Labyrinth - Floor 30': 'Savage Labyrinth - Floor 30 $$$ Outset Island',
         },
         'Dragon Roost Cavern': {
-          "Bird's Nest": "Bird's Nest $$$ Dragon Roost Cavern"
-        }
+          "Bird's Nest": "Bird's Nest $$$ Dragon Roost Cavern",
+        },
       });
     });
   });
@@ -86,12 +86,12 @@ describe('Locations', () => {
       Locations.locations = {
         'Outset Island': {
           'Savage Labyrinth - Floor 30': {
-            test: 'data'
+            test: 'data',
           },
           'Savage Labyrinth - Floor 50': {
-            test: 'data'
-          }
-        }
+            test: 'data',
+          },
+        },
       };
     });
 
@@ -100,7 +100,7 @@ describe('Locations', () => {
 
       expect(detailedLocations).toEqual([
         'Savage Labyrinth - Floor 30',
-        'Savage Labyrinth - Floor 50'
+        'Savage Labyrinth - Floor 50',
       ]);
     });
   });
@@ -110,16 +110,16 @@ describe('Locations', () => {
       Locations.locations = {
         'Outset Island': {
           'Savage Labyrinth - Floor 30': {
-            need: 'Requirements'
-          }
-        }
+            need: 'Requirements',
+          },
+        },
       };
     });
 
     test('returns the value for the location and provided info key', () => {
       const location = Locations.getLocation(
         'Outset Island', 'Savage Labyrinth - Floor 30',
-        Locations.KEYS.NEED
+        Locations.KEYS.NEED,
       );
 
       expect(location).toEqual('Requirements');
@@ -131,9 +131,9 @@ describe('Locations', () => {
       Locations.locations = {
         'Outset Island': {
           'Savage Labyrinth - Floor 30': {
-            test: 'data'
-          }
-        }
+            test: 'data',
+          },
+        },
       };
     });
 
@@ -142,7 +142,7 @@ describe('Locations', () => {
         'Outset Island',
         'Savage Labyrinth - Floor 30',
         Locations.KEYS.NEED,
-        'expected value'
+        'expected value',
       );
 
       const newValue = _.get(Locations.locations, ['Outset Island', 'Savage Labyrinth - Floor 30', 'need']);
@@ -157,7 +157,7 @@ describe('Locations', () => {
 
       const {
         generalLocation,
-        detailedLocation
+        detailedLocation,
       } = Locations.splitLocationName(input);
 
       expect(generalLocation).toEqual('Outset Island');
@@ -169,7 +169,7 @@ describe('Locations', () => {
 
       const {
         generalLocation,
-        detailedLocation
+        detailedLocation,
       } = Locations.splitLocationName(input);
 
       expect(generalLocation).toEqual('Seven-Star Isles');
@@ -181,7 +181,7 @@ describe('Locations', () => {
 
       const {
         generalLocation,
-        detailedLocation
+        detailedLocation,
       } = Locations.splitLocationName(input);
 
       expect(generalLocation).toEqual('Windfall Island');

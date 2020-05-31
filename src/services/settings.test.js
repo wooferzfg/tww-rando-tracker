@@ -3,7 +3,7 @@ import _ from 'lodash';
 import Permalink from './permalink';
 import Settings from './settings';
 
-import FLAGS from '../data/flags';
+import FLAGS from '../data/flags.json';
 
 describe('Settings', () => {
   afterEach(() => {
@@ -36,7 +36,7 @@ describe('Settings', () => {
           Settings.FLAGS.FREE_GIFT,
           Settings.FLAGS.EXPENSIVE_PURCHASE,
           Settings.FLAGS.OTHER_CHEST,
-          Settings.FLAGS.MISC
+          Settings.FLAGS.MISC,
         ]);
       });
     });
@@ -70,7 +70,7 @@ describe('Settings', () => {
 
         test('initializes the flags', () => {
           expect(Settings.flags).toEqual([
-            Settings.FLAGS.SUNKEN_TRIFORCE
+            Settings.FLAGS.SUNKEN_TRIFORCE,
           ]);
         });
       });
@@ -82,7 +82,7 @@ describe('Settings', () => {
 
         test('initializes the flags', () => {
           expect(Settings.flags).toEqual([
-            Settings.FLAGS.SUNKEN_TREASURE
+            Settings.FLAGS.SUNKEN_TREASURE,
           ]);
         });
       });
@@ -93,10 +93,10 @@ describe('Settings', () => {
     test('initializes the flags, options, starting gear, and version', () => {
       const flags = [Settings.FLAGS.TINGLE_CHEST];
       const options = {
-        [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true
+        [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true,
       };
       const startingGear = {
-        'Grappling Hook': 1
+        'Grappling Hook': 1,
       };
       const version = '1.0.0';
 
@@ -104,7 +104,7 @@ describe('Settings', () => {
         flags,
         options,
         startingGear,
-        version
+        version,
       });
 
       expect(Settings.flags).toEqual(flags);
@@ -123,7 +123,7 @@ describe('Settings', () => {
   describe('isFlagActive', () => {
     beforeEach(() => {
       Settings.initializeManually({
-        flags: [Settings.FLAGS.TINGLE_CHEST]
+        flags: [Settings.FLAGS.TINGLE_CHEST],
       });
     });
 
@@ -148,8 +148,8 @@ describe('Settings', () => {
     beforeEach(() => {
       Settings.initializeManually({
         options: {
-          [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 7
-        }
+          [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 7,
+        },
       });
     });
 
@@ -164,8 +164,8 @@ describe('Settings', () => {
     beforeEach(() => {
       Settings.initializeManually({
         startingGear: {
-          'Deku Leaf': 1
-        }
+          'Deku Leaf': 1,
+        },
       });
     });
 
@@ -179,7 +179,7 @@ describe('Settings', () => {
   describe('getVersion', () => {
     beforeEach(() => {
       Settings.initializeManually({
-        version: '1.0.0'
+        version: '1.0.0',
       });
     });
 

@@ -15,7 +15,7 @@ export default class TrackerController {
 
     const {
       itemLocationsFile,
-      macrosFile
+      macrosFile,
     } = await LogicLoader.loadLogicFiles();
 
     Locations.initialize(itemLocationsFile);
@@ -40,13 +40,13 @@ export default class TrackerController {
 
       entrances,
       items,
-      locationsChecked
+      locationsChecked,
     } = saveData;
 
     Settings.initializeManually({
       flags,
       options,
-      version
+      version,
     });
 
     this.callbacks = callbacks;
@@ -59,7 +59,7 @@ export default class TrackerController {
     const trackerState = TrackerState.createStateManually({
       entrances,
       items,
-      locationsChecked
+      locationsChecked,
     });
     this._refreshState(trackerState);
   }

@@ -5,5 +5,5 @@ import App from './ui/app';
 
 ReactDOM.render(
   <App />,
-  document.getElementById('base')
+  document.getElementById('base'),
 );

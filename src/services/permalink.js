@@ -3,11 +3,11 @@ import _ from 'lodash';
 import BinaryString from './binary-string';
 import Constants from './constants';
 
-import OPTIONS from '../data/options';
-import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items';
-import RANDOMIZE_ENTRANCES_OPTIONS from '../data/randomize-entrances-options';
-import REGULAR_STARTING_ITEMS from '../data/regular-starting-items';
-import SWORD_MODE_OPTIONS from '../data/sword-mode-options';
+import OPTIONS from '../data/options.json';
+import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items.json';
+import RANDOMIZE_ENTRANCES_OPTIONS from '../data/randomize-entrances-options.json';
+import REGULAR_STARTING_ITEMS from '../data/regular-starting-items.json';
+import SWORD_MODE_OPTIONS from '../data/sword-mode-options.json';
 
 export default class Permalink {
   static OPTIONS = Constants.createFromArray(OPTIONS);
@@ -19,7 +19,7 @@ export default class Permalink {
   static DROPDOWN_OPTIONS = {
     [this.OPTIONS.RANDOMIZE_ENTRANCES]: RANDOMIZE_ENTRANCES_OPTIONS,
     [this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: _.range(0, 9),
-    [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS
+    [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
   static decode(permalinkString) {
@@ -89,7 +89,7 @@ export default class Permalink {
     this._spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
     this._spinBoxConfig(this.OPTIONS.STARTING_HCS, 0, 6),
     this._booleanConfig(this.OPTIONS.REMOVE_MUSIC),
-    this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES)
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES),
   ];
 
   static _stringConfig(optionName) {
@@ -110,7 +110,7 @@ export default class Permalink {
         }
 
         binaryString.addString(stringValue);
-      }
+      },
     };
   }
 
@@ -132,7 +132,7 @@ export default class Permalink {
         }
 
         binaryString.addBoolean(booleanValue);
-      }
+      },
     };
   }
 
@@ -167,7 +167,7 @@ export default class Permalink {
         }
 
         binaryString.addNumber(dropdownIndex, BinaryString.BYTE_SIZE);
-      }
+      },
     };
   }
 
@@ -206,7 +206,7 @@ export default class Permalink {
 
           binaryString.addNumber(itemValue, 2);
         });
-      }
+      },
     };
   }
 
@@ -230,7 +230,7 @@ export default class Permalink {
         }
 
         binaryString.addNumber(spinBoxValue, numBits);
-      }
+      },
     };
   }
 }

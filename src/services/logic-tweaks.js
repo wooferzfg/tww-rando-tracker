@@ -1,16 +1,16 @@
 import _ from 'lodash';
 
-import CAVES from '../data/caves';
-import CHARTS from '../data/charts';
-import DUNGEONS from '../data/dungeons';
-import HAS_ACCESSED_LOCATION_TWEAKS from '../data/has-accessed-location-tweaks';
-import ISLANDS from '../data/islands';
-
 import Locations from './locations';
 import LogicHelper from './logic-helper';
 import Macros from './macros';
 import Permalink from './permalink';
 import Settings from './settings';
+
+import CAVES from '../data/caves.json';
+import CHARTS from '../data/charts.json';
+import DUNGEONS from '../data/dungeons.json';
+import HAS_ACCESSED_LOCATION_TWEAKS from '../data/has-accessed-location-tweaks.json';
+import ISLANDS from '../data/islands.json';
 
 export default class LogicTweaks {
   static applyTweaks() {
@@ -38,7 +38,7 @@ export default class LogicTweaks {
       LogicHelper.DUNGEONS.GANONS_TOWER,
       'Defeat Ganondorf',
       Locations.KEYS.NEED,
-      'Can Reach and Defeat Ganondorf'
+      'Can Reach and Defeat Ganondorf',
     );
   }
 
@@ -47,7 +47,7 @@ export default class LogicTweaks {
       LogicHelper.ISLANDS.TINGLE_ISLAND,
       'Ankle - Reward for All Tingle Statues',
       Locations.KEYS.NEED,
-      'Tingle Statue x5'
+      'Tingle Statue x5',
     );
   }
 
@@ -56,7 +56,7 @@ export default class LogicTweaks {
       const originalItem = Locations.getLocation(
         islandName,
         'Sunken Treasure',
-        Locations.KEYS.ORIGINAL_ITEM
+        Locations.KEYS.ORIGINAL_ITEM,
       );
 
       if (_.startsWith(originalItem, 'Triforce Shard')) {
@@ -64,7 +64,7 @@ export default class LogicTweaks {
           islandName,
           'Sunken Treasure',
           Locations.KEYS.TYPES,
-          Settings.FLAGS.SUNKEN_TRIFORCE
+          Settings.FLAGS.SUNKEN_TRIFORCE,
         );
       }
     });
@@ -81,7 +81,7 @@ export default class LogicTweaks {
         const requirements = Locations.getLocation(
           generalLocation,
           detailedLocation,
-          Locations.KEYS.NEED
+          Locations.KEYS.NEED,
         );
         const newNeeds = this._replaceCanAccessOtherLocation(requirements);
 
@@ -89,7 +89,7 @@ export default class LogicTweaks {
           generalLocation,
           detailedLocation,
           Locations.KEYS.NEED,
-          newNeeds
+          newNeeds,
         );
       });
     });

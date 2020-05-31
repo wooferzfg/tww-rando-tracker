@@ -15,14 +15,14 @@ describe('TrackerState', () => {
       Locations.locations = {
         'Outset Island': {
           'Savage Labyrinth - Floor 30': {
-            test: 'data'
-          }
+            test: 'data',
+          },
         },
         'Dragon Roost Cavern': {
           "Bird's Nest": {
-            test: 'data'
-          }
-        }
+            test: 'data',
+          },
+        },
       };
 
       LogicHelper.startingItems = {
@@ -32,7 +32,7 @@ describe('TrackerState', () => {
         "Wind's Requiem": 1,
         'Ballad of Gales': 1,
         'Song of Passing': 1,
-        'Progressive Sword': 1
+        'Progressive Sword': 1,
       };
     });
 
@@ -58,21 +58,21 @@ describe('TrackerState', () => {
   describe('createStateManually', () => {
     test('creates the state with the provided entrances, items, and locations checked', () => {
       const items = {
-        'Deku Leaf': 2
+        'Deku Leaf': 2,
       };
       const entrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern'
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
       };
       const locationsChecked = {
         'Dragon Roost Cavern': {
-          "Bird's Nest": true
-        }
+          "Bird's Nest": true,
+        },
       };
 
       const newState = TrackerState.createStateManually({
         entrances,
         items,
-        locationsChecked
+        locationsChecked,
       });
 
       expect(newState.entrances).toEqual(entrances);
@@ -87,7 +87,7 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.items = {
-        'Deku Leaf': 2
+        'Deku Leaf': 2,
       };
     });
 
@@ -106,15 +106,15 @@ describe('TrackerState', () => {
 
     beforeEach(() => {
       initialItems = {
-        'Deku Leaf': 2
+        'Deku Leaf': 2,
       };
       initialEntrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern'
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
       };
       initialLocationsChecked = {
         'Dragon Roost Cavern': {
-          "Bird's Nest": true
-        }
+          "Bird's Nest": true,
+        },
       };
 
       state = new TrackerState();
@@ -147,7 +147,7 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.entrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern'
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
       };
     });
 
@@ -166,15 +166,15 @@ describe('TrackerState', () => {
 
     beforeEach(() => {
       initialItems = {
-        'Deku Leaf': 2
+        'Deku Leaf': 2,
       };
       initialEntrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern'
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
       };
       initialLocationsChecked = {
         'Dragon Roost Cavern': {
-          "Bird's Nest": true
-        }
+          "Bird's Nest": true,
+        },
       };
 
       state = new TrackerState();
@@ -208,8 +208,8 @@ describe('TrackerState', () => {
       state = new TrackerState();
       state.locationsChecked = {
         'Dragon Roost Cavern': {
-          "Bird's Nest": true
-        }
+          "Bird's Nest": true,
+        },
       };
     });
 
@@ -228,15 +228,15 @@ describe('TrackerState', () => {
 
     beforeEach(() => {
       initialItems = {
-        'Deku Leaf': 2
+        'Deku Leaf': 2,
       };
       initialEntrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern'
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
       };
       initialLocationsChecked = {
         'Dragon Roost Cavern': {
-          "Bird's Nest": true
-        }
+          "Bird's Nest": true,
+        },
       };
 
       state = new TrackerState();

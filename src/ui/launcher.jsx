@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 
-import header from '../images/header';
+import header from '../images/header.png';
 
 export default class Launcher extends React.Component {
   static permalinkContainer() {
@@ -26,14 +26,14 @@ export default class Launcher extends React.Component {
           <col className="text-col" />
           <col className="slider-col" />
         </>
-      )
+      ),
     );
 
     const optionRows = _.map(
       rows,
       (rowElements) => (
         <tr>{rowElements}</tr>
-      )
+      ),
     );
 
     return (
@@ -70,7 +70,7 @@ export default class Launcher extends React.Component {
       options,
       (option) => (
         <option>{option}</option>
-      )
+      ),
     );
 
     return (
@@ -94,42 +94,42 @@ export default class Launcher extends React.Component {
         [
           Launcher.sliderInput({ labelText: 'Dungeons' }),
           Launcher.sliderInput({ labelText: 'Tingle Chests' }),
-          Launcher.sliderInput({ labelText: 'Mail' })
+          Launcher.sliderInput({ labelText: 'Mail' }),
         ],
         [
           Launcher.sliderInput({ labelText: 'Puzzle Secret Caves' }),
           Launcher.sliderInput({ labelText: 'Combat Secret Cave' }),
-          Launcher.sliderInput({ labelText: 'Savage Labyrinth' })
+          Launcher.sliderInput({ labelText: 'Savage Labyrinth' }),
         ],
         [
           Launcher.sliderInput({ labelText: 'Short Sidequests' }),
           Launcher.sliderInput({ labelText: 'Long Sidequests' }),
-          Launcher.sliderInput({ labelText: 'Spoils Trading' })
+          Launcher.sliderInput({ labelText: 'Spoils Trading' }),
         ],
         [
           Launcher.sliderInput({ labelText: 'Great Fairies' }),
           Launcher.sliderInput({ labelText: 'Free Gifts' }),
-          Launcher.sliderInput({ labelText: 'Miscellaneous' })
+          Launcher.sliderInput({ labelText: 'Miscellaneous' }),
         ],
         [
           Launcher.sliderInput({ labelText: 'Minigames' }),
           Launcher.sliderInput({ labelText: 'Battlesquid Minigame' }),
-          Launcher.sliderInput({ labelText: 'Expensive Purchases' })
+          Launcher.sliderInput({ labelText: 'Expensive Purchases' }),
         ],
         [
           Launcher.sliderInput({ labelText: 'Island Puzzles' }),
           Launcher.sliderInput({ labelText: 'Lookout Platforms and Rafts' }),
-          Launcher.sliderInput({ labelText: 'Submarines' })
+          Launcher.sliderInput({ labelText: 'Submarines' }),
         ],
         [
           Launcher.sliderInput({ labelText: 'Big Octos and Gunboats' }),
           Launcher.sliderInput({ labelText: 'Sunken Treasure (From Triforce Charts)' }),
-          Launcher.sliderInput({ labelText: 'Sunken Treasure (From Treasure Charts)' })
+          Launcher.sliderInput({ labelText: 'Sunken Treasure (From Treasure Charts)' }),
         ],
         [
-          Launcher.sliderInput({ labelText: 'Eye Reef Chests' })
-        ]
-      ]
+          Launcher.sliderInput({ labelText: 'Eye Reef Chests' }),
+        ],
+      ],
     });
   }
 
@@ -143,17 +143,17 @@ export default class Launcher extends React.Component {
             options: [
               'Start with Sword',
               'Randomized Sword',
-              'Swordless'
-            ]
+              'Swordless',
+            ],
           }),
-          Launcher.sliderInput({ labelText: 'Key-Lunacy' })
+          Launcher.sliderInput({ labelText: 'Key-Lunacy' }),
         ],
         [
           Launcher.dropdownInput({
             labelText: 'Triforce Shards to Start With',
-            options: _.range(0, 9)
+            options: _.range(0, 9),
           }),
-          Launcher.sliderInput({ labelText: 'Race Mode' })
+          Launcher.sliderInput({ labelText: 'Race Mode' }),
         ],
         [
           Launcher.dropdownInput({
@@ -163,12 +163,12 @@ export default class Launcher extends React.Component {
               'Dungeons',
               'Secret Caves',
               'Dungeons & Secret Caves (Separately)',
-              'Dungeons & Secret Caves (Together)'
-            ]
+              'Dungeons & Secret Caves (Together)',
+            ],
           }),
-          Launcher.sliderInput({ labelText: 'Randomize Charts' })
-        ]
-      ]
+          Launcher.sliderInput({ labelText: 'Randomize Charts' }),
+        ],
+      ],
     });
   }
 
@@ -177,9 +177,9 @@ export default class Launcher extends React.Component {
       title: 'Convenience Tweaks',
       rows: [
         [
-          Launcher.sliderInput({ labelText: 'Skip Boss Rematches' })
-        ]
-      ]
+          Launcher.sliderInput({ labelText: 'Skip Boss Rematches' }),
+        ],
+      ],
     });
   }
 

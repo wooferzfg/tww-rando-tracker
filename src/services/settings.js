@@ -3,7 +3,7 @@ import _ from 'lodash';
 import Constants from './constants';
 import Permalink from './permalink';
 
-import FLAGS from '../data/flags';
+import FLAGS from '../data/flags.json';
 
 export default class Settings {
   static initializeFromPermalink(permalinkString) {
@@ -73,23 +73,23 @@ export default class Settings {
     [Permalink.OPTIONS.PROGRESSION_MAIL]: [this.FLAGS.MAIL],
     [Permalink.OPTIONS.PROGRESSION_PLATFORMS_RAFTS]: [
       this.FLAGS.PLATFORM,
-      this.FLAGS.RAFT
+      this.FLAGS.RAFT,
     ],
     [Permalink.OPTIONS.PROGRESSION_SUBMARINES]: [this.FLAGS.SUBMARINE],
     [Permalink.OPTIONS.PROGRESSION_EYE_REEF_CHESTS]: [this.FLAGS.EYE_REEF_CHEST],
     [Permalink.OPTIONS.PROGRESSION_BIG_OCTOS_GUNBOATS]: [
       this.FLAGS.BIG_OCTO,
-      this.FLAGS.GUNBOAT
+      this.FLAGS.GUNBOAT,
     ],
     [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: [this.FLAGS.SUNKEN_TREASURE],
     [Permalink.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES]: [this.FLAGS.EXPENSIVE_PURCHASE],
     [Permalink.OPTIONS.PROGRESSION_MISC]: [
       this.FLAGS.OTHER_CHEST,
-      this.FLAGS.MISC
+      this.FLAGS.MISC,
     ],
     [Permalink.OPTIONS.PROGRESSION_TINGLE_CHESTS]: [this.FLAGS.TINGLE_CHEST],
     [Permalink.OPTIONS.PROGRESSION_BATTLESQUID]: [this.FLAGS.BATTLESQUID],
     [Permalink.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH]: [this.FLAGS.SAVAGE_LABYRINTH],
-    [Permalink.OPTIONS.PROGRESSION_ISLAND_PUZZLES]: [this.FLAGS.ISLAND_PUZZLE]
+    [Permalink.OPTIONS.PROGRESSION_ISLAND_PUZZLES]: [this.FLAGS.ISLAND_PUZZLE],
   };
 }

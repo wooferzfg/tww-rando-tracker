@@ -83,7 +83,7 @@ describe('Memoizer', () => {
       beforeEach(() => {
         Memoizer.memoize(MockClass, [
           MockClass.mockStaticMethod,
-          MockClass.mockStaticMethod2
+          MockClass.mockStaticMethod2,
         ]);
       });
 

@@ -58,19 +58,19 @@ describe('LogicLoader', () => {
           Need: 'Can Access Savage Labyrinth & Can Defeat Keese & Can Defeat Miniblins',
           'Original item': 'Triforce Chart 6',
           Types: 'Savage Labyrinth',
-          Paths: ['Cave09/Room20.arc/Chest000']
+          Paths: ['Cave09/Room20.arc/Chest000'],
         },
         "Dragon Roost Cavern - Bird's Nest": {
           Need: 'Can Access Dragon Roost Cavern & DRC Small Key x3',
           'Original item': 'Small Key',
           Types: 'Dungeon',
-          Paths: ['M_NewD2/Room3.arc/Actor016']
-        }
+          Paths: ['M_NewD2/Room3.arc/Actor016'],
+        },
       },
       macrosFile: {
         "Can Play Wind's Requiem": "Wind Waker & Wind's Requiem",
-        'Can Move Boulders': 'Bombs | Power Bracelets'
-      }
+        'Can Move Boulders': 'Bombs | Power Bracelets',
+      },
     });
   });
 });

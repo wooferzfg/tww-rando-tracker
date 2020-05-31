@@ -2,7 +2,7 @@ import React from 'react';
 import {
   HashRouter,
   Switch,
-  Route
+  Route,
 } from 'react-router-dom';
 
 import Launcher from './launcher';

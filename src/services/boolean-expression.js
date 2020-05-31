@@ -26,7 +26,7 @@ export default class BooleanExpression {
     andInitialValue,
     andReducer,
     orInitialValue,
-    orReducer
+    orReducer,
   }) {
     const reducerArguments = ([accumulator, item, index, collection]) => {
       if (item instanceof BooleanExpression) {
@@ -34,7 +34,7 @@ export default class BooleanExpression {
           andInitialValue,
           andReducer,
           orInitialValue,
-          orReducer
+          orReducer,
         });
 
         return {
@@ -42,7 +42,7 @@ export default class BooleanExpression {
           item: reducedItem,
           isReduced: true,
           index,
-          collection
+          collection,
         };
       }
       return {
@@ -50,7 +50,7 @@ export default class BooleanExpression {
         item,
         isReduced: false,
         index,
-        collection
+        collection,
       };
     };
 
@@ -58,9 +58,9 @@ export default class BooleanExpression {
       return _.reduce(
         this.items,
         (...args) => andReducer(
-          reducerArguments(args)
+          reducerArguments(args),
         ),
-        andInitialValue
+        andInitialValue,
       );
     }
 
@@ -68,9 +68,9 @@ export default class BooleanExpression {
       return _.reduce(
         this.items,
         (...args) => orReducer(
-          reducerArguments(args)
+          reducerArguments(args),
         ),
-        orInitialValue
+        orInitialValue,
       );
     }
 
@@ -83,20 +83,20 @@ export default class BooleanExpression {
       andReducer: ({
         accumulator,
         item,
-        isReduced
+        isReduced,
       }) => accumulator && (isReduced ? item : isItemTrue(item)),
       orInitialValue: false,
       orReducer: ({
         accumulator,
         item,
-        isReduced
-      }) => accumulator || (isReduced ? item : isItemTrue(item))
+        isReduced,
+      }) => accumulator || (isReduced ? item : isItemTrue(item)),
     });
   }
 
   simplify({
     depth = 3,
-    implies
+    implies,
   }) {
     let updatedExpression = this;
 
@@ -111,7 +111,7 @@ export default class BooleanExpression {
 
   static _TYPES = {
     AND: 'and',
-    OR: 'or'
+    OR: 'or',
   };
 
   _oppositeType() {
@@ -126,7 +126,7 @@ export default class BooleanExpression {
 
   _isEqualTo({
     otherExpression,
-    areItemsEqual
+    areItemsEqual,
   }) {
     if (!(otherExpression instanceof BooleanExpression)
       || this.type !== otherExpression.type
@@ -141,7 +141,7 @@ export default class BooleanExpression {
         if (item instanceof BooleanExpression) {
           return item._isEqualTo({
             otherExpression: otherItem,
-            areItemsEqual
+            areItemsEqual,
           });
         }
         if (otherItem instanceof BooleanExpression) {
@@ -150,9 +150,9 @@ export default class BooleanExpression {
 
         return areItemsEqual({
           item,
-          otherItem
+          otherItem,
         });
-      }
+      },
     );
     return _.isEmpty(difference);
   }
@@ -200,7 +200,7 @@ export default class BooleanExpression {
     item,
     index,
     expressionType,
-    implies
+    implies,
   }) {
     let itemIsSubsumed = false;
 
@@ -236,7 +236,7 @@ export default class BooleanExpression {
         item,
         index,
         expressionType: this.type,
-        implies
+        implies,
       })) {
         newItems.push(item);
       }
@@ -254,17 +254,17 @@ export default class BooleanExpression {
         if (_.isArray(objectValue)) {
           return _.concat(
             objectValue,
-            _.filter(sourceValue, (value) => !(value instanceof BooleanExpression))
+            _.filter(sourceValue, (value) => !(value instanceof BooleanExpression)),
           );
         }
         return undefined;
-      }
+      },
     );
   }
 
   _removeDuplicateChildrenHelper({
     implies,
-    parentItems
+    parentItems,
   }) {
     const newItems = [];
 
@@ -279,10 +279,10 @@ export default class BooleanExpression {
       if (item instanceof BooleanExpression) {
         const {
           expression: childExpression,
-          removeParent: childRemoveParent
+          removeParent: childRemoveParent,
         } = item._removeDuplicateChildrenHelper({
           implies,
-          parentItems: updatedParentItems
+          parentItems: updatedParentItems,
         });
 
         if (childRemoveParent) {
@@ -297,7 +297,7 @@ export default class BooleanExpression {
           item,
           index: oppositeTypeItems.length,
           expressionType: this._oppositeType(),
-          implies
+          implies,
         })) {
           removeSelf = true;
           return false; // break loop
@@ -308,7 +308,7 @@ export default class BooleanExpression {
           item,
           index: sameTypeItems.length,
           expressionType: this.type,
-          implies
+          implies,
         })) {
           newItems.push(item);
         }
@@ -319,14 +319,14 @@ export default class BooleanExpression {
     if (removeSelf) {
       return {
         expression: BooleanExpression.and(),
-        removeParent: false
+        removeParent: false,
       };
     }
 
     if (_.isEmpty(newItems)) {
       return {
         expression: BooleanExpression.and(),
-        removeParent: true
+        removeParent: true,
       };
     }
 
@@ -334,7 +334,7 @@ export default class BooleanExpression {
 
     return {
       expression,
-      removeParent: false
+      removeParent: false,
     };
   }
 
@@ -343,8 +343,8 @@ export default class BooleanExpression {
       implies,
       parentItems: {
         [BooleanExpression._TYPES.AND]: [],
-        [BooleanExpression._TYPES.OR]: []
-      }
+        [BooleanExpression._TYPES.OR]: [],
+      },
     });
 
     return expression;
@@ -353,7 +353,7 @@ export default class BooleanExpression {
   _isSubsumedBy({
     otherExpression,
     implies,
-    removeIfIdentical
+    removeIfIdentical,
   }) {
     if (this.type !== otherExpression.type) {
       return false;
@@ -361,7 +361,7 @@ export default class BooleanExpression {
 
     if (this._isEqualTo({
       otherExpression,
-      areItemsEqual: ({ item, otherItem }) => implies(item, otherItem) && implies(otherItem, item)
+      areItemsEqual: ({ item, otherItem }) => implies(item, otherItem) && implies(otherItem, item),
     })) {
       return removeIfIdentical;
     }
@@ -374,8 +374,8 @@ export default class BooleanExpression {
           item: otherItem,
           index: this.items.length,
           expressionType: this.type,
-          implies
-        })
+          implies,
+        }),
     );
   }
 
@@ -387,7 +387,7 @@ export default class BooleanExpression {
         const isSubsumed = expression._isSubsumedBy({
           otherExpression,
           implies,
-          removeIfIdentical: otherIndex < index
+          removeIfIdentical: otherIndex < index,
         });
 
         if (isSubsumed) {
@@ -411,7 +411,7 @@ export default class BooleanExpression {
         if (!this._expressionIsSubsumed({
           expression: simplifiedExpression,
           index,
-          implies
+          implies,
         })) {
           newItems.push(simplifiedExpression);
         }

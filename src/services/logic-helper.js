@@ -1,16 +1,5 @@
 import _ from 'lodash';
 
-import CAVE_ENTRANCES from '../data/cave-entrances';
-import CAVES from '../data/caves';
-import CHARTS from '../data/charts';
-import DUNGEON_ENTRANCES from '../data/dungeon-entrances';
-import DUNGEONS from '../data/dungeons';
-import ISLANDS from '../data/islands';
-import ITEMS from '../data/items';
-import KEYS from '../data/keys';
-import PRETTY_ITEM_NAMES from '../data/pretty-item-names';
-import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names';
-
 import BooleanExpression from './boolean-expression';
 import Constants from './constants';
 import Locations from './locations';
@@ -19,12 +8,23 @@ import Memoizer from './memoizer';
 import Permalink from './permalink';
 import Settings from './settings';
 
+import CAVE_ENTRANCES from '../data/cave-entrances.json';
+import CAVES from '../data/caves.json';
+import CHARTS from '../data/charts.json';
+import DUNGEON_ENTRANCES from '../data/dungeon-entrances.json';
+import DUNGEONS from '../data/dungeons.json';
+import ISLANDS from '../data/islands.json';
+import ITEMS from '../data/items.json';
+import KEYS from '../data/keys.json';
+import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
+import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
+
 export default class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
       this.requirementsForEntrance,
       this.requirementsForLocation,
-      this.smallKeysRequiredForLocation
+      this.smallKeysRequiredForLocation,
     ]);
 
     this._setStartingAndImpossibleItems();
@@ -51,14 +51,14 @@ export default class LogicHelper {
     IMPOSSIBLE: 'Impossible',
     NOTHING: 'Nothing',
     OPENING_PAREN: '(',
-    OR: '|'
+    OR: '|',
   };
 
   static ITEM_REQUIREMENT_COLORS = {
     AVAILABLE_ITEM: 'available-item',
     INCONSEQUENTIAL_ITEM: 'inconsequential-item',
     PLAIN_TEXT: 'plain-text',
-    UNAVAILABLE_ITEM: 'unavailable-item'
+    UNAVAILABLE_ITEM: 'unavailable-item',
   };
 
   static allItems() {
@@ -67,7 +67,7 @@ export default class LogicHelper {
       CHARTS,
       _.map(DUNGEONS, (dungeon) => this.dungeonEntryName(dungeon)),
       _.keys(ITEMS),
-      _.keys(KEYS)
+      _.keys(KEYS),
     );
   }
 
@@ -107,9 +107,9 @@ export default class LogicHelper {
       [
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
       ],
-      this._randomizeEntrancesOption()
+      this._randomizeEntrancesOption(),
     );
   }
 
@@ -118,16 +118,16 @@ export default class LogicHelper {
       [
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
       ],
-      this._randomizeEntrancesOption()
+      this._randomizeEntrancesOption(),
     );
   }
 
   static isRandomEntrancesTogether() {
     return _.includes(
       this._randomizeEntrancesOption(),
-      Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER
+      Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
     );
   }
 
@@ -137,7 +137,7 @@ export default class LogicHelper {
     if (itemCountRequirementMatch) {
       return {
         itemName: itemCountRequirementMatch[1],
-        countRequired: _.toSafeInteger(itemCountRequirementMatch[2])
+        countRequired: _.toSafeInteger(itemCountRequirementMatch[2]),
       };
     }
 
@@ -170,7 +170,7 @@ export default class LogicHelper {
     const locationTypes = Locations.getLocation(
       generalLocation,
       detailedLocation,
-      Locations.KEYS.TYPES
+      Locations.KEYS.TYPES,
     );
     if (_.includes(locationTypes, Settings.FLAGS.TINGLE_CHEST)
       && !Settings.isFlagActive(Settings.FLAGS.TINGLE_CHEST)) {
@@ -180,7 +180,7 @@ export default class LogicHelper {
     const locationRequirements = Locations.getLocation(
       generalLocation,
       detailedLocation,
-      Locations.KEYS.NEED
+      Locations.KEYS.NEED,
     );
     if (_.includes(locationRequirements, 'Big Key')) {
       return false;
@@ -233,7 +233,7 @@ export default class LogicHelper {
     if (!_.isNil(itemCountRequirement)) {
       const {
         itemName,
-        countRequired
+        countRequired,
       } = itemCountRequirement;
 
       return this._prettyNameOverride(itemName, countRequired) || itemRequirement;
@@ -270,7 +270,7 @@ export default class LogicHelper {
     const requirements = Locations.getLocation(
       generalLocation,
       detailedLocation,
-      Locations.KEYS.NEED
+      Locations.KEYS.NEED,
     );
     return this._booleanExpressionForRequirements(requirements);
   }
@@ -294,7 +294,7 @@ export default class LogicHelper {
   static _isLocationAvailableWithSmallKeys(generalLocation, detailedLocation, numSmallKeys) {
     const requirementsForLocation = this.requirementsForLocation(
       generalLocation,
-      detailedLocation
+      detailedLocation,
     );
 
     const smallKeyName = this.smallKeyName(generalLocation);
@@ -306,7 +306,7 @@ export default class LogicHelper {
         if (!_.isNil(itemCountRequirement)) {
           const {
             countRequired,
-            itemName
+            itemName,
           } = itemCountRequirement;
 
           if (itemName === smallKeyName) {
@@ -315,7 +315,7 @@ export default class LogicHelper {
         }
 
         return true; // assume we have all items that aren't keys
-      }
+      },
     });
   }
 
@@ -323,8 +323,8 @@ export default class LogicHelper {
     return requirements.simplify({
       implies: (
         firstRequirement,
-        secondRequirement
-      ) => this._requirementImplies(firstRequirement, secondRequirement)
+        secondRequirement,
+      ) => this._requirementImplies(firstRequirement, secondRequirement),
     });
   }
 
@@ -362,8 +362,8 @@ export default class LogicHelper {
       [this.ITEMS.BALLAD_OF_GALES]: 1,
       [this.ITEMS.SONG_OF_PASSING]: 1,
       [this.ITEMS.TRIFORCE_SHARD]: Settings.getOptionValue(
-        Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS
-      )
+        Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS,
+      ),
     };
     this.impossibleItems = {};
 
@@ -376,14 +376,14 @@ export default class LogicHelper {
     } else if (swordMode === Permalink.SWORD_MODE_OPTIONS.SWORDLESS) {
       this.impossibleItems = {
         [this.ITEMS.PROGRESSIVE_SWORD]: 1,
-        [this.ITEMS.HURRICANE_SPIN]: 1
+        [this.ITEMS.HURRICANE_SPIN]: 1,
       };
     }
   }
 
   static _splitExpression(expression) {
     return _.compact(
-      _.map(expression.split(/\s*([(&|)])\s*/g), _.trim)
+      _.map(expression.split(/\s*([(&|)])\s*/g), _.trim),
     );
   }
 
@@ -391,28 +391,28 @@ export default class LogicHelper {
     const matchers = [
       {
         regex: /^Option "([^"]+)" Enabled$/,
-        value: (optionValue) => optionValue
+        value: (optionValue) => optionValue,
       },
       {
         regex: /^Option "([^"]+)" Disabled$/,
-        value: (optionValue) => !optionValue
+        value: (optionValue) => !optionValue,
       },
       {
         regex: /^Option "([^"]+)" Is "([^"]+)"$/,
-        value: (optionValue, expectedValue) => optionValue === expectedValue
+        value: (optionValue, expectedValue) => optionValue === expectedValue,
       },
       {
         regex: /^Option "([^"]+)" Is Not "([^"]+)"$/,
-        value: (optionValue, expectedValue) => optionValue !== expectedValue
+        value: (optionValue, expectedValue) => optionValue !== expectedValue,
       },
       {
         regex: /^Option "([^"]+)" Contains "([^"]+)"$/,
-        value: (optionValue, expectedValue) => _.get(optionValue, expectedValue)
+        value: (optionValue, expectedValue) => _.get(optionValue, expectedValue),
       },
       {
         regex: /^Option "([^"]+)" Does Not Contain "([^"]+)"$/,
-        value: (optionValue, expectedValue) => !_.get(optionValue, expectedValue)
-      }
+        value: (optionValue, expectedValue) => !_.get(optionValue, expectedValue),
+      },
     ];
 
     let optionEnabledRequirementValue;
@@ -439,7 +439,7 @@ export default class LogicHelper {
     if (otherLocationMatch) {
       const {
         generalLocation,
-        detailedLocation
+        detailedLocation,
       } = Locations.splitLocationName(otherLocationMatch[1]);
 
       return this._rawRequirementsForLocation(generalLocation, detailedLocation);
@@ -541,7 +541,7 @@ export default class LogicHelper {
       const locationTypes = Locations.getLocation(
         generalLocation,
         detailedLocation,
-        Locations.KEYS.TYPES
+        Locations.KEYS.TYPES,
       );
       const hasDungeonType = _.includes(locationTypes, Settings.FLAGS.DUNGEON);
 

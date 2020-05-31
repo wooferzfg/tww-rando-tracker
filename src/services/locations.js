@@ -7,7 +7,7 @@ export default class Locations {
     _.forEach(itemLocationsFile, (locationData, locationName) => {
       const {
         generalLocation,
-        detailedLocation
+        detailedLocation,
       } = this.splitLocationName(locationName);
 
       const filteredLocationData = _.pick(locationData, ['Need', 'Original item', 'Types']);
@@ -25,7 +25,7 @@ export default class Locations {
   static KEYS = {
     NEED: 'need',
     ORIGINAL_ITEM: 'originalItem',
-    TYPES: 'types'
+    TYPES: 'types',
   };
 
   static mapLocations(locationIteratee) {
@@ -36,7 +36,7 @@ export default class Locations {
         _.set(
           newLocations,
           [generalLocationName, detailedLocationName],
-          locationIteratee(generalLocationName, detailedLocationName)
+          locationIteratee(generalLocationName, detailedLocationName),
         );
       });
     });
@@ -75,7 +75,7 @@ export default class Locations {
 
     return {
       generalLocation: locationMatch[1],
-      detailedLocation: locationMatch[2]
+      detailedLocation: locationMatch[2],
     };
   }
 }

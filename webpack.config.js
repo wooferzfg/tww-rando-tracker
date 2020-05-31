@@ -11,62 +11,62 @@ module.exports = (env, argv) => {
 
   return {
     entry: {
-      bundle: ['./src/index.jsx']
+      bundle: ['./src/index.jsx'],
     },
     output: {
       filename: '[name].js',
-      path: distPath
+      path: distPath,
     },
     devtool: isProduction ? undefined : 'source-map',
     devServer: {
       contentBase: basePath,
       compress: true,
-      port: 8080
+      port: 8080,
     },
     resolve: {
-      extensions: ['.webpack.js', '.web.js', '.js', '.jsx', '.json', '.png']
+      extensions: ['.webpack.js', '.web.js', '.js', '.jsx', '.json', '.png'],
     },
     plugins: [
       ...(isProduction ? [new CleanWebpackPlugin()] : []),
       new FaviconsWebpackPlugin({
         logo: path.resolve('src/images/icon.png'),
-        inject: true
+        inject: true,
       }),
       new HtmlWebpackPlugin({
-        template: './src/index.html'
-      })
+        template: './src/index.html',
+      }),
     ],
     module: {
       rules: [
         {
           test: /\.jsx?$/,
           use: [
-            'babel-loader'
+            'babel-loader',
           ],
-          exclude: '/node_modules'
+          exclude: '/node_modules',
         },
         {
           test: /\.(s*)css$/,
           use: ['style-loader', 'css-loader', {
             loader: 'sass-loader',
             options: {
-              implementation: sass
-            }
-          }]
+              implementation: sass,
+            },
+          }],
         },
         {
           test: /\.png$/,
           use: [
             {
-              loader: 'url-loader'
-            }
-          ]
-        }
-      ]
+              loader: 'url-loader',
+            },
+          ],
+        },
+      ],
     },
     node: {
-      fs: 'empty'
+      fs: 'empty',
     },
-    mode: isProduction ? 'production' : 'development'
+    mode: isProduction ? 'production' : 'development',
   };
 };

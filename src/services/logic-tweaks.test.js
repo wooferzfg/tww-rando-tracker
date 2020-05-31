@@ -1,11 +1,11 @@
-import TEST_ITEM_LOCATIONS from '../data/test-item-locations';
-import TEST_MACROS from '../data/test-macros';
-
 import LogicTweaks from './logic-tweaks';
 import Locations from './locations';
 import Macros from './macros';
 import Permalink from './permalink';
 import Settings from './settings';
+
+import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
+import TEST_MACROS from '../data/test-macros.json';
 
 describe('LogicTweaks', () => {
   describe('applyTweaks', () => {
@@ -38,8 +38,8 @@ describe('LogicTweaks', () => {
       beforeEach(() => {
         Settings.initializeManually({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS
-          }
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+          },
         });
       });
 
@@ -55,8 +55,8 @@ describe('LogicTweaks', () => {
         Settings.initializeManually({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES
-          }
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+          },
         });
       });
 
@@ -71,8 +71,8 @@ describe('LogicTweaks', () => {
       beforeEach(() => {
         Settings.initializeManually({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true
-          }
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+          },
         });
       });
 

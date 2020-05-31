@@ -1,8 +1,5 @@
 import _ from 'lodash';
 
-import TEST_ITEM_LOCATIONS from '../data/test-item-locations';
-import TEST_MACROS from '../data/test-macros';
-
 import Locations from './locations';
 import LogicCalculation from './logic-calculation';
 import LogicHelper from './logic-helper';
@@ -11,6 +8,9 @@ import Macros from './macros';
 import Permalink from './permalink';
 import Settings from './settings';
 import TrackerState from './tracker-state';
+
+import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
+import TEST_MACROS from '../data/test-macros.json';
 
 describe('LogicCalculation', () => {
   let logic;
@@ -29,8 +29,8 @@ describe('LogicCalculation', () => {
     Settings.initializeManually({
       options: {
         // Don't run the guaranteed keys logic unless the test needs it
-        [Permalink.OPTIONS.KEY_LUNACY]: true
-      }
+        [Permalink.OPTIONS.KEY_LUNACY]: true,
+      },
     });
 
     logic = new LogicCalculation(TrackerState.default());
@@ -53,11 +53,11 @@ describe('LogicCalculation', () => {
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
           [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD
+          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
         },
         startingGear: {
-          [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0
-        }
+          [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+        },
       });
 
       Locations.initialize(TEST_ITEM_LOCATIONS);
@@ -75,8 +75,8 @@ describe('LogicCalculation', () => {
         beforeEach(() => {
           Settings.initializeManually({
             options: {
-              [Permalink.OPTIONS.KEY_LUNACY]: true
-            }
+              [Permalink.OPTIONS.KEY_LUNACY]: true,
+            },
           });
 
           state = TrackerState.default();
@@ -95,7 +95,7 @@ describe('LogicCalculation', () => {
             'ET Small Key': 0,
             'ET Big Key': 0,
             'WT Small Key': 0,
-            'WT Big Key': 0
+            'WT Big Key': 0,
           });
         });
       });
@@ -118,7 +118,7 @@ describe('LogicCalculation', () => {
             'ET Small Key': 0,
             'ET Big Key': 0,
             'WT Small Key': 0,
-            'WT Big Key': 0
+            'WT Big Key': 0,
           });
         });
 
@@ -150,7 +150,7 @@ describe('LogicCalculation', () => {
             'ET Small Key': 0,
             'ET Big Key': 0,
             'WT Small Key': 0,
-            'WT Big Key': 0
+            'WT Big Key': 0,
           });
         });
       });
@@ -175,7 +175,7 @@ describe('LogicCalculation', () => {
             'ET Small Key': 0,
             'ET Big Key': 0,
             'WT Small Key': 0,
-            'WT Big Key': 0
+            'WT Big Key': 0,
           });
         });
       });
@@ -199,7 +199,7 @@ describe('LogicCalculation', () => {
             'ET Small Key': 0,
             'ET Big Key': 0,
             'WT Small Key': 0,
-            'WT Big Key': 0
+            'WT Big Key': 0,
           });
         });
       });
@@ -225,7 +225,7 @@ describe('LogicCalculation', () => {
             'ET Small Key': 0,
             'ET Big Key': 0,
             'WT Small Key': 0,
-            'WT Big Key': 0
+            'WT Big Key': 0,
           });
         });
       });
@@ -254,7 +254,7 @@ describe('LogicCalculation', () => {
             'ET Small Key': 0,
             'ET Big Key': 0,
             'WT Small Key': 0,
-            'WT Big Key': 0
+            'WT Big Key': 0,
           });
         });
       });
@@ -267,13 +267,13 @@ describe('LogicCalculation', () => {
         setLocations({
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Deku Leaf & Grappling Hook'
-            }
-          }
+              need: 'Deku Leaf & Grappling Hook',
+            },
+          },
         });
 
         logic = new LogicCalculation(
-          logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', true)
+          logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', true),
         );
       });
 
@@ -289,15 +289,15 @@ describe('LogicCalculation', () => {
         setLocations({
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Deku Leaf & Grappling Hook'
-            }
-          }
+              need: 'Deku Leaf & Grappling Hook',
+            },
+          },
         });
 
         logic = new LogicCalculation(
           logic.state
             .setItemValue('Grappling Hook', 1)
-            .setItemValue('Deku Leaf', 1)
+            .setItemValue('Deku Leaf', 1),
         );
       });
 
@@ -313,15 +313,15 @@ describe('LogicCalculation', () => {
         setLocations({
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Deku Leaf & Grappling Hook'
-            }
-          }
+              need: 'Deku Leaf & Grappling Hook',
+            },
+          },
         });
 
         logic = new LogicCalculation(
           logic.state
             .setItemValue('Grappling Hook', 0)
-            .setItemValue('Deku Leaf', 1)
+            .setItemValue('Deku Leaf', 1),
         );
       });
 
@@ -337,11 +337,11 @@ describe('LogicCalculation', () => {
     describe('when the entrance requirements are met', () => {
       beforeEach(() => {
         setMacros({
-          'Can Access Dungeon Entrance On Headstone Island': 'Power Bracelets'
+          'Can Access Dungeon Entrance On Headstone Island': 'Power Bracelets',
         });
 
         logic = new LogicCalculation(
-          logic.state.setItemValue('Power Bracelets', 1)
+          logic.state.setItemValue('Power Bracelets', 1),
         );
       });
 
@@ -355,11 +355,11 @@ describe('LogicCalculation', () => {
     describe('when the location requirements are not met', () => {
       beforeEach(() => {
         setMacros({
-          'Can Access Secret Cave Entrance on Diamond Steppe Island': 'Hookshot'
+          'Can Access Secret Cave Entrance on Diamond Steppe Island': 'Hookshot',
         });
 
         logic = new LogicCalculation(
-          logic.state.setItemValue('Hookshot', 0)
+          logic.state.setItemValue('Hookshot', 0),
         );
       });
 
@@ -377,9 +377,9 @@ describe('LogicCalculation', () => {
         setLocations({
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Empty Bottle | Grappling Hook'
-            }
-          }
+              need: 'Empty Bottle | Grappling Hook',
+            },
+          },
         });
       });
 
@@ -390,8 +390,8 @@ describe('LogicCalculation', () => {
           [
             { text: 'Empty Bottle', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
             { text: 'or', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
-            { text: 'Grappling Hook', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }
-          ]
+            { text: 'Grappling Hook', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
+          ],
         ]);
       });
     });
@@ -401,9 +401,9 @@ describe('LogicCalculation', () => {
         setLocations({
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Progressive Sword x2'
-            }
-          }
+              need: 'Progressive Sword x2',
+            },
+          },
         });
       });
 
@@ -411,7 +411,7 @@ describe('LogicCalculation', () => {
         const formattedRequirements = logic.formattedRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(formattedRequirements).toEqual([
-          [{ text: 'Master Sword', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }]
+          [{ text: 'Master Sword', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }],
         ]);
       });
     });
@@ -421,13 +421,13 @@ describe('LogicCalculation', () => {
         setLocations({
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: '(Empty Bottle | Grappling Hook) & Deku Leaf'
-            }
-          }
+              need: '(Empty Bottle | Grappling Hook) & Deku Leaf',
+            },
+          },
         });
 
         logic = new LogicCalculation(
-          logic.state.setItemValue('Grappling Hook', 1)
+          logic.state.setItemValue('Grappling Hook', 1),
         );
       });
 
@@ -436,13 +436,13 @@ describe('LogicCalculation', () => {
 
         expect(formattedRequirements).toEqual([
           [
-            { text: 'Deku Leaf', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }
+            { text: 'Deku Leaf', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
           ],
           [
             { text: 'Grappling Hook', color: LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
             { text: 'or', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
-            { text: 'Empty Bottle', color: LogicHelper.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM }
-          ]
+            { text: 'Empty Bottle', color: LogicHelper.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
+          ],
         ]);
       });
     });
@@ -452,15 +452,15 @@ describe('LogicCalculation', () => {
         setLocations({
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Deku Leaf | (Grappling Hook & (Bombs | Boomerang))'
-            }
-          }
+              need: 'Deku Leaf | (Grappling Hook & (Bombs | Boomerang))',
+            },
+          },
         });
 
         logic = new LogicCalculation(
           logic.state
             .setItemValue('Deku Leaf', 1)
-            .setItemValue('Boomerang', 1)
+            .setItemValue('Boomerang', 1),
         );
       });
 
@@ -479,8 +479,8 @@ describe('LogicCalculation', () => {
             { text: 'or', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
             { text: 'Bombs', color: LogicHelper.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
             { text: ')', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
-            { text: ')', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT }
-          ]
+            { text: ')', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+          ],
         ]);
       });
     });
@@ -489,11 +489,11 @@ describe('LogicCalculation', () => {
   describe('formattedRequirementsForEntrance', () => {
     beforeEach(() => {
       setMacros({
-        'Can Access Dungeon Entrance On Headstone Island': 'Power Bracelets'
+        'Can Access Dungeon Entrance On Headstone Island': 'Power Bracelets',
       });
 
       logic = new LogicCalculation(
-        logic.state.setItemValue('Power Bracelets', 1)
+        logic.state.setItemValue('Power Bracelets', 1),
       );
     });
 
@@ -501,7 +501,7 @@ describe('LogicCalculation', () => {
       const formattedRequirements = logic.formattedRequirementsForEntrance('Earth Temple');
 
       expect(formattedRequirements).toEqual([
-        [{ text: 'Power Bracelets', color: LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM }]
+        [{ text: 'Power Bracelets', color: LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM }],
       ]);
     });
   });
@@ -512,13 +512,13 @@ describe('LogicCalculation', () => {
         setLocations({
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Deku Leaf & Grappling Hook'
-            }
-          }
+              need: 'Deku Leaf & Grappling Hook',
+            },
+          },
         });
 
         logic = new LogicCalculation(
-          logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', true)
+          logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', true),
         );
       });
 
@@ -534,16 +534,16 @@ describe('LogicCalculation', () => {
         setLocations({
           "Ganon's Tower": {
             'Defeat Ganondorf': {
-              need: 'Triforce Shard x8 & Progressive Sword x4 & Progressive Bow x3 & Boomerang & Grappling Hook & Hookshot'
-            }
-          }
+              need: 'Triforce Shard x8 & Progressive Sword x4 & Progressive Bow x3 & Boomerang & Grappling Hook & Hookshot',
+            },
+          },
         });
 
         logic = new LogicCalculation(
           logic.state
             .setItemValue('Triforce Shard', 1)
             .setItemValue('Progressive Sword', 1)
-            .setItemValue('Grappling Hook', 1)
+            .setItemValue('Grappling Hook', 1),
         );
       });
 
@@ -559,16 +559,16 @@ describe('LogicCalculation', () => {
         setLocations({
           "Ganon's Tower": {
             'Defeat Ganondorf': {
-              need: 'Triforce Shard x8 | Progressive Sword x4 | Progressive Bow x3 | Boomerang | Grappling Hook | Hookshot'
-            }
-          }
+              need: 'Triforce Shard x8 | Progressive Sword x4 | Progressive Bow x3 | Boomerang | Grappling Hook | Hookshot',
+            },
+          },
         });
 
         logic = new LogicCalculation(
           logic.state
             .setItemValue('Triforce Shard', 1)
             .setItemValue('Progressive Sword', 1)
-            .setItemValue('Grappling Hook', 1)
+            .setItemValue('Grappling Hook', 1),
         );
       });
 
@@ -584,7 +584,7 @@ describe('LogicCalculation', () => {
     describe('when the location is checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state.setLocationChecked('Dragon Roost Cavern', 'First Room', true)
+          logic.state.setLocationChecked('Dragon Roost Cavern', 'First Room', true),
         );
       });
 
@@ -600,9 +600,9 @@ describe('LogicCalculation', () => {
         setLocations({
           'Dragon Roost Cavern': {
             'First Room': {
-              need: 'Nothing'
-            }
-          }
+              need: 'Nothing',
+            },
+          },
         });
       });
 
@@ -618,9 +618,9 @@ describe('LogicCalculation', () => {
         setLocations({
           'Dragon Roost Cavern': {
             'First Room': {
-              need: 'Grappling Hook & DRC Big Key'
-            }
-          }
+              need: 'Grappling Hook & DRC Big Key',
+            },
+          },
         });
       });
 
@@ -636,9 +636,9 @@ describe('LogicCalculation', () => {
         setLocations({
           'Dragon Roost Cavern': {
             'First Room': {
-              need: 'DRC Small Key x1'
-            }
-          }
+              need: 'DRC Small Key x1',
+            },
+          },
         });
       });
 
@@ -654,15 +654,15 @@ describe('LogicCalculation', () => {
         setLocations({
           'Dragon Roost Cavern': {
             'First Room': {
-              need: 'DRC Small Key x1 & Grappling Hook & Deku Leaf'
-            }
-          }
+              need: 'DRC Small Key x1 & Grappling Hook & Deku Leaf',
+            },
+          },
         });
 
         logic = new LogicCalculation(
           logic.state
             .setItemValue('Grappling Hook', 1)
-            .setItemValue('Deku Leaf', 1)
+            .setItemValue('Deku Leaf', 1),
         );
       });
 
@@ -678,13 +678,13 @@ describe('LogicCalculation', () => {
         setLocations({
           'Dragon Roost Cavern': {
             'Big Key Chest': {
-              need: 'DRC Small Key x1 & Grappling Hook & (DRC Small Key x4 | Deku Leaf | Progressive Bow x2)'
-            }
-          }
+              need: 'DRC Small Key x1 & Grappling Hook & (DRC Small Key x4 | Deku Leaf | Progressive Bow x2)',
+            },
+          },
         });
 
         logic = new LogicCalculation(
-          logic.state.setItemValue('Grappling Hook', 1)
+          logic.state.setItemValue('Grappling Hook', 1),
         );
       });
 
@@ -717,7 +717,7 @@ describe('LogicCalculation', () => {
       describe('when the item is available', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.setItemValue('Deku Leaf', 1)
+            logic.state.setItemValue('Deku Leaf', 1),
           );
         });
 
@@ -731,7 +731,7 @@ describe('LogicCalculation', () => {
       describe('when the item is not available', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.setItemValue('Deku Leaf', 0)
+            logic.state.setItemValue('Deku Leaf', 0),
           );
         });
 
@@ -747,7 +747,7 @@ describe('LogicCalculation', () => {
       describe('when the item count meets the requirement', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.setItemValue('Progressive Sword', 3)
+            logic.state.setItemValue('Progressive Sword', 3),
           );
         });
 
@@ -761,7 +761,7 @@ describe('LogicCalculation', () => {
       describe('when the item count does not meet the requirement', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.setItemValue('Triforce Shard', 4)
+            logic.state.setItemValue('Triforce Shard', 4),
           );
         });
 
@@ -804,22 +804,22 @@ describe('LogicCalculation', () => {
         setLocations({
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Grappling Hook'
-            }
-          }
+              need: 'Grappling Hook',
+            },
+          },
         });
       });
 
       describe('when the other location has not been checked', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', false)
+            logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', false),
           );
         });
 
         test('returns false', () => {
           const isItemAvailable = logic._isRequirementMet(
-            'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"'
+            'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"',
           );
 
           expect(isItemAvailable).toEqual(false);
@@ -829,13 +829,13 @@ describe('LogicCalculation', () => {
       describe('when the other location has been checked', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', true)
+            logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', true),
           );
         });
 
         test('returns true', () => {
           const isItemAvailable = logic._isRequirementMet(
-            'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"'
+            'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"',
           );
 
           expect(isItemAvailable).toEqual(true);
@@ -845,13 +845,13 @@ describe('LogicCalculation', () => {
       describe('when the requirements for the other location have been met', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.setItemValue('Grappling Hook', 1)
+            logic.state.setItemValue('Grappling Hook', 1),
           );
         });
 
         test('returns true', () => {
           const isItemAvailable = logic._isRequirementMet(
-            'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"'
+            'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"',
           );
 
           expect(isItemAvailable).toEqual(true);

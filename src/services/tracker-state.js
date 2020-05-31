@@ -11,7 +11,7 @@ export default class TrackerState {
     newState.items = _.reduce(
       LogicHelper.allItems(),
       (accumulator, item) => _.set(accumulator, item, 0),
-      {}
+      {},
     );
     newState._setStartingItems();
     newState.locationsChecked = Locations.mapLocations(() => false);

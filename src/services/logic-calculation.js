@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
-import DUNGEONS from '../data/dungeons';
-import KEYS from '../data/keys';
-
 import Locations from './locations';
 import LogicHelper from './logic-helper';
 import Memoizer from './memoizer';
 import Permalink from './permalink';
 import Settings from './settings';
+
+import DUNGEONS from '../data/dungeons.json';
+import KEYS from '../data/keys.json';
 
 export default class LogicCalculation {
   constructor(state) {
@@ -19,7 +19,7 @@ export default class LogicCalculation {
       this.isEntranceAvailable,
       this.isLocationAvailable,
       this.itemsRemainingForLocation,
-      this._itemsRemainingForRequirement
+      this._itemsRemainingForRequirement,
     ]);
 
     this._setGuaranteedKeys();
@@ -32,7 +32,7 @@ export default class LogicCalculation {
 
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
-      detailedLocation
+      detailedLocation,
     );
 
     return this._areRequirementsMet(requirementsForLocation);
@@ -47,7 +47,7 @@ export default class LogicCalculation {
   formattedRequirementsForLocation(generalLocation, detailedLocation) {
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
-      detailedLocation
+      detailedLocation,
     );
 
     return this._formatRequirements(requirementsForLocation);
@@ -66,7 +66,7 @@ export default class LogicCalculation {
 
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
-      detailedLocation
+      detailedLocation,
     );
 
     return this._itemsRemainingForRequirements(requirementsForLocation);
@@ -74,7 +74,7 @@ export default class LogicCalculation {
 
   _areRequirementsMet(requirements) {
     return requirements.evaluate({
-      isItemTrue: (requirement) => this._isRequirementMet(requirement)
+      isItemTrue: (requirement) => this._isRequirementMet(requirement),
     });
   }
 
@@ -84,14 +84,14 @@ export default class LogicCalculation {
       andReducer: ({
         accumulator,
         item,
-        isReduced
+        isReduced,
       }) => accumulator + (isReduced ? item : this._itemsRemainingForRequirement(item)),
       orInitialValue: 0,
       orReducer: ({
         accumulator,
         item,
-        isReduced
-      }) => Math.max(accumulator, (isReduced ? item : this._itemsRemainingForRequirement(item)))
+        isReduced,
+      }) => Math.max(accumulator, (isReduced ? item : this._itemsRemainingForRequirement(item))),
     });
   }
 
@@ -99,7 +99,7 @@ export default class LogicCalculation {
     this.guaranteedKeys = _.reduce(
       _.keys(KEYS),
       (accumulator, keyName) => _.set(accumulator, keyName, this.state.getItemValue(keyName)),
-      {}
+      {},
     );
 
     if (!Settings.getOptionValue(Permalink.OPTIONS.KEY_LUNACY)) {
@@ -107,7 +107,7 @@ export default class LogicCalculation {
         if (LogicHelper.isMainDungeon(dungeonName)) {
           const {
             guaranteedSmallKeys,
-            guaranteedBigKeys
+            guaranteedBigKeys,
           } = this._guaranteedKeysForDungeon(dungeonName);
 
           const smallKeyName = LogicHelper.smallKeyName(dungeonName);
@@ -141,7 +141,7 @@ export default class LogicCalculation {
       && !this._nonKeyRequirementsMetForLocation(dungeonName, detailedLocation)) {
         const smallKeysRequired = LogicHelper.smallKeysRequiredForLocation(
           dungeonName,
-          detailedLocation
+          detailedLocation,
         );
 
         if (smallKeysRequired < guaranteedSmallKeys) {
@@ -153,7 +153,7 @@ export default class LogicCalculation {
 
     return {
       guaranteedSmallKeys,
-      guaranteedBigKeys
+      guaranteedBigKeys,
     };
   }
 
@@ -164,7 +164,7 @@ export default class LogicCalculation {
 
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
-      detailedLocation
+      detailedLocation,
     );
 
     const smallKeyName = LogicHelper.smallKeyName(generalLocation);
@@ -176,7 +176,7 @@ export default class LogicCalculation {
         }
 
         return this._isRequirementMet(requirement);
-      }
+      },
     });
   }
 
@@ -191,7 +191,7 @@ export default class LogicCalculation {
       LogicCalculation._nothingRequirementRemaining(requirement),
       this._itemCountRequirementRemaining(requirement),
       this._itemRequirementRemaining(requirement),
-      this._hasAccessedOtherLocationRequirementRemaining(requirement)
+      this._hasAccessedOtherLocationRequirementRemaining(requirement),
     ];
 
     const remainingItems = _.find(remainingItemsForRequirements, (result) => !_.isNil(result));
@@ -223,7 +223,7 @@ export default class LogicCalculation {
     if (!_.isNil(itemCountRequirement)) {
       const {
         countRequired,
-        itemName
+        itemName,
       } = itemCountRequirement;
 
       const itemCount = this._currentItemValue(itemName);
@@ -250,7 +250,7 @@ export default class LogicCalculation {
     if (otherLocationMatch) {
       const {
         generalLocation,
-        detailedLocation
+        detailedLocation,
       } = Locations.splitLocationName(otherLocationMatch[1]);
 
       return this.itemsRemainingForLocation(generalLocation, detailedLocation);
@@ -261,7 +261,7 @@ export default class LogicCalculation {
 
   static _BOOLEAN_EXPRESSION_TYPES = {
     AND: 'and',
-    OR: 'or'
+    OR: 'or',
   };
 
   _formatRequirements(requirements) {
@@ -275,7 +275,7 @@ export default class LogicCalculation {
     const generateReducerFunction = (getAccumulatorValue) => ({
       accumulator,
       item,
-      isReduced
+      isReduced,
     }) => {
       if (isReduced) {
         const sortedExpression = LogicCalculation._sortRequirements(item);
@@ -283,19 +283,19 @@ export default class LogicCalculation {
         return {
           items: _.concat(accumulator.items, sortedExpression),
           type: accumulator.type,
-          value: getAccumulatorValue(accumulator.value, sortedExpression.value)
+          value: getAccumulatorValue(accumulator.value, sortedExpression.value),
         };
       }
 
       const wrappedItem = {
         item,
-        value: this._isRequirementMet(item)
+        value: this._isRequirementMet(item),
       };
 
       return {
         items: _.concat(accumulator.items, wrappedItem),
         type: accumulator.type,
-        value: getAccumulatorValue(accumulator.value, wrappedItem.value)
+        value: getAccumulatorValue(accumulator.value, wrappedItem.value),
       };
     };
 
@@ -303,19 +303,19 @@ export default class LogicCalculation {
       andInitialValue: {
         items: [],
         type: LogicCalculation._BOOLEAN_EXPRESSION_TYPES.AND,
-        value: true
+        value: true,
       },
       andReducer: (reducerArgs) => generateReducerFunction(
-        (accumulatorValue, itemValue) => accumulatorValue && itemValue
+        (accumulatorValue, itemValue) => accumulatorValue && itemValue,
       )(reducerArgs),
       orInitialValue: {
         items: [],
         type: LogicCalculation._BOOLEAN_EXPRESSION_TYPES.OR,
-        value: false
+        value: false,
       },
       orReducer: (reducerArgs) => generateReducerFunction(
-        (accumulatorValue, itemValue) => accumulatorValue || itemValue
-      )(reducerArgs)
+        (accumulatorValue, itemValue) => accumulatorValue || itemValue,
+      )(reducerArgs),
     });
   }
 
@@ -330,7 +330,7 @@ export default class LogicCalculation {
     return {
       items: sortedItems,
       type: requirements.type,
-      value: requirements.value
+      value: requirements.value,
     };
   }
 
@@ -338,12 +338,12 @@ export default class LogicCalculation {
     if (requirements.type === this._BOOLEAN_EXPRESSION_TYPES.AND) {
       return _.map(
         requirements.items,
-        (item) => _.flattenDeep(this._createReadableRequirementsHelper(item, requirements.value))
+        (item) => _.flattenDeep(this._createReadableRequirementsHelper(item, requirements.value)),
       );
     }
     if (requirements.type === this._BOOLEAN_EXPRESSION_TYPES.OR) {
       return [
-        _.flattenDeep(this._createReadableRequirementsHelper(requirements, false))
+        _.flattenDeep(this._createReadableRequirementsHelper(requirements, false)),
       ];
     }
     throw Error(`Invalid requirements: ${JSON.stringify(requirements)}`);
@@ -364,7 +364,7 @@ export default class LogicCalculation {
 
       return [{
         color: itemColor,
-        text: itemName
+        text: itemName,
       }];
     }
 
@@ -376,13 +376,13 @@ export default class LogicCalculation {
         currentResult.push([
           {
             color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
-            text: '('
+            text: '(',
           },
           this._createReadableRequirementsHelper(item, isInconsequentialForChild),
           {
             color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
-            text: ')'
-          }
+            text: ')',
+          },
         ]);
       } else {
         currentResult.push(this._createReadableRequirementsHelper(item, isInconsequentialForChild));
@@ -392,12 +392,12 @@ export default class LogicCalculation {
         if (requirements.type === this._BOOLEAN_EXPRESSION_TYPES.AND) {
           currentResult.push({
             color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
-            text: 'and'
+            text: 'and',
           });
         } else if (requirements.type === this._BOOLEAN_EXPRESSION_TYPES.OR) {
           currentResult.push({
             color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
-            text: 'or'
+            text: 'or',
           });
         } else {
           throw Error(`Invalid requirements: ${JSON.stringify(requirements)}`);

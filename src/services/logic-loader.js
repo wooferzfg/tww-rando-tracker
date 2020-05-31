@@ -9,7 +9,7 @@ export default class LogicLoader {
 
     return {
       itemLocationsFile,
-      macrosFile
+      macrosFile,
     };
   }
 

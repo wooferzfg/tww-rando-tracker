@@ -8,14 +8,6 @@
     "react"
   ],
   "rules": {
-    "comma-dangle": [
-      "error",
-      "never"
-    ],
-    "import/extensions": [
-      "error",
-      "never"
-    ],
     "no-underscore-dangle": "off"
   },
   "settings": {

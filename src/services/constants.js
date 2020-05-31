@@ -7,9 +7,9 @@ export default class Constants {
       (accumulator, option) => _.set(
         accumulator,
         _.toUpper(_.snakeCase(option)),
-        option
+        option,
       ),
-      {}
+      {},
     );
   }
 }
