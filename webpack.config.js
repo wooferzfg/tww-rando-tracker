@@ -29,7 +29,7 @@ module.exports = (env, argv) => {
     plugins: [
       ...(isProduction ? [new CleanWebpackPlugin()] : []),
       new FaviconsWebpackPlugin({
-        logo: path.resolve('src/images/icon.ico'),
+        logo: path.resolve('src/images/icon.png'),
         inject: true
       }),
       new HtmlWebpackPlugin({
