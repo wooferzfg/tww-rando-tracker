@@ -1,3 +1,4 @@
+import Permalink from './permalink';
 import Settings from './settings';
 
 describe('Settings', () => {
@@ -7,9 +8,9 @@ describe('Settings', () => {
 
   describe('initialize', () => {
     test('initializes the flags, options, starting gear, and version', () => {
-      const flags = ['Tingle Chests'];
+      const flags = [Settings.FLAGS.TINGLE_CHEST];
       const options = {
-        randomizeEntrances: true
+        [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true
       };
       const startingGear = {
         'Grappling Hook': 1
@@ -64,13 +65,13 @@ describe('Settings', () => {
     beforeEach(() => {
       Settings.initializeManually({
         options: {
-          numStartingTriforceShards: 7
+          [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 7
         }
       });
     });
 
     test('returns the value of the given option', () => {
-      const optionValue = Settings.getOptionValue('numStartingTriforceShards');
+      const optionValue = Settings.getOptionValue(Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS);
 
       expect(optionValue).toEqual(7);
     });
