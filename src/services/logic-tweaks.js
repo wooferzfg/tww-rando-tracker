@@ -64,7 +64,7 @@ export default class LogicTweaks {
           islandName,
           'Sunken Treasure',
           Locations.KEYS.TYPES,
-          'Sunken Triforce'
+          Settings.FLAGS.SUNKEN_TRIFORCE
         );
       }
     });
