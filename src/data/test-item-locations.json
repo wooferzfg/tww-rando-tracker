@@ -43,16 +43,16 @@
   "Outset Island - Jabun's Cave": {
     "Need": "Bombs",
     "Original item": "Nayru's Pearl",
-    "Types": "Other Chest",
+    "Types": "Island Puzzle",
     "Paths": [
-      "main.dol@358D39",
+      "main.dol@8035BD39",
       "Pjavdou/Room0.arc/Chest000"
     ]
   },
   "Outset Island - Dig up Black Soil": {
     "Need": "Bait Bag & Can Buy Bait & Power Bracelets",
     "Original item": "Piece of Heart",
-    "Types": "Misc",
+    "Types": "Island Puzzle",
     "Paths": [
       "sea/Room44.arc/ScalableObject03A"
     ]
@@ -92,7 +92,7 @@
   "Windfall Island - Jail - Maze Chest": {
     "Need": "Nothing",
     "Original item": "Picto Box",
-    "Types": "Other Chest",
+    "Types": "Island Puzzle",
     "Paths": [
       "Pnezumi/Stage.arc/Chest000"
     ]
@@ -255,7 +255,7 @@
   "Windfall Island - Pirate Ship": {
     "Need": "Nothing",
     "Original item": "Bombs",
-    "Types": "Other Chest",
+    "Types": "Minigame",
     "Paths": [
       "Asoko/Stage.arc/Layer2/Chest000",
       "Asoko/Stage.arc/Layer3/Chest000"
@@ -394,7 +394,7 @@
   "Dragon Roost Island - Chest on Top of Boulder": {
     "Need": "Hero's Bow | (Bait Bag & Can Buy Hyoi Pears) | Boomerang | Bombs",
     "Original item": "Silver Rupee",
-    "Types": "Other Chest",
+    "Types": "Island Puzzle",
     "Paths": [
       "sea/Room13.arc/Chest000"
     ]
@@ -402,7 +402,7 @@
   "Dragon Roost Island - Fly Across Platforms Around Island": {
     "Need": "Can Fly With Deku Leaf Outdoors & (Can Cut Grass | Magic Meter Upgrade)",
     "Original item": "Orange Rupee",
-    "Types": "Other Chest",
+    "Types": "Island Puzzle",
     "Paths": [
       "sea/Room13.arc/Chest001"
     ]
@@ -564,7 +564,7 @@
   "Forest Haven - On Tree Branch": {
     "Need": "Can Access Forest Haven & Grappling Hook",
     "Original item": "Deku Leaf",
-    "Types": "Misc",
+    "Types": "Island Puzzle",
     "Paths": [
       "rels/d_a_deku_item.rel@0DC3",
       "Omori/Room0.arc/Layer0/Actor000",
@@ -574,7 +574,7 @@
   "Forest Haven - Small Island Chest": {
     "Need": "Can Access Forest Haven & Grappling Hook & Can Fly With Deku Leaf Outdoors",
     "Original item": "Treasure Chart 3",
-    "Types": "Other Chest",
+    "Types": "Island Puzzle",
     "Paths": [
       "sea/Room41.arc/Chest000"
     ]
@@ -711,7 +711,7 @@
   "Greatfish Isle - Hidden Chest": {
     "Need": "Can Fly With Deku Leaf Outdoors",
     "Original item": "Piece of Heart",
-    "Types": "Other Chest",
+    "Types": "Island Puzzle",
     "Paths": [
       "sea/Room23.arc/Chest000"
     ]
@@ -834,7 +834,7 @@
     "Original item": "Master Sword (Powerless)",
     "Types": "Dungeon",
     "Paths": [
-      "main.dol@358D34",
+      "main.dol@8035BD34",
       "kenroom/Room0.arc/Chest000"
     ]
   },
@@ -887,7 +887,7 @@
     ]
   },
   "Forsaken Fortress - Helmaroc King Heart Container": {
-    "Need": "Can Get Inside Forsaken Fortress & Skull Hammer & (Deku Leaf | Hookshot) & Can Reach and Defeat Phantom Ganon & Can Defeat Helmaroc King",
+    "Need": "Can Get Inside Forsaken Fortress & Skull Hammer & (Deku Leaf | Hookshot) & Can Defeat Helmaroc King",
     "Original item": "Heart Container",
     "Types": "Dungeon",
     "Paths": [
@@ -902,7 +902,7 @@
     "Original item": "Fire and Ice Arrows",
     "Types": "Other Chest",
     "Paths": [
-      "main.dol@358D3C",
+      "main.dol@8035BD3C",
       "sea/Room9.arc/Chest000"
     ]
   },
@@ -941,7 +941,7 @@
   "Ice Ring Isle - Frozen Chest": {
     "Need": "Fire Arrows",
     "Original item": "Treasure Chart 36",
-    "Types": "Other Chest",
+    "Types": "Island Puzzle",
     "Paths": [
       "sea/Room40.arc/Chest000"
     ]
@@ -965,7 +965,7 @@
   "Headstone Island - Top of the Island": {
     "Need": "Bait Bag & Can Buy Hyoi Pears",
     "Original item": "Piece of Heart",
-    "Types": "Misc",
+    "Types": "Island Puzzle",
     "Paths": [
       "sea/Room45.arc/Actor013"
     ]
@@ -1331,7 +1331,7 @@
     "Original item": "Bait Bag",
     "Types": "Misc",
     "Paths": [
-      "main.dol@372E1F",
+      "main.dol@80375E1F",
       "rels/d_a_npc_bs1.rel@1CDB",
       "rels/d_a_npc_bs1.rel@2DBB"
     ]
@@ -1384,7 +1384,7 @@
   "Private Oasis - Chest at Top of Waterfall": {
     "Need": "Hookshot | Can Fly With Deku Leaf Outdoors",
     "Original item": "Treasure Chart 27",
-    "Types": "Other Chest",
+    "Types": "Island Puzzle",
     "Paths": [
       "sea/Room33.arc/Chest000"
     ]
@@ -1432,7 +1432,7 @@
   "Needle Rock Isle - Chest": {
     "Need": "Bait Bag & Can Buy Hyoi Pears",
     "Original item": "Piece of Heart",
-    "Types": "Other Chest",
+    "Types": "Island Puzzle",
     "Paths": [
       "sea/Room29.arc/Chest000"
     ]
@@ -1456,7 +1456,7 @@
   "Angular Isles - Peak": {
     "Need": "Nothing",
     "Original item": "Piece of Heart",
-    "Types": "Other Chest",
+    "Types": "Island Puzzle",
     "Paths": [
       "sea/Room47.arc/Chest000"
     ]
@@ -1762,7 +1762,7 @@
     "Original item": "Empty Bottle",
     "Types": "Expensive Purchase",
     "Paths": [
-      "main.dol@372ECF",
+      "main.dol@80375ECF",
       "rels/d_a_npc_bs1.rel@1E9B",
       "rels/d_a_npc_bs1.rel@1ED3"
     ]
@@ -1772,7 +1772,7 @@
     "Original item": "Piece of Heart",
     "Types": "Expensive Purchase",
     "Paths": [
-      "main.dol@372EDF",
+      "main.dol@80375EDF",
       "rels/d_a_npc_bs1.rel@1EA3",
       "rels/d_a_npc_bs1.rel@1EDF"
     ]
@@ -1782,7 +1782,7 @@
     "Original item": "Treasure Chart 4",
     "Types": "Expensive Purchase",
     "Paths": [
-      "main.dol@372EEF",
+      "main.dol@80375EEF",
       "rels/d_a_npc_bs1.rel@1EAB",
       "rels/d_a_npc_bs1.rel@1EEB"
     ]
@@ -1870,7 +1870,7 @@
   "Horseshoe Island - Play Golf": {
     "Need": "Deku Leaf & (Can Fly With Deku Leaf Outdoors | Hookshot)",
     "Original item": "Treasure Chart 28",
-    "Types": "Other Chest",
+    "Types": "Island Puzzle",
     "Paths": [
       "sea/Room43.arc/Chest000"
     ]
