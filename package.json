@@ -1,8 +1,6 @@
 {
   "name": "tww-rando-tracker",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/bundle.js",
   "scripts": {
     "build": "webpack",
     "build:production": "webpack -p",
@@ -15,12 +13,6 @@
     "type": "git",
     "url": "git+https://github.com/wooferzfg/tww-rando-tracker.git"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/wooferzfg/tww-rando-tracker/issues"
-  },
-  "homepage": "https://github.com/wooferzfg/tww-rando-tracker#readme",
   "dependencies": {
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.15",
