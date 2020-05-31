@@ -16,7 +16,7 @@
     "url": "git+https://github.com/wooferzfg/tww-rando-tracker.git"
   },
   "dependencies": {
-    "js-yaml": "^3.13.1",
+    "js-yaml": "^3.14.0",
     "lodash": "^4.17.15",
     "memoizee": "^0.4.14",
     "react": "^16.13.1",
