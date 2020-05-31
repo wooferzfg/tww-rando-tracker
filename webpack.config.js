@@ -1,7 +1,8 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const sass = require('sass');
 
 module.exports = (env, argv) => {

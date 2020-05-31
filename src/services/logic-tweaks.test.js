@@ -1,11 +1,11 @@
-import LogicTweaks from './logic-tweaks';
+import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
+import TEST_MACROS from '../data/test-macros.json';
+
 import Locations from './locations';
+import LogicTweaks from './logic-tweaks';
 import Macros from './macros';
 import Permalink from './permalink';
 import Settings from './settings';
-
-import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
-import TEST_MACROS from '../data/test-macros.json';
 
 describe('LogicTweaks', () => {
   describe('applyTweaks', () => {

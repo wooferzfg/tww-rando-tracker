@@ -1,13 +1,5 @@
 import _ from 'lodash';
 
-import BooleanExpression from './boolean-expression';
-import Constants from './constants';
-import Locations from './locations';
-import Macros from './macros';
-import Memoizer from './memoizer';
-import Permalink from './permalink';
-import Settings from './settings';
-
 import CAVE_ENTRANCES from '../data/cave-entrances.json';
 import CAVES from '../data/caves.json';
 import CHARTS from '../data/charts.json';
@@ -18,6 +10,14 @@ import ITEMS from '../data/items.json';
 import KEYS from '../data/keys.json';
 import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
+
+import BooleanExpression from './boolean-expression';
+import Constants from './constants';
+import Locations from './locations';
+import Macros from './macros';
+import Memoizer from './memoizer';
+import Permalink from './permalink';
+import Settings from './settings';
 
 export default class LogicHelper {
   static initialize() {

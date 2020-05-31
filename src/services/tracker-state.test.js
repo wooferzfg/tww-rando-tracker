@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
-import TrackerState from './tracker-state';
 import Locations from './locations';
 import LogicHelper from './logic-helper';
+import TrackerState from './tracker-state';
 
 describe('TrackerState', () => {
   afterEach(() => {

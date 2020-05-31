@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
-import BinaryString from './binary-string';
-import Constants from './constants';
-
 import OPTIONS from '../data/options.json';
 import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items.json';
 import RANDOMIZE_ENTRANCES_OPTIONS from '../data/randomize-entrances-options.json';
 import REGULAR_STARTING_ITEMS from '../data/regular-starting-items.json';
 import SWORD_MODE_OPTIONS from '../data/sword-mode-options.json';
+
+import BinaryString from './binary-string';
+import Constants from './constants';
 
 export default class Permalink {
   static OPTIONS = Constants.createFromArray(OPTIONS);

@@ -1,16 +1,16 @@
 import _ from 'lodash';
 
-import Locations from './locations';
-import LogicHelper from './logic-helper';
-import Macros from './macros';
-import Permalink from './permalink';
-import Settings from './settings';
-
 import CAVES from '../data/caves.json';
 import CHARTS from '../data/charts.json';
 import DUNGEONS from '../data/dungeons.json';
 import HAS_ACCESSED_LOCATION_TWEAKS from '../data/has-accessed-location-tweaks.json';
 import ISLANDS from '../data/islands.json';
+
+import Locations from './locations';
+import LogicHelper from './logic-helper';
+import Macros from './macros';
+import Permalink from './permalink';
+import Settings from './settings';
 
 export default class LogicTweaks {
   static applyTweaks() {

@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
+import DUNGEONS from '../data/dungeons.json';
+import KEYS from '../data/keys.json';
+
 import Locations from './locations';
 import LogicHelper from './logic-helper';
 import Memoizer from './memoizer';
 import Permalink from './permalink';
 import Settings from './settings';
-
-import DUNGEONS from '../data/dungeons.json';
-import KEYS from '../data/keys.json';
 
 export default class LogicCalculation {
   constructor(state) {

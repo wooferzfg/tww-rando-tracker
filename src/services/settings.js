@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
+import FLAGS from '../data/flags.json';
+
 import Constants from './constants';
 import Permalink from './permalink';
-
-import FLAGS from '../data/flags.json';
 
 export default class Settings {
   static initializeFromPermalink(permalinkString) {

@@ -1,5 +1,8 @@
 import _ from 'lodash';
 
+import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
+import TEST_MACROS from '../data/test-macros.json';
+
 import Locations from './locations';
 import LogicCalculation from './logic-calculation';
 import LogicHelper from './logic-helper';
@@ -8,9 +11,6 @@ import Macros from './macros';
 import Permalink from './permalink';
 import Settings from './settings';
 import TrackerState from './tracker-state';
-
-import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
-import TEST_MACROS from '../data/test-macros.json';
 
 describe('LogicCalculation', () => {
   let logic;

@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
+import FLAGS from '../data/flags.json';
+
 import Permalink from './permalink';
 import Settings from './settings';
-
-import FLAGS from '../data/flags.json';
 
 describe('Settings', () => {
   afterEach(() => {
