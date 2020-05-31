@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Settings FLAGS returns the correct flags 1`] = `
+Object {
+  "BATTLESQUID": "Battlesquid",
+  "BIG_OCTO": "Big Octo",
+  "COMBAT_SECRET_CAVE": "Combat Secret Cave",
+  "DUNGEON": "Dungeon",
+  "EXPENSIVE_PURCHASE": "Expensive Purchase",
+  "EYE_REEF_CHEST": "Eye Reef Chest",
+  "FREE_GIFT": "Free Gift",
+  "GREAT_FAIRY": "Great Fairy",
+  "GUNBOAT": "Gunboat",
+  "LONG_SIDEQUEST": "Long Sidequest",
+  "MAIL": "Mail",
+  "MINIGAME": "Minigame",
+  "MISC": "Misc",
+  "OTHER_CHEST": "Other Chest",
+  "PLATFORM": "Platform",
+  "PUZZLE_SECRET_CAVE": "Puzzle Secret Cave",
+  "RAFT": "Raft",
+  "SAVAGE_LABYRINTH": "Savage Labyrinth",
+  "SHORT_SIDEQUEST": "Short Sidequest",
+  "SPOILS_TRADING": "Spoils Trading",
+  "SUBMARINE": "Submarine",
+  "SUNKEN_TREASURE": "Sunken Treasure",
+  "TINGLE_CHEST": "Tingle Chest",
+}
+`;

@@ -30,6 +30,12 @@ describe('Settings', () => {
     });
   });
 
+  describe('FLAGS', () => {
+    test('returns the correct flags', () => {
+      expect(Settings.FLAGS).toMatchSnapshot();
+    });
+  });
+
   describe('isFlagActive', () => {
     beforeEach(() => {
       Settings.initializeManually({
