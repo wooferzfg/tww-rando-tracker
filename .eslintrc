@@ -5,7 +5,8 @@
   },
   "parser": "babel-eslint",
   "plugins": [
-    "react"
+    "react",
+    "sort-class-members"
   ],
   "rules": {
     "import/order": ["error", {
@@ -15,7 +16,46 @@
       },
       "newlines-between": "always"
     }],
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "sort-class-members/sort-class-members": ["error", {
+      "order": [
+        "[initialize]",
+        "[reset]",
+        "[constructor]",
+        "[public-properties]",
+        "[public-static-methods]",
+        "[public-methods]",
+        "[private]"
+      ],
+      "groups": {
+        "initialize": [{
+          "name": "/initialize.*/",
+          "static": true,
+          "type": "method"
+        }],
+        "reset": [{
+          "name": "reset",
+          "static": true,
+          "type": "method"
+        }],
+        "public-properties": [{
+          "name": "/[^_].+/",
+          "type": "property"
+        }],
+        "public-static-methods": [{
+          "name": "/[^_].+/",
+          "static": true,
+          "type": "method"
+        }],
+        "public-methods": [{
+          "name": "/[^_].+/",
+          "type": "method"
+        }],
+        "private": [{
+          "name": "/_.+/"
+        }]
+      }
+    }]
   },
   "settings": {
     "import/resolver": {

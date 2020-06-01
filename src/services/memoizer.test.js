@@ -9,14 +9,6 @@ describe('Memoizer', () => {
         this.mockInitialValue = mockInitialValue;
       }
 
-      static _privateStaticMethod(mockParam) {
-        if (!this.previousValue) {
-          this.previousValue = mockParam;
-          return `First! param:${mockParam}`;
-        }
-        return `Repeated! param:${mockParam} previousValue:${this.previousValue}`;
-      }
-
       static mockStaticMethod(mockParam) {
         return this._privateStaticMethod(mockParam);
       }
@@ -31,6 +23,14 @@ describe('Memoizer', () => {
           return `First! param:${mockParam} initialValue:${this.mockInitialValue}`;
         }
         return `Repeated! param:${mockParam} previousValue:${this.previousValue} initialValue:${this.mockInitialValue}`;
+      }
+
+      static _privateStaticMethod(mockParam) {
+        if (!this.previousValue) {
+          this.previousValue = mockParam;
+          return `First! param:${mockParam}`;
+        }
+        return `Repeated! param:${mockParam} previousValue:${this.previousValue}`;
       }
     };
   });
