@@ -25,6 +25,14 @@ describe('Permalink', () => {
     });
   });
 
+  describe('defaultOptions', () => {
+    test('returns the default options', () => {
+      const options = Permalink.defaultOptions();
+
+      expect(options).toMatchSnapshot();
+    });
+  });
+
   describe('decode', () => {
     test('decodes a permalink', () => {
       const options = Permalink.decode('MS44LjAAeWVldAAHAQMBP0DAyAAAACBQMgA=');

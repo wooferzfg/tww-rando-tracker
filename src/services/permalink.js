@@ -22,6 +22,10 @@ export default class Permalink {
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
+  static defaultOptions() {
+    return this.decode(this._DEFAULT_PERMALINK);
+  }
+
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);
     const options = {};
@@ -42,6 +46,8 @@ export default class Permalink {
 
     return binaryString.toBase64();
   }
+
+  static _DEFAULT_PERMALINK = 'MS44LjAAU2VlZAAHAQMADgBACAAAAAAAAAA=';
 
   static _CONFIG = [
     this._stringConfig(this.OPTIONS.VERSION),
