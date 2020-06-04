@@ -12,7 +12,9 @@ const DropdownOptionInput = ({
   const dropdownOptions = _.map(
     _.get(Permalink.DROPDOWN_OPTIONS, optionName),
     (option) => (
-      <option value={option}>{option}</option>
+      <option value={option} key={option}>
+        {option}
+      </option>
     ),
   );
 

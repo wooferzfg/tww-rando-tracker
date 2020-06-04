@@ -9,18 +9,18 @@ const OptionsTable = ({
 }) => {
   const columns = _.times(
     numColumns,
-    () => (
-      <>
+    (index) => (
+      <React.Fragment key={index}>
         <col className="text-col" />
         <col className="slider-col" />
-      </>
+      </React.Fragment>
     ),
   );
 
   const optionRows = _.map(
     rows,
-    (rowElements) => (
-      <tr>{rowElements}</tr>
+    (rowElements, index) => (
+      <tr key={index}>{rowElements}</tr>
     ),
   );
 

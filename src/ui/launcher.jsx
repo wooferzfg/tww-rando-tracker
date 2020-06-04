@@ -70,6 +70,7 @@ export default class Launcher extends React.Component {
     return (
       <ToggleOptionInput
         getOptionValue={this.getOptionValue}
+        key={optionName}
         labelText={labelText}
         optionName={optionName}
       />
@@ -80,6 +81,7 @@ export default class Launcher extends React.Component {
     return (
       <DropdownOptionInput
         getOptionValue={this.getOptionValue}
+        key={optionName}
         labelText={labelText}
         optionName={optionName}
       />
@@ -214,7 +216,7 @@ export default class Launcher extends React.Component {
             }),
             this.toggleInput({
               labelText: 'Key-Lunacy',
-              optionName: Permalink.OPTIONS.KEY_LUNACY,
+              optionName: Permalink.OPTIONS.KEYLUNACY,
             }),
           ],
           [
@@ -251,7 +253,7 @@ export default class Launcher extends React.Component {
           [
             this.toggleInput({
               labelText: 'Skip Boss Rematches',
-              optionName: Permalink.OPTIONS.SKIP_BOSS_REMATCHES,
+              optionName: Permalink.OPTIONS.SKIP_REMATCH_BOSSES,
             }),
           ],
         ]}
