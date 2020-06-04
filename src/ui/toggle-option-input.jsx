@@ -6,6 +6,7 @@ const ToggleOptionInput = ({
   getOptionValue,
   labelText,
   optionName,
+  setOptionValue,
 }) => (
   <>
     <td className="label-text">{labelText}</td>
@@ -14,6 +15,7 @@ const ToggleOptionInput = ({
         <Toggle
           checked={getOptionValue(optionName)}
           icons={false}
+          onChange={(event) => setOptionValue(optionName, event.target.checked)}
         />
       </div>
     </td>
@@ -24,6 +26,7 @@ ToggleOptionInput.propTypes = {
   getOptionValue: PropTypes.func.isRequired,
   labelText: PropTypes.string.isRequired,
   optionName: PropTypes.string.isRequired,
+  setOptionValue: PropTypes.func.isRequired,
 };
 
 export default ToggleOptionInput;

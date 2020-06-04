@@ -50,6 +50,7 @@ export default class Launcher extends React.Component {
     this.state = { options: Permalink.defaultOptions() };
 
     this.getOptionValue = this.getOptionValue.bind(this);
+    this.setOptionValue = this.setOptionValue.bind(this);
 
     this.importImages();
   }
@@ -58,6 +59,14 @@ export default class Launcher extends React.Component {
     const { options } = this.state;
 
     return _.get(options, optionName);
+  }
+
+  setOptionValue(optionName, newValue) {
+    const { options } = this.state;
+
+    _.set(options, optionName, newValue);
+
+    this.setState({ options });
   }
 
   async importImages() {
@@ -73,6 +82,7 @@ export default class Launcher extends React.Component {
         key={optionName}
         labelText={labelText}
         optionName={optionName}
+        setOptionValue={this.setOptionValue}
       />
     );
   }
@@ -84,6 +94,7 @@ export default class Launcher extends React.Component {
         key={optionName}
         labelText={labelText}
         optionName={optionName}
+        setOptionValue={this.setOptionValue}
       />
     );
   }
