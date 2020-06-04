@@ -1,7 +1,10 @@
 import _ from 'lodash';
 import React from 'react';
+import Toggle from 'react-toggle';
 
 import header from '../images/header.png';
+
+import 'react-toggle/style.css';
 
 export default class Launcher extends React.Component {
   static permalinkContainer() {
@@ -18,9 +21,9 @@ export default class Launcher extends React.Component {
     );
   }
 
-  static optionsTable({ title, rows }) {
+  static optionsTable({ title, numColumns, rows }) {
     const columns = _.times(
-      _.size(_.first(rows)),
+      numColumns,
       () => (
         <>
           <col className="text-col" />
@@ -56,10 +59,11 @@ export default class Launcher extends React.Component {
       <>
         <td className="label-text">{labelText}</td>
         <td className="option-container">
-          <label className="switch">
-            <input type="checkbox" />
-            <span className="slider" />
-          </label>
+          <div className="toggle-container">
+            <Toggle
+              icons={false}
+            />
+          </div>
         </td>
       </>
     );
@@ -90,6 +94,7 @@ export default class Launcher extends React.Component {
   static progressItemLocationsTable() {
     return Launcher.optionsTable({
       title: 'Progress Item Locations',
+      numColumns: 3,
       rows: [
         [
           Launcher.sliderInput({ labelText: 'Dungeons' }),
@@ -136,6 +141,7 @@ export default class Launcher extends React.Component {
   static additionalRandomizationOptionsTable() {
     return Launcher.optionsTable({
       title: 'Additional Randomization Options',
+      numColumns: 2,
       rows: [
         [
           Launcher.dropdownInput({
@@ -175,6 +181,7 @@ export default class Launcher extends React.Component {
   static convenienceTweaksTable() {
     return Launcher.optionsTable({
       title: 'Convenience Tweaks',
+      numColumns: 2,
       rows: [
         [
           Launcher.sliderInput({ labelText: 'Skip Boss Rematches' }),

@@ -118,6 +118,7 @@ body {
           text-align: right;
           padding-right: 20px;
           position: relative;
+          height: 35px;
   
           .select-container {
             position: absolute;
@@ -134,55 +135,38 @@ body {
               cursor: pointer;
             }
           }
-  
-          .switch {
-            position: relative;
-            width: 60px;
-            height: 34px;
-            float: right;
-  
-            .slider {
-              position: absolute;
-              cursor: pointer;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              -webkit-transition: 0.4s;
-              transition: 0.4s;
-              border-radius: 34px;
-              border: 1px solid #808080;
-              background-color: #d2d2d2;
-  
-              &:before {
-                position: absolute;
-                content: "";
-                height: 26px;
-                width: 26px;
-                left: 4px;
-                bottom: 4px;
-                background-color: white;
-                -webkit-transition: 0.4s;
-                transition: 0.4s;
-                border-radius: 50%;
+
+          .toggle-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            .react-toggle {
+              .react-toggle-track {
+                background-color: #9c9c9c;
               }
-            }
-  
-            input {
-              display: none;
-  
-              &:checked + .slider {
-                background-color: #2196f3;
+
+              &:hover:not(.react-toggle--disabled) {
+                .react-toggle-track {
+                  background-color: rgb(194, 194, 194);
+                }
               }
-  
-              &:checked + .slider:before {
-                -webkit-transform: translateX(26px);
-                -ms-transform: translateX(26px);
-                transform: translateX(26px);
+
+              &--checked {
+                .react-toggle-track {
+                  background-color: #3783da;
+                }
+
+                &:hover:not(.react-toggle--disabled) {
+                  .react-toggle-track {
+                    background-color: #4099ff;
+                  }
+                }
               }
-  
-              &:focus + .slider {
-                box-shadow: 0 0 1px #2196f3;
+
+              .react-toggle-thumb {
+                border: none;
+                box-shadow: none !important;
               }
             }
           }

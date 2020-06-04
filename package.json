@@ -21,7 +21,8 @@
     "memoizee": "^0.4.14",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "react-toggle": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
