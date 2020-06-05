@@ -25,9 +25,9 @@ describe('Permalink', () => {
     });
   });
 
-  describe('defaultOptions', () => {
+  describe('DEFAULT_PERMALINK', () => {
     test('returns the default options', () => {
-      const options = Permalink.defaultOptions();
+      const options = Permalink.decode(Permalink.DEFAULT_PERMALINK);
 
       expect(options).toMatchSnapshot();
     });

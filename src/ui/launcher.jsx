@@ -11,20 +11,6 @@ import ToggleOptionInput from './toggle-option-input';
 import 'react-toggle/style.css';
 
 export default class Launcher extends React.Component {
-  static permalinkContainer() {
-    return (
-      <div className="permalink-container">
-        <div className="permalink-label">Paste Permalink:</div>
-        <div className="permalink-input">
-          <input placeholder="Permalink" id="flags" />
-        </div>
-        <div>
-          <button type="button">Apply Settings</button>
-        </div>
-      </div>
-    );
-  }
-
   static launchButtonContainer() {
     return (
       <div className="launcher-button-container">
@@ -47,7 +33,13 @@ export default class Launcher extends React.Component {
   constructor() {
     super();
 
-    this.state = { options: Permalink.defaultOptions() };
+    const permalink = Permalink.DEFAULT_PERMALINK;
+    const options = Permalink.decode(permalink);
+
+    this.state = {
+      options,
+      permalink,
+    };
 
     this.getOptionValue = this.getOptionValue.bind(this);
     this.setOptionValue = this.setOptionValue.bind(this);
@@ -66,7 +58,12 @@ export default class Launcher extends React.Component {
 
     _.set(options, optionName, newValue);
 
-    this.setState({ options });
+    const permalink = Permalink.encode(options);
+
+    this.setState({
+      options,
+      permalink,
+    });
   }
 
   async importImages() {
@@ -97,6 +94,37 @@ export default class Launcher extends React.Component {
         setOptionValue={this.setOptionValue}
       />
     );
+  }
+
+  permalinkContainer() {
+    const { permalink } = this.state;
+
+    return (
+      <div className="permalink-container">
+        <div className="permalink-label">Permalink:</div>
+        <div className="permalink-input">
+          <input
+            placeholder="Permalink"
+            id="flags"
+            onChange={(event) => this.loadPermalink(event.target.value)}
+            value={permalink}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  loadPermalink(permalink) {
+    try {
+      const options = Permalink.decode(permalink);
+
+      this.setState({
+        options,
+        permalink,
+      });
+    } catch (err) {
+      // TODO: show a react-toastify notification
+    }
   }
 
   progressItemLocationsTable() {
@@ -282,7 +310,7 @@ export default class Launcher extends React.Component {
             <img src={headerImage} alt="The Legend of Zelda: The Wind Waker Randomizer Tracker" />
           </div>
           <div className="settings">
-            {Launcher.permalinkContainer()}
+            {this.permalinkContainer()}
             {this.progressItemLocationsTable()}
             {this.additionalRandomizationOptionsTable()}
             {this.convenienceTweaksTable()}
