@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 import HEADER_IMAGE from '../images/header.png';
 import Permalink from '../services/permalink';
@@ -8,6 +9,7 @@ import DropdownOptionInput from './dropdown-option-input';
 import OptionsTable from './options-table';
 import ToggleOptionInput from './toggle-option-input';
 
+import 'react-toastify/dist/ReactToastify.css';
 import 'react-toggle/style.css';
 
 export default class Launcher extends React.Component {
@@ -115,7 +117,7 @@ export default class Launcher extends React.Component {
         permalink,
       });
     } catch (err) {
-      // TODO: show a react-toastify notification
+      toast.error('Invalid permalink!');
     }
   }
 
@@ -308,6 +310,7 @@ export default class Launcher extends React.Component {
           </div>
           {Launcher.attribution()}
         </div>
+        <ToastContainer />
       </div>
     );
   }
