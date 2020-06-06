@@ -8,10 +8,8 @@ import Settings from './settings';
 import TrackerState from './tracker-state';
 
 export default class TrackerController {
-  static async initialize(settings, callbacks) {
-    Settings.initializeManually(settings);
-
-    this.callbacks = callbacks;
+  static async initialize(permalink) {
+    Settings.initializeFromPermalink(permalink);
 
     const {
       itemLocationsFile,
@@ -25,8 +23,7 @@ export default class TrackerController {
 
     LogicHelper.initialize();
 
-    const trackerState = TrackerState.default();
-    this._refreshState(trackerState);
+    return this.refreshState(TrackerState.default());
   }
 
   static initializeFromSaveData(saveData, callbacks) {
@@ -64,9 +61,12 @@ export default class TrackerController {
     this._refreshState(trackerState);
   }
 
-  static _refreshState(newState) {
-    const newLogic = new LogicCalculation(newState);
+  static refreshState(newState) {
+    const logic = new LogicCalculation(newState);
 
-    this.callbacks.stateUpdated({ newLogic, newState });
+    return {
+      logic,
+      trackerState: newState,
+    };
   }
 }

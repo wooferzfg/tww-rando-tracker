@@ -13,12 +13,16 @@ import '../css/main.scss';
 export default () => (
   <HashRouter>
     <Switch>
-      <Route exact path="/">
-        <Launcher />
-      </Route>
-      <Route exact path="/tracker">
-        <Tracker />
-      </Route>
+      <Route
+        exact
+        path="/"
+        component={Launcher}
+      />
+      <Route
+        exact
+        path="/tracker/:permalink"
+        component={Tracker}
+      />
     </Switch>
   </HashRouter>
 );

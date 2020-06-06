@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import HEADER_IMAGE from '../images/header.png';
@@ -13,25 +14,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-toggle/style.css';
 
 export default class Launcher extends React.Component {
-  static launchButtonContainer() {
-    return (
-      <div className="launcher-button-container">
-        <button className="launcher-button" type="button">Launch New Tracker</button>
-        <button className="launcher-button" type="button">Load From Autosave</button>
-        <button className="launcher-button" type="button">Load From File</button>
-      </div>
-    );
-  }
-
-  static attribution() {
-    return (
-      <div className="attribution">
-        <span>Original Tracker by BigDunka • Maintained by wooferzfg • Source Code on </span>
-        <a href="https://github.com/wooferzfg/tww-rando-tracker">GitHub</a>
-      </div>
-    );
-  }
-
   constructor() {
     super();
 
@@ -294,6 +276,20 @@ export default class Launcher extends React.Component {
     );
   }
 
+  launchButtonContainer() {
+    const { permalink } = this.state;
+
+    return (
+      <div className="launcher-button-container">
+        <Link to={`tracker/${permalink}`}>
+          <button className="launcher-button" type="button">Launch New Tracker</button>
+        </Link>
+        <button className="launcher-button" type="button">Load From Autosave</button>
+        <button className="launcher-button" type="button">Load From File</button>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="full-container">
@@ -306,9 +302,12 @@ export default class Launcher extends React.Component {
             {this.progressItemLocationsTable()}
             {this.additionalRandomizationOptionsTable()}
             {this.convenienceTweaksTable()}
-            {Launcher.launchButtonContainer()}
+            {this.launchButtonContainer()}
           </div>
-          {Launcher.attribution()}
+          <div className="attribution">
+            <span>Original Tracker by BigDunka • Maintained by wooferzfg • Source Code on </span>
+            <a href="https://github.com/wooferzfg/tww-rando-tracker">GitHub</a>
+          </div>
         </div>
         <ToastContainer />
       </div>
