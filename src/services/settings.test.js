@@ -47,8 +47,8 @@ describe('Settings', () => {
         Settings.initializeFromPermalink('MS44LjBfYjcyMzAxNAB5ZWV0AAcBAwAOAEAIAAAAAAAAAA==');
       });
 
-      test('sets the version without the commit hash', () => {
-        expect(Settings.version).toEqual('1.8.0');
+      test('sets the version to be the commit hash', () => {
+        expect(Settings.version).toEqual('b723014');
       });
     });
 

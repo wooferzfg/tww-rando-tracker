@@ -11,7 +11,7 @@ export default class Settings {
 
     this.flags = [];
     this.startingGear = this.getOptionValue(Permalink.OPTIONS.STARTING_GEAR);
-    this.version = this._shortenVersion(
+    this.version = this._parseVersion(
       this.getOptionValue(Permalink.OPTIONS.VERSION),
     );
 
@@ -95,8 +95,9 @@ export default class Settings {
     [Permalink.OPTIONS.PROGRESSION_ISLAND_PUZZLES]: [this.FLAGS.ISLAND_PUZZLE],
   };
 
-  static _shortenVersion(version) {
-    const versionMatch = version.match(/[\d.]+/);
-    return _.first(versionMatch);
+  static _parseVersion(version) {
+    const commitHashMatch = version.match(/([a-f\d]){7,}/);
+
+    return _.first(commitHashMatch) || version;
   }
 }
