@@ -41,6 +41,17 @@ describe('Settings', () => {
       });
     });
 
+    describe('when using a development build', () => {
+      beforeEach(() => {
+        // version = 1.8.0_b723014
+        Settings.initializeFromPermalink('MS44LjBfYjcyMzAxNAB5ZWV0AAcBAwAOAEAIAAAAAAAAAA==');
+      });
+
+      test('sets the version without the commit hash', () => {
+        expect(Settings.version).toEqual('1.8.0');
+      });
+    });
+
     describe('all flags set', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink('MS44LjAAeWVldAD//z8ADgBACAAAAAAAAAA=');

@@ -11,7 +11,9 @@ export default class Settings {
 
     this.flags = [];
     this.startingGear = this.getOptionValue(Permalink.OPTIONS.STARTING_GEAR);
-    this.version = this.getOptionValue(Permalink.OPTIONS.VERSION);
+    this.version = this._shortenVersion(
+      this.getOptionValue(Permalink.OPTIONS.VERSION),
+    );
 
     _.forEach(this._FLAGS_MAPPING, (flagsForOption, optionName) => {
       if (this.getOptionValue(optionName)) {
@@ -92,4 +94,9 @@ export default class Settings {
     [Permalink.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH]: [this.FLAGS.SAVAGE_LABYRINTH],
     [Permalink.OPTIONS.PROGRESSION_ISLAND_PUZZLES]: [this.FLAGS.ISLAND_PUZZLE],
   };
+
+  static _shortenVersion(version) {
+    const versionMatch = version.match(/[\d.]+/);
+    return _.first(versionMatch);
+  }
 }
