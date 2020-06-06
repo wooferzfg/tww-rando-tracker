@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import HEADER_IMAGE from '../images/header.png';
@@ -14,6 +13,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-toggle/style.css';
 
 export default class Launcher extends React.Component {
+  static openTrackerWindow(route) {
+    const windowWidth = 1327;
+    const windowHeight = 550;
+
+    window.open(
+      `/#/tracker${route}`,
+      '',
+      `width=${windowWidth},height=${windowHeight},titlebar=0,menubar=0,toolbar=0`,
+    );
+  }
+
   constructor() {
     super();
 
@@ -281,9 +291,13 @@ export default class Launcher extends React.Component {
 
     return (
       <div className="launcher-button-container">
-        <Link to={`tracker/${permalink}`}>
-          <button className="launcher-button" type="button">Launch New Tracker</button>
-        </Link>
+        <button
+          className="launcher-button"
+          type="button"
+          onClick={() => Launcher.openTrackerWindow(`/${permalink}`)}
+        >
+          Launch New Tracker
+        </button>
         <button className="launcher-button" type="button">Load From Autosave</button>
         <button className="launcher-button" type="button">Load From File</button>
       </div>
