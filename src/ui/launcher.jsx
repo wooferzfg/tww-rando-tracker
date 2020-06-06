@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import React from 'react';
 
+import HEADER_IMAGE from '../images/header.png';
 import Permalink from '../services/permalink';
 
 import DropdownOptionInput from './dropdown-option-input';
-import Images from './images';
 import OptionsTable from './options-table';
 import ToggleOptionInput from './toggle-option-input';
 
@@ -43,8 +43,6 @@ export default class Launcher extends React.Component {
 
     this.getOptionValue = this.getOptionValue.bind(this);
     this.setOptionValue = this.setOptionValue.bind(this);
-
-    this.importImages();
   }
 
   getOptionValue(optionName) {
@@ -64,12 +62,6 @@ export default class Launcher extends React.Component {
       options,
       permalink,
     });
-  }
-
-  async importImages() {
-    await Images.importImages();
-
-    this.setState({ headerImage: Images.IMAGES.HEADER });
   }
 
   toggleInput({ labelText, optionName }) {
@@ -301,13 +293,11 @@ export default class Launcher extends React.Component {
   }
 
   render() {
-    const { headerImage } = this.state;
-
     return (
       <div className="full-container">
         <div className="launcher-container">
           <div className="header">
-            <img src={headerImage} alt="The Legend of Zelda: The Wind Waker Randomizer Tracker" />
+            <img src={HEADER_IMAGE} alt="The Legend of Zelda: The Wind Waker Randomizer Tracker" />
           </div>
           <div className="settings">
             {this.permalinkContainer()}

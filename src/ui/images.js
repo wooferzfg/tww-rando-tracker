@@ -7,7 +7,7 @@ export default class Images {
 
   static async importImages() {
     const imageImports = {
-      HEADER: import('../images/header.png'),
+      SEA_CHART: import('../images/sea_chart.png'),
     };
 
     this.images = {};
