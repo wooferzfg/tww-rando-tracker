@@ -36,15 +36,15 @@ export default class TrackerController {
       trackerState,
     } = JSON.parse(saveData);
 
-    Settings.initializeManually(settings);
+    Settings.initializeRaw(settings);
 
-    Locations.initializeManually(locations);
+    Locations.initializeRaw(locations);
     Macros.initialize(macros);
 
     LogicHelper.initialize();
 
     return this.refreshState(
-      TrackerState.createStateManually(trackerState),
+      TrackerState.createStateRaw(trackerState),
     );
   }
 

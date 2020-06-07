@@ -19,7 +19,7 @@ export default class TrackerState {
     return newState;
   }
 
-  static createStateManually({ entrances, items, locationsChecked }) {
+  static createStateRaw({ entrances, items, locationsChecked }) {
     const newState = new TrackerState();
 
     newState.entrances = entrances;

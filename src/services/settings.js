@@ -30,7 +30,7 @@ export default class Settings {
     }
   }
 
-  static initializeManually(settings) {
+  static initializeRaw(settings) {
     this.flags = settings.flags;
     this.options = settings.options;
     this.startingGear = settings.startingGear;

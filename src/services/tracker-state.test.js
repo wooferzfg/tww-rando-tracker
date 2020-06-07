@@ -55,7 +55,7 @@ describe('TrackerState', () => {
     });
   });
 
-  describe('createStateManually', () => {
+  describe('createStateRaw', () => {
     test('creates the state with the provided entrances, items, and locations checked', () => {
       const items = {
         'Deku Leaf': 2,
@@ -69,7 +69,7 @@ describe('TrackerState', () => {
         },
       };
 
-      const newState = TrackerState.createStateManually({
+      const newState = TrackerState.createStateRaw({
         entrances,
         items,
         locationsChecked,
@@ -100,7 +100,7 @@ describe('TrackerState', () => {
         },
       };
 
-      trackerState = TrackerState.createStateManually({
+      trackerState = TrackerState.createStateRaw({
         entrances: expectedEntrances,
         items: expectedItems,
         locationsChecked: expectedLocationsChecked,

@@ -100,7 +100,7 @@ describe('Settings', () => {
     });
   });
 
-  describe('initializeManually', () => {
+  describe('initializeRaw', () => {
     test('initializes the flags, options, starting gear, and version', () => {
       const flags = [Settings.FLAGS.TINGLE_CHEST];
       const options = {
@@ -111,7 +111,7 @@ describe('Settings', () => {
       };
       const version = '1.0.0';
 
-      Settings.initializeManually({
+      Settings.initializeRaw({
         flags,
         options,
         startingGear,
@@ -141,7 +141,7 @@ describe('Settings', () => {
       };
       expectedVersion = '1.0.0';
 
-      Settings.initializeManually({
+      Settings.initializeRaw({
         flags: expectedFlags,
         options: expectedOptions,
         startingGear: expectedStartingGear,
@@ -169,7 +169,7 @@ describe('Settings', () => {
 
   describe('isFlagActive', () => {
     beforeEach(() => {
-      Settings.initializeManually({
+      Settings.initializeRaw({
         flags: [Settings.FLAGS.TINGLE_CHEST],
       });
     });
@@ -193,7 +193,7 @@ describe('Settings', () => {
 
   describe('getOptionValue', () => {
     beforeEach(() => {
-      Settings.initializeManually({
+      Settings.initializeRaw({
         options: {
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 7,
         },
@@ -209,7 +209,7 @@ describe('Settings', () => {
 
   describe('getStartingGear', () => {
     beforeEach(() => {
-      Settings.initializeManually({
+      Settings.initializeRaw({
         startingGear: {
           'Deku Leaf': 1,
         },
@@ -225,7 +225,7 @@ describe('Settings', () => {
 
   describe('getVersion', () => {
     beforeEach(() => {
-      Settings.initializeManually({
+      Settings.initializeRaw({
         version: '1.0.0',
       });
     });

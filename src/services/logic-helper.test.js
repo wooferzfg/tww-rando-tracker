@@ -118,7 +118,7 @@ describe('LogicHelper', () => {
   describe('isRandomDungeonEntrances', () => {
     describe('when dungeon entrances are randomized', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
               Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
@@ -135,7 +135,7 @@ describe('LogicHelper', () => {
 
     describe('when dungeon entrances are not randomized', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
               Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
@@ -154,7 +154,7 @@ describe('LogicHelper', () => {
   describe('isRandomCaveEntrances', () => {
     describe('when cave entrances are randomized', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
               Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
@@ -171,7 +171,7 @@ describe('LogicHelper', () => {
 
     describe('when cave entrances are not randomized', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
           },
@@ -189,7 +189,7 @@ describe('LogicHelper', () => {
   describe('isRandomEntrancesTogether', () => {
     describe('when dungeon and cave entrances are randomized together', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
               Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
@@ -206,7 +206,7 @@ describe('LogicHelper', () => {
 
     describe('when dungeon and cave entrances are not randomized together', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
               Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
@@ -420,7 +420,7 @@ describe('LogicHelper', () => {
 
       describe('when the tingle chest flag is active', () => {
         beforeEach(() => {
-          Settings.initializeManually({
+          Settings.initializeRaw({
             flags: [Settings.FLAGS.TINGLE_CHEST],
           });
         });
@@ -434,7 +434,7 @@ describe('LogicHelper', () => {
 
       describe('when the tingle chest flag is not active', () => {
         beforeEach(() => {
-          Settings.initializeManually({ flags: [] });
+          Settings.initializeRaw({ flags: [] });
         });
 
         test('returns false', () => {
@@ -607,7 +607,7 @@ describe('LogicHelper', () => {
 
   describe('requirementsForLocation', () => {
     beforeEach(() => {
-      Settings.initializeManually({
+      Settings.initializeRaw({
         options: {
           [Permalink.OPTIONS.KEY_LUNACY]: false,
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
@@ -655,7 +655,7 @@ describe('LogicHelper', () => {
 
   describe('requirementsForEntrance', () => {
     beforeEach(() => {
-      Settings.initializeManually({
+      Settings.initializeRaw({
         options: {
           [Permalink.OPTIONS.KEY_LUNACY]: false,
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
@@ -857,7 +857,7 @@ describe('LogicHelper', () => {
 
     describe('when charts are randomized', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
           },
@@ -879,7 +879,7 @@ describe('LogicHelper', () => {
 
     describe('when charts are not randomized', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
           },
@@ -1199,7 +1199,7 @@ describe('LogicHelper', () => {
             },
           };
 
-          Settings.initializeManually({ options });
+          Settings.initializeRaw({ options });
         });
 
         test('returns the requirements expression', () => {
@@ -1437,7 +1437,7 @@ describe('LogicHelper', () => {
   describe('_setStartingAndImpossibleItems', () => {
     describe('with no starting shards, no starting gear, and starting with a sword', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
@@ -1458,7 +1458,7 @@ describe('LogicHelper', () => {
 
     describe('with starting shards', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 7,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
@@ -1479,7 +1479,7 @@ describe('LogicHelper', () => {
 
     describe('with starting gear', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
@@ -1502,7 +1502,7 @@ describe('LogicHelper', () => {
 
     describe('when starting without a sword', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
@@ -1523,7 +1523,7 @@ describe('LogicHelper', () => {
 
     describe('when in swordless mode', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,

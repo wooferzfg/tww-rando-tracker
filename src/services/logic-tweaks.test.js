@@ -36,7 +36,7 @@ describe('LogicTweaks', () => {
 
     describe('when dungeon entrances are randomized', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
           },
@@ -52,7 +52,7 @@ describe('LogicTweaks', () => {
 
     describe('when cave entrances are randomized', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
               Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
@@ -69,7 +69,7 @@ describe('LogicTweaks', () => {
 
     describe('when charts are randomized', () => {
       beforeEach(() => {
-        Settings.initializeManually({
+        Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
           },

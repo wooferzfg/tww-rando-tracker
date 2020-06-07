@@ -49,7 +49,7 @@ describe('Locations', () => {
     });
   });
 
-  describe('initializeManually', () => {
+  describe('initializeRaw', () => {
     let allLocations;
 
     beforeEach(() => {
@@ -65,7 +65,7 @@ describe('Locations', () => {
     });
 
     test('returns all of the locations', () => {
-      Locations.initializeManually(allLocations);
+      Locations.initializeRaw(allLocations);
 
       expect(Locations.locations).toEqual(allLocations);
     });

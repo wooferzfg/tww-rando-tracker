@@ -18,7 +18,7 @@ export default class Locations {
     });
   }
 
-  static initializeManually(itemLocations) {
+  static initializeRaw(itemLocations) {
     this.locations = itemLocations;
   }
 

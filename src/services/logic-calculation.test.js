@@ -26,7 +26,7 @@ describe('LogicCalculation', () => {
   };
 
   beforeEach(() => {
-    Settings.initializeManually({
+    Settings.initializeRaw({
       options: {
         // Don't run the guaranteed keys logic unless the test needs it
         [Permalink.OPTIONS.KEY_LUNACY]: true,
@@ -45,7 +45,7 @@ describe('LogicCalculation', () => {
 
   describe('constructor', () => {
     beforeEach(() => {
-      Settings.initializeManually({
+      Settings.initializeRaw({
         options: {
           [Permalink.OPTIONS.KEY_LUNACY]: false,
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
@@ -73,7 +73,7 @@ describe('LogicCalculation', () => {
 
       describe('when doing key lunacy', () => {
         beforeEach(() => {
-          Settings.initializeManually({
+          Settings.initializeRaw({
             options: {
               [Permalink.OPTIONS.KEY_LUNACY]: true,
             },
