@@ -50,6 +50,20 @@ export default class Launcher extends React.Component {
 
     _.set(options, optionName, newValue);
 
+    this.updateOptions(options);
+  }
+
+  loadPermalink(permalinkInput) {
+    try {
+      const options = Permalink.decode(permalinkInput);
+
+      this.updateOptions(options);
+    } catch (err) {
+      toast.error('Invalid permalink!');
+    }
+  }
+
+  updateOptions(options) {
     const permalink = Permalink.encode(options);
 
     this.setState({
@@ -98,20 +112,6 @@ export default class Launcher extends React.Component {
         </div>
       </div>
     );
-  }
-
-  loadPermalink(permalinkInput) {
-    try {
-      const options = Permalink.decode(permalinkInput);
-      const permalink = Permalink.encode(options);
-
-      this.setState({
-        options,
-        permalink,
-      });
-    } catch (err) {
-      toast.error('Invalid permalink!');
-    }
   }
 
   progressItemLocationsTable() {

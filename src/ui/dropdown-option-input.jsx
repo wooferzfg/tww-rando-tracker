@@ -10,8 +10,9 @@ const DropdownOptionInput = ({
   optionName,
   setOptionValue,
 }) => {
+  const optionsList = _.get(Permalink.DROPDOWN_OPTIONS, optionName);
   const dropdownOptions = _.map(
-    _.get(Permalink.DROPDOWN_OPTIONS, optionName),
+    optionsList,
     (option) => (
       <option value={option} key={option}>
         {option}
@@ -25,7 +26,12 @@ const DropdownOptionInput = ({
       <td className="option-container">
         <div className="select-container">
           <select
-            onChange={(event) => setOptionValue(optionName, event.target.value)}
+            onChange={
+              (event) => setOptionValue(
+                optionName,
+                _.get(optionsList, event.target.selectedIndex),
+              )
+            }
             value={getOptionValue(optionName)}
           >
             {dropdownOptions}
