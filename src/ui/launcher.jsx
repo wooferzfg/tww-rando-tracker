@@ -7,6 +7,7 @@ import Permalink from '../services/permalink';
 
 import DropdownOptionInput from './dropdown-option-input';
 import OptionsTable from './options-table';
+import Storage from './storage';
 import ToggleOptionInput from './toggle-option-input';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -36,6 +37,9 @@ export default class Launcher extends React.Component {
     };
 
     this.getOptionValue = this.getOptionValue.bind(this);
+    this.launchNewTracker = this.launchNewTracker.bind(this);
+    this.loadFromFile = this.loadFromFile.bind(this);
+    this.loadFromSave = this.loadFromSave.bind(this);
     this.setOptionValue = this.setOptionValue.bind(this);
   }
 
@@ -263,20 +267,48 @@ export default class Launcher extends React.Component {
     );
   }
 
-  launchButtonContainer() {
+  launchNewTracker() {
     const { permalink } = this.state;
 
+    Launcher.openTrackerWindow(`/new/${permalink}`);
+  }
+
+  loadFromSave() {
+    const { permalink } = this.state;
+
+    Launcher.openTrackerWindow(`/load/${permalink}`);
+  }
+
+  async loadFromFile() {
+    await Storage.loadFileAndStore();
+
+    this.loadFromSave();
+  }
+
+  launchButtonContainer() {
     return (
       <div className="launcher-button-container">
         <button
           className="launcher-button"
           type="button"
-          onClick={() => Launcher.openTrackerWindow(`/new/${permalink}`)}
+          onClick={this.launchNewTracker}
         >
           Launch New Tracker
         </button>
-        <button className="launcher-button" type="button">Load From Autosave</button>
-        <button className="launcher-button" type="button">Load From File</button>
+        <button
+          className="launcher-button"
+          type="button"
+          onClick={this.loadFromSave}
+        >
+          Load From Autosave
+        </button>
+        <button
+          className="launcher-button"
+          type="button"
+          onClick={this.loadFromFile}
+        >
+          Load From File
+        </button>
       </div>
     );
   }

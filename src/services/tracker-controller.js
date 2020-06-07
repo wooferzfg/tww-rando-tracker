@@ -38,7 +38,7 @@ export default class TrackerController {
 
     Settings.initializeManually(settings);
 
-    Locations.initialize(locations);
+    Locations.initializeManually(locations);
     Macros.initialize(macros);
 
     LogicHelper.initialize();

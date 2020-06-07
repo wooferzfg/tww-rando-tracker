@@ -18,6 +18,10 @@ export default class Locations {
     });
   }
 
+  static initializeManually(itemLocations) {
+    this.locations = itemLocations;
+  }
+
   static reset() {
     this.locations = null;
   }
