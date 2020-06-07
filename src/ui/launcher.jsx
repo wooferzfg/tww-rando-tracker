@@ -100,9 +100,10 @@ export default class Launcher extends React.Component {
     );
   }
 
-  loadPermalink(permalink) {
+  loadPermalink(permalinkInput) {
     try {
-      const options = Permalink.decode(permalink);
+      const options = Permalink.decode(permalinkInput);
+      const permalink = Permalink.encode(options);
 
       this.setState({
         options,
