@@ -46,6 +46,15 @@ export default class Settings {
 
   static FLAGS = Constants.createFromArray(FLAGS);
 
+  static readAll() {
+    return {
+      flags: _.clone(this.flags),
+      options: _.clone(this.options),
+      startingGear: _.clone(this.startingGear),
+      version: this.version,
+    };
+  }
+
   static isFlagActive(flag) {
     return _.includes(this.flags, flag);
   }

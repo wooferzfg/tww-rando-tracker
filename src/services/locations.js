@@ -28,6 +28,10 @@ export default class Locations {
     TYPES: 'types',
   };
 
+  static readAll() {
+    return _.cloneDeep(this.locations);
+  }
+
   static mapLocations(locationIteratee) {
     const newLocations = {};
 

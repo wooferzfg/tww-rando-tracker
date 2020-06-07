@@ -17,6 +17,24 @@ describe('Macros', () => {
     });
   });
 
+  describe('readAll', () => {
+    let expectedMacros;
+
+    beforeEach(() => {
+      expectedMacros = {
+        "Can Play Wind's Requiem": "Wind Waker & Wind's Requiem",
+      };
+
+      Macros.macros = expectedMacros;
+    });
+
+    test('returns all of the macros', () => {
+      const allMacros = Macros.readAll();
+
+      expect(allMacros).toEqual(expectedMacros);
+    });
+  });
+
   describe('getMacro', () => {
     test('returns the value of a macro', () => {
       Macros.macros = {

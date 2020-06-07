@@ -125,6 +125,42 @@ describe('Settings', () => {
     });
   });
 
+  describe('readAll', () => {
+    let expectedFlags;
+    let expectedOptions;
+    let expectedStartingGear;
+    let expectedVersion;
+
+    beforeEach(() => {
+      expectedFlags = [Settings.FLAGS.TINGLE_CHEST];
+      expectedOptions = {
+        [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true,
+      };
+      expectedStartingGear = {
+        'Grappling Hook': 1,
+      };
+      expectedVersion = '1.0.0';
+
+      Settings.initializeManually({
+        flags: expectedFlags,
+        options: expectedOptions,
+        startingGear: expectedStartingGear,
+        version: expectedVersion,
+      });
+    });
+
+    test('returns all of the settings', () => {
+      const allSettings = Settings.readAll();
+
+      expect(allSettings).toEqual({
+        flags: expectedFlags,
+        options: expectedOptions,
+        startingGear: expectedStartingGear,
+        version: expectedVersion,
+      });
+    });
+  });
+
   describe('FLAGS', () => {
     test('returns the correct flags', () => {
       expect(Settings.FLAGS).toMatchSnapshot();

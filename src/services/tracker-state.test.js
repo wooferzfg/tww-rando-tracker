@@ -81,6 +81,43 @@ describe('TrackerState', () => {
     });
   });
 
+  describe('readState', () => {
+    let expectedItems;
+    let expectedEntrances;
+    let expectedLocationsChecked;
+    let trackerState;
+
+    beforeEach(() => {
+      expectedItems = {
+        'Deku Leaf': 2,
+      };
+      expectedEntrances = {
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
+      };
+      expectedLocationsChecked = {
+        'Dragon Roost Cavern': {
+          "Bird's Nest": true,
+        },
+      };
+
+      trackerState = TrackerState.createStateManually({
+        entrances: expectedEntrances,
+        items: expectedItems,
+        locationsChecked: expectedLocationsChecked,
+      });
+    });
+
+    test('returns an object with the entire state', () => {
+      const stateData = trackerState.readState();
+
+      expect(stateData).toEqual({
+        entrances: expectedEntrances,
+        items: expectedItems,
+        locationsChecked: expectedLocationsChecked,
+      });
+    });
+  });
+
   describe('getItemValue', () => {
     let state;
 

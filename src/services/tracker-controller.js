@@ -50,10 +50,23 @@ export default class TrackerController {
 
   static refreshState(newState) {
     const logic = new LogicCalculation(newState);
+    const saveData = this._getSaveData(newState);
 
     return {
       logic,
+      saveData,
       trackerState: newState,
     };
+  }
+
+  static _getSaveData(trackerState) {
+    const saveData = {
+      locations: Locations.readAll(),
+      macros: Macros.readAll(),
+      settings: Settings.readAll(),
+      trackerState: trackerState.readState(),
+    };
+
+    return JSON.stringify(saveData);
   }
 }

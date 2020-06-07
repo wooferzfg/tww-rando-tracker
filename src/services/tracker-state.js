@@ -29,6 +29,16 @@ export default class TrackerState {
     return newState;
   }
 
+  readState() {
+    const clonedState = this._clone();
+
+    return {
+      entrances: clonedState.entrances,
+      items: clonedState.items,
+      locationsChecked: clonedState.locationsChecked,
+    };
+  }
+
   getItemValue(itemName) {
     return _.get(this.items, itemName);
   }
