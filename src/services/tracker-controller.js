@@ -48,6 +48,13 @@ export default class TrackerController {
     );
   }
 
+  static reset() {
+    Locations.reset();
+    LogicHelper.reset();
+    Macros.reset();
+    Settings.reset();
+  }
+
   static refreshState(newState) {
     const logic = new LogicCalculation(newState);
     const saveData = this._getSaveData(newState);

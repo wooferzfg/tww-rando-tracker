@@ -36,7 +36,7 @@ class Tracker extends React.Component {
         try {
           initialData = TrackerController.initializeFromSaveData(saveData);
         } catch (err) {
-          // Ignore any errors
+          TrackerController.reset();
         }
       }
 
