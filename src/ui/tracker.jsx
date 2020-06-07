@@ -42,13 +42,16 @@ class Tracker extends React.Component {
       trackerState,
     } = this.state;
 
+    const { loadProgress } = this.props;
+
     return (
-      <div>{`TRACKER: ${isLoading} ${logic} ${trackerState}`}</div>
+      <div>{`TRACKER: ${isLoading} ${logic} ${trackerState} ${loadProgress}`}</div>
     );
   }
 }
 
 Tracker.propTypes = {
+  loadProgress: PropTypes.bool.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       permalink: PropTypes.string.isRequired,

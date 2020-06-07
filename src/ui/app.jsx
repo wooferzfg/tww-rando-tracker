@@ -10,19 +10,34 @@ import Tracker from './tracker';
 
 import '../css/main.scss';
 
-export default () => (
-  <HashRouter>
-    <Switch>
-      <Route
-        exact
-        path="/"
-        component={Launcher}
-      />
-      <Route
-        exact
-        path="/tracker/:permalink"
-        component={Tracker}
-      />
-    </Switch>
-  </HashRouter>
-);
+export default () => {
+  const renderTracker = (loadProgress) => (routerComponentProps) => {
+    const { match } = routerComponentProps;
+
+    return (
+      <Tracker match={match} loadProgress={loadProgress} />
+    );
+  };
+
+  return (
+    <HashRouter>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          component={Launcher}
+        />
+        <Route
+          exact
+          path="/tracker/new/:permalink"
+          render={renderTracker(false)}
+        />
+        <Route
+          exact
+          path="/tracker/load/:permalink"
+          render={renderTracker(true)}
+        />
+      </Switch>
+    </HashRouter>
+  );
+};

@@ -271,7 +271,7 @@ export default class Launcher extends React.Component {
         <button
           className="launcher-button"
           type="button"
-          onClick={() => Launcher.openTrackerWindow(`/${permalink}`)}
+          onClick={() => Launcher.openTrackerWindow(`/new/${permalink}`)}
         >
           Launch New Tracker
         </button>
