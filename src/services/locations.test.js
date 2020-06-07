@@ -71,6 +71,26 @@ describe('Locations', () => {
     });
   });
 
+  describe('reset', () => {
+    beforeEach(() => {
+      Locations.initializeRaw({
+        'Dragon Roost Cavern': {
+          "Bird's Nest": {
+            need: 'Can Access Dragon Roost Cavern & DRC Small Key x3',
+            originalItem: 'Small Key',
+            types: 'Dungeon',
+          },
+        },
+      });
+    });
+
+    test('resets the locations', () => {
+      Locations.reset();
+
+      expect(Locations.locations).toEqual(null);
+    });
+  });
+
   describe('readAll', () => {
     let expectedLocations;
 

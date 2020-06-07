@@ -125,6 +125,30 @@ describe('Settings', () => {
     });
   });
 
+  describe('reset', () => {
+    beforeEach(() => {
+      Settings.initializeRaw({
+        flags: [Settings.FLAGS.TINGLE_CHEST],
+        options: {
+          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true,
+        },
+        startingGear: {
+          'Grappling Hook': 1,
+        },
+        version: '1.0.0',
+      });
+    });
+
+    test('resets all the settings', () => {
+      Settings.reset();
+
+      expect(Settings.flags).toEqual(null);
+      expect(Settings.options).toEqual(null);
+      expect(Settings.startingGear).toEqual(null);
+      expect(Settings.version).toEqual(null);
+    });
+  });
+
   describe('readAll', () => {
     let expectedFlags;
     let expectedOptions;

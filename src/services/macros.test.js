@@ -17,6 +17,20 @@ describe('Macros', () => {
     });
   });
 
+  describe('reset', () => {
+    beforeEach(() => {
+      Macros.macros = {
+        "Can Play Wind's Requiem": "Wind Waker & Wind's Requiem",
+      };
+    });
+
+    test('resets the macros', () => {
+      Macros.reset();
+
+      expect(Macros.macros).toEqual(null);
+    });
+  });
+
   describe('readAll', () => {
     let expectedMacros;
 

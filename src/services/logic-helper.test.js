@@ -17,6 +17,133 @@ describe('LogicHelper', () => {
     Settings.reset();
   });
 
+  describe('initialize', () => {
+    describe('with no starting shards, no starting gear, and starting with a sword', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+          },
+          startingGear: {
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+          },
+        });
+      });
+
+      test('sets the starting and impossible items', () => {
+        LogicHelper.initialize();
+
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual({});
+      });
+    });
+
+    describe('with starting shards', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 7,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+          },
+          startingGear: {
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+          },
+        });
+      });
+
+      test('sets the number of starting shards', () => {
+        LogicHelper.initialize();
+
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual({});
+      });
+    });
+
+    describe('with starting gear', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+          },
+          startingGear: {
+            [LogicHelper.ITEMS.BOMBS]: 1,
+            [LogicHelper.ITEMS.DEKU_LEAF]: 1,
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 2,
+          },
+        });
+      });
+
+      test('sets the starting items based on the starting gear', () => {
+        LogicHelper.initialize();
+
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual({});
+      });
+    });
+
+    describe('when starting without a sword', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+          },
+          startingGear: {
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+          },
+        });
+      });
+
+      test('sets sword to 0 in the starting items', () => {
+        LogicHelper.initialize();
+
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual({});
+      });
+    });
+
+    describe('when in swordless mode', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,
+          },
+          startingGear: {
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+          },
+        });
+      });
+
+      test('sets sword to 0 in the starting items and adds impossible items', () => {
+        LogicHelper.initialize();
+
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('reset', () => {
+    beforeEach(() => {
+      LogicHelper.startingItems = {
+        'Grappling Hook': 1,
+      };
+      LogicHelper.impossibleItems = {
+        'Deku Leaf': 1,
+      };
+    });
+
+    test('resets the starting and impossible items', () => {
+      LogicHelper.reset();
+
+      expect(LogicHelper.startingItems).toEqual(null);
+      expect(LogicHelper.impossibleItems).toEqual(null);
+    });
+  });
+
   describe('DUNGEONS', () => {
     test('returns the correct dungeons', () => {
       expect(LogicHelper.DUNGEONS).toMatchSnapshot();
@@ -1431,115 +1558,6 @@ describe('LogicHelper', () => {
       const implies = LogicHelper._requirementImplies('Progressive Sword x3', 'Progressive Sword x4');
 
       expect(implies).toEqual(false);
-    });
-  });
-
-  describe('_setStartingAndImpossibleItems', () => {
-    describe('with no starting shards, no starting gear, and starting with a sword', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
-          },
-          startingGear: {
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
-          },
-        });
-      });
-
-      test('sets the starting and impossible items', () => {
-        LogicHelper._setStartingAndImpossibleItems();
-
-        expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toEqual({});
-      });
-    });
-
-    describe('with starting shards', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 7,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
-          },
-          startingGear: {
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
-          },
-        });
-      });
-
-      test('sets the number of starting shards', () => {
-        LogicHelper._setStartingAndImpossibleItems();
-
-        expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toEqual({});
-      });
-    });
-
-    describe('with starting gear', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
-          },
-          startingGear: {
-            [LogicHelper.ITEMS.BOMBS]: 1,
-            [LogicHelper.ITEMS.DEKU_LEAF]: 1,
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 2,
-          },
-        });
-      });
-
-      test('sets the starting items based on the starting gear', () => {
-        LogicHelper._setStartingAndImpossibleItems();
-
-        expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toEqual({});
-      });
-    });
-
-    describe('when starting without a sword', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
-          },
-          startingGear: {
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
-          },
-        });
-      });
-
-      test('sets sword to 0 in the starting items', () => {
-        LogicHelper._setStartingAndImpossibleItems();
-
-        expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toEqual({});
-      });
-    });
-
-    describe('when in swordless mode', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,
-          },
-          startingGear: {
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
-          },
-        });
-      });
-
-      test('sets sword to 0 in the starting items and adds impossible items', () => {
-        LogicHelper._setStartingAndImpossibleItems();
-
-        expect(LogicHelper.startingItems).toMatchSnapshot();
-        expect(LogicHelper.impossibleItems).toMatchSnapshot();
-      });
     });
   });
 

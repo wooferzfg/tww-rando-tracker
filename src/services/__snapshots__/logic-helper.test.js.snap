@@ -1,79 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LogicHelper _setStartingAndImpossibleItems when in swordless mode sets sword to 0 in the starting items and adds impossible items 1`] = `
-Object {
-  "Ballad of Gales": 1,
-  "Boat's Sail": 1,
-  "Hero's Shield": 1,
-  "Progressive Sword": 0,
-  "Song of Passing": 1,
-  "Triforce Shard": 0,
-  "Wind Waker": 1,
-  "Wind's Requiem": 1,
-}
-`;
-
-exports[`LogicHelper _setStartingAndImpossibleItems when in swordless mode sets sword to 0 in the starting items and adds impossible items 2`] = `
-Object {
-  "Hurricane Spin": 1,
-  "Progressive Sword": 1,
-}
-`;
-
-exports[`LogicHelper _setStartingAndImpossibleItems when starting without a sword sets sword to 0 in the starting items 1`] = `
-Object {
-  "Ballad of Gales": 1,
-  "Boat's Sail": 1,
-  "Hero's Shield": 1,
-  "Progressive Sword": 0,
-  "Song of Passing": 1,
-  "Triforce Shard": 0,
-  "Wind Waker": 1,
-  "Wind's Requiem": 1,
-}
-`;
-
-exports[`LogicHelper _setStartingAndImpossibleItems with no starting shards, no starting gear, and starting with a sword sets the starting and impossible items 1`] = `
-Object {
-  "Ballad of Gales": 1,
-  "Boat's Sail": 1,
-  "Hero's Shield": 1,
-  "Progressive Sword": 1,
-  "Song of Passing": 1,
-  "Triforce Shard": 0,
-  "Wind Waker": 1,
-  "Wind's Requiem": 1,
-}
-`;
-
-exports[`LogicHelper _setStartingAndImpossibleItems with starting gear sets the starting items based on the starting gear 1`] = `
-Object {
-  "Ballad of Gales": 1,
-  "Boat's Sail": 1,
-  "Bombs": 1,
-  "Deku Leaf": 1,
-  "Hero's Shield": 1,
-  "Progressive Sword": 3,
-  "Song of Passing": 1,
-  "Triforce Shard": 0,
-  "Wind Waker": 1,
-  "Wind's Requiem": 1,
-}
-`;
-
-exports[`LogicHelper _setStartingAndImpossibleItems with starting shards sets the number of starting shards 1`] = `
-Object {
-  "Ballad of Gales": 1,
-  "Boat's Sail": 1,
-  "Hero's Shield": 1,
-  "Progressive Sword": 1,
-  "Song of Passing": 1,
-  "Triforce Shard": 7,
-  "Wind Waker": 1,
-  "Wind's Requiem": 1,
-}
-`;
-
 exports[`LogicHelper DUNGEONS returns the correct dungeons 1`] = `
 Object {
   "DRAGON_ROOST_CAVERN": "Dragon Roost Cavern",
@@ -322,6 +248,80 @@ Array [
   "WT Big Key",
   "WT Small Key",
 ]
+`;
+
+exports[`LogicHelper initialize when in swordless mode sets sword to 0 in the starting items and adds impossible items 1`] = `
+Object {
+  "Ballad of Gales": 1,
+  "Boat's Sail": 1,
+  "Hero's Shield": 1,
+  "Progressive Sword": 0,
+  "Song of Passing": 1,
+  "Triforce Shard": 0,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
+}
+`;
+
+exports[`LogicHelper initialize when in swordless mode sets sword to 0 in the starting items and adds impossible items 2`] = `
+Object {
+  "Hurricane Spin": 1,
+  "Progressive Sword": 1,
+}
+`;
+
+exports[`LogicHelper initialize when starting without a sword sets sword to 0 in the starting items 1`] = `
+Object {
+  "Ballad of Gales": 1,
+  "Boat's Sail": 1,
+  "Hero's Shield": 1,
+  "Progressive Sword": 0,
+  "Song of Passing": 1,
+  "Triforce Shard": 0,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
+}
+`;
+
+exports[`LogicHelper initialize with no starting shards, no starting gear, and starting with a sword sets the starting and impossible items 1`] = `
+Object {
+  "Ballad of Gales": 1,
+  "Boat's Sail": 1,
+  "Hero's Shield": 1,
+  "Progressive Sword": 1,
+  "Song of Passing": 1,
+  "Triforce Shard": 0,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
+}
+`;
+
+exports[`LogicHelper initialize with starting gear sets the starting items based on the starting gear 1`] = `
+Object {
+  "Ballad of Gales": 1,
+  "Boat's Sail": 1,
+  "Bombs": 1,
+  "Deku Leaf": 1,
+  "Hero's Shield": 1,
+  "Progressive Sword": 3,
+  "Song of Passing": 1,
+  "Triforce Shard": 0,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
+}
+`;
+
+exports[`LogicHelper initialize with starting shards sets the number of starting shards 1`] = `
+Object {
+  "Ballad of Gales": 1,
+  "Boat's Sail": 1,
+  "Hero's Shield": 1,
+  "Progressive Sword": 1,
+  "Song of Passing": 1,
+  "Triforce Shard": 7,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
+}
 `;
 
 exports[`LogicHelper requirementsForEntrance returns simplified requirements for Bomb Island Secret Cave 1`] = `
