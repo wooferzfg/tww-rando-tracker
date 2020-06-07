@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const OptionsTable = ({
+  options,
   numColumns,
-  rows,
   title,
 }) => {
   const columns = _.times(
@@ -18,7 +18,7 @@ const OptionsTable = ({
   );
 
   const optionRows = _.map(
-    rows,
+    _.chunk(options, numColumns),
     (rowElements, index) => (
       <tr key={index}>{rowElements}</tr>
     ),
@@ -40,10 +40,8 @@ const OptionsTable = ({
 };
 
 OptionsTable.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
   numColumns: PropTypes.number.isRequired,
-  rows: PropTypes.arrayOf(
-    PropTypes.arrayOf(PropTypes.object),
-  ).isRequired,
   title: PropTypes.string.isRequired,
 };
 
