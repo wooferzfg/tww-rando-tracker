@@ -8,7 +8,7 @@ import Settings from './settings';
 import TrackerState from './tracker-state';
 
 export default class TrackerController {
-  static async initialize(permalink) {
+  static async initializeFromPermalink(permalink) {
     Settings.initializeFromPermalink(permalink);
 
     const {
@@ -23,42 +23,29 @@ export default class TrackerController {
 
     LogicHelper.initialize();
 
-    return this.refreshState(TrackerState.default());
+    return this.refreshState(
+      TrackerState.default(),
+    );
   }
 
-  static initializeFromSaveData(saveData, callbacks) {
+  static initializeFromSaveData(saveData) {
     const {
-      flags,
-      options,
-      version,
-
-      itemLocations,
+      locations,
       macros,
+      settings,
+      trackerState,
+    } = JSON.parse(saveData);
 
-      entrances,
-      items,
-      locationsChecked,
-    } = saveData;
+    Settings.initializeManually(settings);
 
-    Settings.initializeManually({
-      flags,
-      options,
-      version,
-    });
-
-    this.callbacks = callbacks;
-
-    Locations.initialize(itemLocations);
+    Locations.initialize(locations);
     Macros.initialize(macros);
 
     LogicHelper.initialize();
 
-    const trackerState = TrackerState.createStateManually({
-      entrances,
-      items,
-      locationsChecked,
-    });
-    this._refreshState(trackerState);
+    return this.refreshState(
+      TrackerState.createStateManually(trackerState),
+    );
   }
 
   static refreshState(newState) {

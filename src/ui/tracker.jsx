@@ -24,7 +24,7 @@ class Tracker extends React.Component {
     const {
       logic,
       trackerState,
-    } = await TrackerController.initialize(permalink);
+    } = await TrackerController.initializeFromPermalink(permalink);
 
     await Images.importImages();
 
