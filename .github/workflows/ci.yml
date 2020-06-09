@@ -40,8 +40,9 @@ jobs:
         npm run lint
 
     - name: Deploy
-      env:
-        PUBLISH_BRANCH: gh-pages-react
-        PUBLISH_DIR: ./dist
+      uses: peaceiris/actions-gh-pages@v3
       with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         forceOrphan: true
+        publish_branch: gh-pages-react
+        publish_dir: ./dist
