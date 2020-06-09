@@ -1,11 +1,12 @@
 name: CI
 
 on:
-  pull_request:
+  # TODO: Add pull_request
   push:
     branches:
       - 'master'
       - 'speedrun'
+      - 'react' # TODO: remove this
 
 jobs:
   build:
@@ -51,15 +52,20 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    # TODO: remove react
+    if: github.repository == 'wooferzfg/tww-rando-tracker' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/react' || github.ref == 'refs/heads/speedrun')
 
     steps:
       - name: Deploy branches
+        # TODO: update branches
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git clone -b master -q "https://github.com/wooferzfg/tww-rando-tracker" ./repo
           git clone -b speedrun -q "https://github.com/wooferzfg/tww-rando-tracker" ./repo/speedrun
+          rm -r ./repo/speedrun/.git
           git clone -b gh-pages-react -q "https://github.com/wooferzfg/tww-rando-tracker" ./repo/react
+          rm -r ./repo/react/.git
           cd repo
           git checkout --orphan gh-pages-test
           git add speedrun/
