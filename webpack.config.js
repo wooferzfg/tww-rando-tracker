@@ -8,15 +8,10 @@ const sass = require('sass');
 module.exports = (env, argv) => {
   const basePath = __dirname;
   const isProduction = argv.mode === 'production';
-  const distPath = path.join(basePath, 'dist');
 
   return {
     entry: {
       bundle: ['./src/index.jsx'],
-    },
-    output: {
-      filename: '[name].js',
-      path: distPath,
     },
     devtool: isProduction ? undefined : 'source-map',
     devServer: {
