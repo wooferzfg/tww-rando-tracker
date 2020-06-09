@@ -67,7 +67,7 @@ jobs:
           git clone -b gh-pages-react -q "https://github.com/wooferzfg/tww-rando-tracker" ./repo/react
           rm -r ./repo/react/.git
           cd repo
-          git checkout --orphan gh-pages-test
+          git checkout --orphan gh-pages
           git add speedrun/
           git add react/
           git add .
