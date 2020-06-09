@@ -19,8 +19,8 @@ export default class Launcher extends React.Component {
     const windowHeight = 550;
 
     window.open(
-      `/#/tracker${route}`,
-      '',
+      `#/tracker${route}`,
+      '_blank',
       `width=${windowWidth},height=${windowHeight},titlebar=0,menubar=0,toolbar=0`,
     );
   }
