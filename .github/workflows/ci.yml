@@ -38,3 +38,10 @@ jobs:
       run: |
         set -e
         npm run lint
+
+    - name: Deploy
+      env:
+        PUBLISH_BRANCH: gh-pages-react
+        PUBLISH_DIR: ./dist
+      with:
+        forceOrphan: true
