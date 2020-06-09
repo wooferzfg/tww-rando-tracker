@@ -6,12 +6,10 @@ on:
     branches:
       - 'master'
       - 'speedrun'
-      - 'react'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.repository == 'wooferzfg/tww-rando-tracker' && github.ref == 'refs/heads/react'
 
     steps:
       - name: Checkout commit
@@ -68,4 +66,4 @@ jobs:
           git add react/
           git add .
           git commit -m "Deploy site"
-  #       git push --force https://action:${{ secrets.GH_PAGES_DEPLOY }}@github.com/wooferzfg/tww-rando-tracker.git
+          git push --force https://action:${{ secrets.GH_PAGES_DEPLOY }}@github.com/wooferzfg/tww-rando-tracker.git
