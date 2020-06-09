@@ -26,6 +26,7 @@ module.exports = (env, argv) => {
       ...(isProduction ? [new CleanWebpackPlugin()] : []),
       new FaviconsWebpackPlugin({
         logo: path.resolve('src/images/icon.png'),
+        publicPath: '',
         inject: true,
       }),
       new HtmlWebpackPlugin({
