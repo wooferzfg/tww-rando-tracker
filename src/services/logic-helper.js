@@ -75,6 +75,16 @@ export default class LogicHelper {
     return _.get(this.startingItems, item, 0);
   }
 
+  static maxItemCount(item) {
+    const impossibleItemCount = _.get(this.impossibleItems, item);
+
+    if (!_.isNil(impossibleItemCount)) {
+      return impossibleItemCount - 1;
+    }
+
+    return _.get(ITEMS, item);
+  }
+
   static isMainDungeon(dungeonName) {
     if (dungeonName === this.DUNGEONS.FORSAKEN_FORTRESS
       || dungeonName === this.DUNGEONS.GANONS_TOWER) {

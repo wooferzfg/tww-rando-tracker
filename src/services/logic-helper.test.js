@@ -194,6 +194,38 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('maxItemCount', () => {
+    describe('when an item is a normal item', () => {
+      test('returns 1', () => {
+        const maxItemCount = LogicHelper.maxItemCount('Deku Leaf');
+
+        expect(maxItemCount).toEqual(1);
+      });
+    });
+
+    describe('when there can be multiple of an item', () => {
+      test('returns the max quantity of the item', () => {
+        const maxItemCount = LogicHelper.maxItemCount('Progressive Bow');
+
+        expect(maxItemCount).toEqual(3);
+      });
+    });
+
+    describe('when an item is impossible', () => {
+      beforeEach(() => {
+        LogicHelper.impossibleItems = {
+          'Progressive Sword': 1,
+        };
+      });
+
+      test('returns 1 less than the impossible item count', () => {
+        const maxItemCount = LogicHelper.maxItemCount('Progressive Sword');
+
+        expect(maxItemCount).toEqual(0);
+      });
+    });
+  });
+
   describe('isMainDungeon', () => {
     describe('when the dungeon is a main dungeon', () => {
       test('returns true', () => {
