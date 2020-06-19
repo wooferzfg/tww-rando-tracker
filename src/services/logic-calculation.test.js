@@ -158,8 +158,8 @@ describe('LogicCalculation', () => {
       describe('when having the required items for DRC', () => {
         beforeEach(() => {
           state = TrackerState.default()
-            .setItemValue('Grappling Hook', 1)
-            .setItemValue('Deku Leaf', 1);
+            .incrementItem('Grappling Hook')
+            .incrementItem('Deku Leaf');
         });
 
         test('guarantees all the keys for DRC', () => {
@@ -183,7 +183,8 @@ describe('LogicCalculation', () => {
       describe('when having 2 DRC small keys', () => {
         beforeEach(() => {
           state = TrackerState.default()
-            .setItemValue('DRC Small Key', 2);
+            .incrementItem('DRC Small Key')
+            .incrementItem('DRC Small Key');
         });
 
         test('does not guarantee any additional keys in DRC', () => {
@@ -207,9 +208,9 @@ describe('LogicCalculation', () => {
       describe('when having the required items for DRC and FW', () => {
         beforeEach(() => {
           state = TrackerState.default()
-            .setItemValue('Boomerang', 1)
-            .setItemValue('Grappling Hook', 1)
-            .setItemValue('Deku Leaf', 1);
+            .incrementItem('Boomerang')
+            .incrementItem('Grappling Hook')
+            .incrementItem('Deku Leaf');
         });
 
         test('guarantees all the keys for DRC and FW', () => {
@@ -233,9 +234,9 @@ describe('LogicCalculation', () => {
       describe('when checking or unlocking all potential key locations in FW', () => {
         beforeEach(() => {
           state = TrackerState.default()
-            .setItemValue('Grappling Hook', 1)
-            .setItemValue('Deku Leaf', 1)
-            .setItemValue('Hookshot', 1)
+            .incrementItem('Grappling Hook')
+            .incrementItem('Deku Leaf')
+            .incrementItem('Hookshot')
             .setLocationChecked('Forbidden Woods', 'Chest Across Red Hanging Flower', true)
             .setLocationChecked('Forbidden Woods', 'Chest in Locked Tree Trunk', true)
             .setLocationChecked('Forbidden Woods', 'Big Key Chest', true);
@@ -296,8 +297,8 @@ describe('LogicCalculation', () => {
 
         logic = new LogicCalculation(
           logic.state
-            .setItemValue('Grappling Hook', 1)
-            .setItemValue('Deku Leaf', 1),
+            .incrementItem('Grappling Hook')
+            .incrementItem('Deku Leaf'),
         );
       });
 
@@ -320,8 +321,7 @@ describe('LogicCalculation', () => {
 
         logic = new LogicCalculation(
           logic.state
-            .setItemValue('Grappling Hook', 0)
-            .setItemValue('Deku Leaf', 1),
+            .incrementItem('Deku Leaf'),
         );
       });
 
@@ -341,7 +341,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state.setItemValue('Power Bracelets', 1),
+          logic.state.incrementItem('Power Bracelets'),
         );
       });
 
@@ -357,10 +357,6 @@ describe('LogicCalculation', () => {
         setMacros({
           'Can Access Secret Cave Entrance on Diamond Steppe Island': 'Hookshot',
         });
-
-        logic = new LogicCalculation(
-          logic.state.setItemValue('Hookshot', 0),
-        );
       });
 
       test('returns false', () => {
@@ -427,7 +423,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state.setItemValue('Grappling Hook', 1),
+          logic.state.incrementItem('Grappling Hook'),
         );
       });
 
@@ -459,8 +455,8 @@ describe('LogicCalculation', () => {
 
         logic = new LogicCalculation(
           logic.state
-            .setItemValue('Deku Leaf', 1)
-            .setItemValue('Boomerang', 1),
+            .incrementItem('Deku Leaf')
+            .incrementItem('Boomerang'),
         );
       });
 
@@ -493,7 +489,7 @@ describe('LogicCalculation', () => {
       });
 
       logic = new LogicCalculation(
-        logic.state.setItemValue('Power Bracelets', 1),
+        logic.state.incrementItem('Power Bracelets'),
       );
     });
 
@@ -541,9 +537,9 @@ describe('LogicCalculation', () => {
 
         logic = new LogicCalculation(
           logic.state
-            .setItemValue('Triforce Shard', 1)
-            .setItemValue('Progressive Sword', 1)
-            .setItemValue('Grappling Hook', 1),
+            .incrementItem('Triforce Shard')
+            .incrementItem('Progressive Sword')
+            .incrementItem('Grappling Hook'),
         );
       });
 
@@ -566,9 +562,9 @@ describe('LogicCalculation', () => {
 
         logic = new LogicCalculation(
           logic.state
-            .setItemValue('Triforce Shard', 1)
-            .setItemValue('Progressive Sword', 1)
-            .setItemValue('Grappling Hook', 1),
+            .incrementItem('Triforce Shard')
+            .incrementItem('Progressive Sword')
+            .incrementItem('Grappling Hook'),
         );
       });
 
@@ -661,8 +657,8 @@ describe('LogicCalculation', () => {
 
         logic = new LogicCalculation(
           logic.state
-            .setItemValue('Grappling Hook', 1)
-            .setItemValue('Deku Leaf', 1),
+            .incrementItem('Grappling Hook')
+            .incrementItem('Deku Leaf'),
         );
       });
 
@@ -684,7 +680,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state.setItemValue('Grappling Hook', 1),
+          logic.state.incrementItem('Grappling Hook'),
         );
       });
 
@@ -717,7 +713,7 @@ describe('LogicCalculation', () => {
       describe('when the item is available', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.setItemValue('Deku Leaf', 1),
+            logic.state.incrementItem('Deku Leaf'),
           );
         });
 
@@ -729,12 +725,6 @@ describe('LogicCalculation', () => {
       });
 
       describe('when the item is not available', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state.setItemValue('Deku Leaf', 0),
-          );
-        });
-
         test('returns false', () => {
           const isItemAvailable = logic._isRequirementMet('Deku Leaf');
 
@@ -747,7 +737,10 @@ describe('LogicCalculation', () => {
       describe('when the item count meets the requirement', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.setItemValue('Progressive Sword', 3),
+            logic.state
+              .incrementItem('Progressive Sword')
+              .incrementItem('Progressive Sword')
+              .incrementItem('Progressive Sword'),
           );
         });
 
@@ -761,7 +754,11 @@ describe('LogicCalculation', () => {
       describe('when the item count does not meet the requirement', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.setItemValue('Triforce Shard', 4),
+            logic.state
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard'),
           );
         });
 
@@ -845,7 +842,7 @@ describe('LogicCalculation', () => {
       describe('when the requirements for the other location have been met', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.setItemValue('Grappling Hook', 1),
+            logic.state.incrementItem('Grappling Hook'),
           );
         });
 

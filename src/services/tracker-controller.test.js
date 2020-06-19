@@ -77,7 +77,7 @@ describe('TrackerController', () => {
         Permalink.DEFAULT_PERMALINK,
       );
 
-      newTrackerState = trackerState.setItemValue('Deku Leaf', 1);
+      newTrackerState = trackerState.incrementItem('Deku Leaf');
     });
 
     test('returns the correct refreshed data', () => {

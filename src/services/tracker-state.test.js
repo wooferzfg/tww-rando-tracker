@@ -135,16 +135,12 @@ describe('TrackerState', () => {
     });
   });
 
-  describe('setItemValue', () => {
+  describe('incrementItem', () => {
     let state;
-    let initialItems;
     let initialEntrances;
     let initialLocationsChecked;
 
     beforeEach(() => {
-      initialItems = {
-        'Deku Leaf': 2,
-      };
       initialEntrances = {
         'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
       };
@@ -156,23 +152,45 @@ describe('TrackerState', () => {
 
       state = new TrackerState();
 
-      state.items = _.clone(initialItems);
       state.entrances = _.clone(initialEntrances);
       state.locationsChecked = _.cloneDeep(initialLocationsChecked);
     });
 
-    test('returns a new state with the item value modified', () => {
-      const newState = state.setItemValue('Deku Leaf', 3);
+    describe('when the item is already at max quantity', () => {
+      beforeEach(() => {
+        LogicHelper.startingItems = {
+          'Progressive Sword': 2,
+        };
 
-      expect(newState.items['Deku Leaf']).toEqual(3);
+        state.items = {
+          'Progressive Sword': 4,
+        };
+      });
+
+      test('resets the item to the minimum quantity', () => {
+        const newState = state.incrementItem('Progressive Sword');
+
+        expect(newState.items['Progressive Sword']).toEqual(2);
+      });
+    });
+
+    describe('when the item is not already at max quantity', () => {
+      beforeEach(() => {
+        state.items = {
+          'Deku Leaf': 0,
+        };
+      });
+
+      test('increments the item count by 1', () => {
+        const newState = state.incrementItem('Deku Leaf');
+
+        expect(newState.items['Deku Leaf']).toEqual(1);
+      });
     });
 
     test('keeps the other values unmodified', () => {
-      const newState = state.setItemValue('Deku Leaf', 3);
+      const newState = state.incrementItem('Deku Leaf');
 
-      expect(state.items).toEqual(initialItems);
-      expect(state.entrances).toEqual(initialEntrances);
-      expect(state.locationsChecked).toEqual(initialLocationsChecked);
       expect(newState.entrances).toEqual(initialEntrances);
       expect(newState.locationsChecked).toEqual(initialLocationsChecked);
     });
@@ -198,14 +216,13 @@ describe('TrackerState', () => {
   describe('setEntranceValue', () => {
     let state;
     let initialItems;
-    let initialEntrances;
     let initialLocationsChecked;
 
     beforeEach(() => {
       initialItems = {
         'Deku Leaf': 2,
       };
-      initialEntrances = {
+      const initialEntrances = {
         'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
       };
       initialLocationsChecked = {
@@ -230,9 +247,6 @@ describe('TrackerState', () => {
     test('keeps the other values unmodified', () => {
       const newState = state.setEntranceValue('Needle Rock Isle Secret Cave', 'Forbidden Woods');
 
-      expect(state.items).toEqual(initialItems);
-      expect(state.entrances).toEqual(initialEntrances);
-      expect(state.locationsChecked).toEqual(initialLocationsChecked);
       expect(newState.items).toEqual(initialItems);
       expect(newState.locationsChecked).toEqual(initialLocationsChecked);
     });
@@ -261,7 +275,6 @@ describe('TrackerState', () => {
     let state;
     let initialItems;
     let initialEntrances;
-    let initialLocationsChecked;
 
     beforeEach(() => {
       initialItems = {
@@ -270,7 +283,7 @@ describe('TrackerState', () => {
       initialEntrances = {
         'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
       };
-      initialLocationsChecked = {
+      const initialLocationsChecked = {
         'Dragon Roost Cavern': {
           "Bird's Nest": true,
         },
@@ -294,9 +307,6 @@ describe('TrackerState', () => {
     test('keeps the other values unmodified', () => {
       const newState = state.setLocationChecked('Dragon Roost Cavern', "Bird's Nest", false);
 
-      expect(state.items).toEqual(initialItems);
-      expect(state.entrances).toEqual(initialEntrances);
-      expect(state.locationsChecked).toEqual(initialLocationsChecked);
       expect(newState.items).toEqual(initialItems);
       expect(newState.entrances).toEqual(initialEntrances);
     });

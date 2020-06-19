@@ -46,9 +46,16 @@ export default class TrackerState {
     return _.get(this.items, itemName);
   }
 
-  setItemValue(itemName, value) {
+  incrementItem(itemName) {
     const newState = this._clone();
-    _.set(newState.items, itemName, value);
+
+    let newItemCount = 1 + _.get(newState.items, itemName);
+    const maxItemCount = LogicHelper.maxItemCount(itemName);
+    if (newItemCount > maxItemCount) {
+      newItemCount = LogicHelper.startingItemCount(itemName);
+    }
+
+    _.set(newState.items, itemName, newItemCount);
     return newState;
   }
 
