@@ -10,10 +10,13 @@ export default class TrackerState {
     newState.entrances = {};
     newState.items = _.reduce(
       LogicHelper.allItems(),
-      (accumulator, item) => _.set(accumulator, item, 0),
+      (accumulator, item) => _.set(
+        accumulator,
+        item,
+        LogicHelper.startingItemCount(item),
+      ),
       {},
     );
-    newState._setStartingItems();
     newState.locationsChecked = Locations.mapLocations(() => false);
 
     return newState;
@@ -77,13 +80,5 @@ export default class TrackerState {
     newState.locationsChecked = _.cloneDeep(this.locationsChecked);
 
     return newState;
-  }
-
-  _setStartingItems() {
-    const startingItems = LogicHelper.getStartingItems();
-
-    _.forEach(startingItems, (itemValue, itemName) => {
-      _.set(this.items, itemName, itemValue);
-    });
   }
 }

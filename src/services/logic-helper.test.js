@@ -170,6 +170,30 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('startingItemCount', () => {
+    beforeEach(() => {
+      LogicHelper.startingItems = {
+        'Deku Leaf': 1,
+      };
+    });
+
+    describe('when the item is in the starting items', () => {
+      test('returns the starting item count', () => {
+        const startingItemCount = LogicHelper.startingItemCount('Deku Leaf');
+
+        expect(startingItemCount).toEqual(1);
+      });
+    });
+
+    describe('when the item is not in the starting items', () => {
+      test('returns 0', () => {
+        const startingItemCount = LogicHelper.startingItemCount('Grappling Hook');
+
+        expect(startingItemCount).toEqual(0);
+      });
+    });
+  });
+
   describe('isMainDungeon', () => {
     describe('when the dungeon is a main dungeon', () => {
       test('returns true', () => {

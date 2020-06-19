@@ -71,8 +71,8 @@ export default class LogicHelper {
     );
   }
 
-  static getStartingItems() {
-    return this.startingItems;
+  static startingItemCount(item) {
+    return _.get(this.startingItems, item, 0);
   }
 
   static isMainDungeon(dungeonName) {
