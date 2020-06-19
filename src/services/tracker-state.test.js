@@ -167,7 +167,7 @@ describe('TrackerState', () => {
         };
       });
 
-      test('resets the item to the minimum quantity', () => {
+      test('returns a new state with the item reset to the minimum quantity', () => {
         const newState = state.incrementItem('Progressive Sword');
 
         expect(newState.items['Progressive Sword']).toEqual(2);
@@ -181,7 +181,7 @@ describe('TrackerState', () => {
         };
       });
 
-      test('increments the item count by 1', () => {
+      test('returns a new state with the item count incremented by 1', () => {
         const newState = state.incrementItem('Deku Leaf');
 
         expect(newState.items['Deku Leaf']).toEqual(1);
@@ -271,7 +271,7 @@ describe('TrackerState', () => {
     });
   });
 
-  describe('setLocationChecked', () => {
+  describe('toggleLocationChecked', () => {
     let state;
     let initialItems;
     let initialEntrances;
@@ -296,16 +296,44 @@ describe('TrackerState', () => {
       state.locationsChecked = _.cloneDeep(initialLocationsChecked);
     });
 
-    test('returns a new state with the location checked value modified', () => {
-      const newState = state.setLocationChecked('Dragon Roost Cavern', "Bird's Nest", false);
+    describe('when the location is already checked', () => {
+      beforeEach(() => {
+        state.locationsChecked = {
+          'Dragon Roost Cavern': {
+            "Bird's Nest": true,
+          },
+        };
+      });
 
-      const newIsLocationChecked = _.get(newState.locationsChecked, ['Dragon Roost Cavern', "Bird's Nest"]);
+      test('returns a new state with the location not checked', () => {
+        const newState = state.toggleLocationChecked('Dragon Roost Cavern', "Bird's Nest");
 
-      expect(newIsLocationChecked).toEqual(false);
+        const newIsLocationChecked = _.get(newState.locationsChecked, ['Dragon Roost Cavern', "Bird's Nest"]);
+
+        expect(newIsLocationChecked).toEqual(false);
+      });
+    });
+
+    describe('when the location is not already checked', () => {
+      beforeEach(() => {
+        state.locationsChecked = {
+          'Dragon Roost Cavern': {
+            "Bird's Nest": false,
+          },
+        };
+      });
+
+      test('returns a new state with the location not checked', () => {
+        const newState = state.toggleLocationChecked('Dragon Roost Cavern', "Bird's Nest");
+
+        const newIsLocationChecked = _.get(newState.locationsChecked, ['Dragon Roost Cavern', "Bird's Nest"]);
+
+        expect(newIsLocationChecked).toEqual(true);
+      });
     });
 
     test('keeps the other values unmodified', () => {
-      const newState = state.setLocationChecked('Dragon Roost Cavern', "Bird's Nest", false);
+      const newState = state.toggleLocationChecked('Dragon Roost Cavern', "Bird's Nest");
 
       expect(newState.items).toEqual(initialItems);
       expect(newState.entrances).toEqual(initialEntrances);

@@ -134,7 +134,7 @@ describe('LogicCalculation', () => {
       describe('when setting the DRC Big Key Chest as checked', () => {
         beforeEach(() => {
           state = TrackerState.default()
-            .setLocationChecked('Dragon Roost Cavern', 'Big Key Chest', true);
+            .toggleLocationChecked('Dragon Roost Cavern', 'Big Key Chest');
         });
 
         test('guarantees 2 small keys in DRC', () => {
@@ -237,9 +237,9 @@ describe('LogicCalculation', () => {
             .incrementItem('Grappling Hook')
             .incrementItem('Deku Leaf')
             .incrementItem('Hookshot')
-            .setLocationChecked('Forbidden Woods', 'Chest Across Red Hanging Flower', true)
-            .setLocationChecked('Forbidden Woods', 'Chest in Locked Tree Trunk', true)
-            .setLocationChecked('Forbidden Woods', 'Big Key Chest', true);
+            .toggleLocationChecked('Forbidden Woods', 'Chest Across Red Hanging Flower')
+            .toggleLocationChecked('Forbidden Woods', 'Chest in Locked Tree Trunk')
+            .toggleLocationChecked('Forbidden Woods', 'Big Key Chest');
         });
 
         test('guarantees all the keys in FW', () => {
@@ -274,7 +274,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', true),
+          logic.state.toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
         );
       });
 
@@ -514,7 +514,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', true),
+          logic.state.toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
         );
       });
 
@@ -580,7 +580,7 @@ describe('LogicCalculation', () => {
     describe('when the location is checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state.setLocationChecked('Dragon Roost Cavern', 'First Room', true),
+          logic.state.toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
         );
       });
 
@@ -808,12 +808,6 @@ describe('LogicCalculation', () => {
       });
 
       describe('when the other location has not been checked', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', false),
-          );
-        });
-
         test('returns false', () => {
           const isItemAvailable = logic._isRequirementMet(
             'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"',
@@ -826,7 +820,7 @@ describe('LogicCalculation', () => {
       describe('when the other location has been checked', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.setLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30', true),
+            logic.state.toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
           );
         });
 

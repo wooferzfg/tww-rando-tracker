@@ -49,13 +49,13 @@ export default class TrackerState {
   incrementItem(itemName) {
     const newState = this._clone();
 
-    let newItemCount = 1 + _.get(newState.items, itemName);
+    let newItemCount = 1 + this.getItemValue(itemName);
     const maxItemCount = LogicHelper.maxItemCount(itemName);
     if (newItemCount > maxItemCount) {
       newItemCount = LogicHelper.startingItemCount(itemName);
     }
-
     _.set(newState.items, itemName, newItemCount);
+
     return newState;
   }
 
@@ -73,9 +73,12 @@ export default class TrackerState {
     return _.get(this.locationsChecked, [generalLocation, detailedLocation]);
   }
 
-  setLocationChecked(generalLocation, detailedLocation, isChecked) {
+  toggleLocationChecked(generalLocation, detailedLocation) {
     const newState = this._clone();
-    _.set(newState.locationsChecked, [generalLocation, detailedLocation], isChecked);
+
+    const isChecked = this.isLocationChecked(generalLocation, detailedLocation);
+    _.set(newState.locationsChecked, [generalLocation, detailedLocation], !isChecked);
+
     return newState;
   }
 
