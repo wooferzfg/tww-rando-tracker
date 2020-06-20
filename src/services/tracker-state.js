@@ -9,7 +9,7 @@ export default class TrackerState {
 
     newState.entrances = {};
     newState.items = _.reduce(
-      LogicHelper.allItems(),
+      LogicHelper.ALL_ITEMS,
       (accumulator, item) => _.set(
         accumulator,
         item,

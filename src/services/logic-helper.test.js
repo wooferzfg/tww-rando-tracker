@@ -162,9 +162,9 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('allItems', () => {
+  describe('ALL_ITEMS', () => {
     test('returns a list of all the items, including entrances, charts, and keys', () => {
-      const allItems = LogicHelper.allItems();
+      const allItems = LogicHelper.ALL_ITEMS;
 
       expect(allItems).toMatchSnapshot();
     });
@@ -195,7 +195,7 @@ describe('LogicHelper', () => {
   });
 
   describe('maxItemCount', () => {
-    describe('when an item is a normal item', () => {
+    describe('when the item is a normal item', () => {
       test('returns 1', () => {
         const maxItemCount = LogicHelper.maxItemCount('Deku Leaf');
 
@@ -203,7 +203,7 @@ describe('LogicHelper', () => {
       });
     });
 
-    describe('when there can be multiple of an item', () => {
+    describe('when there can be multiple of the item', () => {
       test('returns the max quantity of the item', () => {
         const maxItemCount = LogicHelper.maxItemCount('Progressive Bow');
 
@@ -211,7 +211,23 @@ describe('LogicHelper', () => {
       });
     });
 
-    describe('when an item is impossible', () => {
+    describe('when the item is a key', () => {
+      test('returns the max quantity of the key', () => {
+        const maxItemCount = LogicHelper.maxItemCount('DRC Small Key');
+
+        expect(maxItemCount).toEqual(4);
+      });
+    });
+
+    describe('when the item is not a normal item', () => {
+      test('returns 1', () => {
+        const maxItemCount = LogicHelper.maxItemCount('Entered DRC');
+
+        expect(maxItemCount).toEqual(1);
+      });
+    });
+
+    describe('when the item is impossible', () => {
       beforeEach(() => {
         LogicHelper.impossibleItems = {
           'Progressive Sword': 1,

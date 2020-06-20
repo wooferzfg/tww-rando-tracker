@@ -22,6 +22,13 @@ import Settings from './settings';
 export default class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
+      this.isPotentialKeyLocation,
+      this.isValidDungeonLocation,
+      this.isValidIslandLocation,
+      this.maxItemCount,
+      this.parseItemCountRequirement,
+      this.prettyNameForItem,
+      this.prettyNameForItemRequirement,
       this.requirementsForEntrance,
       this.requirementsForLocation,
       this.smallKeysRequiredForLocation,
@@ -31,6 +38,13 @@ export default class LogicHelper {
   }
 
   static reset() {
+    Memoizer.invalidate(this.isPotentialKeyLocation);
+    Memoizer.invalidate(this.isValidDungeonLocation);
+    Memoizer.invalidate(this.isValidIslandLocation);
+    Memoizer.invalidate(this.maxItemCount);
+    Memoizer.invalidate(this.parseItemCountRequirement);
+    Memoizer.invalidate(this.prettyNameForItem);
+    Memoizer.invalidate(this.prettyNameForItemRequirement);
     Memoizer.invalidate(this.requirementsForEntrance);
     Memoizer.invalidate(this.requirementsForLocation);
     Memoizer.invalidate(this.smallKeysRequiredForLocation);
@@ -61,15 +75,13 @@ export default class LogicHelper {
     UNAVAILABLE_ITEM: 'unavailable-item',
   };
 
-  static allItems() {
-    return _.concat(
-      _.map(CAVES, (cave) => this.caveEntryName(cave)),
-      CHARTS,
-      _.map(DUNGEONS, (dungeon) => this.dungeonEntryName(dungeon)),
-      _.keys(ITEMS),
-      _.keys(KEYS),
-    );
-  }
+  static ALL_ITEMS = _.concat(
+    _.map(CAVES, (cave) => this.caveEntryName(cave)),
+    CHARTS,
+    _.map(DUNGEONS, (dungeon) => this.dungeonEntryName(dungeon)),
+    _.keys(ITEMS),
+    _.keys(KEYS),
+  );
 
   static startingItemCount(item) {
     return _.get(this.startingItems, item, 0);
@@ -77,12 +89,21 @@ export default class LogicHelper {
 
   static maxItemCount(item) {
     const impossibleItemCount = _.get(this.impossibleItems, item);
-
     if (!_.isNil(impossibleItemCount)) {
       return impossibleItemCount - 1;
     }
 
-    return _.get(ITEMS, item);
+    const maxItemCount = _.get(ITEMS, item);
+    if (!_.isNil(maxItemCount)) {
+      return maxItemCount;
+    }
+
+    const maxKeyCount = _.get(KEYS, item);
+    if (!_.isNil(maxKeyCount)) {
+      return maxKeyCount;
+    }
+
+    return 1;
   }
 
   static isMainDungeon(dungeonName) {
@@ -211,7 +232,7 @@ export default class LogicHelper {
 
   static maxSmallKeysForDungeon(dungeonName) {
     const smallKeyName = this.smallKeyName(dungeonName);
-    return _.get(KEYS, smallKeyName);
+    return this.maxItemCount(smallKeyName);
   }
 
   static smallKeysRequiredForLocation(generalLocation, detailedLocation) {
@@ -259,8 +280,8 @@ export default class LogicHelper {
       return prettyNameOverride;
     }
 
-    const maxItemCount = _.get(ITEMS, itemName) || _.get(KEYS, itemName);
-    if (!_.isNil(maxItemCount) && maxItemCount > 1) {
+    const maxItemCount = LogicHelper.maxItemCount(itemName);
+    if (maxItemCount > 1) {
       return `${itemName} (${itemCount}/${maxItemCount})`;
     }
 
