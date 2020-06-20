@@ -223,6 +223,15 @@ button:hover:enabled {
   cursor: pointer;
 }
 
+.loading-spinner {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
 .tracker {
   flex-grow: 1;
   -webkit-touch-callout: none;

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
+import Loader from 'react-loader-spinner';
 import { ToastContainer, toast } from 'react-toastify';
 
 import TrackerController from '../services/tracker-controller';
@@ -65,11 +66,23 @@ class Tracker extends React.Component {
       trackerState,
     } = this.state;
 
-    const { loadProgress } = this.props;
+    let content;
+
+    if (isLoading) {
+      content = (
+        <div className="loading-spinner">
+          <Loader color="white" type="Oval" />
+        </div>
+      );
+    } else {
+      content = (
+        <div>{`TRACKER: ${logic} ${trackerState}`}</div>
+      );
+    }
 
     return (
       <>
-        <div>{`TRACKER: ${isLoading} ${logic} ${trackerState} ${loadProgress}`}</div>
+        {content}
         <ToastContainer />
       </>
     );
