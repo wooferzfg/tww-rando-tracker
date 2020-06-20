@@ -7,7 +7,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import TrackerController from '../services/tracker-controller';
 
 import Images from './images';
+import ItemsTable from './items-table';
 import Storage from './storage';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 class Tracker extends React.Component {
   constructor(props) {
@@ -16,6 +19,8 @@ class Tracker extends React.Component {
     this.state = { isLoading: true };
 
     this.initialize();
+
+    this.updateTrackerState = this.updateTrackerState.bind(this);
   }
 
   async initialize() {
@@ -36,6 +41,8 @@ class Tracker extends React.Component {
       if (!_.isNil(saveData)) {
         try {
           initialData = TrackerController.initializeFromSaveData(saveData);
+
+          toast.success('Progress loaded!');
         } catch (err) {
           TrackerController.reset();
         }
@@ -59,6 +66,21 @@ class Tracker extends React.Component {
     });
   }
 
+  updateTrackerState(newTrackerState) {
+    const {
+      logic,
+      saveData,
+      trackerState,
+    } = TrackerController.refreshState(newTrackerState);
+
+    Storage.saveToStorage(saveData);
+
+    this.setState({
+      logic,
+      trackerState,
+    });
+  }
+
   render() {
     const {
       isLoading,
@@ -76,13 +98,21 @@ class Tracker extends React.Component {
       );
     } else {
       content = (
-        <div>{`TRACKER: ${logic} ${trackerState}`}</div>
+        <div className="tracker-container">
+          <div className="tracker">
+            <ItemsTable
+              trackerState={trackerState}
+              updateTrackerState={this.updateTrackerState}
+            />
+          </div>
+        </div>
       );
     }
 
     return (
       <>
         {content}
+        <div style={{ display: 'none' }}>{`${logic}`}</div>
         <ToastContainer />
       </>
     );

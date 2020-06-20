@@ -12,6 +12,10 @@ export default class Storage {
     return localStorage.getItem(this._SAVE_FILE_KEY);
   }
 
+  static saveToStorage(saveData) {
+    localStorage.setItem(this._SAVE_FILE_KEY, saveData);
+  }
+
   static _SAVE_FILE_KEY = 'saveData';
 
   static async _loadFileFromDialog() {
