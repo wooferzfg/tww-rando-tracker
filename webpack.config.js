@@ -9,6 +9,16 @@ module.exports = (env, argv) => {
   const basePath = __dirname;
   const isProduction = argv.mode === 'production';
 
+  const faviconsWebpackPluginSettings = {
+    logo: path.resolve('src/images/icon.png'),
+    inject: true,
+  };
+
+  if (isProduction) {
+    faviconsWebpackPluginSettings.prefix = '';
+    faviconsWebpackPluginSettings.publicPath = '.';
+  }
+
   return {
     entry: {
       bundle: ['./src/index.jsx'],
@@ -24,12 +34,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       ...(isProduction ? [new CleanWebpackPlugin()] : []),
-      new FaviconsWebpackPlugin({
-        logo: path.resolve('src/images/icon.png'),
-        prefix: '',
-        publicPath: './',
-        inject: true,
-      }),
+      new FaviconsWebpackPlugin(faviconsWebpackPluginSettings),
       new HtmlWebpackPlugin({
         template: './src/index.html',
       }),
