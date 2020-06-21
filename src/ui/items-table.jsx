@@ -5,70 +5,36 @@ import React from 'react';
 import LogicHelper from '../services/logic-helper';
 import TrackerState from '../services/tracker-state';
 
-import Images from './images';
+import Item from './item';
 
 class ItemsTable extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      selectedItem: null,
-    };
+    this.state = { selectedItem: null };
+
+    this.setSelectedItem = this.setSelectedItem.bind(this);
+    this.clearSelectedItem = this.clearSelectedItem.bind(this);
+    this.incrementItem = this.incrementItem.bind(this);
   }
 
-  setSelectedItemFunc(itemName) {
-    return () => {
-      this.setState({ selectedItem: itemName });
-    };
+  setSelectedItem(itemName) {
+    this.setState({ selectedItem: itemName });
   }
 
-  clearSelectedItemFunc() {
-    return () => {
-      this.setState({ selectedItem: null });
-    };
+  clearSelectedItem() {
+    this.setState({ selectedItem: null });
   }
 
-  incrementItemFunc(itemName) {
+  incrementItem(itemName) {
     const {
       trackerState,
       updateTrackerState,
     } = this.props;
 
-    return () => {
-      const newTrackerState = trackerState.incrementItem(itemName);
+    const newTrackerState = trackerState.incrementItem(itemName);
 
-      updateTrackerState(newTrackerState);
-    };
-  }
-
-  item(itemName) {
-    const { trackerState } = this.props;
-
-    const itemCount = trackerState.getItemValue(itemName);
-    const itemImage = _.get(Images.IMAGES, ['ITEMS', itemName, itemCount]);
-
-    const clearSelectedItemFunc = this.clearSelectedItemFunc();
-    const incrementItemFunc = this.incrementItemFunc(itemName);
-    const setSelectedItemFunc = this.setSelectedItemFunc(itemName);
-
-    return (
-      <div
-        className="item-container"
-        onBlur={clearSelectedItemFunc}
-        onClick={incrementItemFunc}
-        onFocus={setSelectedItemFunc}
-        onKeyDown={incrementItemFunc}
-        onMouseOver={setSelectedItemFunc}
-        onMouseOut={clearSelectedItemFunc}
-        role="button"
-        tabIndex="0"
-      >
-        <img
-          alt={itemName}
-          src={itemImage}
-        />
-      </div>
-    );
+    updateTrackerState(newTrackerState);
   }
 
   itemInfo() {
@@ -84,6 +50,20 @@ class ItemsTable extends React.Component {
 
     return (
       <span className="item-info">{itemInfoText}</span>
+    );
+  }
+
+  item(itemName) {
+    const { trackerState } = this.props;
+
+    return (
+      <Item
+        clearSelectedItem={this.clearSelectedItem}
+        incrementItem={this.incrementItem}
+        itemName={itemName}
+        setSelectedItem={this.setSelectedItem}
+        trackerState={trackerState}
+      />
     );
   }
 
