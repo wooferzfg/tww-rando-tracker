@@ -6,29 +6,9 @@ import LogicHelper from '../services/logic-helper';
 import TrackerState from '../services/tracker-state';
 
 import Item from './item';
+import Table from './table';
 
 class ItemsTable extends React.Component {
-  static table(items, numColumns) {
-    const itemRows = _.map(
-      _.chunk(items, numColumns),
-      (itemElements, rowIndex) => (
-        <tr key={rowIndex}>
-          {_.map(itemElements, (itemElement, itemIndex) => (
-            <td key={itemIndex}>{itemElement}</td>
-          ))}
-        </tr>
-      ),
-    );
-
-    return (
-      <table>
-        <tbody>
-          {itemRows}
-        </tbody>
-      </table>
-    );
-  }
-
   constructor(props) {
     super(props);
 
@@ -92,13 +72,13 @@ class ItemsTable extends React.Component {
     return (
       <div className="item-tracker">
         <div className="menu-items">
-          {ItemsTable.table(
-            [
+          <Table
+            elements={[
               this.item(LogicHelper.ITEMS.TELESCOPE),
               this.item(LogicHelper.ITEMS.BOATS_SAIL),
-            ],
-            8,
-          )}
+            ]}
+            numColumns={8}
+          />
         </div>
         {this.itemInfo()}
       </div>

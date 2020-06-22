@@ -2,6 +2,8 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import Table from './table';
+
 const OptionsTable = ({
   options,
   numColumns,
@@ -17,13 +19,6 @@ const OptionsTable = ({
     ),
   );
 
-  const optionRows = _.map(
-    _.chunk(options, numColumns),
-    (rowElements, index) => (
-      <tr key={index}>{rowElements}</tr>
-    ),
-  );
-
   return (
     <fieldset>
       <legend>{title}</legend>
@@ -32,7 +27,12 @@ const OptionsTable = ({
           {columns}
         </colgroup>
         <tbody>
-          {optionRows}
+          <Table
+            elements={options}
+            numColumns={numColumns}
+            wrapCells={false}
+            wrapTable={false}
+          />
         </tbody>
       </table>
     </fieldset>
