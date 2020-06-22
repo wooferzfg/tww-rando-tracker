@@ -54,7 +54,13 @@ class Tracker extends React.Component {
     }
 
     if (_.isNil(initialData)) {
-      initialData = await TrackerController.initializeFromPermalink(permalink);
+      try {
+        initialData = await TrackerController.initializeFromPermalink(permalink);
+      } catch (err) {
+        toast.error('Tracker could not be initialized!');
+
+        throw err;
+      }
     }
 
     const { logic, trackerState } = initialData;
