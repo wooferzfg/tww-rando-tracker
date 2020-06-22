@@ -90,7 +90,7 @@ class ItemsTable extends React.Component {
               this.item(LogicHelper.ITEMS.BAIT_BAG),
               this.item(LogicHelper.ITEMS.PROGRESSIVE_BOW),
               this.item(LogicHelper.ITEMS.BOMBS),
-              this.item(LogicHelper.ITEMS.PROGRESSIVE_SHIELD),
+              this.item(LogicHelper.ITEMS.MIRROR_SHIELD),
             ]}
             numColumns={8}
           />
