@@ -76,6 +76,21 @@ class ItemsTable extends React.Component {
             elements={[
               this.item(LogicHelper.ITEMS.TELESCOPE),
               this.item(LogicHelper.ITEMS.BOATS_SAIL),
+              this.item(LogicHelper.ITEMS.WIND_WAKER),
+              this.item(LogicHelper.ITEMS.GRAPPLING_HOOK),
+              this.item(LogicHelper.ITEMS.SPOILS_BAG),
+              this.item(LogicHelper.ITEMS.BOOMERANG),
+              this.item(LogicHelper.ITEMS.DEKU_LEAF),
+              this.item(LogicHelper.ITEMS.PROGRESSIVE_SWORD),
+
+              this.item(LogicHelper.ITEMS.TINGLE_TUNER),
+              this.item(LogicHelper.ITEMS.PROGRESSIVE_PICTO_BOX),
+              this.item(LogicHelper.ITEMS.IRON_BOOTS),
+              this.item(LogicHelper.ITEMS.MAGIC_ARMOR),
+              this.item(LogicHelper.ITEMS.BAIT_BAG),
+              this.item(LogicHelper.ITEMS.PROGRESSIVE_BOW),
+              this.item(LogicHelper.ITEMS.BOMBS),
+              this.item(LogicHelper.ITEMS.PROGRESSIVE_SHIELD),
             ]}
             numColumns={8}
           />
