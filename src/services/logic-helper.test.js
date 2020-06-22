@@ -1030,6 +1030,12 @@ describe('LogicHelper', () => {
       expect(prettyName).toEqual('Swift Sail');
     });
 
+    test("Hero's Shield", () => {
+      const prettyName = LogicHelper.prettyNameForItem('Mirror Shield', 0);
+
+      expect(prettyName).toEqual("Hero's Shield");
+    });
+
     test('DRC Small Key', () => {
       const prettyName = LogicHelper.prettyNameForItem('DRC Small Key', 2);
 

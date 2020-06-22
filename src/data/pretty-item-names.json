@@ -1,28 +1,34 @@
 {
   "Progressive Sword": {
+    "0": "Hero's Sword",
     "1": "Hero's Sword",
     "2": "Master Sword",
     "3": "Master Sword (Half Power)",
     "4": "Master Sword (Full Power)"
   },
   "Progressive Bow": {
+    "0": "Hero's Bow",
     "1": "Hero's Bow",
     "2": "Hero's Bow (Fire & Ice Arrows)",
     "3": "Hero's Bow (All Arrows)"
   },
   "Progressive Picto Box": {
+    "0": "Picto Box",
     "1": "Picto Box",
     "2": "Deluxe Picto Box"
   },
   "Progressive Wallet": {
+    "0": "Wallet (1000 Rupees)",
     "1": "Wallet (1000 Rupees)",
     "2": "Wallet (5000 Rupees)"
   },
   "Progressive Quiver": {
+    "0": "Quiver (60 Arrows)",
     "1": "Quiver (60 Arrows)",
     "2": "Quiver (99 Arrows)"
   },
   "Progressive Bomb Bag": {
+    "0": "Bomb Bag (60 Bombs)",
     "1": "Bomb Bag (60 Bombs)",
     "2": "Bomb Bag (99 Bombs)"
   },
@@ -30,6 +36,10 @@
     "8": "Triforce of Courage"
   },
   "Boat's Sail": {
+    "0": "Swift Sail",
     "1": "Swift Sail"
+  },
+  "Mirror Shield": {
+    "0": "Hero's Shield"
   }
 }

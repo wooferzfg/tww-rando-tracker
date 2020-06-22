@@ -288,13 +288,13 @@ export default class LogicHelper {
     return itemName;
   }
 
-  static _prettyNameOverride(itemName, itemCount) {
+  static _prettyNameOverride(itemName, itemCount = 1) {
     if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) && _.includes(itemName, ' Chart')) {
       const islandIndex = _.indexOf(CHARTS, itemName);
       return `Chart for ${_.get(ISLANDS, islandIndex)}`;
     }
 
-    return _.get(PRETTY_ITEM_NAMES, [itemName, itemCount || 1]);
+    return _.get(PRETTY_ITEM_NAMES, [itemName, itemCount]);
   }
 
   static _rawRequirementsForLocation(generalLocation, detailedLocation) {
