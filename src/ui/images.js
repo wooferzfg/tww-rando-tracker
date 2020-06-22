@@ -45,6 +45,10 @@ export default class Images {
           0: import('../images/item0.png'),
           1: import('../images/item0_a.png'),
         },
+        [LogicHelper.ITEMS.BOATS_SAIL]: {
+          0: import('../images/item1.png'),
+          1: import('../images/item1_a.png'),
+        },
       },
     };
   }

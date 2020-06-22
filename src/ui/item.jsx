@@ -2,6 +2,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import LogicHelper from '../services/logic-helper';
 import TrackerState from '../services/tracker-state';
 
 import Images from './images';
@@ -14,6 +15,16 @@ const Item = ({
   trackerState,
 }) => {
   const itemCount = trackerState.getItemValue(itemName);
+  const startingItemCount = LogicHelper.startingItemCount(itemName);
+  const maxItemCount = LogicHelper.maxItemCount(itemName);
+
+  let itemClassName = '';
+  if (maxItemCount === 0) {
+    itemClassName = 'impossible-item';
+  } else if (startingItemCount === maxItemCount) {
+    itemClassName = 'static-item';
+  }
+
   const itemImage = _.get(Images.IMAGES, ['ITEMS', itemName, itemCount]);
 
   const clearSelectedItemFunc = () => clearSelectedItem();
@@ -22,7 +33,7 @@ const Item = ({
 
   return (
     <div
-      className="item-container"
+      className={`item-container ${itemClassName}`}
       onBlur={clearSelectedItemFunc}
       onClick={incrementItemFunc}
       onFocus={setSelectedItemFunc}

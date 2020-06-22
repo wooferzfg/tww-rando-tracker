@@ -8,6 +8,27 @@ import TrackerState from '../services/tracker-state';
 import Item from './item';
 
 class ItemsTable extends React.Component {
+  static table(items, numColumns) {
+    const itemRows = _.map(
+      _.chunk(items, numColumns),
+      (itemElements, rowIndex) => (
+        <tr key={rowIndex}>
+          {_.map(itemElements, (itemElement, itemIndex) => (
+            <td key={itemIndex}>{itemElement}</td>
+          ))}
+        </tr>
+      ),
+    );
+
+    return (
+      <table>
+        <tbody>
+          {itemRows}
+        </tbody>
+      </table>
+    );
+  }
+
   constructor(props) {
     super(props);
 
@@ -71,15 +92,13 @@ class ItemsTable extends React.Component {
     return (
       <div className="item-tracker">
         <div className="menu-items">
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  {this.item(LogicHelper.ITEMS.TELESCOPE)}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          {ItemsTable.table(
+            [
+              this.item(LogicHelper.ITEMS.TELESCOPE),
+              this.item(LogicHelper.ITEMS.BOATS_SAIL),
+            ],
+            8,
+          )}
         </div>
         {this.itemInfo()}
       </div>

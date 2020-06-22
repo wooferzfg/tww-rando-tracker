@@ -265,8 +265,17 @@ button:hover:enabled {
   position: relative;
 
   .item-container {
+    cursor: pointer;
     outline-style: none;
     width: fit-content;
+
+    &.static-item {
+      cursor: auto;
+    }
+
+    &.impossible-item {
+      visibility: hidden;
+    }
 
     img {
       filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
@@ -529,10 +538,6 @@ button:hover:enabled {
 .qtip-titlebar,
 .qtip-content {
   color: black;
-}
-
-.tracker td img {
-  cursor: pointer;
 }
 
 .extra-locations {
