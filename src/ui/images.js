@@ -111,6 +111,73 @@ export default class Images {
           0: import('../images/herosshield.png'),
           1: import('../images/mirrorshield.png'),
         },
+        [LogicHelper.ITEMS.CABANA_DEED]: {
+          0: import('../images/item24.png'),
+          1: import('../images/item24_a.png'),
+        },
+        [LogicHelper.ITEMS.MAGGIES_LETTER]: {
+          0: import('../images/item15.png'),
+          1: import('../images/item15_a.png'),
+        },
+        [LogicHelper.ITEMS.MOBLINS_LETTER]: {
+          0: import('../images/item16.png'),
+          1: import('../images/item16_a.png'),
+        },
+        [LogicHelper.ITEMS.NOTE_TO_MOM]: {
+          0: import('../images/item17.png'),
+          1: import('../images/item17_a.png'),
+        },
+        [LogicHelper.ITEMS.DELIVERY_BAG]: {
+          0: import('../images/item18.png'),
+          1: import('../images/item18_a.png'),
+        },
+        [LogicHelper.ITEMS.HOOKSHOT]: {
+          0: import('../images/item19.png'),
+          1: import('../images/item19_a.png'),
+        },
+        [LogicHelper.ITEMS.SKULL_HAMMER]: {
+          0: import('../images/item20.png'),
+          1: import('../images/item20_a.png'),
+        },
+        [LogicHelper.ITEMS.POWER_BRACELETS]: {
+          0: import('../images/item22.png'),
+          1: import('../images/item22_a.png'),
+        },
+        [LogicHelper.ITEMS.EMPTY_BOTTLE]: {
+          0: import('../images/item14.png'),
+          1: import('../images/item14_a.png'),
+          2: import('../images/item14_2_a.png'),
+          3: import('../images/item14_3_a.png'),
+          4: import('../images/item14_4_a.png'),
+        },
+        [LogicHelper.ITEMS.WINDS_REQUIEM]: {
+          0: import('../images/song0.png'),
+          1: import('../images/song0_a.png'),
+        },
+        [LogicHelper.ITEMS.BALLAD_OF_GALES]: {
+          0: import('../images/song1.png'),
+          1: import('../images/song1_a.png'),
+        },
+        [LogicHelper.ITEMS.COMMAND_MELODY]: {
+          0: import('../images/song2.png'),
+          1: import('../images/song2_a.png'),
+        },
+        [LogicHelper.ITEMS.EARTH_GODS_LYRIC]: {
+          0: import('../images/song3.png'),
+          1: import('../images/song3_a.png'),
+        },
+        [LogicHelper.ITEMS.WIND_GODS_ARIA]: {
+          0: import('../images/song4.png'),
+          1: import('../images/song4_a.png'),
+        },
+        [LogicHelper.ITEMS.SONG_OF_PASSING]: {
+          0: import('../images/song5.png'),
+          1: import('../images/song5_a.png'),
+        },
+        [LogicHelper.ITEMS.HEROS_CHARM]: {
+          0: import('../images/item27.png'),
+          1: import('../images/item27_a.png'),
+        },
       },
     };
   }

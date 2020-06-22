@@ -91,6 +91,24 @@ class ItemsTable extends React.Component {
               this.item(LogicHelper.ITEMS.PROGRESSIVE_BOW),
               this.item(LogicHelper.ITEMS.BOMBS),
               this.item(LogicHelper.ITEMS.MIRROR_SHIELD),
+
+              this.item(LogicHelper.ITEMS.CABANA_DEED),
+              this.item(LogicHelper.ITEMS.MAGGIES_LETTER),
+              this.item(LogicHelper.ITEMS.MOBLINS_LETTER),
+              this.item(LogicHelper.ITEMS.NOTE_TO_MOM),
+              this.item(LogicHelper.ITEMS.DELIVERY_BAG),
+              this.item(LogicHelper.ITEMS.HOOKSHOT),
+              this.item(LogicHelper.ITEMS.SKULL_HAMMER),
+              this.item(LogicHelper.ITEMS.POWER_BRACELETS),
+
+              this.item(LogicHelper.ITEMS.EMPTY_BOTTLE),
+              this.item(LogicHelper.ITEMS.WINDS_REQUIEM),
+              this.item(LogicHelper.ITEMS.BALLAD_OF_GALES),
+              this.item(LogicHelper.ITEMS.COMMAND_MELODY),
+              this.item(LogicHelper.ITEMS.EARTH_GODS_LYRIC),
+              this.item(LogicHelper.ITEMS.WIND_GODS_ARIA),
+              this.item(LogicHelper.ITEMS.SONG_OF_PASSING),
+              this.item(LogicHelper.ITEMS.HEROS_CHARM),
             ]}
             numColumns={8}
           />
