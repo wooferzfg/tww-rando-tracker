@@ -278,6 +278,7 @@ button:hover:enabled {
     }
 
     img {
+      display: block;
       filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
     }
   }
@@ -310,25 +311,29 @@ button:hover:enabled {
     margin-left: auto;
     margin-right: auto;
     position: relative;
+
+    .item-container {
+      display: inline;
+
+      img {
+        position: relative;
+        z-index: 1;
+      }
+    }
   }
-  
-  .pearls img {
-    position: relative;
-    z-index: 1;
-  }
-  
+
   .pearl-holder {
     position: absolute;
     pointer-events: none;
     top: 0;
-  }
-  
-  .pearl-holder img {
-    position: absolute;
-    left: 17px;
-    top: 19px;
-    z-index: 0;
-    filter: none;
+
+    img {
+      position: absolute;
+      left: 17px;
+      top: 19px;
+      z-index: 0;
+      filter: none;
+    }
   }
   
   .misc-items {

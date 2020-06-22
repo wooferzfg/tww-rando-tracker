@@ -5,6 +5,7 @@ import React from 'react';
 import LogicHelper from '../services/logic-helper';
 import TrackerState from '../services/tracker-state';
 
+import Images from './images';
 import Item from './item';
 import Table from './table';
 
@@ -112,6 +113,48 @@ class ItemsTable extends React.Component {
             ]}
             numColumns={8}
           />
+        </div>
+        <div className="other-items">
+          <table className="triforce-and-pearls">
+            <tbody>
+              <tr>
+                <td>
+                  <div className="pearls">
+                    <div className="nayrus-pearl">
+                      {this.item(LogicHelper.ITEMS.NAYRUS_PEARL)}
+                    </div>
+                    <div className="dins-pearl">
+                      {this.item(LogicHelper.ITEMS.DINS_PEARL)}
+                    </div>
+                    <div className="farores-pearl">
+                      {this.item(LogicHelper.ITEMS.FARORES_PEARL)}
+                    </div>
+                    <div className="pearl-holder">
+                      <img alt="Pearl Holder" src={Images.IMAGES.PEARL_HOLDER} />
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  {this.item(LogicHelper.ITEMS.TRIFORCE_SHARD)}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div className="misc-items">
+            <Table
+              elements={[
+                null,
+                this.item(LogicHelper.ITEMS.TINGLE_STATUE),
+                this.item(LogicHelper.ITEMS.GHOST_SHIP_CHART),
+                this.item(LogicHelper.ITEMS.HURRICANE_SPIN),
+                this.item(LogicHelper.ITEMS.PROGRESSIVE_BOMB_BAG),
+                this.item(LogicHelper.ITEMS.PROGRESSIVE_QUIVER),
+                this.item(LogicHelper.ITEMS.PROGRESSIVE_WALLET),
+                this.item(LogicHelper.ITEMS.MAGIC_METER_UPGRADE),
+              ]}
+              numColumns={4}
+            />
+          </div>
         </div>
         {this.itemInfo()}
       </div>

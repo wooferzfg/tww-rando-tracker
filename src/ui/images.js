@@ -39,6 +39,7 @@ export default class Images {
 
   static get _IMAGE_IMPORTS() {
     return {
+      PEARL_HOLDER: import('../images/pearl_holder.png'),
       SEA_CHART: import('../images/sea_chart.png'),
       ITEMS: {
         [LogicHelper.ITEMS.TELESCOPE]: {
@@ -177,6 +178,64 @@ export default class Images {
         [LogicHelper.ITEMS.HEROS_CHARM]: {
           0: import('../images/item27.png'),
           1: import('../images/item27_a.png'),
+        },
+        [LogicHelper.ITEMS.NAYRUS_PEARL]: {
+          0: import('../images/pearl0.png'),
+          1: import('../images/pearl0_a.png'),
+        },
+        [LogicHelper.ITEMS.DINS_PEARL]: {
+          0: import('../images/pearl1.png'),
+          1: import('../images/pearl1_a.png'),
+        },
+        [LogicHelper.ITEMS.FARORES_PEARL]: {
+          0: import('../images/pearl2.png'),
+          1: import('../images/pearl2_a.png'),
+        },
+        [LogicHelper.ITEMS.TRIFORCE_SHARD]: {
+          0: import('../images/triforce0.png'),
+          1: import('../images/triforce1.png'),
+          2: import('../images/triforce2.png'),
+          3: import('../images/triforce3.png'),
+          4: import('../images/triforce4.png'),
+          5: import('../images/triforce5.png'),
+          6: import('../images/triforce6.png'),
+          7: import('../images/triforce7.png'),
+          8: import('../images/triforce8.png'),
+        },
+        [LogicHelper.ITEMS.TINGLE_STATUE]: {
+          0: import('../images/item31.png'),
+          1: import('../images/item31_a.png'),
+          2: import('../images/item31_2_a.png'),
+          3: import('../images/item31_3_a.png'),
+          4: import('../images/item31_4_a.png'),
+          5: import('../images/item31_5_a.png'),
+        },
+        [LogicHelper.ITEMS.GHOST_SHIP_CHART]: {
+          0: import('../images/item23.png'),
+          1: import('../images/item23_a.png'),
+        },
+        [LogicHelper.ITEMS.HURRICANE_SPIN]: {
+          0: import('../images/item30.png'),
+          1: import('../images/item30_a.png'),
+        },
+        [LogicHelper.ITEMS.PROGRESSIVE_BOMB_BAG]: {
+          0: import('../images/item29.png'),
+          1: import('../images/item29_a.png'),
+          2: import('../images/item29_2_a.png'),
+        },
+        [LogicHelper.ITEMS.PROGRESSIVE_QUIVER]: {
+          0: import('../images/item28.png'),
+          1: import('../images/item28_a.png'),
+          2: import('../images/item28_2_a.png'),
+        },
+        [LogicHelper.ITEMS.PROGRESSIVE_WALLET]: {
+          0: import('../images/item25.png'),
+          1: import('../images/item25_a.png'),
+          2: import('../images/item25_2_a.png'),
+        },
+        [LogicHelper.ITEMS.MAGIC_METER_UPGRADE]: {
+          0: import('../images/item26.png'),
+          1: import('../images/item26_a.png'),
         },
       },
     };
