@@ -70,8 +70,10 @@ class ItemsTable extends React.Component {
   }
 
   render() {
+    const { singleColorBackground } = this.props;
+
     return (
-      <div className="item-tracker">
+      <div className={`item-tracker ${singleColorBackground ? 'single-color' : ''}`}>
         <div className="menu-items">
           <Table
             elements={[
@@ -163,6 +165,7 @@ class ItemsTable extends React.Component {
 }
 
 ItemsTable.propTypes = {
+  singleColorBackground: PropTypes.bool.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   updateTrackerState: PropTypes.func.isRequired,
 };

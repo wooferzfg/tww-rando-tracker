@@ -264,6 +264,11 @@ button:hover:enabled {
   flex-direction: column;
   position: relative;
 
+  &.single-color {
+    background-image: none;
+    background-color: #69891C;
+  }
+
   .item-container {
     cursor: pointer;
     outline-style: none;
@@ -634,18 +639,16 @@ button:hover:enabled {
   min-width: 300px;
 }
 
-.item-tracker .hide {
-  visibility: hidden;
-}
-
 .statistics dt.hide,
 .statistics dd.hide {
   display: none;
 }
 
-.tracker-container button {
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 5px;
-  width: 225px;
+.buttons {
+  button {
+    margin-left: 0;
+    margin-right: 5px;
+    margin-top: 5px;
+    width: 225px;
+  }
 }

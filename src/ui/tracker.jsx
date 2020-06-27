@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import TrackerController from '../services/tracker-controller';
 
+import Buttons from './buttons';
 import Images from './images';
 import ItemsTable from './items-table';
 import Storage from './storage';
@@ -16,10 +17,14 @@ class Tracker extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { isLoading: true };
+    this.state = {
+      isLoading: true,
+      singleColorBackground: false,
+    };
 
     this.initialize();
 
+    this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(this);
     this.updateTrackerState = this.updateTrackerState.bind(this);
   }
 
@@ -63,11 +68,16 @@ class Tracker extends React.Component {
       }
     }
 
-    const { logic, trackerState } = initialData;
+    const {
+      logic,
+      saveData,
+      trackerState,
+    } = initialData;
 
     this.setState({
       isLoading: false,
       logic,
+      saveData,
       trackerState,
     });
   }
@@ -87,10 +97,20 @@ class Tracker extends React.Component {
     });
   }
 
+  toggleSingleColorBackground() {
+    const { singleColorBackground } = this.state;
+
+    this.setState({
+      singleColorBackground: !singleColorBackground,
+    });
+  }
+
   render() {
     const {
       isLoading,
       logic,
+      saveData,
+      singleColorBackground,
       trackerState,
     } = this.state;
 
@@ -107,10 +127,16 @@ class Tracker extends React.Component {
         <div className="tracker-container">
           <div className="tracker">
             <ItemsTable
+              singleColorBackground={singleColorBackground}
               trackerState={trackerState}
               updateTrackerState={this.updateTrackerState}
             />
           </div>
+          <Buttons
+            saveData={saveData}
+            singleColorBackground={singleColorBackground}
+            toggleSingleColorBackground={this.toggleSingleColorBackground}
+          />
         </div>
       );
     }

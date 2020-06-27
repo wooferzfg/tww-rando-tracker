@@ -16,7 +16,32 @@ export default class Storage {
     localStorage.setItem(this._SAVE_FILE_KEY, saveData);
   }
 
+  static async exportFile(saveData) {
+    const blob = new Blob([saveData], { type: 'application/json' });
+    const url = await URL.createObjectURL(blob);
+
+    try {
+      const element = document.createElement('a');
+
+      element.setAttribute('href', url);
+      element.setAttribute('download', this._EXPORT_FILE_NAME);
+      element.style.display = 'none';
+
+      document.body.appendChild(element);
+
+      try {
+        element.click();
+      } finally {
+        document.body.removeChild(element);
+      }
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  }
+
   static _SAVE_FILE_KEY = 'saveData';
+
+  static _EXPORT_FILE_NAME = 'tww_rando_tracker_progress.json';
 
   static async _loadFileFromDialog() {
     return new Promise((resolve, reject) => {
