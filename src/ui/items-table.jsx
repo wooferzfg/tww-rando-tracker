@@ -7,6 +7,7 @@ import TrackerState from '../services/tracker-state';
 
 import Images from './images';
 import Item from './item';
+import SongNotes from './song-notes';
 import Table from './table';
 
 class ItemsTable extends React.Component {
@@ -69,6 +70,19 @@ class ItemsTable extends React.Component {
     );
   }
 
+  song(songName) {
+    const { trackerState } = this.props;
+
+    return (
+      <SongNotes
+        songName={songName}
+        trackerState={trackerState}
+      >
+        {this.item(songName)}
+      </SongNotes>
+    );
+  }
+
   render() {
     const { singleColorBackground } = this.props;
 
@@ -105,12 +119,12 @@ class ItemsTable extends React.Component {
               this.item(LogicHelper.ITEMS.POWER_BRACELETS),
 
               this.item(LogicHelper.ITEMS.EMPTY_BOTTLE),
-              this.item(LogicHelper.ITEMS.WINDS_REQUIEM),
-              this.item(LogicHelper.ITEMS.BALLAD_OF_GALES),
-              this.item(LogicHelper.ITEMS.COMMAND_MELODY),
-              this.item(LogicHelper.ITEMS.EARTH_GODS_LYRIC),
-              this.item(LogicHelper.ITEMS.WIND_GODS_ARIA),
-              this.item(LogicHelper.ITEMS.SONG_OF_PASSING),
+              this.song(LogicHelper.ITEMS.WINDS_REQUIEM),
+              this.song(LogicHelper.ITEMS.BALLAD_OF_GALES),
+              this.song(LogicHelper.ITEMS.COMMAND_MELODY),
+              this.song(LogicHelper.ITEMS.EARTH_GODS_LYRIC),
+              this.song(LogicHelper.ITEMS.WIND_GODS_ARIA),
+              this.song(LogicHelper.ITEMS.SONG_OF_PASSING),
               this.item(LogicHelper.ITEMS.HEROS_CHARM),
             ]}
             numColumns={8}

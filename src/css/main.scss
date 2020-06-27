@@ -362,6 +362,12 @@ button:hover:enabled {
   }
 }
 
+.song-notes {
+  img:not(:last-child) {
+    margin-right: 3px;
+  }
+}
+
 .chart-map-container {
   float: left;
   margin-right: 8px;
@@ -533,11 +539,6 @@ button:hover:enabled {
 
 .gray-text {
   color: #a69b8d;
-}
-
-.tool-tip-text,
-.song-notes {
-  display: none;
 }
 
 .tool-tip-text ul {

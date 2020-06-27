@@ -238,6 +238,13 @@ export default class Images {
           1: import('../images/item26_a.png'),
         },
       },
+      SONG_NOTES: {
+        DOWN: import('../images/song_down.png'),
+        LEFT: import('../images/song_left.png'),
+        NEUTRAL: import('../images/song_neutral.png'),
+        RIGHT: import('../images/song_right.png'),
+        UP: import('../images/song_up.png'),
+      },
     };
   }
 }
