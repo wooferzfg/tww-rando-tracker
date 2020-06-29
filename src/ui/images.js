@@ -39,8 +39,6 @@ export default class Images {
 
   static get _IMAGE_IMPORTS() {
     return {
-      PEARL_HOLDER: import('../images/pearl_holder.png'),
-      SEA_CHART: import('../images/sea_chart.png'),
       ITEMS: {
         [LogicHelper.ITEMS.TELESCOPE]: {
           0: import('../images/item0.png'),
@@ -238,6 +236,8 @@ export default class Images {
           1: import('../images/item26_a.png'),
         },
       },
+      ITEMS_TABLE_BACKGROUND: import('../images/trackerbg.png'),
+      PEARL_HOLDER: import('../images/pearl_holder.png'),
       SONG_NOTES: {
         DOWN: import('../images/song_down.png'),
         LEFT: import('../images/song_left.png'),

@@ -252,11 +252,8 @@ button:hover:enabled {
 }
 
 .item-tracker {
-  width: 434px;
-  height: 326px;
-  background: url("../images/trackerbg.png") no-repeat center center;
-  padding: 10px 11px;
-  background-size: cover;
+  width: 456px;
+  height: 346px;
   float: left;
   margin-right: 8px;
   margin-bottom: 38px;
@@ -265,8 +262,30 @@ button:hover:enabled {
   position: relative;
 
   &.single-color {
-    background-image: none;
-    background-color: #69891C;
+    .item-tracker-background {
+      background-image: none;
+      background-color: #69891C;
+
+      img {
+        visibility: hidden;
+        display: block;
+      }
+    }
+
+    .item-container {
+      img {
+        filter: none;
+      }
+    }
+  }
+
+  .item-tracker-items {
+    padding: 10px 11px;
+  }
+
+  .item-tracker-background {
+    position: absolute;
+    z-index: -1;
   }
 
   .item-container {
@@ -378,7 +397,6 @@ button:hover:enabled {
 
 #chartmap {
   font-size: 13px;
-  background: url("../images/sea_chart.png");
 }
 
 #chartmap,
@@ -409,14 +427,6 @@ button:hover:enabled {
   height: 16px;
   float: left;
   cursor: pointer;
-}
-
-.treasure-chart {
-  background: url("../images/chart.png");
-}
-
-.cave-entry {
-  background: url("../images/cave_noentry.png");
 }
 
 .chests-counter {
@@ -489,7 +499,6 @@ button:hover:enabled {
 
 #zoommap-background {
   z-index: -2;
-  background: url("../images/mapempty.png");
   background-size: cover;
   background-position-y: 50%;
 }
@@ -586,18 +595,6 @@ button:hover:enabled {
   cursor: pointer;
   display: flex;
   font-size: 0;
-}
-
-.small-key {
-  background: url("../images/smallkey.png");
-}
-
-.dungeon-entry {
-  background: url("../images/dungeon_noentry.png");
-}
-
-.boss-key {
-  background: url("../images/bosskey.png");
 }
 
 .extra-location-chests {
