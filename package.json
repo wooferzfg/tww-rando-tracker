@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "js-yaml": "^3.14.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.16",
     "memoizee": "^0.4.14",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
