@@ -656,6 +656,118 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('filterDetailedLocations', () => {
+    beforeEach(() => {
+      Settings.initializeRaw({
+        flags: [
+          Settings.FLAGS.PUZZLE_SECRET_CAVE,
+          Settings.FLAGS.GREAT_FAIRY,
+          Settings.FLAGS.FREE_GIFT,
+          Settings.FLAGS.MISC,
+          Settings.FLAGS.OTHER_CHEST,
+          Settings.FLAGS.EXPENSIVE_PURCHASE,
+          Settings.FLAGS.SUNKEN_TREASURE,
+        ],
+      });
+
+      Locations.initialize(TEST_ITEM_LOCATIONS);
+      Macros.initialize(TEST_MACROS);
+
+      LogicTweaks.applyTweaks();
+
+      LogicHelper.initialize();
+    });
+
+    describe('when onlyProgressLocations is true', () => {
+      test('returns the correct locations for Windfall Island', () => {
+        const filteredLocations = LogicHelper.filterDetailedLocations('Windfall Island', {
+          isDungeon: false,
+          onlyProgressLocations: true,
+        });
+
+        expect(filteredLocations).toEqual([
+          'Jail - Tingle - First Gift',
+          'Jail - Tingle - Second Gift',
+          'House of Wealth Chest',
+          'Maggie - Free Item',
+          'Tott - Teach Rhythm',
+          'Sunken Treasure',
+        ]);
+      });
+
+      test('includes sunken treasure for the Tower of the Gods island', () => {
+        const filteredLocations = LogicHelper.filterDetailedLocations('Tower of the Gods', {
+          isDungeon: false,
+          onlyProgressLocations: true,
+        });
+
+        expect(filteredLocations).toEqual(['Sunken Treasure']);
+      });
+
+      test('includes no locations for the Tower of the Gods dungeon', () => {
+        const filteredLocations = LogicHelper.filterDetailedLocations('Tower of the Gods', {
+          isDungeon: true,
+          onlyProgressLocations: true,
+        });
+
+        expect(filteredLocations).toEqual([]);
+      });
+
+      test("includes Defeat Ganondorf in Ganon's Tower", () => {
+        const filteredLocations = LogicHelper.filterDetailedLocations("Ganon's Tower", {
+          isDungeon: true,
+          onlyProgressLocations: true,
+        });
+
+        expect(filteredLocations).toEqual(['Defeat Ganondorf']);
+      });
+    });
+
+    describe('when onlyProgressLocations is false', () => {
+      test('returns the correct locations for Forsaken Fortress', () => {
+        const filteredLocations = LogicHelper.filterDetailedLocations('Forsaken Fortress', {
+          isDungeon: true,
+          onlyProgressLocations: false,
+        });
+
+        expect(filteredLocations).toEqual([
+          'Phantom Ganon',
+          'Chest Outside Upper Jail Cell',
+          'Chest Inside Lower Jail Cell',
+          'Chest Guarded By Bokoblin',
+          'Chest on Bed',
+          'Helmaroc King Heart Container',
+        ]);
+      });
+
+      test('returns the correct locations for Bomb Island', () => {
+        const filteredLocations = LogicHelper.filterDetailedLocations('Bomb Island', {
+          isDungeon: false,
+          onlyProgressLocations: false,
+        });
+
+        expect(filteredLocations).toEqual([
+          'Cave',
+          'Lookout Platform - Defeat the Enemies',
+          'Submarine',
+          'Sunken Treasure',
+        ]);
+      });
+
+      test("returns the correct locations for Ganon's Tower", () => {
+        const filteredLocations = LogicHelper.filterDetailedLocations("Ganon's Tower", {
+          isDungeon: true,
+          onlyProgressLocations: false,
+        });
+
+        expect(filteredLocations).toEqual([
+          'Maze Chest',
+          'Defeat Ganondorf',
+        ]);
+      });
+    });
+  });
+
   describe('isPotentialKeyLocation', () => {
     describe('when the location is a valid big key location', () => {
       beforeEach(() => {

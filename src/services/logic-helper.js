@@ -219,6 +219,22 @@ export default class LogicHelper {
     );
   }
 
+  static filterDetailedLocations(generalLocation, { isDungeon, onlyProgressLocations }) {
+    const detailedLocations = Locations.detailedLocationsForGeneralLocation(generalLocation);
+
+    return _.filter(detailedLocations, (detailedLocation) => {
+      if (!this.isValidLocation(generalLocation, detailedLocation, { isDungeon })) {
+        return false;
+      }
+
+      if (onlyProgressLocations) {
+        return this.isProgressLocation(generalLocation, detailedLocation);
+      }
+
+      return true;
+    });
+  }
+
   static isPotentialKeyLocation(generalLocation, detailedLocation) {
     if (!this.isValidLocation(generalLocation, detailedLocation, { isDungeon: true })) {
       return false;
