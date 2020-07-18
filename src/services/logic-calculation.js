@@ -19,6 +19,7 @@ export default class LogicCalculation {
       this.isEntranceAvailable,
       this.isLocationAvailable,
       this.itemsRemainingForLocation,
+      this.locationCounts,
       this._itemsRemainingForRequirement,
     ]);
 
