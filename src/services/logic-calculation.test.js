@@ -662,6 +662,20 @@ describe('LogicCalculation', () => {
       });
     });
 
+    test('returns the correct counts for The Great Sea', () => {
+      const countsOutput = logic.locationCounts('The Great Sea', {
+        isDungeon: false,
+        onlyProgressLocations: true,
+        disableLogic: false,
+      });
+
+      expect(countsOutput).toEqual({
+        numAvailable: 2,
+        numRemaining: 4,
+        color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+      });
+    });
+
     describe('when showing non-progress locations', () => {
       test('returns the correct counts for the Forsaken Fortress island', () => {
         const countsOutput = logic.locationCounts('Forsaken Fortress', {

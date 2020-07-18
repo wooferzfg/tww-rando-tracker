@@ -580,6 +580,28 @@ describe('LogicHelper', () => {
           expect(isValidLocation).toEqual(false);
         });
       });
+
+      describe('when the location is in a miscellaneous location', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            Mailbox: {
+              'Letter from Baito': {
+                types: 'Mail',
+              },
+            },
+          };
+        });
+
+        test('returns true', () => {
+          const isValidLocation = LogicHelper._isValidLocation(
+            'Mailbox',
+            'Letter from Baito',
+            { isDungeon: false },
+          );
+
+          expect(isValidLocation).toEqual(true);
+        });
+      });
     });
   });
 
@@ -764,6 +786,15 @@ describe('LogicHelper', () => {
           'Maze Chest',
           'Defeat Ganondorf',
         ]);
+      });
+
+      test('returns the correct locations for Hyrule', () => {
+        const filteredLocations = LogicHelper.filterDetailedLocations('Hyrule', {
+          isDungeon: false,
+          onlyProgressLocations: false,
+        });
+
+        expect(filteredLocations).toEqual(['Master Sword Chamber']);
       });
     });
   });
