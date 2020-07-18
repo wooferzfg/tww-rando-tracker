@@ -8,6 +8,7 @@ import DUNGEONS from '../data/dungeons.json';
 import ISLANDS from '../data/islands.json';
 import ITEMS from '../data/items.json';
 import KEYS from '../data/keys.json';
+import MISC_LOCATIONS from '../data/misc-locations.json';
 import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
 
@@ -586,11 +587,12 @@ export default class LogicHelper {
   static _isValidLocation(generalLocation, detailedLocation, { isDungeon }) {
     const isValidDungeon = _.includes(DUNGEONS, generalLocation);
     const isValidIsland = _.includes(ISLANDS, generalLocation);
+    const isValidMiscLocation = _.includes(MISC_LOCATIONS, generalLocation);
 
     if (isDungeon && !isValidDungeon) {
       return false;
     }
-    if (!isDungeon && !isValidIsland) {
+    if (!isDungeon && !isValidIsland && !isValidMiscLocation) {
       return false;
     }
 
