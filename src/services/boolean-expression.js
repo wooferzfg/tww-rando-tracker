@@ -95,12 +95,12 @@ export default class BooleanExpression {
   }
 
   simplify({
-    depth = 3,
     implies,
+    iterations = 3,
   }) {
     let updatedExpression = this;
 
-    for (let i = 1; i <= depth; i += 1) {
+    for (let i = 1; i <= iterations; i += 1) {
       updatedExpression = updatedExpression._removeDuplicateItems(implies);
       updatedExpression = updatedExpression._removeDuplicateChildren(implies);
       updatedExpression = updatedExpression._removeDuplicateExpressions(implies);
