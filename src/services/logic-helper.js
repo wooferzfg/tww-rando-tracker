@@ -23,6 +23,7 @@ export default class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
       this.isPotentialKeyLocation,
+      this.isProgressLocation,
       this.isValidLocation,
       this.maxItemCount,
       this.parseItemCountRequirement,
@@ -38,6 +39,7 @@ export default class LogicHelper {
 
   static reset() {
     Memoizer.invalidate(this.isPotentialKeyLocation);
+    Memoizer.invalidate(this.isProgressLocation);
     Memoizer.invalidate(this.isValidLocation);
     Memoizer.invalidate(this.maxItemCount);
     Memoizer.invalidate(this.parseItemCountRequirement);
