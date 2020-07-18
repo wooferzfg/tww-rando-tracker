@@ -441,110 +441,144 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('isValidDungeonLocation', () => {
-    describe('when the location is in a unique dungeon', () => {
-      test('returns true', () => {
-        const isValidDungeonLocation = LogicHelper.isValidDungeonLocation("Ganon's Tower", 'Defeat Ganondorf');
+  describe('isValidLocation', () => {
+    describe('when isDungeon is true', () => {
+      describe('when the location is in a unique dungeon', () => {
+        test('returns true', () => {
+          const isValidLocation = LogicHelper.isValidLocation(
+            "Ganon's Tower",
+            'Defeat Ganondorf',
+            { isDungeon: true },
+          );
 
-        expect(isValidDungeonLocation).toEqual(true);
+          expect(isValidLocation).toEqual(true);
+        });
       });
-    });
 
-    describe('when the location is on an island', () => {
-      test('returns false', () => {
-        const isValidDungeonLocation = LogicHelper.isValidDungeonLocation('Outset Island', 'Great Fairy');
+      describe('when the location is on an island', () => {
+        test('returns false', () => {
+          const isValidLocation = LogicHelper.isValidLocation(
+            'Outset Island',
+            'Great Fairy',
+            { isDungeon: true },
+          );
 
-        expect(isValidDungeonLocation).toEqual(false);
+          expect(isValidLocation).toEqual(false);
+        });
       });
-    });
 
-    describe('when the location is in a dungeon that is also an island', () => {
-      beforeEach(() => {
-        Locations.locations = {
-          'Tower of the Gods': {
-            'Light Two Torches': {
-              types: 'Dungeon',
+      describe('when the location is in a dungeon that is also an island', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Tower of the Gods': {
+              'Light Two Torches': {
+                types: 'Dungeon',
+              },
             },
-          },
-        };
+          };
+        });
+
+        test('returns true', () => {
+          const isValidLocation = LogicHelper.isValidLocation(
+            'Tower of the Gods',
+            'Light Two Torches',
+            { isDungeon: true },
+          );
+
+          expect(isValidLocation).toEqual(true);
+        });
       });
 
-      test('returns true', () => {
-        const isValidDungeonLocation = LogicHelper.isValidDungeonLocation('Tower of the Gods', 'Light Two Torches');
-
-        expect(isValidDungeonLocation).toEqual(true);
-      });
-    });
-
-    describe('when the location is on an island that is also a dungeon', () => {
-      beforeEach(() => {
-        Locations.locations = {
-          'Tower of the Gods': {
-            'Sunken Treasure': {
-              types: 'Sunken Treasure',
+      describe('when the location is on an island that is also a dungeon', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Tower of the Gods': {
+              'Sunken Treasure': {
+                types: 'Sunken Treasure',
+              },
             },
-          },
-        };
-      });
+          };
+        });
 
-      test('returns false', () => {
-        const isValidDungeonLocation = LogicHelper.isValidDungeonLocation('Tower of the Gods', 'Sunken Treasure');
+        test('returns false', () => {
+          const isValidLocation = LogicHelper.isValidLocation(
+            'Tower of the Gods',
+            'Sunken Treasure',
+            { isDungeon: true },
+          );
 
-        expect(isValidDungeonLocation).toEqual(false);
-      });
-    });
-  });
-
-  describe('isValidIslandLocation', () => {
-    describe('when the location is on a unique island', () => {
-      test('returns true', () => {
-        const isValidIslandLocation = LogicHelper.isValidIslandLocation('Windfall Island', 'Tott');
-
-        expect(isValidIslandLocation).toEqual(true);
+          expect(isValidLocation).toEqual(false);
+        });
       });
     });
 
-    describe('when the location is in a dungeon', () => {
-      test('returns false', () => {
-        const isValidIslandLocation = LogicHelper.isValidIslandLocation('Forbidden Woods', 'First Room');
+    describe('when isDungeon is false', () => {
+      describe('when the location is on a unique island', () => {
+        test('returns true', () => {
+          const isValidLocation = LogicHelper.isValidLocation(
+            'Windfall Island',
+            'Tott',
+            { isDungeon: false },
+          );
 
-        expect(isValidIslandLocation).toEqual(false);
+          expect(isValidLocation).toEqual(true);
+        });
       });
-    });
 
-    describe('when the location is on an island that is also a dungeon', () => {
-      beforeEach(() => {
-        Locations.locations = {
-          'Forsaken Fortress': {
-            'Sunken Treasure': {
-              types: 'Sunken Treasure',
+      describe('when the location is in a dungeon', () => {
+        test('returns false', () => {
+          const isValidLocation = LogicHelper.isValidLocation(
+            'Forbidden Woods',
+            'First Room',
+            { isDungeon: false },
+          );
+
+          expect(isValidLocation).toEqual(false);
+        });
+      });
+
+      describe('when the location is on an island that is also a dungeon', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Forsaken Fortress': {
+              'Sunken Treasure': {
+                types: 'Sunken Treasure',
+              },
             },
-          },
-        };
+          };
+        });
+
+        test('returns true', () => {
+          const isValidLocation = LogicHelper.isValidLocation(
+            'Forsaken Fortress',
+            'Sunken Treasure',
+            { isDungeon: false },
+          );
+
+          expect(isValidLocation).toEqual(true);
+        });
       });
 
-      test('returns true', () => {
-        const isValidIslandLocation = LogicHelper.isValidIslandLocation('Forsaken Fortress', 'Sunken Treasure');
-
-        expect(isValidIslandLocation).toEqual(true);
-      });
-    });
-
-    describe('when the location is in a dungeon that is also an island', () => {
-      beforeEach(() => {
-        Locations.locations = {
-          'Forsaken Fortress': {
-            'Phantom Ganon': {
-              types: 'Dungeon',
+      describe('when the location is in a dungeon that is also an island', () => {
+        beforeEach(() => {
+          Locations.locations = {
+            'Forsaken Fortress': {
+              'Phantom Ganon': {
+                types: 'Dungeon',
+              },
             },
-          },
-        };
-      });
+          };
+        });
 
-      test('returns false', () => {
-        const isValidIslandLocation = LogicHelper.isValidIslandLocation('Forsaken Fortress', 'Phantom Ganon');
+        test('returns false', () => {
+          const isValidLocation = LogicHelper.isValidLocation(
+            'Forsaken Fortress',
+            'Phantom Ganon',
+            { isDungeon: false },
+          );
 
-        expect(isValidIslandLocation).toEqual(false);
+          expect(isValidLocation).toEqual(false);
+        });
       });
     });
   });
