@@ -583,6 +583,79 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('isProgressLocation', () => {
+    describe('when the location has a type that is not in the flags', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Wind Temple': {
+            'Big Key Chest': {
+              need: 'Can Access Wind Temple',
+              types: 'Dungeon, Tingle Chest, Island Puzzle',
+            },
+          },
+        };
+
+        Settings.initializeRaw({
+          flags: [
+            Settings.FLAGS.DUNGEON,
+            Settings.FLAGS.ISLAND_PUZZLE,
+          ],
+        });
+      });
+
+      test('returns false', () => {
+        const isProgressLocation = LogicHelper.isProgressLocation('Wind Temple', 'Big Key Chest');
+
+        expect(isProgressLocation).toEqual(false);
+      });
+    });
+
+    describe('when the location only has types that are in the flags', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Wind Temple': {
+            'Big Key Chest': {
+              need: 'Can Access Wind Temple',
+              types: 'Dungeon, Tingle Chest, Island Puzzle',
+            },
+          },
+        };
+
+        Settings.initializeRaw({
+          flags: [
+            Settings.FLAGS.DUNGEON,
+            Settings.FLAGS.ISLAND_PUZZLE,
+            Settings.FLAGS.TINGLE_CHEST,
+          ],
+        });
+      });
+
+      test('returns true', () => {
+        const isProgressLocation = LogicHelper.isProgressLocation('Wind Temple', 'Big Key Chest');
+
+        expect(isProgressLocation).toEqual(true);
+      });
+    });
+
+    describe('when the location has no types', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          "Ganon's Tower": {
+            'Defeat Ganondorf': {
+              need: 'Can Reach and Defeat Ganondorf',
+            },
+          },
+        };
+      });
+
+      test('returns true', () => {
+        const isProgressLocation = LogicHelper.isProgressLocation("Ganon's Tower", 'Defeat Ganondorf');
+
+        expect(isProgressLocation).toEqual(true);
+      });
+    });
+  });
+
   describe('isPotentialKeyLocation', () => {
     describe('when the location is a valid big key location', () => {
       beforeEach(() => {

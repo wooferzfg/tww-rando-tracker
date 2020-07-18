@@ -198,6 +198,25 @@ export default class LogicHelper {
     return true;
   }
 
+  static isProgressLocation(generalLocation, detailedLocation) {
+    const locationTypes = Locations.getLocation(
+      generalLocation,
+      detailedLocation,
+      Locations.KEYS.TYPES,
+    );
+
+    if (!locationTypes) {
+      // the Defeat Ganondorf location does not have any types
+      return true;
+    }
+
+    const locationTypesList = _.split(locationTypes, ', ');
+    return _.every(
+      locationTypesList,
+      (flag) => Settings.isFlagActive(flag),
+    );
+  }
+
   static isPotentialKeyLocation(generalLocation, detailedLocation) {
     if (!this.isValidLocation(generalLocation, detailedLocation, { isDungeon: true })) {
       return false;

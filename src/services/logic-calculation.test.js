@@ -28,7 +28,7 @@ describe('LogicCalculation', () => {
   beforeEach(() => {
     Settings.initializeRaw({
       options: {
-        // Don't run the guaranteed keys logic unless the test needs it
+        // don't run the guaranteed keys logic unless the test needs it
         [Permalink.OPTIONS.KEY_LUNACY]: true,
       },
     });

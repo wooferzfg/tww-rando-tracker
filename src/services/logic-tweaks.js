@@ -133,7 +133,7 @@ export default class LogicTweaks {
   static _updateChartMacros() {
     if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
       _.forEach(CHARTS, (chart, index) => {
-        // Assume everything is a Treasure Chart and clear any additional requirements like
+        // assume everything is a Treasure Chart and clear any additional requirements like
         // wallet upgrades
         const macroName = `Chart for Island ${index + 1}`;
         Macros.setMacro(macroName, chart);
