@@ -25,6 +25,13 @@ export default class LogicCalculation {
     this._setGuaranteedKeys();
   }
 
+  static ITEM_REQUIREMENT_COLORS = {
+    AVAILABLE_ITEM: 'available-item',
+    INCONSEQUENTIAL_ITEM: 'inconsequential-item',
+    PLAIN_TEXT: 'plain-text',
+    UNAVAILABLE_ITEM: 'unavailable-item',
+  };
+
   isLocationAvailable(generalLocation, detailedLocation) {
     if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
       return true;
@@ -355,11 +362,11 @@ export default class LogicCalculation {
 
       let itemColor;
       if (requirements.value) {
-        itemColor = LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM;
+        itemColor = this.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM;
       } else if (isInconsequential) {
-        itemColor = LogicHelper.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM;
+        itemColor = this.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM;
       } else {
-        itemColor = LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM;
+        itemColor = this.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM;
       }
 
       return [{
@@ -375,12 +382,12 @@ export default class LogicCalculation {
       if (item.items) { // if the item is an expression
         currentResult.push([
           {
-            color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
+            color: this.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
             text: '(',
           },
           this._createReadableRequirementsHelper(item, isInconsequentialForChild),
           {
-            color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
+            color: this.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
             text: ')',
           },
         ]);
@@ -391,12 +398,12 @@ export default class LogicCalculation {
       if (index < requirements.items.length - 1) {
         if (requirements.type === this._BOOLEAN_EXPRESSION_TYPES.AND) {
           currentResult.push({
-            color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
+            color: this.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
             text: 'and',
           });
         } else if (requirements.type === this._BOOLEAN_EXPRESSION_TYPES.OR) {
           currentResult.push({
-            color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
+            color: this.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
             text: 'or',
           });
         } else {

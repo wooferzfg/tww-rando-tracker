@@ -384,9 +384,9 @@ describe('LogicCalculation', () => {
 
         expect(formattedRequirements).toEqual([
           [
-            { text: 'Empty Bottle', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
-            { text: 'or', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
-            { text: 'Grappling Hook', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
+            { text: 'Empty Bottle', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
+            { text: 'or', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: 'Grappling Hook', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
           ],
         ]);
       });
@@ -407,7 +407,7 @@ describe('LogicCalculation', () => {
         const formattedRequirements = logic.formattedRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(formattedRequirements).toEqual([
-          [{ text: 'Master Sword', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }],
+          [{ text: 'Master Sword', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }],
         ]);
       });
     });
@@ -432,12 +432,12 @@ describe('LogicCalculation', () => {
 
         expect(formattedRequirements).toEqual([
           [
-            { text: 'Deku Leaf', color: LogicHelper.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
+            { text: 'Deku Leaf', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
           ],
           [
-            { text: 'Grappling Hook', color: LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
-            { text: 'or', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
-            { text: 'Empty Bottle', color: LogicHelper.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
+            { text: 'Grappling Hook', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
+            { text: 'or', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: 'Empty Bottle', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
           ],
         ]);
       });
@@ -465,17 +465,17 @@ describe('LogicCalculation', () => {
 
         expect(formattedRequirements).toEqual([
           [
-            { text: 'Deku Leaf', color: LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
-            { text: 'or', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
-            { text: '(', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
-            { text: 'Grappling Hook', color: LogicHelper.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
-            { text: 'and', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
-            { text: '(', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
-            { text: 'Boomerang', color: LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
-            { text: 'or', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
-            { text: 'Bombs', color: LogicHelper.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
-            { text: ')', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
-            { text: ')', color: LogicHelper.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: 'Deku Leaf', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
+            { text: 'or', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: '(', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: 'Grappling Hook', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
+            { text: 'and', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: '(', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: 'Boomerang', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
+            { text: 'or', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: 'Bombs', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
+            { text: ')', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: ')', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
           ],
         ]);
       });
@@ -497,7 +497,7 @@ describe('LogicCalculation', () => {
       const formattedRequirements = logic.formattedRequirementsForEntrance('Earth Temple');
 
       expect(formattedRequirements).toEqual([
-        [{ text: 'Power Bracelets', color: LogicHelper.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM }],
+        [{ text: 'Power Bracelets', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM }],
       ]);
     });
   });

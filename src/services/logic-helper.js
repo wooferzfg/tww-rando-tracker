@@ -68,13 +68,6 @@ export default class LogicHelper {
     OR: '|',
   };
 
-  static ITEM_REQUIREMENT_COLORS = {
-    AVAILABLE_ITEM: 'available-item',
-    INCONSEQUENTIAL_ITEM: 'inconsequential-item',
-    PLAIN_TEXT: 'plain-text',
-    UNAVAILABLE_ITEM: 'unavailable-item',
-  };
-
   static ALL_ITEMS = _.concat(
     _.map(CAVES, (cave) => this.caveEntryName(cave)),
     CHARTS,
