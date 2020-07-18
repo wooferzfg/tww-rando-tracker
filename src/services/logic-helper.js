@@ -22,6 +22,7 @@ import Settings from './settings';
 export default class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
+      this.filterDetailedLocations,
       this.isPotentialKeyLocation,
       this.isProgressLocation,
       this.isValidLocation,
@@ -38,6 +39,7 @@ export default class LogicHelper {
   }
 
   static reset() {
+    Memoizer.invalidate(this.filterDetailedLocations);
     Memoizer.invalidate(this.isPotentialKeyLocation);
     Memoizer.invalidate(this.isProgressLocation);
     Memoizer.invalidate(this.isValidLocation);
