@@ -441,11 +441,11 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('isValidLocation', () => {
+  describe('_isValidLocation', () => {
     describe('when isDungeon is true', () => {
       describe('when the location is in a unique dungeon', () => {
         test('returns true', () => {
-          const isValidLocation = LogicHelper.isValidLocation(
+          const isValidLocation = LogicHelper._isValidLocation(
             "Ganon's Tower",
             'Defeat Ganondorf',
             { isDungeon: true },
@@ -457,7 +457,7 @@ describe('LogicHelper', () => {
 
       describe('when the location is on an island', () => {
         test('returns false', () => {
-          const isValidLocation = LogicHelper.isValidLocation(
+          const isValidLocation = LogicHelper._isValidLocation(
             'Outset Island',
             'Great Fairy',
             { isDungeon: true },
@@ -479,7 +479,7 @@ describe('LogicHelper', () => {
         });
 
         test('returns true', () => {
-          const isValidLocation = LogicHelper.isValidLocation(
+          const isValidLocation = LogicHelper._isValidLocation(
             'Tower of the Gods',
             'Light Two Torches',
             { isDungeon: true },
@@ -501,7 +501,7 @@ describe('LogicHelper', () => {
         });
 
         test('returns false', () => {
-          const isValidLocation = LogicHelper.isValidLocation(
+          const isValidLocation = LogicHelper._isValidLocation(
             'Tower of the Gods',
             'Sunken Treasure',
             { isDungeon: true },
@@ -515,7 +515,7 @@ describe('LogicHelper', () => {
     describe('when isDungeon is false', () => {
       describe('when the location is on a unique island', () => {
         test('returns true', () => {
-          const isValidLocation = LogicHelper.isValidLocation(
+          const isValidLocation = LogicHelper._isValidLocation(
             'Windfall Island',
             'Tott',
             { isDungeon: false },
@@ -527,7 +527,7 @@ describe('LogicHelper', () => {
 
       describe('when the location is in a dungeon', () => {
         test('returns false', () => {
-          const isValidLocation = LogicHelper.isValidLocation(
+          const isValidLocation = LogicHelper._isValidLocation(
             'Forbidden Woods',
             'First Room',
             { isDungeon: false },
@@ -549,7 +549,7 @@ describe('LogicHelper', () => {
         });
 
         test('returns true', () => {
-          const isValidLocation = LogicHelper.isValidLocation(
+          const isValidLocation = LogicHelper._isValidLocation(
             'Forsaken Fortress',
             'Sunken Treasure',
             { isDungeon: false },
@@ -571,7 +571,7 @@ describe('LogicHelper', () => {
         });
 
         test('returns false', () => {
-          const isValidLocation = LogicHelper.isValidLocation(
+          const isValidLocation = LogicHelper._isValidLocation(
             'Forsaken Fortress',
             'Phantom Ganon',
             { isDungeon: false },

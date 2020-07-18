@@ -25,7 +25,6 @@ export default class LogicHelper {
       this.filterDetailedLocations,
       this.isPotentialKeyLocation,
       this.isProgressLocation,
-      this.isValidLocation,
       this.maxItemCount,
       this.parseItemCountRequirement,
       this.prettyNameForItem,
@@ -33,6 +32,7 @@ export default class LogicHelper {
       this.requirementsForEntrance,
       this.requirementsForLocation,
       this.smallKeysRequiredForLocation,
+      this._isValidLocation,
     ]);
 
     this._setStartingAndImpossibleItems();
@@ -42,7 +42,7 @@ export default class LogicHelper {
     Memoizer.invalidate(this.filterDetailedLocations);
     Memoizer.invalidate(this.isPotentialKeyLocation);
     Memoizer.invalidate(this.isProgressLocation);
-    Memoizer.invalidate(this.isValidLocation);
+    Memoizer.invalidate(this._isValidLocation);
     Memoizer.invalidate(this.maxItemCount);
     Memoizer.invalidate(this.parseItemCountRequirement);
     Memoizer.invalidate(this.prettyNameForItem);
@@ -170,31 +170,6 @@ export default class LogicHelper {
     return null;
   }
 
-  static isValidLocation(generalLocation, detailedLocation, { isDungeon }) {
-    const isValidDungeon = _.includes(DUNGEONS, generalLocation);
-    const isValidIsland = _.includes(ISLANDS, generalLocation);
-
-    if (isDungeon && !isValidDungeon) {
-      return false;
-    }
-    if (!isDungeon && !isValidIsland) {
-      return false;
-    }
-
-    if (isValidDungeon && isValidIsland) {
-      const locationTypes = Locations.getLocation(
-        generalLocation,
-        detailedLocation,
-        Locations.KEYS.TYPES,
-      );
-      const hasDungeonType = _.includes(locationTypes, Settings.FLAGS.DUNGEON);
-
-      return hasDungeonType === isDungeon;
-    }
-
-    return true;
-  }
-
   static isProgressLocation(generalLocation, detailedLocation) {
     const locationTypes = Locations.getLocation(
       generalLocation,
@@ -218,7 +193,7 @@ export default class LogicHelper {
     const detailedLocations = Locations.detailedLocationsForGeneralLocation(generalLocation);
 
     return _.filter(detailedLocations, (detailedLocation) => {
-      if (!this.isValidLocation(generalLocation, detailedLocation, { isDungeon })) {
+      if (!this._isValidLocation(generalLocation, detailedLocation, { isDungeon })) {
         return false;
       }
 
@@ -231,7 +206,7 @@ export default class LogicHelper {
   }
 
   static isPotentialKeyLocation(generalLocation, detailedLocation) {
-    if (!this.isValidLocation(generalLocation, detailedLocation, { isDungeon: true })) {
+    if (!this._isValidLocation(generalLocation, detailedLocation, { isDungeon: true })) {
       return false;
     }
 
@@ -606,5 +581,30 @@ export default class LogicHelper {
 
   static _randomizeEntrancesOption() {
     return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_ENTRANCES);
+  }
+
+  static _isValidLocation(generalLocation, detailedLocation, { isDungeon }) {
+    const isValidDungeon = _.includes(DUNGEONS, generalLocation);
+    const isValidIsland = _.includes(ISLANDS, generalLocation);
+
+    if (isDungeon && !isValidDungeon) {
+      return false;
+    }
+    if (!isDungeon && !isValidIsland) {
+      return false;
+    }
+
+    if (isValidDungeon && isValidIsland) {
+      const locationTypes = Locations.getLocation(
+        generalLocation,
+        detailedLocation,
+        Locations.KEYS.TYPES,
+      );
+      const hasDungeonType = _.includes(locationTypes, Settings.FLAGS.DUNGEON);
+
+      return hasDungeonType === isDungeon;
+    }
+
+    return true;
   }
 }
