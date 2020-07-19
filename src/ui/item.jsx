@@ -5,16 +5,16 @@ import React from 'react';
 import LogicHelper from '../services/logic-helper';
 import TrackerState from '../services/tracker-state';
 
-import Images from './images';
-
 const Item = ({
   clearSelectedItem,
+  images,
   incrementItem,
   itemName,
   setSelectedItem,
   trackerState,
 }) => {
   const itemCount = trackerState.getItemValue(itemName);
+  const itemImage = _.get(images, itemCount);
   const startingItemCount = LogicHelper.startingItemCount(itemName);
   const maxItemCount = LogicHelper.maxItemCount(itemName);
 
@@ -25,21 +25,18 @@ const Item = ({
     itemClassName = 'static-item';
   }
 
-  const itemImage = _.get(Images.IMAGES, ['ITEMS', itemName, itemCount]);
-
-  const clearSelectedItemFunc = () => clearSelectedItem();
   const incrementItemFunc = () => incrementItem(itemName);
   const setSelectedItemFunc = () => setSelectedItem(itemName);
 
   return (
     <div
       className={`item-container ${itemClassName}`}
-      onBlur={clearSelectedItemFunc}
+      onBlur={clearSelectedItem}
       onClick={incrementItemFunc}
       onFocus={setSelectedItemFunc}
       onKeyDown={incrementItemFunc}
       onMouseOver={setSelectedItemFunc}
-      onMouseOut={clearSelectedItemFunc}
+      onMouseOut={clearSelectedItem}
       role="button"
       tabIndex="0"
     >
@@ -53,6 +50,7 @@ const Item = ({
 
 Item.propTypes = {
   clearSelectedItem: PropTypes.func.isRequired,
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
   incrementItem: PropTypes.func.isRequired,
   itemName: PropTypes.string.isRequired,
   setSelectedItem: PropTypes.func.isRequired,

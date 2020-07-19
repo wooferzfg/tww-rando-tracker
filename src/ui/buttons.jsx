@@ -18,9 +18,21 @@ class Buttons extends React.Component {
 
   render() {
     const {
+      disableLogic,
+      onlyProgressLocations,
       singleColorBackground,
+      toggleDisableLogic,
+      toggleOnlyProgressLocations,
       toggleSingleColorBackground,
     } = this.props;
+
+    const disableLogicText = disableLogic
+      ? 'Show Location Logic'
+      : 'Hide Location Logic';
+
+    const onlyProgressLocationsText = onlyProgressLocations
+      ? 'Show Non-Progress Locations'
+      : 'Hide Non-Progress Locations';
 
     const singleColorBackgroundText = singleColorBackground
       ? 'Hide Single Color Background'
@@ -35,6 +47,18 @@ class Buttons extends React.Component {
           Export Progress
         </button>
         <button
+          onClick={toggleOnlyProgressLocations}
+          type="button"
+        >
+          {onlyProgressLocationsText}
+        </button>
+        <button
+          onClick={toggleDisableLogic}
+          type="button"
+        >
+          {disableLogicText}
+        </button>
+        <button
           onClick={toggleSingleColorBackground}
           type="button"
         >
@@ -46,8 +70,12 @@ class Buttons extends React.Component {
 }
 
 Buttons.propTypes = {
+  disableLogic: PropTypes.bool.isRequired,
+  onlyProgressLocations: PropTypes.bool.isRequired,
   saveData: PropTypes.string.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
+  toggleDisableLogic: PropTypes.func.isRequired,
+  toggleOnlyProgressLocations: PropTypes.func.isRequired,
   toggleSingleColorBackground: PropTypes.func.isRequired,
 };
 

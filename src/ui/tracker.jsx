@@ -9,6 +9,7 @@ import TrackerController from '../services/tracker-controller';
 import Buttons from './buttons';
 import Images from './images';
 import ItemsTable from './items-table';
+import LocationsTable from './locations-table';
 import Storage from './storage';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,14 +19,18 @@ class Tracker extends React.Component {
     super(props);
 
     this.state = {
+      disableLogic: false,
       isLoading: true,
+      onlyProgressLocations: true,
       singleColorBackground: false,
     };
 
     this.initialize();
 
+    this.incrementItem = this.incrementItem.bind(this);
+    this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
+    this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(this);
-    this.updateTrackerState = this.updateTrackerState.bind(this);
   }
 
   async initialize() {
@@ -82,6 +87,14 @@ class Tracker extends React.Component {
     });
   }
 
+  incrementItem(itemName) {
+    const { trackerState } = this.state;
+
+    const newTrackerState = trackerState.incrementItem(itemName);
+
+    this.updateTrackerState(newTrackerState);
+  }
+
   updateTrackerState(newTrackerState) {
     const {
       logic,
@@ -97,6 +110,22 @@ class Tracker extends React.Component {
     });
   }
 
+  toggleDisableLogic() {
+    const { disableLogic } = this.state;
+
+    this.setState({
+      disableLogic: !disableLogic,
+    });
+  }
+
+  toggleOnlyProgressLocations() {
+    const { onlyProgressLocations } = this.state;
+
+    this.setState({
+      onlyProgressLocations: !onlyProgressLocations,
+    });
+  }
+
   toggleSingleColorBackground() {
     const { singleColorBackground } = this.state;
 
@@ -107,8 +136,10 @@ class Tracker extends React.Component {
 
   render() {
     const {
+      disableLogic,
       isLoading,
       logic,
+      onlyProgressLocations,
       saveData,
       singleColorBackground,
       trackerState,
@@ -127,14 +158,25 @@ class Tracker extends React.Component {
         <div className="tracker-container">
           <div className="tracker">
             <ItemsTable
+              incrementItem={this.incrementItem}
               singleColorBackground={singleColorBackground}
               trackerState={trackerState}
-              updateTrackerState={this.updateTrackerState}
+            />
+            <LocationsTable
+              disableLogic={disableLogic}
+              incrementItem={this.incrementItem}
+              logic={logic}
+              onlyProgressLocations={onlyProgressLocations}
+              trackerState={trackerState}
             />
           </div>
           <Buttons
+            disableLogic={disableLogic}
+            onlyProgressLocations={onlyProgressLocations}
             saveData={saveData}
             singleColorBackground={singleColorBackground}
+            toggleDisableLogic={this.toggleDisableLogic}
+            toggleOnlyProgressLocations={this.toggleOnlyProgressLocations}
             toggleSingleColorBackground={this.toggleSingleColorBackground}
           />
         </div>
@@ -144,7 +186,6 @@ class Tracker extends React.Component {
     return (
       <>
         {content}
-        <div style={{ display: 'none' }}>{`${logic}`}</div>
         <ToastContainer />
       </>
     );

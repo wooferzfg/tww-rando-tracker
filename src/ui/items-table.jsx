@@ -18,7 +18,6 @@ class ItemsTable extends React.Component {
 
     this.setSelectedItem = this.setSelectedItem.bind(this);
     this.clearSelectedItem = this.clearSelectedItem.bind(this);
-    this.incrementItem = this.incrementItem.bind(this);
   }
 
   setSelectedItem(itemName) {
@@ -29,27 +28,16 @@ class ItemsTable extends React.Component {
     this.setState({ selectedItem: null });
   }
 
-  incrementItem(itemName) {
-    const {
-      trackerState,
-      updateTrackerState,
-    } = this.props;
-
-    const newTrackerState = trackerState.incrementItem(itemName);
-
-    updateTrackerState(newTrackerState);
-  }
-
   itemInfo() {
     const { selectedItem } = this.state;
     const { trackerState } = this.props;
 
-    let itemInfoText = '';
-
-    if (!_.isNil(selectedItem)) {
-      const itemCount = trackerState.getItemValue(selectedItem);
-      itemInfoText = LogicHelper.prettyNameForItem(selectedItem, itemCount);
+    if (_.isNil(selectedItem)) {
+      return null;
     }
+
+    const itemCount = trackerState.getItemValue(selectedItem);
+    const itemInfoText = LogicHelper.prettyNameForItem(selectedItem, itemCount);
 
     return (
       <span className="item-info">{itemInfoText}</span>
@@ -57,12 +45,18 @@ class ItemsTable extends React.Component {
   }
 
   item(itemName) {
-    const { trackerState } = this.props;
+    const {
+      incrementItem,
+      trackerState,
+    } = this.props;
+
+    const itemImages = _.get(Images.IMAGES, ['ITEMS', itemName]);
 
     return (
       <Item
         clearSelectedItem={this.clearSelectedItem}
-        incrementItem={this.incrementItem}
+        images={itemImages}
+        incrementItem={incrementItem}
         itemName={itemName}
         setSelectedItem={this.setSelectedItem}
         trackerState={trackerState}
@@ -184,9 +178,9 @@ class ItemsTable extends React.Component {
 }
 
 ItemsTable.propTypes = {
+  incrementItem: PropTypes.func.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
-  updateTrackerState: PropTypes.func.isRequired,
 };
 
 export default ItemsTable;
