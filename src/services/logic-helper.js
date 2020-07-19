@@ -311,18 +311,15 @@ export default class LogicHelper {
   }
 
   static chartForIsland(islandName) {
-    let chartName;
+    const islandIndex = _.indexOf(ISLANDS, islandName);
+    const chartName = _.get(CHARTS, islandIndex);
 
-    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
-      chartName = `Chart for ${islandName}`;
+    let chartType;
+    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) || _.includes(chartName, 'Treasure')) {
+      chartType = this.CHART_TYPES.TREASURE;
     } else {
-      const islandIndex = _.indexOf(ISLANDS, islandName);
-      chartName = _.get(CHARTS, islandIndex);
+      chartType = this.CHART_TYPES.TRIFORCE;
     }
-
-    const chartType = _.includes(chartName, 'Triforce')
-      ? this.CHART_TYPES.TRIFORCE
-      : this.CHART_TYPES.TREASURE;
 
     return {
       chartName,
