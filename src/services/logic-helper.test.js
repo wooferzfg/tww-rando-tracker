@@ -1309,7 +1309,9 @@ describe('LogicHelper', () => {
 
       expect(prettyName).toEqual("Hero's Sword");
     });
+  });
 
+  describe('chartForIsland', () => {
     describe('when charts are randomized', () => {
       beforeEach(() => {
         Settings.initializeRaw({
@@ -1319,16 +1321,22 @@ describe('LogicHelper', () => {
         });
       });
 
-      test('returns the pretty name for a Triforce Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7');
+      test('returns a randomized chart when the island has a Triforce Chart', () => {
+        const chartInfo = LogicHelper.chartForIsland('Seven-Star Isles');
 
-        expect(prettyName).toEqual('Chart for Seven-Star Isles');
+        expect(chartInfo).toEqual({
+          chartName: 'Chart for Seven-Star Isles',
+          chartType: LogicHelper.CHART_TYPES.TREASURE,
+        });
       });
 
-      test('returns the pretty name for a Treasure Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25');
+      test('returns a randomized chart when the island has a Treasure Chart', () => {
+        const chartInfo = LogicHelper.chartForIsland('Forsaken Fortress');
 
-        expect(prettyName).toEqual('Chart for Forsaken Fortress');
+        expect(chartInfo).toEqual({
+          chartName: 'Chart for Forsaken Fortress',
+          chartType: LogicHelper.CHART_TYPES.TREASURE,
+        });
       });
     });
 
@@ -1341,16 +1349,22 @@ describe('LogicHelper', () => {
         });
       });
 
-      test('returns the regular name for a Triforce Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7');
+      test('returns a Triforce Chart when an island has one', () => {
+        const chartInfo = LogicHelper.chartForIsland('Seven-Star Isles');
 
-        expect(prettyName).toEqual('Triforce Chart 7');
+        expect(chartInfo).toEqual({
+          chartName: 'Triforce Chart 7',
+          chartType: LogicHelper.CHART_TYPES.TRIFORCE,
+        });
       });
 
-      test('returns the regular name for a Treasure Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25');
+      test('returns a Treasure Chart when an island has one', () => {
+        const chartInfo = LogicHelper.chartForIsland('Forsaken Fortress');
 
-        expect(prettyName).toEqual('Treasure Chart 25');
+        expect(chartInfo).toEqual({
+          chartName: 'Treasure Chart 25',
+          chartType: LogicHelper.CHART_TYPES.TREASURE,
+        });
       });
     });
   });

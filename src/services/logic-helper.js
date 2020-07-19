@@ -71,6 +71,11 @@ export default class LogicHelper {
     OR: '|',
   };
 
+  static CHART_TYPES = {
+    TREASURE: 'Treasure',
+    TRIFORCE: 'Triforce',
+  };
+
   static ALL_ITEMS = _.concat(
     _.map(CAVES, (cave) => this.caveEntryName(cave)),
     CHARTS,
@@ -303,6 +308,26 @@ export default class LogicHelper {
     }
 
     return itemName;
+  }
+
+  static chartForIsland(islandName) {
+    let chartName;
+
+    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
+      chartName = `Chart for ${islandName}`;
+    } else {
+      const islandIndex = _.indexOf(ISLANDS, islandName);
+      chartName = _.get(CHARTS, islandIndex);
+    }
+
+    const chartType = _.includes(chartName, 'Triforce')
+      ? this.CHART_TYPES.TRIFORCE
+      : this.CHART_TYPES.TREASURE;
+
+    return {
+      chartName,
+      chartType,
+    };
   }
 
   static _prettyNameOverride(itemName, itemCount = 1) {
