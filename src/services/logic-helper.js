@@ -23,6 +23,7 @@ import Settings from './settings';
 export default class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
+      this.chartForIsland,
       this.filterDetailedLocations,
       this.isPotentialKeyLocation,
       this.isProgressLocation,
@@ -40,10 +41,10 @@ export default class LogicHelper {
   }
 
   static reset() {
+    Memoizer.invalidate(this.chartForIsland);
     Memoizer.invalidate(this.filterDetailedLocations);
     Memoizer.invalidate(this.isPotentialKeyLocation);
     Memoizer.invalidate(this.isProgressLocation);
-    Memoizer.invalidate(this._isValidLocation);
     Memoizer.invalidate(this.maxItemCount);
     Memoizer.invalidate(this.parseItemCountRequirement);
     Memoizer.invalidate(this.prettyNameForItem);
@@ -51,6 +52,7 @@ export default class LogicHelper {
     Memoizer.invalidate(this.requirementsForEntrance);
     Memoizer.invalidate(this.requirementsForLocation);
     Memoizer.invalidate(this.smallKeysRequiredForLocation);
+    Memoizer.invalidate(this._isValidLocation);
 
     this.startingItems = null;
     this.impossibleItems = null;
