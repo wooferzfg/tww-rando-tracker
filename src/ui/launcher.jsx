@@ -109,7 +109,7 @@ export default class Launcher extends React.PureComponent {
         <div className="permalink-input">
           <input
             placeholder="Permalink"
-            id="flags"
+            className="permalink"
             onChange={(event) => this.loadPermalink(event.target.value)}
             value={permalink}
           />

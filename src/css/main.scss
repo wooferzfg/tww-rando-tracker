@@ -45,6 +45,12 @@ body {
   .permalink-input {
     margin-left: 5px;
     margin-right: 5px;
+
+    .permalink {
+      font-size: 1em;
+      margin-left: 4px;
+      width: 450px;
+    }
   }
 
   .launcher-button {
@@ -193,7 +199,8 @@ input {
   width: 6%;
 }
 
-button {
+button,
+.permalink {
   padding: 6px;
   border-radius: 5px;
   font-weight: bold;
