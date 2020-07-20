@@ -2,41 +2,51 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Table = ({
-  elements,
-  numColumns,
-  wrapCells = true,
-  wrapTable = true,
-}) => {
-  const renderRow = (rowElements) => (
-    _.map(rowElements, (element, index) => {
+class Table extends React.PureComponent {
+  renderRow(rowElements) {
+    const { wrapCells } = this.props;
+
+    return _.map(rowElements, (element, index) => {
       if (wrapCells) {
         return (
           <td key={index}>{element}</td>
         );
       }
       return element;
-    })
-  );
-
-  const rows = _.map(
-    _.chunk(elements, numColumns),
-    (rowElements, index) => (
-      <tr key={index}>{renderRow(rowElements)}</tr>
-    ),
-  );
-
-  if (wrapTable) {
-    return (
-      <table>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
-    );
+    });
   }
 
-  return rows;
+  render() {
+    const {
+      elements,
+      numColumns,
+      wrapTable,
+    } = this.props;
+
+    const rows = _.map(
+      _.chunk(elements, numColumns),
+      (rowElements, index) => (
+        <tr key={index}>{this.renderRow(rowElements)}</tr>
+      ),
+    );
+
+    if (wrapTable) {
+      return (
+        <table>
+          <tbody>
+            {rows}
+          </tbody>
+        </table>
+      );
+    }
+
+    return rows;
+  }
+}
+
+Table.defaultProps = {
+  wrapCells: true,
+  wrapTable: true,
 };
 
 Table.propTypes = {

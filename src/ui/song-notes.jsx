@@ -8,39 +8,43 @@ import TrackerState from '../services/tracker-state';
 import Images from './images';
 import Tooltip from './tooltip';
 
-const SongNotes = ({
-  children,
-  songName,
-  trackerState,
-}) => {
-  let songNotes;
-  const itemCount = trackerState.getItemValue(songName);
+class SongNotes extends React.PureComponent {
+  render() {
+    const {
+      children,
+      songName,
+      trackerState,
+    } = this.props;
 
-  if (itemCount > 0) {
-    const noteImages = _.map(
-      _.get(SONG_NOTES, songName),
-      (note, index) => (
-        <img
-          src={_.get(Images.IMAGES.SONG_NOTES, note)}
-          key={index}
-          alt={note}
-        />
-      ),
-    );
+    let songNotes;
+    const itemCount = trackerState.getItemValue(songName);
 
-    songNotes = (
-      <div className="song-notes">
-        {noteImages}
-      </div>
+    if (itemCount > 0) {
+      const noteImages = _.map(
+        _.get(SONG_NOTES, songName),
+        (note, index) => (
+          <img
+            src={_.get(Images.IMAGES.SONG_NOTES, note)}
+            key={index}
+            alt={note}
+          />
+        ),
+      );
+
+      songNotes = (
+        <div className="song-notes">
+          {noteImages}
+        </div>
+      );
+    }
+
+    return (
+      <Tooltip tooltipContent={songNotes}>
+        {children}
+      </Tooltip>
     );
   }
-
-  return (
-    <Tooltip tooltipContent={songNotes}>
-      {children}
-    </Tooltip>
-  );
-};
+}
 
 SongNotes.propTypes = {
   children: PropTypes.element.isRequired,
