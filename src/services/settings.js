@@ -48,9 +48,9 @@ export default class Settings {
 
   static readAll() {
     return {
-      flags: _.clone(this.flags),
-      options: _.clone(this.options),
-      startingGear: _.clone(this.startingGear),
+      flags: this.flags,
+      options: this.options,
+      startingGear: this.startingGear,
       version: this.version,
     };
   }

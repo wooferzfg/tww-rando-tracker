@@ -10,7 +10,7 @@ export default class Macros {
   }
 
   static readAll() {
-    return _.cloneDeep(this.macros);
+    return this.macros;
   }
 
   static getMacro(macroName) {

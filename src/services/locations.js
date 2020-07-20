@@ -33,7 +33,7 @@ export default class Locations {
   };
 
   static readAll() {
-    return _.cloneDeep(this.locations);
+    return this.locations;
   }
 
   static mapLocations(locationIteratee) {
