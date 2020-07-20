@@ -5,9 +5,9 @@ import Toggle from 'react-toggle';
 class ToggleOptionInput extends React.PureComponent {
   render() {
     const {
-      getOptionValue,
       labelText,
       optionName,
+      optionValue,
       setOptionValue,
     } = this.props;
 
@@ -17,7 +17,7 @@ class ToggleOptionInput extends React.PureComponent {
         <td className="option-container">
           <div className="toggle-container">
             <Toggle
-              checked={getOptionValue(optionName)}
+              checked={optionValue}
               icons={false}
               onChange={(event) => setOptionValue(optionName, event.target.checked)}
             />
@@ -29,9 +29,9 @@ class ToggleOptionInput extends React.PureComponent {
 }
 
 ToggleOptionInput.propTypes = {
-  getOptionValue: PropTypes.func.isRequired,
   labelText: PropTypes.string.isRequired,
   optionName: PropTypes.string.isRequired,
+  optionValue: PropTypes.bool.isRequired,
   setOptionValue: PropTypes.func.isRequired,
 };
 

@@ -7,9 +7,9 @@ import Permalink from '../services/permalink';
 class DropdownOptionInput extends React.PureComponent {
   render() {
     const {
-      getOptionValue,
       labelText,
       optionName,
+      optionValue,
       setOptionValue,
     } = this.props;
 
@@ -35,7 +35,7 @@ class DropdownOptionInput extends React.PureComponent {
                   _.get(optionsList, event.target.selectedIndex),
                 )
               }
-              value={getOptionValue(optionName)}
+              value={optionValue}
             >
               {dropdownOptions}
             </select>
@@ -47,9 +47,9 @@ class DropdownOptionInput extends React.PureComponent {
 }
 
 DropdownOptionInput.propTypes = {
-  getOptionValue: PropTypes.func.isRequired,
   labelText: PropTypes.string.isRequired,
   optionName: PropTypes.string.isRequired,
+  optionValue: PropTypes.string.isRequired,
   setOptionValue: PropTypes.func.isRequired,
 };
 

@@ -36,7 +36,6 @@ export default class Launcher extends React.PureComponent {
       permalink,
     };
 
-    this.getOptionValue = this.getOptionValue.bind(this);
     this.launchNewTracker = this.launchNewTracker.bind(this);
     this.loadFromFile = this.loadFromFile.bind(this);
     this.loadFromSave = this.loadFromSave.bind(this);
@@ -77,24 +76,28 @@ export default class Launcher extends React.PureComponent {
   }
 
   toggleInput({ labelText, optionName }) {
+    const optionValue = this.getOptionValue(optionName);
+
     return (
       <ToggleOptionInput
-        getOptionValue={this.getOptionValue}
         key={optionName}
         labelText={labelText}
         optionName={optionName}
+        optionValue={optionValue}
         setOptionValue={this.setOptionValue}
       />
     );
   }
 
   dropdownInput({ labelText, optionName }) {
+    const optionValue = this.getOptionValue(optionName);
+
     return (
       <DropdownOptionInput
-        getOptionValue={this.getOptionValue}
         key={optionName}
         labelText={labelText}
         optionName={optionName}
+        optionValue={optionValue}
         setOptionValue={this.setOptionValue}
       />
     );
