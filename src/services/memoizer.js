@@ -11,9 +11,11 @@ export default class Memoizer {
     });
   }
 
-  static invalidate(functionToInvalidate) {
-    if (functionToInvalidate.clear) {
-      functionToInvalidate.clear();
-    }
+  static invalidate(functionsToInvalidate) {
+    _.forEach(functionsToInvalidate, (functionToInvalidate) => {
+      if (functionToInvalidate.clear) {
+        functionToInvalidate.clear();
+      }
+    });
   }
 }

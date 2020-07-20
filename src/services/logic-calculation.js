@@ -173,8 +173,10 @@ export default class LogicCalculation {
       });
     }
 
-    Memoizer.invalidate(this.isLocationAvailable);
-    Memoizer.invalidate(this._itemsRemainingForRequirement);
+    Memoizer.invalidate([
+      this.isLocationAvailable,
+      this._itemsRemainingForRequirement,
+    ]);
   }
 
   _guaranteedKeysForDungeon(dungeonName) {

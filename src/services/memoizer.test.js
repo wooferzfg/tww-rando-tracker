@@ -65,7 +65,7 @@ describe('Memoizer', () => {
         MockClass.previousValue = 'yeet';
         MockClass.mockStaticMethod(5);
 
-        Memoizer.invalidate(MockClass.mockStaticMethod);
+        Memoizer.invalidate([MockClass.mockStaticMethod]);
 
         MockClass.previousValue = null;
       });
@@ -103,7 +103,7 @@ describe('Memoizer', () => {
 
     describe('when a method is invalidated immediately', () => {
       test('does not do anything to the method', () => {
-        Memoizer.invalidate(MockClass.mockStaticMethod);
+        Memoizer.invalidate([MockClass.mockStaticMethod]);
       });
     });
   });

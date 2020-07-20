@@ -41,18 +41,20 @@ export default class LogicHelper {
   }
 
   static reset() {
-    Memoizer.invalidate(this.chartForIsland);
-    Memoizer.invalidate(this.filterDetailedLocations);
-    Memoizer.invalidate(this.isPotentialKeyLocation);
-    Memoizer.invalidate(this.isProgressLocation);
-    Memoizer.invalidate(this.maxItemCount);
-    Memoizer.invalidate(this.parseItemCountRequirement);
-    Memoizer.invalidate(this.prettyNameForItem);
-    Memoizer.invalidate(this.prettyNameForItemRequirement);
-    Memoizer.invalidate(this.requirementsForEntrance);
-    Memoizer.invalidate(this.requirementsForLocation);
-    Memoizer.invalidate(this.smallKeysRequiredForLocation);
-    Memoizer.invalidate(this._isValidLocation);
+    Memoizer.invalidate([
+      this.chartForIsland,
+      this.filterDetailedLocations,
+      this.isPotentialKeyLocation,
+      this.isProgressLocation,
+      this.maxItemCount,
+      this.parseItemCountRequirement,
+      this.prettyNameForItem,
+      this.prettyNameForItemRequirement,
+      this.requirementsForEntrance,
+      this.requirementsForLocation,
+      this.smallKeysRequiredForLocation,
+      this._isValidLocation,
+    ]);
 
     this.startingItems = null;
     this.impossibleItems = null;
