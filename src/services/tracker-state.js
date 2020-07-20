@@ -33,12 +33,10 @@ export default class TrackerState {
   }
 
   readState() {
-    const clonedState = this._clone();
-
     return {
-      entrances: clonedState.entrances,
-      items: clonedState.items,
-      locationsChecked: clonedState.locationsChecked,
+      entrances: this.entrances,
+      items: this.items,
+      locationsChecked: this.locationsChecked,
     };
   }
 
