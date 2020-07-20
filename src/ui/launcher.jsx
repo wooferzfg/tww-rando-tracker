@@ -13,7 +13,7 @@ import ToggleOptionInput from './toggle-option-input';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toggle/style.css';
 
-export default class Launcher extends React.Component {
+export default class Launcher extends React.PureComponent {
   static openTrackerWindow(route) {
     const windowWidth = 1327;
     const windowHeight = 550;

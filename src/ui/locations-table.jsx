@@ -6,7 +6,7 @@ import TrackerState from '../services/tracker-state';
 
 import SeaChart from './sea-chart';
 
-class LocationsTable extends React.Component {
+class LocationsTable extends React.PureComponent {
   constructor(props) {
     super(props);
 

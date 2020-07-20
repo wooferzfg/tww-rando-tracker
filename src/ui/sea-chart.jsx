@@ -10,7 +10,7 @@ import TrackerState from '../services/tracker-state';
 import Images from './images';
 import Sector from './sector';
 
-class SeaChart extends React.Component {
+class SeaChart extends React.PureComponent {
   mapInfo() {
     const {
       disableLogic,

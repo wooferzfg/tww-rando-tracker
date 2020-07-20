@@ -9,7 +9,7 @@ import TrackerState from '../services/tracker-state';
 import Images from './images';
 import Item from './item';
 
-class Sector extends React.Component {
+class Sector extends React.PureComponent {
   chestsCounter() {
     const {
       disableLogic,

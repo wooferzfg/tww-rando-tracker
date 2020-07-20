@@ -3,7 +3,7 @@ import React from 'react';
 
 import Storage from './storage';
 
-class Buttons extends React.Component {
+class Buttons extends React.PureComponent {
   constructor(props) {
     super(props);
 

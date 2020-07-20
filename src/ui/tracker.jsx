@@ -14,7 +14,7 @@ import Storage from './storage';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-class Tracker extends React.Component {
+class Tracker extends React.PureComponent {
   constructor(props) {
     super(props);
 

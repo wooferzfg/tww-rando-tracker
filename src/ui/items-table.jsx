@@ -10,7 +10,7 @@ import Item from './item';
 import SongNotes from './song-notes';
 import Table from './table';
 
-class ItemsTable extends React.Component {
+class ItemsTable extends React.PureComponent {
   constructor(props) {
     super(props);
 
