@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import SONG_NOTES from '../data/song-notes.json';
-import TrackerState from '../services/tracker-state';
 
 import Images from './images';
 import Tooltip from './tooltip';
@@ -12,14 +11,13 @@ class SongNotes extends React.PureComponent {
   render() {
     const {
       children,
+      songCount,
       songName,
-      trackerState,
     } = this.props;
 
     let songNotes;
-    const itemCount = trackerState.getItemValue(songName);
 
-    if (itemCount > 0) {
+    if (songCount > 0) {
       const noteImages = _.map(
         _.get(SONG_NOTES, songName),
         (note, index) => (
@@ -48,8 +46,8 @@ class SongNotes extends React.PureComponent {
 
 SongNotes.propTypes = {
   children: PropTypes.element.isRequired,
+  songCount: PropTypes.number.isRequired,
   songName: PropTypes.string.isRequired,
-  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
 };
 
 export default SongNotes;

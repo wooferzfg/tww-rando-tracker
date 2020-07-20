@@ -68,10 +68,12 @@ class ItemsTable extends React.PureComponent {
   song(songName) {
     const { trackerState } = this.props;
 
+    const songCount = trackerState.getItemValue(songName);
+
     return (
       <SongNotes
+        songCount={songCount}
         songName={songName}
-        trackerState={trackerState}
       >
         {this.item(songName)}
       </SongNotes>
