@@ -2,31 +2,17 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import LogicCalculation from '../services/logic-calculation';
-import LogicHelper from '../services/logic-helper';
-import TrackerState from '../services/tracker-state';
-
 import Images from './images';
 import Item from './item';
 
 class Sector extends React.PureComponent {
   chestsCounter() {
     const {
-      disableLogic,
-      island,
-      logic,
-      onlyProgressLocations,
-    } = this.props;
-
-    const {
       color,
+      disableLogic,
       numAvailable,
       numRemaining,
-    } = logic.locationCounts(island, {
-      isDungeon: false,
-      onlyProgressLocations,
-      disableLogic,
-    });
+    } = this.props;
 
     const className = `chests-counter ${color}`;
     const chestCounts = disableLogic ? numRemaining : `${numAvailable}/${numRemaining}`;
@@ -40,19 +26,14 @@ class Sector extends React.PureComponent {
 
   chartItem() {
     const {
-      clearSelectedItem,
-      incrementItem,
-      island,
-      setSelectedItem,
-      trackerState,
-    } = this.props;
-
-    const {
+      chartCount,
       chartName,
       chartType,
-    } = LogicHelper.chartForIsland(island);
+      clearSelectedItem,
+      incrementItem,
+      setSelectedItem,
+    } = this.props;
 
-    const chartCount = trackerState.getItemValue(chartName);
     const chartImages = _.get(Images.IMAGES, ['CHARTS', chartType]);
 
     return (
@@ -96,16 +77,19 @@ class Sector extends React.PureComponent {
 }
 
 Sector.propTypes = {
+  chartCount: PropTypes.number.isRequired,
+  chartName: PropTypes.string.isRequired,
+  chartType: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
   island: PropTypes.string.isRequired,
-  logic: PropTypes.instanceOf(LogicCalculation).isRequired,
-  onlyProgressLocations: PropTypes.bool.isRequired,
+  numAvailable: PropTypes.number.isRequired,
+  numRemaining: PropTypes.number.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
-  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
 };
 
 export default Sector;

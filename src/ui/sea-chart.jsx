@@ -65,7 +65,7 @@ class SeaChart extends React.PureComponent {
     );
   }
 
-  render() {
+  sector(island) {
     const {
       clearSelectedItem,
       clearSelectedLocation,
@@ -78,21 +78,45 @@ class SeaChart extends React.PureComponent {
       trackerState,
     } = this.props;
 
-    const islands = _.map(ISLANDS, (islandName) => (
+    const {
+      chartName,
+      chartType,
+    } = LogicHelper.chartForIsland(island);
+
+    const chartCount = trackerState.getItemValue(chartName);
+
+    const {
+      color,
+      numAvailable,
+      numRemaining,
+    } = logic.locationCounts(island, {
+      isDungeon: false,
+      onlyProgressLocations,
+      disableLogic,
+    });
+
+    return (
       <Sector
+        chartCount={chartCount}
+        chartName={chartName}
+        chartType={chartType}
+        color={color}
         disableLogic={disableLogic}
         clearSelectedItem={clearSelectedItem}
         clearSelectedLocation={clearSelectedLocation}
-        key={islandName}
+        key={island}
         incrementItem={incrementItem}
-        island={islandName}
-        logic={logic}
-        onlyProgressLocations={onlyProgressLocations}
+        island={island}
+        numAvailable={numAvailable}
+        numRemaining={numRemaining}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
-        trackerState={trackerState}
       />
-    ));
+    );
+  }
+
+  render() {
+    const islands = _.map(ISLANDS, (island) => this.sector(island));
 
     return (
       <div className="chart-map-container">
