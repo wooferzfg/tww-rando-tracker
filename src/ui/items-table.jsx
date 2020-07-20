@@ -50,6 +50,7 @@ class ItemsTable extends React.PureComponent {
       trackerState,
     } = this.props;
 
+    const itemCount = trackerState.getItemValue(itemName);
     const itemImages = _.get(Images.IMAGES, ['ITEMS', itemName]);
 
     return (
@@ -57,9 +58,9 @@ class ItemsTable extends React.PureComponent {
         clearSelectedItem={this.clearSelectedItem}
         images={itemImages}
         incrementItem={incrementItem}
+        itemCount={itemCount}
         itemName={itemName}
         setSelectedItem={this.setSelectedItem}
-        trackerState={trackerState}
       />
     );
   }

@@ -52,6 +52,7 @@ class Sector extends React.PureComponent {
       chartType,
     } = LogicHelper.chartForIsland(island);
 
+    const chartCount = trackerState.getItemValue(chartName);
     const chartImages = _.get(Images.IMAGES, ['CHARTS', chartType]);
 
     return (
@@ -60,9 +61,9 @@ class Sector extends React.PureComponent {
           clearSelectedItem={clearSelectedItem}
           images={chartImages}
           incrementItem={incrementItem}
+          itemCount={chartCount}
           itemName={chartName}
           setSelectedItem={setSelectedItem}
-          trackerState={trackerState}
         />
       </div>
     );
