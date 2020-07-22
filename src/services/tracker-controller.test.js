@@ -3,17 +3,32 @@ import TEST_MACROS from '../data/test-macros.json';
 import TEST_SAVE_DATA from '../data/test-save-data.json';
 
 import Locations from './locations';
+import LogicCalculation from './logic-calculation';
 import LogicHelper from './logic-helper';
 import LogicLoader from './logic-loader';
 import Macros from './macros';
 import Permalink from './permalink';
 import Settings from './settings';
 import TrackerController from './tracker-controller';
+import TrackerState from './tracker-state';
 
 describe('TrackerController', () => {
   afterEach(() => {
     TrackerController.reset();
   });
+
+  const validateReturnedData = (refreshedData) => {
+    const {
+      logic,
+      saveData,
+      trackerState,
+    } = refreshedData;
+
+    expect(saveData).toMatchSnapshot();
+    expect(trackerState).toBeInstanceOf(TrackerState);
+    expect(logic).toBeInstanceOf(LogicCalculation);
+    expect(logic.state).toBe(trackerState);
+  };
 
   describe('initializeFromPermalink', () => {
     beforeEach(() => {
@@ -30,7 +45,7 @@ describe('TrackerController', () => {
         Permalink.DEFAULT_PERMALINK,
       );
 
-      expect(initialData).toMatchSnapshot();
+      validateReturnedData(initialData);
     });
   });
 
@@ -44,7 +59,7 @@ describe('TrackerController', () => {
     test('returns the correct initial data', () => {
       const initialData = TrackerController.initializeFromSaveData(saveData);
 
-      expect(initialData).toMatchSnapshot();
+      validateReturnedData(initialData);
     });
   });
 
@@ -83,7 +98,7 @@ describe('TrackerController', () => {
     test('returns the correct refreshed data', () => {
       const refreshedData = TrackerController.refreshState(newTrackerState);
 
-      expect(refreshedData).toMatchSnapshot();
+      validateReturnedData(refreshedData);
     });
   });
 });
