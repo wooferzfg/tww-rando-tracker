@@ -15,11 +15,16 @@ export default class LogicCalculation {
     this.state = state;
 
     Memoizer.memoize(this, [
+      this.estimatedLocationsLeftToCheck,
       this.formattedRequirementsForEntrance,
       this.formattedRequirementsForLocation,
       this.isEntranceAvailable,
       this.isLocationAvailable,
+      this.itemsNeededToFinishGame,
       this.locationCounts,
+      this.totalLocationsAvailable,
+      this.totalLocationsChecked,
+      this.totalLocationsRemaining,
       this._itemsRemainingForLocation,
       this._itemsRemainingForRequirement,
     ]);
