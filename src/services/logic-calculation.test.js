@@ -580,6 +580,12 @@ describe('LogicCalculation', () => {
     beforeEach(() => {
       Settings.initializeRaw({
         options: {
+          [Permalink.OPTIONS.KEY_LUNACY]: false,
+          [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+          [Permalink.OPTIONS.RACE_MODE]: false,
+          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+          [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
         },
         startingGear: {
@@ -965,24 +971,24 @@ describe('LogicCalculation', () => {
       });
     });
 
-    describe('totalLocationsAccessible', () => {
+    describe('totalLocationsAvailable', () => {
       describe('when only showing progress locations', () => {
         test('returns the correct total', () => {
-          const totalLocationsAccessible = logic.totalLocationsAccessible({
+          const totalLocationsAvailable = logic.totalLocationsAvailable({
             onlyProgressLocations: true,
           });
 
-          expect(totalLocationsAccessible).toEqual(18);
+          expect(totalLocationsAvailable).toEqual(18);
         });
       });
 
       describe('when showing non-progress locations', () => {
         test('returns the correct total', () => {
-          const totalLocationsAccessible = logic.totalLocationsAccessible({
+          const totalLocationsAvailable = logic.totalLocationsAvailable({
             onlyProgressLocations: false,
           });
 
-          expect(totalLocationsAccessible).toEqual(59);
+          expect(totalLocationsAvailable).toEqual(59);
         });
       });
 
@@ -994,11 +1000,11 @@ describe('LogicCalculation', () => {
         });
 
         test('excludes the location from the total', () => {
-          const totalLocationsAccessible = logic.totalLocationsAccessible({
+          const totalLocationsAvailable = logic.totalLocationsAvailable({
             onlyProgressLocations: true,
           });
 
-          expect(totalLocationsAccessible).toEqual(17);
+          expect(totalLocationsAvailable).toEqual(17);
         });
       });
 
@@ -1027,11 +1033,11 @@ describe('LogicCalculation', () => {
         });
 
         test('excludes the Defeat Ganondorf location from the total', () => {
-          const totalLocationsAccessible = logic.totalLocationsAccessible({
+          const totalLocationsAvailable = logic.totalLocationsAvailable({
             onlyProgressLocations: true,
           });
 
-          expect(totalLocationsAccessible).toEqual(40);
+          expect(totalLocationsAvailable).toEqual(40);
         });
       });
     });

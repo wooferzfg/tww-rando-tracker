@@ -121,34 +121,43 @@ export default class LogicCalculation {
   }
 
   totalLocationsChecked({ onlyProgressLocations }) {
-    return _.sumBy(Locations.allGeneralLocations(), (generalLocation) => {
-      const detailedLocations = LogicHelper.filterDetailedLocations(
-        generalLocation,
-        { onlyProgressLocations },
-      );
+    return LogicCalculation._countLocationsBy(
+      (generalLocation, detailedLocation) => {
+        const isLocationChecked = this.state.isLocationChecked(generalLocation, detailedLocation);
 
-      return _.reduce(
-        detailedLocations,
-        (accumulator, detailedLocation) => {
-          if (detailedLocation === LogicTweaks.DEFEAT_GANONDORF_LOCATION) {
-            return accumulator;
-          }
-
-          const isLocationChecked = this.state.isLocationChecked(generalLocation, detailedLocation);
-
-          return accumulator + (isLocationChecked ? 1 : 0);
-        },
-        0,
-      );
-    });
+        return isLocationChecked ? 1 : 0;
+      },
+      { onlyProgressLocations },
+    );
   }
 
-  totalLocationsAccessible({ onlyProgressLocations }) {
+  totalLocationsAvailable({ onlyProgressLocations }) {
+    return LogicCalculation._countLocationsBy(
+      (generalLocation, detailedLocation) => {
+        if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
+          return 0;
+        }
 
+        const isLocationAvailable = this.isLocationAvailable(
+          generalLocation,
+          detailedLocation,
+        );
+
+        return isLocationAvailable ? 1 : 0;
+      },
+      { onlyProgressLocations },
+    );
   }
 
   totalLocationsRemaining({ onlyProgressLocations }) {
+    return LogicCalculation._countLocationsBy(
+      (generalLocation, detailedLocation) => {
+        const isLocationChecked = this.state.isLocationChecked(generalLocation, detailedLocation);
 
+        return isLocationChecked ? 0 : 1;
+      },
+      { onlyProgressLocations },
+    );
   }
 
   itemsNeededToFinishGame() {
@@ -508,6 +517,29 @@ export default class LogicCalculation {
       return this.LOCATION_COLORS.AVAILABLE_LOCATION;
     }
     return this.LOCATION_COLORS.NON_PROGRESS_LOCATION;
+  }
+
+  static _countLocationsBy(iteratee, { onlyProgressLocations }) {
+    return _.sumBy(Locations.allGeneralLocations(), (generalLocation) => {
+      const detailedLocations = LogicHelper.filterDetailedLocations(
+        generalLocation,
+        { onlyProgressLocations },
+      );
+
+      return _.reduce(
+        detailedLocations,
+        (accumulator, detailedLocation) => {
+          if (detailedLocation === LogicTweaks.DEFEAT_GANONDORF_LOCATION) {
+            return accumulator;
+          }
+
+          const locationValue = iteratee(generalLocation, detailedLocation);
+
+          return accumulator + locationValue;
+        },
+        0,
+      );
+    });
   }
 
   _currentItemValue(itemName) {
