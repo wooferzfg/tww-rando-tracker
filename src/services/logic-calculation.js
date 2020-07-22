@@ -541,19 +541,13 @@ export default class LogicCalculation {
         { onlyProgressLocations },
       );
 
-      return _.reduce(
-        detailedLocations,
-        (accumulator, detailedLocation) => {
-          if (detailedLocation === LogicTweaks.DEFEAT_GANONDORF_LOCATION) {
-            return accumulator;
-          }
+      return _.sumBy(detailedLocations, (detailedLocation) => {
+        if (detailedLocation === LogicTweaks.DEFEAT_GANONDORF_LOCATION) {
+          return 0;
+        }
 
-          const locationValue = iteratee(generalLocation, detailedLocation);
-
-          return accumulator + locationValue;
-        },
-        0,
-      );
+        return iteratee(generalLocation, detailedLocation);
+      });
     });
   }
 
