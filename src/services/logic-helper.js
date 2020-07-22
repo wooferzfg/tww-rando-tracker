@@ -203,7 +203,8 @@ export default class LogicHelper {
     const detailedLocations = Locations.detailedLocationsForGeneralLocation(generalLocation);
 
     return _.filter(detailedLocations, (detailedLocation) => {
-      if (!this._isValidLocation(generalLocation, detailedLocation, { isDungeon })) {
+      if (!_.isNil(isDungeon)
+        && !this._isValidLocation(generalLocation, detailedLocation, { isDungeon })) {
         return false;
       }
 

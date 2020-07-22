@@ -797,6 +797,24 @@ describe('LogicHelper', () => {
         expect(filteredLocations).toEqual(['Master Sword Chamber']);
       });
     });
+
+    describe('when isDungeon is not given', () => {
+      test('includes both island and dungeon locations', () => {
+        const filteredLocations = LogicHelper.filterDetailedLocations('Forsaken Fortress', {
+          onlyProgressLocations: false,
+        });
+
+        expect(filteredLocations).toEqual([
+          'Phantom Ganon',
+          'Chest Outside Upper Jail Cell',
+          'Chest Inside Lower Jail Cell',
+          'Chest Guarded By Bokoblin',
+          'Chest on Bed',
+          'Helmaroc King Heart Container',
+          'Sunken Treasure',
+        ]);
+      });
+    });
   });
 
   describe('isPotentialKeyLocation', () => {
