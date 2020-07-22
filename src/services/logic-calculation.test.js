@@ -1034,6 +1034,20 @@ describe('LogicCalculation', () => {
         });
       });
 
+      describe('when Defeat Ganondorf is checked', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+          );
+        });
+
+        test('returns 0', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toEqual(0);
+        });
+      });
+
       describe('when all required items are obtained', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
@@ -1132,6 +1146,42 @@ describe('LogicCalculation', () => {
               .incrementItem('Grappling Hook')
               .incrementItem('Hookshot'),
           );
+        });
+
+        test('returns 0', () => {
+          const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
+
+          expect(estimatedLocationsLeftToCheck).toEqual(0);
+        });
+      });
+
+      describe('when Defeat Ganondorf is checked', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+          );
+        });
+
+        test('returns 0', () => {
+          const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
+
+          expect(estimatedLocationsLeftToCheck).toEqual(0);
+        });
+      });
+
+      describe('when all locations are checked', () => {
+        beforeEach(() => {
+          let { state } = logic;
+
+          _.forEach(Locations.locations, (detailedLocations, generalLocation) => {
+            _.forEach(detailedLocations, (locationData, detailedLocation) => {
+              if (detailedLocation !== 'Defeat Ganondorf') {
+                state = state.toggleLocationChecked(generalLocation, detailedLocation);
+              }
+            });
+          });
+
+          logic = new LogicCalculation(state);
         });
 
         test('returns 0', () => {

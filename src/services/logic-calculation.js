@@ -155,7 +155,19 @@ export default class LogicCalculation {
   }
 
   estimatedLocationsLeftToCheck() {
+    const locationsRemaining = this.totalLocationsRemaining({ onlyProgressLocations: true });
 
+    // there can't be more items remaining than locations remaining unless the tracker is used
+    // incorrectly, so we apply a maximum to make sure our formula always works
+    const itemsRemaining = Math.min(
+      this.itemsNeededToFinishGame(),
+      locationsRemaining,
+    );
+
+    // expected value for draws without replacement
+    return _.round(
+      (itemsRemaining * (locationsRemaining + 1)) / (itemsRemaining + 1),
+    );
   }
 
   _areRequirementsMet(requirements) {
