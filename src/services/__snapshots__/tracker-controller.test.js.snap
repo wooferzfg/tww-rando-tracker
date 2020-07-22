@@ -3,6 +3,7 @@
 exports[`TrackerController initializeFromPermalink returns the correct initial data 1`] = `
 Object {
   "logic": LogicCalculation {
+    "_itemsRemainingForLocation": [Function],
     "_itemsRemainingForRequirement": [Function],
     "formattedRequirementsForEntrance": [Function],
     "formattedRequirementsForLocation": [Function],
@@ -20,7 +21,6 @@ Object {
     },
     "isEntranceAvailable": [Function],
     "isLocationAvailable": [Function],
-    "itemsRemainingForLocation": [Function],
     "locationCounts": [Function],
     "state": TrackerState {
       "entrances": Object {},
@@ -1144,6 +1144,7 @@ Object {
 exports[`TrackerController initializeFromSaveData returns the correct initial data 1`] = `
 Object {
   "logic": LogicCalculation {
+    "_itemsRemainingForLocation": [Function],
     "_itemsRemainingForRequirement": [Function],
     "formattedRequirementsForEntrance": [Function],
     "formattedRequirementsForLocation": [Function],
@@ -1161,7 +1162,6 @@ Object {
     },
     "isEntranceAvailable": [Function],
     "isLocationAvailable": [Function],
-    "itemsRemainingForLocation": [Function],
     "locationCounts": [Function],
     "state": TrackerState {
       "entrances": Object {},
@@ -2285,6 +2285,7 @@ Object {
 exports[`TrackerController refreshState returns the correct refreshed data 1`] = `
 Object {
   "logic": LogicCalculation {
+    "_itemsRemainingForLocation": [Function],
     "_itemsRemainingForRequirement": [Function],
     "formattedRequirementsForEntrance": [Function],
     "formattedRequirementsForLocation": [Function],
@@ -2302,7 +2303,6 @@ Object {
     },
     "isEntranceAvailable": [Function],
     "isLocationAvailable": [Function],
-    "itemsRemainingForLocation": [Function],
     "locationCounts": [Function],
     "state": TrackerState {
       "entrances": Object {},

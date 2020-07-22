@@ -19,8 +19,8 @@ export default class LogicCalculation {
       this.formattedRequirementsForLocation,
       this.isEntranceAvailable,
       this.isLocationAvailable,
-      this.itemsRemainingForLocation,
       this.locationCounts,
+      this._itemsRemainingForLocation,
       this._itemsRemainingForRequirement,
     ]);
 
@@ -73,19 +73,6 @@ export default class LogicCalculation {
     const requirementsForEntrance = LogicHelper.requirementsForEntrance(dungeonOrCaveName);
 
     return this._formatRequirements(requirementsForEntrance);
-  }
-
-  itemsRemainingForLocation(generalLocation, detailedLocation) {
-    if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
-      return 0;
-    }
-
-    const requirementsForLocation = LogicHelper.requirementsForLocation(
-      generalLocation,
-      detailedLocation,
-    );
-
-    return this._itemsRemainingForRequirements(requirementsForLocation);
   }
 
   locationCounts(generalLocation, { isDungeon, onlyProgressLocations, disableLogic }) {
@@ -161,7 +148,10 @@ export default class LogicCalculation {
   }
 
   itemsNeededToFinishGame() {
-
+    return this._itemsRemainingForLocation(
+      LogicHelper.DUNGEONS.GANONS_TOWER,
+      LogicTweaks.DEFEAT_GANONDORF_LOCATION,
+    );
   }
 
   estimatedLocationsLeftToCheck() {
@@ -189,6 +179,19 @@ export default class LogicCalculation {
         isReduced,
       }) => Math.max(accumulator, (isReduced ? item : this._itemsRemainingForRequirement(item))),
     });
+  }
+
+  _itemsRemainingForLocation(generalLocation, detailedLocation) {
+    if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
+      return 0;
+    }
+
+    const requirementsForLocation = LogicHelper.requirementsForLocation(
+      generalLocation,
+      detailedLocation,
+    );
+
+    return this._itemsRemainingForRequirements(requirementsForLocation);
   }
 
   _setGuaranteedKeys() {
@@ -351,7 +354,7 @@ export default class LogicCalculation {
         detailedLocation,
       } = Locations.splitLocationName(otherLocationMatch[1]);
 
-      return this.itemsRemainingForLocation(generalLocation, detailedLocation);
+      return this._itemsRemainingForLocation(generalLocation, detailedLocation);
     }
 
     return null;
