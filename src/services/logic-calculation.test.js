@@ -900,7 +900,9 @@ describe('LogicCalculation', () => {
     describe('totalLocationsChecked', () => {
       describe('when no locations are checked', () => {
         test('returns 0', () => {
-          const totalLocationsChecked = logic.totalLocationsChecked();
+          const totalLocationsChecked = logic.totalLocationsChecked(
+            { onlyProgressLocations: true },
+          );
 
           expect(totalLocationsChecked).toEqual(0);
         });
@@ -911,14 +913,36 @@ describe('LogicCalculation', () => {
           logic = new LogicCalculation(
             logic.state
               .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
-              .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
+              .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle')
+              .toggleLocationChecked('Windfall Island', 'Transparent Chest'),
+          );
+        });
+
+        test('returns the number of checked progress locations', () => {
+          const totalLocationsChecked = logic.totalLocationsChecked(
+            { onlyProgressLocations: true },
+          );
+
+          expect(totalLocationsChecked).toEqual(2);
+        });
+      });
+
+      describe('when showing non-progress locations', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state
+              .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
+              .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle')
+              .toggleLocationChecked('Windfall Island', 'Transparent Chest'),
           );
         });
 
         test('returns the number of checked locations', () => {
-          const totalLocationsChecked = logic.totalLocationsChecked();
+          const totalLocationsChecked = logic.totalLocationsChecked(
+            { onlyProgressLocations: false },
+          );
 
-          expect(totalLocationsChecked).toEqual(2);
+          expect(totalLocationsChecked).toEqual(3);
         });
       });
 
@@ -932,7 +956,9 @@ describe('LogicCalculation', () => {
         });
 
         test('excludes the Defeat Ganondorf location from the total', () => {
-          const totalLocationsChecked = logic.totalLocationsChecked();
+          const totalLocationsChecked = logic.totalLocationsChecked(
+            { onlyProgressLocations: true },
+          );
 
           expect(totalLocationsChecked).toEqual(1);
         });

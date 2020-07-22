@@ -5,6 +5,7 @@ import KEYS from '../data/keys.json';
 
 import Locations from './locations';
 import LogicHelper from './logic-helper';
+import LogicTweaks from './logic-tweaks';
 import Memoizer from './memoizer';
 import Permalink from './permalink';
 import Settings from './settings';
@@ -117,6 +118,45 @@ export default class LogicCalculation {
       numAvailable,
       numRemaining,
     };
+  }
+
+  totalLocationsChecked({ onlyProgressLocations }) {
+    return _.sumBy(Locations.allGeneralLocations(), (generalLocation) => {
+      const detailedLocations = LogicHelper.filterDetailedLocations(
+        generalLocation,
+        { onlyProgressLocations },
+      );
+
+      return _.reduce(
+        detailedLocations,
+        (accumulator, detailedLocation) => {
+          if (detailedLocation === LogicTweaks.DEFEAT_GANONDORF_LOCATION) {
+            return accumulator;
+          }
+
+          const isLocationChecked = this.state.isLocationChecked(generalLocation, detailedLocation);
+
+          return accumulator + (isLocationChecked ? 1 : 0);
+        },
+        0,
+      );
+    });
+  }
+
+  totalLocationsAccessible({ onlyProgressLocations }) {
+
+  }
+
+  totalLocationsRemaining({ onlyProgressLocations }) {
+
+  }
+
+  itemsNeededToFinishGame() {
+
+  }
+
+  estimatedLocationsLeftToCheck() {
+
   }
 
   _areRequirementsMet(requirements) {

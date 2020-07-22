@@ -13,6 +13,8 @@ import Permalink from './permalink';
 import Settings from './settings';
 
 export default class LogicTweaks {
+  static DEFEAT_GANONDORF_LOCATION = 'Defeat Ganondorf';
+
   static applyTweaks() {
     this._updateLocations();
     this._updateMacros();
@@ -36,7 +38,7 @@ export default class LogicTweaks {
   static _addDefeatGanondorf() {
     Locations.setLocation(
       LogicHelper.DUNGEONS.GANONS_TOWER,
-      'Defeat Ganondorf',
+      this.DEFEAT_GANONDORF_LOCATION,
       Locations.KEYS.NEED,
       'Can Reach and Defeat Ganondorf',
     );
