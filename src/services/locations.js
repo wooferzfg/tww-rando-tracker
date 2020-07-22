@@ -36,6 +36,10 @@ export default class Locations {
     return this.locations;
   }
 
+  static allGeneralLocations() {
+    return _.keys(this.locations);
+  }
+
   static mapLocations(locationIteratee) {
     const newLocations = {};
 

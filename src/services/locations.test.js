@@ -115,6 +115,35 @@ describe('Locations', () => {
     });
   });
 
+  describe('allGeneralLocations', () => {
+    beforeEach(() => {
+      Locations.locations = {
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': {
+            test: 'data',
+          },
+        },
+        'Dragon Roost Cavern': {
+          'First Room': {
+            test: 'data',
+          },
+          "Bird's Nest": {
+            test: 'data',
+          },
+        },
+      };
+    });
+
+    test('returns the keys of all the general locations', () => {
+      const allGeneralLocations = Locations.allGeneralLocations();
+
+      expect(allGeneralLocations).toEqual([
+        'Outset Island',
+        'Dragon Roost Cavern',
+      ]);
+    });
+  });
+
   describe('mapLocations', () => {
     beforeEach(() => {
       Locations.locations = {
