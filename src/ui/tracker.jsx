@@ -10,6 +10,7 @@ import Buttons from './buttons';
 import Images from './images';
 import ItemsTable from './items-table';
 import LocationsTable from './locations-table';
+import Statistics from './statistics';
 import Storage from './storage';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -168,6 +169,12 @@ class Tracker extends React.PureComponent {
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
               trackerState={trackerState}
+            />
+            <Statistics
+              disableLogic={disableLogic}
+              logic={logic}
+              onlyProgressLocations={onlyProgressLocations}
+              singleColorBackground={singleColorBackground}
             />
           </div>
           <Buttons

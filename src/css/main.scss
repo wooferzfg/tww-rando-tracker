@@ -619,36 +619,40 @@ button:hover:enabled {
   float: left;
   width: 440px;
   background-color: rgba(80, 80, 80, 0.85);
-  height: 86px;
+  height: 85px;
   margin: 0 0 8px 0;
-  padding: 5px;
+  padding: 6px 5px 5px 5px;
   white-space: normal;
   color: #bbbbbb;
   font-size: 0.9em;
-}
 
-.statistics.single-color {
-  background-color: rgba(80, 80, 80, 1);
-}
+  &.single-color {
+    background-color: rgba(80, 80, 80, 1);
+  }
 
-.statistics dd {
-  color: white;
-  font-weight: bold;
-  margin: 0;
-  float: left;
-  text-align: right;
-  min-width: 40px;
-  padding-right: 10px;
-}
+  table {
+    border-spacing: 0;
 
-.statistics dt {
-  display: inline-block;
-  min-width: 300px;
-}
+    td {
+      height: 16px;
+      margin: 0;
+      padding: 0;
 
-.statistics dt.hide,
-.statistics dd.hide {
-  display: none;
+      &:first-child {
+        color: white;
+        font-weight: bold;
+        float: left;
+        text-align: right;
+        min-width: 40px;
+        padding-right: 10px;
+      }
+    
+      &:last-child {
+        display: inline-block;
+        min-width: 300px;
+      }
+    }
+  }
 }
 
 .buttons {
