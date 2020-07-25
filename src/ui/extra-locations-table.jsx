@@ -62,6 +62,7 @@ class ExtraLocationsTable extends React.PureComponent {
           clearSelectedLocation={clearSelectedLocation}
           key={locationName}
           incrementItem={incrementItem}
+          isDungeon={isDungeon}
           isMainDungeon={isMainDungeon}
           locationIcon={locationIcon}
           locationName={locationName}
@@ -81,6 +82,7 @@ class ExtraLocationsTable extends React.PureComponent {
         disableLogic={disableLogic}
         clearSelectedLocation={clearSelectedLocation}
         key={locationName}
+        isDungeon={isDungeon}
         isMainDungeon={isMainDungeon}
         locationIcon={locationIcon}
         locationName={locationName}

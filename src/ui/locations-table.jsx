@@ -14,6 +14,7 @@ class LocationsTable extends React.PureComponent {
     this.state = {
       selectedItem: null,
       selectedLocation: null,
+      selectedLocationIsDungeon: null,
     };
 
     this.setSelectedItem = this.setSelectedItem.bind(this);
@@ -26,8 +27,11 @@ class LocationsTable extends React.PureComponent {
     this.setState({ selectedItem: itemName });
   }
 
-  setSelectedLocation(locationName) {
-    this.setState({ selectedLocation: locationName });
+  setSelectedLocation({ locationName, isDungeon }) {
+    this.setState({
+      selectedLocation: locationName,
+      selectedLocationIsDungeon: isDungeon,
+    });
   }
 
   clearSelectedItem() {
@@ -51,6 +55,7 @@ class LocationsTable extends React.PureComponent {
     const {
       selectedItem,
       selectedLocation,
+      selectedLocationIsDungeon,
     } = this.state;
 
     return (
@@ -64,6 +69,7 @@ class LocationsTable extends React.PureComponent {
           onlyProgressLocations={onlyProgressLocations}
           selectedItem={selectedItem}
           selectedLocation={selectedLocation}
+          selectedLocationIsDungeon={selectedLocationIsDungeon}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
           trackerState={trackerState}

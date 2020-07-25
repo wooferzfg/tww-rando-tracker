@@ -17,6 +17,7 @@ class SeaChart extends React.PureComponent {
       logic,
       onlyProgressLocations,
       selectedLocation,
+      selectedLocationIsDungeon,
     } = this.props;
 
     if (_.isNil(selectedLocation)) {
@@ -27,7 +28,7 @@ class SeaChart extends React.PureComponent {
       numAvailable,
       numRemaining,
     } = logic.locationCounts(selectedLocation, {
-      isDungeon: false,
+      isDungeon: selectedLocationIsDungeon,
       onlyProgressLocations,
       disableLogic,
     });
@@ -138,6 +139,7 @@ class SeaChart extends React.PureComponent {
 SeaChart.defaultProps = {
   selectedItem: null,
   selectedLocation: null,
+  selectedLocationIsDungeon: null,
 };
 
 SeaChart.propTypes = {
@@ -149,6 +151,7 @@ SeaChart.propTypes = {
   onlyProgressLocations: PropTypes.bool.isRequired,
   selectedItem: PropTypes.string,
   selectedLocation: PropTypes.string,
+  selectedLocationIsDungeon: PropTypes.bool,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,

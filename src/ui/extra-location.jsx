@@ -90,12 +90,16 @@ class ExtraLocation extends React.PureComponent {
   render() {
     const {
       clearSelectedLocation,
+      isDungeon,
       isMainDungeon,
       locationName,
       setSelectedLocation,
     } = this.props;
 
-    const setSelectedLocationFunc = () => setSelectedLocation(locationName);
+    const setSelectedLocationFunc = () => setSelectedLocation({
+      isDungeon,
+      locationName,
+    });
 
     return (
       <div
@@ -138,6 +142,7 @@ ExtraLocation.propTypes = {
   disableLogic: PropTypes.bool.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   incrementItem: PropTypes.func,
+  isDungeon: PropTypes.bool.isRequired,
   isMainDungeon: PropTypes.bool.isRequired,
   locationIcon: PropTypes.string.isRequired,
   locationName: PropTypes.string.isRequired,
