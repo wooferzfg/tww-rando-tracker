@@ -174,6 +174,12 @@ export default class LogicCalculation {
     );
   }
 
+  isBossDefeated(dungeonName) {
+    const bossLocation = LogicHelper.bossLocation(dungeonName);
+
+    return this.state.isLocationChecked(dungeonName, bossLocation);
+  }
+
   _areRequirementsMet(requirements) {
     return requirements.evaluate({
       isItemTrue: (requirement) => this._isRequirementMet(requirement),

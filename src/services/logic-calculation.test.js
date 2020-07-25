@@ -1193,6 +1193,46 @@ describe('LogicCalculation', () => {
     });
   });
 
+  describe('isBossDefeated', () => {
+    beforeEach(() => {
+      setLocations({
+        'Dragon Roost Cavern': {
+          'Gohma Heart Container': {
+            need: 'DRC Big Key',
+            originalItem: 'Heart Container',
+          },
+        },
+      });
+    });
+
+    describe('when the boss location is not checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(TrackerState.default());
+      });
+
+      test('returns false', () => {
+        const isBossDefeated = logic.isBossDefeated('Dragon Roost Cavern');
+
+        expect(isBossDefeated).toEqual(false);
+      });
+    });
+
+    describe('when the boss location is checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          TrackerState.default()
+            .toggleLocationChecked('Dragon Roost Cavern', 'Gohma Heart Container'),
+        );
+      });
+
+      test('returns true', () => {
+        const isBossDefeated = logic.isBossDefeated('Dragon Roost Cavern');
+
+        expect(isBossDefeated).toEqual(true);
+      });
+    });
+  });
+
   describe('_nonKeyRequirementsMetForLocation', () => {
     describe('when the location is checked', () => {
       beforeEach(() => {
