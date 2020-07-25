@@ -4,6 +4,7 @@ import React from 'react';
 import LogicCalculation from '../services/logic-calculation';
 import TrackerState from '../services/tracker-state';
 
+import ExtraLocationsTable from './extra-locations-table';
 import SeaChart from './sea-chart';
 
 class LocationsTable extends React.PureComponent {
@@ -43,6 +44,7 @@ class LocationsTable extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
+      singleColorBackground,
       trackerState,
     } = this.props;
 
@@ -52,19 +54,33 @@ class LocationsTable extends React.PureComponent {
     } = this.state;
 
     return (
-      <SeaChart
-        clearSelectedItem={this.clearSelectedItem}
-        clearSelectedLocation={this.clearSelectedLocation}
-        disableLogic={disableLogic}
-        incrementItem={incrementItem}
-        logic={logic}
-        onlyProgressLocations={onlyProgressLocations}
-        selectedItem={selectedItem}
-        selectedLocation={selectedLocation}
-        setSelectedItem={this.setSelectedItem}
-        setSelectedLocation={this.setSelectedLocation}
-        trackerState={trackerState}
-      />
+      <>
+        <SeaChart
+          clearSelectedItem={this.clearSelectedItem}
+          clearSelectedLocation={this.clearSelectedLocation}
+          disableLogic={disableLogic}
+          incrementItem={incrementItem}
+          logic={logic}
+          onlyProgressLocations={onlyProgressLocations}
+          selectedItem={selectedItem}
+          selectedLocation={selectedLocation}
+          setSelectedItem={this.setSelectedItem}
+          setSelectedLocation={this.setSelectedLocation}
+          trackerState={trackerState}
+        />
+        <ExtraLocationsTable
+          clearSelectedItem={this.clearSelectedItem}
+          clearSelectedLocation={this.clearSelectedLocation}
+          disableLogic={disableLogic}
+          incrementItem={incrementItem}
+          logic={logic}
+          onlyProgressLocations={onlyProgressLocations}
+          setSelectedItem={this.setSelectedItem}
+          setSelectedLocation={this.setSelectedLocation}
+          singleColorBackground={singleColorBackground}
+          trackerState={trackerState}
+        />
+      </>
     );
   }
 }
@@ -74,6 +90,7 @@ LocationsTable.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  singleColorBackground: PropTypes.bool.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
 };
 

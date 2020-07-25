@@ -168,6 +168,7 @@ class Tracker extends React.PureComponent {
               incrementItem={this.incrementItem}
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
+              singleColorBackground={singleColorBackground}
               trackerState={trackerState}
             />
             <Statistics

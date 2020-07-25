@@ -39,6 +39,10 @@ export default class Images {
 
   static get _IMAGE_IMPORTS() {
     return {
+      BIG_KEYS: {
+        0: import('../images/bosskey.png'),
+        1: import('../images/bosskey_a.png'),
+      },
       CHARTS: {
         [LogicHelper.CHART_TYPES.TREASURE]: {
           0: import('../images/chart.png'),
@@ -47,6 +51,36 @@ export default class Images {
         [LogicHelper.CHART_TYPES.TRIFORCE]: {
           0: import('../images/triforcechart.png'),
           1: import('../images/triforcechartopen.png'),
+        },
+      },
+      DUNGEONS: {
+        [LogicHelper.DUNGEONS.DRAGON_ROOST_CAVERN]: {
+          false: import('../images/boss0.png'),
+          true: import('../images/boss0_d.png'),
+        },
+        [LogicHelper.DUNGEONS.FORBIDDEN_WOODS]: {
+          false: import('../images/boss1.png'),
+          true: import('../images/boss1_d.png'),
+        },
+        [LogicHelper.DUNGEONS.TOWER_OF_THE_GODS]: {
+          false: import('../images/boss2.png'),
+          true: import('../images/boss2_d.png'),
+        },
+        [LogicHelper.DUNGEONS.FORSAKEN_FORTRESS]: {
+          false: import('../images/boss3.png'),
+          true: import('../images/boss3_d.png'),
+        },
+        [LogicHelper.DUNGEONS.EARTH_TEMPLE]: {
+          false: import('../images/boss4.png'),
+          true: import('../images/boss4_d.png'),
+        },
+        [LogicHelper.DUNGEONS.WIND_TEMPLE]: {
+          false: import('../images/boss5.png'),
+          true: import('../images/boss5_d.png'),
+        },
+        [LogicHelper.DUNGEONS.GANONS_TOWER]: {
+          false: import('../images/boss6.png'),
+          true: import('../images/boss6_d.png'),
         },
       },
       ITEMS: {
@@ -247,8 +281,20 @@ export default class Images {
         },
       },
       ITEMS_TABLE_BACKGROUND: import('../images/trackerbg.png'),
+      MISC_LOCATIONS: {
+        [LogicHelper.MISC_LOCATIONS.MAILBOX]: import('../images/mailbox.png'),
+        [LogicHelper.MISC_LOCATIONS.THE_GREAT_SEA]: import('../images/greatsea.png'),
+        [LogicHelper.MISC_LOCATIONS.HYRULE]: import('../images/hyrule.png'),
+      },
       PEARL_HOLDER: import('../images/pearl_holder.png'),
       SEA_CHART: import('../images/sea_chart.png'),
+      SMALL_KEYS: {
+        0: import('../images/smallkey.png'),
+        1: import('../images/smallkey_1.png'),
+        2: import('../images/smallkey_2.png'),
+        3: import('../images/smallkey_3.png'),
+        4: import('../images/smallkey_4.png'),
+      },
       SONG_NOTES: {
         DOWN: import('../images/song_down.png'),
         LEFT: import('../images/song_left.png'),

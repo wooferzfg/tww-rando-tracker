@@ -522,23 +522,23 @@ button:hover:enabled {
   
   .black-text-strikethrough {
     text-decoration: line-through;
-  }
-  
-  .unavailable-location {
-    color: #cc2929;
-  }
-  
-  .non-progress-location {
-    color: #808000;
-  }
-  
-  .available-location {
-    color: #2929cc;
-  }
-  
-  .gray-text {
-    color: #a69b8d;
-  }
+  } 
+}
+
+.unavailable-location {
+  color: #cc2929;
+}
+
+.non-progress-location {
+  color: #808000;
+}
+
+.available-location {
+  color: #2929cc;
+}
+
+.gray-text {
+  color: #a69b8d;
 }
 
 .detailspan {
@@ -576,43 +576,48 @@ button:hover:enabled {
   height: 242px;
   margin-right: 8px;
   margin-bottom: 8px;
-}
 
-.extra-locations.single-color {
-  background-color: rgba(160, 160, 160, 1);
-}
+  &.single-color {
+    background-color: rgba(160, 160, 160, 1);
+  }
 
-.extra-location {
-  width: 80px;
-  float: left;
-  background-position-y: 15px;
-  display: flex;
-  flex-direction: column;
-  margin: 5px;
-  cursor: pointer;
-}
+  .extra-location {
+    width: 80px;
+    float: left;
+    background-position-y: 15px;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    cursor: pointer;
+    outline-style: none;
+  }
 
-.dungeon-items {
-  display: flex;
-  justify-content: center;
-  height: 24px;
-}
+  .dungeon-items {
+    display: flex;
+    justify-content: center;
+    height: 24px;
+  }
+  
+  .dungeon-item {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    font-size: 0;
 
-.dungeon-item {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  display: flex;
-  font-size: 0;
-}
-
-.extra-location-chests {
-  font-size: 16px;
-  text-align: center;
-}
-
-.dungeon-icon {
-  display: flex;
+    .item-container {
+      outline-style: none;
+    }
+  }
+  
+  .extra-location-chests {
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  .dungeon-icon {
+    display: flex;
+  }
 }
 
 .statistics {
