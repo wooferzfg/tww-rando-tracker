@@ -60,6 +60,8 @@ export default class LogicHelper {
     this.impossibleItems = null;
   }
 
+  static DEFEAT_GANONDORF_LOCATION = 'Defeat Ganondorf';
+
   static DUNGEONS = Constants.createFromArray(DUNGEONS);
 
   static ISLANDS = Constants.createFromArray(ISLANDS);
@@ -245,6 +247,27 @@ export default class LogicHelper {
     }
 
     return true;
+  }
+
+  static bossLocation(dungeonName) {
+    if (dungeonName === this.DUNGEONS.GANONS_TOWER) {
+      return this.DEFEAT_GANONDORF_LOCATION;
+    }
+
+    const detailedLocations = Locations.detailedLocationsForGeneralLocation(dungeonName);
+
+    return _.find(
+      detailedLocations,
+      (detailedLocation) => {
+        const originalItem = Locations.getLocation(
+          dungeonName,
+          detailedLocation,
+          Locations.KEYS.ORIGINAL_ITEM,
+        );
+
+        return originalItem === 'Heart Container';
+      },
+    );
   }
 
   static smallKeyName(dungeonName) {

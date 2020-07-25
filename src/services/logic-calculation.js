@@ -5,7 +5,6 @@ import KEYS from '../data/keys.json';
 
 import Locations from './locations';
 import LogicHelper from './logic-helper';
-import LogicTweaks from './logic-tweaks';
 import Memoizer from './memoizer';
 import Permalink from './permalink';
 import Settings from './settings';
@@ -155,7 +154,7 @@ export default class LogicCalculation {
   itemsNeededToFinishGame() {
     return this._itemsRemainingForLocation(
       LogicHelper.DUNGEONS.GANONS_TOWER,
-      LogicTweaks.DEFEAT_GANONDORF_LOCATION,
+      LogicHelper.DEFEAT_GANONDORF_LOCATION,
     );
   }
 
@@ -547,7 +546,7 @@ export default class LogicCalculation {
       );
 
       return _.sumBy(detailedLocations, (detailedLocation) => {
-        if (detailedLocation === LogicTweaks.DEFEAT_GANONDORF_LOCATION) {
+        if (detailedLocation === LogicHelper.DEFEAT_GANONDORF_LOCATION) {
           return 0;
         }
 

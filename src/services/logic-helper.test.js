@@ -932,6 +932,48 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('bossLocation', () => {
+    beforeEach(() => {
+      Locations.locations = {
+        'Dragon Roost Cavern': {
+          'Gohma Heart Container': {
+            originalItem: 'Heart Container',
+            types: 'Dungeon',
+          },
+        },
+        'Tower of the Gods': {
+          'Gohdan Heart Container': {
+            originalItem: 'Heart Container',
+            types: 'Dungeon',
+          },
+        },
+        "Ganon's Tower": {
+          'Defeat Ganondorf': {
+            types: 'Dungeon',
+          },
+        },
+      };
+    });
+
+    test('returns the boss location for Dragon Roost Cavern', () => {
+      const bossLocation = LogicHelper.bossLocation('Dragon Roost Cavern');
+
+      expect(bossLocation).toEqual('Gohma Heart Container');
+    });
+
+    test('returns the boss location for Tower of the Gods', () => {
+      const bossLocation = LogicHelper.bossLocation('Tower of the Gods');
+
+      expect(bossLocation).toEqual('Gohdan Heart Container');
+    });
+
+    test("returns the boss location for Ganon's Tower", () => {
+      const bossLocation = LogicHelper.bossLocation("Ganon's Tower");
+
+      expect(bossLocation).toEqual('Defeat Ganondorf');
+    });
+  });
+
   describe('smallKeyName', () => {
     test('returns the name of the small key for the dungeon', () => {
       const smallKeyName = LogicHelper.smallKeyName('Dragon Roost Cavern');
