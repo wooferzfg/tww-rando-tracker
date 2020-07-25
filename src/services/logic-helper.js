@@ -66,6 +66,8 @@ export default class LogicHelper {
 
   static ISLANDS = Constants.createFromArray(ISLANDS);
 
+  static MISC_LOCATIONS = Constants.createFromArray(MISC_LOCATIONS);
+
   static ITEMS = Constants.createFromArray(_.keys(ITEMS));
 
   static TOKENS = {

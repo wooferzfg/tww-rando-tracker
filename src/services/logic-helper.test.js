@@ -156,6 +156,12 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('MISC_LOCATIONS', () => {
+    test('returns the correct miscellanous locations', () => {
+      expect(LogicHelper.MISC_LOCATIONS).toMatchSnapshot();
+    });
+  });
+
   describe('ITEMS', () => {
     test('returns the correct items', () => {
       expect(LogicHelper.ITEMS).toMatchSnapshot();
