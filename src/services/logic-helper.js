@@ -118,6 +118,10 @@ export default class LogicHelper {
       || dungeonName === this.DUNGEONS.GANONS_TOWER) {
       return false;
     }
+    return this.isDungeon(dungeonName);
+  }
+
+  static isDungeon(dungeonName) {
     return _.includes(DUNGEONS, dungeonName);
   }
 
@@ -635,7 +639,7 @@ export default class LogicHelper {
   }
 
   static _isValidLocation(generalLocation, detailedLocation, { isDungeon }) {
-    const isValidDungeon = _.includes(DUNGEONS, generalLocation);
+    const isValidDungeon = this.isDungeon(generalLocation);
     const isValidIsland = _.includes(ISLANDS, generalLocation);
     const isValidMiscLocation = _.includes(MISC_LOCATIONS, generalLocation);
 

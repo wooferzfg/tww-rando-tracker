@@ -276,6 +276,40 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('isDungeon', () => {
+    describe('when the dungeon is a main dungeon', () => {
+      test('returns true', () => {
+        const isDungeon = LogicHelper.isDungeon('Dragon Roost Cavern');
+
+        expect(isDungeon).toEqual(true);
+      });
+    });
+
+    describe('when the dungeon is Forsaken Fortress', () => {
+      test('returns true', () => {
+        const isDungeon = LogicHelper.isDungeon('Forsaken Fortress');
+
+        expect(isDungeon).toEqual(true);
+      });
+    });
+
+    describe("when the dungeon is Ganon's Tower", () => {
+      test('returns true', () => {
+        const isDungeon = LogicHelper.isDungeon("Ganon's Tower");
+
+        expect(isDungeon).toEqual(true);
+      });
+    });
+
+    describe('when the argument is not a dungeon', () => {
+      test('returns false', () => {
+        const isDungeon = LogicHelper.isDungeon('Pawprint Isle');
+
+        expect(isDungeon).toEqual(false);
+      });
+    });
+  });
+
   describe('shortDungeonName', () => {
     test('returns the short dungeon name based on the dungeon name', () => {
       const shortDungeonName = LogicHelper.shortDungeonName('Dragon Roost Cavern');
