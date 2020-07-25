@@ -17,6 +17,7 @@ export default class LogicCalculation {
       this.estimatedLocationsLeftToCheck,
       this.formattedRequirementsForEntrance,
       this.formattedRequirementsForLocation,
+      this.isBossDefeated,
       this.isEntranceAvailable,
       this.isLocationAvailable,
       this.itemsNeededToFinishGame,

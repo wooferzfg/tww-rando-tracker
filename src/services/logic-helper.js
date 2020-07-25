@@ -23,6 +23,7 @@ import Settings from './settings';
 export default class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
+      this.bossLocation,
       this.chartForIsland,
       this.filterDetailedLocations,
       this.isPotentialKeyLocation,
@@ -42,6 +43,7 @@ export default class LogicHelper {
 
   static reset() {
     Memoizer.invalidate([
+      this.bossLocation,
       this.chartForIsland,
       this.filterDetailedLocations,
       this.isPotentialKeyLocation,
