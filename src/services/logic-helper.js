@@ -23,19 +23,19 @@ import Settings from './settings';
 export default class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
-      this.bossLocation,
-      this.chartForIsland,
-      this.filterDetailedLocations,
-      this.isPotentialKeyLocation,
-      this.isProgressLocation,
-      this.maxItemCount,
-      this.parseItemCountRequirement,
-      this.prettyNameForItem,
-      this.prettyNameForItemRequirement,
-      this.requirementsForEntrance,
-      this.requirementsForLocation,
-      this.smallKeysRequiredForLocation,
-      this._isValidLocation,
+      'bossLocation',
+      'chartForIsland',
+      'filterDetailedLocations',
+      'isPotentialKeyLocation',
+      'isProgressLocation',
+      'maxItemCount',
+      'parseItemCountRequirement',
+      'prettyNameForItem',
+      'prettyNameForItemRequirement',
+      'requirementsForEntrance',
+      'requirementsForLocation',
+      'smallKeysRequiredForLocation',
+      '_isValidLocation',
     ]);
 
     this._setStartingAndImpossibleItems();

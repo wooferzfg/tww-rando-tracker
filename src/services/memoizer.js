@@ -2,12 +2,15 @@ import _ from 'lodash';
 import memoize from 'memoizee';
 
 export default class Memoizer {
-  static memoize(parentObject, functionsToMemoize) {
-    _.forEach(functionsToMemoize, (functionToMemoize) => {
-      const functionName = functionToMemoize.name;
-      const memoizedFunction = memoize(functionToMemoize.bind(parentObject));
+  static memoize(parentObject, functionNames) {
+    _.forEach(functionNames, (functionName) => {
+      const functionToMemoize = _.get(parentObject, functionName);
 
-      _.set(parentObject, functionName, memoizedFunction);
+      if (!functionToMemoize.clear) {
+        const memoizedFunction = memoize(functionToMemoize.bind(parentObject));
+
+        _.set(parentObject, functionName, memoizedFunction);
+      }
     });
   }
 

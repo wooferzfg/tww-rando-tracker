@@ -13,10 +13,6 @@ describe('Memoizer', () => {
         return this._privateStaticMethod(mockParam);
       }
 
-      static mockStaticMethod2(mockParam) {
-        return `Method 2! ${this._privateStaticMethod(mockParam)}`;
-      }
-
       mockInstanceMethod(mockParam) {
         if (!this.previousValue) {
           this.previousValue = mockParam;
@@ -33,12 +29,17 @@ describe('Memoizer', () => {
         return `Repeated! param:${mockParam} previousValue:${this.previousValue}`;
       }
     };
+
+    // this simulates functions in minified production code, which do not have a name attribute
+    MockClass.mockStaticMethod2 = (mockParam) => (
+      `Method 2! ${MockClass._privateStaticMethod(mockParam)}`
+    );
   });
 
   describe('when calling a static method', () => {
     describe('when the static method is memoized', () => {
       beforeEach(() => {
-        Memoizer.memoize(MockClass, [MockClass.mockStaticMethod]);
+        Memoizer.memoize(MockClass, ['mockStaticMethod']);
       });
 
       test('returns the same value when the method is called twice with the same parameter', () => {
@@ -60,7 +61,35 @@ describe('Memoizer', () => {
 
     describe('when a static method is memoized, called, and then invalidated', () => {
       beforeEach(() => {
-        Memoizer.memoize(MockClass, [MockClass.mockStaticMethod]);
+        Memoizer.memoize(MockClass, ['mockStaticMethod']);
+
+        MockClass.previousValue = 'yeet';
+        MockClass.mockStaticMethod(5);
+
+        Memoizer.invalidate([MockClass.mockStaticMethod]);
+
+        MockClass.previousValue = null;
+      });
+
+      test('clears memoized values', () => {
+        const firstResult = MockClass.mockStaticMethod(5);
+        const secondResult = MockClass.mockStaticMethod(5);
+
+        expect(firstResult).toEqual('First! param:5');
+        expect(secondResult).toEqual('First! param:5');
+      });
+    });
+
+    describe('when a static method is memoized, called, and then invalidated twice', () => {
+      beforeEach(() => {
+        Memoizer.memoize(MockClass, ['mockStaticMethod']);
+
+        MockClass.previousValue = 'yeet';
+        MockClass.mockStaticMethod(5);
+
+        Memoizer.invalidate([MockClass.mockStaticMethod]);
+
+        Memoizer.memoize(MockClass, ['mockStaticMethod']);
 
         MockClass.previousValue = 'yeet';
         MockClass.mockStaticMethod(5);
@@ -82,8 +111,8 @@ describe('Memoizer', () => {
     describe('when multiple static methods are memoized', () => {
       beforeEach(() => {
         Memoizer.memoize(MockClass, [
-          MockClass.mockStaticMethod,
-          MockClass.mockStaticMethod2,
+          'mockStaticMethod',
+          'mockStaticMethod2',
         ]);
       });
 
@@ -117,7 +146,7 @@ describe('Memoizer', () => {
 
     describe('when the instance method is memoized', () => {
       beforeEach(() => {
-        Memoizer.memoize(mockInstance, [mockInstance.mockInstanceMethod]);
+        Memoizer.memoize(mockInstance, ['mockInstanceMethod']);
       });
 
       test('returns the same value when the method is called twice with the same parameter', () => {
