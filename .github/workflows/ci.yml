@@ -34,7 +34,7 @@ jobs:
       - name: Run tests
         run: |
           set -e
-          npm test
+          npm run test:coverage
 
       - name: Run eslint
         run: |
