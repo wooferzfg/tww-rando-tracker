@@ -9,8 +9,7 @@
     "lint": "eslint \"src/**/*.jsx\" \"src/**/*.js\" \"*.js\"",
     "serve": "webpack-dev-server",
     "start": "webpack-dev-server --open",
-    "test": "jest --env=node --maxWorkers=5",
-    "test:coverage": "npm test -- --coverage"
+    "test": "jest --env=node --coverage --maxWorkers=5"
   },
   "repository": {
     "type": "git",
