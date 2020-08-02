@@ -22,6 +22,7 @@ export default class LogicCalculation {
       'isLocationAvailable',
       'itemsNeededToFinishGame',
       'locationCounts',
+      'locationsList',
       'totalLocationsAvailable',
       'totalLocationsChecked',
       'totalLocationsRemaining',
