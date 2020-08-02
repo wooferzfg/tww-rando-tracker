@@ -112,6 +112,30 @@ export default class LogicCalculation {
     };
   }
 
+  locationsList(generalLocation, { isDungeon, onlyProgressLocations, disableLogic }) {
+    const detailedLocations = LogicHelper.filterDetailedLocations(
+      generalLocation,
+      { isDungeon, onlyProgressLocations },
+    );
+
+    return _.map(detailedLocations, (detailedLocation) => {
+      const isAvailable = this.isLocationAvailable(generalLocation, detailedLocation);
+      const isChecked = this.state.isLocationChecked(generalLocation, detailedLocation);
+      const isProgress = LogicHelper.isProgressLocation(generalLocation, detailedLocation);
+
+      const color = LogicCalculation._locationColor(
+        disableLogic || isAvailable,
+        isChecked,
+        isProgress,
+      );
+
+      return {
+        location: detailedLocation,
+        color,
+      };
+    });
+  }
+
   totalLocationsChecked({ onlyProgressLocations }) {
     return LogicCalculation._countLocationsBy(
       (generalLocation, detailedLocation) => {
@@ -540,6 +564,19 @@ export default class LogicCalculation {
       return this.LOCATION_COLORS.UNAVAILABLE_LOCATION;
     }
     if (anyProgress) {
+      return this.LOCATION_COLORS.AVAILABLE_LOCATION;
+    }
+    return this.LOCATION_COLORS.NON_PROGRESS_LOCATION;
+  }
+
+  static _locationColor(isAvailable, isChecked, isProgress) {
+    if (isChecked) {
+      return this.LOCATION_COLORS.CHECKED_LOCATION;
+    }
+    if (!isAvailable) {
+      return this.LOCATION_COLORS.UNAVAILABLE_LOCATION;
+    }
+    if (isProgress) {
       return this.LOCATION_COLORS.AVAILABLE_LOCATION;
     }
     return this.LOCATION_COLORS.NON_PROGRESS_LOCATION;
