@@ -292,7 +292,12 @@ describe('BooleanExpression', () => {
         expression = BooleanExpression.and(
           BooleanExpression.and('True', 'True'),
           'True',
-          BooleanExpression.or('False', 'False', 'False', 'False'),
+          BooleanExpression.or(
+            'False',
+            'False',
+            BooleanExpression.and('True', 'False'),
+            'False',
+          ),
           'True',
         );
       });

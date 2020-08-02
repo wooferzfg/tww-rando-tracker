@@ -216,6 +216,8 @@ export default class BooleanExpression {
             itemIsSubsumed = true;
             return false; // break loop
           }
+        } else {
+          throw Error(`Invalid type: ${expressionType}`);
         }
       }
       return true; // continue
@@ -355,10 +357,6 @@ export default class BooleanExpression {
     implies,
     removeIfIdentical,
   }) {
-    if (this.type !== otherExpression.type) {
-      return false;
-    }
-
     if (this._isEqualTo({
       otherExpression,
       areItemsEqual: ({ item, otherItem }) => implies(item, otherItem) && implies(otherItem, item),
