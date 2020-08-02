@@ -34,15 +34,20 @@ describe('LogicLoader', () => {
         Bombs | Power Bracelets
     `;
 
-    jest.spyOn(LogicLoader, '_loadFileFromUrl').mockImplementation((url) => {
+    global.fetch = (url) => {
+      let mockFileForUrl;
       if (url === 'https://raw.githubusercontent.com/LagoLunatic/wwrando/1.8.0/logic/item_locations.txt') {
-        return Promise.resolve(itemLocationsFile);
+        mockFileForUrl = itemLocationsFile;
+      } else if (url === 'https://raw.githubusercontent.com/LagoLunatic/wwrando/1.8.0/logic/macros.txt') {
+        mockFileForUrl = macrosFile;
+      } else {
+        throw Error(`File not found for URL: ${url}`);
       }
-      if (url === 'https://raw.githubusercontent.com/LagoLunatic/wwrando/1.8.0/logic/macros.txt') {
-        return Promise.resolve(macrosFile);
-      }
-      throw Error(`File not found for URL: ${url}`);
-    });
+
+      return Promise.resolve({
+        text: () => Promise.resolve(mockFileForUrl),
+      });
+    };
   });
 
   afterEach(() => {
