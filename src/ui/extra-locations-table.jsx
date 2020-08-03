@@ -18,6 +18,7 @@ class ExtraLocationsTable extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
+      setOpenedLocation,
       setSelectedItem,
       setSelectedLocation,
       trackerState,
@@ -68,6 +69,7 @@ class ExtraLocationsTable extends React.PureComponent {
           locationName={locationName}
           numAvailable={numAvailable}
           numRemaining={numRemaining}
+          setOpenedLocation={setOpenedLocation}
           setSelectedItem={setSelectedItem}
           setSelectedLocation={setSelectedLocation}
           smallKeyCount={smallKeyCount}
@@ -88,6 +90,7 @@ class ExtraLocationsTable extends React.PureComponent {
         locationName={locationName}
         numAvailable={numAvailable}
         numRemaining={numRemaining}
+        setOpenedLocation={setOpenedLocation}
         setSelectedLocation={setSelectedLocation}
       />
     );
@@ -120,6 +123,7 @@ ExtraLocationsTable.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  setOpenedLocation: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,

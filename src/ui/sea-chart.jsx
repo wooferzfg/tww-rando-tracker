@@ -11,61 +11,6 @@ import Images from './images';
 import Sector from './sector';
 
 class SeaChart extends React.PureComponent {
-  mapInfo() {
-    const {
-      disableLogic,
-      logic,
-      onlyProgressLocations,
-      selectedLocation,
-      selectedLocationIsDungeon,
-    } = this.props;
-
-    if (_.isNil(selectedLocation)) {
-      return null;
-    }
-
-    const {
-      numAvailable,
-      numRemaining,
-    } = logic.locationCounts(selectedLocation, {
-      isDungeon: selectedLocationIsDungeon,
-      onlyProgressLocations,
-      disableLogic,
-    });
-
-    return (
-      <div className="map-info-container">
-        <div className="map-info">{selectedLocation}</div>
-        <div className="chest-counts">
-          <span className="chests-available">{numAvailable}</span>
-          <span> Accessible, </span>
-          <span className="chests-total">{numRemaining}</span>
-          <span> Remaining</span>
-        </div>
-      </div>
-    );
-  }
-
-  mapItemInfo() {
-    const {
-      selectedItem,
-      trackerState,
-    } = this.props;
-
-    if (_.isNil(selectedItem)) {
-      return null;
-    }
-
-    const itemCount = trackerState.getItemValue(selectedItem);
-    const itemInfoText = LogicHelper.prettyNameForItem(selectedItem, itemCount);
-
-    return (
-      <div className="map-item-info-container">
-        <span className="map-item-info">{itemInfoText}</span>
-      </div>
-    );
-  }
-
   sector(island) {
     const {
       clearSelectedItem,
@@ -74,6 +19,7 @@ class SeaChart extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
+      setOpenedLocation,
       setSelectedItem,
       setSelectedLocation,
       trackerState,
@@ -110,6 +56,7 @@ class SeaChart extends React.PureComponent {
         island={island}
         numAvailable={numAvailable}
         numRemaining={numRemaining}
+        setOpenedLocation={setOpenedLocation}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
       />
@@ -120,27 +67,17 @@ class SeaChart extends React.PureComponent {
     const islands = _.map(ISLANDS, (island) => this.sector(island));
 
     return (
-      <div className="chart-map-container">
-        <div className="chart-map">
-          <div className="chart-map-background">
-            <img src={Images.IMAGES.SEA_CHART} alt="" />
-          </div>
-          <div className="maps">
-            {islands}
-          </div>
+      <div className="chart-map">
+        <div className="chart-map-background">
+          <img src={Images.IMAGES.SEA_CHART} alt="" />
         </div>
-        {this.mapInfo()}
-        {this.mapItemInfo()}
+        <div className="maps">
+          {islands}
+        </div>
       </div>
     );
   }
 }
-
-SeaChart.defaultProps = {
-  selectedItem: null,
-  selectedLocation: null,
-  selectedLocationIsDungeon: null,
-};
 
 SeaChart.propTypes = {
   clearSelectedItem: PropTypes.func.isRequired,
@@ -149,9 +86,7 @@ SeaChart.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
-  selectedItem: PropTypes.string,
-  selectedLocation: PropTypes.string,
-  selectedLocationIsDungeon: PropTypes.bool,
+  setOpenedLocation: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,

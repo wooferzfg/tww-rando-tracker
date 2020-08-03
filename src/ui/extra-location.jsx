@@ -93,8 +93,14 @@ class ExtraLocation extends React.PureComponent {
       isDungeon,
       isMainDungeon,
       locationName,
+      setOpenedLocation,
       setSelectedLocation,
     } = this.props;
+
+    const setOpenedLocationFunc = () => setOpenedLocation({
+      isDungeon,
+      locationName,
+    });
 
     const setSelectedLocationFunc = () => setSelectedLocation({
       isDungeon,
@@ -105,7 +111,9 @@ class ExtraLocation extends React.PureComponent {
       <div
         className="extra-location"
         onBlur={clearSelectedLocation}
+        onClick={setOpenedLocationFunc}
         onFocus={setSelectedLocationFunc}
+        onKeyDown={setOpenedLocationFunc}
         onMouseOver={setSelectedLocationFunc}
         onMouseOut={clearSelectedLocation}
         role="button"
@@ -148,6 +156,7 @@ ExtraLocation.propTypes = {
   locationName: PropTypes.string.isRequired,
   numAvailable: PropTypes.number.isRequired,
   numRemaining: PropTypes.number.isRequired,
+  setOpenedLocation: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func,
   setSelectedLocation: PropTypes.func.isRequired,
   smallKeyCount: PropTypes.number,

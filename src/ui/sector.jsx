@@ -54,8 +54,14 @@ class Sector extends React.PureComponent {
     const {
       clearSelectedLocation,
       island,
+      setOpenedLocation,
       setSelectedLocation,
     } = this.props;
+
+    const setOpenedLocationFunc = () => setOpenedLocation({
+      isDungeon: false,
+      locationName: island,
+    });
 
     const setSelectedLocationFunc = () => setSelectedLocation({
       isDungeon: false,
@@ -66,7 +72,9 @@ class Sector extends React.PureComponent {
       <div
         className="sea-sector"
         onBlur={clearSelectedLocation}
+        onClick={setOpenedLocationFunc}
         onFocus={setSelectedLocationFunc}
+        onKeyDown={setOpenedLocationFunc}
         onMouseOver={setSelectedLocationFunc}
         onMouseOut={clearSelectedLocation}
         role="button"
@@ -91,6 +99,7 @@ Sector.propTypes = {
   island: PropTypes.string.isRequired,
   numAvailable: PropTypes.number.isRequired,
   numRemaining: PropTypes.number.isRequired,
+  setOpenedLocation: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
 };

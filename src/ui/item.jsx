@@ -26,7 +26,12 @@ class Item extends React.PureComponent {
       itemClassName = 'static-item';
     }
 
-    const incrementItemFunc = () => incrementItem(itemName);
+    const incrementItemFunc = (event) => {
+      event.stopPropagation();
+
+      incrementItem(itemName);
+    };
+
     const setSelectedItemFunc = () => setSelectedItem(itemName);
 
     return (
