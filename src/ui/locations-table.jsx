@@ -78,7 +78,6 @@ class LocationsTable extends React.PureComponent {
     } = this.state;
 
     let chartElement;
-
     if (!_.isNil(openedLocation)) {
       chartElement = (
         <DetailedLocationsTable

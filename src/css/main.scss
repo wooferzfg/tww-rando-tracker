@@ -483,37 +483,51 @@ button:hover:enabled {
   }
 
   .zoom-map {
-    display: none;
-  }
+    table {
+      padding-top: 5px;
+      width: 100%;
+      table-layout: fixed;
 
-  .zoom-map table {
-    padding-top: 5px;
-    width: 100%;
-    table-layout: fixed;
-  }
+      td {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+  
+    .zoom-map-background,
+    .zoom-map-cover {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+  
+    .zoom-map-background {
+      z-index: -2;
 
-  .zoom-map td {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 50%;
+      }
+    }
+  
+    .zoom-map-cover {
+      z-index: -1;
+      background-color: rgba(216, 186, 106, 0.7);
+    }
 
-  .zoom-map-background,
-  .zoom-map-cover {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
+    .detail-span {
+      line-height: 0.9em;
+      padding-bottom: 5px;
+      cursor: pointer;
+      outline-style: none;
 
-  .zoom-map-background {
-    z-index: -2;
-    background-size: cover;
-    background-position-y: 50%;
-  }
-
-  .zoom-map-cover {
-    z-index: -1;
-    background-color: rgba(216, 186, 106, 0.7);
+      &.detail-not-interactive {
+        cursor: auto;
+      }
+    }
   }
 
   .checked-location {
@@ -522,7 +536,7 @@ button:hover:enabled {
   
   .black-text-strikethrough {
     text-decoration: line-through;
-  } 
+  }
 }
 
 .unavailable-location {
@@ -539,16 +553,6 @@ button:hover:enabled {
 
 .gray-text {
   color: #a69b8d;
-}
-
-.detailspan {
-  line-height: 0.9em;
-  padding-bottom: 5px;
-  cursor: pointer;
-}
-
-.detailspan.detail-not-interactive {
-  cursor: auto;
 }
 
 .detail-small {

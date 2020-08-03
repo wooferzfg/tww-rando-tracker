@@ -5,12 +5,47 @@ import React from 'react';
 import LogicCalculation from '../services/logic-calculation';
 import TrackerState from '../services/tracker-state';
 
+import Images from './images';
+
 class DetailedLocationsTable extends React.PureComponent {
   render() {
-    const { openedLocation, openedLocationIsDungeon } = this.props;
+    const {
+      clearOpenedLocation,
+      openedLocation,
+      openedLocationIsDungeon,
+    } = this.props;
+
+    let backgroundImage;
+    if (openedLocationIsDungeon) {
+      backgroundImage = _.get(Images.IMAGES, ['DUNGEON_CHART_BACKGROUNDS', openedLocation]);
+    } else {
+      backgroundImage = _.get(Images.IMAGES, ['ISLAND_CHART_BACKGROUNDS', openedLocation]);
+    }
 
     return (
-      <div>{openedLocation} - {_.toString(openedLocationIsDungeon)}</div>
+      <div className="zoom-map">
+        <div className="zoom-map-cover" />
+        <div className="zoom-map-background">
+          <img src={backgroundImage} alt="" />
+        </div>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div
+                  className="detail-span"
+                  onClick={clearOpenedLocation}
+                  onKeyDown={clearOpenedLocation}
+                  role="button"
+                  tabIndex="0"
+                >
+                  X Close
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
