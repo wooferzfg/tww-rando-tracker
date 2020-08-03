@@ -30,6 +30,7 @@ class Tracker extends React.PureComponent {
 
     this.incrementItem = this.incrementItem.bind(this);
     this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
+    this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(this);
   }
@@ -92,6 +93,14 @@ class Tracker extends React.PureComponent {
     const { trackerState } = this.state;
 
     const newTrackerState = trackerState.incrementItem(itemName);
+
+    this.updateTrackerState(newTrackerState);
+  }
+
+  toggleLocationChecked(generalLocation, detailedLocation) {
+    const { trackerState } = this.state;
+
+    const newTrackerState = trackerState.toggleLocationChecked(generalLocation, detailedLocation);
 
     this.updateTrackerState(newTrackerState);
   }
@@ -169,6 +178,7 @@ class Tracker extends React.PureComponent {
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
               singleColorBackground={singleColorBackground}
+              toggleLocationChecked={this.toggleLocationChecked}
               trackerState={trackerState}
             />
             <Statistics

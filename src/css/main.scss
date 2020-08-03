@@ -527,15 +527,19 @@ button:hover:enabled {
       &.detail-not-interactive {
         cursor: auto;
       }
-    }
-  }
 
-  .checked-location {
-    color: #000000;
-  }
-  
-  .black-text-strikethrough {
-    text-decoration: line-through;
+      &.checked-location {
+        text-decoration: line-through;
+      }
+
+      &.font-small {
+        font-size: 13px;
+      }
+      
+      &.font-smallest {
+        font-size: 10px;
+      }
+    }
   }
 }
 
@@ -553,14 +557,6 @@ button:hover:enabled {
 
 .gray-text {
   color: #a69b8d;
-}
-
-.detail-small {
-  font-size: 13px;
-}
-
-.detail-smallest {
-  font-size: 10px;
 }
 
 .tool-tip-text ul {

@@ -3,14 +3,57 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import LogicCalculation from '../services/logic-calculation';
-import TrackerState from '../services/tracker-state';
 
 import Images from './images';
 
 class DetailedLocationsTable extends React.PureComponent {
+  static NUM_ROWS = 13;
+
+  detailedLocation(locationInfo, numColumns) {
+    if (_.isNil(locationInfo)) {
+      return null;
+    }
+
+    const {
+      location,
+      color,
+    } = locationInfo;
+
+    const {
+      openedLocation,
+      toggleLocationChecked,
+    } = this.props;
+
+    let fontSizeClassName = '';
+    if (numColumns === 3) {
+      fontSizeClassName = 'font-smallest';
+    } else if (numColumns === 2) {
+      fontSizeClassName = 'font-small';
+    }
+
+    const toggleLocationFunc = () => toggleLocationChecked(openedLocation, location);
+
+    return (
+      <td key={location}>
+        <div
+          className={`detail-span ${color} ${fontSizeClassName}`}
+          onClick={toggleLocationFunc}
+          onKeyDown={toggleLocationFunc}
+          role="button"
+          tabIndex="0"
+        >
+          {location}
+        </div>
+      </td>
+    );
+  }
+
   render() {
     const {
       clearOpenedLocation,
+      disableLogic,
+      logic,
+      onlyProgressLocations,
       openedLocation,
       openedLocationIsDungeon,
     } = this.props;
@@ -19,6 +62,25 @@ class DetailedLocationsTable extends React.PureComponent {
       openedLocationIsDungeon ? 'DUNGEON_CHART_BACKGROUNDS' : 'ISLAND_CHART_BACKGROUNDS',
       openedLocation,
     ]);
+
+    const detailedLocations = logic.locationsList(
+      openedLocation,
+      {
+        disableLogic,
+        isDungeon: openedLocationIsDungeon,
+        onlyProgressLocations,
+      },
+    );
+
+    const locationChunks = _.chunk(detailedLocations, DetailedLocationsTable.NUM_ROWS);
+    const arrangedLocations = _.zip(...locationChunks);
+    const numColumns = _.size(locationChunks);
+
+    const locationRows = _.map(arrangedLocations, (locationsRow, index) => (
+      <tr key={index}>
+        {_.map(locationsRow, (locationInfo) => this.detailedLocation(locationInfo, numColumns))}
+      </tr>
+    ));
 
     return (
       <div className="zoom-map">
@@ -41,6 +103,7 @@ class DetailedLocationsTable extends React.PureComponent {
                 </div>
               </td>
             </tr>
+            {locationRows}
           </tbody>
         </table>
       </div>
@@ -55,7 +118,7 @@ DetailedLocationsTable.propTypes = {
   onlyProgressLocations: PropTypes.bool.isRequired,
   openedLocation: PropTypes.string.isRequired,
   openedLocationIsDungeon: PropTypes.bool.isRequired,
-  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  toggleLocationChecked: PropTypes.func.isRequired,
 };
 
 export default DetailedLocationsTable;

@@ -66,6 +66,7 @@ class LocationsTable extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
+      toggleLocationChecked,
       trackerState,
     } = this.props;
 
@@ -87,7 +88,7 @@ class LocationsTable extends React.PureComponent {
           onlyProgressLocations={onlyProgressLocations}
           openedLocation={openedLocation}
           openedLocationIsDungeon={openedLocationIsDungeon}
-          trackerState={trackerState}
+          toggleLocationChecked={toggleLocationChecked}
         />
       );
     } else {
@@ -160,6 +161,7 @@ LocationsTable.propTypes = {
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
+  toggleLocationChecked: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
 };
 
