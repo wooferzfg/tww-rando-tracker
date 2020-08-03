@@ -15,12 +15,10 @@ class DetailedLocationsTable extends React.PureComponent {
       openedLocationIsDungeon,
     } = this.props;
 
-    let backgroundImage;
-    if (openedLocationIsDungeon) {
-      backgroundImage = _.get(Images.IMAGES, ['DUNGEON_CHART_BACKGROUNDS', openedLocation]);
-    } else {
-      backgroundImage = _.get(Images.IMAGES, ['ISLAND_CHART_BACKGROUNDS', openedLocation]);
-    }
+    const backgroundImage = _.get(Images.IMAGES, [
+      openedLocationIsDungeon ? 'DUNGEON_CHART_BACKGROUNDS' : 'ISLAND_CHART_BACKGROUNDS',
+      openedLocation,
+    ]);
 
     return (
       <div className="zoom-map">
