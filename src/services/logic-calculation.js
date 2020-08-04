@@ -394,13 +394,19 @@ export default class LogicCalculation {
     return null;
   }
 
-  _hasAccessedOtherLocationRequirementRemaining(requirement) {
+  static _parseHasAccessedOtherLocation(requirement) {
     const otherLocationMatch = requirement.match(/Has Accessed Other Location "([^"]+)"/);
-    if (otherLocationMatch) {
+
+    return _.get(otherLocationMatch, 1);
+  }
+
+  _hasAccessedOtherLocationRequirementRemaining(requirement) {
+    const otherLocation = LogicCalculation._parseHasAccessedOtherLocation(requirement);
+    if (otherLocation) {
       const {
         generalLocation,
         detailedLocation,
-      } = Locations.splitLocationName(otherLocationMatch[1]);
+      } = Locations.splitLocationName(otherLocation);
 
       return this._itemsRemainingForLocation(generalLocation, detailedLocation);
     }
@@ -500,7 +506,8 @@ export default class LogicCalculation {
 
   static _createReadableRequirementsHelper(requirements, isInconsequential) {
     if (requirements.item) {
-      const itemName = LogicHelper.prettyNameForItemRequirement(requirements.item);
+      const prettyItemName = LogicHelper.prettyNameForItemRequirement(requirements.item);
+      const otherLocation = this._parseHasAccessedOtherLocation(requirements.item);
 
       let itemColor;
       if (requirements.value) {
@@ -513,7 +520,7 @@ export default class LogicCalculation {
 
       return [{
         color: itemColor,
-        text: itemName,
+        text: otherLocation || prettyItemName,
       }];
     }
 

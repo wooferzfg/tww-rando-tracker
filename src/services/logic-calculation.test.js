@@ -412,6 +412,31 @@ describe('LogicCalculation', () => {
       });
     });
 
+    describe('when the location requirements include a has accessed other location requirement', () => {
+      beforeEach(() => {
+        setLocations({
+          'Forsaken Fortress': {
+            'Helmaroc King Heart Container': {
+              need: 'Grappling Hook & Deku Leaf',
+            },
+          },
+          Mailbox: {
+            'Letter from Aryll': {
+              need: 'Has Accessed Other Location "Forsaken Fortress - Helmaroc King Heart Container"',
+            },
+          },
+        });
+      });
+
+      test('uses only the name of the location', () => {
+        const formattedRequirements = logic.formattedRequirementsForLocation('Mailbox', 'Letter from Aryll');
+
+        expect(formattedRequirements).toEqual([
+          [{ text: 'Forsaken Fortress - Helmaroc King Heart Container', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }],
+        ]);
+      });
+    });
+
     describe('when the location requirements are partially met', () => {
       beforeEach(() => {
         setLocations({
