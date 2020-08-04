@@ -913,6 +913,40 @@ describe('BooleanExpression', () => {
         ),
         expected: BooleanExpression.and('Apple'),
       });
+
+      testSimplification('test 49', {
+        initial: BooleanExpression.and(
+          'Apple',
+          BooleanExpression.or(
+            BooleanExpression.and(
+              'Apple',
+              BooleanExpression.or(
+                BooleanExpression.and('Durian'),
+                'Always',
+              ),
+            ),
+            'Banana',
+          ),
+        ),
+        expected: BooleanExpression.and('Apple'),
+      });
+
+      testSimplification('test 50', {
+        initial: BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and(
+            BooleanExpression.or(
+              'Apple',
+              BooleanExpression.and(
+                BooleanExpression.or('Durian'),
+                'Never',
+              ),
+            ),
+            'Banana',
+          ),
+        ),
+        expected: BooleanExpression.and('Apple'),
+      });
     });
   });
 });
