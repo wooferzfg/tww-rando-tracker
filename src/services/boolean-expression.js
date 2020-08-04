@@ -198,21 +198,20 @@ export default class BooleanExpression {
   static _itemIsSubsumed({
     itemsCollection,
     item,
-    index,
     expressionType,
     implies,
   }) {
     let itemIsSubsumed = false;
 
-    _.forEach(itemsCollection, (otherItem, otherIndex) => {
-      if (otherIndex !== index && !(otherItem instanceof BooleanExpression)) {
+    _.forEach(itemsCollection, (otherItem) => {
+      if (!(otherItem instanceof BooleanExpression)) {
         if (expressionType === BooleanExpression._TYPES.AND) {
-          if (implies(otherItem, item) && (!implies(item, otherItem) || otherIndex < index)) {
+          if (implies(otherItem, item)) {
             itemIsSubsumed = true;
             return false; // break loop
           }
         } else if (expressionType === BooleanExpression._TYPES.OR) {
-          if (implies(item, otherItem) && (!implies(otherItem, item) || otherIndex < index)) {
+          if (implies(item, otherItem)) {
             itemIsSubsumed = true;
             return false; // break loop
           }
@@ -276,7 +275,6 @@ export default class BooleanExpression {
         if (BooleanExpression._itemIsSubsumed({
           itemsCollection: oppositeTypeItems,
           item,
-          index: oppositeTypeItems.length,
           expressionType: this._oppositeType(),
           implies,
         })) {
@@ -287,7 +285,6 @@ export default class BooleanExpression {
         if (!BooleanExpression._itemIsSubsumed({
           itemsCollection: sameTypeItems,
           item,
-          index: sameTypeItems.length,
           expressionType: this.type,
           implies,
         })) {
@@ -350,7 +347,6 @@ export default class BooleanExpression {
         && BooleanExpression._itemIsSubsumed({
           itemsCollection: this.items,
           item: otherItem,
-          index: this.items.length,
           expressionType: type,
           implies,
         }),
