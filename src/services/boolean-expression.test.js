@@ -954,5 +954,23 @@ describe('BooleanExpression', () => {
       ),
       expected: BooleanExpression.and('Apple', 'Banana'),
     });
+
+    testSimplification('test 53', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or('Apple', 'Never'),
+        'Always',
+        'Coconut',
+      ),
+      expected: BooleanExpression.and('Apple', 'Coconut'),
+    });
+
+    testSimplification('test 54', {
+      initial: BooleanExpression.or(
+        BooleanExpression.and('Apple', 'Always'),
+        'Never',
+        'Coconut',
+      ),
+      expected: BooleanExpression.or('Apple', 'Coconut'),
+    });
   });
 });
