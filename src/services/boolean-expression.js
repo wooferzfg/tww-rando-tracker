@@ -403,18 +403,19 @@ export default class BooleanExpression {
     const newItems = [];
 
     _.forEach(this.items, (item, index) => {
+      let newExpression;
       if (item instanceof BooleanExpression) {
-        const simplifiedExpression = item._removeDuplicateExpressions(implies);
-
-        if (!this._expressionIsSubsumed({
-          expression: simplifiedExpression,
-          index,
-          implies,
-        })) {
-          newItems.push(simplifiedExpression);
-        }
+        newExpression = item._removeDuplicateExpressions(implies);
       } else {
-        newItems.push(item);
+        newExpression = new BooleanExpression([item], this._oppositeType());
+      }
+
+      if (!this._expressionIsSubsumed({
+        expression: newExpression,
+        index,
+        implies,
+      })) {
+        newItems.push(newExpression);
       }
     });
 
