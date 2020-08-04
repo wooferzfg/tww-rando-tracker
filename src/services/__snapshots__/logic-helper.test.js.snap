@@ -373,6 +373,21 @@ BooleanExpression {
 }
 `;
 
+exports[`LogicHelper requirementsForLocation returns simplified requirements for Earth Temple - Jalhalla Heart Container 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Power Bracelets",
+    "Command Melody",
+    "Mirror Shield",
+    "Earth God's Lyric",
+    "Skull Hammer",
+    "ET Small Key x3",
+    "ET Big Key",
+  ],
+  "type": "and",
+}
+`;
+
 exports[`LogicHelper requirementsForLocation returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30 1`] = `
 BooleanExpression {
   "items": Array [

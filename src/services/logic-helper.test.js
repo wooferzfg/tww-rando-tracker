@@ -1200,6 +1200,12 @@ describe('LogicHelper', () => {
 
       expect(requirements).toMatchSnapshot();
     });
+
+    test('returns simplified requirements for Earth Temple - Jalhalla Heart Container', () => {
+      const requirements = LogicHelper.requirementsForLocation('Earth Temple', 'Jalhalla Heart Container');
+
+      expect(requirements).toMatchSnapshot();
+    });
   });
 
   describe('requirementsForEntrance', () => {
