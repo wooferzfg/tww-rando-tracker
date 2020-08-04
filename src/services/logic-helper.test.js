@@ -1206,6 +1206,12 @@ describe('LogicHelper', () => {
 
       expect(requirements).toMatchSnapshot();
     });
+
+    test("returns simplified requirements for Mailbox - Beedle's Silver Membership Reward", () => {
+      const requirements = LogicHelper.requirementsForLocation('Mailbox', "Beedle's Silver Membership Reward");
+
+      expect(requirements).toMatchSnapshot();
+    });
   });
 
   describe('requirementsForEntrance', () => {
