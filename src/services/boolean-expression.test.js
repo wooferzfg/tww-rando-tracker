@@ -363,606 +363,596 @@ describe('BooleanExpression', () => {
       });
     };
 
-    describe('when the expression cannot be simplified', () => {
-      testSimplification('test 1', {
-        initial: BooleanExpression.and(),
-        expected: BooleanExpression.and(),
-      });
-
-      testSimplification('test 2', {
-        initial: BooleanExpression.or('Apple', 'Banana'),
-        expected: BooleanExpression.or('Apple', 'Banana'),
-      });
-
-      testSimplification('test 3', {
-        initial: BooleanExpression.and('Banana', 'Coconut'),
-        expected: BooleanExpression.and('Banana', 'Coconut'),
-      });
-
-      testSimplification('test 4', {
-        initial: BooleanExpression.and(
-          'Apple',
-          BooleanExpression.or('Banana', 'Coconut'),
-          'Durian',
-        ),
-        expected: BooleanExpression.and(
-          'Apple',
-          BooleanExpression.or('Banana', 'Coconut'),
-          'Durian',
-        ),
-      });
-
-      testSimplification('test 5', {
-        initial: BooleanExpression.and(
-          BooleanExpression.or('Apple', 'Banana'),
-          BooleanExpression.or('Apple', 'Coconut'),
-        ),
-        expected: BooleanExpression.and(
-          BooleanExpression.or('Apple', 'Banana'),
-          BooleanExpression.or('Apple', 'Coconut'),
-        ),
-      });
+    testSimplification('test 1', {
+      initial: BooleanExpression.and(),
+      expected: BooleanExpression.and(),
     });
 
-    describe('when the expression can be flattened', () => {
-      testSimplification('test 6', {
-        initial: BooleanExpression.and(
-          BooleanExpression.or(),
-          BooleanExpression.or(),
-        ),
-        expected: BooleanExpression.and(),
-      });
+    testSimplification('test 2', {
+      initial: BooleanExpression.or('Apple', 'Banana'),
+      expected: BooleanExpression.or('Apple', 'Banana'),
+    });
 
-      testSimplification('test 7', {
-        initial: BooleanExpression.or(),
-        expected: BooleanExpression.and(),
-      });
+    testSimplification('test 3', {
+      initial: BooleanExpression.and('Banana', 'Coconut'),
+      expected: BooleanExpression.and('Banana', 'Coconut'),
+    });
 
-      testSimplification('test 8', {
-        initial: BooleanExpression.or('Apple'),
-        expected: BooleanExpression.and('Apple'),
-      });
+    testSimplification('test 4', {
+      initial: BooleanExpression.and(
+        'Apple',
+        BooleanExpression.or('Banana', 'Coconut'),
+        'Durian',
+      ),
+      expected: BooleanExpression.and(
+        'Apple',
+        BooleanExpression.or('Banana', 'Coconut'),
+        'Durian',
+      ),
+    });
 
-      testSimplification('test 9', {
-        initial: BooleanExpression.or(
+    testSimplification('test 5', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or('Apple', 'Banana'),
+        BooleanExpression.or('Apple', 'Coconut'),
+      ),
+      expected: BooleanExpression.and(
+        BooleanExpression.or('Apple', 'Banana'),
+        BooleanExpression.or('Apple', 'Coconut'),
+      ),
+    });
+
+    testSimplification('test 6', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or(),
+        BooleanExpression.or(),
+      ),
+      expected: BooleanExpression.and(),
+    });
+
+    testSimplification('test 7', {
+      initial: BooleanExpression.or(),
+      expected: BooleanExpression.and(),
+    });
+
+    testSimplification('test 8', {
+      initial: BooleanExpression.or('Apple'),
+      expected: BooleanExpression.and('Apple'),
+    });
+
+    testSimplification('test 9', {
+      initial: BooleanExpression.or(
+        BooleanExpression.and('Apple'),
+      ),
+      expected: BooleanExpression.and('Apple'),
+    });
+
+    testSimplification('test 10', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or(
           BooleanExpression.and('Apple'),
         ),
-        expected: BooleanExpression.and('Apple'),
-      });
+      ),
+      expected: BooleanExpression.and('Apple'),
+    });
 
-      testSimplification('test 10', {
-        initial: BooleanExpression.and(
-          BooleanExpression.or(
-            BooleanExpression.and('Apple'),
-          ),
-        ),
-        expected: BooleanExpression.and('Apple'),
-      });
+    testSimplification('test 11', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or('Apple', 'Banana'),
+      ),
+      expected: BooleanExpression.or('Apple', 'Banana'),
+    });
 
-      testSimplification('test 11', {
-        initial: BooleanExpression.and(
-          BooleanExpression.or('Apple', 'Banana'),
-        ),
-        expected: BooleanExpression.or('Apple', 'Banana'),
-      });
+    testSimplification('test 12', {
+      initial: BooleanExpression.or(
+        'Apple',
+        BooleanExpression.or('Banana', 'Coconut'),
+      ),
+      expected: BooleanExpression.or('Apple', 'Banana', 'Coconut'),
+    });
 
-      testSimplification('test 12', {
-        initial: BooleanExpression.or(
-          'Apple',
-          BooleanExpression.or('Banana', 'Coconut'),
-        ),
-        expected: BooleanExpression.or('Apple', 'Banana', 'Coconut'),
-      });
+    testSimplification('test 13', {
+      initial: BooleanExpression.and(
+        BooleanExpression.and('Banana', 'Coconut'),
+        'Apple',
+      ),
+      expected: BooleanExpression.and('Banana', 'Coconut', 'Apple'),
+    });
 
-      testSimplification('test 13', {
-        initial: BooleanExpression.and(
-          BooleanExpression.and('Banana', 'Coconut'),
-          'Apple',
-        ),
-        expected: BooleanExpression.and('Banana', 'Coconut', 'Apple'),
-      });
-
-      testSimplification('test 14', {
-        initial: BooleanExpression.or(
-          'Apple',
+    testSimplification('test 14', {
+      initial: BooleanExpression.or(
+        'Apple',
+        BooleanExpression.and(),
+        BooleanExpression.or(
           BooleanExpression.and(),
-          BooleanExpression.or(
-            BooleanExpression.and(),
-          ),
         ),
-        expected: BooleanExpression.and('Apple'),
-      });
-
-      testSimplification('test 15', {
-        initial: BooleanExpression.and(
-          BooleanExpression.or(
-            'Apple',
-            'Banana',
-            BooleanExpression.or(
-              'Coconut',
-              'Durian',
-            ),
-          ),
-          'Egg',
-        ),
-        expected: BooleanExpression.and(
-          BooleanExpression.or(
-            'Apple',
-            'Banana',
-            'Coconut',
-            'Durian',
-          ),
-          'Egg',
-        ),
-      });
+      ),
+      expected: BooleanExpression.and('Apple'),
     });
 
-    describe('when there are duplicate items in the same expression', () => {
-      testSimplification('test 16', {
-        initial: BooleanExpression.and(
+    testSimplification('test 15', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or(
           'Apple',
           'Banana',
-          'Banana',
-        ),
-        expected: BooleanExpression.and(
-          'Apple',
-          'Banana',
-        ),
-      });
-
-      testSimplification('test 17', {
-        initial: BooleanExpression.or(
-          BooleanExpression.and(
-            'Apple',
-            'Apple',
-            'Banana',
-          ),
-          BooleanExpression.and(
-            'Durian',
+          BooleanExpression.or(
+            'Coconut',
             'Durian',
           ),
         ),
-        expected: BooleanExpression.or(
-          BooleanExpression.and(
-            'Apple',
-            'Banana',
-          ),
+        'Egg',
+      ),
+      expected: BooleanExpression.and(
+        BooleanExpression.or(
+          'Apple',
+          'Banana',
+          'Coconut',
           'Durian',
         ),
-      });
-
-      testSimplification('test 18', {
-        initial: BooleanExpression.or(
-          '5x Apple',
-          '6x Apple',
-        ),
-        expected: BooleanExpression.and(
-          '5x Apple',
-        ),
-      });
-
-      testSimplification('test 19', {
-        initial: BooleanExpression.and(
-          '5x Apple',
-          '6x Apple',
-        ),
-        expected: BooleanExpression.and(
-          '6x Apple',
-        ),
-      });
-
-      testSimplification('test 20', {
-        initial: BooleanExpression.or(
-          '5x Apple',
-          '6x Apple',
-          'Never',
-        ),
-        expected: BooleanExpression.and(
-          '5x Apple',
-        ),
-      });
-
-      testSimplification('test 21', {
-        initial: BooleanExpression.or(
-          '5x Apple',
-          '6x Apple',
-          'Always',
-        ),
-        expected: BooleanExpression.and(
-          'Always',
-        ),
-      });
-
-      testSimplification('test 22', {
-        initial: BooleanExpression.and(
-          '5x Apple',
-          '6x Apple',
-          'Never',
-        ),
-        expected: BooleanExpression.and(
-          'Never',
-        ),
-      });
-
-      testSimplification('test 23', {
-        initial: BooleanExpression.and(
-          '5x Apple',
-          '6x Apple',
-          'Always',
-        ),
-        expected: BooleanExpression.and(
-          '6x Apple',
-        ),
-      });
+        'Egg',
+      ),
     });
 
-    describe('when an expression is a duplicate of another', () => {
-      testSimplification('test 24', {
-        initial: BooleanExpression.and(
-          BooleanExpression.or('Apple'),
-          BooleanExpression.or('Apple'),
-        ),
-        expected: BooleanExpression.and(
-          'Apple',
-        ),
-      });
-
-      testSimplification('test 25', {
-        initial: BooleanExpression.or(
-          BooleanExpression.and('Apple', 'Banana'),
-          BooleanExpression.and('Apple', 'Banana'),
-        ),
-        expected: BooleanExpression.and('Apple', 'Banana'),
-      });
-
-      testSimplification('test 26', {
-        initial: BooleanExpression.or(
-          BooleanExpression.and('Apple', 'Banana', 'Coconut'),
-          BooleanExpression.and('Apple', 'Banana'),
-        ),
-        expected: BooleanExpression.and('Apple', 'Banana'),
-      });
-
-      testSimplification('test 27', {
-        initial: BooleanExpression.or(
-          BooleanExpression.and('Apple', '5x Banana', 'Coconut'),
-          BooleanExpression.and('Apple', '4x Banana'),
-        ),
-        expected: BooleanExpression.and('Apple', '4x Banana'),
-      });
-
-      testSimplification('test 28', {
-        initial: BooleanExpression.and(
-          BooleanExpression.or('3x Apple', '7x Banana', 'Coconut'),
-          BooleanExpression.or('2x Apple', '4x Banana'),
-          BooleanExpression.or('5x Apple', '6x Banana'),
-          BooleanExpression.or('4x Apple', '5x Banana', 'Durian'),
-        ),
-        expected: BooleanExpression.and(
-          BooleanExpression.or('3x Apple', '7x Banana', 'Coconut'),
-          BooleanExpression.or('5x Apple', '6x Banana'),
-        ),
-      });
-
-      testSimplification('test 29', {
-        initial: BooleanExpression.or(
-          BooleanExpression.and(
-            BooleanExpression.or('Apple', 'Banana'),
-            BooleanExpression.or('Apple', 'Banana', 'Coconut'),
-            BooleanExpression.or('Eclair', 'Fruit'),
-          ),
-          'Durian',
-        ),
-        expected: BooleanExpression.or(
-          BooleanExpression.and(
-            BooleanExpression.or('Apple', 'Banana'),
-            BooleanExpression.or('Eclair', 'Fruit'),
-          ),
-          'Durian',
-        ),
-      });
-
-      testSimplification('test 30', {
-        initial: BooleanExpression.and(
-          BooleanExpression.or(
-            'Apple',
-            BooleanExpression.and('Banana', 'Eclair'),
-            'Durian',
-          ),
-          BooleanExpression.or(
-            'Apple',
-            BooleanExpression.and('Banana', 'Coconut'),
-            'Durian',
-          ),
-          BooleanExpression.or(
-            'Apple',
-            BooleanExpression.and('Banana', 'Coconut'),
-            'Durian',
-          ),
-        ),
-        expected: BooleanExpression.and(
-          BooleanExpression.or(
-            'Apple',
-            BooleanExpression.and('Banana', 'Eclair'),
-            'Durian',
-          ),
-          BooleanExpression.or(
-            'Apple',
-            BooleanExpression.and('Banana', 'Coconut'),
-            'Durian',
-          ),
-        ),
-      });
+    testSimplification('test 16', {
+      initial: BooleanExpression.and(
+        'Apple',
+        'Banana',
+        'Banana',
+      ),
+      expected: BooleanExpression.and(
+        'Apple',
+        'Banana',
+      ),
     });
 
-    describe('when children are duplicates of parents', () => {
-      testSimplification('test 31', {
-        initial: BooleanExpression.and(
+    testSimplification('test 17', {
+      initial: BooleanExpression.or(
+        BooleanExpression.and(
+          'Apple',
           'Apple',
           'Banana',
-          BooleanExpression.or(
-            'Coconut',
-            BooleanExpression.and('Apple', 'Banana'),
-          ),
         ),
-        expected: BooleanExpression.and('Apple', 'Banana'),
-      });
-
-      testSimplification('test 32', {
-        initial: BooleanExpression.or(
+        BooleanExpression.and(
+          'Durian',
+          'Durian',
+        ),
+      ),
+      expected: BooleanExpression.or(
+        BooleanExpression.and(
           'Apple',
           'Banana',
-          BooleanExpression.and(
-            'Coconut',
-            BooleanExpression.or('Apple', 'Banana'),
-          ),
         ),
-        expected: BooleanExpression.or('Apple', 'Banana'),
-      });
+        'Durian',
+      ),
+    });
 
-      testSimplification('test 33', {
-        initial: BooleanExpression.and(
-          'Apple',
-          'Banana',
-          BooleanExpression.or('Banana', 'Coconut'),
-        ),
-        expected: BooleanExpression.and('Apple', 'Banana'),
-      });
+    testSimplification('test 18', {
+      initial: BooleanExpression.or(
+        '5x Apple',
+        '6x Apple',
+      ),
+      expected: BooleanExpression.and(
+        '5x Apple',
+      ),
+    });
 
-      testSimplification('test 34', {
-        initial: BooleanExpression.or(
-          'Apple',
-          'Banana',
-          BooleanExpression.and('Banana', 'Coconut'),
-        ),
-        expected: BooleanExpression.or('Apple', 'Banana'),
-      });
+    testSimplification('test 19', {
+      initial: BooleanExpression.and(
+        '5x Apple',
+        '6x Apple',
+      ),
+      expected: BooleanExpression.and(
+        '6x Apple',
+      ),
+    });
 
-      testSimplification('test 35', {
-        initial: BooleanExpression.and(
-          'Apple',
-          'Banana',
-          BooleanExpression.or(
-            'Coconut',
-            BooleanExpression.and('Apple', 'Durian'),
-          ),
-        ),
-        expected: BooleanExpression.and(
-          'Apple',
-          'Banana',
-          BooleanExpression.or(
-            'Coconut',
-            'Durian',
-          ),
-        ),
-      });
+    testSimplification('test 20', {
+      initial: BooleanExpression.or(
+        '5x Apple',
+        '6x Apple',
+        'Never',
+      ),
+      expected: BooleanExpression.and(
+        '5x Apple',
+      ),
+    });
 
-      testSimplification('test 36', {
-        initial: BooleanExpression.or(
-          'Apple',
-          'Banana',
-          BooleanExpression.and(
-            'Coconut',
-            BooleanExpression.or('Apple', 'Durian'),
-          ),
-        ),
-        expected: BooleanExpression.or(
-          'Apple',
-          'Banana',
-          BooleanExpression.and(
-            'Coconut',
-            'Durian',
-          ),
-        ),
-      });
+    testSimplification('test 21', {
+      initial: BooleanExpression.or(
+        '5x Apple',
+        '6x Apple',
+        'Always',
+      ),
+      expected: BooleanExpression.and(
+        'Always',
+      ),
+    });
 
-      testSimplification('test 37', {
-        initial: BooleanExpression.and(
-          'Apple',
-          'Banana',
-          BooleanExpression.or(
-            'Coconut',
-            BooleanExpression.and('Apple', 'Coconut'),
-          ),
-        ),
-        expected: BooleanExpression.and('Apple', 'Banana', 'Coconut'),
-      });
+    testSimplification('test 22', {
+      initial: BooleanExpression.and(
+        '5x Apple',
+        '6x Apple',
+        'Never',
+      ),
+      expected: BooleanExpression.and(
+        'Never',
+      ),
+    });
 
-      testSimplification('test 38', {
-        initial: BooleanExpression.or(
-          'Apple',
-          'Banana',
-          BooleanExpression.and(
-            'Coconut',
-            BooleanExpression.or('Apple', 'Coconut'),
-          ),
-        ),
-        expected: BooleanExpression.or('Apple', 'Banana', 'Coconut'),
-      });
+    testSimplification('test 23', {
+      initial: BooleanExpression.and(
+        '5x Apple',
+        '6x Apple',
+        'Always',
+      ),
+      expected: BooleanExpression.and(
+        '6x Apple',
+      ),
+    });
 
-      testSimplification('test 39', {
-        initial: BooleanExpression.and(
-          'Apple',
-          'Banana',
-          BooleanExpression.or(
-            'Coconut',
-            BooleanExpression.and('Apple', 'Coconut', 'Durian'),
-          ),
-        ),
-        expected: BooleanExpression.and('Apple', 'Banana', 'Coconut'),
-      });
+    testSimplification('test 24', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or('Apple'),
+        BooleanExpression.or('Apple'),
+      ),
+      expected: BooleanExpression.and(
+        'Apple',
+      ),
+    });
 
-      testSimplification('test 40', {
-        initial: BooleanExpression.or(
-          'Apple',
-          'Banana',
-          BooleanExpression.and(
-            'Coconut',
-            BooleanExpression.or('Apple', 'Coconut', 'Durian'),
-          ),
-        ),
-        expected: BooleanExpression.or('Apple', 'Banana', 'Coconut'),
-      });
+    testSimplification('test 25', {
+      initial: BooleanExpression.or(
+        BooleanExpression.and('Apple', 'Banana'),
+        BooleanExpression.and('Apple', 'Banana'),
+      ),
+      expected: BooleanExpression.and('Apple', 'Banana'),
+    });
 
-      testSimplification('test 41', {
-        initial: BooleanExpression.and(
-          'Apple',
-          'Banana',
-          BooleanExpression.or(
-            'Apple',
-            BooleanExpression.and('Apple', 'Banana'),
-          ),
-        ),
-        expected: BooleanExpression.and('Apple', 'Banana'),
-      });
+    testSimplification('test 26', {
+      initial: BooleanExpression.or(
+        BooleanExpression.and('Apple', 'Banana', 'Coconut'),
+        BooleanExpression.and('Apple', 'Banana'),
+      ),
+      expected: BooleanExpression.and('Apple', 'Banana'),
+    });
 
-      testSimplification('test 42', {
-        initial: BooleanExpression.or(
-          'Apple',
-          'Banana',
-          BooleanExpression.and(
-            'Apple',
-            BooleanExpression.or('Apple', 'Banana'),
-          ),
-        ),
-        expected: BooleanExpression.or('Apple', 'Banana'),
-      });
+    testSimplification('test 27', {
+      initial: BooleanExpression.or(
+        BooleanExpression.and('Apple', '5x Banana', 'Coconut'),
+        BooleanExpression.and('Apple', '4x Banana'),
+      ),
+      expected: BooleanExpression.and('Apple', '4x Banana'),
+    });
 
-      testSimplification('test 43', {
-        initial: BooleanExpression.and(
-          '5x Apple',
-          '5x Banana',
-          BooleanExpression.or('4x Apple', '4x Banana'),
-        ),
-        expected: BooleanExpression.and('5x Apple', '5x Banana'),
-      });
+    testSimplification('test 28', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or('3x Apple', '7x Banana', 'Coconut'),
+        BooleanExpression.or('2x Apple', '4x Banana'),
+        BooleanExpression.or('5x Apple', '6x Banana'),
+        BooleanExpression.or('4x Apple', '5x Banana', 'Durian'),
+      ),
+      expected: BooleanExpression.and(
+        BooleanExpression.or('3x Apple', '7x Banana', 'Coconut'),
+        BooleanExpression.or('5x Apple', '6x Banana'),
+      ),
+    });
 
-      testSimplification('test 44', {
-        initial: BooleanExpression.or(
-          '5x Apple',
-          '5x Banana',
-          BooleanExpression.and('6x Apple', '6x Banana'),
-        ),
-        expected: BooleanExpression.or('5x Apple', '5x Banana'),
-      });
-
-      testSimplification('test 45', {
-        initial: BooleanExpression.and(
-          '5x Apple',
-          '5x Banana',
-          BooleanExpression.or(
-            'Coconut',
-            BooleanExpression.and('4x Apple', '6x Banana'),
-          ),
-        ),
-        expected: BooleanExpression.and(
-          '5x Apple',
-          '5x Banana',
-          BooleanExpression.or('Coconut', '6x Banana'),
-        ),
-      });
-
-      testSimplification('test 46', {
-        initial: BooleanExpression.or(
-          '5x Apple',
-          '5x Banana',
-          BooleanExpression.and(
-            'Coconut',
-            BooleanExpression.or('4x Apple', '6x Banana'),
-          ),
-        ),
-        expected: BooleanExpression.or(
-          '5x Apple',
-          '5x Banana',
-          BooleanExpression.and('Coconut', '4x Apple'),
-        ),
-      });
-
-      testSimplification('test 47', {
-        initial: BooleanExpression.and(
-          'Apple',
-          BooleanExpression.or('Always', 'Banana'),
-        ),
-        expected: BooleanExpression.and('Apple'),
-      });
-
-      testSimplification('test 48', {
-        initial: BooleanExpression.or(
-          'Apple',
-          BooleanExpression.and('Never', 'Banana'),
-        ),
-        expected: BooleanExpression.and('Apple'),
-      });
-
-      testSimplification('test 49', {
-        initial: BooleanExpression.and(
-          'Apple',
-          BooleanExpression.or(
-            BooleanExpression.and(
-              'Apple',
-              BooleanExpression.or(
-                BooleanExpression.and('Durian'),
-                'Always',
-              ),
-            ),
-            'Banana',
-          ),
-        ),
-        expected: BooleanExpression.and('Apple'),
-      });
-
-      testSimplification('test 50', {
-        initial: BooleanExpression.or(
-          'Apple',
-          BooleanExpression.and(
-            BooleanExpression.or(
-              'Apple',
-              BooleanExpression.and(
-                BooleanExpression.or('Durian'),
-                'Never',
-              ),
-            ),
-            'Banana',
-          ),
-        ),
-        expected: BooleanExpression.and('Apple'),
-      });
-
-      testSimplification('test 51', {
-        initial: BooleanExpression.and(
+    testSimplification('test 29', {
+      initial: BooleanExpression.or(
+        BooleanExpression.and(
           BooleanExpression.or('Apple', 'Banana'),
-          'Always',
+          BooleanExpression.or('Apple', 'Banana', 'Coconut'),
+          BooleanExpression.or('Eclair', 'Fruit'),
         ),
-        expected: BooleanExpression.or('Apple', 'Banana'),
-      });
+        'Durian',
+      ),
+      expected: BooleanExpression.or(
+        BooleanExpression.and(
+          BooleanExpression.or('Apple', 'Banana'),
+          BooleanExpression.or('Eclair', 'Fruit'),
+        ),
+        'Durian',
+      ),
+    });
 
-      testSimplification('test 52', {
-        initial: BooleanExpression.or(
-          BooleanExpression.and('Apple', 'Banana'),
-          'Never',
+    testSimplification('test 30', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and('Banana', 'Eclair'),
+          'Durian',
         ),
-        expected: BooleanExpression.and('Apple', 'Banana'),
-      });
+        BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and('Banana', 'Coconut'),
+          'Durian',
+        ),
+        BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and('Banana', 'Coconut'),
+          'Durian',
+        ),
+      ),
+      expected: BooleanExpression.and(
+        BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and('Banana', 'Eclair'),
+          'Durian',
+        ),
+        BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and('Banana', 'Coconut'),
+          'Durian',
+        ),
+      ),
+    });
+
+    testSimplification('test 31', {
+      initial: BooleanExpression.and(
+        'Apple',
+        'Banana',
+        BooleanExpression.or(
+          'Coconut',
+          BooleanExpression.and('Apple', 'Banana'),
+        ),
+      ),
+      expected: BooleanExpression.and('Apple', 'Banana'),
+    });
+
+    testSimplification('test 32', {
+      initial: BooleanExpression.or(
+        'Apple',
+        'Banana',
+        BooleanExpression.and(
+          'Coconut',
+          BooleanExpression.or('Apple', 'Banana'),
+        ),
+      ),
+      expected: BooleanExpression.or('Apple', 'Banana'),
+    });
+
+    testSimplification('test 33', {
+      initial: BooleanExpression.and(
+        'Apple',
+        'Banana',
+        BooleanExpression.or('Banana', 'Coconut'),
+      ),
+      expected: BooleanExpression.and('Apple', 'Banana'),
+    });
+
+    testSimplification('test 34', {
+      initial: BooleanExpression.or(
+        'Apple',
+        'Banana',
+        BooleanExpression.and('Banana', 'Coconut'),
+      ),
+      expected: BooleanExpression.or('Apple', 'Banana'),
+    });
+
+    testSimplification('test 35', {
+      initial: BooleanExpression.and(
+        'Apple',
+        'Banana',
+        BooleanExpression.or(
+          'Coconut',
+          BooleanExpression.and('Apple', 'Durian'),
+        ),
+      ),
+      expected: BooleanExpression.and(
+        'Apple',
+        'Banana',
+        BooleanExpression.or(
+          'Coconut',
+          'Durian',
+        ),
+      ),
+    });
+
+    testSimplification('test 36', {
+      initial: BooleanExpression.or(
+        'Apple',
+        'Banana',
+        BooleanExpression.and(
+          'Coconut',
+          BooleanExpression.or('Apple', 'Durian'),
+        ),
+      ),
+      expected: BooleanExpression.or(
+        'Apple',
+        'Banana',
+        BooleanExpression.and(
+          'Coconut',
+          'Durian',
+        ),
+      ),
+    });
+
+    testSimplification('test 37', {
+      initial: BooleanExpression.and(
+        'Apple',
+        'Banana',
+        BooleanExpression.or(
+          'Coconut',
+          BooleanExpression.and('Apple', 'Coconut'),
+        ),
+      ),
+      expected: BooleanExpression.and('Apple', 'Banana', 'Coconut'),
+    });
+
+    testSimplification('test 38', {
+      initial: BooleanExpression.or(
+        'Apple',
+        'Banana',
+        BooleanExpression.and(
+          'Coconut',
+          BooleanExpression.or('Apple', 'Coconut'),
+        ),
+      ),
+      expected: BooleanExpression.or('Apple', 'Banana', 'Coconut'),
+    });
+
+    testSimplification('test 39', {
+      initial: BooleanExpression.and(
+        'Apple',
+        'Banana',
+        BooleanExpression.or(
+          'Coconut',
+          BooleanExpression.and('Apple', 'Coconut', 'Durian'),
+        ),
+      ),
+      expected: BooleanExpression.and('Apple', 'Banana', 'Coconut'),
+    });
+
+    testSimplification('test 40', {
+      initial: BooleanExpression.or(
+        'Apple',
+        'Banana',
+        BooleanExpression.and(
+          'Coconut',
+          BooleanExpression.or('Apple', 'Coconut', 'Durian'),
+        ),
+      ),
+      expected: BooleanExpression.or('Apple', 'Banana', 'Coconut'),
+    });
+
+    testSimplification('test 41', {
+      initial: BooleanExpression.and(
+        'Apple',
+        'Banana',
+        BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and('Apple', 'Banana'),
+        ),
+      ),
+      expected: BooleanExpression.and('Apple', 'Banana'),
+    });
+
+    testSimplification('test 42', {
+      initial: BooleanExpression.or(
+        'Apple',
+        'Banana',
+        BooleanExpression.and(
+          'Apple',
+          BooleanExpression.or('Apple', 'Banana'),
+        ),
+      ),
+      expected: BooleanExpression.or('Apple', 'Banana'),
+    });
+
+    testSimplification('test 43', {
+      initial: BooleanExpression.and(
+        '5x Apple',
+        '5x Banana',
+        BooleanExpression.or('4x Apple', '4x Banana'),
+      ),
+      expected: BooleanExpression.and('5x Apple', '5x Banana'),
+    });
+
+    testSimplification('test 44', {
+      initial: BooleanExpression.or(
+        '5x Apple',
+        '5x Banana',
+        BooleanExpression.and('6x Apple', '6x Banana'),
+      ),
+      expected: BooleanExpression.or('5x Apple', '5x Banana'),
+    });
+
+    testSimplification('test 45', {
+      initial: BooleanExpression.and(
+        '5x Apple',
+        '5x Banana',
+        BooleanExpression.or(
+          'Coconut',
+          BooleanExpression.and('4x Apple', '6x Banana'),
+        ),
+      ),
+      expected: BooleanExpression.and(
+        '5x Apple',
+        '5x Banana',
+        BooleanExpression.or('Coconut', '6x Banana'),
+      ),
+    });
+
+    testSimplification('test 46', {
+      initial: BooleanExpression.or(
+        '5x Apple',
+        '5x Banana',
+        BooleanExpression.and(
+          'Coconut',
+          BooleanExpression.or('4x Apple', '6x Banana'),
+        ),
+      ),
+      expected: BooleanExpression.or(
+        '5x Apple',
+        '5x Banana',
+        BooleanExpression.and('Coconut', '4x Apple'),
+      ),
+    });
+
+    testSimplification('test 47', {
+      initial: BooleanExpression.and(
+        'Apple',
+        BooleanExpression.or('Always', 'Banana'),
+      ),
+      expected: BooleanExpression.and('Apple'),
+    });
+
+    testSimplification('test 48', {
+      initial: BooleanExpression.or(
+        'Apple',
+        BooleanExpression.and('Never', 'Banana'),
+      ),
+      expected: BooleanExpression.and('Apple'),
+    });
+
+    testSimplification('test 49', {
+      initial: BooleanExpression.and(
+        'Apple',
+        BooleanExpression.or(
+          BooleanExpression.and(
+            'Apple',
+            BooleanExpression.or(
+              BooleanExpression.and('Durian'),
+              'Always',
+            ),
+          ),
+          'Banana',
+        ),
+      ),
+      expected: BooleanExpression.and('Apple'),
+    });
+
+    testSimplification('test 50', {
+      initial: BooleanExpression.or(
+        'Apple',
+        BooleanExpression.and(
+          BooleanExpression.or(
+            'Apple',
+            BooleanExpression.and(
+              BooleanExpression.or('Durian'),
+              'Never',
+            ),
+          ),
+          'Banana',
+        ),
+      ),
+      expected: BooleanExpression.and('Apple'),
+    });
+
+    testSimplification('test 51', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or('Apple', 'Banana'),
+        'Always',
+      ),
+      expected: BooleanExpression.or('Apple', 'Banana'),
+    });
+
+    testSimplification('test 52', {
+      initial: BooleanExpression.or(
+        BooleanExpression.and('Apple', 'Banana'),
+        'Never',
+      ),
+      expected: BooleanExpression.and('Apple', 'Banana'),
     });
   });
 });
