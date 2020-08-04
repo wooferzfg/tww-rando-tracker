@@ -29,7 +29,7 @@ class DetailedLocationsTable extends React.PureComponent {
 
     return (
       <div className="item-requirements">
-        <div className="item-requirements-title">Item Requirements</div>
+        <div className="item-requirements-title">Items Required</div>
         <ul>
           {requirementsList}
         </ul>
