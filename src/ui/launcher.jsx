@@ -331,8 +331,9 @@ export default class Launcher extends React.PureComponent {
             {this.launchButtonContainer()}
           </div>
           <div className="attribution">
-            <span>Original Tracker by BigDunka • Maintained by wooferzfg • Source Code on </span>
+            <span>Maintained by wooferzfg • Source Code on </span>
             <a href="https://github.com/wooferzfg/tww-rando-tracker">GitHub</a>
+            <span> • Original Tracker by BigDunka</span>
           </div>
         </div>
         <ToastContainer />
