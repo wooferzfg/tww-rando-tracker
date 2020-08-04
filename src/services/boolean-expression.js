@@ -331,7 +331,7 @@ export default class BooleanExpression {
     otherExpression,
     implies,
     removeIfIdentical,
-    type,
+    expressionType,
   }) {
     if (this._isEqualTo({
       otherExpression,
@@ -346,7 +346,7 @@ export default class BooleanExpression {
         && BooleanExpression._itemIsSubsumed({
           itemsCollection: this.items,
           item: otherItem,
-          expressionType: type,
+          expressionType,
           implies,
         }),
     );
@@ -368,7 +368,7 @@ export default class BooleanExpression {
           otherExpression,
           implies,
           removeIfIdentical: otherIndex < index,
-          type: this._oppositeType(),
+          expressionType: this._oppositeType(),
         });
 
         if (isSubsumed) {
