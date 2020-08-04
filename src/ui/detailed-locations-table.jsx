@@ -15,11 +15,11 @@ class DetailedLocationsTable extends React.PureComponent {
 
     const requirements = logic.formattedRequirementsForLocation(generalLocation, detailedLocation);
 
-    const requirementsList = _.map(requirements, (elements) => (
-      <li>
+    const requirementsList = _.map(requirements, (elements, rowIndex) => (
+      <li key={rowIndex}>
         {
-          _.map(elements, ({ color, text }) => (
-            <span className={color}>
+          _.map(elements, ({ color, text }, elementIndex) => (
+            <span className={color} key={elementIndex}>
               {` ${text} `}
             </span>
           ))
@@ -74,8 +74,10 @@ class DetailedLocationsTable extends React.PureComponent {
       </div>
     );
 
+    const isLocationChecked = color === LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
+
     let locationContent;
-    if (disableLogic) {
+    if (disableLogic || isLocationChecked) {
       locationContent = locationElement;
     } else {
       const requirementsTooltip = this.requirementsTooltip(openedLocation, location);
