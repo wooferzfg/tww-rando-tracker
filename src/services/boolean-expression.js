@@ -98,10 +98,9 @@ export default class BooleanExpression {
     implies,
     iterations = 3,
   }) {
-    let updatedExpression = this;
+    let updatedExpression = this._flatten();
 
     for (let i = 1; i <= iterations; i += 1) {
-      updatedExpression = updatedExpression._flatten();
       updatedExpression = updatedExpression._removeDuplicateExpressions(implies);
       updatedExpression = updatedExpression._removeDuplicateChildren(implies);
     }
