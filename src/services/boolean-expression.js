@@ -325,14 +325,14 @@ export default class BooleanExpression {
       };
     }
 
-    if (_.isEmpty(newItems)) {
+    const expression = BooleanExpression._createFlatExpression(newItems, this.type);
+
+    if (_.isEmpty(expression.items)) {
       return {
         expression: BooleanExpression.and(),
         removeParent: true,
       };
     }
-
-    const expression = BooleanExpression._createFlatExpression(newItems, this.type);
 
     return {
       expression,
