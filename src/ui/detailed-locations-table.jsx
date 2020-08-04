@@ -48,6 +48,7 @@ class DetailedLocationsTable extends React.PureComponent {
     } = locationInfo;
 
     const {
+      disableLogic,
       openedLocation,
       toggleLocationChecked,
     } = this.props;
@@ -59,23 +60,36 @@ class DetailedLocationsTable extends React.PureComponent {
       fontSizeClassName = 'font-small';
     }
 
-    const requirementsTooltip = this.requirementsTooltip(openedLocation, location);
-
     const toggleLocationFunc = () => toggleLocationChecked(openedLocation, location);
+
+    const locationElement = (
+      <div
+        className={`detail-span ${color} ${fontSizeClassName}`}
+        onClick={toggleLocationFunc}
+        onKeyDown={toggleLocationFunc}
+        role="button"
+        tabIndex="0"
+      >
+        {location}
+      </div>
+    );
+
+    let locationContent;
+    if (disableLogic) {
+      locationContent = locationElement;
+    } else {
+      const requirementsTooltip = this.requirementsTooltip(openedLocation, location);
+
+      locationContent = (
+        <Tooltip tooltipContent={requirementsTooltip}>
+          {locationElement}
+        </Tooltip>
+      );
+    }
 
     return (
       <td key={location}>
-        <Tooltip tooltipContent={requirementsTooltip}>
-          <div
-            className={`detail-span ${color} ${fontSizeClassName}`}
-            onClick={toggleLocationFunc}
-            onKeyDown={toggleLocationFunc}
-            role="button"
-            tabIndex="0"
-          >
-            {location}
-          </div>
-        </Tooltip>
+        {locationContent}
       </td>
     );
   }
