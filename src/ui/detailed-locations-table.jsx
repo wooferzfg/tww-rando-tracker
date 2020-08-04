@@ -5,9 +5,37 @@ import React from 'react';
 import LogicCalculation from '../services/logic-calculation';
 
 import Images from './images';
+import Tooltip from './tooltip';
 
 class DetailedLocationsTable extends React.PureComponent {
   static NUM_ROWS = 13;
+
+  requirementsTooltip(generalLocation, detailedLocation) {
+    const { logic } = this.props;
+
+    const requirements = logic.formattedRequirementsForLocation(generalLocation, detailedLocation);
+
+    const requirementsList = _.map(requirements, (elements) => (
+      <li>
+        {
+          _.map(elements, ({ color, text }) => (
+            <span className={color}>
+              {` ${text} `}
+            </span>
+          ))
+        }
+      </li>
+    ));
+
+    return (
+      <div className="item-requirements">
+        <div className="item-requirements-title">Item Requirements</div>
+        <ul>
+          {requirementsList}
+        </ul>
+      </div>
+    );
+  }
 
   detailedLocation(locationInfo, numColumns) {
     if (_.isNil(locationInfo)) {
@@ -31,19 +59,23 @@ class DetailedLocationsTable extends React.PureComponent {
       fontSizeClassName = 'font-small';
     }
 
+    const requirementsTooltip = this.requirementsTooltip(openedLocation, location);
+
     const toggleLocationFunc = () => toggleLocationChecked(openedLocation, location);
 
     return (
       <td key={location}>
-        <div
-          className={`detail-span ${color} ${fontSizeClassName}`}
-          onClick={toggleLocationFunc}
-          onKeyDown={toggleLocationFunc}
-          role="button"
-          tabIndex="0"
-        >
-          {location}
-        </div>
+        <Tooltip tooltipContent={requirementsTooltip}>
+          <div
+            className={`detail-span ${color} ${fontSizeClassName}`}
+            onClick={toggleLocationFunc}
+            onKeyDown={toggleLocationFunc}
+            role="button"
+            tabIndex="0"
+          >
+            {location}
+          </div>
+        </Tooltip>
       </td>
     );
   }

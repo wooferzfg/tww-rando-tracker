@@ -543,7 +543,8 @@ button:hover:enabled {
   }
 }
 
-.unavailable-location {
+.unavailable-location,
+.unavailable-item {
   color: #cc2929;
 }
 
@@ -551,22 +552,27 @@ button:hover:enabled {
   color: #808000;
 }
 
-.available-location {
+.available-location,
+.available-item {
   color: #2929cc;
 }
 
-.gray-text {
+.inconsequential-item {
   color: #a69b8d;
 }
 
-.tool-tip-text ul {
-  margin: 0;
-  padding-left: 15px;
-}
-
-.qtip-titlebar,
-.qtip-content {
+.item-requirements {
   color: black;
+  max-width: 300px;
+
+  .item-requirements-title {
+    font-weight: bold;
+  }
+
+  ul {
+    margin: 5px 0 0 0;
+    padding-left: 15px;
+  }
 }
 
 .extra-locations {
