@@ -205,7 +205,7 @@ export default class BooleanExpression {
     let itemIsSubsumed = false;
 
     _.forEach(itemsCollection, (otherItem, otherIndex) => {
-      if (otherItem !== index && !(otherItem instanceof BooleanExpression)) {
+      if (otherIndex !== index && !(otherItem instanceof BooleanExpression)) {
         if (expressionType === BooleanExpression._TYPES.AND) {
           if (implies(otherItem, item) && (!implies(item, otherItem) || otherIndex < index)) {
             itemIsSubsumed = true;
