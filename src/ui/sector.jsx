@@ -58,10 +58,14 @@ class Sector extends React.PureComponent {
       setSelectedLocation,
     } = this.props;
 
-    const setOpenedLocationFunc = () => setOpenedLocation({
-      isDungeon: false,
-      locationName: island,
-    });
+    const setOpenedLocationFunc = () => {
+      clearSelectedLocation();
+
+      setOpenedLocation({
+        isDungeon: false,
+        locationName: island,
+      });
+    };
 
     const setSelectedLocationFunc = () => setSelectedLocation({
       isDungeon: false,
