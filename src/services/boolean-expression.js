@@ -101,9 +101,9 @@ export default class BooleanExpression {
     let updatedExpression = this;
 
     for (let i = 1; i <= iterations; i += 1) {
-      updatedExpression = updatedExpression._removeDuplicateItems(implies);
-      updatedExpression = updatedExpression._removeDuplicateChildren(implies);
+      updatedExpression = updatedExpression._flatten();
       updatedExpression = updatedExpression._removeDuplicateExpressions(implies);
+      updatedExpression = updatedExpression._removeDuplicateChildren(implies);
     }
 
     return updatedExpression;
@@ -226,27 +226,6 @@ export default class BooleanExpression {
     return itemIsSubsumed;
   }
 
-  _removeDuplicateItems(implies) {
-    const newItems = [];
-
-    _.forEach(this.items, (item, index) => {
-      if (item instanceof BooleanExpression) {
-        const itemWithoutDuplicates = item._removeDuplicateItems(implies);
-        newItems.push(itemWithoutDuplicates);
-      } else if (!BooleanExpression._itemIsSubsumed({
-        itemsCollection: this.items,
-        item,
-        index,
-        expressionType: this.type,
-        implies,
-      })) {
-        newItems.push(item);
-      }
-    });
-
-    return BooleanExpression._createFlatExpression(newItems, this.type);
-  }
-
   _getUpdatedParentItems(parentItems) {
     return _.mergeWith(
       {},
@@ -356,6 +335,7 @@ export default class BooleanExpression {
     otherExpression,
     implies,
     removeIfIdentical,
+    type,
   }) {
     if (this._isEqualTo({
       otherExpression,
@@ -371,7 +351,7 @@ export default class BooleanExpression {
           itemsCollection: this.items,
           item: otherItem,
           index: this.items.length,
-          expressionType: this.type,
+          expressionType: type,
           implies,
         }),
     );
@@ -380,12 +360,20 @@ export default class BooleanExpression {
   _expressionIsSubsumed({ expression, index, implies }) {
     let expressionIsSubsumed = false;
 
-    _.forEach(this.items, (otherExpression, otherIndex) => {
-      if (otherIndex !== index && otherExpression instanceof BooleanExpression) {
+    _.forEach(this.items, (otherItem, otherIndex) => {
+      if (otherIndex !== index) {
+        let otherExpression;
+        if (otherItem instanceof BooleanExpression) {
+          otherExpression = otherItem;
+        } else {
+          otherExpression = BooleanExpression.and(otherItem);
+        }
+
         const isSubsumed = expression._isSubsumedBy({
           otherExpression,
           implies,
           removeIfIdentical: otherIndex < index,
+          type: this._oppositeType(),
         });
 
         if (isSubsumed) {
@@ -407,7 +395,7 @@ export default class BooleanExpression {
       if (item instanceof BooleanExpression) {
         newExpression = item._removeDuplicateExpressions(implies);
       } else {
-        newExpression = new BooleanExpression([item], this._oppositeType());
+        newExpression = BooleanExpression.and(item);
       }
 
       if (!this._expressionIsSubsumed({
