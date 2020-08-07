@@ -56,11 +56,21 @@ export default class Settings {
   }
 
   static isFlagActive(flag) {
+    if (_.isNil(flag)) {
+      throw Error(`Invalid flag: ${flag}`);
+    }
+
     return _.includes(this.flags, flag);
   }
 
   static getOptionValue(optionName) {
-    return _.get(this.options, optionName);
+    const optionValue = _.get(this.options, optionName);
+
+    if (_.isNil(optionName)) {
+      throw Error(`Invalid option: ${optionName}`);
+    }
+
+    return optionValue;
   }
 
   static getStartingGear() {

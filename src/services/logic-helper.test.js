@@ -1158,7 +1158,7 @@ describe('LogicHelper', () => {
     beforeEach(() => {
       Settings.initializeRaw({
         options: {
-          [Permalink.OPTIONS.KEY_LUNACY]: false,
+          [Permalink.OPTIONS.KEYLUNACY]: false,
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
           [Permalink.OPTIONS.RACE_MODE]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
@@ -1218,7 +1218,7 @@ describe('LogicHelper', () => {
     beforeEach(() => {
       Settings.initializeRaw({
         options: {
-          [Permalink.OPTIONS.KEY_LUNACY]: false,
+          [Permalink.OPTIONS.KEYLUNACY]: false,
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
           [Permalink.OPTIONS.RACE_MODE]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,

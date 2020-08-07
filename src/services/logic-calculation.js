@@ -249,7 +249,7 @@ export default class LogicCalculation {
       {},
     );
 
-    if (!Settings.getOptionValue(Permalink.OPTIONS.KEY_LUNACY)) {
+    if (!Settings.getOptionValue(Permalink.OPTIONS.KEYLUNACY)) {
       _.forEach(DUNGEONS, (dungeonName) => {
         if (LogicHelper.isMainDungeon(dungeonName)) {
           const {
