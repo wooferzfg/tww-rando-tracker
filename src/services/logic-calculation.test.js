@@ -385,7 +385,7 @@ describe('LogicCalculation', () => {
         expect(formattedRequirements).toEqual([
           [
             { text: 'Empty Bottle', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
-            { text: 'or', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: ' or ', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
             { text: 'Grappling Hook', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM },
           ],
         ]);
@@ -461,7 +461,7 @@ describe('LogicCalculation', () => {
           ],
           [
             { text: 'Grappling Hook', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
-            { text: 'or', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: ' or ', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
             { text: 'Empty Bottle', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
           ],
         ]);
@@ -491,13 +491,13 @@ describe('LogicCalculation', () => {
         expect(formattedRequirements).toEqual([
           [
             { text: 'Deku Leaf', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
-            { text: 'or', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: ' or ', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
             { text: '(', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
             { text: 'Grappling Hook', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
-            { text: 'and', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: ' and ', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
             { text: '(', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
             { text: 'Boomerang', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.AVAILABLE_ITEM },
-            { text: 'or', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
+            { text: ' or ', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
             { text: 'Bombs', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.INCONSEQUENTIAL_ITEM },
             { text: ')', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },
             { text: ')', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT },

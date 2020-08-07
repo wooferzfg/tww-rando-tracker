@@ -19,9 +19,7 @@ class DetailedLocationsTable extends React.PureComponent {
       <li key={rowIndex}>
         {
           _.map(elements, ({ color, text }, elementIndex) => (
-            <span className={color} key={elementIndex}>
-              {` ${text} `}
-            </span>
+            <span className={color} key={elementIndex}>{text}</span>
           ))
         }
       </li>

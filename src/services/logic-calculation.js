@@ -419,6 +419,13 @@ export default class LogicCalculation {
     OR: 'or',
   };
 
+  static _PLAIN_TEXT_STRINGS = {
+    AND: ' and ',
+    LEFT_PAREN: '(',
+    OR: ' or ',
+    RIGHT_PAREN: ')',
+  }
+
   _formatRequirements(requirements) {
     const evaluatedRequirements = this._evaluatedRequirements(requirements);
     const sortedRequirements = LogicCalculation._sortRequirements(evaluatedRequirements);
@@ -532,12 +539,12 @@ export default class LogicCalculation {
         currentResult.push([
           {
             color: this.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
-            text: '(',
+            text: this._PLAIN_TEXT_STRINGS.LEFT_PAREN,
           },
           this._createReadableRequirementsHelper(item, isInconsequentialForChild),
           {
             color: this.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
-            text: ')',
+            text: this._PLAIN_TEXT_STRINGS.RIGHT_PAREN,
           },
         ]);
       } else {
@@ -548,12 +555,12 @@ export default class LogicCalculation {
         if (requirements.type === this._BOOLEAN_EXPRESSION_TYPES.AND) {
           currentResult.push({
             color: this.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
-            text: 'and',
+            text: this._PLAIN_TEXT_STRINGS.AND,
           });
         } else if (requirements.type === this._BOOLEAN_EXPRESSION_TYPES.OR) {
           currentResult.push({
             color: this.ITEM_REQUIREMENT_COLORS.PLAIN_TEXT,
-            text: 'or',
+            text: this._PLAIN_TEXT_STRINGS.OR,
           });
         } else {
           throw Error(`Invalid requirements: ${JSON.stringify(requirements)}`);
