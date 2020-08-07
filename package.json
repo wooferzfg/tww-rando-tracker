@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "build:production": "webpack -p",
-    "lint": "eslint \"src/**/*.jsx\" \"src/**/*.js\" \"*.js\"",
+    "lint": "eslint --max-warnings 0 \"src/**/*.jsx\" \"src/**/*.js\" \"*.js\"",
     "serve": "webpack-dev-server",
     "start": "webpack-dev-server --open",
     "test": "jest --env=node --coverage --maxWorkers=5"
