@@ -350,7 +350,7 @@ export default class BooleanExpression {
           return this._isSubsumedBy({
             otherExpression: otherItem,
             implies,
-            removeIfIdentical: false,
+            removeIfIdentical: true,
             expressionType,
           });
         }
