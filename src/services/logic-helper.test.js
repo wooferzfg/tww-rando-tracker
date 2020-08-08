@@ -316,6 +316,40 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('isRaceModeDungeon', () => {
+    describe('when the dungeon is a race mode dungeon', () => {
+      test('returns true', () => {
+        const isRaceModeDungeon = LogicHelper.isRaceModeDungeon('Dragon Roost Cavern');
+
+        expect(isRaceModeDungeon).toEqual(true);
+      });
+    });
+
+    describe('when the dungeon is Forsaken Fortress', () => {
+      test('returns true', () => {
+        const isRaceModeDungeon = LogicHelper.isRaceModeDungeon('Forsaken Fortress');
+
+        expect(isRaceModeDungeon).toEqual(true);
+      });
+    });
+
+    describe("when the dungeon is Ganon's Tower", () => {
+      test('returns false', () => {
+        const isRaceModeDungeon = LogicHelper.isRaceModeDungeon("Ganon's Tower");
+
+        expect(isRaceModeDungeon).toEqual(false);
+      });
+    });
+
+    describe('when the argument is not a dungeon', () => {
+      test('returns false', () => {
+        const isRaceModeDungeon = LogicHelper.isRaceModeDungeon('Pawprint Isle');
+
+        expect(isRaceModeDungeon).toEqual(false);
+      });
+    });
+  });
+
   describe('shortDungeonName', () => {
     test('returns the short dungeon name based on the dungeon name', () => {
       const shortDungeonName = LogicHelper.shortDungeonName('Dragon Roost Cavern');
@@ -1522,6 +1556,66 @@ describe('LogicHelper', () => {
           chartType: LogicHelper.CHART_TYPES.TREASURE,
         });
       });
+    });
+  });
+
+  describe('raceModeBannedLocations', () => {
+    beforeEach(() => {
+      Settings.initializeRaw({
+        options: {
+          [Permalink.OPTIONS.KEYLUNACY]: false,
+          [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+          [Permalink.OPTIONS.RACE_MODE]: false,
+          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+          [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
+          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+        },
+        startingGear: {},
+      });
+
+      Locations.initialize(TEST_ITEM_LOCATIONS);
+      Macros.initialize(TEST_MACROS);
+
+      LogicTweaks.applyTweaks();
+
+      LogicHelper.initialize();
+    });
+
+    test('returns the correct locations for Dragon Roost Cavern', () => {
+      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Dragon Roost Cavern');
+
+      expect(raceModeBannedLocations).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Forbidden Woods', () => {
+      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Forbidden Woods');
+
+      expect(raceModeBannedLocations).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Tower of the Gods', () => {
+      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Tower of the Gods');
+
+      expect(raceModeBannedLocations).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Forsaken Fortress', () => {
+      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Forsaken Fortress');
+
+      expect(raceModeBannedLocations).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Earth Temple', () => {
+      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Earth Temple');
+
+      expect(raceModeBannedLocations).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Wind Temple', () => {
+      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Wind Temple');
+
+      expect(raceModeBannedLocations).toMatchSnapshot();
     });
   });
 

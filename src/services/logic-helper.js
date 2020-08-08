@@ -10,6 +10,7 @@ import ITEMS from '../data/items.json';
 import KEYS from '../data/keys.json';
 import MISC_LOCATIONS from '../data/misc-locations.json';
 import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
+import RACE_MODE_BANNED_LOCATIONS from '../data/race-mode-banned-locations.json';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
 
 import BooleanExpression from './boolean-expression';
@@ -127,6 +128,13 @@ export default class LogicHelper {
 
   static isDungeon(dungeonName) {
     return _.includes(DUNGEONS, dungeonName);
+  }
+
+  static isRaceModeDungeon(dungeonName) {
+    if (dungeonName === this.DUNGEONS.GANONS_TOWER) {
+      return false;
+    }
+    return this.isDungeon(dungeonName);
   }
 
   static shortDungeonName(dungeonName) {
@@ -361,6 +369,21 @@ export default class LogicHelper {
       chartName,
       chartType,
     };
+  }
+
+  static raceModeBannedLocations(dungeonName) {
+    const detailedLocations = this.filterDetailedLocations(dungeonName, {
+      isDungeon: true,
+      onlyProgressLocations: false,
+    });
+    const dungeonLocations = _.map(detailedLocations, (detailedLocation) => ({
+      generalLocation: dungeonName,
+      detailedLocation,
+    }));
+
+    const additionalLocations = _.get(RACE_MODE_BANNED_LOCATIONS, dungeonName, []);
+
+    return _.concat(dungeonLocations, additionalLocations);
   }
 
   static _prettyNameOverride(itemName, itemCount = 1) {

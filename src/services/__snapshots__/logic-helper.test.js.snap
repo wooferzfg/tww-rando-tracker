@@ -332,6 +332,384 @@ Object {
 }
 `;
 
+exports[`LogicHelper raceModeBannedLocations returns the correct locations for Dragon Roost Cavern 1`] = `
+Array [
+  Object {
+    "detailedLocation": "First Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Alcove With Water Jugs",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Boarded Up Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Chest Across Lava Pit",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Rat Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Rat Room Boarded Up Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Bird's Nest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Dark Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Tingle Chest in Hub Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Pot Room Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Mini-Boss",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Under Rope Bridge",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Boss Stairs Right Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Boss Stairs Left Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Gohma Heart Container",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+]
+`;
+
+exports[`LogicHelper raceModeBannedLocations returns the correct locations for Earth Temple 1`] = `
+Array [
+  Object {
+    "detailedLocation": "Transparent Chest In Warp Pot Room",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Chest Behind Destructible Walls",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Transparent Chest in First Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Chest In Three Blocks Room",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Chest Behind Statues",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Casket in Second Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Stalfos Mini-Boss Room",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "End of Foggy Room With Floormasters",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Kill All Floormasters in Foggy Room",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Chest in Third Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Many Mirrors Room Right Chest",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Many Mirrors Room Left Chest",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Stalfos Crypt Room",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Jalhalla Heart Container",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Letter from Baito",
+    "generalLocation": "Mailbox",
+  },
+]
+`;
+
+exports[`LogicHelper raceModeBannedLocations returns the correct locations for Forbidden Woods 1`] = `
+Array [
+  Object {
+    "detailedLocation": "First Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Inside Hollow Tree's Mouth",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Climb to Top Using Boko Baba Bulbs",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Hole in Tree",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Morth Pit",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Vine Maze Left Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Vine Maze Right Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Tall Room Before Mini-Boss",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Mothula Mini-Boss Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Past Seeds Hanging by Vines",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Chest Across Red Hanging Flower",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Chest in Locked Tree Trunk",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Double Mothula Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Kalle Demos Heart Container",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Letter from Orca",
+    "generalLocation": "Mailbox",
+  },
+]
+`;
+
+exports[`LogicHelper raceModeBannedLocations returns the correct locations for Forsaken Fortress 1`] = `
+Array [
+  Object {
+    "detailedLocation": "Phantom Ganon",
+    "generalLocation": "Forsaken Fortress",
+  },
+  Object {
+    "detailedLocation": "Chest Outside Upper Jail Cell",
+    "generalLocation": "Forsaken Fortress",
+  },
+  Object {
+    "detailedLocation": "Chest Inside Lower Jail Cell",
+    "generalLocation": "Forsaken Fortress",
+  },
+  Object {
+    "detailedLocation": "Chest Guarded By Bokoblin",
+    "generalLocation": "Forsaken Fortress",
+  },
+  Object {
+    "detailedLocation": "Chest on Bed",
+    "generalLocation": "Forsaken Fortress",
+  },
+  Object {
+    "detailedLocation": "Helmaroc King Heart Container",
+    "generalLocation": "Forsaken Fortress",
+  },
+  Object {
+    "detailedLocation": "Letter from Aryll",
+    "generalLocation": "Mailbox",
+  },
+  Object {
+    "detailedLocation": "Letter from Tingle",
+    "generalLocation": "Mailbox",
+  },
+]
+`;
+
+exports[`LogicHelper raceModeBannedLocations returns the correct locations for Tower of the Gods 1`] = `
+Array [
+  Object {
+    "detailedLocation": "Chest Behind Bombable Walls",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Hop Across Floating Boxes",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Light Two Torches",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Skulls Room Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Shoot Eye Above Skulls Room Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "First Chest Guarded by Armos Knights",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Stone Tablet",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Darknut Mini-Boss Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Second Chest Guarded by Armos Knights",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Floating Platforms Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Top of Floating Platforms Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Gohdan Heart Container",
+    "generalLocation": "Tower of the Gods",
+  },
+]
+`;
+
+exports[`LogicHelper raceModeBannedLocations returns the correct locations for Wind Temple 1`] = `
+Array [
+  Object {
+    "detailedLocation": "Chest Between Two Dirt Patches",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Chest Behind Stone Head",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Chest in Left Alcove",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Chest In Many Cyclones Room",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Chest In Middle Of Hub Room",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Spike Wall Room - First Chest",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Spike Wall Room - Destroy All Cracked Floors",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Wizzrobe Mini-Boss Room",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Chest at Top of Hub Room",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Chest Behind Seven Armos",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Kill All Enemies in Tall Basement Room",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Molgera Heart Container",
+    "generalLocation": "Wind Temple",
+  },
+]
+`;
+
 exports[`LogicHelper requirementsForEntrance returns simplified requirements for Bomb Island Secret Cave 1`] = `
 BooleanExpression {
   "items": Array [
