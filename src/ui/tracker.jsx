@@ -4,6 +4,7 @@ import React from 'react';
 import Loader from 'react-loader-spinner';
 import { ToastContainer, toast } from 'react-toastify';
 
+import LogicHelper from '../services/logic-helper';
 import TrackerController from '../services/tracker-controller';
 
 import Buttons from './buttons';
@@ -28,6 +29,7 @@ class Tracker extends React.PureComponent {
 
     this.initialize();
 
+    this.clearRaceModeBannedLocations = this.clearRaceModeBannedLocations.bind(this);
     this.incrementItem = this.incrementItem.bind(this);
     this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
@@ -105,6 +107,20 @@ class Tracker extends React.PureComponent {
     this.updateTrackerState(newTrackerState);
   }
 
+  clearRaceModeBannedLocations(dungeonName) {
+    let { trackerState: newTrackerState } = this.state;
+
+    const raceModeBannedLocations = LogicHelper.raceModeBannedLocations(dungeonName);
+
+    _.forEach(raceModeBannedLocations, ({ generalLocation, detailedLocation }) => {
+      if (!newTrackerState.isLocationChecked(generalLocation, detailedLocation)) {
+        newTrackerState = newTrackerState.toggleLocationChecked(generalLocation, detailedLocation);
+      }
+    });
+
+    this.updateTrackerState(newTrackerState);
+  }
+
   updateTrackerState(newTrackerState) {
     const {
       logic,
@@ -173,6 +189,7 @@ class Tracker extends React.PureComponent {
               trackerState={trackerState}
             />
             <LocationsTable
+              clearRaceModeBannedLocations={this.clearRaceModeBannedLocations}
               disableLogic={disableLogic}
               incrementItem={this.incrementItem}
               logic={logic}

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import LogicCalculation from '../services/logic-calculation';
+import LogicHelper from '../services/logic-helper';
+import Permalink from '../services/permalink';
+import Settings from '../services/settings';
 
 import Images from './images';
 import Tooltip from './tooltip';
@@ -97,6 +100,7 @@ class DetailedLocationsTable extends React.PureComponent {
   render() {
     const {
       clearOpenedLocation,
+      clearRaceModeBannedLocations,
       disableLogic,
       logic,
       onlyProgressLocations,
@@ -128,13 +132,33 @@ class DetailedLocationsTable extends React.PureComponent {
       </tr>
     ));
 
+    let clearAllElement;
+    if (Settings.getOptionValue(Permalink.OPTIONS.RACE_MODE)
+      && LogicHelper.isRaceModeDungeon(openedLocation)) {
+      const clearRaceModeBannedLocationsFunc = () => clearRaceModeBannedLocations(openedLocation);
+
+      clearAllElement = (
+        <td>
+          <div
+            className="detail-span"
+            onClick={clearRaceModeBannedLocationsFunc}
+            onKeyDown={clearRaceModeBannedLocationsFunc}
+            role="button"
+            tabIndex="0"
+          >
+            ✓ Clear All
+          </div>
+        </td>
+      );
+    }
+
     return (
       <div className="zoom-map">
         <div className="zoom-map-cover" />
         <div className="zoom-map-background">
           <img src={backgroundImage} alt="" />
         </div>
-        <table>
+        <table className="header-table">
           <tbody>
             <tr>
               <td>
@@ -148,7 +172,12 @@ class DetailedLocationsTable extends React.PureComponent {
                   X Close
                 </div>
               </td>
+              {clearAllElement}
             </tr>
+          </tbody>
+        </table>
+        <table className="detailed-locations-table">
+          <tbody>
             {locationRows}
           </tbody>
         </table>
@@ -159,6 +188,7 @@ class DetailedLocationsTable extends React.PureComponent {
 
 DetailedLocationsTable.propTypes = {
   clearOpenedLocation: PropTypes.func.isRequired,
+  clearRaceModeBannedLocations: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,

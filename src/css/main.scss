@@ -483,8 +483,13 @@ button:hover:enabled {
   }
 
   .zoom-map {
-    table {
+    .header-table {
       padding-top: 5px;
+      border-spacing: 2px 0;
+    }
+
+    .header-table,
+    .detailed-locations-table {
       width: 100%;
       table-layout: fixed;
 

@@ -62,6 +62,7 @@ class LocationsTable extends React.PureComponent {
 
   chartContainer() {
     const {
+      clearRaceModeBannedLocations,
       disableLogic,
       incrementItem,
       logic,
@@ -83,6 +84,7 @@ class LocationsTable extends React.PureComponent {
       chartElement = (
         <DetailedLocationsTable
           clearOpenedLocation={this.clearOpenedLocation}
+          clearRaceModeBannedLocations={clearRaceModeBannedLocations}
           disableLogic={disableLogic}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
@@ -156,6 +158,7 @@ class LocationsTable extends React.PureComponent {
 }
 
 LocationsTable.propTypes = {
+  clearRaceModeBannedLocations: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
