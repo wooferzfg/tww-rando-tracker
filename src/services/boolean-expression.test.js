@@ -1090,6 +1090,7 @@ describe('BooleanExpression', () => {
           '3x Coconut',
           '3x Durian',
           'Eclair',
+          'Fruit',
         ),
       ),
       expected: BooleanExpression.or(
@@ -1116,6 +1117,7 @@ describe('BooleanExpression', () => {
           '3x Coconut',
           '3x Durian',
           'Eclair',
+          'Fruit',
         ),
       ),
       expected: BooleanExpression.and(
