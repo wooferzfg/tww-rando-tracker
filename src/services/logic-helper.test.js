@@ -1246,6 +1246,12 @@ describe('LogicHelper', () => {
 
       expect(requirements).toMatchSnapshot();
     });
+
+    test('returns simplified requirements for Cliff Plateau Isles - Cave', () => {
+      const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave');
+
+      expect(requirements).toMatchSnapshot();
+    });
   });
 
   describe('requirementsForEntrance', () => {

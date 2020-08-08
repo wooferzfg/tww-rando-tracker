@@ -972,5 +972,37 @@ describe('BooleanExpression', () => {
       ),
       expected: BooleanExpression.or('Apple', 'Coconut'),
     });
+
+    testSimplify('test 55', {
+      initial: BooleanExpression.and(
+        'Always',
+        BooleanExpression.or(
+          'Apple',
+          'Banana',
+          BooleanExpression.and('Coconut', 'Durian'),
+        ),
+      ),
+      expected: BooleanExpression.or(
+        'Apple',
+        'Banana',
+        BooleanExpression.and('Coconut', 'Durian'),
+      ),
+    });
+
+    testSimplify('test 56', {
+      initial: BooleanExpression.or(
+        'Never',
+        BooleanExpression.and(
+          'Apple',
+          'Banana',
+          BooleanExpression.or('Coconut', 'Durian'),
+        ),
+      ),
+      expected: BooleanExpression.and(
+        'Apple',
+        'Banana',
+        BooleanExpression.or('Coconut', 'Durian'),
+      ),
+    });
   });
 });

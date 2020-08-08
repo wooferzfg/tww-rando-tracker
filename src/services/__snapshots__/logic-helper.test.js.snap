@@ -740,6 +740,27 @@ BooleanExpression {
 }
 `;
 
+exports[`LogicHelper requirementsForLocation returns simplified requirements for Cliff Plateau Isles - Cave 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Progressive Sword x1",
+    "Boomerang",
+    "Skull Hammer",
+    "Progressive Bow x1",
+    "Hookshot",
+    "Bombs",
+    BooleanExpression {
+      "items": Array [
+        "Deku Leaf",
+        "Grappling Hook",
+      ],
+      "type": "and",
+    },
+  ],
+  "type": "or",
+}
+`;
+
 exports[`LogicHelper requirementsForLocation returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container 1`] = `
 BooleanExpression {
   "items": Array [
