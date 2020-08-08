@@ -1030,5 +1030,27 @@ describe('BooleanExpression', () => {
       ),
       expected: BooleanExpression.and('Never'),
     });
+
+    testSimplify('test 59', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or(
+          'Apple',
+          'Banana',
+          BooleanExpression.and('Coconut', 'Durian'),
+        ),
+        BooleanExpression.or(
+          'Apple',
+          'Banana',
+          'Coconut',
+          'Durian',
+          'Eclair',
+        ),
+      ),
+      expected: BooleanExpression.or(
+        'Apple',
+        'Banana',
+        BooleanExpression.and('Coconut', 'Durian'),
+      ),
+    });
   });
 });
