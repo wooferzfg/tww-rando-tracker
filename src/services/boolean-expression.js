@@ -101,8 +101,8 @@ export default class BooleanExpression {
     let updatedExpression = this._flatten();
 
     for (let i = 1; i <= iterations; i += 1) {
-      updatedExpression = updatedExpression._removeDuplicateExpressions(implies);
       updatedExpression = updatedExpression._removeDuplicateChildren(implies);
+      updatedExpression = updatedExpression._removeDuplicateExpressions(implies);
     }
 
     return updatedExpression;
@@ -342,13 +342,23 @@ export default class BooleanExpression {
 
     return _.every(
       otherExpression.items,
-      (otherItem) => !(otherItem instanceof BooleanExpression)
-        && BooleanExpression._itemIsSubsumed({
+      (otherItem) => {
+        if (otherItem instanceof BooleanExpression) {
+          return this._isSubsumedBy({
+            otherExpression: otherItem,
+            implies,
+            removeIfIdentical: false,
+            expressionType,
+          });
+        }
+
+        return BooleanExpression._itemIsSubsumed({
           itemsCollection: this.items,
           item: otherItem,
           expressionType,
           implies,
-        }),
+        });
+      },
     );
   }
 
