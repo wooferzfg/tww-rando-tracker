@@ -1004,5 +1004,31 @@ describe('BooleanExpression', () => {
         BooleanExpression.or('Coconut', 'Durian'),
       ),
     });
+
+    testSimplify('test 57', {
+      initial: BooleanExpression.and(
+        'Always',
+        BooleanExpression.or(
+          'Always',
+          'Banana',
+          'Coconut',
+          BooleanExpression.and('Durian', 'Eclair'),
+        ),
+      ),
+      expected: BooleanExpression.and('Always'),
+    });
+
+    testSimplify('test 58', {
+      initial: BooleanExpression.or(
+        'Never',
+        BooleanExpression.and(
+          'Never',
+          'Banana',
+          'Coconut',
+          BooleanExpression.or('Durian', 'Eclair'),
+        ),
+      ),
+      expected: BooleanExpression.and('Never'),
+    });
   });
 });
