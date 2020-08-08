@@ -740,7 +740,16 @@ BooleanExpression {
 }
 `;
 
-exports[`LogicHelper requirementsForLocation returns simplified requirements for Cliff Plateau Isles - Cave 1`] = `
+exports[`LogicHelper requirementsForLocation when starting with a sword returns simplified requirements for Cliff Plateau Isles - Cave 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Nothing",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Cliff Plateau Isles - Cave 1`] = `
 BooleanExpression {
   "items": Array [
     "Progressive Sword x1",
@@ -761,7 +770,7 @@ BooleanExpression {
 }
 `;
 
-exports[`LogicHelper requirementsForLocation returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container 1`] = `
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container 1`] = `
 BooleanExpression {
   "items": Array [
     "DRC Small Key x4",
@@ -772,7 +781,7 @@ BooleanExpression {
 }
 `;
 
-exports[`LogicHelper requirementsForLocation returns simplified requirements for Earth Temple - Jalhalla Heart Container 1`] = `
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Earth Temple - Jalhalla Heart Container 1`] = `
 BooleanExpression {
   "items": Array [
     "Power Bracelets",
@@ -787,7 +796,7 @@ BooleanExpression {
 }
 `;
 
-exports[`LogicHelper requirementsForLocation returns simplified requirements for Mailbox - Beedle's Silver Membership Reward 1`] = `
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Mailbox - Beedle's Silver Membership Reward 1`] = `
 BooleanExpression {
   "items": Array [
     "Bait Bag",
@@ -799,7 +808,7 @@ BooleanExpression {
 }
 `;
 
-exports[`LogicHelper requirementsForLocation returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30 1`] = `
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30 1`] = `
 BooleanExpression {
   "items": Array [
     BooleanExpression {
@@ -889,7 +898,7 @@ BooleanExpression {
 }
 `;
 
-exports[`LogicHelper requirementsForLocation returns simplified requirements for Outset Island - Savage Labyrinth - Floor 50 1`] = `
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Outset Island - Savage Labyrinth - Floor 50 1`] = `
 BooleanExpression {
   "items": Array [
     BooleanExpression {

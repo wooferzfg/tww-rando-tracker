@@ -1189,68 +1189,102 @@ describe('LogicHelper', () => {
   });
 
   describe('requirementsForLocation', () => {
-    beforeEach(() => {
-      Settings.initializeRaw({
-        options: {
-          [Permalink.OPTIONS.KEYLUNACY]: false,
-          [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-          [Permalink.OPTIONS.RACE_MODE]: false,
-          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
-          [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
-        },
-        startingGear: {},
+    describe('when starting without a sword', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.KEYLUNACY]: false,
+            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+            [Permalink.OPTIONS.RACE_MODE]: false,
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+          },
+          startingGear: {},
+        });
+  
+        Locations.initialize(TEST_ITEM_LOCATIONS);
+        Macros.initialize(TEST_MACROS);
+  
+        LogicTweaks.applyTweaks();
+  
+        LogicHelper.initialize();
+      });
+  
+      test('returns no requirements for Dragon Roost Island - Wind Shrine', () => {
+        const requirements = LogicHelper.requirementsForLocation('Dragon Roost Island', 'Wind Shrine');
+  
+        expect(requirements).toEqual(BooleanExpression.and('Nothing'));
+      });
+  
+      test('returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30', () => {
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+  
+        expect(requirements).toMatchSnapshot();
+      });
+  
+      test('returns simplified requirements for Outset Island - Savage Labyrinth - Floor 50', () => {
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 50');
+  
+        expect(requirements).toMatchSnapshot();
+      });
+  
+      test('returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container', () => {
+        const requirements = LogicHelper.requirementsForLocation('Dragon Roost Cavern', 'Gohma Heart Container');
+  
+        expect(requirements).toMatchSnapshot();
+      });
+  
+      test('returns simplified requirements for Earth Temple - Jalhalla Heart Container', () => {
+        const requirements = LogicHelper.requirementsForLocation('Earth Temple', 'Jalhalla Heart Container');
+  
+        expect(requirements).toMatchSnapshot();
+      });
+  
+      test("returns simplified requirements for Mailbox - Beedle's Silver Membership Reward", () => {
+        const requirements = LogicHelper.requirementsForLocation('Mailbox', "Beedle's Silver Membership Reward");
+  
+        expect(requirements).toMatchSnapshot();
+      });
+  
+      test('returns simplified requirements for Cliff Plateau Isles - Cave', () => {
+        const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave');
+  
+        expect(requirements).toMatchSnapshot();
+      });
+    });
+
+    describe('when starting with a sword', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.KEYLUNACY]: false,
+            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+            [Permalink.OPTIONS.RACE_MODE]: false,
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+          },
+          startingGear: {
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+          },
+        });
+  
+        Locations.initialize(TEST_ITEM_LOCATIONS);
+        Macros.initialize(TEST_MACROS);
+  
+        LogicTweaks.applyTweaks();
+  
+        LogicHelper.initialize();
       });
 
-      Locations.initialize(TEST_ITEM_LOCATIONS);
-      Macros.initialize(TEST_MACROS);
-
-      LogicTweaks.applyTweaks();
-
-      LogicHelper.initialize();
-    });
-
-    test('returns no requirements for Dragon Roost Island - Wind Shrine', () => {
-      const requirements = LogicHelper.requirementsForLocation('Dragon Roost Island', 'Wind Shrine');
-
-      expect(requirements).toEqual(BooleanExpression.and('Nothing'));
-    });
-
-    test('returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30', () => {
-      const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
-
-      expect(requirements).toMatchSnapshot();
-    });
-
-    test('returns simplified requirements for Outset Island - Savage Labyrinth - Floor 50', () => {
-      const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 50');
-
-      expect(requirements).toMatchSnapshot();
-    });
-
-    test('returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container', () => {
-      const requirements = LogicHelper.requirementsForLocation('Dragon Roost Cavern', 'Gohma Heart Container');
-
-      expect(requirements).toMatchSnapshot();
-    });
-
-    test('returns simplified requirements for Earth Temple - Jalhalla Heart Container', () => {
-      const requirements = LogicHelper.requirementsForLocation('Earth Temple', 'Jalhalla Heart Container');
-
-      expect(requirements).toMatchSnapshot();
-    });
-
-    test("returns simplified requirements for Mailbox - Beedle's Silver Membership Reward", () => {
-      const requirements = LogicHelper.requirementsForLocation('Mailbox', "Beedle's Silver Membership Reward");
-
-      expect(requirements).toMatchSnapshot();
-    });
-
-    test('returns simplified requirements for Cliff Plateau Isles - Cave', () => {
-      const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave');
-
-      expect(requirements).toMatchSnapshot();
+      test('returns simplified requirements for Cliff Plateau Isles - Cave', () => {
+        const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave');
+  
+        expect(requirements).toMatchSnapshot();
+      });
     });
   });
 
