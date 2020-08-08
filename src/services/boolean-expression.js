@@ -203,21 +203,24 @@ export default class BooleanExpression {
     let itemIsSubsumed = false;
 
     _.forEach(itemsCollection, (otherItem) => {
-      if (!(otherItem instanceof BooleanExpression)) {
-        if (expressionType === BooleanExpression._TYPES.AND) {
-          if (implies(otherItem, item)) {
-            itemIsSubsumed = true;
-            return false; // break loop
-          }
-        } else if (expressionType === BooleanExpression._TYPES.OR) {
-          if (implies(item, otherItem)) {
-            itemIsSubsumed = true;
-            return false; // break loop
-          }
-        } else {
-          throw Error(`Invalid type: ${expressionType}`);
-        }
+      if (otherItem instanceof BooleanExpression) {
+        return true; // continue
       }
+
+      if (expressionType === BooleanExpression._TYPES.AND) {
+        if (implies(otherItem, item)) {
+          itemIsSubsumed = true;
+          return false; // break loop
+        }
+      } else if (expressionType === BooleanExpression._TYPES.OR) {
+        if (implies(item, otherItem)) {
+          itemIsSubsumed = true;
+          return false; // break loop
+        }
+      } else {
+        throw Error(`Invalid type: ${expressionType}`);
+      }
+
       return true; // continue
     });
 
