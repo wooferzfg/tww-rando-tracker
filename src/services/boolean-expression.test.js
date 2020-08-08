@@ -1054,6 +1054,28 @@ describe('BooleanExpression', () => {
     });
 
     testSimplify('test 60', {
+      initial: BooleanExpression.or(
+        BooleanExpression.and(
+          'Apple',
+          'Banana',
+          BooleanExpression.or('Coconut', 'Durian'),
+        ),
+        BooleanExpression.and(
+          'Apple',
+          'Banana',
+          'Coconut',
+          'Durian',
+          'Eclair',
+        ),
+      ),
+      expected: BooleanExpression.and(
+        'Apple',
+        'Banana',
+        BooleanExpression.or('Coconut', 'Durian'),
+      ),
+    });
+
+    testSimplify('test 61', {
       initial: BooleanExpression.and(
         BooleanExpression.or(
           'Apple',
@@ -1075,6 +1097,32 @@ describe('BooleanExpression', () => {
         BooleanExpression.and(
           '4x Coconut',
           BooleanExpression.or('4x Durian', 'Eclair'),
+        ),
+      ),
+    });
+
+    testSimplify('test 62', {
+      initial: BooleanExpression.or(
+        BooleanExpression.and(
+          'Apple',
+          BooleanExpression.or(
+            '2x Coconut',
+            BooleanExpression.and('2x Durian', 'Eclair'),
+          ),
+        ),
+        BooleanExpression.and(
+          'Apple',
+          'Banana',
+          '3x Coconut',
+          '3x Durian',
+          'Eclair',
+        ),
+      ),
+      expected: BooleanExpression.and(
+        'Apple',
+        BooleanExpression.or(
+          '2x Coconut',
+          BooleanExpression.and('2x Durian', 'Eclair'),
         ),
       ),
     });
