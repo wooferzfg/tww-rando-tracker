@@ -1128,5 +1128,39 @@ describe('BooleanExpression', () => {
         ),
       ),
     });
+
+    testSimplify('test 63', {
+      initial: BooleanExpression.and(
+        'Apple',
+        BooleanExpression.or(
+          'Never',
+          '2x Banana',
+          'Coconut',
+          'Durian',
+        ),
+        BooleanExpression.or(
+          'Never',
+          '3x Banana',
+          'Durian',
+        ),
+        BooleanExpression.or(
+          'Never',
+          'Durian',
+          '3x Banana',
+        ),
+      ),
+      expected: BooleanExpression.and(
+        'Apple',
+        BooleanExpression.or(
+          '2x Banana',
+          'Coconut',
+          'Durian',
+        ),
+        BooleanExpression.or(
+          '3x Banana',
+          'Durian',
+        ),
+      ),
+    });
   });
 });
