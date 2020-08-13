@@ -157,22 +157,22 @@ export default class BooleanExpression {
   }
 
   _flatten() {
-    let newItems = [];
-
-    _.forEach(this.items, (item) => {
-      if (item instanceof BooleanExpression) {
-        const flatItem = item._flatten();
-
-        if (!_.isEmpty(flatItem.items)) {
-          if (flatItem.type === this.type || flatItem.items.length === 1) {
-            newItems = _.concat(newItems, flatItem.items);
-          } else {
-            newItems = _.concat(newItems, flatItem);
-          }
-        }
-      } else {
-        newItems.push(item);
+    const newItems = _.flatMap(this.items, (item) => {
+      if (!(item instanceof BooleanExpression)) {
+        return item;
       }
+
+      const flatItem = item._flatten();
+
+      if (_.isEmpty(flatItem.items)) {
+        return [];
+      }
+
+      if (flatItem.type === this.type || flatItem.items.length === 1) {
+        return flatItem.items;
+      }
+
+      return flatItem;
     });
 
     if (newItems.length === 1) {
@@ -404,17 +404,11 @@ export default class BooleanExpression {
   }
 
   _removeDuplicateExpressionsInChildren(implies) {
-    const newItems = [];
-
-    _.forEach(this.items, (item) => {
-      let newItem;
+    const newItems = _.map(this.items, (item) => {
       if (item instanceof BooleanExpression) {
-        newItem = item._removeDuplicateExpressions(implies);
-      } else {
-        newItem = item;
+        return item._removeDuplicateExpressions(implies);
       }
-
-      newItems.push(newItem);
+      return item;
     });
 
     return BooleanExpression._createFlatExpression(newItems, this.type);
@@ -423,9 +417,7 @@ export default class BooleanExpression {
   _removeDuplicateExpressions(implies) {
     const parentExpression = this._removeDuplicateExpressionsInChildren(implies);
 
-    const newItems = [];
-
-    _.forEach(parentExpression.items, (item, index) => {
+    const newItems = _.filter(parentExpression.items, (item, index) => {
       let expressionToCheck;
       if (item instanceof BooleanExpression) {
         expressionToCheck = item;
@@ -433,14 +425,12 @@ export default class BooleanExpression {
         expressionToCheck = BooleanExpression.and(item);
       }
 
-      if (!BooleanExpression._expressionIsSubsumed({
+      return !BooleanExpression._expressionIsSubsumed({
         parentExpression,
         expression: expressionToCheck,
         index,
         implies,
-      })) {
-        newItems.push(item);
-      }
+      });
     });
 
     return BooleanExpression._createFlatExpression(newItems, this.type);
