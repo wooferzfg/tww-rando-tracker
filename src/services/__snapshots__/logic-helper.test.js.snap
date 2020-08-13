@@ -749,6 +749,32 @@ BooleanExpression {
 }
 `;
 
+exports[`LogicHelper requirementsForLocation when starting with a sword returns simplified requirements for The Great Sea - Ghost Ship 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Ghost Ship Chart",
+    BooleanExpression {
+      "items": Array [
+        "Progressive Bow x1",
+        "Hookshot",
+        "Bombs",
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+    BooleanExpression {
+      "items": Array [
+        "Bombs",
+        "Skull Hammer",
+        "Progressive Bow x3",
+      ],
+      "type": "or",
+    },
+  ],
+  "type": "and",
+}
+`;
+
 exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Cliff Plateau Isles - Cave 1`] = `
 BooleanExpression {
   "items": Array [

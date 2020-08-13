@@ -1265,6 +1265,36 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
             [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,
+          },
+          startingGear: {},
+        });
+
+        Locations.initialize(TEST_ITEM_LOCATIONS);
+        Macros.initialize(TEST_MACROS);
+
+        LogicTweaks.applyTweaks();
+
+        LogicHelper.initialize();
+      });
+
+      test('returns simplified requirements for The Great Sea - Ghost Ship', () => {
+        const requirements = LogicHelper.requirementsForLocation('The Great Sea', 'Ghost Ship');
+
+        expect(requirements).toMatchSnapshot();
+      });
+    });
+
+    describe('when swordless', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.KEYLUNACY]: false,
+            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+            [Permalink.OPTIONS.RACE_MODE]: false,
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
           },
           startingGear: {
