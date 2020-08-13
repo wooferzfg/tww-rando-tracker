@@ -369,31 +369,26 @@ export default class BooleanExpression {
     );
   }
 
-  static _expressionIsSubsumed({
-    parentExpression,
-    expression,
-    index,
-    implies,
-  }) {
+  _expressionIsSubsumed({ expressionToCheck, index, implies }) {
     let expressionIsSubsumed = false;
 
-    _.forEach(parentExpression.items, (otherItem, otherIndex) => {
+    _.forEach(this.items, (otherItem, otherIndex) => {
       if (otherIndex === index) {
         return true; // continue
       }
 
       let otherExpression;
-      if (this._isExpression(otherItem)) {
+      if (BooleanExpression._isExpression(otherItem)) {
         otherExpression = otherItem;
       } else {
-        otherExpression = this.and(otherItem);
+        otherExpression = BooleanExpression.and(otherItem);
       }
 
-      const isSubsumed = expression._isSubsumedBy({
+      const isSubsumed = expressionToCheck._isSubsumedBy({
         otherExpression,
         implies,
         removeIfIdentical: otherIndex < index,
-        expressionType: parentExpression._oppositeType(),
+        expressionType: this._oppositeType(),
       });
 
       if (isSubsumed) {
@@ -429,9 +424,8 @@ export default class BooleanExpression {
         expressionToCheck = BooleanExpression.and(item);
       }
 
-      return !BooleanExpression._expressionIsSubsumed({
-        parentExpression,
-        expression: expressionToCheck,
+      return !parentExpression._expressionIsSubsumed({
+        expressionToCheck,
         index,
         implies,
       });
