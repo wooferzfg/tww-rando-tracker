@@ -917,23 +917,14 @@ BooleanExpression {
 `;
 
 exports[`LogicHelper requirementsForLocation when swordless returns simplified requirements for The Great Sea - Ghost Ship 1`] = `
--BooleanExpression {
+BooleanExpression {
   "items": Array [
     "Ghost Ship Chart",
     BooleanExpression {
       "items": Array [
-        "Progressive Bow x1",
-        "Hookshot",
-        "Bombs",
-        "Skull Hammer",
-      ],
-      "type": "or",
-    },
-    BooleanExpression {
-      "items": Array [
-        "Bombs",
-        "Skull Hammer",
         "Progressive Bow x3",
+        "Skull Hammer",
+        "Bombs",
       ],
       "type": "or",
     },

@@ -365,10 +365,15 @@ export default class BooleanExpression {
     );
   }
 
-  _expressionIsSubsumed({ expression, index, implies }) {
+  static _expressionIsSubsumed({
+    parentExpression,
+    expression,
+    index,
+    implies,
+  }) {
     let expressionIsSubsumed = false;
 
-    _.forEach(this.items, (otherItem, otherIndex) => {
+    _.forEach(parentExpression.items, (otherItem, otherIndex) => {
       if (otherIndex === index) {
         return true; // continue
       }
@@ -384,7 +389,7 @@ export default class BooleanExpression {
         otherExpression,
         implies,
         removeIfIdentical: otherIndex < index,
-        expressionType: this._oppositeType(),
+        expressionType: parentExpression._oppositeType(),
       });
 
       if (isSubsumed) {
@@ -398,18 +403,38 @@ export default class BooleanExpression {
     return expressionIsSubsumed;
   }
 
-  _removeDuplicateExpressions(implies) {
+  _removeDuplicateExpressionsInChildren(implies) {
     const newItems = [];
 
-    _.forEach(this.items, (item, index) => {
+    _.forEach(this.items, (item) => {
+      let newItem;
+      if (item instanceof BooleanExpression) {
+        newItem = item._removeDuplicateExpressions(implies);
+      } else {
+        newItem = item;
+      }
+
+      newItems.push(newItem);
+    });
+
+    return BooleanExpression._createFlatExpression(newItems, this.type);
+  }
+
+  _removeDuplicateExpressions(implies) {
+    const parentExpression = this._removeDuplicateExpressionsInChildren(implies);
+
+    const newItems = [];
+
+    _.forEach(parentExpression.items, (item, index) => {
       let newExpression;
       if (item instanceof BooleanExpression) {
-        newExpression = item._removeDuplicateExpressions(implies);
+        newExpression = item;
       } else {
         newExpression = BooleanExpression.and(item);
       }
 
-      if (!this._expressionIsSubsumed({
+      if (!BooleanExpression._expressionIsSubsumed({
+        parentExpression,
         expression: newExpression,
         index,
         implies,

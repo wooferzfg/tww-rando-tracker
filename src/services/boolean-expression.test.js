@@ -1152,11 +1152,6 @@ describe('BooleanExpression', () => {
       expected: BooleanExpression.and(
         'Apple',
         BooleanExpression.or(
-          '2x Banana',
-          'Coconut',
-          'Durian',
-        ),
-        BooleanExpression.or(
           '3x Banana',
           'Durian',
         ),
