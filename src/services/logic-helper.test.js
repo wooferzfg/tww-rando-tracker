@@ -1255,7 +1255,7 @@ describe('LogicHelper', () => {
       });
     });
 
-    describe('when starting with a sword', () => {
+    describe('when swordless', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
@@ -1285,7 +1285,7 @@ describe('LogicHelper', () => {
       });
     });
 
-    describe('when swordless', () => {
+    describe('when starting with a sword', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
