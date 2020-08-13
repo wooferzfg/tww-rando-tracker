@@ -1,3 +1,6 @@
+import _ from 'lodash';
+
+import ITEMS from '../data/items.json';
 import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
 import TEST_MACROS from '../data/test-macros.json';
 import TEST_SAVE_DATA from '../data/test-save-data.json';
@@ -100,5 +103,94 @@ describe('TrackerController', () => {
 
       validateReturnedData(refreshedData);
     });
+  });
+
+  describe('logic simplification', () => {
+    const testLogicSimplification = (testCaseName, permalink) => {
+      describe(testCaseName, () => {
+        let itemsList;
+        let logic;
+        let trackerState;
+
+        beforeEach(async () => {
+          jest.spyOn(LogicLoader, 'loadLogicFiles').mockReturnValue(
+            Promise.resolve({
+              itemLocationsFile: TEST_ITEM_LOCATIONS,
+              macrosFile: TEST_MACROS,
+            }),
+          );
+
+          ({
+            logic,
+            trackerState,
+          } = await TrackerController.initializeFromPermalink(permalink));
+
+          const remainingItems = _.mapValues(
+            ITEMS,
+            (itemCount, itemName) => (
+              LogicHelper.maxItemCount(itemName) - LogicHelper.startingItemCount(itemName)
+            ),
+          );
+
+          // choose a random permutation of all the remaining items
+          itemsList = _.shuffle(
+            _.flatMap(
+              remainingItems,
+              (itemCount, itemName) => _.times(
+                itemCount,
+                _.constant(itemName),
+              ),
+            ),
+          );
+        });
+
+        test('returns requirements that are logically equivalent to the raw requirements', () => {
+          _.forEach(itemsList, (itemName) => {
+            Locations.mapLocations((generalLocation, detailedLocation) => {
+              const simplifiedRequirements = LogicHelper.requirementsForLocation(
+                generalLocation,
+                detailedLocation,
+              );
+              const rawRequirements = LogicHelper._rawRequirementsForLocation(
+                generalLocation,
+                detailedLocation,
+              );
+
+              const simplifiedRequirementsMet = logic._areRequirementsMet(simplifiedRequirements);
+              const rawRequirementsMet = logic._areRequirementsMet(rawRequirements);
+
+              if (simplifiedRequirementsMet !== rawRequirementsMet) {
+                throw Error(
+                  `Incorrect result for location: ${generalLocation} - ${detailedLocation}\n\n`
+                  + `Raw requirements result: ${rawRequirementsMet}\n`
+                  + `Simplified requirements result: ${simplifiedRequirementsMet}\n\n`
+                  + `Raw requirements: ${JSON.stringify(rawRequirements, null, 2)}\n\n`
+                  + `Simplified requirements: ${JSON.stringify(simplifiedRequirements, null, 2)}\n\n`
+                  + `Current items:\n${JSON.stringify(trackerState.items, null, 2)}`,
+                );
+              }
+            });
+
+            trackerState = trackerState.incrementItem(itemName);
+            logic = new LogicCalculation(trackerState);
+          });
+        });
+      });
+    };
+
+    testLogicSimplification(
+      'default settings',
+      Permalink.DEFAULT_PERMALINK,
+    );
+
+    testLogicSimplification(
+      'default settings with randomized sword',
+      'MS44LjAARmF0YWxBbm90aGVyRGVtYW5kAAcBAwAOQEAIAAAAAAAAAA==',
+    );
+
+    testLogicSimplification(
+      'default settings with swordless',
+      'MS44LjAARmF0YWxBbm90aGVyRGVtYW5kAAcBAwAOgEAIAAAAAAAAAA==',
+    );
   });
 });
