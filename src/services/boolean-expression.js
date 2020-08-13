@@ -426,20 +426,20 @@ export default class BooleanExpression {
     const newItems = [];
 
     _.forEach(parentExpression.items, (item, index) => {
-      let newExpression;
+      let expressionToCheck;
       if (item instanceof BooleanExpression) {
-        newExpression = item;
+        expressionToCheck = item;
       } else {
-        newExpression = BooleanExpression.and(item);
+        expressionToCheck = BooleanExpression.and(item);
       }
 
       if (!BooleanExpression._expressionIsSubsumed({
         parentExpression,
-        expression: newExpression,
+        expression: expressionToCheck,
         index,
         implies,
       })) {
-        newItems.push(newExpression);
+        newItems.push(item);
       }
     });
 
