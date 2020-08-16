@@ -1188,6 +1188,108 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('isLocationAvailableWithSmallKeys', () => {
+    describe('when the location requires small keys that are below the given count', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'DRC Small Key x2',
+            },
+          },
+        };
+      });
+
+      test('returns true', () => {
+        const isLocationAvailable = LogicHelper.isLocationAvailableWithSmallKeys(
+          'Dragon Roost Cavern',
+          'First Room',
+          {
+            numSmallKeys: 3,
+            nonKeyRequirementMet: () => true,
+          },
+        );
+
+        expect(isLocationAvailable).toEqual(true);
+      });
+    });
+
+    describe('when the location requires small keys that are above the given count', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'DRC Small Key x4',
+            },
+          },
+        };
+      });
+
+      test('returns false', () => {
+        const isLocationAvailable = LogicHelper.isLocationAvailableWithSmallKeys(
+          'Dragon Roost Cavern',
+          'First Room',
+          {
+            numSmallKeys: 3,
+            nonKeyRequirementMet: () => true,
+          },
+        );
+
+        expect(isLocationAvailable).toEqual(false);
+      });
+    });
+
+    describe('when the non key requirements are evaluated as not met', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'Grappling Hook',
+            },
+          },
+        };
+      });
+
+      test('returns false', () => {
+        const isLocationAvailable = LogicHelper.isLocationAvailableWithSmallKeys(
+          'Dragon Roost Cavern',
+          'First Room',
+          {
+            numSmallKeys: 0,
+            nonKeyRequirementMet: () => false,
+          },
+        );
+
+        expect(isLocationAvailable).toEqual(false);
+      });
+    });
+
+    describe('when the non key requirements are evaluated as met', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'Grappling Hook',
+            },
+          },
+        };
+      });
+
+      test('returns true', () => {
+        const isLocationAvailable = LogicHelper.isLocationAvailableWithSmallKeys(
+          'Dragon Roost Cavern',
+          'First Room',
+          {
+            numSmallKeys: 0,
+            nonKeyRequirementMet: () => true,
+          },
+        );
+
+        expect(isLocationAvailable).toEqual(true);
+      });
+    });
+  });
+
   describe('requirementsForLocation', () => {
     describe('when starting without a sword', () => {
       beforeEach(() => {

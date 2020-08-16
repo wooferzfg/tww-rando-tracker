@@ -317,31 +317,14 @@ export default class LogicCalculation {
       return true;
     }
 
-    const requirementsForLocation = LogicHelper.requirementsForLocation(
+    return LogicHelper.isLocationAvailableWithSmallKeys(
       generalLocation,
       detailedLocation,
-    );
-
-    const smallKeyName = LogicHelper.smallKeyName(generalLocation);
-
-    return requirementsForLocation.evaluate({
-      isItemTrue: (requirement) => {
-        const itemCountRequirement = LogicHelper.parseItemCountRequirement(requirement);
-
-        if (!_.isNil(itemCountRequirement)) {
-          const {
-            countRequired,
-            itemName,
-          } = itemCountRequirement;
-
-          if (itemName === smallKeyName) {
-            return smallKeysRequired >= countRequired;
-          }
-        }
-
-        return this._isRequirementMet(requirement);
+      {
+        numSmallKeys: smallKeysRequired,
+        nonKeyRequirementMet: (requirement) => this._isRequirementMet(requirement),
       },
-    });
+    );
   }
 
   _isRequirementMet(requirement) {

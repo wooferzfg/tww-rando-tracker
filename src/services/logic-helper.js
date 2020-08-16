@@ -305,12 +305,54 @@ export default class LogicHelper {
     const maxSmallKeys = this.maxSmallKeysForDungeon(generalLocation);
 
     for (let numSmallKeys = 0; numSmallKeys <= maxSmallKeys; numSmallKeys += 1) {
-      if (this._isLocationAvailableWithSmallKeys(generalLocation, detailedLocation, numSmallKeys)) {
+      if (this.isLocationAvailableWithSmallKeys(
+        generalLocation,
+        detailedLocation,
+        {
+          numSmallKeys,
+          nonKeyRequirementMet: () => true, // assume we have all items that aren't keys
+        },
+      )) {
         return numSmallKeys;
       }
     }
 
     throw Error(`Could not determine keys required for location: ${generalLocation} - ${detailedLocation}`);
+  }
+
+  static isLocationAvailableWithSmallKeys(
+    generalLocation,
+    detailedLocation,
+    {
+      numSmallKeys,
+      nonKeyRequirementMet,
+    },
+  ) {
+    const requirementsForLocation = this.requirementsForLocation(
+      generalLocation,
+      detailedLocation,
+    );
+
+    const smallKeyName = this.smallKeyName(generalLocation);
+
+    return requirementsForLocation.evaluate({
+      isItemTrue: (requirement) => {
+        const itemCountRequirement = this.parseItemCountRequirement(requirement);
+
+        if (!_.isNil(itemCountRequirement)) {
+          const {
+            countRequired,
+            itemName,
+          } = itemCountRequirement;
+
+          if (itemName === smallKeyName) {
+            return numSmallKeys >= countRequired;
+          }
+        }
+
+        return nonKeyRequirementMet(requirement);
+      },
+    });
   }
 
   static requirementsForLocation(generalLocation, detailedLocation) {
@@ -418,34 +460,6 @@ export default class LogicHelper {
     }
 
     throw Error(`Could not find macro name for entrance: ${dungeonOrCaveName}`);
-  }
-
-  static _isLocationAvailableWithSmallKeys(generalLocation, detailedLocation, numSmallKeys) {
-    const requirementsForLocation = this.requirementsForLocation(
-      generalLocation,
-      detailedLocation,
-    );
-
-    const smallKeyName = this.smallKeyName(generalLocation);
-
-    return requirementsForLocation.evaluate({
-      isItemTrue: (requirement) => {
-        const itemCountRequirement = this.parseItemCountRequirement(requirement);
-
-        if (!_.isNil(itemCountRequirement)) {
-          const {
-            countRequired,
-            itemName,
-          } = itemCountRequirement;
-
-          if (itemName === smallKeyName) {
-            return numSmallKeys >= countRequired;
-          }
-        }
-
-        return true; // assume we have all items that aren't keys
-      },
-    });
   }
 
   static _simplifiedItemRequirements(requirements) {
