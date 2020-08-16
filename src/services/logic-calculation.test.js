@@ -1663,7 +1663,11 @@ describe('LogicCalculation', () => {
       });
 
       test('returns true', () => {
-        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation('Dragon Roost Cavern', 'First Room');
+        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation(
+          'Dragon Roost Cavern',
+          'First Room',
+          0,
+        );
 
         expect(nonKeyRequirementsMet).toEqual(true);
       });
@@ -1681,7 +1685,11 @@ describe('LogicCalculation', () => {
       });
 
       test('returns true', () => {
-        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation('Dragon Roost Cavern', 'First Room');
+        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation(
+          'Dragon Roost Cavern',
+          'First Room',
+          0,
+        );
 
         expect(nonKeyRequirementsMet).toEqual(true);
       });
@@ -1699,7 +1707,11 @@ describe('LogicCalculation', () => {
       });
 
       test('returns false', () => {
-        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation('Dragon Roost Cavern', 'First Room');
+        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation(
+          'Dragon Roost Cavern',
+          'First Room',
+          0,
+        );
 
         expect(nonKeyRequirementsMet).toEqual(false);
       });
@@ -1717,7 +1729,11 @@ describe('LogicCalculation', () => {
       });
 
       test('returns true', () => {
-        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation('Dragon Roost Cavern', 'First Room');
+        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation(
+          'Dragon Roost Cavern',
+          'First Room',
+          1,
+        );
 
         expect(nonKeyRequirementsMet).toEqual(true);
       });
@@ -1741,13 +1757,17 @@ describe('LogicCalculation', () => {
       });
 
       test('returns true', () => {
-        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation('Dragon Roost Cavern', 'First Room');
+        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation(
+          'Dragon Roost Cavern',
+          'First Room',
+          1,
+        );
 
         expect(nonKeyRequirementsMet).toEqual(true);
       });
     });
 
-    describe('when the only non-key requirements are obsoleted by a key requirement', () => {
+    describe('when there are unmet non-key requirements combined with a key requirement', () => {
       beforeEach(() => {
         setLocations({
           'Dragon Roost Cavern': {
@@ -1762,10 +1782,14 @@ describe('LogicCalculation', () => {
         );
       });
 
-      test('returns true', () => {
-        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation('Dragon Roost Cavern', 'Big Key Chest');
+      test('returns false', () => {
+        const nonKeyRequirementsMet = logic._nonKeyRequirementsMetForLocation(
+          'Dragon Roost Cavern',
+          'Big Key Chest',
+          1,
+        );
 
-        expect(nonKeyRequirementsMet).toEqual(true);
+        expect(nonKeyRequirementsMet).toEqual(false);
       });
     });
   });

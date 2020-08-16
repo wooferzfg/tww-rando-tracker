@@ -286,17 +286,23 @@ export default class LogicCalculation {
     let guaranteedBigKeys = 1;
 
     _.forEach(detailedLocations, (detailedLocation) => {
-      if (LogicHelper.isPotentialKeyLocation(dungeonName, detailedLocation)
-      && !this._nonKeyRequirementsMetForLocation(dungeonName, detailedLocation)) {
+      if (LogicHelper.isPotentialKeyLocation(dungeonName, detailedLocation)) {
         const smallKeysRequired = LogicHelper.smallKeysRequiredForLocation(
           dungeonName,
           detailedLocation,
         );
+        const nonKeyRequirementsMet = this._nonKeyRequirementsMetForLocation(
+          dungeonName,
+          detailedLocation,
+          smallKeysRequired,
+        );
 
-        if (smallKeysRequired < guaranteedSmallKeys) {
-          guaranteedSmallKeys = smallKeysRequired;
+        if (!nonKeyRequirementsMet) {
+          if (smallKeysRequired < guaranteedSmallKeys) {
+            guaranteedSmallKeys = smallKeysRequired;
+          }
+          guaranteedBigKeys = 0;
         }
-        guaranteedBigKeys = 0;
       }
     });
 
@@ -306,7 +312,7 @@ export default class LogicCalculation {
     };
   }
 
-  _nonKeyRequirementsMetForLocation(generalLocation, detailedLocation) {
+  _nonKeyRequirementsMetForLocation(generalLocation, detailedLocation, guaranteedSmallKeys) {
     if (this.isLocationAvailable(generalLocation, detailedLocation)) {
       return true;
     }
@@ -320,8 +326,17 @@ export default class LogicCalculation {
 
     return requirementsForLocation.evaluate({
       isItemTrue: (requirement) => {
-        if (_.includes(requirement, smallKeyName)) {
-          return true; // assume we have all small keys
+        const itemCountRequirement = LogicHelper.parseItemCountRequirement(requirement);
+
+        if (!_.isNil(itemCountRequirement)) {
+          const {
+            countRequired,
+            itemName,
+          } = itemCountRequirement;
+
+          if (itemName === smallKeyName) {
+            return countRequired <= guaranteedSmallKeys;
+          }
         }
 
         return this._isRequirementMet(requirement);
