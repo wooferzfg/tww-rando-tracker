@@ -312,7 +312,7 @@ export default class LogicCalculation {
     };
   }
 
-  _nonKeyRequirementsMetForLocation(generalLocation, detailedLocation, guaranteedSmallKeys) {
+  _nonKeyRequirementsMetForLocation(generalLocation, detailedLocation, smallKeysRequired) {
     if (this.isLocationAvailable(generalLocation, detailedLocation)) {
       return true;
     }
@@ -335,7 +335,7 @@ export default class LogicCalculation {
           } = itemCountRequirement;
 
           if (itemName === smallKeyName) {
-            return countRequired <= guaranteedSmallKeys;
+            return smallKeysRequired >= countRequired;
           }
         }
 
