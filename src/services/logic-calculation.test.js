@@ -155,6 +155,29 @@ describe('LogicCalculation', () => {
         });
       });
 
+      describe('when only having the Grappling Hook', () => {
+        beforeEach(() => {
+          state = TrackerState.default().incrementItem('Grappling Hook');
+        });
+
+        test('guarantees all the keys for DRC', () => {
+          logic = new LogicCalculation(state);
+
+          expect(logic.guaranteedKeys).toEqual({
+            'DRC Small Key': 1,
+            'DRC Big Key': 0,
+            'FW Small Key': 0,
+            'FW Big Key': 0,
+            'TotG Small Key': 0,
+            'TotG Big Key': 0,
+            'ET Small Key': 0,
+            'ET Big Key': 0,
+            'WT Small Key': 0,
+            'WT Big Key': 0,
+          });
+        });
+      });
+
       describe('when having the required items for DRC', () => {
         beforeEach(() => {
           state = TrackerState.default()
