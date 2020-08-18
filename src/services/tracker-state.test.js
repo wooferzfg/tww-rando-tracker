@@ -196,7 +196,7 @@ describe('TrackerState', () => {
     });
   });
 
-  describe('getEntranceValue', () => {
+  describe('getEntranceForExit', () => {
     let state;
 
     beforeEach(() => {
@@ -207,13 +207,13 @@ describe('TrackerState', () => {
     });
 
     test('returns the value of the entrance', () => {
-      const entranceValue = state.getEntranceValue('Needle Rock Isle Secret Cave');
+      const entranceValue = state.getEntranceForExit('Needle Rock Isle Secret Cave');
 
       expect(entranceValue).toEqual('Dragon Roost Cavern');
     });
   });
 
-  describe('setEntranceValue', () => {
+  describe('setEntranceForExit', () => {
     let state;
     let initialItems;
     let initialLocationsChecked;
@@ -239,13 +239,13 @@ describe('TrackerState', () => {
     });
 
     test('returns a new state with the entrance value modified', () => {
-      const newState = state.setEntranceValue('Needle Rock Isle Secret Cave', 'Forbidden Woods');
+      const newState = state.setEntranceForExit('Needle Rock Isle Secret Cave', 'Forbidden Woods');
 
       expect(newState.entrances['Needle Rock Isle Secret Cave']).toEqual('Forbidden Woods');
     });
 
     test('keeps the other values unmodified', () => {
-      const newState = state.setEntranceValue('Needle Rock Isle Secret Cave', 'Forbidden Woods');
+      const newState = state.setEntranceForExit('Needle Rock Isle Secret Cave', 'Forbidden Woods');
 
       expect(newState.items).toEqual(initialItems);
       expect(newState.locationsChecked).toEqual(initialLocationsChecked);

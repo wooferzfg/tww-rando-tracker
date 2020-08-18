@@ -57,11 +57,11 @@ export default class TrackerState {
     return newState;
   }
 
-  getEntranceValue(dungeonOrCaveName) {
+  getEntranceForExit(dungeonOrCaveName) {
     return _.get(this.entrances, dungeonOrCaveName);
   }
 
-  setEntranceValue(dungeonOrCaveName, value) {
+  setEntranceForExit(dungeonOrCaveName, value) {
     const newState = this._clone();
     _.set(newState.entrances, dungeonOrCaveName, value);
     return newState;
