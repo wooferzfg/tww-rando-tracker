@@ -55,8 +55,8 @@ class ExtraLocationsTable extends React.PureComponent {
       const bigKeyName = LogicHelper.bigKeyName(locationName);
       const bigKeyCount = trackerState.getItemValue(bigKeyName);
 
-      const entranceName = LogicHelper.dungeonEntryName(locationName);
-      const entranceCount = trackerState.getItemValue(entranceName);
+      const entryName = LogicHelper.dungeonEntryName(locationName);
+      const entryCount = trackerState.getItemValue(entryName);
 
       return (
         <ExtraLocation
@@ -67,8 +67,8 @@ class ExtraLocationsTable extends React.PureComponent {
           clearSelectedLocation={clearSelectedLocation}
           color={color}
           disableLogic={disableLogic}
-          entranceCount={entranceCount}
-          entranceName={entranceName}
+          entryCount={entryCount}
+          entryName={entryName}
           key={locationName}
           incrementItem={incrementItem}
           isDungeon={isDungeon}

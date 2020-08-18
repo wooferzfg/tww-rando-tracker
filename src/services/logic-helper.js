@@ -137,23 +137,20 @@ export default class LogicHelper {
     return this.isDungeon(dungeonName);
   }
 
-  static shortDungeonName(dungeonName) {
-    const dungeonIndex = _.indexOf(DUNGEONS, dungeonName);
-    return SHORT_DUNGEON_NAMES[dungeonIndex];
-  }
-
   static dungeonEntryName(dungeonName) {
-    const shortDungeonName = this.shortDungeonName(dungeonName);
+    const shortDungeonName = this._shortDungeonName(dungeonName);
     return this._entryName(shortDungeonName);
   }
 
-  static shortCaveName(caveName) {
-    return _.replace(caveName, /Secret |Warp Maze /g, '');
+  static caveEntryName(caveName) {
+    const shortCaveName = this._shortCaveName(caveName);
+    return this._entryName(shortCaveName);
   }
 
-  static caveEntryName(caveName) {
-    const shortCaveName = this.shortCaveName(caveName);
-    return this._entryName(shortCaveName);
+  static shortEntranceName(dungeonOrCaveName) {
+    return this.isDungeon(dungeonOrCaveName)
+      ? this._shortDungeonName(dungeonOrCaveName)
+      : this._shortCaveName(dungeonOrCaveName);
   }
 
   static isRandomDungeonEntrances() {
@@ -287,12 +284,12 @@ export default class LogicHelper {
   }
 
   static smallKeyName(dungeonName) {
-    const shortDungeonName = this.shortDungeonName(dungeonName);
+    const shortDungeonName = this._shortDungeonName(dungeonName);
     return `${shortDungeonName} Small Key`;
   }
 
   static bigKeyName(dungeonName) {
-    const shortDungeonName = this.shortDungeonName(dungeonName);
+    const shortDungeonName = this._shortDungeonName(dungeonName);
     return `${shortDungeonName} Big Key`;
   }
 
@@ -444,6 +441,15 @@ export default class LogicHelper {
       Locations.KEYS.NEED,
     );
     return this._booleanExpressionForRequirements(requirements);
+  }
+
+  static _shortCaveName(caveName) {
+    return _.replace(caveName, /Secret |Warp Maze /g, '');
+  }
+
+  static _shortDungeonName(dungeonName) {
+    const dungeonIndex = _.indexOf(DUNGEONS, dungeonName);
+    return SHORT_DUNGEON_NAMES[dungeonIndex];
   }
 
   static _macroNameForEntrance(dungeonOrCaveName) {

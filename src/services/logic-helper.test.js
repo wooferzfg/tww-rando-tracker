@@ -350,14 +350,6 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('shortDungeonName', () => {
-    test('returns the short dungeon name based on the dungeon name', () => {
-      const shortDungeonName = LogicHelper.shortDungeonName('Dragon Roost Cavern');
-
-      expect(shortDungeonName).toEqual('DRC');
-    });
-  });
-
   describe('dungeonEntryName', () => {
     test('returns the entry name based on a dungeon name', () => {
       const entryName = LogicHelper.dungeonEntryName('Dragon Roost Cavern');
@@ -366,25 +358,31 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('shortCaveName', () => {
-    test('returns the cave name without mentioning secret caves', () => {
-      const shortCaveName = LogicHelper.shortCaveName('Dragon Roost Island Secret Cave');
-
-      expect(shortCaveName).toEqual('Dragon Roost Island Cave');
-    });
-
-    test('returns the cave name without mentioning warp maze caves', () => {
-      const shortCaveName = LogicHelper.shortCaveName('Diamond Steppe Island Warp Maze Cave');
-
-      expect(shortCaveName).toEqual('Diamond Steppe Island Cave');
-    });
-  });
-
   describe('caveEntryName', () => {
     test('returns the entry name based on a cave name', () => {
       const entryName = LogicHelper.caveEntryName('Dragon Roost Island Secret Cave');
 
       expect(entryName).toEqual('Entered Dragon Roost Island Cave');
+    });
+  });
+
+  describe('shortEntranceName', () => {
+    test('returns the short dungeon name based on the dungeon name', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Dragon Roost Cavern');
+
+      expect(shortEntranceName).toEqual('DRC');
+    });
+
+    test('returns the cave name without mentioning secret caves', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Dragon Roost Island Secret Cave');
+
+      expect(shortEntranceName).toEqual('Dragon Roost Island Cave');
+    });
+
+    test('returns the cave name without mentioning warp maze caves', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Diamond Steppe Island Warp Maze Cave');
+
+      expect(shortEntranceName).toEqual('Diamond Steppe Island Cave');
     });
   });
 

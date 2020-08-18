@@ -41,7 +41,7 @@ class LocationsTable extends React.PureComponent {
   }
 
   setSelectedExit(exitName) {
-    this.setState(exitName);
+    this.setState({ selectedExit: exitName });
   }
 
   setSelectedItem(itemName) {
