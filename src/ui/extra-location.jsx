@@ -2,6 +2,8 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import LogicHelper from '../services/logic-helper';
+
 import Images from './images';
 import Item from './item';
 
@@ -52,6 +54,45 @@ class ExtraLocation extends React.PureComponent {
           itemName={bigKeyName}
           setSelectedItem={setSelectedItem}
         />
+      </div>
+    );
+  }
+
+  entrance() {
+    const {
+      clearSelectedExit,
+      entranceCount,
+      entranceName,
+      locationName,
+      setSelectedExit,
+    } = this.props;
+
+    const entranceImages = _.get(Images.IMAGES, 'DUNGEON_ENTRANCE');
+
+    const setSelectedItemFunc = () => setSelectedExit(locationName);
+
+    const incrementItemFunc = () => {};
+
+    return (
+      <div className="dungeon-item dungeon-entry">
+        <Item
+          clearSelectedItem={clearSelectedExit}
+          images={entranceImages}
+          incrementItem={incrementItemFunc}
+          itemCount={entranceCount}
+          itemName={entranceName}
+          setSelectedItem={setSelectedItemFunc}
+        />
+      </div>
+    );
+  }
+
+  dungeonItems() {
+    return (
+      <div className="dungeon-items">
+        {this.smallKeyItem()}
+        { LogicHelper.isRandomDungeonEntrances() && this.entrance() }
+        {this.bigKeyItem()}
       </div>
     );
   }
@@ -119,12 +160,7 @@ class ExtraLocation extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        {isMainDungeon && (
-          <div className="dungeon-items">
-            {this.smallKeyItem()}
-            {this.bigKeyItem()}
-          </div>
-        )}
+        {isMainDungeon && this.dungeonItems()}
         {this.locationIcon()}
         {this.chestsCounter()}
       </div>
@@ -135,8 +171,12 @@ class ExtraLocation extends React.PureComponent {
 ExtraLocation.defaultProps = {
   bigKeyCount: null,
   bigKeyName: null,
+  clearSelectedExit: null,
   clearSelectedItem: null,
+  entranceCount: null,
+  entranceName: null,
   incrementItem: null,
+  setSelectedExit: null,
   setSelectedItem: null,
   smallKeyCount: null,
   smallKeyName: null,
@@ -145,10 +185,13 @@ ExtraLocation.defaultProps = {
 ExtraLocation.propTypes = {
   bigKeyCount: PropTypes.number,
   bigKeyName: PropTypes.string,
+  clearSelectedExit: PropTypes.func,
   clearSelectedItem: PropTypes.func,
+  clearSelectedLocation: PropTypes.func.isRequired,
   color: PropTypes.string.isRequired,
   disableLogic: PropTypes.bool.isRequired,
-  clearSelectedLocation: PropTypes.func.isRequired,
+  entranceCount: PropTypes.number,
+  entranceName: PropTypes.string,
   incrementItem: PropTypes.func,
   isDungeon: PropTypes.bool.isRequired,
   isMainDungeon: PropTypes.bool.isRequired,
@@ -157,6 +200,7 @@ ExtraLocation.propTypes = {
   numAvailable: PropTypes.number.isRequired,
   numRemaining: PropTypes.number.isRequired,
   setOpenedLocation: PropTypes.func.isRequired,
+  setSelectedExit: PropTypes.func,
   setSelectedItem: PropTypes.func,
   setSelectedLocation: PropTypes.func.isRequired,
   smallKeyCount: PropTypes.number,

@@ -12,6 +12,7 @@ import Images from './images';
 class ExtraLocationsTable extends React.PureComponent {
   extraLocation(locationName) {
     const {
+      clearSelectedExit,
       clearSelectedItem,
       clearSelectedLocation,
       disableLogic,
@@ -19,6 +20,7 @@ class ExtraLocationsTable extends React.PureComponent {
       logic,
       onlyProgressLocations,
       setOpenedLocation,
+      setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
       trackerState,
@@ -53,14 +55,20 @@ class ExtraLocationsTable extends React.PureComponent {
       const bigKeyName = LogicHelper.bigKeyName(locationName);
       const bigKeyCount = trackerState.getItemValue(bigKeyName);
 
+      const entranceName = LogicHelper.dungeonEntryName(locationName);
+      const entranceCount = trackerState.getItemValue(entranceName);
+
       return (
         <ExtraLocation
           bigKeyCount={bigKeyCount}
           bigKeyName={bigKeyName}
+          clearSelectedExit={clearSelectedExit}
           clearSelectedItem={clearSelectedItem}
+          clearSelectedLocation={clearSelectedLocation}
           color={color}
           disableLogic={disableLogic}
-          clearSelectedLocation={clearSelectedLocation}
+          entranceCount={entranceCount}
+          entranceName={entranceName}
           key={locationName}
           incrementItem={incrementItem}
           isDungeon={isDungeon}
@@ -70,6 +78,7 @@ class ExtraLocationsTable extends React.PureComponent {
           numAvailable={numAvailable}
           numRemaining={numRemaining}
           setOpenedLocation={setOpenedLocation}
+          setSelectedExit={setSelectedExit}
           setSelectedItem={setSelectedItem}
           setSelectedLocation={setSelectedLocation}
           smallKeyCount={smallKeyCount}
@@ -117,6 +126,7 @@ class ExtraLocationsTable extends React.PureComponent {
 }
 
 ExtraLocationsTable.propTypes = {
+  clearSelectedExit: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
@@ -124,6 +134,7 @@ ExtraLocationsTable.propTypes = {
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   setOpenedLocation: PropTypes.func.isRequired,
+  setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,

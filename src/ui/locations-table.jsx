@@ -17,6 +17,7 @@ class LocationsTable extends React.PureComponent {
     this.state = {
       openedLocation: null,
       openedLocationIsDungeon: null,
+      selectedExit: null,
       selectedItem: null,
       selectedLocation: null,
       selectedLocationIsDungeon: null,
@@ -24,6 +25,8 @@ class LocationsTable extends React.PureComponent {
 
     this.setOpenedLocation = this.setOpenedLocation.bind(this);
     this.clearOpenedLocation = this.clearOpenedLocation.bind(this);
+    this.setSelectedExit = this.setSelectedExit.bind(this);
+    this.clearSelectedExit = this.clearSelectedExit.bind(this);
     this.setSelectedItem = this.setSelectedItem.bind(this);
     this.clearSelectedItem = this.clearSelectedItem.bind(this);
     this.setSelectedLocation = this.setSelectedLocation.bind(this);
@@ -35,6 +38,10 @@ class LocationsTable extends React.PureComponent {
       openedLocation: locationName,
       openedLocationIsDungeon: isDungeon,
     });
+  }
+
+  setSelectedExit(exitName) {
+    this.setState(exitName);
   }
 
   setSelectedItem(itemName) {
@@ -50,6 +57,10 @@ class LocationsTable extends React.PureComponent {
 
   clearOpenedLocation() {
     this.setState({ openedLocation: null });
+  }
+
+  clearSelectedExit() {
+    this.setState({ selectedExit: null });
   }
 
   clearSelectedItem() {
@@ -74,6 +85,7 @@ class LocationsTable extends React.PureComponent {
     const {
       openedLocation,
       openedLocationIsDungeon,
+      selectedExit,
       selectedItem,
       selectedLocation,
       selectedLocationIsDungeon,
@@ -117,6 +129,7 @@ class LocationsTable extends React.PureComponent {
           disableLogic={disableLogic}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
+          selectedExit={selectedExit}
           selectedItem={selectedItem}
           selectedLocation={selectedLocation}
           selectedLocationIsDungeon={selectedLocationIsDungeon}
@@ -140,6 +153,7 @@ class LocationsTable extends React.PureComponent {
       <>
         {this.chartContainer()}
         <ExtraLocationsTable
+          clearSelectedExit={this.clearSelectedExit}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
           disableLogic={disableLogic}
@@ -147,6 +161,7 @@ class LocationsTable extends React.PureComponent {
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
           setOpenedLocation={this.setOpenedLocation}
+          setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
           singleColorBackground={singleColorBackground}

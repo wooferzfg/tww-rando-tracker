@@ -44,16 +44,26 @@ class MapInfo extends React.PureComponent {
 
   mapItemInfo() {
     const {
+      selectedExit,
       selectedItem,
       trackerState,
     } = this.props;
 
-    if (_.isNil(selectedItem)) {
-      return null;
+    let itemInfoText;
+
+    if (!_.isNil(selectedExit)) {
+      const entranceForExit = trackerState.getEntranceForExit(selectedExit);
+      itemInfoText = `${entranceForExit} → ${selectedExit}`;
     }
 
-    const itemCount = trackerState.getItemValue(selectedItem);
-    const itemInfoText = LogicHelper.prettyNameForItem(selectedItem, itemCount);
+    if (!_.isNil(selectedItem)) {
+      const itemCount = trackerState.getItemValue(selectedItem);
+      itemInfoText = LogicHelper.prettyNameForItem(selectedItem, itemCount);
+    }
+
+    if (_.isNil(itemInfoText)) {
+      return null;
+    }
 
     return (
       <div className="map-item-info-container">
@@ -73,6 +83,7 @@ class MapInfo extends React.PureComponent {
 }
 
 MapInfo.defaultProps = {
+  selectedExit: null,
   selectedItem: null,
   selectedLocation: null,
   selectedLocationIsDungeon: null,
@@ -82,6 +93,7 @@ MapInfo.propTypes = {
   disableLogic: PropTypes.bool.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  selectedExit: PropTypes.string,
   selectedItem: PropTypes.string,
   selectedLocation: PropTypes.string,
   selectedLocationIsDungeon: PropTypes.bool,

@@ -62,6 +62,10 @@ export default class Images {
         [LogicHelper.DUNGEONS.WIND_TEMPLE]: import('../images/dungeon_mapfull5.png'),
         [LogicHelper.DUNGEONS.GANONS_TOWER]: import('../images/dungeon_mapfull6.png'),
       },
+      DUNGEON_ENTRANCE: {
+        0: import('../images/dungeon_noentry.png'),
+        1: import('../images/dungeon_entered.png'),
+      },
       DUNGEONS: {
         [LogicHelper.DUNGEONS.DRAGON_ROOST_CAVERN]: {
           false: import('../images/boss0.png'),
