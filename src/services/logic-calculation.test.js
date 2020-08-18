@@ -125,7 +125,7 @@ describe('LogicCalculation', () => {
         test('shows the unlocked locations as available', () => {
           logic = new LogicCalculation(state);
 
-          const isLocationAvailable = logic.isLocationAvailable('Dragon Roost Cavern', 'Boarded Up Chest');
+          const isLocationAvailable = logic._isLocationAvailable('Dragon Roost Cavern', 'Boarded Up Chest');
 
           expect(isLocationAvailable).toEqual(true);
         });
@@ -281,111 +281,6 @@ describe('LogicCalculation', () => {
             'WT Big Key': 0,
           });
         });
-      });
-    });
-  });
-
-  describe('isLocationAvailable', () => {
-    describe('when the location is checked', () => {
-      beforeEach(() => {
-        setLocations({
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Deku Leaf & Grappling Hook',
-            },
-          },
-        });
-
-        logic = new LogicCalculation(
-          logic.state.toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
-        );
-      });
-
-      test('returns true', () => {
-        const isLocationAvailable = logic.isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
-
-        expect(isLocationAvailable).toEqual(true);
-      });
-    });
-
-    describe('when the location requirements are met', () => {
-      beforeEach(() => {
-        setLocations({
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Deku Leaf & Grappling Hook',
-            },
-          },
-        });
-
-        logic = new LogicCalculation(
-          logic.state
-            .incrementItem('Grappling Hook')
-            .incrementItem('Deku Leaf'),
-        );
-      });
-
-      test('returns true', () => {
-        const isLocationAvailable = logic.isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
-
-        expect(isLocationAvailable).toEqual(true);
-      });
-    });
-
-    describe('when the location requirements are not met', () => {
-      beforeEach(() => {
-        setLocations({
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Deku Leaf & Grappling Hook',
-            },
-          },
-        });
-
-        logic = new LogicCalculation(
-          logic.state
-            .incrementItem('Deku Leaf'),
-        );
-      });
-
-      test('returns false', () => {
-        const isLocationAvailable = logic.isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
-
-        expect(isLocationAvailable).toEqual(false);
-      });
-    });
-  });
-
-  describe('isEntranceAvailable', () => {
-    describe('when the entrance requirements are met', () => {
-      beforeEach(() => {
-        setMacros({
-          'Can Access Dungeon Entrance On Headstone Island': 'Power Bracelets',
-        });
-
-        logic = new LogicCalculation(
-          logic.state.incrementItem('Power Bracelets'),
-        );
-      });
-
-      test('returns true', () => {
-        const isEntranceAvailable = logic.isEntranceAvailable('Earth Temple');
-
-        expect(isEntranceAvailable).toEqual(true);
-      });
-    });
-
-    describe('when the location requirements are not met', () => {
-      beforeEach(() => {
-        setMacros({
-          'Can Access Secret Cave Entrance on Diamond Steppe Island': 'Hookshot',
-        });
-      });
-
-      test('returns false', () => {
-        const isEntranceAvailable = logic.isEntranceAvailable('Diamond Steppe Island Warp Maze Cave');
-
-        expect(isEntranceAvailable).toEqual(false);
       });
     });
   });
@@ -1650,6 +1545,111 @@ describe('LogicCalculation', () => {
         const isBossDefeated = logic.isBossDefeated('Dragon Roost Cavern');
 
         expect(isBossDefeated).toEqual(true);
+      });
+    });
+  });
+
+  describe('_isLocationAvailable', () => {
+    describe('when the location is checked', () => {
+      beforeEach(() => {
+        setLocations({
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Deku Leaf & Grappling Hook',
+            },
+          },
+        });
+
+        logic = new LogicCalculation(
+          logic.state.toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
+        );
+      });
+
+      test('returns true', () => {
+        const isLocationAvailable = logic._isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(isLocationAvailable).toEqual(true);
+      });
+    });
+
+    describe('when the location requirements are met', () => {
+      beforeEach(() => {
+        setLocations({
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Deku Leaf & Grappling Hook',
+            },
+          },
+        });
+
+        logic = new LogicCalculation(
+          logic.state
+            .incrementItem('Grappling Hook')
+            .incrementItem('Deku Leaf'),
+        );
+      });
+
+      test('returns true', () => {
+        const isLocationAvailable = logic._isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(isLocationAvailable).toEqual(true);
+      });
+    });
+
+    describe('when the location requirements are not met', () => {
+      beforeEach(() => {
+        setLocations({
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Deku Leaf & Grappling Hook',
+            },
+          },
+        });
+
+        logic = new LogicCalculation(
+          logic.state
+            .incrementItem('Deku Leaf'),
+        );
+      });
+
+      test('returns false', () => {
+        const isLocationAvailable = logic._isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(isLocationAvailable).toEqual(false);
+      });
+    });
+  });
+
+  describe('_isEntranceAvailable', () => {
+    describe('when the entrance requirements are met', () => {
+      beforeEach(() => {
+        setMacros({
+          'Can Access Dungeon Entrance On Headstone Island': 'Power Bracelets',
+        });
+
+        logic = new LogicCalculation(
+          logic.state.incrementItem('Power Bracelets'),
+        );
+      });
+
+      test('returns true', () => {
+        const isEntranceAvailable = logic._isEntranceAvailable('Earth Temple');
+
+        expect(isEntranceAvailable).toEqual(true);
+      });
+    });
+
+    describe('when the location requirements are not met', () => {
+      beforeEach(() => {
+        setMacros({
+          'Can Access Secret Cave Entrance on Diamond Steppe Island': 'Hookshot',
+        });
+      });
+
+      test('returns false', () => {
+        const isEntranceAvailable = logic._isEntranceAvailable('Diamond Steppe Island Warp Maze Cave');
+
+        expect(isEntranceAvailable).toEqual(false);
       });
     });
   });

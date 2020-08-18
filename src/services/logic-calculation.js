@@ -18,14 +18,14 @@ export default class LogicCalculation {
       'formattedRequirementsForEntrance',
       'formattedRequirementsForLocation',
       'isBossDefeated',
-      'isEntranceAvailable',
-      'isLocationAvailable',
       'itemsNeededToFinishGame',
       'locationCounts',
       'locationsList',
       'totalLocationsAvailable',
       'totalLocationsChecked',
       'totalLocationsRemaining',
+      '_isEntranceAvailable',
+      '_isLocationAvailable',
       '_itemsRemainingForLocation',
       '_itemsRemainingForRequirement',
     ]);
@@ -46,25 +46,6 @@ export default class LogicCalculation {
     NON_PROGRESS_LOCATION: 'non-progress-location',
     UNAVAILABLE_LOCATION: 'unavailable-location',
   };
-
-  isLocationAvailable(generalLocation, detailedLocation) {
-    if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
-      return true;
-    }
-
-    const requirementsForLocation = LogicHelper.requirementsForLocation(
-      generalLocation,
-      detailedLocation,
-    );
-
-    return this._areRequirementsMet(requirementsForLocation);
-  }
-
-  isEntranceAvailable(dungeonOrCaveName) {
-    const requirementsForEntrance = LogicHelper.requirementsForEntrance(dungeonOrCaveName);
-
-    return this._areRequirementsMet(requirementsForEntrance);
-  }
 
   formattedRequirementsForLocation(generalLocation, detailedLocation) {
     const requirementsForLocation = LogicHelper.requirementsForLocation(
@@ -93,7 +74,7 @@ export default class LogicCalculation {
 
     _.forEach(detailedLocations, (detailedLocation) => {
       if (!this.state.isLocationChecked(generalLocation, detailedLocation)) {
-        if (disableLogic || this.isLocationAvailable(generalLocation, detailedLocation)) {
+        if (disableLogic || this._isLocationAvailable(generalLocation, detailedLocation)) {
           numAvailable += 1;
 
           if (LogicHelper.isProgressLocation(generalLocation, detailedLocation)) {
@@ -120,7 +101,7 @@ export default class LogicCalculation {
     );
 
     return _.map(detailedLocations, (detailedLocation) => {
-      const isAvailable = this.isLocationAvailable(generalLocation, detailedLocation);
+      const isAvailable = this._isLocationAvailable(generalLocation, detailedLocation);
       const isChecked = this.state.isLocationChecked(generalLocation, detailedLocation);
       const isProgress = LogicHelper.isProgressLocation(generalLocation, detailedLocation);
 
@@ -155,7 +136,7 @@ export default class LogicCalculation {
           return 0;
         }
 
-        const isLocationAvailable = this.isLocationAvailable(
+        const isLocationAvailable = this._isLocationAvailable(
           generalLocation,
           detailedLocation,
         );
@@ -204,6 +185,25 @@ export default class LogicCalculation {
     const bossLocation = LogicHelper.bossLocation(dungeonName);
 
     return this.state.isLocationChecked(dungeonName, bossLocation);
+  }
+
+  _isLocationAvailable(generalLocation, detailedLocation) {
+    if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
+      return true;
+    }
+
+    const requirementsForLocation = LogicHelper.requirementsForLocation(
+      generalLocation,
+      detailedLocation,
+    );
+
+    return this._areRequirementsMet(requirementsForLocation);
+  }
+
+  _isEntranceAvailable(dungeonOrCaveName) {
+    const requirementsForEntrance = LogicHelper.requirementsForEntrance(dungeonOrCaveName);
+
+    return this._areRequirementsMet(requirementsForEntrance);
   }
 
   _areRequirementsMet(requirements) {
@@ -274,7 +274,7 @@ export default class LogicCalculation {
     }
 
     Memoizer.invalidate([
-      this.isLocationAvailable,
+      this._isLocationAvailable,
       this._itemsRemainingForRequirement,
     ]);
   }
@@ -313,7 +313,7 @@ export default class LogicCalculation {
   }
 
   _nonKeyRequirementsMetForLocation(generalLocation, detailedLocation, smallKeysRequired) {
-    if (this.isLocationAvailable(generalLocation, detailedLocation)) {
+    if (this._isLocationAvailable(generalLocation, detailedLocation)) {
       return true;
     }
 
