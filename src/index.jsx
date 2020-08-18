@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
   const { serviceWorker } = navigator;
 
   if (serviceWorker) {
-    serviceWorker.register('/service-worker.js');
+    serviceWorker.register('service-worker.js');
   }
 }
 
