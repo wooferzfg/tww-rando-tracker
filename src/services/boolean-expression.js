@@ -131,9 +131,11 @@ export default class BooleanExpression {
     otherExpression,
     areItemsEqual,
   }) {
-    if (!BooleanExpression._isExpression(otherExpression)
+    if (
+      !BooleanExpression._isExpression(otherExpression)
       || this.type !== otherExpression.type
-      || this.items.length !== otherExpression.items.length) {
+      || this.items.length !== otherExpression.items.length
+    ) {
       return false;
     }
 

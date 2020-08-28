@@ -133,8 +133,10 @@ class DetailedLocationsTable extends React.PureComponent {
     ));
 
     let clearAllElement;
-    if (Settings.getOptionValue(Permalink.OPTIONS.RACE_MODE)
-      && LogicHelper.isRaceModeDungeon(openedLocation)) {
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.RACE_MODE)
+      && LogicHelper.isRaceModeDungeon(openedLocation)
+    ) {
       const clearRaceModeBannedLocationsFunc = () => clearRaceModeBannedLocations(openedLocation);
 
       clearAllElement = (

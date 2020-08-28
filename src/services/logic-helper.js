@@ -119,8 +119,10 @@ export default class LogicHelper {
   }
 
   static isMainDungeon(dungeonName) {
-    if (dungeonName === this.DUNGEONS.FORSAKEN_FORTRESS
-      || dungeonName === this.DUNGEONS.GANONS_TOWER) {
+    if (
+      dungeonName === this.DUNGEONS.FORSAKEN_FORTRESS
+      || dungeonName === this.DUNGEONS.GANONS_TOWER
+    ) {
       return false;
     }
     return this.isDungeon(dungeonName);
@@ -229,8 +231,10 @@ export default class LogicHelper {
     const detailedLocations = Locations.detailedLocationsForGeneralLocation(generalLocation);
 
     return _.filter(detailedLocations, (detailedLocation) => {
-      if (!_.isNil(isDungeon)
-        && !this._isValidLocation(generalLocation, detailedLocation, { isDungeon })) {
+      if (
+        !_.isNil(isDungeon)
+        && !this._isValidLocation(generalLocation, detailedLocation, { isDungeon })
+      ) {
         return false;
       }
 
@@ -256,8 +260,10 @@ export default class LogicHelper {
       detailedLocation,
       Locations.KEYS.TYPES,
     );
-    if (_.includes(locationTypes, Settings.FLAGS.TINGLE_CHEST)
-      && !Settings.isFlagActive(Settings.FLAGS.TINGLE_CHEST)) {
+    if (
+      _.includes(locationTypes, Settings.FLAGS.TINGLE_CHEST)
+      && !Settings.isFlagActive(Settings.FLAGS.TINGLE_CHEST)
+    ) {
       return false;
     }
 
@@ -313,14 +319,16 @@ export default class LogicHelper {
     const maxSmallKeys = this.maxSmallKeysForDungeon(generalLocation);
 
     for (let numSmallKeys = 0; numSmallKeys <= maxSmallKeys; numSmallKeys += 1) {
-      if (this.isLocationAvailableWithSmallKeys(
-        generalLocation,
-        detailedLocation,
-        {
-          numSmallKeys,
-          nonKeyRequirementMet: () => true, // assume we have all items that aren't keys
-        },
-      )) {
+      if (
+        this.isLocationAvailableWithSmallKeys(
+          generalLocation,
+          detailedLocation,
+          {
+            numSmallKeys,
+            nonKeyRequirementMet: () => true, // assume we have all items that aren't keys
+          },
+        )
+      ) {
         return numSmallKeys;
       }
     }
