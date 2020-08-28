@@ -1,32 +1,22 @@
-import React from 'react';
-import {
-  HashRouter,
-  Switch,
-  Route,
-} from 'react-router-dom';
+import React from "react";
+import { HashRouter, Switch, Route } from "react-router-dom";
 
-import Launcher from './launcher';
-import Tracker from './tracker';
+import Launcher from "./launcher";
+import Tracker from "./tracker";
 
-import '../css/main.scss';
+import "../css/main.scss";
 
 export default () => {
   const renderTracker = (loadProgress) => (routerComponentProps) => {
     const { match } = routerComponentProps;
 
-    return (
-      <Tracker match={match} loadProgress={loadProgress} />
-    );
+    return <Tracker match={match} loadProgress={loadProgress} />;
   };
 
   return (
     <HashRouter>
       <Switch>
-        <Route
-          exact
-          path="/"
-          component={Launcher}
-        />
+        <Route exact path="/" component={Launcher} />
         <Route
           exact
           path="/tracker/new/:permalink"

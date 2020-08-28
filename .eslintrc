@@ -4,90 +4,93 @@
     "browser": true
   },
   "parser": "babel-eslint",
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
   "rules": {
-    "import/order": ["error", {
-      "alphabetize": {
-        "order": "asc",
-        "caseInsensitive": true
-      },
-      "newlines-between": "always"
-    }],
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "always"
+      }
+    ],
     "no-underscore-dangle": "off"
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".js",
-          ".json",
-          ".jsx",
-          ".png"
-        ]
+        "extensions": [".js", ".json", ".jsx", ".png"]
       }
     }
   },
   "overrides": [
     {
-      "files": [
-        "src/**/*.test.js"
-      ],
+      "files": ["src/**/*.test.js"],
       "env": {
         "jest": true
       },
-      "plugins": [
-        "jest"
-      ]
+      "plugins": ["jest"]
     },
     {
-      "files": [
-        "src/services/**/*.js"
-      ],
-      "plugins": [
-        "sort-class-members"
-      ],
+      "files": ["src/services/**/*.js"],
+      "plugins": ["sort-class-members"],
       "rules": {
-        "sort-class-members/sort-class-members": ["error", {
-          "order": [
-            "[initialize]",
-            "[reset]",
-            "[constructor]",
-            "[public-properties]",
-            "[public-static-methods]",
-            "[public-methods]",
-            "[private]"
-          ],
-          "groups": {
-            "initialize": [{
-              "name": "/initialize.*/",
-              "static": true,
-              "type": "method"
-            }],
-            "reset": [{
-              "name": "reset",
-              "static": true,
-              "type": "method"
-            }],
-            "public-properties": [{
-              "name": "/[^_].+/",
-              "type": "property"
-            }],
-            "public-static-methods": [{
-              "name": "/[^_].+/",
-              "static": true,
-              "type": "method"
-            }],
-            "public-methods": [{
-              "name": "/[^_].+/",
-              "type": "method"
-            }],
-            "private": [{
-              "name": "/_.+/"
-            }]
+        "sort-class-members/sort-class-members": [
+          "error",
+          {
+            "order": [
+              "[initialize]",
+              "[reset]",
+              "[constructor]",
+              "[public-properties]",
+              "[public-static-methods]",
+              "[public-methods]",
+              "[private]"
+            ],
+            "groups": {
+              "initialize": [
+                {
+                  "name": "/initialize.*/",
+                  "static": true,
+                  "type": "method"
+                }
+              ],
+              "reset": [
+                {
+                  "name": "reset",
+                  "static": true,
+                  "type": "method"
+                }
+              ],
+              "public-properties": [
+                {
+                  "name": "/[^_].+/",
+                  "type": "property"
+                }
+              ],
+              "public-static-methods": [
+                {
+                  "name": "/[^_].+/",
+                  "static": true,
+                  "type": "method"
+                }
+              ],
+              "public-methods": [
+                {
+                  "name": "/[^_].+/",
+                  "type": "method"
+                }
+              ],
+              "private": [
+                {
+                  "name": "/_.+/"
+                }
+              ]
+            }
           }
-        }]
+        ]
       }
     }
   ]

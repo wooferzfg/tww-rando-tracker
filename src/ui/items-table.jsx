@@ -1,14 +1,14 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
 
-import LogicHelper from '../services/logic-helper';
-import TrackerState from '../services/tracker-state';
+import LogicHelper from "../services/logic-helper";
+import TrackerState from "../services/tracker-state";
 
-import Images from './images';
-import Item from './item';
-import SongNotes from './song-notes';
-import Table from './table';
+import Images from "./images";
+import Item from "./item";
+import SongNotes from "./song-notes";
+import Table from "./table";
 
 class ItemsTable extends React.PureComponent {
   constructor(props) {
@@ -39,19 +39,14 @@ class ItemsTable extends React.PureComponent {
     const itemCount = trackerState.getItemValue(selectedItem);
     const itemInfoText = LogicHelper.prettyNameForItem(selectedItem, itemCount);
 
-    return (
-      <span className="item-info">{itemInfoText}</span>
-    );
+    return <span className="item-info">{itemInfoText}</span>;
   }
 
   item(itemName) {
-    const {
-      incrementItem,
-      trackerState,
-    } = this.props;
+    const { incrementItem, trackerState } = this.props;
 
     const itemCount = trackerState.getItemValue(itemName);
-    const itemImages = _.get(Images.IMAGES, ['ITEMS', itemName]);
+    const itemImages = _.get(Images.IMAGES, ["ITEMS", itemName]);
 
     return (
       <Item
@@ -71,10 +66,7 @@ class ItemsTable extends React.PureComponent {
     const songCount = trackerState.getItemValue(songName);
 
     return (
-      <SongNotes
-        songCount={songCount}
-        songName={songName}
-      >
+      <SongNotes songCount={songCount} songName={songName}>
         {this.item(songName)}
       </SongNotes>
     );
@@ -84,7 +76,11 @@ class ItemsTable extends React.PureComponent {
     const { singleColorBackground } = this.props;
 
     return (
-      <div className={`item-tracker ${singleColorBackground ? 'single-color' : ''}`}>
+      <div
+        className={`item-tracker ${
+          singleColorBackground ? "single-color" : ""
+        }`}
+      >
         <div className="item-tracker-background">
           <img src={Images.IMAGES.ITEMS_TABLE_BACKGROUND} alt="" />
         </div>
@@ -151,9 +147,7 @@ class ItemsTable extends React.PureComponent {
                       </div>
                     </div>
                   </td>
-                  <td>
-                    {this.item(LogicHelper.ITEMS.TRIFORCE_SHARD)}
-                  </td>
+                  <td>{this.item(LogicHelper.ITEMS.TRIFORCE_SHARD)}</td>
                 </tr>
               </tbody>
             </table>

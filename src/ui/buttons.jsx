@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import Storage from './storage';
+import Storage from "./storage";
 
 class Buttons extends React.PureComponent {
   constructor(props) {
@@ -27,41 +27,29 @@ class Buttons extends React.PureComponent {
     } = this.props;
 
     const disableLogicText = disableLogic
-      ? 'Show Location Logic'
-      : 'Hide Location Logic';
+      ? "Show Location Logic"
+      : "Hide Location Logic";
 
     const onlyProgressLocationsText = onlyProgressLocations
-      ? 'Show Non-Progress Locations'
-      : 'Hide Non-Progress Locations';
+      ? "Show Non-Progress Locations"
+      : "Hide Non-Progress Locations";
 
     const singleColorBackgroundText = singleColorBackground
-      ? 'Hide Single Color Background'
-      : 'Show Single Color Background';
+      ? "Hide Single Color Background"
+      : "Show Single Color Background";
 
     return (
       <div className="buttons">
-        <button
-          onClick={this.exportProgress}
-          type="button"
-        >
+        <button onClick={this.exportProgress} type="button">
           Export Progress
         </button>
-        <button
-          onClick={toggleOnlyProgressLocations}
-          type="button"
-        >
+        <button onClick={toggleOnlyProgressLocations} type="button">
           {onlyProgressLocationsText}
         </button>
-        <button
-          onClick={toggleDisableLogic}
-          type="button"
-        >
+        <button onClick={toggleDisableLogic} type="button">
           {disableLogicText}
         </button>
-        <button
-          onClick={toggleSingleColorBackground}
-          type="button"
-        >
+        <button onClick={toggleSingleColorBackground} type="button">
           {singleColorBackgroundText}
         </button>
       </div>

@@ -1,20 +1,20 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
-import Loader from 'react-loader-spinner';
-import { ToastContainer, toast } from 'react-toastify';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
+import Loader from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
 
-import LogicHelper from '../services/logic-helper';
-import TrackerController from '../services/tracker-controller';
+import LogicHelper from "../services/logic-helper";
+import TrackerController from "../services/tracker-controller";
 
-import Buttons from './buttons';
-import Images from './images';
-import ItemsTable from './items-table';
-import LocationsTable from './locations-table';
-import Statistics from './statistics';
-import Storage from './storage';
+import Buttons from "./buttons";
+import Images from "./images";
+import ItemsTable from "./items-table";
+import LocationsTable from "./locations-table";
+import Statistics from "./statistics";
+import Storage from "./storage";
 
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 class Tracker extends React.PureComponent {
   constructor(props) {
@@ -29,12 +29,18 @@ class Tracker extends React.PureComponent {
 
     this.initialize();
 
-    this.clearRaceModeBannedLocations = this.clearRaceModeBannedLocations.bind(this);
+    this.clearRaceModeBannedLocations = this.clearRaceModeBannedLocations.bind(
+      this
+    );
     this.incrementItem = this.incrementItem.bind(this);
     this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
-    this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
-    this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(this);
+    this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(
+      this
+    );
+    this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(
+      this
+    );
   }
 
   async initialize() {
@@ -56,32 +62,30 @@ class Tracker extends React.PureComponent {
         try {
           initialData = TrackerController.initializeFromSaveData(saveData);
 
-          toast.success('Progress loaded!');
+          toast.success("Progress loaded!");
         } catch (err) {
           TrackerController.reset();
         }
       }
 
       if (_.isNil(initialData)) {
-        toast.error('Could not load progress from save data!');
+        toast.error("Could not load progress from save data!");
       }
     }
 
     if (_.isNil(initialData)) {
       try {
-        initialData = await TrackerController.initializeFromPermalink(permalink);
+        initialData = await TrackerController.initializeFromPermalink(
+          permalink
+        );
       } catch (err) {
-        toast.error('Tracker could not be initialized!');
+        toast.error("Tracker could not be initialized!");
 
         throw err;
       }
     }
 
-    const {
-      logic,
-      saveData,
-      trackerState,
-    } = initialData;
+    const { logic, saveData, trackerState } = initialData;
 
     this.setState({
       isLoading: false,
@@ -102,7 +106,10 @@ class Tracker extends React.PureComponent {
   toggleLocationChecked(generalLocation, detailedLocation) {
     const { trackerState } = this.state;
 
-    const newTrackerState = trackerState.toggleLocationChecked(generalLocation, detailedLocation);
+    const newTrackerState = trackerState.toggleLocationChecked(
+      generalLocation,
+      detailedLocation
+    );
 
     this.updateTrackerState(newTrackerState);
   }
@@ -110,23 +117,31 @@ class Tracker extends React.PureComponent {
   clearRaceModeBannedLocations(dungeonName) {
     let { trackerState: newTrackerState } = this.state;
 
-    const raceModeBannedLocations = LogicHelper.raceModeBannedLocations(dungeonName);
+    const raceModeBannedLocations = LogicHelper.raceModeBannedLocations(
+      dungeonName
+    );
 
-    _.forEach(raceModeBannedLocations, ({ generalLocation, detailedLocation }) => {
-      if (!newTrackerState.isLocationChecked(generalLocation, detailedLocation)) {
-        newTrackerState = newTrackerState.toggleLocationChecked(generalLocation, detailedLocation);
+    _.forEach(
+      raceModeBannedLocations,
+      ({ generalLocation, detailedLocation }) => {
+        if (
+          !newTrackerState.isLocationChecked(generalLocation, detailedLocation)
+        ) {
+          newTrackerState = newTrackerState.toggleLocationChecked(
+            generalLocation,
+            detailedLocation
+          );
+        }
       }
-    });
+    );
 
     this.updateTrackerState(newTrackerState);
   }
 
   updateTrackerState(newTrackerState) {
-    const {
-      logic,
-      saveData,
-      trackerState,
-    } = TrackerController.refreshState(newTrackerState);
+    const { logic, saveData, trackerState } = TrackerController.refreshState(
+      newTrackerState
+    );
 
     Storage.saveToStorage(saveData);
 

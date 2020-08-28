@@ -1,14 +1,14 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
 
-import LogicCalculation from '../services/logic-calculation';
-import TrackerState from '../services/tracker-state';
+import LogicCalculation from "../services/logic-calculation";
+import TrackerState from "../services/tracker-state";
 
-import DetailedLocationsTable from './detailed-locations-table';
-import ExtraLocationsTable from './extra-locations-table';
-import MapInfo from './map-info';
-import SeaChart from './sea-chart';
+import DetailedLocationsTable from "./detailed-locations-table";
+import ExtraLocationsTable from "./extra-locations-table";
+import MapInfo from "./map-info";
+import SeaChart from "./sea-chart";
 
 class LocationsTable extends React.PureComponent {
   constructor(props) {

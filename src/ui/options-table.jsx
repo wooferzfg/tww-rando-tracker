@@ -1,34 +1,25 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
 
-import Table from './table';
+import Table from "./table";
 
 class OptionsTable extends React.PureComponent {
   render() {
-    const {
-      options,
-      numColumns,
-      title,
-    } = this.props;
+    const { options, numColumns, title } = this.props;
 
-    const columns = _.times(
-      numColumns,
-      (index) => (
-        <React.Fragment key={index}>
-          <col className="text-col" />
-          <col className="slider-col" />
-        </React.Fragment>
-      ),
-    );
+    const columns = _.times(numColumns, (index) => (
+      <React.Fragment key={index}>
+        <col className="text-col" />
+        <col className="slider-col" />
+      </React.Fragment>
+    ));
 
     return (
       <fieldset>
         <legend>{title}</legend>
         <table>
-          <colgroup>
-            {columns}
-          </colgroup>
+          <colgroup>{columns}</colgroup>
           <tbody>
             <Table
               elements={options}

@@ -1,14 +1,14 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
 
-import ISLANDS from '../data/islands.json';
-import LogicCalculation from '../services/logic-calculation';
-import LogicHelper from '../services/logic-helper';
-import TrackerState from '../services/tracker-state';
+import ISLANDS from "../data/islands.json";
+import LogicCalculation from "../services/logic-calculation";
+import LogicHelper from "../services/logic-helper";
+import TrackerState from "../services/tracker-state";
 
-import Images from './images';
-import Sector from './sector';
+import Images from "./images";
+import Sector from "./sector";
 
 class SeaChart extends React.PureComponent {
   sector(island) {
@@ -25,18 +25,11 @@ class SeaChart extends React.PureComponent {
       trackerState,
     } = this.props;
 
-    const {
-      chartName,
-      chartType,
-    } = LogicHelper.chartForIsland(island);
+    const { chartName, chartType } = LogicHelper.chartForIsland(island);
 
     const chartCount = trackerState.getItemValue(chartName);
 
-    const {
-      color,
-      numAvailable,
-      numRemaining,
-    } = logic.locationCounts(island, {
+    const { color, numAvailable, numRemaining } = logic.locationCounts(island, {
       isDungeon: false,
       onlyProgressLocations,
       disableLogic,
@@ -71,9 +64,7 @@ class SeaChart extends React.PureComponent {
         <div className="chart-map-background">
           <img src={Images.IMAGES.SEA_CHART} alt="" />
         </div>
-        <div className="maps">
-          {islands}
-        </div>
+        <div className="maps">{islands}</div>
       </div>
     );
   }

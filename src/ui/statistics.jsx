@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import LogicCalculation from '../services/logic-calculation';
+import LogicCalculation from "../services/logic-calculation";
 
 class Statistics extends React.PureComponent {
   render() {
@@ -13,7 +13,9 @@ class Statistics extends React.PureComponent {
     } = this.props;
 
     return (
-      <div className={`statistics ${singleColorBackground ? 'single-color' : ''}`}>
+      <div
+        className={`statistics ${singleColorBackground ? "single-color" : ""}`}
+      >
         <table>
           <tbody>
             <tr>
@@ -22,12 +24,16 @@ class Statistics extends React.PureComponent {
             </tr>
             {!disableLogic && (
               <tr>
-                <td>{logic.totalLocationsAvailable({ onlyProgressLocations })}</td>
+                <td>
+                  {logic.totalLocationsAvailable({ onlyProgressLocations })}
+                </td>
                 <td>Locations Accessible</td>
               </tr>
             )}
             <tr>
-              <td>{logic.totalLocationsRemaining({ onlyProgressLocations })}</td>
+              <td>
+                {logic.totalLocationsRemaining({ onlyProgressLocations })}
+              </td>
               <td>Locations Remaining</td>
             </tr>
             {!disableLogic && (

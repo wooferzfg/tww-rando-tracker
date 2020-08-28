@@ -1,17 +1,17 @@
-import _ from 'lodash';
-import React from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import _ from "lodash";
+import React from "react";
+import { ToastContainer, toast } from "react-toastify";
 
-import HEADER_IMAGE from '../images/header.png';
-import Permalink from '../services/permalink';
+import HEADER_IMAGE from "../images/header.png";
+import Permalink from "../services/permalink";
 
-import DropdownOptionInput from './dropdown-option-input';
-import OptionsTable from './options-table';
-import Storage from './storage';
-import ToggleOptionInput from './toggle-option-input';
+import DropdownOptionInput from "./dropdown-option-input";
+import OptionsTable from "./options-table";
+import Storage from "./storage";
+import ToggleOptionInput from "./toggle-option-input";
 
-import 'react-toastify/dist/ReactToastify.css';
-import 'react-toggle/style.css';
+import "react-toastify/dist/ReactToastify.css";
+import "react-toggle/style.css";
 
 export default class Launcher extends React.PureComponent {
   static openTrackerWindow(route) {
@@ -20,8 +20,8 @@ export default class Launcher extends React.PureComponent {
 
     window.open(
       `#/tracker${route}`,
-      '_blank',
-      `width=${windowWidth},height=${windowHeight},titlebar=0,menubar=0,toolbar=0`,
+      "_blank",
+      `width=${windowWidth},height=${windowHeight},titlebar=0,menubar=0,toolbar=0`
     );
   }
 
@@ -62,7 +62,7 @@ export default class Launcher extends React.PureComponent {
 
       this.updateOptions(options);
     } catch (err) {
-      toast.error('Invalid permalink!');
+      toast.error("Invalid permalink!");
     }
   }
 
@@ -128,91 +128,91 @@ export default class Launcher extends React.PureComponent {
         numColumns={3}
         options={[
           this.toggleInput({
-            labelText: 'Dungeons',
+            labelText: "Dungeons",
             optionName: Permalink.OPTIONS.PROGRESSION_DUNGEONS,
           }),
           this.toggleInput({
-            labelText: 'Tingle Chests',
+            labelText: "Tingle Chests",
             optionName: Permalink.OPTIONS.PROGRESSION_TINGLE_CHESTS,
           }),
           this.toggleInput({
-            labelText: 'Mail',
+            labelText: "Mail",
             optionName: Permalink.OPTIONS.PROGRESSION_MAIL,
           }),
           this.toggleInput({
-            labelText: 'Puzzle Secret Caves',
+            labelText: "Puzzle Secret Caves",
             optionName: Permalink.OPTIONS.PROGRESSION_PUZZLE_SECRET_CAVES,
           }),
           this.toggleInput({
-            labelText: 'Combat Secret Caves',
+            labelText: "Combat Secret Caves",
             optionName: Permalink.OPTIONS.PROGRESSION_COMBAT_SECRET_CAVES,
           }),
           this.toggleInput({
-            labelText: 'Savage Labyrinth',
+            labelText: "Savage Labyrinth",
             optionName: Permalink.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH,
           }),
           this.toggleInput({
-            labelText: 'Short Sidequests',
+            labelText: "Short Sidequests",
             optionName: Permalink.OPTIONS.PROGRESSION_SHORT_SIDEQUESTS,
           }),
           this.toggleInput({
-            labelText: 'Long Sidequests',
+            labelText: "Long Sidequests",
             optionName: Permalink.OPTIONS.PROGRESSION_LONG_SIDEQUESTS,
           }),
           this.toggleInput({
-            labelText: 'Spoils Trading',
+            labelText: "Spoils Trading",
             optionName: Permalink.OPTIONS.PROGRESSION_SPOILS_TRADING,
           }),
           this.toggleInput({
-            labelText: 'Great Fairies',
+            labelText: "Great Fairies",
             optionName: Permalink.OPTIONS.PROGRESSION_GREAT_FAIRIES,
           }),
           this.toggleInput({
-            labelText: 'Free Gifts',
+            labelText: "Free Gifts",
             optionName: Permalink.OPTIONS.PROGRESSION_FREE_GIFTS,
           }),
           this.toggleInput({
-            labelText: 'Miscellaneous',
+            labelText: "Miscellaneous",
             optionName: Permalink.OPTIONS.PROGRESSION_MISC,
           }),
           this.toggleInput({
-            labelText: 'Minigames',
+            labelText: "Minigames",
             optionName: Permalink.OPTIONS.PROGRESSION_MINIGAMES,
           }),
           this.toggleInput({
-            labelText: 'Battlesquid Minigame',
+            labelText: "Battlesquid Minigame",
             optionName: Permalink.OPTIONS.PROGRESSION_BATTLESQUID,
           }),
           this.toggleInput({
-            labelText: 'Expensive Purchases',
+            labelText: "Expensive Purchases",
             optionName: Permalink.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES,
           }),
           this.toggleInput({
-            labelText: 'Island Puzzles',
+            labelText: "Island Puzzles",
             optionName: Permalink.OPTIONS.PROGRESSION_ISLAND_PUZZLES,
           }),
           this.toggleInput({
-            labelText: 'Lookout Platforms and Rafts',
+            labelText: "Lookout Platforms and Rafts",
             optionName: Permalink.OPTIONS.PROGRESSION_PLATFORMS_RAFTS,
           }),
           this.toggleInput({
-            labelText: 'Submarines',
+            labelText: "Submarines",
             optionName: Permalink.OPTIONS.PROGRESSION_SUBMARINES,
           }),
           this.toggleInput({
-            labelText: 'Big Octos and Gunboats',
+            labelText: "Big Octos and Gunboats",
             optionName: Permalink.OPTIONS.PROGRESSION_BIG_OCTOS_GUNBOATS,
           }),
           this.toggleInput({
-            labelText: 'Sunken Treasure (From Triforce Charts)',
+            labelText: "Sunken Treasure (From Triforce Charts)",
             optionName: Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS,
           }),
           this.toggleInput({
-            labelText: 'Sunken Treasure (From Treasure Charts)',
+            labelText: "Sunken Treasure (From Treasure Charts)",
             optionName: Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS,
           }),
           this.toggleInput({
-            labelText: 'Eye Reef Chests',
+            labelText: "Eye Reef Chests",
             optionName: Permalink.OPTIONS.PROGRESSION_EYE_REEF_CHESTS,
           }),
         ]}
@@ -227,27 +227,27 @@ export default class Launcher extends React.PureComponent {
         numColumns={2}
         options={[
           this.dropdownInput({
-            labelText: 'Sword Mode',
+            labelText: "Sword Mode",
             optionName: Permalink.OPTIONS.SWORD_MODE,
           }),
           this.toggleInput({
-            labelText: 'Key-Lunacy',
+            labelText: "Key-Lunacy",
             optionName: Permalink.OPTIONS.KEYLUNACY,
           }),
           this.dropdownInput({
-            labelText: 'Triforce Shards to Start With',
+            labelText: "Triforce Shards to Start With",
             optionName: Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS,
           }),
           this.toggleInput({
-            labelText: 'Race Mode',
+            labelText: "Race Mode",
             optionName: Permalink.OPTIONS.RACE_MODE,
           }),
           this.dropdownInput({
-            labelText: 'Randomize Entrances',
+            labelText: "Randomize Entrances",
             optionName: Permalink.OPTIONS.RANDOMIZE_ENTRANCES,
           }),
           this.toggleInput({
-            labelText: 'Randomize Charts',
+            labelText: "Randomize Charts",
             optionName: Permalink.OPTIONS.RANDOMIZE_CHARTS,
           }),
         ]}
@@ -262,7 +262,7 @@ export default class Launcher extends React.PureComponent {
         numColumns={2}
         options={[
           this.toggleInput({
-            labelText: 'Skip Boss Rematches',
+            labelText: "Skip Boss Rematches",
             optionName: Permalink.OPTIONS.SKIP_REMATCH_BOSSES,
           }),
         ]}
@@ -321,7 +321,10 @@ export default class Launcher extends React.PureComponent {
       <div className="full-container">
         <div className="launcher-container">
           <div className="header">
-            <img src={HEADER_IMAGE} alt="The Legend of Zelda: The Wind Waker Randomizer Tracker" />
+            <img
+              src={HEADER_IMAGE}
+              alt="The Legend of Zelda: The Wind Waker Randomizer Tracker"
+            />
           </div>
           <div className="settings">
             {this.permalinkContainer()}

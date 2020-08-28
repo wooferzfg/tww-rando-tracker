@@ -1,42 +1,42 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-import CAVE_ENTRANCES from '../data/cave-entrances.json';
-import CAVES from '../data/caves.json';
-import CHARTS from '../data/charts.json';
-import DUNGEON_ENTRANCES from '../data/dungeon-entrances.json';
-import DUNGEONS from '../data/dungeons.json';
-import ISLANDS from '../data/islands.json';
-import ITEMS from '../data/items.json';
-import KEYS from '../data/keys.json';
-import MISC_LOCATIONS from '../data/misc-locations.json';
-import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
-import RACE_MODE_BANNED_LOCATIONS from '../data/race-mode-banned-locations.json';
-import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
+import CAVE_ENTRANCES from "../data/cave-entrances.json";
+import CAVES from "../data/caves.json";
+import CHARTS from "../data/charts.json";
+import DUNGEON_ENTRANCES from "../data/dungeon-entrances.json";
+import DUNGEONS from "../data/dungeons.json";
+import ISLANDS from "../data/islands.json";
+import ITEMS from "../data/items.json";
+import KEYS from "../data/keys.json";
+import MISC_LOCATIONS from "../data/misc-locations.json";
+import PRETTY_ITEM_NAMES from "../data/pretty-item-names.json";
+import RACE_MODE_BANNED_LOCATIONS from "../data/race-mode-banned-locations.json";
+import SHORT_DUNGEON_NAMES from "../data/short-dungeon-names.json";
 
-import BooleanExpression from './boolean-expression';
-import Constants from './constants';
-import Locations from './locations';
-import Macros from './macros';
-import Memoizer from './memoizer';
-import Permalink from './permalink';
-import Settings from './settings';
+import BooleanExpression from "./boolean-expression";
+import Constants from "./constants";
+import Locations from "./locations";
+import Macros from "./macros";
+import Memoizer from "./memoizer";
+import Permalink from "./permalink";
+import Settings from "./settings";
 
 export default class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
-      'bossLocation',
-      'chartForIsland',
-      'filterDetailedLocations',
-      'isPotentialKeyLocation',
-      'isProgressLocation',
-      'maxItemCount',
-      'parseItemCountRequirement',
-      'prettyNameForItem',
-      'prettyNameForItemRequirement',
-      'requirementsForEntrance',
-      'requirementsForLocation',
-      'smallKeysRequiredForLocation',
-      '_isValidLocation',
+      "bossLocation",
+      "chartForIsland",
+      "filterDetailedLocations",
+      "isPotentialKeyLocation",
+      "isProgressLocation",
+      "maxItemCount",
+      "parseItemCountRequirement",
+      "prettyNameForItem",
+      "prettyNameForItemRequirement",
+      "requirementsForEntrance",
+      "requirementsForLocation",
+      "smallKeysRequiredForLocation",
+      "_isValidLocation",
     ]);
 
     this._setStartingAndImpossibleItems();
@@ -63,7 +63,7 @@ export default class LogicHelper {
     this.impossibleItems = null;
   }
 
-  static DEFEAT_GANONDORF_LOCATION = 'Defeat Ganondorf';
+  static DEFEAT_GANONDORF_LOCATION = "Defeat Ganondorf";
 
   static DUNGEONS = Constants.createFromArray(DUNGEONS);
 
@@ -74,17 +74,17 @@ export default class LogicHelper {
   static ITEMS = Constants.createFromArray(_.keys(ITEMS));
 
   static TOKENS = {
-    AND: '&',
-    CLOSING_PAREN: ')',
-    IMPOSSIBLE: 'Impossible',
-    NOTHING: 'Nothing',
-    OPENING_PAREN: '(',
-    OR: '|',
+    AND: "&",
+    CLOSING_PAREN: ")",
+    IMPOSSIBLE: "Impossible",
+    NOTHING: "Nothing",
+    OPENING_PAREN: "(",
+    OR: "|",
   };
 
   static CHART_TYPES = {
-    TREASURE: 'Treasure',
-    TRIFORCE: 'Triforce',
+    TREASURE: "Treasure",
+    TRIFORCE: "Triforce",
   };
 
   static ALL_ITEMS = _.concat(
@@ -92,7 +92,7 @@ export default class LogicHelper {
     CHARTS,
     _.map(DUNGEONS, (dungeon) => this.dungeonEntryName(dungeon)),
     _.keys(ITEMS),
-    _.keys(KEYS),
+    _.keys(KEYS)
   );
 
   static startingItemCount(item) {
@@ -119,8 +119,10 @@ export default class LogicHelper {
   }
 
   static isMainDungeon(dungeonName) {
-    if (dungeonName === this.DUNGEONS.FORSAKEN_FORTRESS
-      || dungeonName === this.DUNGEONS.GANONS_TOWER) {
+    if (
+      dungeonName === this.DUNGEONS.FORSAKEN_FORTRESS ||
+      dungeonName === this.DUNGEONS.GANONS_TOWER
+    ) {
       return false;
     }
     return this.isDungeon(dungeonName);
@@ -155,12 +157,9 @@ export default class LogicHelper {
 
   static cavesForIsland(islandName) {
     return _.compact(
-      _.map(
-        CAVE_ENTRANCES,
-        (caveEntrance, caveIndex) => (
-          _.startsWith(caveEntrance, islandName) ? _.get(CAVES, caveIndex) : null
-        ),
-      ),
+      _.map(CAVE_ENTRANCES, (caveEntrance, caveIndex) =>
+        _.startsWith(caveEntrance, islandName) ? _.get(CAVES, caveIndex) : null
+      )
     );
   }
 
@@ -168,10 +167,12 @@ export default class LogicHelper {
     return _.includes(
       [
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS
+          .DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS
+          .DUNGEONS_AND_SECRET_CAVES_TOGETHER,
       ],
-      this._randomizeEntrancesOption(),
+      this._randomizeEntrancesOption()
     );
   }
 
@@ -179,17 +180,19 @@ export default class LogicHelper {
     return _.includes(
       [
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS
+          .DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS
+          .DUNGEONS_AND_SECRET_CAVES_TOGETHER,
       ],
-      this._randomizeEntrancesOption(),
+      this._randomizeEntrancesOption()
     );
   }
 
   static isRandomEntrancesTogether() {
     return _.includes(
       this._randomizeEntrancesOption(),
-      Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+      Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER
     );
   }
 
@@ -210,7 +213,7 @@ export default class LogicHelper {
     const locationTypes = Locations.getLocation(
       generalLocation,
       detailedLocation,
-      Locations.KEYS.TYPES,
+      Locations.KEYS.TYPES
     );
 
     if (!locationTypes) {
@@ -218,19 +221,23 @@ export default class LogicHelper {
       return true;
     }
 
-    const locationTypesList = _.split(locationTypes, ', ');
-    return _.every(
-      locationTypesList,
-      (flag) => Settings.isFlagActive(flag),
-    );
+    const locationTypesList = _.split(locationTypes, ", ");
+    return _.every(locationTypesList, (flag) => Settings.isFlagActive(flag));
   }
 
-  static filterDetailedLocations(generalLocation, { isDungeon, onlyProgressLocations }) {
-    const detailedLocations = Locations.detailedLocationsForGeneralLocation(generalLocation);
+  static filterDetailedLocations(
+    generalLocation,
+    { isDungeon, onlyProgressLocations }
+  ) {
+    const detailedLocations = Locations.detailedLocationsForGeneralLocation(
+      generalLocation
+    );
 
     return _.filter(detailedLocations, (detailedLocation) => {
-      if (!_.isNil(isDungeon)
-        && !this._isValidLocation(generalLocation, detailedLocation, { isDungeon })) {
+      if (
+        !_.isNil(isDungeon) &&
+        !this._isValidLocation(generalLocation, detailedLocation, { isDungeon })
+      ) {
         return false;
       }
 
@@ -243,7 +250,11 @@ export default class LogicHelper {
   }
 
   static isPotentialKeyLocation(generalLocation, detailedLocation) {
-    if (!this._isValidLocation(generalLocation, detailedLocation, { isDungeon: true })) {
+    if (
+      !this._isValidLocation(generalLocation, detailedLocation, {
+        isDungeon: true,
+      })
+    ) {
       return false;
     }
 
@@ -254,19 +265,21 @@ export default class LogicHelper {
     const locationTypes = Locations.getLocation(
       generalLocation,
       detailedLocation,
-      Locations.KEYS.TYPES,
+      Locations.KEYS.TYPES
     );
-    if (_.includes(locationTypes, Settings.FLAGS.TINGLE_CHEST)
-      && !Settings.isFlagActive(Settings.FLAGS.TINGLE_CHEST)) {
+    if (
+      _.includes(locationTypes, Settings.FLAGS.TINGLE_CHEST) &&
+      !Settings.isFlagActive(Settings.FLAGS.TINGLE_CHEST)
+    ) {
       return false;
     }
 
     const locationRequirements = Locations.getLocation(
       generalLocation,
       detailedLocation,
-      Locations.KEYS.NEED,
+      Locations.KEYS.NEED
     );
-    if (_.includes(locationRequirements, 'Big Key')) {
+    if (_.includes(locationRequirements, "Big Key")) {
       return false;
     }
 
@@ -278,20 +291,19 @@ export default class LogicHelper {
       return this.DEFEAT_GANONDORF_LOCATION;
     }
 
-    const detailedLocations = Locations.detailedLocationsForGeneralLocation(dungeonName);
-
-    return _.find(
-      detailedLocations,
-      (detailedLocation) => {
-        const originalItem = Locations.getLocation(
-          dungeonName,
-          detailedLocation,
-          Locations.KEYS.ORIGINAL_ITEM,
-        );
-
-        return originalItem === 'Heart Container';
-      },
+    const detailedLocations = Locations.detailedLocationsForGeneralLocation(
+      dungeonName
     );
+
+    return _.find(detailedLocations, (detailedLocation) => {
+      const originalItem = Locations.getLocation(
+        dungeonName,
+        detailedLocation,
+        Locations.KEYS.ORIGINAL_ITEM
+      );
+
+      return originalItem === "Heart Container";
+    });
   }
 
   static smallKeyName(dungeonName) {
@@ -312,46 +324,50 @@ export default class LogicHelper {
   static smallKeysRequiredForLocation(generalLocation, detailedLocation) {
     const maxSmallKeys = this.maxSmallKeysForDungeon(generalLocation);
 
-    for (let numSmallKeys = 0; numSmallKeys <= maxSmallKeys; numSmallKeys += 1) {
-      if (this.isLocationAvailableWithSmallKeys(
-        generalLocation,
-        detailedLocation,
-        {
-          numSmallKeys,
-          nonKeyRequirementMet: () => true, // assume we have all items that aren't keys
-        },
-      )) {
+    for (
+      let numSmallKeys = 0;
+      numSmallKeys <= maxSmallKeys;
+      numSmallKeys += 1
+    ) {
+      if (
+        this.isLocationAvailableWithSmallKeys(
+          generalLocation,
+          detailedLocation,
+          {
+            numSmallKeys,
+            nonKeyRequirementMet: () => true, // assume we have all items that aren't keys
+          }
+        )
+      ) {
         return numSmallKeys;
       }
     }
 
-    throw Error(`Could not determine keys required for location: ${generalLocation} - ${detailedLocation}`);
+    throw Error(
+      `Could not determine keys required for location: ${generalLocation} - ${detailedLocation}`
+    );
   }
 
   static isLocationAvailableWithSmallKeys(
     generalLocation,
     detailedLocation,
-    {
-      numSmallKeys,
-      nonKeyRequirementMet,
-    },
+    { numSmallKeys, nonKeyRequirementMet }
   ) {
     const requirementsForLocation = this.requirementsForLocation(
       generalLocation,
-      detailedLocation,
+      detailedLocation
     );
 
     const smallKeyName = this.smallKeyName(generalLocation);
 
     return requirementsForLocation.evaluate({
       isItemTrue: (requirement) => {
-        const itemCountRequirement = this.parseItemCountRequirement(requirement);
+        const itemCountRequirement = this.parseItemCountRequirement(
+          requirement
+        );
 
         if (!_.isNil(itemCountRequirement)) {
-          const {
-            countRequired,
-            itemName,
-          } = itemCountRequirement;
+          const { countRequired, itemName } = itemCountRequirement;
 
           if (itemName === smallKeyName) {
             return numSmallKeys >= countRequired;
@@ -364,7 +380,10 @@ export default class LogicHelper {
   }
 
   static requirementsForLocation(generalLocation, detailedLocation) {
-    const rawRequirements = this._rawRequirementsForLocation(generalLocation, detailedLocation);
+    const rawRequirements = this._rawRequirementsForLocation(
+      generalLocation,
+      detailedLocation
+    );
     return this._simplifiedItemRequirements(rawRequirements);
   }
 
@@ -375,15 +394,16 @@ export default class LogicHelper {
   }
 
   static prettyNameForItemRequirement(itemRequirement) {
-    const itemCountRequirement = this.parseItemCountRequirement(itemRequirement);
+    const itemCountRequirement = this.parseItemCountRequirement(
+      itemRequirement
+    );
 
     if (!_.isNil(itemCountRequirement)) {
-      const {
-        itemName,
-        countRequired,
-      } = itemCountRequirement;
+      const { itemName, countRequired } = itemCountRequirement;
 
-      return this._prettyNameOverride(itemName, countRequired) || itemRequirement;
+      return (
+        this._prettyNameOverride(itemName, countRequired) || itemRequirement
+      );
     }
 
     return this._prettyNameOverride(itemRequirement) || itemRequirement;
@@ -409,7 +429,10 @@ export default class LogicHelper {
     const chartName = _.get(CHARTS, islandIndex);
 
     let chartType;
-    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) || _.includes(chartName, 'Treasure')) {
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) ||
+      _.includes(chartName, "Treasure")
+    ) {
       chartType = this.CHART_TYPES.TREASURE;
     } else {
       chartType = this.CHART_TYPES.TRIFORCE;
@@ -431,13 +454,20 @@ export default class LogicHelper {
       detailedLocation,
     }));
 
-    const additionalLocations = _.get(RACE_MODE_BANNED_LOCATIONS, dungeonName, []);
+    const additionalLocations = _.get(
+      RACE_MODE_BANNED_LOCATIONS,
+      dungeonName,
+      []
+    );
 
     return _.concat(dungeonLocations, additionalLocations);
   }
 
   static _prettyNameOverride(itemName, itemCount = 1) {
-    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) && _.includes(itemName, ' Chart')) {
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) &&
+      _.includes(itemName, " Chart")
+    ) {
       const islandIndex = _.indexOf(CHARTS, itemName);
       return `Chart for ${_.get(ISLANDS, islandIndex)}`;
     }
@@ -449,13 +479,13 @@ export default class LogicHelper {
     const requirements = Locations.getLocation(
       generalLocation,
       detailedLocation,
-      Locations.KEYS.NEED,
+      Locations.KEYS.NEED
     );
     return this._booleanExpressionForRequirements(requirements);
   }
 
   static _shortCaveName(caveName) {
-    return _.replace(caveName, /Secret |Warp Maze /g, '');
+    return _.replace(caveName, /Secret |Warp Maze /g, "");
   }
 
   static _shortDungeonName(dungeonName) {
@@ -481,10 +511,8 @@ export default class LogicHelper {
 
   static _simplifiedItemRequirements(requirements) {
     return requirements.simplify({
-      implies: (
-        firstRequirement,
-        secondRequirement,
-      ) => this._requirementImplies(firstRequirement, secondRequirement),
+      implies: (firstRequirement, secondRequirement) =>
+        this._requirementImplies(firstRequirement, secondRequirement),
     });
   }
 
@@ -501,12 +529,25 @@ export default class LogicHelper {
       return true;
     }
 
-    const firstItemCountRequirement = LogicHelper.parseItemCountRequirement(firstRequirement);
-    const secondItemCountRequirement = LogicHelper.parseItemCountRequirement(secondRequirement);
+    const firstItemCountRequirement = LogicHelper.parseItemCountRequirement(
+      firstRequirement
+    );
+    const secondItemCountRequirement = LogicHelper.parseItemCountRequirement(
+      secondRequirement
+    );
 
-    if (!_.isNil(firstItemCountRequirement) && !_.isNil(secondItemCountRequirement)) {
-      if (firstItemCountRequirement.itemName === secondItemCountRequirement.itemName) {
-        return firstItemCountRequirement.countRequired > secondItemCountRequirement.countRequired;
+    if (
+      !_.isNil(firstItemCountRequirement) &&
+      !_.isNil(secondItemCountRequirement)
+    ) {
+      if (
+        firstItemCountRequirement.itemName ===
+        secondItemCountRequirement.itemName
+      ) {
+        return (
+          firstItemCountRequirement.countRequired >
+          secondItemCountRequirement.countRequired
+        );
       }
     }
 
@@ -522,7 +563,7 @@ export default class LogicHelper {
       [this.ITEMS.BALLAD_OF_GALES]: 1,
       [this.ITEMS.SONG_OF_PASSING]: 1,
       [this.ITEMS.TRIFORCE_SHARD]: Settings.getOptionValue(
-        Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS,
+        Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS
       ),
     };
     this.impossibleItems = {};
@@ -542,9 +583,7 @@ export default class LogicHelper {
   }
 
   static _splitExpression(expression) {
-    return _.compact(
-      _.map(expression.split(/\s*([(&|)])\s*/g), _.trim),
-    );
+    return _.compact(_.map(expression.split(/\s*([(&|)])\s*/g), _.trim));
   }
 
   static _checkOptionEnabledRequirement(requirement) {
@@ -567,11 +606,13 @@ export default class LogicHelper {
       },
       {
         regex: /^Option "([^"]+)" Contains "([^"]+)"$/,
-        value: (optionValue, expectedValue) => _.get(optionValue, expectedValue),
+        value: (optionValue, expectedValue) =>
+          _.get(optionValue, expectedValue),
       },
       {
         regex: /^Option "([^"]+)" Does Not Contain "([^"]+)"$/,
-        value: (optionValue, expectedValue) => !_.get(optionValue, expectedValue),
+        value: (optionValue, expectedValue) =>
+          !_.get(optionValue, expectedValue),
       },
     ];
 
@@ -584,7 +625,10 @@ export default class LogicHelper {
         const optionValue = Settings.getOptionValue(optionName);
         const expectedValue = requirementMatch[2];
 
-        optionEnabledRequirementValue = matcher.value(optionValue, expectedValue);
+        optionEnabledRequirementValue = matcher.value(
+          optionValue,
+          expectedValue
+        );
 
         return false; // break loop
       }
@@ -595,14 +639,18 @@ export default class LogicHelper {
   }
 
   static _checkOtherLocationRequirement(requirement) {
-    const otherLocationMatch = requirement.match(/Can Access Other Location "([^"]+)"/);
+    const otherLocationMatch = requirement.match(
+      /Can Access Other Location "([^"]+)"/
+    );
     if (otherLocationMatch) {
-      const {
-        generalLocation,
-        detailedLocation,
-      } = Locations.splitLocationName(otherLocationMatch[1]);
+      const { generalLocation, detailedLocation } = Locations.splitLocationName(
+        otherLocationMatch[1]
+      );
 
-      return this._rawRequirementsForLocation(generalLocation, detailedLocation);
+      return this._rawRequirementsForLocation(
+        generalLocation,
+        detailedLocation
+      );
     }
 
     return null;
@@ -612,7 +660,9 @@ export default class LogicHelper {
     let itemName;
     let countRequired;
 
-    const itemCountRequirement = LogicHelper.parseItemCountRequirement(requirement);
+    const itemCountRequirement = LogicHelper.parseItemCountRequirement(
+      requirement
+    );
     if (!_.isNil(itemCountRequirement)) {
       ({ itemName, countRequired } = itemCountRequirement);
     } else {
@@ -639,19 +689,29 @@ export default class LogicHelper {
       return this._booleanExpressionForRequirements(macroValue);
     }
 
-    const optionEnabledRequirementValue = this._checkOptionEnabledRequirement(requirement);
+    const optionEnabledRequirementValue = this._checkOptionEnabledRequirement(
+      requirement
+    );
     if (!_.isNil(optionEnabledRequirementValue)) {
-      return optionEnabledRequirementValue ? this.TOKENS.NOTHING : this.TOKENS.IMPOSSIBLE;
+      return optionEnabledRequirementValue
+        ? this.TOKENS.NOTHING
+        : this.TOKENS.IMPOSSIBLE;
     }
 
-    const otherLocationRequirementValue = this._checkOtherLocationRequirement(requirement);
+    const otherLocationRequirementValue = this._checkOtherLocationRequirement(
+      requirement
+    );
     if (!_.isNil(otherLocationRequirementValue)) {
       return otherLocationRequirementValue;
     }
 
-    const predeterminedItemRequirementValue = this._checkPredeterminedItemRequirement(requirement);
+    const predeterminedItemRequirementValue = this._checkPredeterminedItemRequirement(
+      requirement
+    );
     if (!_.isNil(predeterminedItemRequirementValue)) {
-      return predeterminedItemRequirementValue ? this.TOKENS.NOTHING : this.TOKENS.IMPOSSIBLE;
+      return predeterminedItemRequirementValue
+        ? this.TOKENS.NOTHING
+        : this.TOKENS.IMPOSSIBLE;
     }
 
     return requirement;
@@ -667,7 +727,9 @@ export default class LogicHelper {
       if (currentToken === this.TOKENS.AND || currentToken === this.TOKENS.OR) {
         expressionTypeToken = currentToken;
       } else if (currentToken === this.TOKENS.OPENING_PAREN) {
-        const childExpression = this._booleanExpressionForTokens(expressionTokens);
+        const childExpression = this._booleanExpressionForTokens(
+          expressionTokens
+        );
         itemsForExpression.push(childExpression);
       } else if (currentToken === this.TOKENS.CLOSING_PAREN) {
         break;
@@ -712,7 +774,7 @@ export default class LogicHelper {
       const locationTypes = Locations.getLocation(
         generalLocation,
         detailedLocation,
-        Locations.KEYS.TYPES,
+        Locations.KEYS.TYPES
       );
       const hasDungeonType = _.includes(locationTypes, Settings.FLAGS.DUNGEON);
 

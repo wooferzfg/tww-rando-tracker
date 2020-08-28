@@ -1,5 +1,5 @@
-import _ from 'lodash';
-import memoize from 'memoizee';
+import _ from "lodash";
+import memoize from "memoizee";
 
 export default class Memoizer {
   static memoize(parentObject, functionNames) {

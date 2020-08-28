@@ -1,12 +1,12 @@
-import Macros from './macros';
+import Macros from "./macros";
 
-describe('Macros', () => {
+describe("Macros", () => {
   afterEach(() => {
     Macros.reset();
   });
 
-  describe('initialize', () => {
-    test('initializes the macros', () => {
+  describe("initialize", () => {
+    test("initializes the macros", () => {
       const macros = {
         "Can Play Wind's Requiem": "Wind Waker & Wind's Requiem",
       };
@@ -17,21 +17,21 @@ describe('Macros', () => {
     });
   });
 
-  describe('reset', () => {
+  describe("reset", () => {
     beforeEach(() => {
       Macros.macros = {
         "Can Play Wind's Requiem": "Wind Waker & Wind's Requiem",
       };
     });
 
-    test('resets the macros', () => {
+    test("resets the macros", () => {
       Macros.reset();
 
       expect(Macros.macros).toEqual(null);
     });
   });
 
-  describe('readAll', () => {
+  describe("readAll", () => {
     let expectedMacros;
 
     beforeEach(() => {
@@ -42,15 +42,15 @@ describe('Macros', () => {
       Macros.macros = expectedMacros;
     });
 
-    test('returns all of the macros', () => {
+    test("returns all of the macros", () => {
       const allMacros = Macros.readAll();
 
       expect(allMacros).toEqual(expectedMacros);
     });
   });
 
-  describe('getMacro', () => {
-    test('returns the value of a macro', () => {
+  describe("getMacro", () => {
+    test("returns the value of a macro", () => {
       Macros.macros = {
         "Can Play Wind's Requiem": "Wind Waker & Wind's Requiem",
       };
@@ -61,15 +61,15 @@ describe('Macros', () => {
     });
   });
 
-  describe('setMacro', () => {
-    test('sets the value of a macro', () => {
+  describe("setMacro", () => {
+    test("sets the value of a macro", () => {
       Macros.macros = {
         "Can Play Wind's Requiem": "Wind Waker & Wind's Requiem",
       };
 
-      Macros.setMacro("Can Play Wind's Requiem", 'Mirror Shield');
+      Macros.setMacro("Can Play Wind's Requiem", "Mirror Shield");
 
-      expect(Macros.macros["Can Play Wind's Requiem"]).toEqual('Mirror Shield');
+      expect(Macros.macros["Can Play Wind's Requiem"]).toEqual("Mirror Shield");
     });
   });
 });

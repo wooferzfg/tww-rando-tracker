@@ -1,8 +1,8 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
 
-import LogicHelper from '../services/logic-helper';
+import LogicHelper from "../services/logic-helper";
 
 class Item extends React.PureComponent {
   render() {
@@ -19,11 +19,11 @@ class Item extends React.PureComponent {
     const startingItemCount = LogicHelper.startingItemCount(itemName);
     const maxItemCount = LogicHelper.maxItemCount(itemName);
 
-    let itemClassName = '';
+    let itemClassName = "";
     if (maxItemCount === 0) {
-      itemClassName = 'impossible-item';
+      itemClassName = "impossible-item";
     } else if (startingItemCount === maxItemCount) {
-      itemClassName = 'static-item';
+      itemClassName = "static-item";
     }
 
     const incrementItemFunc = (event) => {
@@ -46,10 +46,7 @@ class Item extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        <img
-          alt={itemName}
-          src={itemImage}
-        />
+        <img alt={itemName} src={itemImage} />
       </div>
     );
   }

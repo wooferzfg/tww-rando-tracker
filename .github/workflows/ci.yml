@@ -4,9 +4,9 @@ on:
   pull_request:
   push:
     branches:
-      - 'master'
-      - 'speedrun'
-      - 'react' # TODO: remove this
+      - "master"
+      - "speedrun"
+      - "react" # TODO: remove this
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: "12.x"
 
       - name: Install npm packages
         run: |

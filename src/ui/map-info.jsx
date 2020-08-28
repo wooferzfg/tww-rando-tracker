@@ -1,10 +1,10 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
 
-import LogicCalculation from '../services/logic-calculation';
-import LogicHelper from '../services/logic-helper';
-import TrackerState from '../services/tracker-state';
+import LogicCalculation from "../services/logic-calculation";
+import LogicHelper from "../services/logic-helper";
+import TrackerState from "../services/tracker-state";
 
 class MapInfo extends React.PureComponent {
   mapInfo() {
@@ -20,14 +20,14 @@ class MapInfo extends React.PureComponent {
       return null;
     }
 
-    const {
-      numAvailable,
-      numRemaining,
-    } = logic.locationCounts(selectedLocation, {
-      isDungeon: selectedLocationIsDungeon,
-      onlyProgressLocations,
-      disableLogic,
-    });
+    const { numAvailable, numRemaining } = logic.locationCounts(
+      selectedLocation,
+      {
+        isDungeon: selectedLocationIsDungeon,
+        onlyProgressLocations,
+        disableLogic,
+      }
+    );
 
     return (
       <div className="map-info-container">
@@ -43,11 +43,7 @@ class MapInfo extends React.PureComponent {
   }
 
   mapItemInfo() {
-    const {
-      selectedExit,
-      selectedItem,
-      trackerState,
-    } = this.props;
+    const { selectedExit, selectedItem, trackerState } = this.props;
 
     let itemInfoText;
 
@@ -55,7 +51,9 @@ class MapInfo extends React.PureComponent {
       const entranceForExit = trackerState.getEntranceForExit(selectedExit);
 
       if (!_.isNil(entranceForExit)) {
-        const shortEntranceName = LogicHelper.shortEntranceName(entranceForExit);
+        const shortEntranceName = LogicHelper.shortEntranceName(
+          entranceForExit
+        );
         const shortExitName = LogicHelper.shortEntranceName(selectedExit);
         itemInfoText = `${shortEntranceName} → ${shortExitName}`;
       } else {

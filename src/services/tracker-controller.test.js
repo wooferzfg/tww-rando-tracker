@@ -1,31 +1,27 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-import ITEMS from '../data/items.json';
-import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
-import TEST_MACROS from '../data/test-macros.json';
-import TEST_SAVE_DATA from '../data/test-save-data.json';
+import ITEMS from "../data/items.json";
+import TEST_ITEM_LOCATIONS from "../data/test-item-locations.json";
+import TEST_MACROS from "../data/test-macros.json";
+import TEST_SAVE_DATA from "../data/test-save-data.json";
 
-import Locations from './locations';
-import LogicCalculation from './logic-calculation';
-import LogicHelper from './logic-helper';
-import LogicLoader from './logic-loader';
-import Macros from './macros';
-import Permalink from './permalink';
-import Settings from './settings';
-import TrackerController from './tracker-controller';
-import TrackerState from './tracker-state';
+import Locations from "./locations";
+import LogicCalculation from "./logic-calculation";
+import LogicHelper from "./logic-helper";
+import LogicLoader from "./logic-loader";
+import Macros from "./macros";
+import Permalink from "./permalink";
+import Settings from "./settings";
+import TrackerController from "./tracker-controller";
+import TrackerState from "./tracker-state";
 
-describe('TrackerController', () => {
+describe("TrackerController", () => {
   afterEach(() => {
     TrackerController.reset();
   });
 
   const validateReturnedData = (refreshedData) => {
-    const {
-      logic,
-      saveData,
-      trackerState,
-    } = refreshedData;
+    const { logic, saveData, trackerState } = refreshedData;
 
     expect(saveData).toMatchSnapshot();
     expect(trackerState).toBeInstanceOf(TrackerState);
@@ -33,47 +29,47 @@ describe('TrackerController', () => {
     expect(logic.state).toBe(trackerState);
   };
 
-  describe('initializeFromPermalink', () => {
+  describe("initializeFromPermalink", () => {
     beforeEach(() => {
-      jest.spyOn(LogicLoader, 'loadLogicFiles').mockReturnValue(
+      jest.spyOn(LogicLoader, "loadLogicFiles").mockReturnValue(
         Promise.resolve({
           itemLocationsFile: TEST_ITEM_LOCATIONS,
           macrosFile: TEST_MACROS,
-        }),
+        })
       );
     });
 
-    test('returns the correct initial data', async () => {
+    test("returns the correct initial data", async () => {
       const initialData = await TrackerController.initializeFromPermalink(
-        Permalink.DEFAULT_PERMALINK,
+        Permalink.DEFAULT_PERMALINK
       );
 
       validateReturnedData(initialData);
     });
   });
 
-  describe('initializeFromSaveData', () => {
+  describe("initializeFromSaveData", () => {
     let saveData;
 
     beforeEach(() => {
       saveData = JSON.stringify(TEST_SAVE_DATA);
     });
 
-    test('returns the correct initial data', () => {
+    test("returns the correct initial data", () => {
       const initialData = TrackerController.initializeFromSaveData(saveData);
 
       validateReturnedData(initialData);
     });
   });
 
-  describe('reset', () => {
+  describe("reset", () => {
     beforeEach(async () => {
       await TrackerController.initializeFromPermalink(
-        Permalink.DEFAULT_PERMALINK,
+        Permalink.DEFAULT_PERMALINK
       );
     });
 
-    test('resets all static classes', () => {
+    test("resets all static classes", () => {
       TrackerController.reset();
 
       expect(Locations.locations).toEqual(null);
@@ -87,25 +83,25 @@ describe('TrackerController', () => {
     });
   });
 
-  describe('refreshState', () => {
+  describe("refreshState", () => {
     let newTrackerState;
 
     beforeEach(async () => {
       const { trackerState } = await TrackerController.initializeFromPermalink(
-        Permalink.DEFAULT_PERMALINK,
+        Permalink.DEFAULT_PERMALINK
       );
 
-      newTrackerState = trackerState.incrementItem('Deku Leaf');
+      newTrackerState = trackerState.incrementItem("Deku Leaf");
     });
 
-    test('returns the correct refreshed data', () => {
+    test("returns the correct refreshed data", () => {
       const refreshedData = TrackerController.refreshState(newTrackerState);
 
       validateReturnedData(refreshedData);
     });
   });
 
-  describe('logic simplification', () => {
+  describe("logic simplification", () => {
     const testLogicSimplification = (testCaseName, permalink) => {
       describe(testCaseName, () => {
         let itemsList;
@@ -113,11 +109,11 @@ describe('TrackerController', () => {
         let trackerState;
 
         beforeEach(async () => {
-          jest.spyOn(LogicLoader, 'loadLogicFiles').mockReturnValue(
+          jest.spyOn(LogicLoader, "loadLogicFiles").mockReturnValue(
             Promise.resolve({
               itemLocationsFile: TEST_ITEM_LOCATIONS,
               macrosFile: TEST_MACROS,
-            }),
+            })
           );
 
           ({
@@ -127,46 +123,58 @@ describe('TrackerController', () => {
 
           const remainingItems = _.mapValues(
             ITEMS,
-            (itemCount, itemName) => (
-              LogicHelper.maxItemCount(itemName) - LogicHelper.startingItemCount(itemName)
-            ),
+            (itemCount, itemName) =>
+              LogicHelper.maxItemCount(itemName) -
+              LogicHelper.startingItemCount(itemName)
           );
 
           // choose a random permutation of all the remaining items
           itemsList = _.shuffle(
-            _.flatMap(
-              remainingItems,
-              (itemCount, itemName) => _.times(
-                itemCount,
-                _.constant(itemName),
-              ),
-            ),
+            _.flatMap(remainingItems, (itemCount, itemName) =>
+              _.times(itemCount, _.constant(itemName))
+            )
           );
         });
 
-        test('returns requirements that are logically equivalent to the raw requirements', () => {
+        test("returns requirements that are logically equivalent to the raw requirements", () => {
           _.forEach(itemsList, (itemName) => {
             Locations.mapLocations((generalLocation, detailedLocation) => {
               const simplifiedRequirements = LogicHelper.requirementsForLocation(
                 generalLocation,
-                detailedLocation,
+                detailedLocation
               );
               const rawRequirements = LogicHelper._rawRequirementsForLocation(
                 generalLocation,
-                detailedLocation,
+                detailedLocation
               );
 
-              const simplifiedRequirementsMet = logic._areRequirementsMet(simplifiedRequirements);
-              const rawRequirementsMet = logic._areRequirementsMet(rawRequirements);
+              const simplifiedRequirementsMet = logic._areRequirementsMet(
+                simplifiedRequirements
+              );
+              const rawRequirementsMet = logic._areRequirementsMet(
+                rawRequirements
+              );
 
               if (simplifiedRequirementsMet !== rawRequirementsMet) {
                 throw Error(
-                  `Incorrect result for location: ${generalLocation} - ${detailedLocation}\n\n`
-                  + `Raw requirements result: ${rawRequirementsMet}\n`
-                  + `Simplified requirements result: ${simplifiedRequirementsMet}\n\n`
-                  + `Raw requirements: ${JSON.stringify(rawRequirements, null, 2)}\n\n`
-                  + `Simplified requirements: ${JSON.stringify(simplifiedRequirements, null, 2)}\n\n`
-                  + `Current items:\n${JSON.stringify(trackerState.items, null, 2)}`,
+                  `Incorrect result for location: ${generalLocation} - ${detailedLocation}\n\n` +
+                    `Raw requirements result: ${rawRequirementsMet}\n` +
+                    `Simplified requirements result: ${simplifiedRequirementsMet}\n\n` +
+                    `Raw requirements: ${JSON.stringify(
+                      rawRequirements,
+                      null,
+                      2
+                    )}\n\n` +
+                    `Simplified requirements: ${JSON.stringify(
+                      simplifiedRequirements,
+                      null,
+                      2
+                    )}\n\n` +
+                    `Current items:\n${JSON.stringify(
+                      trackerState.items,
+                      null,
+                      2
+                    )}`
                 );
               }
             });
@@ -178,19 +186,16 @@ describe('TrackerController', () => {
       });
     };
 
+    testLogicSimplification("default settings", Permalink.DEFAULT_PERMALINK);
+
     testLogicSimplification(
-      'default settings',
-      Permalink.DEFAULT_PERMALINK,
+      "default settings with randomized sword",
+      "MS44LjAARmF0YWxBbm90aGVyRGVtYW5kAAcBAwAOQEAIAAAAAAAAAA=="
     );
 
     testLogicSimplification(
-      'default settings with randomized sword',
-      'MS44LjAARmF0YWxBbm90aGVyRGVtYW5kAAcBAwAOQEAIAAAAAAAAAA==',
-    );
-
-    testLogicSimplification(
-      'default settings with swordless',
-      'MS44LjAARmF0YWxBbm90aGVyRGVtYW5kAAcBAwAOgEAIAAAAAAAAAA==',
+      "default settings with swordless",
+      "MS44LjAARmF0YWxBbm90aGVyRGVtYW5kAAcBAwAOgEAIAAAAAAAAAA=="
     );
   });
 });

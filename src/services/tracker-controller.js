@@ -1,11 +1,11 @@
-import Locations from './locations';
-import LogicCalculation from './logic-calculation';
-import LogicHelper from './logic-helper';
-import LogicLoader from './logic-loader';
-import LogicTweaks from './logic-tweaks';
-import Macros from './macros';
-import Settings from './settings';
-import TrackerState from './tracker-state';
+import Locations from "./locations";
+import LogicCalculation from "./logic-calculation";
+import LogicHelper from "./logic-helper";
+import LogicLoader from "./logic-loader";
+import LogicTweaks from "./logic-tweaks";
+import Macros from "./macros";
+import Settings from "./settings";
+import TrackerState from "./tracker-state";
 
 export default class TrackerController {
   static async initializeFromPermalink(permalink) {
@@ -23,18 +23,11 @@ export default class TrackerController {
 
     LogicHelper.initialize();
 
-    return this.refreshState(
-      TrackerState.default(),
-    );
+    return this.refreshState(TrackerState.default());
   }
 
   static initializeFromSaveData(saveData) {
-    const {
-      locations,
-      macros,
-      settings,
-      trackerState,
-    } = JSON.parse(saveData);
+    const { locations, macros, settings, trackerState } = JSON.parse(saveData);
 
     Settings.initializeRaw(settings);
 
@@ -43,9 +36,7 @@ export default class TrackerController {
 
     LogicHelper.initialize();
 
-    return this.refreshState(
-      TrackerState.createStateRaw(trackerState),
-    );
+    return this.refreshState(TrackerState.createStateRaw(trackerState));
   }
 
   static reset() {

@@ -1,14 +1,14 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
 
-import LogicCalculation from '../services/logic-calculation';
-import LogicHelper from '../services/logic-helper';
-import Permalink from '../services/permalink';
-import Settings from '../services/settings';
+import LogicCalculation from "../services/logic-calculation";
+import LogicHelper from "../services/logic-helper";
+import Permalink from "../services/permalink";
+import Settings from "../services/settings";
 
-import Images from './images';
-import Tooltip from './tooltip';
+import Images from "./images";
+import Tooltip from "./tooltip";
 
 class DetailedLocationsTable extends React.PureComponent {
   static NUM_ROWS = 13;
@@ -16,24 +16,25 @@ class DetailedLocationsTable extends React.PureComponent {
   requirementsTooltip(generalLocation, detailedLocation) {
     const { logic } = this.props;
 
-    const requirements = logic.formattedRequirementsForLocation(generalLocation, detailedLocation);
+    const requirements = logic.formattedRequirementsForLocation(
+      generalLocation,
+      detailedLocation
+    );
 
     const requirementsList = _.map(requirements, (elements, rowIndex) => (
       <li key={rowIndex}>
-        {
-          _.map(elements, ({ color, text }, elementIndex) => (
-            <span className={color} key={elementIndex}>{text}</span>
-          ))
-        }
+        {_.map(elements, ({ color, text }, elementIndex) => (
+          <span className={color} key={elementIndex}>
+            {text}
+          </span>
+        ))}
       </li>
     ));
 
     return (
       <div className="item-requirements">
         <div className="item-requirements-title">Items Required</div>
-        <ul>
-          {requirementsList}
-        </ul>
+        <ul>{requirementsList}</ul>
       </div>
     );
   }
@@ -43,25 +44,19 @@ class DetailedLocationsTable extends React.PureComponent {
       return null;
     }
 
-    const {
-      location,
-      color,
-    } = locationInfo;
+    const { location, color } = locationInfo;
 
-    const {
-      disableLogic,
-      openedLocation,
-      toggleLocationChecked,
-    } = this.props;
+    const { disableLogic, openedLocation, toggleLocationChecked } = this.props;
 
-    let fontSizeClassName = '';
+    let fontSizeClassName = "";
     if (numColumns === 3) {
-      fontSizeClassName = 'font-smallest';
+      fontSizeClassName = "font-smallest";
     } else if (numColumns === 2) {
-      fontSizeClassName = 'font-small';
+      fontSizeClassName = "font-small";
     }
 
-    const toggleLocationFunc = () => toggleLocationChecked(openedLocation, location);
+    const toggleLocationFunc = () =>
+      toggleLocationChecked(openedLocation, location);
 
     const locationElement = (
       <div
@@ -75,13 +70,17 @@ class DetailedLocationsTable extends React.PureComponent {
       </div>
     );
 
-    const isLocationChecked = color === LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
+    const isLocationChecked =
+      color === LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
 
     let locationContent;
     if (disableLogic || isLocationChecked) {
       locationContent = locationElement;
     } else {
-      const requirementsTooltip = this.requirementsTooltip(openedLocation, location);
+      const requirementsTooltip = this.requirementsTooltip(
+        openedLocation,
+        location
+      );
 
       locationContent = (
         <Tooltip tooltipContent={requirementsTooltip}>
@@ -90,11 +89,7 @@ class DetailedLocationsTable extends React.PureComponent {
       );
     }
 
-    return (
-      <td key={location}>
-        {locationContent}
-      </td>
-    );
+    return <td key={location}>{locationContent}</td>;
   }
 
   render() {
@@ -109,33 +104,40 @@ class DetailedLocationsTable extends React.PureComponent {
     } = this.props;
 
     const backgroundImage = _.get(Images.IMAGES, [
-      openedLocationIsDungeon ? 'DUNGEON_CHART_BACKGROUNDS' : 'ISLAND_CHART_BACKGROUNDS',
+      openedLocationIsDungeon
+        ? "DUNGEON_CHART_BACKGROUNDS"
+        : "ISLAND_CHART_BACKGROUNDS",
       openedLocation,
     ]);
 
-    const detailedLocations = logic.locationsList(
-      openedLocation,
-      {
-        disableLogic,
-        isDungeon: openedLocationIsDungeon,
-        onlyProgressLocations,
-      },
-    );
+    const detailedLocations = logic.locationsList(openedLocation, {
+      disableLogic,
+      isDungeon: openedLocationIsDungeon,
+      onlyProgressLocations,
+    });
 
-    const locationChunks = _.chunk(detailedLocations, DetailedLocationsTable.NUM_ROWS);
+    const locationChunks = _.chunk(
+      detailedLocations,
+      DetailedLocationsTable.NUM_ROWS
+    );
     const arrangedLocations = _.zip(...locationChunks);
     const numColumns = _.size(locationChunks);
 
     const locationRows = _.map(arrangedLocations, (locationsRow, index) => (
       <tr key={index}>
-        {_.map(locationsRow, (locationInfo) => this.detailedLocation(locationInfo, numColumns))}
+        {_.map(locationsRow, (locationInfo) =>
+          this.detailedLocation(locationInfo, numColumns)
+        )}
       </tr>
     ));
 
     let clearAllElement;
-    if (Settings.getOptionValue(Permalink.OPTIONS.RACE_MODE)
-      && LogicHelper.isRaceModeDungeon(openedLocation)) {
-      const clearRaceModeBannedLocationsFunc = () => clearRaceModeBannedLocations(openedLocation);
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.RACE_MODE) &&
+      LogicHelper.isRaceModeDungeon(openedLocation)
+    ) {
+      const clearRaceModeBannedLocationsFunc = () =>
+        clearRaceModeBannedLocations(openedLocation);
 
       clearAllElement = (
         <td>
@@ -177,9 +179,7 @@ class DetailedLocationsTable extends React.PureComponent {
           </tbody>
         </table>
         <table className="detailed-locations-table">
-          <tbody>
-            {locationRows}
-          </tbody>
+          <tbody>{locationRows}</tbody>
         </table>
       </div>
     );

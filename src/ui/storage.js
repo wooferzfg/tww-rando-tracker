@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from "lodash";
 
 export default class Storage {
   static async loadFileAndStore() {
@@ -17,15 +17,15 @@ export default class Storage {
   }
 
   static async exportFile(saveData) {
-    const blob = new Blob([saveData], { type: 'application/json' });
+    const blob = new Blob([saveData], { type: "application/json" });
     const url = await URL.createObjectURL(blob);
 
     try {
-      const element = document.createElement('a');
+      const element = document.createElement("a");
 
-      element.setAttribute('href', url);
-      element.setAttribute('download', this._EXPORT_FILE_NAME);
-      element.style.display = 'none';
+      element.setAttribute("href", url);
+      element.setAttribute("download", this._EXPORT_FILE_NAME);
+      element.style.display = "none";
 
       document.body.appendChild(element);
 
@@ -39,15 +39,15 @@ export default class Storage {
     }
   }
 
-  static _SAVE_FILE_KEY = 'saveData';
+  static _SAVE_FILE_KEY = "saveData";
 
-  static _EXPORT_FILE_NAME = 'tww_rando_tracker_progress.json';
+  static _EXPORT_FILE_NAME = "tww_rando_tracker_progress.json";
 
   static async _loadFileFromDialog() {
     return new Promise((resolve, reject) => {
-      const input = document.createElement('input');
+      const input = document.createElement("input");
 
-      input.setAttribute('type', 'file');
+      input.setAttribute("type", "file");
 
       input.onchange = () => {
         const file = _.first(input.files);

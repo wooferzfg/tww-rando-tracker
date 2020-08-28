@@ -1,16 +1,16 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-import CAVES from '../data/caves.json';
-import CHARTS from '../data/charts.json';
-import DUNGEONS from '../data/dungeons.json';
-import HAS_ACCESSED_LOCATION_TWEAKS from '../data/has-accessed-location-tweaks.json';
-import ISLANDS from '../data/islands.json';
+import CAVES from "../data/caves.json";
+import CHARTS from "../data/charts.json";
+import DUNGEONS from "../data/dungeons.json";
+import HAS_ACCESSED_LOCATION_TWEAKS from "../data/has-accessed-location-tweaks.json";
+import ISLANDS from "../data/islands.json";
 
-import Locations from './locations';
-import LogicHelper from './logic-helper';
-import Macros from './macros';
-import Permalink from './permalink';
-import Settings from './settings';
+import Locations from "./locations";
+import LogicHelper from "./logic-helper";
+import Macros from "./macros";
+import Permalink from "./permalink";
+import Settings from "./settings";
 
 export default class LogicTweaks {
   static applyTweaks() {
@@ -38,16 +38,16 @@ export default class LogicTweaks {
       LogicHelper.DUNGEONS.GANONS_TOWER,
       LogicHelper.DEFEAT_GANONDORF_LOCATION,
       Locations.KEYS.NEED,
-      'Can Reach and Defeat Ganondorf',
+      "Can Reach and Defeat Ganondorf"
     );
   }
 
   static _updateTingleStatueReward() {
     Locations.setLocation(
       LogicHelper.ISLANDS.TINGLE_ISLAND,
-      'Ankle - Reward for All Tingle Statues',
+      "Ankle - Reward for All Tingle Statues",
       Locations.KEYS.NEED,
-      'Tingle Statue x5',
+      "Tingle Statue x5"
     );
   }
 
@@ -55,23 +55,26 @@ export default class LogicTweaks {
     _.forEach(ISLANDS, (islandName) => {
       const originalItem = Locations.getLocation(
         islandName,
-        'Sunken Treasure',
-        Locations.KEYS.ORIGINAL_ITEM,
+        "Sunken Treasure",
+        Locations.KEYS.ORIGINAL_ITEM
       );
 
-      if (_.startsWith(originalItem, 'Triforce Shard')) {
+      if (_.startsWith(originalItem, "Triforce Shard")) {
         Locations.setLocation(
           islandName,
-          'Sunken Treasure',
+          "Sunken Treasure",
           Locations.KEYS.TYPES,
-          Settings.FLAGS.SUNKEN_TRIFORCE,
+          Settings.FLAGS.SUNKEN_TRIFORCE
         );
       }
     });
   }
 
   static _replaceCanAccessOtherLocation(requirements) {
-    return requirements.replace(/Can Access Other Location/g, 'Has Accessed Other Location');
+    return requirements.replace(
+      /Can Access Other Location/g,
+      "Has Accessed Other Location"
+    );
   }
 
   static _applyHasAccessedLocationTweaksForLocations() {
@@ -81,7 +84,7 @@ export default class LogicTweaks {
         const requirements = Locations.getLocation(
           generalLocation,
           detailedLocation,
-          Locations.KEYS.NEED,
+          Locations.KEYS.NEED
         );
         const newNeeds = this._replaceCanAccessOtherLocation(requirements);
 
@@ -89,7 +92,7 @@ export default class LogicTweaks {
           generalLocation,
           detailedLocation,
           Locations.KEYS.NEED,
-          newNeeds,
+          newNeeds
         );
       });
     });
@@ -142,6 +145,6 @@ export default class LogicTweaks {
   }
 
   static _updateTriforceMacro() {
-    Macros.setMacro('All 8 Triforce Shards', 'Triforce Shard x8');
+    Macros.setMacro("All 8 Triforce Shards", "Triforce Shard x8");
   }
 }

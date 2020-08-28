@@ -1,27 +1,20 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
 
-import Images from './images';
-import Item from './item';
+import Images from "./images";
+import Item from "./item";
 
 class Sector extends React.PureComponent {
   chestsCounter() {
-    const {
-      color,
-      disableLogic,
-      numAvailable,
-      numRemaining,
-    } = this.props;
+    const { color, disableLogic, numAvailable, numRemaining } = this.props;
 
     const className = `chests-counter ${color}`;
-    const chestCounts = disableLogic ? numRemaining : `${numAvailable}/${numRemaining}`;
+    const chestCounts = disableLogic
+      ? numRemaining
+      : `${numAvailable}/${numRemaining}`;
 
-    return (
-      <div className={className}>
-        {chestCounts}
-      </div>
-    );
+    return <div className={className}>{chestCounts}</div>;
   }
 
   chartItem() {
@@ -34,7 +27,7 @@ class Sector extends React.PureComponent {
       setSelectedItem,
     } = this.props;
 
-    const chartImages = _.get(Images.IMAGES, ['CHARTS', chartType]);
+    const chartImages = _.get(Images.IMAGES, ["CHARTS", chartType]);
 
     return (
       <div className="treasure-chart">
@@ -67,10 +60,11 @@ class Sector extends React.PureComponent {
       });
     };
 
-    const setSelectedLocationFunc = () => setSelectedLocation({
-      isDungeon: false,
-      locationName: island,
-    });
+    const setSelectedLocationFunc = () =>
+      setSelectedLocation({
+        isDungeon: false,
+        locationName: island,
+      });
 
     return (
       <div

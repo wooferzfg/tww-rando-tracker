@@ -1,9 +1,9 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-import FLAGS from '../data/flags.json';
+import FLAGS from "../data/flags.json";
 
-import Constants from './constants';
-import Permalink from './permalink';
+import Constants from "./constants";
+import Permalink from "./permalink";
 
 export default class Settings {
   static initializeFromPermalink(permalinkString) {
@@ -12,7 +12,7 @@ export default class Settings {
     this.flags = [];
     this.startingGear = this.getOptionValue(Permalink.OPTIONS.STARTING_GEAR);
     this.version = this._parseVersion(
-      this.getOptionValue(Permalink.OPTIONS.VERSION),
+      this.getOptionValue(Permalink.OPTIONS.VERSION)
     );
 
     _.forEach(this._FLAGS_MAPPING, (flagsForOption, optionName) => {
@@ -84,10 +84,18 @@ export default class Settings {
   static _FLAGS_MAPPING = {
     [Permalink.OPTIONS.PROGRESSION_DUNGEONS]: [this.FLAGS.DUNGEON],
     [Permalink.OPTIONS.PROGRESSION_GREAT_FAIRIES]: [this.FLAGS.GREAT_FAIRY],
-    [Permalink.OPTIONS.PROGRESSION_PUZZLE_SECRET_CAVES]: [this.FLAGS.PUZZLE_SECRET_CAVE],
-    [Permalink.OPTIONS.PROGRESSION_COMBAT_SECRET_CAVES]: [this.FLAGS.COMBAT_SECRET_CAVE],
-    [Permalink.OPTIONS.PROGRESSION_SHORT_SIDEQUESTS]: [this.FLAGS.SHORT_SIDEQUEST],
-    [Permalink.OPTIONS.PROGRESSION_LONG_SIDEQUESTS]: [this.FLAGS.LONG_SIDEQUEST],
+    [Permalink.OPTIONS.PROGRESSION_PUZZLE_SECRET_CAVES]: [
+      this.FLAGS.PUZZLE_SECRET_CAVE,
+    ],
+    [Permalink.OPTIONS.PROGRESSION_COMBAT_SECRET_CAVES]: [
+      this.FLAGS.COMBAT_SECRET_CAVE,
+    ],
+    [Permalink.OPTIONS.PROGRESSION_SHORT_SIDEQUESTS]: [
+      this.FLAGS.SHORT_SIDEQUEST,
+    ],
+    [Permalink.OPTIONS.PROGRESSION_LONG_SIDEQUESTS]: [
+      this.FLAGS.LONG_SIDEQUEST,
+    ],
     [Permalink.OPTIONS.PROGRESSION_SPOILS_TRADING]: [this.FLAGS.SPOILS_TRADING],
     [Permalink.OPTIONS.PROGRESSION_MINIGAMES]: [this.FLAGS.MINIGAME],
     [Permalink.OPTIONS.PROGRESSION_FREE_GIFTS]: [this.FLAGS.FREE_GIFT],
@@ -97,20 +105,28 @@ export default class Settings {
       this.FLAGS.RAFT,
     ],
     [Permalink.OPTIONS.PROGRESSION_SUBMARINES]: [this.FLAGS.SUBMARINE],
-    [Permalink.OPTIONS.PROGRESSION_EYE_REEF_CHESTS]: [this.FLAGS.EYE_REEF_CHEST],
+    [Permalink.OPTIONS.PROGRESSION_EYE_REEF_CHESTS]: [
+      this.FLAGS.EYE_REEF_CHEST,
+    ],
     [Permalink.OPTIONS.PROGRESSION_BIG_OCTOS_GUNBOATS]: [
       this.FLAGS.BIG_OCTO,
       this.FLAGS.GUNBOAT,
     ],
-    [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: [this.FLAGS.SUNKEN_TREASURE],
-    [Permalink.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES]: [this.FLAGS.EXPENSIVE_PURCHASE],
+    [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: [
+      this.FLAGS.SUNKEN_TREASURE,
+    ],
+    [Permalink.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES]: [
+      this.FLAGS.EXPENSIVE_PURCHASE,
+    ],
     [Permalink.OPTIONS.PROGRESSION_MISC]: [
       this.FLAGS.OTHER_CHEST,
       this.FLAGS.MISC,
     ],
     [Permalink.OPTIONS.PROGRESSION_TINGLE_CHESTS]: [this.FLAGS.TINGLE_CHEST],
     [Permalink.OPTIONS.PROGRESSION_BATTLESQUID]: [this.FLAGS.BATTLESQUID],
-    [Permalink.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH]: [this.FLAGS.SAVAGE_LABYRINTH],
+    [Permalink.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH]: [
+      this.FLAGS.SAVAGE_LABYRINTH,
+    ],
     [Permalink.OPTIONS.PROGRESSION_ISLAND_PUZZLES]: [this.FLAGS.ISLAND_PUZZLE],
   };
 

@@ -1,7 +1,7 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-import Locations from './locations';
-import LogicHelper from './logic-helper';
+import Locations from "./locations";
+import LogicHelper from "./logic-helper";
 
 export default class TrackerState {
   static default() {
@@ -10,12 +10,9 @@ export default class TrackerState {
     newState.entrances = {};
     newState.items = _.reduce(
       LogicHelper.ALL_ITEMS,
-      (accumulator, item) => _.set(
-        accumulator,
-        item,
-        LogicHelper.startingItemCount(item),
-      ),
-      {},
+      (accumulator, item) =>
+        _.set(accumulator, item, LogicHelper.startingItemCount(item)),
+      {}
     );
     newState.locationsChecked = Locations.mapLocations(() => false);
 
@@ -75,7 +72,11 @@ export default class TrackerState {
     const newState = this._clone();
 
     const isChecked = this.isLocationChecked(generalLocation, detailedLocation);
-    _.set(newState.locationsChecked, [generalLocation, detailedLocation], !isChecked);
+    _.set(
+      newState.locationsChecked,
+      [generalLocation, detailedLocation],
+      !isChecked
+    );
 
     return newState;
   }

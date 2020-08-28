@@ -1,15 +1,10 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Toggle from 'react-toggle';
+import PropTypes from "prop-types";
+import React from "react";
+import Toggle from "react-toggle";
 
 class ToggleOptionInput extends React.PureComponent {
   render() {
-    const {
-      labelText,
-      optionName,
-      optionValue,
-      setOptionValue,
-    } = this.props;
+    const { labelText, optionName, optionValue, setOptionValue } = this.props;
 
     return (
       <>
@@ -19,7 +14,9 @@ class ToggleOptionInput extends React.PureComponent {
             <Toggle
               checked={optionValue}
               icons={false}
-              onChange={(event) => setOptionValue(optionName, event.target.checked)}
+              onChange={(event) =>
+                setOptionValue(optionName, event.target.checked)
+              }
             />
           </div>
         </td>

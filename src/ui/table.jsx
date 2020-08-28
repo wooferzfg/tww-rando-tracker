@@ -1,6 +1,6 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
 
 class Table extends React.PureComponent {
   renderRow(rowElements) {
@@ -8,34 +8,23 @@ class Table extends React.PureComponent {
 
     return _.map(rowElements, (element, index) => {
       if (wrapCells) {
-        return (
-          <td key={index}>{element}</td>
-        );
+        return <td key={index}>{element}</td>;
       }
       return element;
     });
   }
 
   render() {
-    const {
-      elements,
-      numColumns,
-      wrapTable,
-    } = this.props;
+    const { elements, numColumns, wrapTable } = this.props;
 
-    const rows = _.map(
-      _.chunk(elements, numColumns),
-      (rowElements, index) => (
-        <tr key={index}>{this.renderRow(rowElements)}</tr>
-      ),
-    );
+    const rows = _.map(_.chunk(elements, numColumns), (rowElements, index) => (
+      <tr key={index}>{this.renderRow(rowElements)}</tr>
+    ));
 
     if (wrapTable) {
       return (
         <table>
-          <tbody>
-            {rows}
-          </tbody>
+          <tbody>{rows}</tbody>
         </table>
       );
     }

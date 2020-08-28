@@ -1,13 +1,13 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
 
-import LogicCalculation from '../services/logic-calculation';
-import LogicHelper from '../services/logic-helper';
-import TrackerState from '../services/tracker-state';
+import LogicCalculation from "../services/logic-calculation";
+import LogicHelper from "../services/logic-helper";
+import TrackerState from "../services/tracker-state";
 
-import ExtraLocation from './extra-location';
-import Images from './images';
+import ExtraLocation from "./extra-location";
+import Images from "./images";
 
 class ExtraLocationsTable extends React.PureComponent {
   extraLocation(locationName) {
@@ -29,23 +29,26 @@ class ExtraLocationsTable extends React.PureComponent {
     const isDungeon = LogicHelper.isDungeon(locationName);
     const isMainDungeon = LogicHelper.isMainDungeon(locationName);
 
-    const {
-      color,
-      numAvailable,
-      numRemaining,
-    } = logic.locationCounts(locationName, {
-      isDungeon,
-      onlyProgressLocations,
-      disableLogic,
-    });
+    const { color, numAvailable, numRemaining } = logic.locationCounts(
+      locationName,
+      {
+        isDungeon,
+        onlyProgressLocations,
+        disableLogic,
+      }
+    );
 
     let locationIcon;
     if (isDungeon) {
       const isBossDefeated = logic.isBossDefeated(locationName);
 
-      locationIcon = _.get(Images.IMAGES, ['DUNGEONS', locationName, isBossDefeated]);
+      locationIcon = _.get(Images.IMAGES, [
+        "DUNGEONS",
+        locationName,
+        isBossDefeated,
+      ]);
     } else {
-      locationIcon = _.get(Images.IMAGES, ['MISC_LOCATIONS', locationName]);
+      locationIcon = _.get(Images.IMAGES, ["MISC_LOCATIONS", locationName]);
     }
 
     if (isMainDungeon) {
@@ -109,7 +112,11 @@ class ExtraLocationsTable extends React.PureComponent {
     const { singleColorBackground } = this.props;
 
     return (
-      <div className={`extra-locations ${singleColorBackground ? 'single-color' : ''}`}>
+      <div
+        className={`extra-locations ${
+          singleColorBackground ? "single-color" : ""
+        }`}
+      >
         {this.extraLocation(LogicHelper.DUNGEONS.DRAGON_ROOST_CAVERN)}
         {this.extraLocation(LogicHelper.DUNGEONS.FORBIDDEN_WOODS)}
         {this.extraLocation(LogicHelper.DUNGEONS.TOWER_OF_THE_GODS)}

@@ -1,34 +1,36 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-import FLAGS from '../data/flags.json';
+import FLAGS from "../data/flags.json";
 
-import Permalink from './permalink';
-import Settings from './settings';
+import Permalink from "./permalink";
+import Settings from "./settings";
 
-describe('Settings', () => {
+describe("Settings", () => {
   afterEach(() => {
     Settings.reset();
   });
 
-  describe('initializeFromPermalink', () => {
-    describe('default settings', () => {
+  describe("initializeFromPermalink", () => {
+    describe("default settings", () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink('MS44LjAAeWVldAAHAQMADgBACAAAAAAAAAA=');
+        Settings.initializeFromPermalink(
+          "MS44LjAAeWVldAAHAQMADgBACAAAAAAAAAA="
+        );
       });
 
-      test('initializes the version', () => {
-        expect(Settings.version).toEqual('1.8.0');
+      test("initializes the version", () => {
+        expect(Settings.version).toEqual("1.8.0");
       });
 
-      test('initializes the starting gear', () => {
+      test("initializes the starting gear", () => {
         expect(Settings.startingGear).toMatchSnapshot();
       });
 
-      test('initializes the options', () => {
+      test("initializes the options", () => {
         expect(Settings.options).toMatchSnapshot();
       });
 
-      test('initializes the flags', () => {
+      test("initializes the flags", () => {
         expect(Settings.flags).toEqual([
           Settings.FLAGS.DUNGEON,
           Settings.FLAGS.GREAT_FAIRY,
@@ -41,75 +43,81 @@ describe('Settings', () => {
       });
     });
 
-    describe('when using a development build', () => {
+    describe("when using a development build", () => {
       beforeEach(() => {
         // version = 1.8.0_b723014
-        Settings.initializeFromPermalink('MS44LjBfYjcyMzAxNAB5ZWV0AAcBAwAOAEAIAAAAAAAAAA==');
+        Settings.initializeFromPermalink(
+          "MS44LjBfYjcyMzAxNAB5ZWV0AAcBAwAOAEAIAAAAAAAAAA=="
+        );
       });
 
-      test('sets the version to be the commit hash', () => {
-        expect(Settings.version).toEqual('b723014');
+      test("sets the version to be the commit hash", () => {
+        expect(Settings.version).toEqual("b723014");
       });
     });
 
-    describe('all flags set', () => {
+    describe("all flags set", () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink('MS44LjAAeWVldAD//z8ADgBACAAAAAAAAAA=');
+        Settings.initializeFromPermalink(
+          "MS44LjAAeWVldAD//z8ADgBACAAAAAAAAAA="
+        );
       });
 
-      test('initializes all the flags', () => {
+      test("initializes all the flags", () => {
         expect(_.difference(FLAGS, Settings.flags)).toEqual([]);
         expect(_.difference(Settings.flags, FLAGS)).toEqual([]);
       });
     });
 
-    describe('all starting gear set', () => {
+    describe("all starting gear set", () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink('MS44LjAAeWVldAAHAQMADgBA+P///7suAAA=');
+        Settings.initializeFromPermalink(
+          "MS44LjAAeWVldAAHAQMADgBA+P///7suAAA="
+        );
       });
 
-      test('initializes the starting gear', () => {
+      test("initializes the starting gear", () => {
         expect(Settings.startingGear).toMatchSnapshot();
       });
     });
 
-    describe('only sunken triforce enabled', () => {
-      describe('when charts are not randomized', () => {
+    describe("only sunken triforce enabled", () => {
+      describe("when charts are not randomized", () => {
         beforeEach(() => {
-          Settings.initializeFromPermalink('MS44LjAAeWVldAAAQAAADgBACAAAAAAAAAA=');
+          Settings.initializeFromPermalink(
+            "MS44LjAAeWVldAAAQAAADgBACAAAAAAAAAA="
+          );
         });
 
-        test('initializes the flags', () => {
-          expect(Settings.flags).toEqual([
-            Settings.FLAGS.SUNKEN_TRIFORCE,
-          ]);
+        test("initializes the flags", () => {
+          expect(Settings.flags).toEqual([Settings.FLAGS.SUNKEN_TRIFORCE]);
         });
       });
 
-      describe('when charts are randomized', () => {
+      describe("when charts are randomized", () => {
         beforeEach(() => {
-          Settings.initializeFromPermalink('MS44LjAAeWVldAAAQACADgBACAAAAAAAAAA=');
+          Settings.initializeFromPermalink(
+            "MS44LjAAeWVldAAAQACADgBACAAAAAAAAAA="
+          );
         });
 
-        test('initializes the flags', () => {
-          expect(Settings.flags).toEqual([
-            Settings.FLAGS.SUNKEN_TREASURE,
-          ]);
+        test("initializes the flags", () => {
+          expect(Settings.flags).toEqual([Settings.FLAGS.SUNKEN_TREASURE]);
         });
       });
     });
   });
 
-  describe('initializeRaw', () => {
-    test('initializes the flags, options, starting gear, and version', () => {
+  describe("initializeRaw", () => {
+    test("initializes the flags, options, starting gear, and version", () => {
       const flags = [Settings.FLAGS.TINGLE_CHEST];
       const options = {
         [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true,
       };
       const startingGear = {
-        'Grappling Hook': 1,
+        "Grappling Hook": 1,
       };
-      const version = '1.0.0';
+      const version = "1.0.0";
 
       Settings.initializeRaw({
         flags,
@@ -125,7 +133,7 @@ describe('Settings', () => {
     });
   });
 
-  describe('reset', () => {
+  describe("reset", () => {
     beforeEach(() => {
       Settings.initializeRaw({
         flags: [Settings.FLAGS.TINGLE_CHEST],
@@ -133,13 +141,13 @@ describe('Settings', () => {
           [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true,
         },
         startingGear: {
-          'Grappling Hook': 1,
+          "Grappling Hook": 1,
         },
-        version: '1.0.0',
+        version: "1.0.0",
       });
     });
 
-    test('resets all the settings', () => {
+    test("resets all the settings", () => {
       Settings.reset();
 
       expect(Settings.flags).toEqual(null);
@@ -149,7 +157,7 @@ describe('Settings', () => {
     });
   });
 
-  describe('readAll', () => {
+  describe("readAll", () => {
     let expectedFlags;
     let expectedOptions;
     let expectedStartingGear;
@@ -161,9 +169,9 @@ describe('Settings', () => {
         [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true,
       };
       expectedStartingGear = {
-        'Grappling Hook': 1,
+        "Grappling Hook": 1,
       };
-      expectedVersion = '1.0.0';
+      expectedVersion = "1.0.0";
 
       Settings.initializeRaw({
         flags: expectedFlags,
@@ -173,7 +181,7 @@ describe('Settings', () => {
       });
     });
 
-    test('returns all of the settings', () => {
+    test("returns all of the settings", () => {
       const allSettings = Settings.readAll();
 
       expect(allSettings).toEqual({
@@ -185,29 +193,29 @@ describe('Settings', () => {
     });
   });
 
-  describe('FLAGS', () => {
-    test('returns the correct flags', () => {
+  describe("FLAGS", () => {
+    test("returns the correct flags", () => {
       expect(Settings.FLAGS).toMatchSnapshot();
     });
   });
 
-  describe('isFlagActive', () => {
+  describe("isFlagActive", () => {
     beforeEach(() => {
       Settings.initializeRaw({
         flags: [Settings.FLAGS.TINGLE_CHEST],
       });
     });
 
-    describe('when the flag is in the list of flags', () => {
-      test('returns true', () => {
+    describe("when the flag is in the list of flags", () => {
+      test("returns true", () => {
         const isFlagActive = Settings.isFlagActive(Settings.FLAGS.TINGLE_CHEST);
 
         expect(isFlagActive).toEqual(true);
       });
     });
 
-    describe('when the flag is not in the list of flags', () => {
-      test('returns true', () => {
+    describe("when the flag is not in the list of flags", () => {
+      test("returns true", () => {
         const isFlagActive = Settings.isFlagActive(Settings.FLAGS.DUNGEON);
 
         expect(isFlagActive).toEqual(false);
@@ -215,7 +223,7 @@ describe('Settings', () => {
     });
   });
 
-  describe('getOptionValue', () => {
+  describe("getOptionValue", () => {
     beforeEach(() => {
       Settings.initializeRaw({
         options: {
@@ -224,40 +232,42 @@ describe('Settings', () => {
       });
     });
 
-    test('returns the value of the given option', () => {
-      const optionValue = Settings.getOptionValue(Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS);
+    test("returns the value of the given option", () => {
+      const optionValue = Settings.getOptionValue(
+        Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS
+      );
 
       expect(optionValue).toEqual(7);
     });
   });
 
-  describe('getStartingGear', () => {
+  describe("getStartingGear", () => {
     beforeEach(() => {
       Settings.initializeRaw({
         startingGear: {
-          'Deku Leaf': 1,
+          "Deku Leaf": 1,
         },
       });
     });
 
-    test('returns the provided starting gear', () => {
+    test("returns the provided starting gear", () => {
       const startingGear = Settings.getStartingGear();
 
-      expect(startingGear).toEqual({ 'Deku Leaf': 1 });
+      expect(startingGear).toEqual({ "Deku Leaf": 1 });
     });
   });
 
-  describe('getVersion', () => {
+  describe("getVersion", () => {
     beforeEach(() => {
       Settings.initializeRaw({
-        version: '1.0.0',
+        version: "1.0.0",
       });
     });
 
-    test('returns the provided version', () => {
+    test("returns the provided version", () => {
       const version = Settings.getVersion();
 
-      expect(version).toEqual('1.0.0');
+      expect(version).toEqual("1.0.0");
     });
   });
 });

@@ -1,11 +1,11 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
 
-import LogicHelper from '../services/logic-helper';
+import LogicHelper from "../services/logic-helper";
 
-import Images from './images';
-import Item from './item';
+import Images from "./images";
+import Item from "./item";
 
 class ExtraLocation extends React.PureComponent {
   smallKeyItem() {
@@ -17,7 +17,7 @@ class ExtraLocation extends React.PureComponent {
       smallKeyName,
     } = this.props;
 
-    const smallKeyImages = _.get(Images.IMAGES, 'SMALL_KEYS');
+    const smallKeyImages = _.get(Images.IMAGES, "SMALL_KEYS");
 
     return (
       <div className="dungeon-item small-key">
@@ -42,7 +42,7 @@ class ExtraLocation extends React.PureComponent {
       setSelectedItem,
     } = this.props;
 
-    const bigKeyImages = _.get(Images.IMAGES, 'BIG_KEYS');
+    const bigKeyImages = _.get(Images.IMAGES, "BIG_KEYS");
 
     return (
       <div className="dungeon-item big-key">
@@ -67,7 +67,7 @@ class ExtraLocation extends React.PureComponent {
       setSelectedExit,
     } = this.props;
 
-    const entranceImages = _.get(Images.IMAGES, 'DUNGEON_ENTRANCE');
+    const entranceImages = _.get(Images.IMAGES, "DUNGEON_ENTRANCE");
 
     const setSelectedItemFunc = () => setSelectedExit(locationName);
 
@@ -91,17 +91,14 @@ class ExtraLocation extends React.PureComponent {
     return (
       <div className="dungeon-items">
         {this.smallKeyItem()}
-        { LogicHelper.isRandomDungeonEntrances() && this.entrance() }
+        {LogicHelper.isRandomDungeonEntrances() && this.entrance()}
         {this.bigKeyItem()}
       </div>
     );
   }
 
   locationIcon() {
-    const {
-      locationIcon,
-      locationName,
-    } = this.props;
+    const { locationIcon, locationName } = this.props;
 
     return (
       <div className="dungeon-icon">
@@ -111,21 +108,14 @@ class ExtraLocation extends React.PureComponent {
   }
 
   chestsCounter() {
-    const {
-      color,
-      disableLogic,
-      numAvailable,
-      numRemaining,
-    } = this.props;
+    const { color, disableLogic, numAvailable, numRemaining } = this.props;
 
     const className = `extra-location-chests ${color}`;
-    const chestCounts = disableLogic ? numRemaining : `${numAvailable}/${numRemaining}`;
+    const chestCounts = disableLogic
+      ? numRemaining
+      : `${numAvailable}/${numRemaining}`;
 
-    return (
-      <div className={className}>
-        {chestCounts}
-      </div>
-    );
+    return <div className={className}>{chestCounts}</div>;
   }
 
   render() {
@@ -138,15 +128,17 @@ class ExtraLocation extends React.PureComponent {
       setSelectedLocation,
     } = this.props;
 
-    const setOpenedLocationFunc = () => setOpenedLocation({
-      isDungeon,
-      locationName,
-    });
+    const setOpenedLocationFunc = () =>
+      setOpenedLocation({
+        isDungeon,
+        locationName,
+      });
 
-    const setSelectedLocationFunc = () => setSelectedLocation({
-      isDungeon,
-      locationName,
-    });
+    const setSelectedLocationFunc = () =>
+      setSelectedLocation({
+        isDungeon,
+        locationName,
+      });
 
     return (
       <div

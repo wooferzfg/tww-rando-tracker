@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from "lodash";
 
 export default class BinaryString {
   constructor(binaryData = [], bitOffset = 0) {
@@ -36,7 +36,7 @@ export default class BinaryString {
     const firstByte = _.first(this.binaryData);
 
     if (_.isNil(firstByte)) {
-      throw Error('Tried to pop when the binary data was empty');
+      throw Error("Tried to pop when the binary data was empty");
     }
 
     const poppedBoolean = firstByte % 2 === 1;
@@ -70,9 +70,8 @@ export default class BinaryString {
   addString(stringValue) {
     const bytesToAdd = BinaryString._stringToBinary(stringValue);
 
-    _.forEach(
-      bytesToAdd,
-      (byte) => this.addNumber(byte, BinaryString.BYTE_SIZE),
+    _.forEach(bytesToAdd, (byte) =>
+      this.addNumber(byte, BinaryString.BYTE_SIZE)
     );
 
     this.addNumber(0, BinaryString.BYTE_SIZE);
@@ -107,12 +106,12 @@ export default class BinaryString {
   }
 
   static _base64ToBinary(base64String) {
-    const buffer = Buffer.from(base64String, 'base64');
+    const buffer = Buffer.from(base64String, "base64");
     return Array.from(buffer.values());
   }
 
   static _binaryToBase64(binaryArray) {
-    return Buffer.from(binaryArray).toString('base64');
+    return Buffer.from(binaryArray).toString("base64");
   }
 
   static _stringToBinary(utf8String) {

@@ -1,27 +1,19 @@
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React from "react";
 
-import Permalink from '../services/permalink';
+import Permalink from "../services/permalink";
 
 class DropdownOptionInput extends React.PureComponent {
   render() {
-    const {
-      labelText,
-      optionName,
-      optionValue,
-      setOptionValue,
-    } = this.props;
+    const { labelText, optionName, optionValue, setOptionValue } = this.props;
 
     const optionsList = _.get(Permalink.DROPDOWN_OPTIONS, optionName);
-    const dropdownOptions = _.map(
-      optionsList,
-      (option) => (
-        <option value={option} key={option}>
-          {option}
-        </option>
-      ),
-    );
+    const dropdownOptions = _.map(optionsList, (option) => (
+      <option value={option} key={option}>
+        {option}
+      </option>
+    ));
 
     return (
       <>
@@ -29,10 +21,10 @@ class DropdownOptionInput extends React.PureComponent {
         <td className="option-container">
           <div className="select-container">
             <select
-              onChange={
-                (event) => setOptionValue(
+              onChange={(event) =>
+                setOptionValue(
                   optionName,
-                  _.get(optionsList, event.target.selectedIndex),
+                  _.get(optionsList, event.target.selectedIndex)
                 )
               }
               value={optionValue}
@@ -49,7 +41,8 @@ class DropdownOptionInput extends React.PureComponent {
 DropdownOptionInput.propTypes = {
   labelText: PropTypes.string.isRequired,
   optionName: PropTypes.string.isRequired,
-  optionValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  optionValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
   setOptionValue: PropTypes.func.isRequired,
 };
 

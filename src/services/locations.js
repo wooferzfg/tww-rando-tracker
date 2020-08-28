@@ -1,19 +1,27 @@
-import _ from 'lodash';
+import _ from "lodash";
 
 export default class Locations {
   static initialize(itemLocationsFile) {
     this.locations = {};
 
     _.forEach(itemLocationsFile, (locationData, locationName) => {
-      const {
-        generalLocation,
-        detailedLocation,
-      } = this.splitLocationName(locationName);
+      const { generalLocation, detailedLocation } = this.splitLocationName(
+        locationName
+      );
 
-      const filteredLocationData = _.pick(locationData, ['Need', 'Original item', 'Types']);
+      const filteredLocationData = _.pick(locationData, [
+        "Need",
+        "Original item",
+        "Types",
+      ]);
 
       _.forEach(filteredLocationData, (infoValue, infoKey) => {
-        this.setLocation(generalLocation, detailedLocation, _.camelCase(infoKey), infoValue);
+        this.setLocation(
+          generalLocation,
+          detailedLocation,
+          _.camelCase(infoKey),
+          infoValue
+        );
       });
     });
   }
@@ -27,9 +35,9 @@ export default class Locations {
   }
 
   static KEYS = {
-    NEED: 'need',
-    ORIGINAL_ITEM: 'originalItem',
-    TYPES: 'types',
+    NEED: "need",
+    ORIGINAL_ITEM: "originalItem",
+    TYPES: "types",
   };
 
   static readAll() {
@@ -48,7 +56,7 @@ export default class Locations {
         _.set(
           newLocations,
           [generalLocationName, detailedLocationName],
-          locationIteratee(generalLocationName, detailedLocationName),
+          locationIteratee(generalLocationName, detailedLocationName)
         );
       });
     });
@@ -68,14 +76,20 @@ export default class Locations {
 
   static getLocation(generalLocation, detailedLocation, infoKey) {
     if (!_.has(this.locations, [generalLocation, detailedLocation])) {
-      throw Error(`Location not found: ${generalLocation} - ${detailedLocation}`);
+      throw Error(
+        `Location not found: ${generalLocation} - ${detailedLocation}`
+      );
     }
 
     return _.get(this.locations, [generalLocation, detailedLocation, infoKey]);
   }
 
   static setLocation(generalLocation, detailedLocation, infoKey, infoValue) {
-    _.set(this.locations, [generalLocation, detailedLocation, infoKey], infoValue);
+    _.set(
+      this.locations,
+      [generalLocation, detailedLocation, infoKey],
+      infoValue
+    );
   }
 
   static splitLocationName(fullLocationName) {
