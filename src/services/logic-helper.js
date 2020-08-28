@@ -153,6 +153,17 @@ export default class LogicHelper {
       : this._shortCaveName(dungeonOrCaveName);
   }
 
+  static cavesForIsland(islandName) {
+    return _.compact(
+      _.map(
+        CAVE_ENTRANCES,
+        (caveEntrance, caveIndex) => (
+          _.startsWith(caveEntrance, islandName) ? _.get(CAVES, caveIndex) : null
+        ),
+      ),
+    );
+  }
+
   static isRandomDungeonEntrances() {
     return _.includes(
       [

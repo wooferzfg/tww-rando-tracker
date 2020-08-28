@@ -386,6 +386,35 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('cavesForIsland', () => {
+    test('returns no cave entrances when the island has no entrances', () => {
+      const caveEntrances = LogicHelper.cavesForIsland('Windfall Island');
+
+      expect(caveEntrances).toEqual([]);
+    });
+
+    test('returns one cave entrance when the island has one entrance', () => {
+      const caveEntrances = LogicHelper.cavesForIsland('Dragon Roost Island');
+
+      expect(caveEntrances).toEqual(['Dragon Roost Island Secret Cave']);
+    });
+
+    test('returns the cave entrance when the island does not match the cave name', () => {
+      const caveEntrances = LogicHelper.cavesForIsland('Private Oasis');
+
+      expect(caveEntrances).toEqual(['Cabana Labyrinth']);
+    });
+
+    test('returns multiple cave entrances when the island has multiple entrances', () => {
+      const caveEntrances = LogicHelper.cavesForIsland('Pawprint Isle');
+
+      expect(caveEntrances).toEqual([
+        'Pawprint Isle Chuchu Cave',
+        'Pawprint Isle Wizzrobe Cave',
+      ]);
+    });
+  });
+
   describe('isRandomDungeonEntrances', () => {
     describe('when dungeon entrances are randomized', () => {
       beforeEach(() => {
