@@ -50,6 +50,41 @@ class Sector extends React.PureComponent {
     );
   }
 
+  entryItems() {
+    const {
+      clearSelectedExit,
+      entrances,
+      setSelectedExit,
+    } = this.props;
+
+    return _.map(entrances, (entrance) => {
+      const {
+        entryCount,
+        entryName,
+        locationName,
+      } = entrance;
+
+      const entranceImages = _.get(Images.IMAGES, 'CAVE_ENTRANCE');
+
+      const setSelectedItemFunc = () => setSelectedExit(locationName);
+
+      const incrementItemFunc = () => {};
+
+      return (
+        <div className="cave-entry" key={entryName}>
+          <Item
+            clearSelectedItem={clearSelectedExit}
+            images={entranceImages}
+            incrementItem={incrementItemFunc}
+            itemCount={entryCount}
+            itemName={entryName}
+            setSelectedItem={setSelectedItemFunc}
+          />
+        </div>
+      );
+    });
+  }
+
   render() {
     const {
       clearSelectedLocation,
@@ -85,6 +120,7 @@ class Sector extends React.PureComponent {
         tabIndex="0"
       >
         {this.chartItem()}
+        {this.entryItems()}
         {this.chestsCounter()}
       </div>
     );
@@ -96,14 +132,23 @@ Sector.propTypes = {
   chartName: PropTypes.string.isRequired,
   chartType: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
-  disableLogic: PropTypes.bool.isRequired,
+  clearSelectedExit: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
+  disableLogic: PropTypes.bool.isRequired,
+  entrances: PropTypes.arrayOf(
+    PropTypes.shape({
+      entryCount: PropTypes.number,
+      entryName: PropTypes.string,
+      locationName: PropTypes.string,
+    }),
+  ).isRequired,
   incrementItem: PropTypes.func.isRequired,
   island: PropTypes.string.isRequired,
   numAvailable: PropTypes.number.isRequired,
   numRemaining: PropTypes.number.isRequired,
   setOpenedLocation: PropTypes.func.isRequired,
+  setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
 };

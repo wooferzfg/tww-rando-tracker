@@ -43,6 +43,10 @@ export default class Images {
         0: import('../images/bosskey.png'),
         1: import('../images/bosskey_a.png'),
       },
+      CAVE_ENTRANCE: {
+        0: import('../images/cave_noentry.png'),
+        1: import('../images/cave_entered.png'),
+      },
       CHARTS: {
         [LogicHelper.CHART_TYPES.TREASURE]: {
           0: import('../images/chart.png'),

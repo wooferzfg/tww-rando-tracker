@@ -13,6 +13,7 @@ import Sector from './sector';
 class SeaChart extends React.PureComponent {
   sector(island) {
     const {
+      clearSelectedExit,
       clearSelectedItem,
       clearSelectedLocation,
       disableLogic,
@@ -20,6 +21,7 @@ class SeaChart extends React.PureComponent {
       logic,
       onlyProgressLocations,
       setOpenedLocation,
+      setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
       trackerState,
@@ -31,6 +33,22 @@ class SeaChart extends React.PureComponent {
     } = LogicHelper.chartForIsland(island);
 
     const chartCount = trackerState.getItemValue(chartName);
+
+    let entrances = [];
+    if (LogicHelper.isRandomCaveEntrances()) {
+      const cavesForIsland = LogicHelper.cavesForIsland(island);
+
+      entrances = _.map(cavesForIsland, (caveName) => {
+        const entryName = LogicHelper.caveEntryName(caveName);
+        const entryCount = trackerState.getItemValue(entryName);
+
+        return {
+          entryCount,
+          entryName,
+          locationName: caveName,
+        };
+      });
+    }
 
     const {
       color,
@@ -47,16 +65,19 @@ class SeaChart extends React.PureComponent {
         chartCount={chartCount}
         chartName={chartName}
         chartType={chartType}
+        clearSelectedExit={clearSelectedExit}
         color={color}
-        disableLogic={disableLogic}
         clearSelectedItem={clearSelectedItem}
         clearSelectedLocation={clearSelectedLocation}
+        disableLogic={disableLogic}
+        entrances={entrances}
         key={island}
         incrementItem={incrementItem}
         island={island}
         numAvailable={numAvailable}
         numRemaining={numRemaining}
         setOpenedLocation={setOpenedLocation}
+        setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
       />
@@ -80,6 +101,7 @@ class SeaChart extends React.PureComponent {
 }
 
 SeaChart.propTypes = {
+  clearSelectedExit: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
@@ -87,6 +109,7 @@ SeaChart.propTypes = {
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   setOpenedLocation: PropTypes.func.isRequired,
+  setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
