@@ -39,7 +39,7 @@ class SeaChart extends React.PureComponent {
       const cavesForIsland = LogicHelper.cavesForIsland(island);
 
       entrances = _.map(cavesForIsland, (caveName) => {
-        const entryName = LogicHelper.caveEntryName(caveName);
+        const entryName = LogicHelper.entryName(caveName);
         const entryCount = trackerState.getItemValue(entryName);
 
         return {

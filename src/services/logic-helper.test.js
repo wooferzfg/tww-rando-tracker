@@ -350,17 +350,15 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('dungeonEntryName', () => {
+  describe('entryName', () => {
     test('returns the entry name based on a dungeon name', () => {
-      const entryName = LogicHelper.dungeonEntryName('Dragon Roost Cavern');
+      const entryName = LogicHelper.entryName('Dragon Roost Cavern');
 
       expect(entryName).toEqual('Entered DRC');
     });
-  });
 
-  describe('caveEntryName', () => {
     test('returns the entry name based on a cave name', () => {
-      const entryName = LogicHelper.caveEntryName('Dragon Roost Island Secret Cave');
+      const entryName = LogicHelper.entryName('Dragon Roost Island Secret Cave');
 
       expect(entryName).toEqual('Entered Dragon Roost Island Cave');
     });

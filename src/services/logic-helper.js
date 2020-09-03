@@ -88,9 +88,9 @@ export default class LogicHelper {
   };
 
   static ALL_ITEMS = _.concat(
-    _.map(CAVES, (cave) => this.caveEntryName(cave)),
+    _.map(CAVES, (cave) => this.entryName(cave)),
     CHARTS,
-    _.map(DUNGEONS, (dungeon) => this.dungeonEntryName(dungeon)),
+    _.map(DUNGEONS, (dungeon) => this.entryName(dungeon)),
     _.keys(ITEMS),
     _.keys(KEYS),
   );
@@ -139,14 +139,9 @@ export default class LogicHelper {
     return this.isDungeon(dungeonName);
   }
 
-  static dungeonEntryName(dungeonName) {
-    const shortDungeonName = this._shortDungeonName(dungeonName);
-    return this._entryName(shortDungeonName);
-  }
-
-  static caveEntryName(caveName) {
-    const shortCaveName = this._shortCaveName(caveName);
-    return this._entryName(shortCaveName);
+  static entryName(dungeonOrCaveName) {
+    const shortEntranceName = this.shortEntranceName(dungeonOrCaveName);
+    return this._entryName(shortEntranceName);
   }
 
   static shortEntranceName(dungeonOrCaveName) {

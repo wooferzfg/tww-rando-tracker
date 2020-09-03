@@ -55,7 +55,7 @@ class ExtraLocationsTable extends React.PureComponent {
       const bigKeyName = LogicHelper.bigKeyName(locationName);
       const bigKeyCount = trackerState.getItemValue(bigKeyName);
 
-      const entryName = LogicHelper.dungeonEntryName(locationName);
+      const entryName = LogicHelper.entryName(locationName);
       const entryCount = trackerState.getItemValue(entryName);
 
       return (

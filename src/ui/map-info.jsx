@@ -58,10 +58,8 @@ class MapInfo extends React.PureComponent {
         const shortEntranceName = LogicHelper.shortEntranceName(entranceForExit);
         const shortExitName = LogicHelper.shortEntranceName(selectedExit);
         itemInfoText = `${shortEntranceName} → ${shortExitName}`;
-      } else if (LogicHelper.isDungeon(selectedExit)) {
-        itemInfoText = LogicHelper.dungeonEntryName(selectedExit);
       } else {
-        itemInfoText = LogicHelper.caveEntryName(selectedExit);
+        itemInfoText = LogicHelper.entryName(selectedExit);
       }
     }
 

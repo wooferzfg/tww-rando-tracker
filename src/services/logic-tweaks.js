@@ -113,7 +113,7 @@ export default class LogicTweaks {
       _.forEach(DUNGEONS, (dungeon) => {
         if (LogicHelper.isMainDungeon(dungeon)) {
           const macroName = this._canAccessMacroName(dungeon);
-          const entryName = LogicHelper.dungeonEntryName(dungeon);
+          const entryName = LogicHelper.entryName(dungeon);
           Macros.setMacro(macroName, entryName);
         }
       });
@@ -124,7 +124,7 @@ export default class LogicTweaks {
     if (LogicHelper.isRandomCaveEntrances()) {
       _.forEach(CAVES, (cave) => {
         const macroName = this._canAccessMacroName(cave);
-        const entryName = LogicHelper.caveEntryName(cave);
+        const entryName = LogicHelper.entryName(cave);
         Macros.setMacro(macroName, entryName);
       });
     }
