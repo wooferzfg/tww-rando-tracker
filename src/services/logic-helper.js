@@ -140,13 +140,16 @@ export default class LogicHelper {
   }
 
   static entryName(dungeonOrCaveName) {
-    const shortEntranceName = this.shortEntranceName(dungeonOrCaveName);
-    return this._entryName(shortEntranceName);
+    const entranceName = this.isDungeon(dungeonOrCaveName)
+      ? this._shortDungeonName(dungeonOrCaveName)
+      : this._shortCaveName(dungeonOrCaveName);
+
+    return this._entryName(entranceName);
   }
 
   static shortEntranceName(dungeonOrCaveName) {
     return this.isDungeon(dungeonOrCaveName)
-      ? this._shortDungeonName(dungeonOrCaveName)
+      ? dungeonOrCaveName
       : this._shortCaveName(dungeonOrCaveName);
   }
 

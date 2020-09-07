@@ -365,10 +365,10 @@ describe('LogicHelper', () => {
   });
 
   describe('shortEntranceName', () => {
-    test('returns the short dungeon name based on the dungeon name', () => {
+    test('returns the unmodified dungeon name', () => {
       const shortEntranceName = LogicHelper.shortEntranceName('Dragon Roost Cavern');
 
-      expect(shortEntranceName).toEqual('DRC');
+      expect(shortEntranceName).toEqual('Dragon Roost Cavern');
     });
 
     test('returns the cave name without mentioning secret caves', () => {
