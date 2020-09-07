@@ -1,3 +1,7 @@
+import _ from 'lodash';
+
+import CAVES from '../data/caves.json';
+import DUNGEONS from '../data/dungeons.json';
 import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
 import TEST_MACROS from '../data/test-macros.json';
 
@@ -516,6 +520,93 @@ describe('LogicHelper', () => {
         const isRandomEntrancesTogether = LogicHelper.isRandomEntrancesTogether();
 
         expect(isRandomEntrancesTogether).toEqual(false);
+      });
+    });
+  });
+
+  describe('allRandomEntrances', () => {
+    describe('when entrances are not randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+          },
+        });
+      });
+
+      test('returns an empty array', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toEqual([]);
+      });
+    });
+
+    describe('when only dungeon entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+          },
+        });
+      });
+
+      test('returns all the dungeons', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toEqual(DUNGEONS);
+      });
+    });
+
+    describe('when only cave entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+          },
+        });
+      });
+
+      test('returns all the caves', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toEqual(CAVES);
+      });
+    });
+
+    describe('when dungeon and cave entrances are randomized separately', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+          },
+        });
+      });
+
+      test('returns all the dungeons and caves', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toEqual(_.concat(DUNGEONS, CAVES));
+      });
+    });
+
+    describe('when dungeon and cave entrances are randomized together', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+          },
+        });
+      });
+
+      test('returns all the dungeons and caves', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toEqual(_.concat(DUNGEONS, CAVES));
       });
     });
   });

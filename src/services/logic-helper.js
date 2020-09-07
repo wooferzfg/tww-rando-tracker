@@ -187,9 +187,14 @@ export default class LogicHelper {
   }
 
   static isRandomEntrancesTogether() {
-    return _.includes(
-      this._randomizeEntrancesOption(),
-      Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+    return this._randomizeEntrancesOption()
+      === Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER;
+  }
+
+  static allRandomEntrances() {
+    return _.concat(
+      this.isRandomDungeonEntrances() ? DUNGEONS : [],
+      this.isRandomCaveEntrances() ? CAVES : [],
     );
   }
 
