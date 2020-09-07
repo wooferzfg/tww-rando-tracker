@@ -252,6 +252,76 @@ describe('TrackerState', () => {
     });
   });
 
+  describe('unsetEntranceForExit', () => {
+    let state;
+    let initialItems;
+    let initialLocationsChecked;
+
+    beforeEach(() => {
+      initialItems = {
+        'Deku Leaf': 2,
+      };
+      const initialEntrances = {
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
+        'Forbidden Woods': 'Tower of the Gods',
+      };
+      initialLocationsChecked = {
+        'Dragon Roost Cavern': {
+          "Bird's Nest": true,
+        },
+      };
+
+      state = new TrackerState();
+
+      state.items = _.clone(initialItems);
+      state.entrances = _.clone(initialEntrances);
+      state.locationsChecked = _.cloneDeep(initialLocationsChecked);
+    });
+
+    test('returns a new state with the entrance value unset', () => {
+      const newState = state.unsetEntranceForExit('Needle Rock Isle Secret Cave');
+
+      expect(newState.entrances).toEqual({
+        'Forbidden Woods': 'Tower of the Gods',
+      });
+    });
+
+    test('keeps the other values unmodified', () => {
+      const newState = state.unsetEntranceForExit('Needle Rock Isle Secret Cave');
+
+      expect(newState.items).toEqual(initialItems);
+      expect(newState.locationsChecked).toEqual(initialLocationsChecked);
+    });
+  });
+
+  describe('isEntranceChecked', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+      state.entrances = {
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
+        'Forbidden Woods': 'Tower of the Gods',
+      };
+    });
+
+    describe('when the entrance is checked', () => {
+      test('returns true', () => {
+        const isEntranceChecked = state.isEntranceChecked('Dragon Roost Cavern');
+
+        expect(isEntranceChecked).toEqual(true);
+      });
+    });
+
+    describe('when the entrance is not checked', () => {
+      test('returns false', () => {
+        const isEntranceChecked = state.isEntranceChecked('Forbidden Woods');
+
+        expect(isEntranceChecked).toEqual(false);
+      });
+    });
+  });
+
   describe('isLocationChecked', () => {
     let state;
 

@@ -122,7 +122,7 @@ export default class LogicCalculation {
 
     return _.map(allRandomEntrances, (dungeonOrCaveName) => {
       const isAvailable = this._isEntranceAvailable(dungeonOrCaveName);
-      const isChecked = false;
+      const isChecked = this.state.isEntranceChecked(dungeonOrCaveName);
 
       const color = LogicCalculation._locationColor(
         disableLogic || isAvailable,

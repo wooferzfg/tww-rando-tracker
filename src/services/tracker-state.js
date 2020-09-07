@@ -67,6 +67,16 @@ export default class TrackerState {
     return newState;
   }
 
+  unsetEntranceForExit(dungeonOrCaveName) {
+    const newState = this._clone();
+    _.unset(newState.entrances, dungeonOrCaveName);
+    return newState;
+  }
+
+  isEntranceChecked(dungeonOrCaveName) {
+    return _.includes(this.entrances, dungeonOrCaveName);
+  }
+
   isLocationChecked(generalLocation, detailedLocation) {
     return _.get(this.locationsChecked, [generalLocation, detailedLocation]);
   }
