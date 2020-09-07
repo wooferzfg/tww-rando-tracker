@@ -1,7 +1,3 @@
-import _ from 'lodash';
-
-import CAVES from '../data/caves.json';
-import DUNGEONS from '../data/dungeons.json';
 import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
 import TEST_MACROS from '../data/test-macros.json';
 
@@ -14,7 +10,7 @@ import Permalink from './permalink';
 import Settings from './settings';
 
 describe('LogicHelper', () => {
-  afterEach(() => {
+  beforeEach(() => {
     Locations.reset();
     LogicHelper.reset();
     Macros.reset();
@@ -555,7 +551,7 @@ describe('LogicHelper', () => {
       test('returns all the dungeons', () => {
         const allRandomEntrances = LogicHelper.allRandomEntrances();
 
-        expect(allRandomEntrances).toEqual(DUNGEONS);
+        expect(allRandomEntrances).toMatchSnapshot();
       });
     });
 
@@ -572,7 +568,7 @@ describe('LogicHelper', () => {
       test('returns all the caves', () => {
         const allRandomEntrances = LogicHelper.allRandomEntrances();
 
-        expect(allRandomEntrances).toEqual(CAVES);
+        expect(allRandomEntrances).toMatchSnapshot();
       });
     });
 
@@ -589,7 +585,7 @@ describe('LogicHelper', () => {
       test('returns all the dungeons and caves', () => {
         const allRandomEntrances = LogicHelper.allRandomEntrances();
 
-        expect(allRandomEntrances).toEqual(_.concat(DUNGEONS, CAVES));
+        expect(allRandomEntrances).toMatchSnapshot();
       });
     });
 
@@ -606,7 +602,7 @@ describe('LogicHelper', () => {
       test('returns all the dungeons and caves', () => {
         const allRandomEntrances = LogicHelper.allRandomEntrances();
 
-        expect(allRandomEntrances).toEqual(_.concat(DUNGEONS, CAVES));
+        expect(allRandomEntrances).toMatchSnapshot();
       });
     });
   });

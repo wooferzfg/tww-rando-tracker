@@ -29,6 +29,7 @@ export default class LogicHelper {
       'filterDetailedLocations',
       'isPotentialKeyLocation',
       'isProgressLocation',
+      'mainDungeons',
       'maxItemCount',
       'parseItemCountRequirement',
       'prettyNameForItem',
@@ -49,6 +50,7 @@ export default class LogicHelper {
       this.filterDetailedLocations,
       this.isPotentialKeyLocation,
       this.isProgressLocation,
+      this.mainDungeons,
       this.maxItemCount,
       this.parseItemCountRequirement,
       this.prettyNameForItem,
@@ -128,6 +130,10 @@ export default class LogicHelper {
     return this.isDungeon(dungeonName);
   }
 
+  static mainDungeons() {
+    return _.filter(DUNGEONS, (dungeon) => this.isMainDungeon(dungeon));
+  }
+
   static isDungeon(dungeonName) {
     return _.includes(DUNGEONS, dungeonName);
   }
@@ -193,7 +199,7 @@ export default class LogicHelper {
 
   static allRandomEntrances() {
     return _.concat(
-      this.isRandomDungeonEntrances() ? DUNGEONS : [],
+      this.isRandomDungeonEntrances() ? this.mainDungeons() : [],
       this.isRandomCaveEntrances() ? CAVES : [],
     );
   }

@@ -6,7 +6,7 @@ import Permalink from './permalink';
 import Settings from './settings';
 
 describe('Settings', () => {
-  afterEach(() => {
+  beforeEach(() => {
     Settings.reset();
   });
 

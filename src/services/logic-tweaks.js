@@ -2,7 +2,6 @@ import _ from 'lodash';
 
 import CAVES from '../data/caves.json';
 import CHARTS from '../data/charts.json';
-import DUNGEONS from '../data/dungeons.json';
 import HAS_ACCESSED_LOCATION_TWEAKS from '../data/has-accessed-location-tweaks.json';
 import ISLANDS from '../data/islands.json';
 
@@ -110,12 +109,10 @@ export default class LogicTweaks {
 
   static _updateDungeonEntranceMacros() {
     if (LogicHelper.isRandomDungeonEntrances()) {
-      _.forEach(DUNGEONS, (dungeon) => {
-        if (LogicHelper.isMainDungeon(dungeon)) {
-          const macroName = this._canAccessMacroName(dungeon);
-          const entryName = LogicHelper.entryName(dungeon);
-          Macros.setMacro(macroName, entryName);
-        }
+      _.forEach(LogicHelper.mainDungeons(), (dungeon) => {
+        const macroName = this._canAccessMacroName(dungeon);
+        const entryName = LogicHelper.entryName(dungeon);
+        Macros.setMacro(macroName, entryName);
       });
     }
   }

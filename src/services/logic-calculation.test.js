@@ -25,7 +25,49 @@ describe('LogicCalculation', () => {
     LogicHelper.reset();
   };
 
+  const fullSetup = (settingsOverrides = {}) => {
+    const defaultSettings = {
+      options: {
+        [Permalink.OPTIONS.KEYLUNACY]: false,
+        [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+        [Permalink.OPTIONS.RACE_MODE]: false,
+        [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+        [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+        [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
+        [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+      },
+      startingGear: {
+        [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+      },
+      flags: [
+        Settings.FLAGS.DUNGEON,
+        Settings.FLAGS.PUZZLE_SECRET_CAVE,
+        Settings.FLAGS.GREAT_FAIRY,
+        Settings.FLAGS.FREE_GIFT,
+        Settings.FLAGS.MISC,
+        Settings.FLAGS.OTHER_CHEST,
+        Settings.FLAGS.EXPENSIVE_PURCHASE,
+      ],
+    };
+
+    Settings.initializeRaw(_.merge(defaultSettings, settingsOverrides));
+
+    Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+    Macros.initialize(_.cloneDeep(TEST_MACROS));
+
+    LogicTweaks.applyTweaks();
+
+    LogicHelper.initialize();
+
+    logic = new LogicCalculation(TrackerState.default());
+  };
+
   beforeEach(() => {
+    Locations.reset();
+    LogicHelper.reset();
+    Macros.reset();
+    Settings.reset();
+
     Settings.initializeRaw({
       options: {
         // don't run the guaranteed keys logic unless the test needs it
@@ -36,36 +78,9 @@ describe('LogicCalculation', () => {
     logic = new LogicCalculation(TrackerState.default());
   });
 
-  afterEach(() => {
-    Locations.reset();
-    LogicHelper.reset();
-    Macros.reset();
-    Settings.reset();
-  });
-
   describe('constructor', () => {
     beforeEach(() => {
-      Settings.initializeRaw({
-        options: {
-          [Permalink.OPTIONS.KEYLUNACY]: false,
-          [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-          [Permalink.OPTIONS.RACE_MODE]: false,
-          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
-          [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
-        },
-        startingGear: {
-          [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
-        },
-      });
-
-      Locations.initialize(TEST_ITEM_LOCATIONS);
-      Macros.initialize(TEST_MACROS);
-
-      LogicTweaks.applyTweaks();
-
-      LogicHelper.initialize();
+      fullSetup();
     });
 
     describe('setting guaranteed keys', () => {
@@ -445,43 +460,135 @@ describe('LogicCalculation', () => {
     });
   });
 
-  describe('statistics', () => {
+  describe('locationCounts', () => {
     beforeEach(() => {
-      Settings.initializeRaw({
-        options: {
-          [Permalink.OPTIONS.KEYLUNACY]: false,
-          [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-          [Permalink.OPTIONS.RACE_MODE]: false,
-          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
-          [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
-        },
-        startingGear: {
-          [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
-        },
-        flags: [
-          Settings.FLAGS.DUNGEON,
-          Settings.FLAGS.PUZZLE_SECRET_CAVE,
-          Settings.FLAGS.GREAT_FAIRY,
-          Settings.FLAGS.FREE_GIFT,
-          Settings.FLAGS.MISC,
-          Settings.FLAGS.OTHER_CHEST,
-          Settings.FLAGS.EXPENSIVE_PURCHASE,
-        ],
-      });
-
-      Locations.initialize(TEST_ITEM_LOCATIONS);
-      Macros.initialize(TEST_MACROS);
-
-      LogicTweaks.applyTweaks();
-
-      LogicHelper.initialize();
-
-      logic = new LogicCalculation(TrackerState.default());
+      fullSetup();
     });
 
-    describe('locationCounts', () => {
+    test('returns the correct counts for Dragon Roost Cavern', () => {
+      const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
+        isDungeon: true,
+        onlyProgressLocations: true,
+        disableLogic: false,
+      });
+
+      expect(locationCounts).toEqual({
+        numAvailable: 3,
+        numRemaining: 15,
+        color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+      });
+    });
+
+    test('returns the correct counts for Forbidden Woods', () => {
+      const locationCounts = logic.locationCounts('Forbidden Woods', {
+        isDungeon: true,
+        onlyProgressLocations: true,
+        disableLogic: false,
+      });
+
+      expect(locationCounts).toEqual({
+        numAvailable: 0,
+        numRemaining: 15,
+        color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+      });
+    });
+
+    test('returns the correct counts for Windfall Island', () => {
+      const locationCounts = logic.locationCounts('Windfall Island', {
+        isDungeon: false,
+        onlyProgressLocations: true,
+        disableLogic: false,
+      });
+
+      expect(locationCounts).toEqual({
+        numAvailable: 5,
+        numRemaining: 5,
+        color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+      });
+    });
+
+    test('returns the correct counts for the Forsaken Fortress dungeon', () => {
+      const locationCounts = logic.locationCounts('Forsaken Fortress', {
+        isDungeon: true,
+        onlyProgressLocations: true,
+        disableLogic: false,
+      });
+
+      expect(locationCounts).toEqual({
+        numAvailable: 0,
+        numRemaining: 6,
+        color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+      });
+    });
+
+    test('returns the correct counts for The Great Sea', () => {
+      const locationCounts = logic.locationCounts('The Great Sea', {
+        isDungeon: false,
+        onlyProgressLocations: true,
+        disableLogic: false,
+      });
+
+      expect(locationCounts).toEqual({
+        numAvailable: 2,
+        numRemaining: 4,
+        color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+      });
+    });
+
+    describe('when showing non-progress locations', () => {
+      test('returns the correct counts for the Forsaken Fortress island', () => {
+        const locationCounts = logic.locationCounts('Forsaken Fortress', {
+          isDungeon: false,
+          onlyProgressLocations: false,
+          disableLogic: false,
+        });
+
+        expect(locationCounts).toEqual({
+          numAvailable: 0,
+          numRemaining: 1,
+          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+        });
+      });
+
+      test('returns the correct counts for Rock Spire Isle', () => {
+        const locationCounts = logic.locationCounts('Rock Spire Isle', {
+          isDungeon: false,
+          onlyProgressLocations: false,
+          disableLogic: false,
+        });
+
+        expect(locationCounts).toEqual({
+          numAvailable: 1,
+          numRemaining: 9,
+          color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
+        });
+      });
+
+      test('returns the correct counts for Windfall Island', () => {
+        const locationCounts = logic.locationCounts('Windfall Island', {
+          isDungeon: false,
+          onlyProgressLocations: false,
+          disableLogic: false,
+        });
+
+        expect(locationCounts).toEqual({
+          numAvailable: 17,
+          numRemaining: 38,
+          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+        });
+      });
+    });
+
+    describe('when locations are checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
+            .toggleLocationChecked('Dragon Roost Cavern', 'Rat Room')
+            .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
+        );
+      });
+
       test('returns the correct counts for Dragon Roost Cavern', () => {
         const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
           isDungeon: true,
@@ -490,7 +597,45 @@ describe('LogicCalculation', () => {
         });
 
         expect(locationCounts).toEqual({
-          numAvailable: 3,
+          numAvailable: 2,
+          numRemaining: 13,
+          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+        });
+      });
+
+      test('returns the correct counts for Mother and Child Isles', () => {
+        const locationCounts = logic.locationCounts('Mother and Child Isles', {
+          isDungeon: false,
+          onlyProgressLocations: true,
+          disableLogic: false,
+        });
+
+        expect(locationCounts).toEqual({
+          numAvailable: 0,
+          numRemaining: 0,
+          color: LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION,
+        });
+      });
+    });
+
+    describe('when more locations are available', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .incrementItem('Grappling Hook')
+            .incrementItem('Deku Leaf'),
+        );
+      });
+
+      test('returns the correct counts for Dragon Roost Cavern', () => {
+        const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
+          isDungeon: true,
+          onlyProgressLocations: true,
+          disableLogic: false,
+        });
+
+        expect(locationCounts).toEqual({
+          numAvailable: 15,
           numRemaining: 15,
           color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
         });
@@ -504,92 +649,80 @@ describe('LogicCalculation', () => {
         });
 
         expect(locationCounts).toEqual({
-          numAvailable: 0,
+          numAvailable: 7,
           numRemaining: 15,
-          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
         });
       });
+    });
 
-      test('returns the correct counts for Windfall Island', () => {
-        const locationCounts = logic.locationCounts('Windfall Island', {
+    describe('when location logic is disabled', () => {
+      test('returns the correct count for Outset Island', () => {
+        const locationCounts = logic.locationCounts('Outset Island', {
           isDungeon: false,
           onlyProgressLocations: true,
-          disableLogic: false,
+          disableLogic: true,
         });
 
         expect(locationCounts).toEqual({
-          numAvailable: 5,
-          numRemaining: 5,
+          numAvailable: 3,
+          numRemaining: 3,
           color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
         });
       });
 
-      test('returns the correct counts for the Forsaken Fortress dungeon', () => {
-        const locationCounts = logic.locationCounts('Forsaken Fortress', {
-          isDungeon: true,
+      test('returns the correct count for Islet of Steel', () => {
+        const locationCounts = logic.locationCounts('Islet of Steel', {
+          isDungeon: false,
           onlyProgressLocations: true,
-          disableLogic: false,
+          disableLogic: true,
+        });
+
+        expect(locationCounts).toEqual({
+          numAvailable: 1,
+          numRemaining: 1,
+          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+        });
+      });
+
+      test('returns the correct count for Greatfish Isle', () => {
+        const locationCounts = logic.locationCounts('Greatfish Isle', {
+          isDungeon: false,
+          onlyProgressLocations: true,
+          disableLogic: true,
         });
 
         expect(locationCounts).toEqual({
           numAvailable: 0,
-          numRemaining: 6,
-          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-        });
-      });
-
-      test('returns the correct counts for The Great Sea', () => {
-        const locationCounts = logic.locationCounts('The Great Sea', {
-          isDungeon: false,
-          onlyProgressLocations: true,
-          disableLogic: false,
-        });
-
-        expect(locationCounts).toEqual({
-          numAvailable: 2,
-          numRemaining: 4,
-          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          numRemaining: 0,
+          color: LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION,
         });
       });
 
       describe('when showing non-progress locations', () => {
-        test('returns the correct counts for the Forsaken Fortress island', () => {
-          const locationCounts = logic.locationCounts('Forsaken Fortress', {
+        test('returns the correct count for Spectacle Island', () => {
+          const locationCounts = logic.locationCounts('Spectacle Island', {
             isDungeon: false,
             onlyProgressLocations: false,
-            disableLogic: false,
+            disableLogic: true,
           });
 
           expect(locationCounts).toEqual({
-            numAvailable: 0,
-            numRemaining: 1,
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-          });
-        });
-
-        test('returns the correct counts for Rock Spire Isle', () => {
-          const locationCounts = logic.locationCounts('Rock Spire Isle', {
-            isDungeon: false,
-            onlyProgressLocations: false,
-            disableLogic: false,
-          });
-
-          expect(locationCounts).toEqual({
-            numAvailable: 1,
-            numRemaining: 9,
+            numAvailable: 3,
+            numRemaining: 3,
             color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
           });
         });
 
-        test('returns the correct counts for Windfall Island', () => {
+        test('returns the correct count for Windfall Island', () => {
           const locationCounts = logic.locationCounts('Windfall Island', {
             isDungeon: false,
             onlyProgressLocations: false,
-            disableLogic: false,
+            disableLogic: true,
           });
 
           expect(locationCounts).toEqual({
-            numAvailable: 17,
+            numAvailable: 38,
             numRemaining: 38,
             color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           });
@@ -601,179 +734,239 @@ describe('LogicCalculation', () => {
           logic = new LogicCalculation(
             logic.state
               .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
-              .toggleLocationChecked('Dragon Roost Cavern', 'Rat Room')
-              .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
+              .toggleLocationChecked('Dragon Roost Cavern', 'Rat Room'),
           );
         });
 
-        test('returns the correct counts for Dragon Roost Cavern', () => {
+        test('returns the correct count for Dragon Roost Cavern', () => {
           const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
             isDungeon: true,
             onlyProgressLocations: true,
-            disableLogic: false,
+            disableLogic: true,
           });
 
           expect(locationCounts).toEqual({
-            numAvailable: 2,
+            numAvailable: 13,
             numRemaining: 13,
             color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           });
         });
+      });
+    });
+  });
 
-        test('returns the correct counts for Mother and Child Isles', () => {
-          const locationCounts = logic.locationCounts('Mother and Child Isles', {
-            isDungeon: false,
-            onlyProgressLocations: true,
-            disableLogic: false,
-          });
+  describe('locationsList', () => {
+    beforeEach(() => {
+      fullSetup();
+    });
 
-          expect(locationCounts).toEqual({
-            numAvailable: 0,
-            numRemaining: 0,
-            color: LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION,
-          });
-        });
+    test('returns the correct locations for the Forsaken Fortress dungeon', () => {
+      const locationsList = logic.locationsList('Forsaken Fortress', {
+        isDungeon: true,
+        onlyProgressLocations: true,
+        disableLogic: false,
       });
 
-      describe('when more locations are available', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state
-              .incrementItem('Grappling Hook')
-              .incrementItem('Deku Leaf'),
-          );
-        });
+      expect(locationsList).toEqual([
+        {
+          location: 'Phantom Ganon',
+          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+        },
+        {
+          location: 'Chest Outside Upper Jail Cell',
+          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+        },
+        {
+          location: 'Chest Inside Lower Jail Cell',
+          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+        },
+        {
+          location: 'Chest Guarded By Bokoblin',
+          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+        },
+        {
+          location: 'Chest on Bed',
+          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+        },
+        {
+          location: 'Helmaroc King Heart Container',
+          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+        },
+      ]);
+    });
 
-        test('returns the correct counts for Dragon Roost Cavern', () => {
-          const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
-            isDungeon: true,
-            onlyProgressLocations: true,
-            disableLogic: false,
-          });
-
-          expect(locationCounts).toEqual({
-            numAvailable: 15,
-            numRemaining: 15,
-            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-          });
-        });
-
-        test('returns the correct counts for Forbidden Woods', () => {
-          const locationCounts = logic.locationCounts('Forbidden Woods', {
-            isDungeon: true,
-            onlyProgressLocations: true,
-            disableLogic: false,
-          });
-
-          expect(locationCounts).toEqual({
-            numAvailable: 7,
-            numRemaining: 15,
-            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-          });
-        });
+    test('returns the correct locations for The Great Sea', () => {
+      const locationsList = logic.locationsList('The Great Sea', {
+        isDungeon: false,
+        onlyProgressLocations: true,
+        disableLogic: false,
       });
 
-      describe('when location logic is disabled', () => {
-        test('returns the correct count for Outset Island', () => {
-          const locationCounts = logic.locationCounts('Outset Island', {
-            isDungeon: false,
-            onlyProgressLocations: true,
-            disableLogic: true,
-          });
+      expect(locationsList).toEqual([
+        {
+          location: "Beedle's Shop Ship - 20 Rupee Item",
+          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+        },
+        {
+          location: 'Salvage Corp Gift',
+          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+        },
+        {
+          location: 'Cyclos',
+          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+        },
+        {
+          location: 'Ghost Ship',
+          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+        },
+      ]);
+    });
 
-          expect(locationCounts).toEqual({
-            numAvailable: 3,
-            numRemaining: 3,
-            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-          });
+    describe('when showing non-progress locations', () => {
+      test('returns the correct locations for the Forsaken Fortress island', () => {
+        const locationsList = logic.locationsList('Forsaken Fortress', {
+          isDungeon: false,
+          onlyProgressLocations: false,
+          disableLogic: false,
         });
 
-        test('returns the correct count for Islet of Steel', () => {
-          const locationCounts = logic.locationCounts('Islet of Steel', {
-            isDungeon: false,
-            onlyProgressLocations: true,
-            disableLogic: true,
-          });
+        expect(locationsList).toEqual([
+          {
+            location: 'Sunken Treasure',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+        ]);
+      });
 
-          expect(locationCounts).toEqual({
-            numAvailable: 1,
-            numRemaining: 1,
-            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-          });
+      test('returns the correct locations for Rock Spire Isle', () => {
+        const locationsList = logic.locationsList('Rock Spire Isle', {
+          isDungeon: false,
+          onlyProgressLocations: false,
+          disableLogic: false,
         });
 
-        test('returns the correct count for Greatfish Isle', () => {
-          const locationCounts = logic.locationCounts('Greatfish Isle', {
-            isDungeon: false,
-            onlyProgressLocations: true,
-            disableLogic: true,
-          });
-
-          expect(locationCounts).toEqual({
-            numAvailable: 0,
-            numRemaining: 0,
-            color: LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION,
-          });
-        });
-
-        describe('when showing non-progress locations', () => {
-          test('returns the correct count for Spectacle Island', () => {
-            const locationCounts = logic.locationCounts('Spectacle Island', {
-              isDungeon: false,
-              onlyProgressLocations: false,
-              disableLogic: true,
-            });
-
-            expect(locationCounts).toEqual({
-              numAvailable: 3,
-              numRemaining: 3,
-              color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
-            });
-          });
-
-          test('returns the correct count for Windfall Island', () => {
-            const locationCounts = logic.locationCounts('Windfall Island', {
-              isDungeon: false,
-              onlyProgressLocations: false,
-              disableLogic: true,
-            });
-
-            expect(locationCounts).toEqual({
-              numAvailable: 38,
-              numRemaining: 38,
-              color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-            });
-          });
-        });
-
-        describe('when locations are checked', () => {
-          beforeEach(() => {
-            logic = new LogicCalculation(
-              logic.state
-                .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
-                .toggleLocationChecked('Dragon Roost Cavern', 'Rat Room'),
-            );
-          });
-
-          test('returns the correct count for Dragon Roost Cavern', () => {
-            const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
-              isDungeon: true,
-              onlyProgressLocations: true,
-              disableLogic: true,
-            });
-
-            expect(locationCounts).toEqual({
-              numAvailable: 13,
-              numRemaining: 13,
-              color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-            });
-          });
-        });
+        expect(locationsList).toEqual([
+          {
+            location: 'Cave',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            location: "Beedle's Special Shop Ship - 500 Rupee Item",
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            location: "Beedle's Special Shop Ship - 950 Rupee Item",
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            location: "Beedle's Special Shop Ship - 900 Rupee Item",
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            location: 'Western Lookout Platform - Destroy the Cannons',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            location: 'Eastern Lookout Platform - Destroy the Cannons',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            location: 'Center Lookout Platform',
+            color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
+          },
+          {
+            location: 'Gunboat',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            location: 'Sunken Treasure',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+        ]);
       });
     });
 
-    describe('locationsList', () => {
-      test('returns the correct locations for the Forsaken Fortress dungeon', () => {
+    describe('when locations are checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .toggleLocationChecked('Cliff Plateau Isles', 'Cave')
+            .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
+        );
+      });
+
+      test('returns the correct locations for Cliff Plateau Isles', () => {
+        const locationsList = logic.locationsList('Cliff Plateau Isles', {
+          isDungeon: false,
+          onlyProgressLocations: true,
+          disableLogic: false,
+        });
+
+        expect(locationsList).toEqual([
+          {
+            location: 'Cave',
+            color: LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION,
+          },
+          {
+            location: 'Highest Isle',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+        ]);
+      });
+
+      test('returns the correct locations for Mother and Child Isles', () => {
+        const locationsList = logic.locationsList('Mother and Child Isles', {
+          isDungeon: false,
+          onlyProgressLocations: true,
+          disableLogic: false,
+        });
+
+        expect(locationsList).toEqual([
+          {
+            location: 'Inside Mother Isle',
+            color: LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION,
+          },
+        ]);
+      });
+    });
+
+    describe('when more locations are available', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .incrementItem('Bombs')
+            .incrementItem('Skull Hammer'),
+        );
+      });
+
+      test('returns the correct locations for Pawprint Isle', () => {
+        const locationsList = logic.locationsList('Pawprint Isle', {
+          isDungeon: false,
+          onlyProgressLocations: true,
+          disableLogic: false,
+        });
+
+        expect(locationsList).toEqual([
+          {
+            location: 'Chuchu Cave - Chest',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          },
+          {
+            location: 'Chuchu Cave - Behind First Boulder',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          },
+          {
+            location: 'Chuchu Cave - Behind Second Boulder',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          },
+          {
+            location: 'Chuchu Cave - Scale the Wall',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+        ]);
+      });
+
+      test('returns the correct locations for Forsaken Fortress', () => {
         const locationsList = logic.locationsList('Forsaken Fortress', {
           isDungeon: true,
           onlyProgressLocations: true,
@@ -791,15 +984,15 @@ describe('LogicCalculation', () => {
           },
           {
             location: 'Chest Inside Lower Jail Cell',
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           },
           {
             location: 'Chest Guarded By Bokoblin',
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           },
           {
             location: 'Chest on Bed',
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           },
           {
             location: 'Helmaroc King Heart Container',
@@ -807,93 +1000,104 @@ describe('LogicCalculation', () => {
           },
         ]);
       });
+    });
 
-      test('returns the correct locations for The Great Sea', () => {
-        const locationsList = logic.locationsList('The Great Sea', {
+    describe('when location logic is disabled', () => {
+      test('returns the correct locations for Outset Island', () => {
+        const locationsList = logic.locationsList('Outset Island', {
           isDungeon: false,
           onlyProgressLocations: true,
-          disableLogic: false,
+          disableLogic: true,
         });
 
         expect(locationsList).toEqual([
           {
-            location: "Beedle's Shop Ship - 20 Rupee Item",
+            location: "Underneath Link's House",
             color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           },
           {
-            location: 'Salvage Corp Gift',
+            location: "Mesa the Grasscutter's House",
             color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           },
           {
-            location: 'Cyclos',
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-          },
-          {
-            location: 'Ghost Ship',
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+            location: 'Great Fairy',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           },
         ]);
       });
 
+      test('returns the correct locations for Islet of Steel', () => {
+        const locationsList = logic.locationsList('Islet of Steel', {
+          isDungeon: false,
+          onlyProgressLocations: true,
+          disableLogic: true,
+        });
+
+        expect(locationsList).toEqual([
+          {
+            location: 'Interior',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          },
+        ]);
+      });
+
+      test('returns the correct locations for Greatfish Isle', () => {
+        const locationsList = logic.locationsList('Greatfish Isle', {
+          isDungeon: false,
+          onlyProgressLocations: true,
+          disableLogic: true,
+        });
+
+        expect(locationsList).toEqual([]);
+      });
+
       describe('when showing non-progress locations', () => {
-        test('returns the correct locations for the Forsaken Fortress island', () => {
-          const locationsList = logic.locationsList('Forsaken Fortress', {
+        test('returns the correct locations for Spectacle Island', () => {
+          const locationsList = logic.locationsList('Spectacle Island', {
             isDungeon: false,
             onlyProgressLocations: false,
-            disableLogic: false,
+            disableLogic: true,
           });
 
           expect(locationsList).toEqual([
             {
+              location: 'Barrel Shooting - First Prize',
+              color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
+            },
+            {
+              location: 'Barrel Shooting - Second Prize',
+              color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
+            },
+            {
               location: 'Sunken Treasure',
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+              color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
             },
           ]);
         });
 
-        test('returns the correct locations for Rock Spire Isle', () => {
-          const locationsList = logic.locationsList('Rock Spire Isle', {
+        test('returns the correct locations for Bomb Island', () => {
+          const locationsList = logic.locationsList('Bomb Island', {
             isDungeon: false,
             onlyProgressLocations: false,
-            disableLogic: false,
+            disableLogic: true,
           });
 
           expect(locationsList).toEqual([
             {
               location: 'Cave',
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+              color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
             },
             {
-              location: "Beedle's Special Shop Ship - 500 Rupee Item",
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-            },
-            {
-              location: "Beedle's Special Shop Ship - 950 Rupee Item",
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-            },
-            {
-              location: "Beedle's Special Shop Ship - 900 Rupee Item",
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-            },
-            {
-              location: 'Western Lookout Platform - Destroy the Cannons',
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-            },
-            {
-              location: 'Eastern Lookout Platform - Destroy the Cannons',
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-            },
-            {
-              location: 'Center Lookout Platform',
+              location: 'Lookout Platform - Defeat the Enemies',
               color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
             },
             {
-              location: 'Gunboat',
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+              location: 'Submarine',
+              color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
             },
             {
               location: 'Sunken Treasure',
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+              color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
             },
           ]);
         });
@@ -902,609 +1106,546 @@ describe('LogicCalculation', () => {
       describe('when locations are checked', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state
-              .toggleLocationChecked('Cliff Plateau Isles', 'Cave')
-              .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
+            logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
           );
         });
 
-        test('returns the correct locations for Cliff Plateau Isles', () => {
-          const locationsList = logic.locationsList('Cliff Plateau Isles', {
-            isDungeon: false,
-            onlyProgressLocations: true,
-            disableLogic: false,
-          });
-
-          expect(locationsList).toEqual([
-            {
-              location: 'Cave',
-              color: LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION,
-            },
-            {
-              location: 'Highest Isle',
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-            },
-          ]);
-        });
-
-        test('returns the correct locations for Mother and Child Isles', () => {
-          const locationsList = logic.locationsList('Mother and Child Isles', {
-            isDungeon: false,
-            onlyProgressLocations: true,
-            disableLogic: false,
-          });
-
-          expect(locationsList).toEqual([
-            {
-              location: 'Inside Mother Isle',
-              color: LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION,
-            },
-          ]);
-        });
-      });
-
-      describe('when more locations are available', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state
-              .incrementItem('Bombs')
-              .incrementItem('Skull Hammer'),
-          );
-        });
-
-        test('returns the correct locations for Pawprint Isle', () => {
-          const locationsList = logic.locationsList('Pawprint Isle', {
-            isDungeon: false,
-            onlyProgressLocations: true,
-            disableLogic: false,
-          });
-
-          expect(locationsList).toEqual([
-            {
-              location: 'Chuchu Cave - Chest',
-              color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-            },
-            {
-              location: 'Chuchu Cave - Behind First Boulder',
-              color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-            },
-            {
-              location: 'Chuchu Cave - Behind Second Boulder',
-              color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-            },
-            {
-              location: 'Chuchu Cave - Scale the Wall',
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-            },
-          ]);
-        });
-
-        test('returns the correct locations for Forsaken Fortress', () => {
-          const locationsList = logic.locationsList('Forsaken Fortress', {
+        test("returns the correct locations for Ganon's Tower", () => {
+          const locationsList = logic.locationsList("Ganon's Tower", {
             isDungeon: true,
             onlyProgressLocations: true,
-            disableLogic: false,
-          });
-
-          expect(locationsList).toEqual([
-            {
-              location: 'Phantom Ganon',
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-            },
-            {
-              location: 'Chest Outside Upper Jail Cell',
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-            },
-            {
-              location: 'Chest Inside Lower Jail Cell',
-              color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-            },
-            {
-              location: 'Chest Guarded By Bokoblin',
-              color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-            },
-            {
-              location: 'Chest on Bed',
-              color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-            },
-            {
-              location: 'Helmaroc King Heart Container',
-              color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-            },
-          ]);
-        });
-      });
-
-      describe('when location logic is disabled', () => {
-        test('returns the correct locations for Outset Island', () => {
-          const locationsList = logic.locationsList('Outset Island', {
-            isDungeon: false,
-            onlyProgressLocations: true,
             disableLogic: true,
           });
 
           expect(locationsList).toEqual([
             {
-              location: "Underneath Link's House",
+              location: 'Maze Chest',
               color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
             },
             {
-              location: "Mesa the Grasscutter's House",
-              color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-            },
-            {
-              location: 'Great Fairy',
-              color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+              location: 'Defeat Ganondorf',
+              color: LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION,
             },
           ]);
         });
+      });
+    });
+  });
 
-        test('returns the correct locations for Islet of Steel', () => {
-          const locationsList = logic.locationsList('Islet of Steel', {
-            isDungeon: false,
-            onlyProgressLocations: true,
-            disableLogic: true,
-          });
-
-          expect(locationsList).toEqual([
-            {
-              location: 'Interior',
-              color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-            },
-          ]);
+  describe('entrancesList', () => {
+    describe('when entrances are not randomized', () => {
+      beforeEach(() => {
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+          },
         });
+      });
 
-        test('returns the correct locations for Greatfish Isle', () => {
-          const locationsList = logic.locationsList('Greatfish Isle', {
-            isDungeon: false,
-            onlyProgressLocations: true,
-            disableLogic: true,
-          });
+      test('returns an empty array', () => {
+        const entrancesList = logic.entrancesList({ disableLogic: false });
 
-          expect(locationsList).toEqual([]);
-        });
-
-        describe('when showing non-progress locations', () => {
-          test('returns the correct locations for Spectacle Island', () => {
-            const locationsList = logic.locationsList('Spectacle Island', {
-              isDungeon: false,
-              onlyProgressLocations: false,
-              disableLogic: true,
-            });
-
-            expect(locationsList).toEqual([
-              {
-                location: 'Barrel Shooting - First Prize',
-                color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
-              },
-              {
-                location: 'Barrel Shooting - Second Prize',
-                color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
-              },
-              {
-                location: 'Sunken Treasure',
-                color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
-              },
-            ]);
-          });
-
-          test('returns the correct locations for Bomb Island', () => {
-            const locationsList = logic.locationsList('Bomb Island', {
-              isDungeon: false,
-              onlyProgressLocations: false,
-              disableLogic: true,
-            });
-
-            expect(locationsList).toEqual([
-              {
-                location: 'Cave',
-                color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-              },
-              {
-                location: 'Lookout Platform - Defeat the Enemies',
-                color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
-              },
-              {
-                location: 'Submarine',
-                color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
-              },
-              {
-                location: 'Sunken Treasure',
-                color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
-              },
-            ]);
-          });
-        });
-
-        describe('when locations are checked', () => {
-          beforeEach(() => {
-            logic = new LogicCalculation(
-              logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
-            );
-          });
-
-          test("returns the correct locations for Ganon's Tower", () => {
-            const locationsList = logic.locationsList("Ganon's Tower", {
-              isDungeon: true,
-              onlyProgressLocations: true,
-              disableLogic: true,
-            });
-
-            expect(locationsList).toEqual([
-              {
-                location: 'Maze Chest',
-                color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-              },
-              {
-                location: 'Defeat Ganondorf',
-                color: LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION,
-              },
-            ]);
-          });
-        });
+        expect(entrancesList).toEqual([]);
       });
     });
 
-    describe('totalLocationsChecked', () => {
-      describe('when no locations are checked', () => {
-        test('returns 0', () => {
-          const totalLocationsChecked = logic.totalLocationsChecked(
-            { onlyProgressLocations: true },
-          );
-
-          expect(totalLocationsChecked).toEqual(0);
+    describe('when entrances are randomized', () => {
+      beforeEach(() => {
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+          },
         });
       });
 
-      describe('when some locations are checked', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state
-              .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
-              .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle')
-              .toggleLocationChecked('Windfall Island', 'Transparent Chest'),
-          );
-        });
+      test('returns the list of entrances', () => {
+        const entrancesList = logic.entrancesList({ disableLogic: false });
 
-        test('returns the number of checked progress locations', () => {
-          const totalLocationsChecked = logic.totalLocationsChecked(
-            { onlyProgressLocations: true },
-          );
-
-          expect(totalLocationsChecked).toEqual(2);
-        });
-      });
-
-      describe('when showing non-progress locations', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state
-              .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
-              .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle')
-              .toggleLocationChecked('Windfall Island', 'Transparent Chest'),
-          );
-        });
-
-        test('returns the number of checked locations', () => {
-          const totalLocationsChecked = logic.totalLocationsChecked(
-            { onlyProgressLocations: false },
-          );
-
-          expect(totalLocationsChecked).toEqual(3);
-        });
-      });
-
-      describe('when Defeat Ganondorf is checked', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state
-              .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
-              .toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
-          );
-        });
-
-        test('excludes the Defeat Ganondorf location from the total', () => {
-          const totalLocationsChecked = logic.totalLocationsChecked(
-            { onlyProgressLocations: true },
-          );
-
-          expect(totalLocationsChecked).toEqual(1);
-        });
+        expect(entrancesList).toEqual([
+          {
+            entrance: 'Dragon Roost Cavern',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Forbidden Woods',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Tower of the Gods',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Earth Temple',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Wind Temple',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+        ]);
       });
     });
 
-    describe('totalLocationsAvailable', () => {
-      describe('when only showing progress locations', () => {
-        test('returns the correct total', () => {
-          const totalLocationsAvailable = logic.totalLocationsAvailable({
-            onlyProgressLocations: true,
-          });
-
-          expect(totalLocationsAvailable).toEqual(18);
+    describe('when logic is disabled', () => {
+      beforeEach(() => {
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+          },
         });
       });
 
-      describe('when showing non-progress locations', () => {
-        test('returns the correct total', () => {
-          const totalLocationsAvailable = logic.totalLocationsAvailable({
-            onlyProgressLocations: false,
-          });
+      test('returns the list of entrances as all available', () => {
+        const entrancesList = logic.entrancesList({ disableLogic: true });
 
-          expect(totalLocationsAvailable).toEqual(59);
-        });
-      });
-
-      describe('when a location is checked', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state.toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
-          );
-        });
-
-        test('excludes the location from the total', () => {
-          const totalLocationsAvailable = logic.totalLocationsAvailable({
-            onlyProgressLocations: true,
-          });
-
-          expect(totalLocationsAvailable).toEqual(17);
-        });
-      });
-
-      describe('when Defeat Ganondorf is available', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard') // Triforce Shard x8
-              .incrementItem('Progressive Sword')
-              .incrementItem('Progressive Sword')
-              .incrementItem('Progressive Sword') // Progressive Sword x4
-              .incrementItem('Progressive Bow')
-              .incrementItem('Progressive Bow')
-              .incrementItem('Progressive Bow') // Progressive Bow x3
-              .incrementItem('Boomerang')
-              .incrementItem('Grappling Hook')
-              .incrementItem('Hookshot'),
-          );
-        });
-
-        test('excludes the Defeat Ganondorf location from the total', () => {
-          const totalLocationsAvailable = logic.totalLocationsAvailable({
-            onlyProgressLocations: true,
-          });
-
-          expect(totalLocationsAvailable).toEqual(40);
-        });
+        expect(entrancesList).toEqual([
+          {
+            entrance: 'Dragon Roost Cavern',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Forbidden Woods',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Tower of the Gods',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Earth Temple',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Wind Temple',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          },
+        ]);
       });
     });
 
-    describe('totalLocationsRemaining', () => {
-      describe('when only showing progress locations', () => {
-        test('returns the correct total', () => {
-          const totalLocationsRemaining = logic.totalLocationsRemaining({
-            onlyProgressLocations: true,
-          });
-
-          expect(totalLocationsRemaining).toEqual(120);
+    describe('when an entrance is checked', () => {
+      beforeEach(() => {
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+          },
         });
+
+        logic = new LogicCalculation(
+          logic.state
+            .setEntranceForExit('Dragon Roost Cavern', 'Forbidden Woods')
+            .incrementItem('Entered DRC'),
+        );
       });
 
-      describe('when showing non-progress locations', () => {
-        test('returns the correct total', () => {
-          const totalLocationsRemaining = logic.totalLocationsRemaining({
-            onlyProgressLocations: false,
-          });
+      test('returns the list of entrances with FW checked', () => {
+        const entrancesList = logic.entrancesList({ disableLogic: false });
 
-          expect(totalLocationsRemaining).toEqual(305);
-        });
+        expect(entrancesList).toEqual([
+          {
+            entrance: 'Dragon Roost Cavern',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Forbidden Woods',
+            color: LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION,
+          },
+          {
+            entrance: 'Tower of the Gods',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Earth Temple',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Wind Temple',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+        ]);
       });
+    });
+  });
 
-      describe('when a location is checked', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state.toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
-          );
-        });
+  describe('totalLocationsChecked', () => {
+    beforeEach(() => {
+      fullSetup();
+    });
 
-        test('excludes the location from the total', () => {
-          const totalLocationsRemaining = logic.totalLocationsRemaining({
-            onlyProgressLocations: true,
-          });
+    describe('when no locations are checked', () => {
+      test('returns 0', () => {
+        const totalLocationsChecked = logic.totalLocationsChecked(
+          { onlyProgressLocations: true },
+        );
 
-          expect(totalLocationsRemaining).toEqual(119);
-        });
+        expect(totalLocationsChecked).toEqual(0);
       });
     });
 
-    describe('itemsNeededToFinishGame', () => {
+    describe('when some locations are checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
+            .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle')
+            .toggleLocationChecked('Windfall Island', 'Transparent Chest'),
+        );
+      });
+
+      test('returns the number of checked progress locations', () => {
+        const totalLocationsChecked = logic.totalLocationsChecked(
+          { onlyProgressLocations: true },
+        );
+
+        expect(totalLocationsChecked).toEqual(2);
+      });
+    });
+
+    describe('when showing non-progress locations', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
+            .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle')
+            .toggleLocationChecked('Windfall Island', 'Transparent Chest'),
+        );
+      });
+
+      test('returns the number of checked locations', () => {
+        const totalLocationsChecked = logic.totalLocationsChecked(
+          { onlyProgressLocations: false },
+        );
+
+        expect(totalLocationsChecked).toEqual(3);
+      });
+    });
+
+    describe('when Defeat Ganondorf is checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
+            .toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+        );
+      });
+
+      test('excludes the Defeat Ganondorf location from the total', () => {
+        const totalLocationsChecked = logic.totalLocationsChecked(
+          { onlyProgressLocations: true },
+        );
+
+        expect(totalLocationsChecked).toEqual(1);
+      });
+    });
+  });
+
+  describe('totalLocationsAvailable', () => {
+    beforeEach(() => {
+      fullSetup();
+    });
+
+    describe('when only showing progress locations', () => {
+      test('returns the correct total', () => {
+        const totalLocationsAvailable = logic.totalLocationsAvailable({
+          onlyProgressLocations: true,
+        });
+
+        expect(totalLocationsAvailable).toEqual(18);
+      });
+    });
+
+    describe('when showing non-progress locations', () => {
+      test('returns the correct total', () => {
+        const totalLocationsAvailable = logic.totalLocationsAvailable({
+          onlyProgressLocations: false,
+        });
+
+        expect(totalLocationsAvailable).toEqual(59);
+      });
+    });
+
+    describe('when a location is checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state.toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
+        );
+      });
+
+      test('excludes the location from the total', () => {
+        const totalLocationsAvailable = logic.totalLocationsAvailable({
+          onlyProgressLocations: true,
+        });
+
+        expect(totalLocationsAvailable).toEqual(17);
+      });
+    });
+
+    describe('when Defeat Ganondorf is available', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard') // Triforce Shard x8
+            .incrementItem('Progressive Sword')
+            .incrementItem('Progressive Sword')
+            .incrementItem('Progressive Sword') // Progressive Sword x4
+            .incrementItem('Progressive Bow')
+            .incrementItem('Progressive Bow')
+            .incrementItem('Progressive Bow') // Progressive Bow x3
+            .incrementItem('Boomerang')
+            .incrementItem('Grappling Hook')
+            .incrementItem('Hookshot'),
+        );
+      });
+
+      test('excludes the Defeat Ganondorf location from the total', () => {
+        const totalLocationsAvailable = logic.totalLocationsAvailable({
+          onlyProgressLocations: true,
+        });
+
+        expect(totalLocationsAvailable).toEqual(40);
+      });
+    });
+  });
+
+  describe('totalLocationsRemaining', () => {
+    beforeEach(() => {
+      fullSetup();
+    });
+
+    describe('when only showing progress locations', () => {
+      test('returns the correct total', () => {
+        const totalLocationsRemaining = logic.totalLocationsRemaining({
+          onlyProgressLocations: true,
+        });
+
+        expect(totalLocationsRemaining).toEqual(120);
+      });
+    });
+
+    describe('when showing non-progress locations', () => {
+      test('returns the correct total', () => {
+        const totalLocationsRemaining = logic.totalLocationsRemaining({
+          onlyProgressLocations: false,
+        });
+
+        expect(totalLocationsRemaining).toEqual(305);
+      });
+    });
+
+    describe('when a location is checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state.toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
+        );
+      });
+
+      test('excludes the location from the total', () => {
+        const totalLocationsRemaining = logic.totalLocationsRemaining({
+          onlyProgressLocations: true,
+        });
+
+        expect(totalLocationsRemaining).toEqual(119);
+      });
+    });
+  });
+
+  describe('itemsNeededToFinishGame', () => {
+    beforeEach(() => {
+      fullSetup();
+    });
+
+    test('returns the correct total', () => {
+      const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+      expect(itemsNeededToFinishGame).toEqual(17);
+    });
+
+    describe('when some required items are obtained', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .incrementItem('Deku Leaf') // not required to finish game
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard') // Triforce Shard x4
+            .incrementItem('Progressive Sword') // Progressive Sword x2
+            .incrementItem('Progressive Bow'),
+        );
+      });
+
       test('returns the correct total', () => {
         const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
 
-        expect(itemsNeededToFinishGame).toEqual(17);
-      });
-
-      describe('when some required items are obtained', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state
-              .incrementItem('Deku Leaf') // not required to finish game
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard') // Triforce Shard x4
-              .incrementItem('Progressive Sword') // Progressive Sword x2
-              .incrementItem('Progressive Bow'),
-          );
-        });
-
-        test('returns the correct total', () => {
-          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
-
-          expect(itemsNeededToFinishGame).toEqual(11);
-        });
-      });
-
-      describe('when Defeat Ganondorf is checked', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
-          );
-        });
-
-        test('returns 0', () => {
-          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
-
-          expect(itemsNeededToFinishGame).toEqual(0);
-        });
-      });
-
-      describe('when all required items are obtained', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard') // Triforce Shard x8
-              .incrementItem('Progressive Sword')
-              .incrementItem('Progressive Sword')
-              .incrementItem('Progressive Sword') // Progressive Sword x4
-              .incrementItem('Progressive Bow')
-              .incrementItem('Progressive Bow')
-              .incrementItem('Progressive Bow') // Progressive Bow x3
-              .incrementItem('Boomerang')
-              .incrementItem('Grappling Hook')
-              .incrementItem('Hookshot'),
-          );
-        });
-
-        test('returns 0', () => {
-          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
-
-          expect(itemsNeededToFinishGame).toEqual(0);
-        });
+        expect(itemsNeededToFinishGame).toEqual(11);
       });
     });
 
-    describe('estimatedLocationsLeftToCheck', () => {
+    describe('when Defeat Ganondorf is checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+        );
+      });
+
+      test('returns 0', () => {
+        const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+        expect(itemsNeededToFinishGame).toEqual(0);
+      });
+    });
+
+    describe('when all required items are obtained', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard') // Triforce Shard x8
+            .incrementItem('Progressive Sword')
+            .incrementItem('Progressive Sword')
+            .incrementItem('Progressive Sword') // Progressive Sword x4
+            .incrementItem('Progressive Bow')
+            .incrementItem('Progressive Bow')
+            .incrementItem('Progressive Bow') // Progressive Bow x3
+            .incrementItem('Boomerang')
+            .incrementItem('Grappling Hook')
+            .incrementItem('Hookshot'),
+        );
+      });
+
+      test('returns 0', () => {
+        const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+        expect(itemsNeededToFinishGame).toEqual(0);
+      });
+    });
+  });
+
+  describe('estimatedLocationsLeftToCheck', () => {
+    beforeEach(() => {
+      fullSetup();
+    });
+
+    test('returns the correct total', () => {
+      const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
+
+      expect(estimatedLocationsLeftToCheck).toEqual(114);
+    });
+
+    describe('when some locations are checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
+            .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
+        );
+      });
+
       test('returns the correct total', () => {
         const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        expect(estimatedLocationsLeftToCheck).toEqual(114);
+        expect(estimatedLocationsLeftToCheck).toEqual(112);
+      });
+    });
+
+    describe('when some required items are obtained', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .incrementItem('Deku Leaf') // not required to finish game
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard') // Triforce Shard x4
+            .incrementItem('Progressive Sword') // Progressive Sword x2
+            .incrementItem('Progressive Bow'),
+        );
       });
 
-      describe('when some locations are checked', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state
-              .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
-              .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
-          );
-        });
+      test('returns the correct total', () => {
+        const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        test('returns the correct total', () => {
-          const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
+        expect(estimatedLocationsLeftToCheck).toEqual(111);
+      });
+    });
 
-          expect(estimatedLocationsLeftToCheck).toEqual(112);
-        });
+    describe('when all required items are obtained', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard')
+            .incrementItem('Triforce Shard') // Triforce Shard x8
+            .incrementItem('Progressive Sword')
+            .incrementItem('Progressive Sword')
+            .incrementItem('Progressive Sword') // Progressive Sword x4
+            .incrementItem('Progressive Bow')
+            .incrementItem('Progressive Bow')
+            .incrementItem('Progressive Bow') // Progressive Bow x3
+            .incrementItem('Boomerang')
+            .incrementItem('Grappling Hook')
+            .incrementItem('Hookshot'),
+        );
       });
 
-      describe('when some required items are obtained', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state
-              .incrementItem('Deku Leaf') // not required to finish game
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard') // Triforce Shard x4
-              .incrementItem('Progressive Sword') // Progressive Sword x2
-              .incrementItem('Progressive Bow'),
-          );
-        });
+      test('returns 0', () => {
+        const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        test('returns the correct total', () => {
-          const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
+        expect(estimatedLocationsLeftToCheck).toEqual(0);
+      });
+    });
 
-          expect(estimatedLocationsLeftToCheck).toEqual(111);
-        });
+    describe('when Defeat Ganondorf is checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+        );
       });
 
-      describe('when all required items are obtained', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard')
-              .incrementItem('Triforce Shard') // Triforce Shard x8
-              .incrementItem('Progressive Sword')
-              .incrementItem('Progressive Sword')
-              .incrementItem('Progressive Sword') // Progressive Sword x4
-              .incrementItem('Progressive Bow')
-              .incrementItem('Progressive Bow')
-              .incrementItem('Progressive Bow') // Progressive Bow x3
-              .incrementItem('Boomerang')
-              .incrementItem('Grappling Hook')
-              .incrementItem('Hookshot'),
-          );
-        });
+      test('returns 0', () => {
+        const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        test('returns 0', () => {
-          const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
-
-          expect(estimatedLocationsLeftToCheck).toEqual(0);
-        });
+        expect(estimatedLocationsLeftToCheck).toEqual(0);
       });
+    });
 
-      describe('when Defeat Ganondorf is checked', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
-          );
-        });
+    describe('when all locations are checked', () => {
+      beforeEach(() => {
+        let { state } = logic;
 
-        test('returns 0', () => {
-          const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
-
-          expect(estimatedLocationsLeftToCheck).toEqual(0);
-        });
-      });
-
-      describe('when all locations are checked', () => {
-        beforeEach(() => {
-          let { state } = logic;
-
-          _.forEach(Locations.locations, (detailedLocations, generalLocation) => {
-            _.forEach(detailedLocations, (locationData, detailedLocation) => {
-              if (detailedLocation !== 'Defeat Ganondorf') {
-                state = state.toggleLocationChecked(generalLocation, detailedLocation);
-              }
-            });
+        _.forEach(Locations.locations, (detailedLocations, generalLocation) => {
+          _.forEach(detailedLocations, (locationData, detailedLocation) => {
+            if (detailedLocation !== 'Defeat Ganondorf') {
+              state = state.toggleLocationChecked(generalLocation, detailedLocation);
+            }
           });
-
-          logic = new LogicCalculation(state);
         });
 
-        test('returns 0', () => {
-          const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
+        logic = new LogicCalculation(state);
+      });
 
-          expect(estimatedLocationsLeftToCheck).toEqual(0);
-        });
+      test('returns 0', () => {
+        const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
+
+        expect(estimatedLocationsLeftToCheck).toEqual(0);
       });
     });
   });

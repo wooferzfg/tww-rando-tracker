@@ -1,6 +1,5 @@
 import _ from 'lodash';
 
-import DUNGEONS from '../data/dungeons.json';
 import KEYS from '../data/keys.json';
 
 import Locations from './locations';
@@ -113,6 +112,26 @@ export default class LogicCalculation {
 
       return {
         location: detailedLocation,
+        color,
+      };
+    });
+  }
+
+  entrancesList({ disableLogic }) {
+    const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+    return _.map(allRandomEntrances, (dungeonOrCaveName) => {
+      const isAvailable = this._isEntranceAvailable(dungeonOrCaveName);
+      const isChecked = false;
+
+      const color = LogicCalculation._locationColor(
+        disableLogic || isAvailable,
+        isChecked,
+        true,
+      );
+
+      return {
+        entrance: dungeonOrCaveName,
         color,
       };
     });
@@ -250,25 +269,23 @@ export default class LogicCalculation {
     );
 
     if (!Settings.getOptionValue(Permalink.OPTIONS.KEYLUNACY)) {
-      _.forEach(DUNGEONS, (dungeonName) => {
-        if (LogicHelper.isMainDungeon(dungeonName)) {
-          const {
-            guaranteedSmallKeys,
-            guaranteedBigKeys,
-          } = this._guaranteedKeysForDungeon(dungeonName);
+      _.forEach(LogicHelper.mainDungeons(), (dungeonName) => {
+        const {
+          guaranteedSmallKeys,
+          guaranteedBigKeys,
+        } = this._guaranteedKeysForDungeon(dungeonName);
 
-          const smallKeyName = LogicHelper.smallKeyName(dungeonName);
-          const bigKeyName = LogicHelper.bigKeyName(dungeonName);
+        const smallKeyName = LogicHelper.smallKeyName(dungeonName);
+        const bigKeyName = LogicHelper.bigKeyName(dungeonName);
 
-          const currentSmallKeyCount = _.get(this.guaranteedKeys, smallKeyName);
-          const currentBigKeyCount = _.get(this.guaranteedKeys, bigKeyName);
+        const currentSmallKeyCount = _.get(this.guaranteedKeys, smallKeyName);
+        const currentBigKeyCount = _.get(this.guaranteedKeys, bigKeyName);
 
-          if (guaranteedSmallKeys > currentSmallKeyCount) {
-            _.set(this.guaranteedKeys, smallKeyName, guaranteedSmallKeys);
-          }
-          if (guaranteedBigKeys > currentBigKeyCount) {
-            _.set(this.guaranteedKeys, bigKeyName, guaranteedBigKeys);
-          }
+        if (guaranteedSmallKeys > currentSmallKeyCount) {
+          _.set(this.guaranteedKeys, smallKeyName, guaranteedSmallKeys);
+        }
+        if (guaranteedBigKeys > currentBigKeyCount) {
+          _.set(this.guaranteedKeys, bigKeyName, guaranteedBigKeys);
         }
       });
     }

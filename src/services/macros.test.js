@@ -1,7 +1,7 @@
 import Macros from './macros';
 
 describe('Macros', () => {
-  afterEach(() => {
+  beforeEach(() => {
     Macros.reset();
   });
 

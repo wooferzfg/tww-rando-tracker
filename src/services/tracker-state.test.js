@@ -5,7 +5,7 @@ import LogicHelper from './logic-helper';
 import TrackerState from './tracker-state';
 
 describe('TrackerState', () => {
-  afterEach(() => {
+  beforeEach(() => {
     Locations.reset();
     LogicHelper.reset();
   });

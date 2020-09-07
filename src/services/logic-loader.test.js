@@ -3,6 +3,8 @@ import Settings from './settings';
 
 describe('LogicLoader', () => {
   beforeEach(() => {
+    Settings.reset();
+
     Settings.version = '1.8.0';
 
     const itemLocationsFile = `
@@ -48,10 +50,6 @@ describe('LogicLoader', () => {
         text: () => Promise.resolve(mockFileForUrl),
       });
     };
-  });
-
-  afterEach(() => {
-    Settings.reset();
   });
 
   test('returns the item locations file and macros file', async () => {

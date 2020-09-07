@@ -10,14 +10,12 @@ import Settings from './settings';
 describe('LogicTweaks', () => {
   describe('applyTweaks', () => {
     beforeEach(() => {
-      Locations.initialize(TEST_ITEM_LOCATIONS);
-      Macros.initialize(TEST_MACROS);
-    });
-
-    afterEach(() => {
       Locations.reset();
       Macros.reset();
       Settings.reset();
+
+      Locations.initialize(TEST_ITEM_LOCATIONS);
+      Macros.initialize(TEST_MACROS);
     });
 
     describe('when no options are set', () => {

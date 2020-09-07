@@ -13,7 +13,7 @@ import TrackerController from './tracker-controller';
 import TrackerState from './tracker-state';
 
 describe('TrackerController', () => {
-  afterEach(() => {
+  beforeEach(() => {
     TrackerController.reset();
   });
 

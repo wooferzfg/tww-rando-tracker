@@ -3,7 +3,7 @@ import _ from 'lodash';
 import Locations from './locations';
 
 describe('Locations', () => {
-  afterEach(() => {
+  beforeEach(() => {
     Locations.reset();
   });
 
