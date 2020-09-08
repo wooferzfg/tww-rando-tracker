@@ -1267,6 +1267,49 @@ describe('LogicCalculation', () => {
     });
   });
 
+  describe('entrancesListForExit', () => {
+    describe('when all entrances are randomized separately', () => {
+      beforeEach(() => {
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+          },
+        });
+      });
+
+      test('returns only the dungeon entrances', () => {
+        const entrancesListForExit = logic.entrancesListForExit(
+          'Tower of the Gods',
+          { disableLogic: false },
+        );
+
+        expect(entrancesListForExit).toEqual([
+          {
+            entrance: 'Dragon Roost Cavern',
+            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Forbidden Woods',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Tower of the Gods',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Earth Temple',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            entrance: 'Wind Temple',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+        ]);
+      });
+    });
+  });
+
   describe('totalLocationsChecked', () => {
     beforeEach(() => {
       fullSetup();

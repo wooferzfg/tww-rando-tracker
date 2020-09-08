@@ -118,23 +118,17 @@ export default class LogicCalculation {
   }
 
   entrancesList({ disableLogic }) {
-    const allRandomEntrances = LogicHelper.allRandomEntrances();
+    return this._entrancesListForEntrances(
+      LogicHelper.allRandomEntrances(),
+      { disableLogic },
+    );
+  }
 
-    return _.map(allRandomEntrances, (dungeonOrCaveName) => {
-      const isAvailable = this._isEntranceAvailable(dungeonOrCaveName);
-      const isChecked = this.state.isEntranceChecked(dungeonOrCaveName);
-
-      const color = LogicCalculation._locationColor(
-        disableLogic || isAvailable,
-        isChecked,
-        true,
-      );
-
-      return {
-        entrance: dungeonOrCaveName,
-        color,
-      };
-    });
+  entrancesListForExit(dungeonOrCaveName, { disableLogic }) {
+    return this._entrancesListForEntrances(
+      LogicHelper.randomEntrancesForExit(dungeonOrCaveName),
+      { disableLogic },
+    );
   }
 
   totalLocationsChecked({ onlyProgressLocations }) {
@@ -204,6 +198,24 @@ export default class LogicCalculation {
     const bossLocation = LogicHelper.bossLocation(dungeonName);
 
     return this.state.isLocationChecked(dungeonName, bossLocation);
+  }
+
+  _entrancesListForEntrances(entrances, { disableLogic }) {
+    return _.map(entrances, (dungeonOrCaveName) => {
+      const isAvailable = this._isEntranceAvailable(dungeonOrCaveName);
+      const isChecked = this.state.isEntranceChecked(dungeonOrCaveName);
+
+      const color = LogicCalculation._locationColor(
+        disableLogic || isAvailable,
+        isChecked,
+        true,
+      );
+
+      return {
+        entrance: dungeonOrCaveName,
+        color,
+      };
+    });
   }
 
   _isLocationAvailable(generalLocation, detailedLocation) {
