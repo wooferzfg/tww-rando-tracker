@@ -607,6 +607,96 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('randomEntrancesForExit', () => {
+    describe('when only dungeon entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+          },
+        });
+      });
+
+      test('returns all the dungeons', () => {
+        const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Dragon Roost Cavern');
+
+        expect(randomEntrancesForExit).toMatchSnapshot();
+      });
+    });
+
+    describe('when only cave entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+          },
+        });
+      });
+
+      test('returns all the caves', () => {
+        const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Savage Labyrinth');
+
+        expect(randomEntrancesForExit).toMatchSnapshot();
+      });
+    });
+
+    describe('when dungeon and cave entrances are randomized separately', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon', () => {
+        test('returns all the dungeons', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Dragon Roost Cavern');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a cave', () => {
+        test('returns all the caves', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Savage Labyrinth');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when dungeon and cave entrances are randomized together', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon', () => {
+        test('returns all the dungeons and caves', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Dragon Roost Cavern');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a cave', () => {
+        test('returns all the dungeons and caves', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Savage Labyrinth');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
+  });
+
   describe('parseItemCountRequirement', () => {
     test('progressive item', () => {
       const itemCountRequirement = LogicHelper.parseItemCountRequirement('Progressive Sword x4');

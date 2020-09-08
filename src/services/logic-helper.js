@@ -204,6 +204,16 @@ export default class LogicHelper {
     );
   }
 
+  static randomEntrancesForExit(dungeonOrCaveName) {
+    if (this.isRandomEntrancesTogether()) {
+      return this.allRandomEntrances();
+    }
+
+    return this.isDungeon(dungeonOrCaveName)
+      ? this.mainDungeons()
+      : CAVES;
+  }
+
   static parseItemCountRequirement(requirement) {
     const itemCountRequirementMatch = requirement.match(/((?:\w|\s)+) x(\d)/);
 

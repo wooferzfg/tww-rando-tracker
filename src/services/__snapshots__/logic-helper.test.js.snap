@@ -805,6 +805,136 @@ Array [
 ]
 `;
 
+exports[`LogicHelper randomEntrancesForExit when dungeon and cave entrances are randomized separately when the exit is a cave returns all the caves 1`] = `
+Array [
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when dungeon and cave entrances are randomized separately when the exit is a dungeon returns all the dungeons 1`] = `
+Array [
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when dungeon and cave entrances are randomized together when the exit is a cave returns all the dungeons and caves 1`] = `
+Array [
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when dungeon and cave entrances are randomized together when the exit is a dungeon returns all the dungeons and caves 1`] = `
+Array [
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when only cave entrances are randomized returns all the caves 1`] = `
+Array [
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when only dungeon entrances are randomized returns all the dungeons 1`] = `
+Array [
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+]
+`;
+
 exports[`LogicHelper requirementsForEntrance returns simplified requirements for Bomb Island Secret Cave 1`] = `
 BooleanExpression {
   "items": Array [
