@@ -1947,7 +1947,7 @@ describe('LogicCalculation', () => {
         setLocations({
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Grappling Hook',
+              need: 'Grappling Hook | Bombs',
             },
           },
         });

@@ -251,12 +251,12 @@ export default class LogicCalculation {
         item,
         isReduced,
       }) => accumulator + (isReduced ? item : this._itemsRemainingForRequirement(item)),
-      orInitialValue: 0,
+      orInitialValue: Number.MAX_SAFE_INTEGER,
       orReducer: ({
         accumulator,
         item,
         isReduced,
-      }) => Math.max(accumulator, (isReduced ? item : this._itemsRemainingForRequirement(item))),
+      }) => Math.min(accumulator, (isReduced ? item : this._itemsRemainingForRequirement(item))),
     });
   }
 
