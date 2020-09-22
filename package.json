@@ -47,7 +47,7 @@
     "eslint-plugin-react-hooks": "^4.1.2",
     "eslint-plugin-sort-class-members": "^1.8.0",
     "favicons-webpack-plugin": "^4.2.0",
-    "html-webpack-plugin": "^4.4.1",
+    "html-webpack-plugin": "^4.5.0",
     "jest": "^26.4.2",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
