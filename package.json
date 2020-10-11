@@ -51,7 +51,7 @@
     "jest": "^26.5.2",
     "sass": "^1.27.0",
     "sass-loader": "^10.0.3",
-    "source-map-loader": "^1.1.0",
+    "source-map-loader": "^1.1.1",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
     "webpack": "^4.44.2",
