@@ -5,7 +5,7 @@
   "license": "GPL-3.0-or-later",
   "scripts": {
     "build": "webpack",
-    "build:production": "webpack -p",
+    "build:production": "webpack --mode=production",
     "lint": "eslint --max-warnings 0 \"src/**/*.jsx\" \"src/**/*.js\" \"*.js\"",
     "serve": "webpack-dev-server",
     "start": "webpack-dev-server --open",
