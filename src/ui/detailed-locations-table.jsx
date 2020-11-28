@@ -99,7 +99,7 @@ class DetailedLocationsTable extends React.PureComponent {
 
   render() {
     const {
-      clearOpenedLocation,
+      clearOpenedMenus,
       clearRaceModeBannedLocations,
       disableLogic,
       logic,
@@ -166,8 +166,8 @@ class DetailedLocationsTable extends React.PureComponent {
               <td>
                 <div
                   className="detail-span"
-                  onClick={clearOpenedLocation}
-                  onKeyDown={clearOpenedLocation}
+                  onClick={clearOpenedMenus}
+                  onKeyDown={clearOpenedMenus}
                   role="button"
                   tabIndex="0"
                 >
@@ -189,7 +189,7 @@ class DetailedLocationsTable extends React.PureComponent {
 }
 
 DetailedLocationsTable.propTypes = {
-  clearOpenedLocation: PropTypes.func.isRequired,
+  clearOpenedMenus: PropTypes.func.isRequired,
   clearRaceModeBannedLocations: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,

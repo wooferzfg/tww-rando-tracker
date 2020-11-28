@@ -6,6 +6,7 @@ import LogicCalculation from '../services/logic-calculation';
 import TrackerState from '../services/tracker-state';
 
 import DetailedLocationsTable from './detailed-locations-table';
+import EntrancesList from './entrances-list';
 import ExtraLocationsTable from './extra-locations-table';
 import MapInfo from './map-info';
 import SeaChart from './sea-chart';
@@ -15,29 +16,18 @@ class LocationsTable extends React.PureComponent {
     super(props);
 
     this.state = {
-      openedLocation: null,
-      openedLocationIsDungeon: null,
       selectedExit: null,
       selectedItem: null,
       selectedLocation: null,
       selectedLocationIsDungeon: null,
     };
 
-    this.setOpenedLocation = this.setOpenedLocation.bind(this);
-    this.clearOpenedLocation = this.clearOpenedLocation.bind(this);
     this.setSelectedExit = this.setSelectedExit.bind(this);
     this.clearSelectedExit = this.clearSelectedExit.bind(this);
     this.setSelectedItem = this.setSelectedItem.bind(this);
     this.clearSelectedItem = this.clearSelectedItem.bind(this);
     this.setSelectedLocation = this.setSelectedLocation.bind(this);
     this.clearSelectedLocation = this.clearSelectedLocation.bind(this);
-  }
-
-  setOpenedLocation({ locationName, isDungeon }) {
-    this.setState({
-      openedLocation: locationName,
-      openedLocationIsDungeon: isDungeon,
-    });
   }
 
   setSelectedExit(exitName) {
@@ -55,10 +45,6 @@ class LocationsTable extends React.PureComponent {
     });
   }
 
-  clearOpenedLocation() {
-    this.setState({ openedLocation: null });
-  }
-
   clearSelectedExit() {
     this.setState({ selectedExit: null });
   }
@@ -73,18 +59,21 @@ class LocationsTable extends React.PureComponent {
 
   chartContainer() {
     const {
+      clearOpenedMenus,
       clearRaceModeBannedLocations,
       disableLogic,
+      entrancesListOpen,
       incrementItem,
       logic,
       onlyProgressLocations,
+      openedLocation,
+      openedLocationIsDungeon,
+      setOpenedLocation,
       toggleLocationChecked,
       trackerState,
     } = this.props;
 
     const {
-      openedLocation,
-      openedLocationIsDungeon,
       selectedExit,
       selectedItem,
       selectedLocation,
@@ -92,10 +81,18 @@ class LocationsTable extends React.PureComponent {
     } = this.state;
 
     let chartElement;
-    if (!_.isNil(openedLocation)) {
+    if (entrancesListOpen) {
+      chartElement = (
+        <EntrancesList
+          clearOpenedMenus={clearOpenedMenus}
+          disableLogic={disableLogic}
+          logic={logic}
+        />
+      );
+    } else if (!_.isNil(openedLocation)) {
       chartElement = (
         <DetailedLocationsTable
-          clearOpenedLocation={this.clearOpenedLocation}
+          clearOpenedMenus={clearOpenedMenus}
           clearRaceModeBannedLocations={clearRaceModeBannedLocations}
           disableLogic={disableLogic}
           logic={logic}
@@ -115,7 +112,7 @@ class LocationsTable extends React.PureComponent {
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
-          setOpenedLocation={this.setOpenedLocation}
+          setOpenedLocation={setOpenedLocation}
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
@@ -147,6 +144,7 @@ class LocationsTable extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
+      setOpenedLocation,
       singleColorBackground,
       trackerState,
     } = this.props;
@@ -162,7 +160,7 @@ class LocationsTable extends React.PureComponent {
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
-          setOpenedLocation={this.setOpenedLocation}
+          setOpenedLocation={setOpenedLocation}
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
@@ -175,11 +173,16 @@ class LocationsTable extends React.PureComponent {
 }
 
 LocationsTable.propTypes = {
+  clearOpenedMenus: PropTypes.func.isRequired,
   clearRaceModeBannedLocations: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
+  entrancesListOpen: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  openedLocation: PropTypes.string.isRequired,
+  openedLocationIsDungeon: PropTypes.bool.isRequired,
+  setOpenedLocation: PropTypes.func.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,

@@ -100,6 +100,7 @@ export default class Images {
           true: import('../images/boss6_d.png'),
         },
       },
+      EMPTY_BACKGROUND: import('../images/mapempty.png'),
       ISLAND_CHART_BACKGROUNDS: {
         [LogicHelper.ISLANDS.FORSAKEN_FORTRESS]: import('../images/mapfull0.png'),
         [LogicHelper.ISLANDS.STAR_ISLAND]: import('../images/mapfull1.png'),

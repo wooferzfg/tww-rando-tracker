@@ -7,8 +7,7 @@
     "build": "webpack",
     "build:production": "webpack --mode=production",
     "lint": "eslint --max-warnings 0 \"src/**/*.jsx\" \"src/**/*.js\" \"*.js\"",
-    "serve": "webpack-dev-server",
-    "start": "webpack-dev-server --open",
+    "start": "webpack serve",
     "test": "jest --env=node --coverage --maxWorkers=5"
   },
   "repository": {

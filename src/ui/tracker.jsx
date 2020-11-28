@@ -22,16 +22,22 @@ class Tracker extends React.PureComponent {
 
     this.state = {
       disableLogic: false,
+      entrancesListOpen: false,
       isLoading: true,
       onlyProgressLocations: true,
+      openedLocation: null,
+      openedLocationIsDungeon: null,
       singleColorBackground: false,
     };
 
     this.initialize();
 
+    this.clearOpenedMenus = this.clearOpenedMenus.bind(this);
     this.clearRaceModeBannedLocations = this.clearRaceModeBannedLocations.bind(this);
     this.incrementItem = this.incrementItem.bind(this);
+    this.setOpenedLocation = this.setOpenedLocation.bind(this);
     this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
+    this.toggleEntrancesList = this.toggleEntrancesList.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(this);
@@ -144,6 +150,30 @@ class Tracker extends React.PureComponent {
     });
   }
 
+  clearOpenedMenus() {
+    this.setState({
+      entrancesListOpen: false,
+      openedLocation: null,
+    });
+  }
+
+  setOpenedLocation({ locationName, isDungeon }) {
+    this.setState({
+      entrancesListOpen: false,
+      openedLocation: locationName,
+      openedLocationIsDungeon: isDungeon,
+    });
+  }
+
+  toggleEntrancesList() {
+    const { entrancesListOpen } = this.state;
+
+    this.setState({
+      entrancesListOpen: !entrancesListOpen,
+      openedLocation: null
+    });
+  }
+
   toggleOnlyProgressLocations() {
     const { onlyProgressLocations } = this.state;
 
@@ -163,9 +193,12 @@ class Tracker extends React.PureComponent {
   render() {
     const {
       disableLogic,
+      entrancesListOpen,
       isLoading,
       logic,
       onlyProgressLocations,
+      openedLocation,
+      openedLocationIsDungeon,
       saveData,
       singleColorBackground,
       trackerState,
@@ -189,11 +222,16 @@ class Tracker extends React.PureComponent {
               trackerState={trackerState}
             />
             <LocationsTable
+              clearOpenedMenus={this.clearOpenedMenus}
               clearRaceModeBannedLocations={this.clearRaceModeBannedLocations}
               disableLogic={disableLogic}
+              entrancesListOpen={entrancesListOpen}
               incrementItem={this.incrementItem}
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
+              openedLocation={openedLocation}
+              openedLocationIsDungeon={openedLocationIsDungeon}
+              setOpenedLocation={this.setOpenedLocation}
               singleColorBackground={singleColorBackground}
               toggleLocationChecked={this.toggleLocationChecked}
               trackerState={trackerState}
@@ -207,10 +245,12 @@ class Tracker extends React.PureComponent {
           </div>
           <Buttons
             disableLogic={disableLogic}
+            entrancesListOpen={entrancesListOpen}
             onlyProgressLocations={onlyProgressLocations}
             saveData={saveData}
             singleColorBackground={singleColorBackground}
             toggleDisableLogic={this.toggleDisableLogic}
+            toggleEntrancesList={this.toggleEntrancesList}
             toggleOnlyProgressLocations={this.toggleOnlyProgressLocations}
             toggleSingleColorBackground={this.toggleSingleColorBackground}
           />
