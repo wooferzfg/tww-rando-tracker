@@ -10,7 +10,7 @@ import Images from './images';
 class EntrancesList extends React.PureComponent {
   static NUM_ROWS = 13;
 
-  entrance(entranceInfo, numColumns) {
+  static entrance(entranceInfo, numColumns) {
     if (_.isNil(entranceInfo)) {
       return null;
     }
@@ -61,7 +61,7 @@ class EntrancesList extends React.PureComponent {
 
     const entranceRows = _.map(arrangedEntrances, (locationsRow, index) => (
       <tr key={index}>
-        {_.map(locationsRow, (entranceInfo) => this.entrance(entranceInfo, numColumns))}
+        {_.map(locationsRow, (entranceInfo) => EntrancesList.entrance(entranceInfo, numColumns))}
       </tr>
     ));
 

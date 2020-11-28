@@ -170,7 +170,7 @@ class Tracker extends React.PureComponent {
 
     this.setState({
       entrancesListOpen: !entrancesListOpen,
-      openedLocation: null
+      openedLocation: null,
     });
   }
 
