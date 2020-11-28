@@ -20,11 +20,11 @@ class SeaChart extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
-      setOpenedLocation,
       setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
       trackerState,
+      updateOpenedLocation,
     } = this.props;
 
     const {
@@ -76,10 +76,10 @@ class SeaChart extends React.PureComponent {
         island={island}
         numAvailable={numAvailable}
         numRemaining={numRemaining}
-        setOpenedLocation={setOpenedLocation}
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
+        updateOpenedLocation={updateOpenedLocation}
       />
     );
   }
@@ -108,11 +108,11 @@ SeaChart.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
-  setOpenedLocation: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  updateOpenedLocation: PropTypes.func.isRequired,
 };
 
 export default SeaChart;

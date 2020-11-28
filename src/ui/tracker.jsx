@@ -35,12 +35,12 @@ class Tracker extends React.PureComponent {
     this.clearOpenedMenus = this.clearOpenedMenus.bind(this);
     this.clearRaceModeBannedLocations = this.clearRaceModeBannedLocations.bind(this);
     this.incrementItem = this.incrementItem.bind(this);
-    this.setOpenedLocation = this.setOpenedLocation.bind(this);
     this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
     this.toggleEntrancesList = this.toggleEntrancesList.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(this);
+    this.updateOpenedLocation = this.updateOpenedLocation.bind(this);
   }
 
   async initialize() {
@@ -157,7 +157,7 @@ class Tracker extends React.PureComponent {
     });
   }
 
-  setOpenedLocation({ locationName, isDungeon }) {
+  updateOpenedLocation({ locationName, isDungeon }) {
     this.setState({
       entrancesListOpen: false,
       openedLocation: locationName,
@@ -231,10 +231,10 @@ class Tracker extends React.PureComponent {
               onlyProgressLocations={onlyProgressLocations}
               openedLocation={openedLocation}
               openedLocationIsDungeon={openedLocationIsDungeon}
-              setOpenedLocation={this.setOpenedLocation}
               singleColorBackground={singleColorBackground}
               toggleLocationChecked={this.toggleLocationChecked}
               trackerState={trackerState}
+              updateOpenedLocation={this.updateOpenedLocation}
             />
             <Statistics
               disableLogic={disableLogic}

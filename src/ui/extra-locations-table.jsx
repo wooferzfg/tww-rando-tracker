@@ -19,11 +19,11 @@ class ExtraLocationsTable extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
-      setOpenedLocation,
       setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
       trackerState,
+      updateOpenedLocation,
     } = this.props;
 
     const isDungeon = LogicHelper.isDungeon(locationName);
@@ -77,12 +77,12 @@ class ExtraLocationsTable extends React.PureComponent {
           locationName={locationName}
           numAvailable={numAvailable}
           numRemaining={numRemaining}
-          setOpenedLocation={setOpenedLocation}
           setSelectedExit={setSelectedExit}
           setSelectedItem={setSelectedItem}
           setSelectedLocation={setSelectedLocation}
           smallKeyCount={smallKeyCount}
           smallKeyName={smallKeyName}
+          updateOpenedLocation={updateOpenedLocation}
         />
       );
     }
@@ -99,8 +99,8 @@ class ExtraLocationsTable extends React.PureComponent {
         locationName={locationName}
         numAvailable={numAvailable}
         numRemaining={numRemaining}
-        setOpenedLocation={setOpenedLocation}
         setSelectedLocation={setSelectedLocation}
+        updateOpenedLocation={updateOpenedLocation}
       />
     );
   }
@@ -133,12 +133,12 @@ ExtraLocationsTable.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
-  setOpenedLocation: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  updateOpenedLocation: PropTypes.func.isRequired,
 };
 
 export default ExtraLocationsTable;

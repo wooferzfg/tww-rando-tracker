@@ -68,9 +68,9 @@ class LocationsTable extends React.PureComponent {
       onlyProgressLocations,
       openedLocation,
       openedLocationIsDungeon,
-      setOpenedLocation,
       toggleLocationChecked,
       trackerState,
+      updateOpenedLocation,
     } = this.props;
 
     const {
@@ -112,11 +112,11 @@ class LocationsTable extends React.PureComponent {
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
-          setOpenedLocation={setOpenedLocation}
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
           trackerState={trackerState}
+          updateOpenedLocation={updateOpenedLocation}
         />
       );
     }
@@ -144,9 +144,9 @@ class LocationsTable extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
-      setOpenedLocation,
       singleColorBackground,
       trackerState,
+      updateOpenedLocation,
     } = this.props;
 
     return (
@@ -160,12 +160,12 @@ class LocationsTable extends React.PureComponent {
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
-          setOpenedLocation={setOpenedLocation}
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
           singleColorBackground={singleColorBackground}
           trackerState={trackerState}
+          updateOpenedLocation={updateOpenedLocation}
         />
       </>
     );
@@ -182,10 +182,10 @@ LocationsTable.propTypes = {
   onlyProgressLocations: PropTypes.bool.isRequired,
   openedLocation: PropTypes.string.isRequired,
   openedLocationIsDungeon: PropTypes.bool.isRequired,
-  setOpenedLocation: PropTypes.func.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  updateOpenedLocation: PropTypes.func.isRequired,
 };
 
 export default LocationsTable;
