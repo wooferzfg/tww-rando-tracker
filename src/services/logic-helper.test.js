@@ -413,6 +413,76 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('isRandomEntrances', () => {
+    describe('when dungeon entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        const isRandomEntrances = LogicHelper.isRandomEntrances();
+
+        expect(isRandomEntrances).toEqual(true);
+      });
+    });
+
+    describe('when cave entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        const isRandomEntrances = LogicHelper.isRandomEntrances();
+
+        expect(isRandomEntrances).toEqual(true);
+      });
+    });
+
+    describe('when dungeon and cave entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        const isRandomEntrances = LogicHelper.isRandomEntrances();
+
+        expect(isRandomEntrances).toEqual(true);
+      });
+    });
+
+    describe('when entrances are not randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+          },
+        });
+      });
+
+      test('returns false', () => {
+        const isRandomEntrances = LogicHelper.isRandomEntrances();
+
+        expect(isRandomEntrances).toEqual(false);
+      });
+    });
+  });
+
   describe('isRandomDungeonEntrances', () => {
     describe('when dungeon entrances are randomized', () => {
       beforeEach(() => {

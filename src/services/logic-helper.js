@@ -170,6 +170,18 @@ export default class LogicHelper {
     );
   }
 
+  static isRandomEntrances() {
+    return _.includes(
+      [
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+      ],
+      this._randomizeEntrancesOption(),
+    );
+  }
+
   static isRandomDungeonEntrances() {
     return _.includes(
       [
