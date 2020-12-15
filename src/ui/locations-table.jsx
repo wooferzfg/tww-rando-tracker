@@ -87,6 +87,7 @@ class LocationsTable extends React.PureComponent {
           clearOpenedMenus={clearOpenedMenus}
           disableLogic={disableLogic}
           logic={logic}
+          trackerState={trackerState}
         />
       );
     } else if (!_.isNil(openedLocation)) {

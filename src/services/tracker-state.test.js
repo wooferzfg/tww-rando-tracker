@@ -213,6 +213,23 @@ describe('TrackerState', () => {
     });
   });
 
+  describe('getExitForEntrance', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+      state.entrances = {
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
+      };
+    });
+
+    test('returns the value of the entrance', () => {
+      const entranceValue = state.getExitForEntrance('Dragon Roost Cavern');
+
+      expect(entranceValue).toEqual('Needle Rock Isle Secret Cave');
+    });
+  });
+
   describe('setEntranceForExit', () => {
     let state;
     let initialItems;
