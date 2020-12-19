@@ -61,7 +61,11 @@ class EntranceSelection extends React.PureComponent {
       color,
     } = entranceInfo;
 
-    const { disableLogic } = this.props;
+    const {
+      disableLogic,
+      openedExit,
+      updateEntranceForExit,
+    } = this.props;
 
     const shortEntranceName = LogicHelper.shortEntranceName(entrance);
 
@@ -72,17 +76,27 @@ class EntranceSelection extends React.PureComponent {
       fontSizeClassName = 'font-small';
     }
 
+    const isEntranceChecked = color === LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
+
+    const notInteractiveClassName = isEntranceChecked ? 'detail-not-interactive' : '';
+
+    const updateEntranceFunc = () => {
+      if (!isEntranceChecked) {
+        updateEntranceForExit(openedExit, entrance);
+      }
+    };
+
     const entranceElement = (
       <div
-        className={`detail-span ${color} ${fontSizeClassName}`}
+        className={`detail-span ${notInteractiveClassName} ${color} ${fontSizeClassName}`}
+        onClick={updateEntranceFunc}
+        onKeyDown={updateEntranceFunc}
         role="button"
         tabIndex="0"
       >
         {shortEntranceName}
       </div>
     );
-
-    const isEntranceChecked = color === LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
 
     let entranceContent;
     if (isEntranceChecked) {
@@ -176,6 +190,7 @@ EntranceSelection.propTypes = {
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   openedExit: PropTypes.string.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  updateEntranceForExit: PropTypes.func.isRequired,
 };
 
 export default EntranceSelection;

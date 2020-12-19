@@ -42,6 +42,7 @@ class Tracker extends React.PureComponent {
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(this);
     this.unsetExit = this.unsetExit.bind(this);
+    this.updateEntranceForExit = this.updateEntranceForExit.bind(this);
     this.updateOpenedExit = this.updateOpenedExit.bind(this);
     this.updateOpenedLocation = this.updateOpenedLocation.bind(this);
   }
@@ -182,6 +183,18 @@ class Tracker extends React.PureComponent {
     this.updateTrackerState(newTrackerState);
   }
 
+  updateEntranceForExit(exitName, entranceName) {
+    const { trackerState } = this.state;
+
+    const entryName = LogicHelper.entryName(exitName);
+    const newTrackerState = trackerState
+      .incrementItem(entryName)
+      .setEntranceForExit(exitName, entranceName);
+
+    this.updateTrackerState(newTrackerState);
+    this.clearOpenedMenus();
+  }
+
   updateOpenedLocation({ locationName, isDungeon }) {
     this.setState({
       entrancesListOpen: false,
@@ -265,6 +278,7 @@ class Tracker extends React.PureComponent {
               toggleLocationChecked={this.toggleLocationChecked}
               trackerState={trackerState}
               unsetExit={this.unsetExit}
+              updateEntranceForExit={this.updateEntranceForExit}
               updateOpenedExit={this.updateOpenedExit}
               updateOpenedLocation={this.updateOpenedLocation}
             />

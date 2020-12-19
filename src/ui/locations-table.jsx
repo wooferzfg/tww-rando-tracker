@@ -73,6 +73,7 @@ class LocationsTable extends React.PureComponent {
       toggleLocationChecked,
       trackerState,
       unsetExit,
+      updateEntranceForExit,
       updateOpenedExit,
       updateOpenedLocation,
     } = this.props;
@@ -102,6 +103,7 @@ class LocationsTable extends React.PureComponent {
           logic={logic}
           openedExit={openedExit}
           trackerState={trackerState}
+          updateEntranceForExit={updateEntranceForExit}
         />
       );
     } else if (!_.isNil(openedLocation)) {
@@ -214,6 +216,7 @@ LocationsTable.propTypes = {
   toggleLocationChecked: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   unsetExit: PropTypes.func.isRequired,
+  updateEntranceForExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
 };
