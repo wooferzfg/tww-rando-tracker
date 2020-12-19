@@ -554,42 +554,6 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('isRandomEntrancesTogether', () => {
-    describe('when dungeon and cave entrances are randomized together', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-          },
-        });
-      });
-
-      test('returns true', () => {
-        const isRandomEntrancesTogether = LogicHelper.isRandomEntrancesTogether();
-
-        expect(isRandomEntrancesTogether).toEqual(true);
-      });
-    });
-
-    describe('when dungeon and cave entrances are not randomized together', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-          },
-        });
-      });
-
-      test('returns false', () => {
-        const isRandomEntrancesTogether = LogicHelper.isRandomEntrancesTogether();
-
-        expect(isRandomEntrancesTogether).toEqual(false);
-      });
-    });
-  });
-
   describe('allRandomEntrances', () => {
     describe('when entrances are not randomized', () => {
       beforeEach(() => {

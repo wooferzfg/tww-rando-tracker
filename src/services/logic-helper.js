@@ -204,11 +204,6 @@ export default class LogicHelper {
     );
   }
 
-  static isRandomEntrancesTogether() {
-    return this._randomizeEntrancesOption()
-      === Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER;
-  }
-
   static allRandomEntrances() {
     return _.concat(
       this.isRandomDungeonEntrances() ? this.mainDungeons() : [],
@@ -217,7 +212,10 @@ export default class LogicHelper {
   }
 
   static randomEntrancesForExit(dungeonOrCaveName) {
-    if (this.isRandomEntrancesTogether()) {
+    if (
+      this._randomizeEntrancesOption()
+      === Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER
+    ) {
       return this.allRandomEntrances();
     }
 
