@@ -55,6 +55,7 @@ class Sector extends React.PureComponent {
       clearSelectedExit,
       entrances,
       setSelectedExit,
+      updateOpenedExit,
     } = this.props;
 
     return _.map(entrances, (entrance) => {
@@ -68,7 +69,11 @@ class Sector extends React.PureComponent {
 
       const setSelectedItemFunc = () => setSelectedExit(locationName);
 
-      const incrementItemFunc = () => {};
+      const incrementItemFunc = () => {
+        if (entryCount === 0) {
+          updateOpenedExit(locationName);
+        }
+      };
 
       return (
         <div className="cave-entry" key={entryName}>
@@ -150,6 +155,7 @@ Sector.propTypes = {
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
+  updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
 };
 

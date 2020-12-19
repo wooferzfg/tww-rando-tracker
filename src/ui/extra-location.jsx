@@ -65,13 +65,18 @@ class ExtraLocation extends React.PureComponent {
       entryName,
       locationName,
       setSelectedExit,
+      updateOpenedExit,
     } = this.props;
 
     const entranceImages = _.get(Images.IMAGES, 'DUNGEON_ENTRANCE');
 
     const setSelectedItemFunc = () => setSelectedExit(locationName);
 
-    const incrementItemFunc = () => {};
+    const incrementItemFunc = () => {
+      if (entryCount === 0) {
+        updateOpenedExit(locationName);
+      }
+    };
 
     return (
       <div className="dungeon-item dungeon-entry">
@@ -180,6 +185,7 @@ ExtraLocation.defaultProps = {
   setSelectedItem: null,
   smallKeyCount: null,
   smallKeyName: null,
+  updateOpenedExit: null,
 };
 
 ExtraLocation.propTypes = {
@@ -204,6 +210,7 @@ ExtraLocation.propTypes = {
   setSelectedLocation: PropTypes.func.isRequired,
   smallKeyCount: PropTypes.number,
   smallKeyName: PropTypes.string,
+  updateOpenedExit: PropTypes.func,
   updateOpenedLocation: PropTypes.func.isRequired,
 };
 

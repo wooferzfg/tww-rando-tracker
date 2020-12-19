@@ -25,6 +25,7 @@ class Tracker extends React.PureComponent {
       entrancesListOpen: false,
       isLoading: true,
       onlyProgressLocations: true,
+      openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
       singleColorBackground: false,
@@ -40,6 +41,7 @@ class Tracker extends React.PureComponent {
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(this);
+    this.updateOpenedExit = this.updateOpenedExit.bind(this);
     this.updateOpenedLocation = this.updateOpenedLocation.bind(this);
   }
 
@@ -153,6 +155,15 @@ class Tracker extends React.PureComponent {
   clearOpenedMenus() {
     this.setState({
       entrancesListOpen: false,
+      openedExit: null,
+      openedLocation: null,
+    });
+  }
+
+  updateOpenedExit(dungeonOrCaveName) {
+    this.setState({
+      entrancesListOpen: false,
+      openedExit: dungeonOrCaveName,
       openedLocation: null,
     });
   }
@@ -160,6 +171,7 @@ class Tracker extends React.PureComponent {
   updateOpenedLocation({ locationName, isDungeon }) {
     this.setState({
       entrancesListOpen: false,
+      openedExit: null,
       openedLocation: locationName,
       openedLocationIsDungeon: isDungeon,
     });
@@ -170,6 +182,7 @@ class Tracker extends React.PureComponent {
 
     this.setState({
       entrancesListOpen: !entrancesListOpen,
+      openedExit: null,
       openedLocation: null,
     });
   }
@@ -197,6 +210,7 @@ class Tracker extends React.PureComponent {
       isLoading,
       logic,
       onlyProgressLocations,
+      openedExit,
       openedLocation,
       openedLocationIsDungeon,
       saveData,
@@ -229,11 +243,13 @@ class Tracker extends React.PureComponent {
               incrementItem={this.incrementItem}
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
+              openedExit={openedExit}
               openedLocation={openedLocation}
               openedLocationIsDungeon={openedLocationIsDungeon}
               singleColorBackground={singleColorBackground}
               toggleLocationChecked={this.toggleLocationChecked}
               trackerState={trackerState}
+              updateOpenedExit={this.updateOpenedExit}
               updateOpenedLocation={this.updateOpenedLocation}
             />
             <Statistics
