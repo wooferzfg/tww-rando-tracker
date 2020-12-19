@@ -6,6 +6,7 @@ import LogicCalculation from '../services/logic-calculation';
 import TrackerState from '../services/tracker-state';
 
 import DetailedLocationsTable from './detailed-locations-table';
+import EntranceSelection from './entrance-selection';
 import EntrancesList from './entrances-list';
 import ExtraLocationsTable from './extra-locations-table';
 import MapInfo from './map-info';
@@ -95,7 +96,13 @@ class LocationsTable extends React.PureComponent {
       );
     } else if (!_.isNil(openedExit)) {
       chartElement = (
-        <div>{openedExit}</div>
+        <EntranceSelection
+          clearOpenedMenus={clearOpenedMenus}
+          disableLogic={disableLogic}
+          logic={logic}
+          openedExit={openedExit}
+          trackerState={trackerState}
+        />
       );
     } else if (!_.isNil(openedLocation)) {
       chartElement = (
