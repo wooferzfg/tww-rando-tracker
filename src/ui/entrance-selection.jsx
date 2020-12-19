@@ -7,6 +7,7 @@ import LogicHelper from '../services/logic-helper';
 import TrackerState from '../services/tracker-state';
 
 import Images from './images';
+import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
 class EntranceSelection extends React.PureComponent {
@@ -31,23 +32,8 @@ class EntranceSelection extends React.PureComponent {
 
     const requirements = logic.formattedRequirementsForEntrance(entranceName);
 
-    const requirementsList = _.map(requirements, (elements, rowIndex) => (
-      <li key={rowIndex}>
-        {
-          _.map(elements, ({ color, text }, elementIndex) => (
-            <span className={color} key={elementIndex}>{text}</span>
-          ))
-        }
-      </li>
-    ));
-
     return (
-      <div className="item-requirements">
-        <div className="item-requirements-title">Items Required</div>
-        <ul>
-          {requirementsList}
-        </ul>
-      </div>
+      <RequirementsTooltip requirements={requirements} />
     );
   }
 

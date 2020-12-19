@@ -8,6 +8,7 @@ import Permalink from '../services/permalink';
 import Settings from '../services/settings';
 
 import Images from './images';
+import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
 class DetailedLocationsTable extends React.PureComponent {
@@ -18,23 +19,8 @@ class DetailedLocationsTable extends React.PureComponent {
 
     const requirements = logic.formattedRequirementsForLocation(generalLocation, detailedLocation);
 
-    const requirementsList = _.map(requirements, (elements, rowIndex) => (
-      <li key={rowIndex}>
-        {
-          _.map(elements, ({ color, text }, elementIndex) => (
-            <span className={color} key={elementIndex}>{text}</span>
-          ))
-        }
-      </li>
-    ));
-
     return (
-      <div className="item-requirements">
-        <div className="item-requirements-title">Items Required</div>
-        <ul>
-          {requirementsList}
-        </ul>
-      </div>
+      <RequirementsTooltip requirements={requirements} />
     );
   }
 
