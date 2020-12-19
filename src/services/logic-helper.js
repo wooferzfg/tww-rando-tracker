@@ -150,7 +150,7 @@ export default class LogicHelper {
       ? this._shortDungeonName(dungeonOrCaveName)
       : this._shortCaveName(dungeonOrCaveName);
 
-    return this._entryName(entranceName);
+    return this._entryNameForEntranceName(entranceName);
   }
 
   static shortEntranceName(dungeonOrCaveName) {
@@ -727,8 +727,8 @@ export default class LogicHelper {
     return this._booleanExpressionForTokens(expressionTokens);
   }
 
-  static _entryName(locationName) {
-    return `Entered ${locationName}`;
+  static _entryNameForEntranceName(entranceName) {
+    return `Entered ${entranceName}`;
   }
 
   static _randomizeEntrancesOption() {
