@@ -24,6 +24,7 @@ class SeaChart extends React.PureComponent {
       setSelectedItem,
       setSelectedLocation,
       trackerState,
+      unsetExit,
       updateOpenedExit,
       updateOpenedLocation,
     } = this.props;
@@ -80,6 +81,7 @@ class SeaChart extends React.PureComponent {
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
+        unsetExit={unsetExit}
         updateOpenedExit={updateOpenedExit}
         updateOpenedLocation={updateOpenedLocation}
       />
@@ -114,6 +116,7 @@ SeaChart.propTypes = {
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  unsetExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
 };

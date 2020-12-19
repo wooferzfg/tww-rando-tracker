@@ -23,6 +23,7 @@ class ExtraLocationsTable extends React.PureComponent {
       setSelectedItem,
       setSelectedLocation,
       trackerState,
+      unsetExit,
       updateOpenedExit,
       updateOpenedLocation,
     } = this.props;
@@ -83,6 +84,7 @@ class ExtraLocationsTable extends React.PureComponent {
           setSelectedLocation={setSelectedLocation}
           smallKeyCount={smallKeyCount}
           smallKeyName={smallKeyName}
+          unsetExit={unsetExit}
           updateOpenedExit={updateOpenedExit}
           updateOpenedLocation={updateOpenedLocation}
         />
@@ -140,6 +142,7 @@ ExtraLocationsTable.propTypes = {
   setSelectedLocation: PropTypes.func.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  unsetExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
 };

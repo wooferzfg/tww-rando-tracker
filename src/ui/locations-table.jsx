@@ -71,6 +71,7 @@ class LocationsTable extends React.PureComponent {
       openedLocationIsDungeon,
       toggleLocationChecked,
       trackerState,
+      unsetExit,
       updateOpenedExit,
       updateOpenedLocation,
     } = this.props;
@@ -123,6 +124,7 @@ class LocationsTable extends React.PureComponent {
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
           trackerState={trackerState}
+          unsetExit={unsetExit}
           updateOpenedExit={updateOpenedExit}
           updateOpenedLocation={updateOpenedLocation}
         />
@@ -154,6 +156,7 @@ class LocationsTable extends React.PureComponent {
       onlyProgressLocations,
       singleColorBackground,
       trackerState,
+      unsetExit,
       updateOpenedExit,
       updateOpenedLocation,
     } = this.props;
@@ -174,6 +177,7 @@ class LocationsTable extends React.PureComponent {
           setSelectedLocation={this.setSelectedLocation}
           singleColorBackground={singleColorBackground}
           trackerState={trackerState}
+          unsetExit={unsetExit}
           updateOpenedExit={updateOpenedExit}
           updateOpenedLocation={updateOpenedLocation}
         />
@@ -181,6 +185,12 @@ class LocationsTable extends React.PureComponent {
     );
   }
 }
+
+LocationsTable.defaultProps = {
+  openedExit: null,
+  openedLocation: null,
+  openedLocationIsDungeon: null,
+};
 
 LocationsTable.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
@@ -190,12 +200,13 @@ LocationsTable.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
-  openedExit: PropTypes.string.isRequired,
-  openedLocation: PropTypes.string.isRequired,
-  openedLocationIsDungeon: PropTypes.bool.isRequired,
+  openedExit: PropTypes.string,
+  openedLocation: PropTypes.string,
+  openedLocationIsDungeon: PropTypes.bool,
   singleColorBackground: PropTypes.bool.isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  unsetExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
 };

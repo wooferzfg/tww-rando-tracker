@@ -65,6 +65,7 @@ class ExtraLocation extends React.PureComponent {
       entryName,
       locationName,
       setSelectedExit,
+      unsetExit,
       updateOpenedExit,
     } = this.props;
 
@@ -73,7 +74,9 @@ class ExtraLocation extends React.PureComponent {
     const setSelectedItemFunc = () => setSelectedExit(locationName);
 
     const incrementItemFunc = () => {
-      if (entryCount === 0) {
+      if (entryCount > 0) {
+        unsetExit(locationName);
+      } else {
         updateOpenedExit(locationName);
       }
     };
@@ -185,6 +188,7 @@ ExtraLocation.defaultProps = {
   setSelectedItem: null,
   smallKeyCount: null,
   smallKeyName: null,
+  unsetExit: null,
   updateOpenedExit: null,
 };
 
@@ -210,6 +214,7 @@ ExtraLocation.propTypes = {
   setSelectedLocation: PropTypes.func.isRequired,
   smallKeyCount: PropTypes.number,
   smallKeyName: PropTypes.string,
+  unsetExit: PropTypes.func,
   updateOpenedExit: PropTypes.func,
   updateOpenedLocation: PropTypes.func.isRequired,
 };

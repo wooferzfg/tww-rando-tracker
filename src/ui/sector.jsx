@@ -55,6 +55,7 @@ class Sector extends React.PureComponent {
       clearSelectedExit,
       entrances,
       setSelectedExit,
+      unsetExit,
       updateOpenedExit,
     } = this.props;
 
@@ -70,7 +71,9 @@ class Sector extends React.PureComponent {
       const setSelectedItemFunc = () => setSelectedExit(locationName);
 
       const incrementItemFunc = () => {
-        if (entryCount === 0) {
+        if (entryCount > 0) {
+          unsetExit(locationName);
+        } else {
           updateOpenedExit(locationName);
         }
       };
@@ -155,6 +158,7 @@ Sector.propTypes = {
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
+  unsetExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
 };
