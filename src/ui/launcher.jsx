@@ -271,15 +271,21 @@ export default class Launcher extends React.PureComponent {
   }
 
   launchNewTracker() {
-    const { permalink } = this.state;
+    const encodedPermalink = this.encodedPermalink();
 
-    Launcher.openTrackerWindow(`/new/${permalink}`);
+    Launcher.openTrackerWindow(`/new/${encodedPermalink}`);
   }
 
   loadFromSave() {
+    const encodedPermalink = this.encodedPermalink();
+
+    Launcher.openTrackerWindow(`/load/${encodedPermalink}`);
+  }
+
+  encodedPermalink() {
     const { permalink } = this.state;
 
-    Launcher.openTrackerWindow(`/load/${permalink}`);
+    return encodeURIComponent(permalink);
   }
 
   async loadFromFile() {

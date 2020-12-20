@@ -79,7 +79,9 @@ class Tracker extends React.PureComponent {
 
     if (_.isNil(initialData)) {
       try {
-        initialData = await TrackerController.initializeFromPermalink(permalink);
+        const decodedPermalink = decodeURIComponent(permalink);
+
+        initialData = await TrackerController.initializeFromPermalink(decodedPermalink);
       } catch (err) {
         toast.error('Tracker could not be initialized!');
 
