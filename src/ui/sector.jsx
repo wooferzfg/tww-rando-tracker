@@ -52,7 +52,8 @@ class Sector extends React.PureComponent {
 
   entryItems() {
     const {
-      clearSelectedExit,
+      clearSelectedItem,
+      clearSelectedLocation,
       entrances,
       setSelectedExit,
       unsetExit,
@@ -74,6 +75,9 @@ class Sector extends React.PureComponent {
         if (entryCount > 0) {
           unsetExit(locationName);
         } else {
+          clearSelectedItem();
+          clearSelectedLocation();
+
           updateOpenedExit(locationName);
         }
       };
@@ -81,7 +85,7 @@ class Sector extends React.PureComponent {
       return (
         <div className="cave-entry" key={entryName}>
           <Item
-            clearSelectedItem={clearSelectedExit}
+            clearSelectedItem={clearSelectedItem}
             images={entranceImages}
             incrementItem={incrementItemFunc}
             itemCount={entryCount}
@@ -140,7 +144,6 @@ Sector.propTypes = {
   chartName: PropTypes.string.isRequired,
   chartType: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
-  clearSelectedExit: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,

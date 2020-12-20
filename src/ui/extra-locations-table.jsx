@@ -12,7 +12,6 @@ import Images from './images';
 class ExtraLocationsTable extends React.PureComponent {
   extraLocation(locationName) {
     const {
-      clearSelectedExit,
       clearSelectedItem,
       clearSelectedLocation,
       disableLogic,
@@ -64,7 +63,6 @@ class ExtraLocationsTable extends React.PureComponent {
         <ExtraLocation
           bigKeyCount={bigKeyCount}
           bigKeyName={bigKeyName}
-          clearSelectedExit={clearSelectedExit}
           clearSelectedItem={clearSelectedItem}
           clearSelectedLocation={clearSelectedLocation}
           color={color}
@@ -130,7 +128,6 @@ class ExtraLocationsTable extends React.PureComponent {
 }
 
 ExtraLocationsTable.propTypes = {
-  clearSelectedExit: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,

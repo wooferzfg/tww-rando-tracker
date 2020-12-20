@@ -13,7 +13,6 @@ import Sector from './sector';
 class SeaChart extends React.PureComponent {
   sector(island) {
     const {
-      clearSelectedExit,
       clearSelectedItem,
       clearSelectedLocation,
       disableLogic,
@@ -67,7 +66,6 @@ class SeaChart extends React.PureComponent {
         chartCount={chartCount}
         chartName={chartName}
         chartType={chartType}
-        clearSelectedExit={clearSelectedExit}
         color={color}
         clearSelectedItem={clearSelectedItem}
         clearSelectedLocation={clearSelectedLocation}
@@ -105,7 +103,6 @@ class SeaChart extends React.PureComponent {
 }
 
 SeaChart.propTypes = {
-  clearSelectedExit: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,

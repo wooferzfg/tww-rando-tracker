@@ -24,7 +24,6 @@ class LocationsTable extends React.PureComponent {
     };
 
     this.setSelectedExit = this.setSelectedExit.bind(this);
-    this.clearSelectedExit = this.clearSelectedExit.bind(this);
     this.setSelectedItem = this.setSelectedItem.bind(this);
     this.clearSelectedItem = this.clearSelectedItem.bind(this);
     this.setSelectedLocation = this.setSelectedLocation.bind(this);
@@ -46,12 +45,11 @@ class LocationsTable extends React.PureComponent {
     });
   }
 
-  clearSelectedExit() {
-    this.setState({ selectedExit: null });
-  }
-
   clearSelectedItem() {
-    this.setState({ selectedItem: null });
+    this.setState({
+      selectedExit: null,
+      selectedItem: null,
+    });
   }
 
   clearSelectedLocation() {
@@ -122,7 +120,6 @@ class LocationsTable extends React.PureComponent {
     } else {
       chartElement = (
         <SeaChart
-          clearSelectedExit={this.clearSelectedExit}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
           disableLogic={disableLogic}
@@ -174,7 +171,6 @@ class LocationsTable extends React.PureComponent {
       <>
         {this.chartContainer()}
         <ExtraLocationsTable
-          clearSelectedExit={this.clearSelectedExit}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
           disableLogic={disableLogic}

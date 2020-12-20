@@ -60,7 +60,7 @@ class ExtraLocation extends React.PureComponent {
 
   entrance() {
     const {
-      clearSelectedExit,
+      clearSelectedItem,
       entryCount,
       entryName,
       locationName,
@@ -84,7 +84,7 @@ class ExtraLocation extends React.PureComponent {
     return (
       <div className="dungeon-item dungeon-entry">
         <Item
-          clearSelectedItem={clearSelectedExit}
+          clearSelectedItem={clearSelectedItem}
           images={entranceImages}
           incrementItem={incrementItemFunc}
           itemCount={entryCount}
@@ -179,7 +179,6 @@ class ExtraLocation extends React.PureComponent {
 ExtraLocation.defaultProps = {
   bigKeyCount: null,
   bigKeyName: null,
-  clearSelectedExit: null,
   clearSelectedItem: null,
   entryCount: null,
   entryName: null,
@@ -195,7 +194,6 @@ ExtraLocation.defaultProps = {
 ExtraLocation.propTypes = {
   bigKeyCount: PropTypes.number,
   bigKeyName: PropTypes.string,
-  clearSelectedExit: PropTypes.func,
   clearSelectedItem: PropTypes.func,
   clearSelectedLocation: PropTypes.func.isRequired,
   color: PropTypes.string.isRequired,
