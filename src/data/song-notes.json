@@ -1,0 +1,40 @@
+{
+  "Wind's Requiem": [
+    "UP",
+    "LEFT",
+    "RIGHT"
+  ],
+  "Ballad of Gales": [
+    "DOWN",
+    "RIGHT",
+    "LEFT",
+    "UP"
+  ],
+  "Command Melody": [
+    "LEFT",
+    "NEUTRAL",
+    "RIGHT",
+    "NEUTRAL"
+  ],
+  "Earth God's Lyric": [
+    "DOWN",
+    "DOWN",
+    "NEUTRAL",
+    "RIGHT",
+    "LEFT",
+    "NEUTRAL"
+  ],
+  "Wind God's Aria": [
+    "UP",
+    "UP",
+    "DOWN",
+    "RIGHT",
+    "LEFT",
+    "RIGHT"
+  ],
+  "Song of Passing": [
+    "RIGHT",
+    "LEFT",
+    "DOWN"
+  ]
+}

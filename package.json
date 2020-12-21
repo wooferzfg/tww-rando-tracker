@@ -1,0 +1,61 @@
+{
+  "name": "tww-rando-tracker",
+  "version": "1.0.0",
+  "description": "Tracker for The Wind Waker Randomizer",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "build": "webpack",
+    "build:production": "webpack --mode=production",
+    "lint": "eslint --max-warnings 0 \"src/**/*.jsx\" \"src/**/*.js\" \"*.js\"",
+    "start": "webpack serve",
+    "test": "jest --env=node --coverage --maxWorkers=5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wooferzfg/tww-rando-tracker.git"
+  },
+  "dependencies": {
+    "js-yaml": "^3.14.1",
+    "lodash": "^4.17.20",
+    "memoizee": "^0.4.14",
+    "prop-types": "^15.7.2",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-loader-spinner": "^3.1.14",
+    "react-router-dom": "^5.2.0",
+    "react-toastify": "^6.2.0",
+    "react-toggle": "^4.1.1",
+    "react-tooltip": "^4.2.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.1",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-sort-class-members": "^1.9.0",
+    "favicons-webpack-plugin": "^4.2.0",
+    "html-webpack-plugin": "^4.5.0",
+    "jest": "^26.6.3",
+    "sass": "^1.30.0",
+    "sass-loader": "^10.1.0",
+    "source-map-loader": "^1.1.3",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0",
+    "workbox-webpack-plugin": "^6.0.2"
+  }
+}

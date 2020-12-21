@@ -1,0 +1,1159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LogicHelper ALL_ITEMS returns a list of all the items, including entrances, charts, and keys 1`] = `
+Array [
+  "Entered Savage Labyrinth",
+  "Entered Dragon Roost Island Cave",
+  "Entered Fire Mountain Cave",
+  "Entered Ice Ring Isle Cave",
+  "Entered Cabana Labyrinth",
+  "Entered Needle Rock Isle Cave",
+  "Entered Angular Isles Cave",
+  "Entered Boating Course Cave",
+  "Entered Stone Watcher Island Cave",
+  "Entered Overlook Island Cave",
+  "Entered Bird's Peak Rock Cave",
+  "Entered Pawprint Isle Chuchu Cave",
+  "Entered Pawprint Isle Wizzrobe Cave",
+  "Entered Diamond Steppe Island Cave",
+  "Entered Bomb Island Cave",
+  "Entered Rock Spire Isle Cave",
+  "Entered Shark Island Cave",
+  "Entered Cliff Plateau Isles Cave",
+  "Entered Horseshoe Island Cave",
+  "Entered Star Island Cave",
+  "Treasure Chart 25",
+  "Treasure Chart 7",
+  "Treasure Chart 24",
+  "Triforce Chart 2",
+  "Treasure Chart 11",
+  "Triforce Chart 7",
+  "Treasure Chart 13",
+  "Treasure Chart 41",
+  "Treasure Chart 29",
+  "Treasure Chart 22",
+  "Treasure Chart 18",
+  "Treasure Chart 30",
+  "Treasure Chart 39",
+  "Treasure Chart 19",
+  "Treasure Chart 8",
+  "Treasure Chart 2",
+  "Treasure Chart 10",
+  "Treasure Chart 26",
+  "Treasure Chart 3",
+  "Treasure Chart 37",
+  "Treasure Chart 27",
+  "Treasure Chart 38",
+  "Triforce Chart 1",
+  "Treasure Chart 21",
+  "Treasure Chart 6",
+  "Treasure Chart 14",
+  "Treasure Chart 34",
+  "Treasure Chart 5",
+  "Treasure Chart 28",
+  "Treasure Chart 35",
+  "Triforce Chart 3",
+  "Triforce Chart 6",
+  "Treasure Chart 1",
+  "Treasure Chart 20",
+  "Treasure Chart 36",
+  "Treasure Chart 23",
+  "Treasure Chart 12",
+  "Treasure Chart 16",
+  "Treasure Chart 4",
+  "Treasure Chart 17",
+  "Treasure Chart 31",
+  "Triforce Chart 5",
+  "Treasure Chart 9",
+  "Triforce Chart 4",
+  "Treasure Chart 40",
+  "Triforce Chart 8",
+  "Treasure Chart 15",
+  "Treasure Chart 32",
+  "Treasure Chart 33",
+  "Entered DRC",
+  "Entered FW",
+  "Entered TotG",
+  "Entered FF",
+  "Entered ET",
+  "Entered WT",
+  "Entered GT",
+  "Tingle Tuner",
+  "Wind Waker",
+  "Spoils Bag",
+  "Grappling Hook",
+  "Power Bracelets",
+  "Iron Boots",
+  "Bait Bag",
+  "Boomerang",
+  "Hookshot",
+  "Delivery Bag",
+  "Bombs",
+  "Skull Hammer",
+  "Deku Leaf",
+  "Hero's Shield",
+  "Mirror Shield",
+  "Triforce Shard",
+  "Nayru's Pearl",
+  "Din's Pearl",
+  "Farore's Pearl",
+  "Wind's Requiem",
+  "Ballad of Gales",
+  "Command Melody",
+  "Earth God's Lyric",
+  "Wind God's Aria",
+  "Song of Passing",
+  "Boat's Sail",
+  "Note to Mom",
+  "Maggie's Letter",
+  "Moblin's Letter",
+  "Cabana Deed",
+  "Tingle Statue",
+  "Magic Meter Upgrade",
+  "Ghost Ship Chart",
+  "Progressive Sword",
+  "Progressive Bow",
+  "Progressive Wallet",
+  "Progressive Picto Box",
+  "Empty Bottle",
+  "Telescope",
+  "Magic Armor",
+  "Hero's Charm",
+  "Progressive Quiver",
+  "Progressive Bomb Bag",
+  "Hurricane Spin",
+  "DRC Big Key",
+  "DRC Small Key",
+  "FW Big Key",
+  "FW Small Key",
+  "TotG Big Key",
+  "TotG Small Key",
+  "ET Big Key",
+  "ET Small Key",
+  "WT Big Key",
+  "WT Small Key",
+]
+`;
+
+exports[`LogicHelper DUNGEONS returns the correct dungeons 1`] = `
+Object {
+  "DRAGON_ROOST_CAVERN": "Dragon Roost Cavern",
+  "EARTH_TEMPLE": "Earth Temple",
+  "FORBIDDEN_WOODS": "Forbidden Woods",
+  "FORSAKEN_FORTRESS": "Forsaken Fortress",
+  "GANONS_TOWER": "Ganon's Tower",
+  "TOWER_OF_THE_GODS": "Tower of the Gods",
+  "WIND_TEMPLE": "Wind Temple",
+}
+`;
+
+exports[`LogicHelper ISLANDS returns the correct islands 1`] = `
+Object {
+  "ANGULAR_ISLES": "Angular Isles",
+  "BIRDS_PEAK_ROCK": "Bird's Peak Rock",
+  "BOATING_COURSE": "Boating Course",
+  "BOMB_ISLAND": "Bomb Island",
+  "CLIFF_PLATEAU_ISLES": "Cliff Plateau Isles",
+  "CRESCENT_MOON_ISLAND": "Crescent Moon Island",
+  "CYCLOPS_REEF": "Cyclops Reef",
+  "DIAMOND_STEPPE_ISLAND": "Diamond Steppe Island",
+  "DRAGON_ROOST_ISLAND": "Dragon Roost Island",
+  "EASTERN_FAIRY_ISLAND": "Eastern Fairy Island",
+  "EASTERN_TRIANGLE_ISLAND": "Eastern Triangle Island",
+  "FIRE_MOUNTAIN": "Fire Mountain",
+  "FIVE_EYE_REEF": "Five-Eye Reef",
+  "FIVE_STAR_ISLES": "Five-Star Isles",
+  "FLIGHT_CONTROL_PLATFORM": "Flight Control Platform",
+  "FOREST_HAVEN": "Forest Haven",
+  "FORSAKEN_FORTRESS": "Forsaken Fortress",
+  "FOUR_EYE_REEF": "Four-Eye Reef",
+  "GALE_ISLE": "Gale Isle",
+  "GREATFISH_ISLE": "Greatfish Isle",
+  "HEADSTONE_ISLAND": "Headstone Island",
+  "HORSESHOE_ISLAND": "Horseshoe Island",
+  "ICE_RING_ISLE": "Ice Ring Isle",
+  "ISLET_OF_STEEL": "Islet of Steel",
+  "MOTHER_AND_CHILD_ISLES": "Mother and Child Isles",
+  "NEEDLE_ROCK_ISLE": "Needle Rock Isle",
+  "NORTHERN_FAIRY_ISLAND": "Northern Fairy Island",
+  "NORTHERN_TRIANGLE_ISLAND": "Northern Triangle Island",
+  "OUTSET_ISLAND": "Outset Island",
+  "OVERLOOK_ISLAND": "Overlook Island",
+  "PAWPRINT_ISLE": "Pawprint Isle",
+  "PRIVATE_OASIS": "Private Oasis",
+  "ROCK_SPIRE_ISLE": "Rock Spire Isle",
+  "SEVEN_STAR_ISLES": "Seven-Star Isles",
+  "SHARK_ISLAND": "Shark Island",
+  "SIX_EYE_REEF": "Six-Eye Reef",
+  "SOUTHERN_FAIRY_ISLAND": "Southern Fairy Island",
+  "SOUTHERN_TRIANGLE_ISLAND": "Southern Triangle Island",
+  "SPECTACLE_ISLAND": "Spectacle Island",
+  "STAR_BELT_ARCHIPELAGO": "Star Belt Archipelago",
+  "STAR_ISLAND": "Star Island",
+  "STONE_WATCHER_ISLAND": "Stone Watcher Island",
+  "THORNED_FAIRY_ISLAND": "Thorned Fairy Island",
+  "THREE_EYE_REEF": "Three-Eye Reef",
+  "TINGLE_ISLAND": "Tingle Island",
+  "TOWER_OF_THE_GODS": "Tower of the Gods",
+  "TWO_EYE_REEF": "Two-Eye Reef",
+  "WESTERN_FAIRY_ISLAND": "Western Fairy Island",
+  "WINDFALL_ISLAND": "Windfall Island",
+}
+`;
+
+exports[`LogicHelper ITEMS returns the correct items 1`] = `
+Object {
+  "BAIT_BAG": "Bait Bag",
+  "BALLAD_OF_GALES": "Ballad of Gales",
+  "BOATS_SAIL": "Boat's Sail",
+  "BOMBS": "Bombs",
+  "BOOMERANG": "Boomerang",
+  "CABANA_DEED": "Cabana Deed",
+  "COMMAND_MELODY": "Command Melody",
+  "DEKU_LEAF": "Deku Leaf",
+  "DELIVERY_BAG": "Delivery Bag",
+  "DINS_PEARL": "Din's Pearl",
+  "EARTH_GODS_LYRIC": "Earth God's Lyric",
+  "EMPTY_BOTTLE": "Empty Bottle",
+  "FARORES_PEARL": "Farore's Pearl",
+  "GHOST_SHIP_CHART": "Ghost Ship Chart",
+  "GRAPPLING_HOOK": "Grappling Hook",
+  "HEROS_CHARM": "Hero's Charm",
+  "HEROS_SHIELD": "Hero's Shield",
+  "HOOKSHOT": "Hookshot",
+  "HURRICANE_SPIN": "Hurricane Spin",
+  "IRON_BOOTS": "Iron Boots",
+  "MAGGIES_LETTER": "Maggie's Letter",
+  "MAGIC_ARMOR": "Magic Armor",
+  "MAGIC_METER_UPGRADE": "Magic Meter Upgrade",
+  "MIRROR_SHIELD": "Mirror Shield",
+  "MOBLINS_LETTER": "Moblin's Letter",
+  "NAYRUS_PEARL": "Nayru's Pearl",
+  "NOTE_TO_MOM": "Note to Mom",
+  "POWER_BRACELETS": "Power Bracelets",
+  "PROGRESSIVE_BOMB_BAG": "Progressive Bomb Bag",
+  "PROGRESSIVE_BOW": "Progressive Bow",
+  "PROGRESSIVE_PICTO_BOX": "Progressive Picto Box",
+  "PROGRESSIVE_QUIVER": "Progressive Quiver",
+  "PROGRESSIVE_SWORD": "Progressive Sword",
+  "PROGRESSIVE_WALLET": "Progressive Wallet",
+  "SKULL_HAMMER": "Skull Hammer",
+  "SONG_OF_PASSING": "Song of Passing",
+  "SPOILS_BAG": "Spoils Bag",
+  "TELESCOPE": "Telescope",
+  "TINGLE_STATUE": "Tingle Statue",
+  "TINGLE_TUNER": "Tingle Tuner",
+  "TRIFORCE_SHARD": "Triforce Shard",
+  "WINDS_REQUIEM": "Wind's Requiem",
+  "WIND_GODS_ARIA": "Wind God's Aria",
+  "WIND_WAKER": "Wind Waker",
+}
+`;
+
+exports[`LogicHelper MISC_LOCATIONS returns the correct miscellanous locations 1`] = `
+Object {
+  "HYRULE": "Hyrule",
+  "MAILBOX": "Mailbox",
+  "THE_GREAT_SEA": "The Great Sea",
+}
+`;
+
+exports[`LogicHelper allRandomEntrances when dungeon and cave entrances are randomized separately returns all the dungeons and caves 1`] = `
+Array [
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper allRandomEntrances when dungeon and cave entrances are randomized together returns all the dungeons and caves 1`] = `
+Array [
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper allRandomEntrances when only cave entrances are randomized returns all the caves 1`] = `
+Array [
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper allRandomEntrances when only dungeon entrances are randomized returns all the dungeons 1`] = `
+Array [
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+]
+`;
+
+exports[`LogicHelper initialize when in swordless mode sets sword to 0 in the starting items and adds impossible items 1`] = `
+Object {
+  "Ballad of Gales": 1,
+  "Boat's Sail": 1,
+  "Hero's Shield": 1,
+  "Progressive Sword": 0,
+  "Song of Passing": 1,
+  "Triforce Shard": 0,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
+}
+`;
+
+exports[`LogicHelper initialize when in swordless mode sets sword to 0 in the starting items and adds impossible items 2`] = `
+Object {
+  "Hurricane Spin": 1,
+  "Progressive Sword": 1,
+}
+`;
+
+exports[`LogicHelper initialize when starting without a sword sets sword to 0 in the starting items 1`] = `
+Object {
+  "Ballad of Gales": 1,
+  "Boat's Sail": 1,
+  "Hero's Shield": 1,
+  "Progressive Sword": 0,
+  "Song of Passing": 1,
+  "Triforce Shard": 0,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
+}
+`;
+
+exports[`LogicHelper initialize with no starting shards, no starting gear, and starting with a sword sets the starting and impossible items 1`] = `
+Object {
+  "Ballad of Gales": 1,
+  "Boat's Sail": 1,
+  "Hero's Shield": 1,
+  "Progressive Sword": 1,
+  "Song of Passing": 1,
+  "Triforce Shard": 0,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
+}
+`;
+
+exports[`LogicHelper initialize with starting gear sets the starting items based on the starting gear 1`] = `
+Object {
+  "Ballad of Gales": 1,
+  "Boat's Sail": 1,
+  "Bombs": 1,
+  "Deku Leaf": 1,
+  "Hero's Shield": 1,
+  "Progressive Sword": 3,
+  "Song of Passing": 1,
+  "Triforce Shard": 0,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
+}
+`;
+
+exports[`LogicHelper initialize with starting shards sets the number of starting shards 1`] = `
+Object {
+  "Ballad of Gales": 1,
+  "Boat's Sail": 1,
+  "Hero's Shield": 1,
+  "Progressive Sword": 1,
+  "Song of Passing": 1,
+  "Triforce Shard": 7,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
+}
+`;
+
+exports[`LogicHelper raceModeBannedLocations returns the correct locations for Dragon Roost Cavern 1`] = `
+Array [
+  Object {
+    "detailedLocation": "First Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Alcove With Water Jugs",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Boarded Up Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Chest Across Lava Pit",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Rat Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Rat Room Boarded Up Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Bird's Nest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Dark Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Tingle Chest in Hub Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Pot Room Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Mini-Boss",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Under Rope Bridge",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Boss Stairs Right Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Boss Stairs Left Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  Object {
+    "detailedLocation": "Gohma Heart Container",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+]
+`;
+
+exports[`LogicHelper raceModeBannedLocations returns the correct locations for Earth Temple 1`] = `
+Array [
+  Object {
+    "detailedLocation": "Transparent Chest In Warp Pot Room",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Chest Behind Destructible Walls",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Transparent Chest in First Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Chest In Three Blocks Room",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Chest Behind Statues",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Casket in Second Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Stalfos Mini-Boss Room",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "End of Foggy Room With Floormasters",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Kill All Floormasters in Foggy Room",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Chest in Third Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Many Mirrors Room Right Chest",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Many Mirrors Room Left Chest",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Stalfos Crypt Room",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Jalhalla Heart Container",
+    "generalLocation": "Earth Temple",
+  },
+  Object {
+    "detailedLocation": "Letter from Baito",
+    "generalLocation": "Mailbox",
+  },
+]
+`;
+
+exports[`LogicHelper raceModeBannedLocations returns the correct locations for Forbidden Woods 1`] = `
+Array [
+  Object {
+    "detailedLocation": "First Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Inside Hollow Tree's Mouth",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Climb to Top Using Boko Baba Bulbs",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Hole in Tree",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Morth Pit",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Vine Maze Left Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Vine Maze Right Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Tall Room Before Mini-Boss",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Mothula Mini-Boss Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Past Seeds Hanging by Vines",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Chest Across Red Hanging Flower",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Chest in Locked Tree Trunk",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Double Mothula Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Kalle Demos Heart Container",
+    "generalLocation": "Forbidden Woods",
+  },
+  Object {
+    "detailedLocation": "Letter from Orca",
+    "generalLocation": "Mailbox",
+  },
+]
+`;
+
+exports[`LogicHelper raceModeBannedLocations returns the correct locations for Forsaken Fortress 1`] = `
+Array [
+  Object {
+    "detailedLocation": "Phantom Ganon",
+    "generalLocation": "Forsaken Fortress",
+  },
+  Object {
+    "detailedLocation": "Chest Outside Upper Jail Cell",
+    "generalLocation": "Forsaken Fortress",
+  },
+  Object {
+    "detailedLocation": "Chest Inside Lower Jail Cell",
+    "generalLocation": "Forsaken Fortress",
+  },
+  Object {
+    "detailedLocation": "Chest Guarded By Bokoblin",
+    "generalLocation": "Forsaken Fortress",
+  },
+  Object {
+    "detailedLocation": "Chest on Bed",
+    "generalLocation": "Forsaken Fortress",
+  },
+  Object {
+    "detailedLocation": "Helmaroc King Heart Container",
+    "generalLocation": "Forsaken Fortress",
+  },
+  Object {
+    "detailedLocation": "Letter from Aryll",
+    "generalLocation": "Mailbox",
+  },
+  Object {
+    "detailedLocation": "Letter from Tingle",
+    "generalLocation": "Mailbox",
+  },
+]
+`;
+
+exports[`LogicHelper raceModeBannedLocations returns the correct locations for Tower of the Gods 1`] = `
+Array [
+  Object {
+    "detailedLocation": "Chest Behind Bombable Walls",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Hop Across Floating Boxes",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Light Two Torches",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Skulls Room Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Shoot Eye Above Skulls Room Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "First Chest Guarded by Armos Knights",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Stone Tablet",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Darknut Mini-Boss Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Second Chest Guarded by Armos Knights",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Floating Platforms Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Top of Floating Platforms Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  Object {
+    "detailedLocation": "Gohdan Heart Container",
+    "generalLocation": "Tower of the Gods",
+  },
+]
+`;
+
+exports[`LogicHelper raceModeBannedLocations returns the correct locations for Wind Temple 1`] = `
+Array [
+  Object {
+    "detailedLocation": "Chest Between Two Dirt Patches",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Chest Behind Stone Head",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Chest in Left Alcove",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Chest In Many Cyclones Room",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Chest In Middle Of Hub Room",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Spike Wall Room - First Chest",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Spike Wall Room - Destroy All Cracked Floors",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Wizzrobe Mini-Boss Room",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Chest at Top of Hub Room",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Chest Behind Seven Armos",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Kill All Enemies in Tall Basement Room",
+    "generalLocation": "Wind Temple",
+  },
+  Object {
+    "detailedLocation": "Molgera Heart Container",
+    "generalLocation": "Wind Temple",
+  },
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when dungeon and cave entrances are randomized separately when the exit is a cave returns all the caves 1`] = `
+Array [
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when dungeon and cave entrances are randomized separately when the exit is a dungeon returns all the dungeons 1`] = `
+Array [
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when dungeon and cave entrances are randomized together when the exit is a cave returns all the dungeons and caves 1`] = `
+Array [
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when dungeon and cave entrances are randomized together when the exit is a dungeon returns all the dungeons and caves 1`] = `
+Array [
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when only cave entrances are randomized returns all the caves 1`] = `
+Array [
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when only dungeon entrances are randomized returns all the dungeons 1`] = `
+Array [
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+]
+`;
+
+exports[`LogicHelper requirementsForEntrance returns simplified requirements for Bomb Island Secret Cave 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Bombs",
+    "Power Bracelets",
+  ],
+  "type": "or",
+}
+`;
+
+exports[`LogicHelper requirementsForEntrance returns simplified requirements for Forbidden Woods 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Grappling Hook",
+    "Deku Leaf",
+    BooleanExpression {
+      "items": Array [
+        "Progressive Sword x1",
+        "Skull Hammer",
+        "Boomerang",
+        "Bombs",
+        "Magic Meter Upgrade",
+      ],
+      "type": "or",
+    },
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForLocation when starting with a sword returns simplified requirements for Cliff Plateau Isles - Cave 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Nothing",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Cliff Plateau Isles - Cave 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Progressive Sword x1",
+    "Boomerang",
+    "Skull Hammer",
+    "Progressive Bow x1",
+    "Hookshot",
+    "Bombs",
+    BooleanExpression {
+      "items": Array [
+        "Deku Leaf",
+        "Grappling Hook",
+      ],
+      "type": "and",
+    },
+  ],
+  "type": "or",
+}
+`;
+
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container 1`] = `
+BooleanExpression {
+  "items": Array [
+    "DRC Small Key x4",
+    "Grappling Hook",
+    "DRC Big Key",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Earth Temple - Jalhalla Heart Container 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Power Bracelets",
+    "Command Melody",
+    "Mirror Shield",
+    "Earth God's Lyric",
+    "Skull Hammer",
+    "ET Small Key x3",
+    "ET Big Key",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Mailbox - Beedle's Silver Membership Reward 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Bait Bag",
+    "Bombs",
+    "Progressive Bow x1",
+    "Empty Bottle",
+  ],
+  "type": "or",
+}
+`;
+
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30 1`] = `
+BooleanExpression {
+  "items": Array [
+    BooleanExpression {
+      "items": Array [
+        BooleanExpression {
+          "items": Array [
+            BooleanExpression {
+              "items": Array [
+                "Progressive Sword x1",
+                "Boomerang",
+                "Skull Hammer",
+              ],
+              "type": "or",
+            },
+            "Deku Leaf",
+          ],
+          "type": "and",
+        },
+        "Hookshot",
+      ],
+      "type": "or",
+    },
+    "Power Bracelets",
+    BooleanExpression {
+      "items": Array [
+        "Boomerang",
+        BooleanExpression {
+          "items": Array [
+            "Hookshot",
+            "Progressive Sword x1",
+          ],
+          "type": "and",
+        },
+        BooleanExpression {
+          "items": Array [
+            "Deku Leaf",
+            "Progressive Sword x1",
+          ],
+          "type": "and",
+        },
+        "Skull Hammer",
+        "Progressive Bow x1",
+        "Bombs",
+      ],
+      "type": "or",
+    },
+    BooleanExpression {
+      "items": Array [
+        BooleanExpression {
+          "items": Array [
+            "Boomerang",
+            "Progressive Sword x1",
+          ],
+          "type": "and",
+        },
+        "Progressive Bow x1",
+        "Bombs",
+        BooleanExpression {
+          "items": Array [
+            "Deku Leaf",
+            "Progressive Sword x1",
+          ],
+          "type": "and",
+        },
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+    BooleanExpression {
+      "items": Array [
+        "Progressive Sword x1",
+        "Progressive Bow x3",
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+    BooleanExpression {
+      "items": Array [
+        "Grappling Hook",
+        "Progressive Sword x1",
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Outset Island - Savage Labyrinth - Floor 50 1`] = `
+BooleanExpression {
+  "items": Array [
+    BooleanExpression {
+      "items": Array [
+        "Deku Leaf",
+        "Hookshot",
+      ],
+      "type": "or",
+    },
+    "Power Bracelets",
+    "Mirror Shield",
+    "Skull Hammer",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForLocation when swordless returns simplified requirements for The Great Sea - Ghost Ship 1`] = `
+BooleanExpression {
+  "items": Array [
+    "Ghost Ship Chart",
+    BooleanExpression {
+      "items": Array [
+        "Progressive Bow x3",
+        "Skull Hammer",
+        "Bombs",
+      ],
+      "type": "or",
+    },
+  ],
+  "type": "and",
+}
+`;
