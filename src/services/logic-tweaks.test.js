@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+import ISLANDS from '../data/islands.json';
 import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
 import TEST_MACROS from '../data/test-macros.json';
 
@@ -79,6 +80,7 @@ describe('LogicTweaks', () => {
       test('keeps sunken Triforce Shard locations as Sunken Treasure', () => {
         LogicTweaks.applyTweaks();
 
+        expect.assertions(ISLANDS.length);
         _.forEach(Locations.locations, (detailedLocations) => {
           _.forEach(detailedLocations, (locationData) => {
             if (_.includes(locationData[Locations.KEYS.NEED], 'Chart for Island')) {
