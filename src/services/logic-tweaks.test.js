@@ -76,7 +76,7 @@ describe('LogicTweaks', () => {
         });
       });
 
-      test('sets all chart locations to be Sunken Treasure', () => {
+      test('keeps sunken Triforce Shard locations as Sunken Treasure', () => {
         LogicTweaks.applyTweaks();
 
         _.forEach(Locations.locations, (detailedLocations) => {
