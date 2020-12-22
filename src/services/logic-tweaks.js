@@ -51,6 +51,10 @@ export default class LogicTweaks {
   }
 
   static _updateSunkenTriforceTypes() {
+    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
+      return;
+    }
+
     _.forEach(ISLANDS, (islandName) => {
       const originalItem = Locations.getLocation(
         islandName,
@@ -108,34 +112,40 @@ export default class LogicTweaks {
   }
 
   static _updateDungeonEntranceMacros() {
-    if (LogicHelper.isRandomDungeonEntrances()) {
-      _.forEach(LogicHelper.mainDungeons(), (dungeon) => {
-        const macroName = this._canAccessMacroName(dungeon);
-        const entryName = LogicHelper.entryName(dungeon);
-        Macros.setMacro(macroName, entryName);
-      });
+    if (!LogicHelper.isRandomDungeonEntrances()) {
+      return;
     }
+
+    _.forEach(LogicHelper.mainDungeons(), (dungeon) => {
+      const macroName = this._canAccessMacroName(dungeon);
+      const entryName = LogicHelper.entryName(dungeon);
+      Macros.setMacro(macroName, entryName);
+    });
   }
 
   static _updateCaveEntranceMacros() {
-    if (LogicHelper.isRandomCaveEntrances()) {
-      _.forEach(CAVES, (cave) => {
-        const macroName = this._canAccessMacroName(cave);
-        const entryName = LogicHelper.entryName(cave);
-        Macros.setMacro(macroName, entryName);
-      });
+    if (!LogicHelper.isRandomCaveEntrances()) {
+      return;
     }
+
+    _.forEach(CAVES, (cave) => {
+      const macroName = this._canAccessMacroName(cave);
+      const entryName = LogicHelper.entryName(cave);
+      Macros.setMacro(macroName, entryName);
+    });
   }
 
   static _updateChartMacros() {
-    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
-      _.forEach(CHARTS, (chart, index) => {
-        // assume everything is a Treasure Chart and clear any additional requirements like
-        // wallet upgrades
-        const macroName = `Chart for Island ${index + 1}`;
-        Macros.setMacro(macroName, chart);
-      });
+    if (!Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
+      return;
     }
+
+    _.forEach(CHARTS, (chart, index) => {
+      // assume everything is a Treasure Chart and clear any additional requirements like
+      // wallet upgrades
+      const macroName = `Chart for Island ${index + 1}`;
+      Macros.setMacro(macroName, chart);
+    });
   }
 
   static _updateTriforceMacro() {

@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
 import TEST_MACROS from '../data/test-macros.json';
 
@@ -71,6 +73,18 @@ describe('LogicTweaks', () => {
           options: {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
           },
+        });
+      });
+
+      test('sets all chart locations to be Sunken Treasure', () => {
+        LogicTweaks.applyTweaks();
+
+        _.forEach(Locations.locations, (detailedLocations) => {
+          _.forEach(detailedLocations, (locationData) => {
+            if (_.includes(locationData[Locations.KEYS.NEED], 'Chart for Island')) {
+              expect(locationData[Locations.KEYS.TYPES]).toEqual(Settings.FLAGS.SUNKEN_TREASURE);
+            }
+          });
         });
       });
 
