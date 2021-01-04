@@ -16,7 +16,7 @@ export default class LogicLoader {
   static async _loadLogicFile(fileName) {
     const fileUrl = this._logicFileUrl(fileName);
     const fileData = await this._loadFileFromUrl(fileUrl);
-    const parsedFile = yaml.safeLoad(fileData);
+    const parsedFile = yaml.load(fileData);
     return parsedFile;
   }
 
