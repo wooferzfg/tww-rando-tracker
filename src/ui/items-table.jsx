@@ -37,8 +37,13 @@ class ItemsTable extends React.PureComponent {
       return null;
     }
 
-    const itemCount = trackerState.getItemValue(selectedItem);
-    const itemInfoText = LogicHelper.prettyNameForItem(selectedItem, itemCount);
+    let itemInfoText;
+    if (_.includes(selectedItem, 'Chart ')) {
+      itemInfoText = selectedItem;
+    } else {
+      const itemCount = trackerState.getItemValue(selectedItem);
+      itemInfoText = LogicHelper.prettyNameForItem(selectedItem, itemCount);
+    }
 
     return (
       <span className="item-info">{itemInfoText}</span>
@@ -184,7 +189,9 @@ class ItemsTable extends React.PureComponent {
     } else {
       trackerElement = (
         <ChartsTable
+          clearSelectedItem={this.clearSelectedItem}
           incrementItem={incrementItem}
+          setSelectedItem={this.setSelectedItem}
           trackerState={trackerState}
           unsetChart={unsetChart}
           updateOpenedChart={updateOpenedChart}

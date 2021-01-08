@@ -13,12 +13,16 @@ import Item from './item';
 class ChartsTable extends React.PureComponent {
   chartItem(chartName, index) {
     const {
+      clearSelectedItem,
       incrementItem,
+      setSelectedItem,
       trackerState,
       unsetChart,
     } = this.props;
 
-    const chartType = _.includes(chartName, 'Treasure') ? LogicHelper.CHART_TYPES.TREASURE : LogicHelper.CHART_TYPES.TRIFORCE;
+    const chartType = _.includes(chartName, 'Treasure')
+      ? LogicHelper.CHART_TYPES.TREASURE
+      : LogicHelper.CHART_TYPES.TRIFORCE;
     const chartImages = _.get(Images.IMAGES, ['CHARTS', chartType]);
     const chartCount = trackerState.getItemValue(chartName);
 
@@ -33,12 +37,12 @@ class ChartsTable extends React.PureComponent {
     return (
       <div className="treasure-chart">
         <Item
-          clearSelectedItem={this.clearSelectedChart}
+          clearSelectedItem={clearSelectedItem}
           images={chartImages}
           incrementItem={incrementChartFunc}
           itemCount={chartCount}
           itemName={chartName}
-          setSelectedItem={this.setSelectedChart}
+          setSelectedItem={setSelectedItem}
         />
         {index}
       </div>
@@ -113,7 +117,9 @@ class ChartsTable extends React.PureComponent {
 }
 
 ChartsTable.propTypes = {
+  clearSelectedItem: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
+  setSelectedItem: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   unsetChart: PropTypes.func.isRequired,
   updateOpenedChart: PropTypes.func.isRequired,
