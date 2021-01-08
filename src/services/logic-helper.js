@@ -67,6 +67,8 @@ export default class LogicHelper {
 
   static DEFEAT_GANONDORF_LOCATION = 'Defeat Ganondorf';
 
+  static CHARTS = Constants.createFromArray(CHARTS);
+
   static DUNGEONS = Constants.createFromArray(DUNGEONS);
 
   static ISLANDS = Constants.createFromArray(ISLANDS);
@@ -168,6 +170,10 @@ export default class LogicHelper {
         ),
       ),
     );
+  }
+
+  static isRandomCharts() {
+    return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS);
   }
 
   static isRandomEntrances() {

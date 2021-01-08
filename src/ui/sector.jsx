@@ -24,32 +24,6 @@ class Sector extends React.PureComponent {
     );
   }
 
-  chartItem() {
-    const {
-      chartCount,
-      chartName,
-      chartType,
-      clearSelectedItem,
-      incrementItem,
-      setSelectedItem,
-    } = this.props;
-
-    const chartImages = _.get(Images.IMAGES, ['CHARTS', chartType]);
-
-    return (
-      <div className="treasure-chart">
-        <Item
-          clearSelectedItem={clearSelectedItem}
-          images={chartImages}
-          incrementItem={incrementItem}
-          itemCount={chartCount}
-          itemName={chartName}
-          setSelectedItem={setSelectedItem}
-        />
-      </div>
-    );
-  }
-
   entryItems() {
     const {
       clearSelectedItem,
@@ -131,7 +105,6 @@ class Sector extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        {this.chartItem()}
         {this.entryItems()}
         {this.chestsCounter()}
       </div>
@@ -140,9 +113,6 @@ class Sector extends React.PureComponent {
 }
 
 Sector.propTypes = {
-  chartCount: PropTypes.number.isRequired,
-  chartName: PropTypes.string.isRequired,
-  chartType: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
@@ -154,12 +124,10 @@ Sector.propTypes = {
       locationName: PropTypes.string,
     }),
   ).isRequired,
-  incrementItem: PropTypes.func.isRequired,
   island: PropTypes.string.isRequired,
   numAvailable: PropTypes.number.isRequired,
   numRemaining: PropTypes.number.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
-  setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,

@@ -548,6 +548,7 @@ button:hover:enabled {
   }
 }
 
+.select-location,
 .unavailable-location,
 .unavailable-item {
   color: #cc2929;
@@ -577,6 +578,61 @@ button:hover:enabled {
   ul {
     margin: 5px 0 0 0;
     padding-left: 15px;
+  }
+}
+
+.chart-tracker {
+  float: left;
+  overflow-y: scroll;
+  margin-right: 8px;
+  margin-bottom: 38px;
+  width: 456px;
+  height: 346px;
+
+  &.single-color {
+    .chart-tracker-background {
+      background-image: none;
+      background-color: #69891c;
+
+      img {
+        visibility: hidden;
+        display: block;
+      }
+    }
+  }
+
+  .chart-tracker-background {
+    position: absolute;
+    z-index: -1;
+  }
+
+  .charts {
+    width: 100%;
+    table-layout: fixed;
+
+    td {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .detail-span {
+      line-height: 0.9em;
+      padding-bottom: 5px;
+      cursor: pointer;
+      outline-style: none;
+    }
+
+    .item-container {
+      cursor: pointer;
+      float: left;
+      outline-style: none;
+      width: min-content;
+  
+      img {
+        display: block;
+        filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+      }
+    }
   }
 }
 
