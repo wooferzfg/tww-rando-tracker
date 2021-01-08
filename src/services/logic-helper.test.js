@@ -1884,6 +1884,12 @@ describe('LogicHelper', () => {
 
         expect(prettyName).toEqual('Chart for Forsaken Fortress');
       });
+
+      test('returns the regular name for the Ghost Ship Chart', () => {
+        const prettyName = LogicHelper.prettyNameForItem('Ghost Ship Chart');
+
+        expect(prettyName).toEqual('Ghost Ship Chart');
+      });
     });
 
     describe('when charts are not randomized', () => {
@@ -1905,6 +1911,12 @@ describe('LogicHelper', () => {
         const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25');
 
         expect(prettyName).toEqual('Treasure Chart 25');
+      });
+
+      test('returns the regular name for the Ghost Ship Chart', () => {
+        const prettyName = LogicHelper.prettyNameForItem('Ghost Ship Chart');
+
+        expect(prettyName).toEqual('Ghost Ship Chart');
       });
     });
   });
