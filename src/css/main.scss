@@ -288,6 +288,20 @@ button:hover:enabled {
     z-index: -1;
   }
 
+  .chart-container {
+    overflow-y: scroll;
+
+    .chart-table {
+      width: 100%;
+      table-layout: fixed;
+
+      .item-container {
+        float: left;
+        width: min-content;
+      }
+    }
+  }
+
   .item-container {
     cursor: pointer;
     outline-style: none;
@@ -548,6 +562,7 @@ button:hover:enabled {
   }
 }
 
+.select-location,
 .unavailable-location,
 .unavailable-item {
   color: #cc2929;

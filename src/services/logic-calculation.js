@@ -647,6 +647,20 @@ export default class LogicCalculation {
       return guaranteedKeyCount;
     }
 
+    if (LogicHelper.isRandomCharts() && _.includes(itemName, 'Chart ')) {
+      const islandName = _.get(
+        LogicHelper.prettyNameForItem(itemName).match(/Chart for (.*)/),
+        1,
+      );
+
+      const chartName = this.state.getChartForIsland(islandName);
+      if (!_.isNil(chartName)) {
+        return this.state.getItemValue(chartName);
+      }
+
+      return 0;
+    }
+
     return this.state.getItemValue(itemName);
   }
 }

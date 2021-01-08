@@ -9,6 +9,7 @@ import DetailedLocationsTable from './detailed-locations-table';
 import EntranceSelection from './entrance-selection';
 import EntrancesList from './entrances-list';
 import ExtraLocationsTable from './extra-locations-table';
+import IslandSelection from './island-selection';
 import MapInfo from './map-info';
 import SeaChart from './sea-chart';
 
@@ -65,6 +66,7 @@ class LocationsTable extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
+      openedChart,
       openedExit,
       openedLocation,
       openedLocationIsDungeon,
@@ -72,6 +74,7 @@ class LocationsTable extends React.PureComponent {
       trackerState,
       unsetExit,
       updateEntranceForExit,
+      updateIslandForChart,
       updateOpenedExit,
       updateOpenedLocation,
     } = this.props;
@@ -91,6 +94,16 @@ class LocationsTable extends React.PureComponent {
           disableLogic={disableLogic}
           logic={logic}
           trackerState={trackerState}
+        />
+      );
+    } else if (!_.isNil(openedChart)) {
+      chartElement = (
+        <IslandSelection
+          clearOpenedMenus={clearOpenedMenus}
+          logic={logic}
+          openedChart={openedChart}
+          trackerState={trackerState}
+          updateIslandForChart={updateIslandForChart}
         />
       );
     } else if (!_.isNil(openedExit)) {
@@ -192,6 +205,7 @@ class LocationsTable extends React.PureComponent {
 }
 
 LocationsTable.defaultProps = {
+  openedChart: null,
   openedExit: null,
   openedLocation: null,
   openedLocationIsDungeon: null,
@@ -205,6 +219,7 @@ LocationsTable.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  openedChart: PropTypes.string,
   openedExit: PropTypes.string,
   openedLocation: PropTypes.string,
   openedLocationIsDungeon: PropTypes.bool,
@@ -213,6 +228,7 @@ LocationsTable.propTypes = {
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateEntranceForExit: PropTypes.func.isRequired,
+  updateIslandForChart: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
 };
