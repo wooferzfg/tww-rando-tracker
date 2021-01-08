@@ -5,6 +5,7 @@ import React from 'react';
 import LogicHelper from '../services/logic-helper';
 import TrackerState from '../services/tracker-state';
 
+import ChartsTable from './charts-table';
 import Images from './images';
 import Item from './item';
 import SongNotes from './song-notes';
@@ -81,13 +82,18 @@ class ItemsTable extends React.PureComponent {
   }
 
   render() {
-    const { singleColorBackground } = this.props;
+    const {
+      incrementItem,
+      itemTrackerOpen,
+      singleColorBackground,
+      trackerState,
+      unsetChart,
+      updateOpenedChart,
+    } = this.props;
 
-    return (
-      <div className={`item-tracker ${singleColorBackground ? 'single-color' : ''}`}>
-        <div className="item-tracker-background">
-          <img src={Images.IMAGES.ITEMS_TABLE_BACKGROUND} alt="" />
-        </div>
+    let trackerElement;
+    if (itemTrackerOpen) {
+      trackerElement = (
         <div className="item-tracker-items">
           <div className="menu-items">
             <Table
@@ -174,6 +180,24 @@ class ItemsTable extends React.PureComponent {
             </div>
           </div>
         </div>
+      );
+    } else {
+      trackerElement = (
+        <ChartsTable
+          incrementItem={incrementItem}
+          trackerState={trackerState}
+          unsetChart={unsetChart}
+          updateOpenedChart={updateOpenedChart}
+        />
+      );
+    }
+
+    return (
+      <div className={`item-tracker ${singleColorBackground ? 'single-color' : ''}`}>
+        <div className="item-tracker-background">
+          <img src={Images.IMAGES.ITEMS_TABLE_BACKGROUND} alt="" />
+        </div>
+        {trackerElement}
         {this.itemInfo()}
       </div>
     );
@@ -182,8 +206,11 @@ class ItemsTable extends React.PureComponent {
 
 ItemsTable.propTypes = {
   incrementItem: PropTypes.func.isRequired,
+  itemTrackerOpen: PropTypes.bool.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  unsetChart: PropTypes.func.isRequired,
+  updateOpenedChart: PropTypes.func.isRequired,
 };
 
 export default ItemsTable;

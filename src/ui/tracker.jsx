@@ -8,7 +8,6 @@ import LogicHelper from '../services/logic-helper';
 import TrackerController from '../services/tracker-controller';
 
 import Buttons from './buttons';
-import ChartsTable from './charts-table';
 import Images from './images';
 import ItemsTable from './items-table';
 import LocationsTable from './locations-table';
@@ -25,6 +24,7 @@ class Tracker extends React.PureComponent {
       disableLogic: false,
       entrancesListOpen: false,
       isLoading: true,
+      itemTrackerOpen: true,
       onlyProgressLocations: true,
       openedChart: null,
       openedExit: null,
@@ -41,6 +41,7 @@ class Tracker extends React.PureComponent {
     this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
     this.toggleEntrancesList = this.toggleEntrancesList.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
+    this.toggleItemTracker = this.toggleItemTracker.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(this);
     this.unsetChart = this.unsetChart.bind(this);
@@ -256,6 +257,14 @@ class Tracker extends React.PureComponent {
     });
   }
 
+  toggleItemTracker() {
+    const { itemTrackerOpen } = this.state;
+
+    this.setState({
+      itemTrackerOpen: !itemTrackerOpen,
+    });
+  }
+
   toggleOnlyProgressLocations() {
     const { onlyProgressLocations } = this.state;
 
@@ -277,6 +286,7 @@ class Tracker extends React.PureComponent {
       disableLogic,
       entrancesListOpen,
       isLoading,
+      itemTrackerOpen,
       logic,
       onlyProgressLocations,
       openedChart,
@@ -302,11 +312,7 @@ class Tracker extends React.PureComponent {
           <div className="tracker">
             <ItemsTable
               incrementItem={this.incrementItem}
-              singleColorBackground={singleColorBackground}
-              trackerState={trackerState}
-            />
-            <ChartsTable
-              incrementItem={this.incrementItem}
+              itemTrackerOpen={itemTrackerOpen}
               singleColorBackground={singleColorBackground}
               trackerState={trackerState}
               unsetChart={this.unsetChart}
@@ -344,11 +350,13 @@ class Tracker extends React.PureComponent {
           <Buttons
             disableLogic={disableLogic}
             entrancesListOpen={entrancesListOpen}
+            itemTrackerOpen={itemTrackerOpen}
             onlyProgressLocations={onlyProgressLocations}
             saveData={saveData}
             singleColorBackground={singleColorBackground}
             toggleDisableLogic={this.toggleDisableLogic}
             toggleEntrancesList={this.toggleEntrancesList}
+            toggleItemTracker={this.toggleItemTracker}
             toggleOnlyProgressLocations={this.toggleOnlyProgressLocations}
             toggleSingleColorBackground={this.toggleSingleColorBackground}
           />

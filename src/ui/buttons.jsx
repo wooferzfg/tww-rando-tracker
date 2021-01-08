@@ -22,10 +22,12 @@ class Buttons extends React.PureComponent {
     const {
       disableLogic,
       entrancesListOpen,
+      itemTrackerOpen,
       onlyProgressLocations,
       singleColorBackground,
       toggleDisableLogic,
       toggleEntrancesList,
+      toggleItemTracker,
       toggleOnlyProgressLocations,
       toggleSingleColorBackground,
     } = this.props;
@@ -33,6 +35,10 @@ class Buttons extends React.PureComponent {
     const disableLogicText = disableLogic
       ? 'Show Location Logic'
       : 'Hide Location Logic';
+
+    const itemTrackerText = itemTrackerOpen
+      ? 'Show Chart Tracker'
+      : 'Show Item Tracker';
 
     const onlyProgressLocationsText = onlyProgressLocations
       ? 'Show Non-Progress Locations'
@@ -54,6 +60,12 @@ class Buttons extends React.PureComponent {
           type="button"
         >
           Export Progress
+        </button>
+        <button
+          onClick={toggleItemTracker}
+          type="button"
+        >
+          {itemTrackerText}
         </button>
         <button
           onClick={toggleOnlyProgressLocations}
@@ -91,11 +103,13 @@ class Buttons extends React.PureComponent {
 Buttons.propTypes = {
   disableLogic: PropTypes.bool.isRequired,
   entrancesListOpen: PropTypes.bool.isRequired,
+  itemTrackerOpen: PropTypes.bool.isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   saveData: PropTypes.string.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
   toggleDisableLogic: PropTypes.func.isRequired,
   toggleEntrancesList: PropTypes.func.isRequired,
+  toggleItemTracker: PropTypes.func.isRequired,
   toggleOnlyProgressLocations: PropTypes.func.isRequired,
   toggleSingleColorBackground: PropTypes.func.isRequired,
 };

@@ -11,10 +11,6 @@ import Images from './images';
 import Item from './item';
 
 class ChartsTable extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   chartItem(chartName, index) {
     const {
       incrementItem,
@@ -84,8 +80,6 @@ class ChartsTable extends React.PureComponent {
   }
 
   render() {
-    const { singleColorBackground } = this.props;
-
     const triforceCharts = _.map(TRIFORCE_CHARTS, (chartName, index) => (
       <tr key={`triforce-${index + 1}`}>
         <td>
@@ -106,11 +100,8 @@ class ChartsTable extends React.PureComponent {
     ));
 
     return (
-      <div className={`chart-tracker ${singleColorBackground ? 'single-color' : ''}`}>
-        <div className="chart-tracker-background">
-          <img src={Images.IMAGES.ITEMS_TABLE_BACKGROUND} alt="" />
-        </div>
-        <table className="charts">
+      <div className="chart-container">
+        <table className="chart-table">
           <tbody>
             {triforceCharts}
             {treasureCharts}
@@ -123,7 +114,6 @@ class ChartsTable extends React.PureComponent {
 
 ChartsTable.propTypes = {
   incrementItem: PropTypes.func.isRequired,
-  singleColorBackground: PropTypes.bool.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   unsetChart: PropTypes.func.isRequired,
   updateOpenedChart: PropTypes.func.isRequired,
