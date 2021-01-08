@@ -144,6 +144,7 @@ class Tracker extends React.PureComponent {
 
     this.setState({
       logic,
+      saveData,
       trackerState,
     });
   }
