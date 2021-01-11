@@ -12,6 +12,7 @@ class ExtraLocation extends React.PureComponent {
     const {
       clearSelectedItem,
       incrementItem,
+      decrementItem,
       setSelectedItem,
       smallKeyCount,
       smallKeyName,
@@ -25,6 +26,7 @@ class ExtraLocation extends React.PureComponent {
           clearSelectedItem={clearSelectedItem}
           images={smallKeyImages}
           incrementItem={incrementItem}
+          decrementItem={decrementItem}
           itemCount={smallKeyCount}
           itemName={smallKeyName}
           setSelectedItem={setSelectedItem}
@@ -39,6 +41,7 @@ class ExtraLocation extends React.PureComponent {
       bigKeyName,
       clearSelectedItem,
       incrementItem,
+      decrementItem,
       setSelectedItem,
     } = this.props;
 
@@ -50,6 +53,7 @@ class ExtraLocation extends React.PureComponent {
           clearSelectedItem={clearSelectedItem}
           images={bigKeyImages}
           incrementItem={incrementItem}
+          decrementItem={decrementItem}
           itemCount={bigKeyCount}
           itemName={bigKeyName}
           setSelectedItem={setSelectedItem}
@@ -183,6 +187,7 @@ ExtraLocation.defaultProps = {
   entryCount: null,
   entryName: null,
   incrementItem: null,
+  decrementItem: null,
   setSelectedExit: null,
   setSelectedItem: null,
   smallKeyCount: null,
@@ -201,6 +206,7 @@ ExtraLocation.propTypes = {
   entryCount: PropTypes.number,
   entryName: PropTypes.string,
   incrementItem: PropTypes.func,
+  decrementItem: PropTypes.func,
   isDungeon: PropTypes.bool.isRequired,
   isMainDungeon: PropTypes.bool.isRequired,
   locationIcon: PropTypes.string.isRequired,

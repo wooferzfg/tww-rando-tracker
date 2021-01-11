@@ -17,6 +17,7 @@ class SeaChart extends React.PureComponent {
       clearSelectedLocation,
       disableLogic,
       incrementItem,
+      decrementItem,
       logic,
       onlyProgressLocations,
       setSelectedExit,
@@ -73,6 +74,7 @@ class SeaChart extends React.PureComponent {
         entrances={entrances}
         key={island}
         incrementItem={incrementItem}
+        decrementItem={decrementItem}
         island={island}
         numAvailable={numAvailable}
         numRemaining={numRemaining}
@@ -107,6 +109,7 @@ SeaChart.propTypes = {
   clearSelectedLocation: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
+  decrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   setSelectedExit: PropTypes.func.isRequired,

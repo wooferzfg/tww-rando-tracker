@@ -31,6 +31,7 @@ class Sector extends React.PureComponent {
       chartType,
       clearSelectedItem,
       incrementItem,
+      decrementItem,
       setSelectedItem,
     } = this.props;
 
@@ -42,6 +43,7 @@ class Sector extends React.PureComponent {
           clearSelectedItem={clearSelectedItem}
           images={chartImages}
           incrementItem={incrementItem}
+          decrementItem={decrementItem}
           itemCount={chartCount}
           itemName={chartName}
           setSelectedItem={setSelectedItem}
@@ -155,6 +157,7 @@ Sector.propTypes = {
     }),
   ).isRequired,
   incrementItem: PropTypes.func.isRequired,
+  decrementItem: PropTypes.func.isRequired,
   island: PropTypes.string.isRequired,
   numAvailable: PropTypes.number.isRequired,
   numRemaining: PropTypes.number.isRequired,

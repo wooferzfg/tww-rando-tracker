@@ -47,6 +47,7 @@ class ItemsTable extends React.PureComponent {
   item(itemName) {
     const {
       incrementItem,
+      decrementItem,
       trackerState,
     } = this.props;
 
@@ -58,6 +59,7 @@ class ItemsTable extends React.PureComponent {
         clearSelectedItem={this.clearSelectedItem}
         images={itemImages}
         incrementItem={incrementItem}
+        decrementItem={decrementItem}
         itemCount={itemCount}
         itemName={itemName}
         setSelectedItem={this.setSelectedItem}
@@ -182,6 +184,7 @@ class ItemsTable extends React.PureComponent {
 
 ItemsTable.propTypes = {
   incrementItem: PropTypes.func.isRequired,
+  decrementItem: PropTypes.func.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
 };
