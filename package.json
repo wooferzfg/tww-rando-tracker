@@ -17,7 +17,7 @@
   "dependencies": {
     "js-yaml": "^4.0.0",
     "lodash": "^4.17.20",
-    "memoizee": "^0.4.14",
+    "memoizee": "^0.4.15",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
