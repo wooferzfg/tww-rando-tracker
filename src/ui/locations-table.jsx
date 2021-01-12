@@ -60,6 +60,7 @@ class LocationsTable extends React.PureComponent {
     const {
       clearOpenedMenus,
       clearRaceModeBannedLocations,
+      decrementItem,
       disableLogic,
       entrancesListOpen,
       incrementItem,
@@ -122,6 +123,7 @@ class LocationsTable extends React.PureComponent {
         <SeaChart
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
+          decrementItem={decrementItem}
           disableLogic={disableLogic}
           incrementItem={incrementItem}
           logic={logic}
@@ -156,6 +158,7 @@ class LocationsTable extends React.PureComponent {
 
   render() {
     const {
+      decrementItem,
       disableLogic,
       incrementItem,
       logic,
@@ -173,6 +176,7 @@ class LocationsTable extends React.PureComponent {
         <ExtraLocationsTable
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
+          decrementItem={decrementItem}
           disableLogic={disableLogic}
           incrementItem={incrementItem}
           logic={logic}
@@ -200,6 +204,7 @@ LocationsTable.defaultProps = {
 LocationsTable.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
   clearRaceModeBannedLocations: PropTypes.func.isRequired,
+  decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   entrancesListOpen: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,

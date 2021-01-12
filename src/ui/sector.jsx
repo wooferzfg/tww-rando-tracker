@@ -30,6 +30,7 @@ class Sector extends React.PureComponent {
       chartName,
       chartType,
       clearSelectedItem,
+      decrementItem,
       incrementItem,
       setSelectedItem,
     } = this.props;
@@ -40,6 +41,7 @@ class Sector extends React.PureComponent {
       <div className="treasure-chart">
         <Item
           clearSelectedItem={clearSelectedItem}
+          decrementItem={decrementItem}
           images={chartImages}
           incrementItem={incrementItem}
           itemCount={chartCount}
@@ -146,6 +148,7 @@ Sector.propTypes = {
   color: PropTypes.string.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
+  decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   entrances: PropTypes.arrayOf(
     PropTypes.shape({

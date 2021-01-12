@@ -57,6 +57,19 @@ export default class TrackerState {
     return newState;
   }
 
+  decrementItem(itemName) {
+    const newState = this._clone();
+
+    let newItemCount = this.getItemValue(itemName) - 1;
+    const minItemCount = LogicHelper.startingItemCount(itemName);
+    if (newItemCount < minItemCount) {
+      newItemCount = LogicHelper.maxItemCount(itemName);
+    }
+    _.set(newState.items, itemName, newItemCount);
+
+    return newState;
+  }
+
   getEntranceForExit(dungeonOrCaveName) {
     return _.get(this.entrances, dungeonOrCaveName);
   }

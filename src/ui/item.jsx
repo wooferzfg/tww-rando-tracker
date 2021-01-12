@@ -8,6 +8,7 @@ class Item extends React.PureComponent {
   render() {
     const {
       clearSelectedItem,
+      decrementItem,
       images,
       incrementItem,
       itemCount,
@@ -32,6 +33,12 @@ class Item extends React.PureComponent {
       incrementItem(itemName);
     };
 
+    const decrementItemFunc = (event) => {
+      event.preventDefault();
+
+      decrementItem(itemName);
+    };
+
     const setSelectedItemFunc = () => setSelectedItem(itemName);
 
     return (
@@ -39,6 +46,7 @@ class Item extends React.PureComponent {
         className={`item-container ${itemClassName}`}
         onBlur={clearSelectedItem}
         onClick={incrementItemFunc}
+        onContextMenu={decrementItemFunc}
         onFocus={setSelectedItemFunc}
         onKeyDown={incrementItemFunc}
         onMouseOver={setSelectedItemFunc}
@@ -57,6 +65,7 @@ class Item extends React.PureComponent {
 
 Item.propTypes = {
   clearSelectedItem: PropTypes.func.isRequired,
+  decrementItem: PropTypes.func.isRequired,
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
   incrementItem: PropTypes.func.isRequired,
   itemCount: PropTypes.number.isRequired,

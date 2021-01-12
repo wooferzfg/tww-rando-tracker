@@ -14,6 +14,7 @@ class ExtraLocationsTable extends React.PureComponent {
     const {
       clearSelectedItem,
       clearSelectedLocation,
+      decrementItem,
       disableLogic,
       incrementItem,
       logic,
@@ -66,6 +67,7 @@ class ExtraLocationsTable extends React.PureComponent {
           clearSelectedItem={clearSelectedItem}
           clearSelectedLocation={clearSelectedLocation}
           color={color}
+          decrementItem={decrementItem}
           disableLogic={disableLogic}
           entryCount={entryCount}
           entryName={entryName}
@@ -130,6 +132,7 @@ class ExtraLocationsTable extends React.PureComponent {
 ExtraLocationsTable.propTypes = {
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
+  decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,

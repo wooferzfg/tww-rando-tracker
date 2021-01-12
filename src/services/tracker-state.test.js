@@ -196,6 +196,67 @@ describe('TrackerState', () => {
     });
   });
 
+  describe('decrementItem', () => {
+    let state;
+    let initialEntrances;
+    let initialLocationsChecked;
+
+    beforeEach(() => {
+      initialEntrances = {
+        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
+      };
+      initialLocationsChecked = {
+        'Dragon Roost Cavern': {
+          "Bird's Nest": true,
+        },
+      };
+
+      state = new TrackerState();
+
+      state.entrances = _.clone(initialEntrances);
+      state.locationsChecked = _.cloneDeep(initialLocationsChecked);
+    });
+
+    describe('when the item is already at min quantity', () => {
+      beforeEach(() => {
+        LogicHelper.startingItems = {
+          'Progressive Sword': 2,
+        };
+
+        state.items = {
+          'Progressive Sword': 2,
+        };
+      });
+
+      test('returns a new state with the item reset to the maximum quantity', () => {
+        const newState = state.decrementItem('Progressive Sword');
+
+        expect(newState.items['Progressive Sword']).toEqual(4);
+      });
+    });
+
+    describe('when the item is not already at min quantity', () => {
+      beforeEach(() => {
+        state.items = {
+          'Deku Leaf': 1,
+        };
+      });
+
+      test('returns a new state with the item count decremented by 1', () => {
+        const newState = state.decrementItem('Deku Leaf');
+
+        expect(newState.items['Deku Leaf']).toEqual(0);
+      });
+    });
+
+    test('keeps the other values unmodified', () => {
+      const newState = state.decrementItem('Deku Leaf');
+
+      expect(newState.entrances).toEqual(initialEntrances);
+      expect(newState.locationsChecked).toEqual(initialLocationsChecked);
+    });
+  });
+
   describe('getEntranceForExit', () => {
     let state;
 
