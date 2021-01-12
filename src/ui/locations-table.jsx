@@ -60,10 +60,10 @@ class LocationsTable extends React.PureComponent {
     const {
       clearOpenedMenus,
       clearRaceModeBannedLocations,
+      decrementItem,
       disableLogic,
       entrancesListOpen,
       incrementItem,
-      decrementItem,
       logic,
       onlyProgressLocations,
       openedExit,
@@ -123,9 +123,9 @@ class LocationsTable extends React.PureComponent {
         <SeaChart
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
+          decrementItem={decrementItem}
           disableLogic={disableLogic}
           incrementItem={incrementItem}
-          decrementItem={decrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
           setSelectedExit={this.setSelectedExit}
@@ -158,9 +158,9 @@ class LocationsTable extends React.PureComponent {
 
   render() {
     const {
+      decrementItem,
       disableLogic,
       incrementItem,
-      decrementItem,
       logic,
       onlyProgressLocations,
       singleColorBackground,
@@ -176,9 +176,9 @@ class LocationsTable extends React.PureComponent {
         <ExtraLocationsTable
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
+          decrementItem={decrementItem}
           disableLogic={disableLogic}
           incrementItem={incrementItem}
-          decrementItem={decrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
           setSelectedExit={this.setSelectedExit}
@@ -204,10 +204,10 @@ LocationsTable.defaultProps = {
 LocationsTable.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
   clearRaceModeBannedLocations: PropTypes.func.isRequired,
+  decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   entrancesListOpen: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
-  decrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   openedExit: PropTypes.string,

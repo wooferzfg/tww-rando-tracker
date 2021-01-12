@@ -35,8 +35,8 @@ class Tracker extends React.PureComponent {
 
     this.clearOpenedMenus = this.clearOpenedMenus.bind(this);
     this.clearRaceModeBannedLocations = this.clearRaceModeBannedLocations.bind(this);
-    this.incrementItem = this.incrementItem.bind(this);
     this.decrementItem = this.decrementItem.bind(this);
+    this.incrementItem = this.incrementItem.bind(this);
     this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
     this.toggleEntrancesList = this.toggleEntrancesList.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
@@ -271,18 +271,18 @@ class Tracker extends React.PureComponent {
         <div className="tracker-container">
           <div className="tracker">
             <ItemsTable
-              incrementItem={this.incrementItem}
               decrementItem={this.decrementItem}
+              incrementItem={this.incrementItem}
               singleColorBackground={singleColorBackground}
               trackerState={trackerState}
             />
             <LocationsTable
               clearOpenedMenus={this.clearOpenedMenus}
               clearRaceModeBannedLocations={this.clearRaceModeBannedLocations}
+              decrementItem={this.decrementItem}
               disableLogic={disableLogic}
               entrancesListOpen={entrancesListOpen}
               incrementItem={this.incrementItem}
-              decrementItem={this.decrementItem}
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
               openedExit={openedExit}

@@ -11,8 +11,8 @@ class ExtraLocation extends React.PureComponent {
   smallKeyItem() {
     const {
       clearSelectedItem,
-      incrementItem,
       decrementItem,
+      incrementItem,
       setSelectedItem,
       smallKeyCount,
       smallKeyName,
@@ -24,9 +24,9 @@ class ExtraLocation extends React.PureComponent {
       <div className="dungeon-item small-key">
         <Item
           clearSelectedItem={clearSelectedItem}
+          decrementItem={decrementItem}
           images={smallKeyImages}
           incrementItem={incrementItem}
-          decrementItem={decrementItem}
           itemCount={smallKeyCount}
           itemName={smallKeyName}
           setSelectedItem={setSelectedItem}
@@ -40,8 +40,8 @@ class ExtraLocation extends React.PureComponent {
       bigKeyCount,
       bigKeyName,
       clearSelectedItem,
-      incrementItem,
       decrementItem,
+      incrementItem,
       setSelectedItem,
     } = this.props;
 
@@ -51,9 +51,9 @@ class ExtraLocation extends React.PureComponent {
       <div className="dungeon-item big-key">
         <Item
           clearSelectedItem={clearSelectedItem}
+          decrementItem={decrementItem}
           images={bigKeyImages}
           incrementItem={incrementItem}
-          decrementItem={decrementItem}
           itemCount={bigKeyCount}
           itemName={bigKeyName}
           setSelectedItem={setSelectedItem}
@@ -184,10 +184,10 @@ ExtraLocation.defaultProps = {
   bigKeyCount: null,
   bigKeyName: null,
   clearSelectedItem: null,
+  decrementItem: null,
   entryCount: null,
   entryName: null,
   incrementItem: null,
-  decrementItem: null,
   setSelectedExit: null,
   setSelectedItem: null,
   smallKeyCount: null,
@@ -202,11 +202,11 @@ ExtraLocation.propTypes = {
   clearSelectedItem: PropTypes.func,
   clearSelectedLocation: PropTypes.func.isRequired,
   color: PropTypes.string.isRequired,
+  decrementItem: PropTypes.func,
   disableLogic: PropTypes.bool.isRequired,
   entryCount: PropTypes.number,
   entryName: PropTypes.string,
   incrementItem: PropTypes.func,
-  decrementItem: PropTypes.func,
   isDungeon: PropTypes.bool.isRequired,
   isMainDungeon: PropTypes.bool.isRequired,
   locationIcon: PropTypes.string.isRequired,
