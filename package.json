@@ -25,7 +25,7 @@
     "react-router-dom": "^5.2.0",
     "react-toastify": "^6.2.0",
     "react-toggle": "^4.1.1",
-    "react-tooltip": "^4.2.11"
+    "react-tooltip": "^4.2.13"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
