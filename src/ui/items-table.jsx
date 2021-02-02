@@ -110,7 +110,7 @@ class ItemsTable extends React.PureComponent {
                 this.item(LogicHelper.ITEMS.BAIT_BAG),
                 this.item(LogicHelper.ITEMS.PROGRESSIVE_BOW),
                 this.item(LogicHelper.ITEMS.BOMBS),
-                this.item(LogicHelper.ITEMS.MIRROR_SHIELD),
+                this.item(LogicHelper.ITEMS.PROGRESSIVE_SHIELD),
 
                 this.item(LogicHelper.ITEMS.CABANA_DEED),
                 this.item(LogicHelper.ITEMS.MAGGIES_LETTER),

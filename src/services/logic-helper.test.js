@@ -23,7 +23,7 @@ describe('LogicHelper', () => {
         Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -44,7 +44,7 @@ describe('LogicHelper', () => {
         Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 7,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -65,7 +65,7 @@ describe('LogicHelper', () => {
         Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
           },
           startingGear: {
             [LogicHelper.ITEMS.BOMBS]: 1,
@@ -88,7 +88,7 @@ describe('LogicHelper', () => {
         Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -1537,7 +1537,7 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
             [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
           },
           startingGear: {},
         });
@@ -1633,7 +1633,7 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
             [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -1667,7 +1667,7 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
             Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
         },
         startingGear: {},
       });
@@ -1835,9 +1835,15 @@ describe('LogicHelper', () => {
     });
 
     test("Hero's Shield", () => {
-      const prettyName = LogicHelper.prettyNameForItem('Mirror Shield', 0);
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Shield', 1);
 
       expect(prettyName).toEqual("Hero's Shield");
+    });
+
+    test('Mirror Shield', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Shield', 2);
+
+      expect(prettyName).toEqual('Mirror Shield');
     });
 
     test('DRC Small Key', () => {
@@ -1989,7 +1995,7 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
           [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
         },
         startingGear: {},
       });
@@ -2407,7 +2413,7 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "sword_mode" Is "Swordless"',
             options: {
-              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
             },
             expectedExpression: BooleanExpression.and('Impossible'),
           });
@@ -2429,7 +2435,7 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "sword_mode" Is Not "Swordless"',
             options: {
-              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
             },
             expectedExpression: BooleanExpression.and('Nothing'),
           });

@@ -552,7 +552,6 @@ export default class LogicHelper {
 
   static _setStartingAndImpossibleItems() {
     this.startingItems = {
-      [this.ITEMS.HEROS_SHIELD]: 1,
       [this.ITEMS.WIND_WAKER]: 1,
       [this.ITEMS.BOATS_SAIL]: 1,
       [this.ITEMS.WINDS_REQUIEM]: 1,
@@ -568,7 +567,7 @@ export default class LogicHelper {
     _.merge(this.startingItems, startingGear);
 
     const swordMode = Settings.getOptionValue(Permalink.OPTIONS.SWORD_MODE);
-    if (swordMode === Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD) {
+    if (swordMode === Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD) {
       this.startingItems[this.ITEMS.PROGRESSIVE_SWORD] += 1;
     } else if (swordMode === Permalink.SWORD_MODE_OPTIONS.SWORDLESS) {
       this.impossibleItems = {

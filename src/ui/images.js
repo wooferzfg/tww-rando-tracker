@@ -222,9 +222,10 @@ export default class Images {
           0: import('../images/item13.png'),
           1: import('../images/item13_a.png'),
         },
-        [LogicHelper.ITEMS.MIRROR_SHIELD]: {
-          0: import('../images/herosshield.png'),
-          1: import('../images/mirrorshield.png'),
+        [LogicHelper.ITEMS.PROGRESSIVE_SHIELD]: {
+          0: import('../images/noshield.png'),
+          1: import('../images/herosshield.png'),
+          2: import('../images/mirrorshield.png'),
         },
         [LogicHelper.ITEMS.CABANA_DEED]: {
           0: import('../images/item24.png'),

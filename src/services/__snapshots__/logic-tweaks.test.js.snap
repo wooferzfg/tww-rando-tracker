@@ -2,6 +2,10 @@
 
 exports[`LogicTweaks applyTweaks when cave entrances are randomized updates the macros 1`] = `
 Object {
+  "60 Arrow Quiver": "Progressive Quiver x1",
+  "60 Bomb Bomb Bag": "Progressive Bomb Bag x1",
+  "99 Arrow Quiver": "Progressive Quiver x2",
+  "99 Bomb Bomb Bag": "Progressive Bomb Bag x2",
   "All 8 Triforce Shards": "Triforce Shard x8",
   "Any Master Sword": "Progressive Sword x2",
   "Any Wallet Upgrade": "Progressive Wallet x1",
@@ -70,6 +74,7 @@ Object {
   "Can Cut Down Hanging DRC Platform": "Hero's Sword | Bombs | Hero's Bow | Skull Hammer",
   "Can Cut Down Outset Trees": "Hero's Sword | Boomerang | Skull Hammer",
   "Can Cut Grass": "Hero's Sword | Skull Hammer | Boomerang | Bombs",
+  "Can Defeat 12 Eye Big Octos": "(Hero's Bow & 60 Arrow Quiver) | Light Arrows | Bombs | Boomerang",
   "Can Defeat Armos": "Hero's Sword | Hero's Bow | Bombs | Skull Hammer | Hookshot",
   "Can Defeat Armos Knights": "Bombs | Light Arrows",
   "Can Defeat Beamos": "Nothing",
@@ -101,6 +106,7 @@ Object {
   "Can Defeat Kargarocs": "Hero's Sword | Boomerang | Hero's Bow | Skull Hammer | Bombs",
   "Can Defeat Keese": "Hero's Sword | Hookshot | Grappling Hook | Boomerang | Hero's Bow | Bombs | Skull Hammer",
   "Can Defeat Magtails": "Hero's Sword | Skull Hammer | Boomerang | Hookshot | Bombs | Grappling Hook | Hero's Bow",
+  "Can Defeat Mighty Darknuts": "Can Defeat Darknuts Easily",
   "Can Defeat Miniblins": "Hero's Sword | Grappling Hook | Boomerang | Hero's Bow | Bombs | Skull Hammer",
   "Can Defeat Miniblins Easily": "Hero's Sword | Boomerang | Hero's Bow | Bombs | Skull Hammer",
   "Can Defeat Moblins": "Hero's Sword | Hero's Bow | Bombs | Skull Hammer",
@@ -149,7 +155,7 @@ Object {
   "Can Reach Ganon's Tower Phantom Ganon Room": "Can Access Ganon's Tower & Can Unlock Ganon's Tower Four Boss Door",
   "Can Reach and Defeat Ganondorf": "Can Reach and Defeat Puppet Ganon & Grappling Hook & Hookshot & Can Defeat Ganondorf",
   "Can Reach and Defeat Phantom Ganon": "Can Get Past Forsaken Fortress Gate & Can Defeat Phantom Ganon",
-  "Can Reach and Defeat Puppet Ganon": "Can Reach Ganon's Tower Phantom Ganon Room & Light Arrows & Can Defeat Moblins & Can Defeat Darknuts & Can Defeat Puppet Ganon",
+  "Can Reach and Defeat Puppet Ganon": "Can Reach Ganon's Tower Phantom Ganon Room & Light Arrows & Can Defeat Moblins & Can Defeat Mighty Darknuts & Can Defeat Puppet Ganon",
   "Can Remove Peahat Armor": "Boomerang | Hookshot | Deku Leaf | Skull Hammer | Hero's Bow | Bombs",
   "Can Stun Magtails": "Hero's Sword | Skull Hammer | Boomerang | Hookshot | Bombs | Grappling Hook | Hero's Bow",
   "Can Sword Fight with Orca": "Hero's Sword | In Swordless Mode",
@@ -207,10 +213,12 @@ Object {
   "Fire Arrows": "Progressive Bow x2",
   "Full Power Master Sword": "Progressive Sword x4",
   "Hero's Bow": "Progressive Bow x1",
+  "Hero's Shield": "Progressive Shield x1",
   "Hero's Sword": "Progressive Sword x1",
   "Ice Arrows": "Progressive Bow x2",
   "In Swordless Mode": "Option \\"sword_mode\\" Is \\"Swordless\\"",
   "Light Arrows": "Progressive Bow x3",
+  "Mirror Shield": "Progressive Shield x2",
   "Outside Swordless Mode": "Option \\"sword_mode\\" Is Not \\"Swordless\\"",
   "Picto Box": "Progressive Picto Box x1",
   "Rematch Bosses Skipped": "Option \\"skip_rematch_bosses\\" Enabled",
@@ -223,6 +231,10 @@ Object {
 
 exports[`LogicTweaks applyTweaks when charts are randomized updates the macros 1`] = `
 Object {
+  "60 Arrow Quiver": "Progressive Quiver x1",
+  "60 Bomb Bomb Bag": "Progressive Bomb Bag x1",
+  "99 Arrow Quiver": "Progressive Quiver x2",
+  "99 Bomb Bomb Bag": "Progressive Bomb Bag x2",
   "All 8 Triforce Shards": "Triforce Shard x8",
   "Any Master Sword": "Progressive Sword x2",
   "Any Wallet Upgrade": "Progressive Wallet x1",
@@ -291,6 +303,7 @@ Object {
   "Can Cut Down Hanging DRC Platform": "Hero's Sword | Bombs | Hero's Bow | Skull Hammer",
   "Can Cut Down Outset Trees": "Hero's Sword | Boomerang | Skull Hammer",
   "Can Cut Grass": "Hero's Sword | Skull Hammer | Boomerang | Bombs",
+  "Can Defeat 12 Eye Big Octos": "(Hero's Bow & 60 Arrow Quiver) | Light Arrows | Bombs | Boomerang",
   "Can Defeat Armos": "Hero's Sword | Hero's Bow | Bombs | Skull Hammer | Hookshot",
   "Can Defeat Armos Knights": "Bombs | Light Arrows",
   "Can Defeat Beamos": "Nothing",
@@ -322,6 +335,7 @@ Object {
   "Can Defeat Kargarocs": "Hero's Sword | Boomerang | Hero's Bow | Skull Hammer | Bombs",
   "Can Defeat Keese": "Hero's Sword | Hookshot | Grappling Hook | Boomerang | Hero's Bow | Bombs | Skull Hammer",
   "Can Defeat Magtails": "Hero's Sword | Skull Hammer | Boomerang | Hookshot | Bombs | Grappling Hook | Hero's Bow",
+  "Can Defeat Mighty Darknuts": "Can Defeat Darknuts Easily",
   "Can Defeat Miniblins": "Hero's Sword | Grappling Hook | Boomerang | Hero's Bow | Bombs | Skull Hammer",
   "Can Defeat Miniblins Easily": "Hero's Sword | Boomerang | Hero's Bow | Bombs | Skull Hammer",
   "Can Defeat Moblins": "Hero's Sword | Hero's Bow | Bombs | Skull Hammer",
@@ -370,7 +384,7 @@ Object {
   "Can Reach Ganon's Tower Phantom Ganon Room": "Can Access Ganon's Tower & Can Unlock Ganon's Tower Four Boss Door",
   "Can Reach and Defeat Ganondorf": "Can Reach and Defeat Puppet Ganon & Grappling Hook & Hookshot & Can Defeat Ganondorf",
   "Can Reach and Defeat Phantom Ganon": "Can Get Past Forsaken Fortress Gate & Can Defeat Phantom Ganon",
-  "Can Reach and Defeat Puppet Ganon": "Can Reach Ganon's Tower Phantom Ganon Room & Light Arrows & Can Defeat Moblins & Can Defeat Darknuts & Can Defeat Puppet Ganon",
+  "Can Reach and Defeat Puppet Ganon": "Can Reach Ganon's Tower Phantom Ganon Room & Light Arrows & Can Defeat Moblins & Can Defeat Mighty Darknuts & Can Defeat Puppet Ganon",
   "Can Remove Peahat Armor": "Boomerang | Hookshot | Deku Leaf | Skull Hammer | Hero's Bow | Bombs",
   "Can Stun Magtails": "Hero's Sword | Skull Hammer | Boomerang | Hookshot | Bombs | Grappling Hook | Hero's Bow",
   "Can Sword Fight with Orca": "Hero's Sword | In Swordless Mode",
@@ -428,10 +442,12 @@ Object {
   "Fire Arrows": "Progressive Bow x2",
   "Full Power Master Sword": "Progressive Sword x4",
   "Hero's Bow": "Progressive Bow x1",
+  "Hero's Shield": "Progressive Shield x1",
   "Hero's Sword": "Progressive Sword x1",
   "Ice Arrows": "Progressive Bow x2",
   "In Swordless Mode": "Option \\"sword_mode\\" Is \\"Swordless\\"",
   "Light Arrows": "Progressive Bow x3",
+  "Mirror Shield": "Progressive Shield x2",
   "Outside Swordless Mode": "Option \\"sword_mode\\" Is Not \\"Swordless\\"",
   "Picto Box": "Progressive Picto Box x1",
   "Rematch Bosses Skipped": "Option \\"skip_rematch_bosses\\" Enabled",
@@ -444,6 +460,10 @@ Object {
 
 exports[`LogicTweaks applyTweaks when dungeon entrances are randomized updates the macros 1`] = `
 Object {
+  "60 Arrow Quiver": "Progressive Quiver x1",
+  "60 Bomb Bomb Bag": "Progressive Bomb Bag x1",
+  "99 Arrow Quiver": "Progressive Quiver x2",
+  "99 Bomb Bomb Bag": "Progressive Bomb Bag x2",
   "All 8 Triforce Shards": "Triforce Shard x8",
   "Any Master Sword": "Progressive Sword x2",
   "Any Wallet Upgrade": "Progressive Wallet x1",
@@ -512,6 +532,7 @@ Object {
   "Can Cut Down Hanging DRC Platform": "Hero's Sword | Bombs | Hero's Bow | Skull Hammer",
   "Can Cut Down Outset Trees": "Hero's Sword | Boomerang | Skull Hammer",
   "Can Cut Grass": "Hero's Sword | Skull Hammer | Boomerang | Bombs",
+  "Can Defeat 12 Eye Big Octos": "(Hero's Bow & 60 Arrow Quiver) | Light Arrows | Bombs | Boomerang",
   "Can Defeat Armos": "Hero's Sword | Hero's Bow | Bombs | Skull Hammer | Hookshot",
   "Can Defeat Armos Knights": "Bombs | Light Arrows",
   "Can Defeat Beamos": "Nothing",
@@ -543,6 +564,7 @@ Object {
   "Can Defeat Kargarocs": "Hero's Sword | Boomerang | Hero's Bow | Skull Hammer | Bombs",
   "Can Defeat Keese": "Hero's Sword | Hookshot | Grappling Hook | Boomerang | Hero's Bow | Bombs | Skull Hammer",
   "Can Defeat Magtails": "Hero's Sword | Skull Hammer | Boomerang | Hookshot | Bombs | Grappling Hook | Hero's Bow",
+  "Can Defeat Mighty Darknuts": "Can Defeat Darknuts Easily",
   "Can Defeat Miniblins": "Hero's Sword | Grappling Hook | Boomerang | Hero's Bow | Bombs | Skull Hammer",
   "Can Defeat Miniblins Easily": "Hero's Sword | Boomerang | Hero's Bow | Bombs | Skull Hammer",
   "Can Defeat Moblins": "Hero's Sword | Hero's Bow | Bombs | Skull Hammer",
@@ -591,7 +613,7 @@ Object {
   "Can Reach Ganon's Tower Phantom Ganon Room": "Can Access Ganon's Tower & Can Unlock Ganon's Tower Four Boss Door",
   "Can Reach and Defeat Ganondorf": "Can Reach and Defeat Puppet Ganon & Grappling Hook & Hookshot & Can Defeat Ganondorf",
   "Can Reach and Defeat Phantom Ganon": "Can Get Past Forsaken Fortress Gate & Can Defeat Phantom Ganon",
-  "Can Reach and Defeat Puppet Ganon": "Can Reach Ganon's Tower Phantom Ganon Room & Light Arrows & Can Defeat Moblins & Can Defeat Darknuts & Can Defeat Puppet Ganon",
+  "Can Reach and Defeat Puppet Ganon": "Can Reach Ganon's Tower Phantom Ganon Room & Light Arrows & Can Defeat Moblins & Can Defeat Mighty Darknuts & Can Defeat Puppet Ganon",
   "Can Remove Peahat Armor": "Boomerang | Hookshot | Deku Leaf | Skull Hammer | Hero's Bow | Bombs",
   "Can Stun Magtails": "Hero's Sword | Skull Hammer | Boomerang | Hookshot | Bombs | Grappling Hook | Hero's Bow",
   "Can Sword Fight with Orca": "Hero's Sword | In Swordless Mode",
@@ -649,10 +671,12 @@ Object {
   "Fire Arrows": "Progressive Bow x2",
   "Full Power Master Sword": "Progressive Sword x4",
   "Hero's Bow": "Progressive Bow x1",
+  "Hero's Shield": "Progressive Shield x1",
   "Hero's Sword": "Progressive Sword x1",
   "Ice Arrows": "Progressive Bow x2",
   "In Swordless Mode": "Option \\"sword_mode\\" Is \\"Swordless\\"",
   "Light Arrows": "Progressive Bow x3",
+  "Mirror Shield": "Progressive Shield x2",
   "Outside Swordless Mode": "Option \\"sword_mode\\" Is Not \\"Swordless\\"",
   "Picto Box": "Progressive Picto Box x1",
   "Rematch Bosses Skipped": "Option \\"skip_rematch_bosses\\" Enabled",
@@ -1347,7 +1371,7 @@ Object {
   },
   "Hyrule": Object {
     "Master Sword Chamber": Object {
-      "need": "Can Access Hyrule & Can Defeat Darknuts",
+      "need": "Can Access Hyrule & Can Defeat Mighty Darknuts",
       "originalItem": "Master Sword (Powerless)",
       "types": "Dungeon",
     },
@@ -1540,7 +1564,7 @@ Object {
     "Orca - Hit 500 Times": Object {
       "need": "Can Sword Fight with Orca",
       "originalItem": "Piece of Heart",
-      "types": "No progression",
+      "types": "Consumables only",
     },
     "Savage Labyrinth - Floor 30": Object {
       "need": "Can Access Savage Labyrinth & Can Defeat Keese & Can Defeat Miniblins & Can Defeat Red ChuChus & Can Defeat Magtails & Can Defeat Fire Keese & Can Defeat Peahats & Can Defeat Green ChuChus & Can Defeat Boko Babas & Can Defeat Mothulas & Can Defeat Winged Mothulas & Can Defeat Wizzrobes & Can Defeat Armos & Can Defeat Yellow ChuChus & Can Defeat Red Bubbles & Can Defeat Darknuts & Can Play Wind's Requiem & (Grappling Hook | Hero's Sword | Skull Hammer)",
@@ -1576,12 +1600,12 @@ Object {
     },
   },
   "Pawprint Isle": Object {
-    "Chuchu Cave - Behind First Boulder": Object {
+    "Chuchu Cave - Behind Left Boulder": Object {
       "need": "Can Access Pawprint Isle Chuchu Cave & Can Move Boulders",
       "originalItem": "Purple Rupee",
       "types": "Puzzle Secret Cave",
     },
-    "Chuchu Cave - Behind Second Boulder": Object {
+    "Chuchu Cave - Behind Right Boulder": Object {
       "need": "Can Access Pawprint Isle Chuchu Cave & Can Move Boulders",
       "originalItem": "Joy Pendant",
       "types": "Puzzle Secret Cave",
@@ -1618,12 +1642,12 @@ Object {
       "originalItem": "Orange Rupee",
       "types": "Big Octo",
     },
-    "Cabana Labyrinth - First Chest": Object {
+    "Cabana Labyrinth - Lower Floor Chest": Object {
       "need": "Can Access Cabana Labyrinth & Skull Hammer",
       "originalItem": "Orange Rupee",
       "types": "Puzzle Secret Cave",
     },
-    "Cabana Labyrinth - Second Chest": Object {
+    "Cabana Labyrinth - Upper Floor Chest": Object {
       "need": "Can Access Cabana Labyrinth & Skull Hammer & Can Play Wind's Requiem",
       "originalItem": "Triforce Chart 2",
       "types": "Puzzle Secret Cave",
@@ -1670,7 +1694,7 @@ Object {
       "originalItem": "Golden Feather",
       "types": "Platform",
     },
-    "Gunboat": Object {
+    "Southeast Gunboat": Object {
       "need": "Bombs & Grappling Hook",
       "originalItem": "Piece of Heart",
       "types": "Gunboat",
@@ -1688,7 +1712,7 @@ Object {
   },
   "Seven-Star Isles": Object {
     "Big Octo": Object {
-      "need": "Can Defeat Big Octos & Grappling Hook",
+      "need": "Can Defeat 12 Eye Big Octos & Grappling Hook",
       "originalItem": "Piece of Heart",
       "types": "Big Octo",
     },
@@ -1913,11 +1937,11 @@ Object {
   "Tingle Island": Object {
     "Ankle - Reward for All Tingle Statues": Object {
       "need": "Tingle Statue x5",
-      "originalItem": "Rainbow Rupee",
+      "originalItem": "500 Rupees, reward for finding all Tingle Statues",
       "types": "Misc",
     },
     "Big Octo": Object {
-      "need": "Can Defeat Big Octos & Grappling Hook",
+      "need": "Can Defeat 12 Eye Big Octos & Grappling Hook",
       "originalItem": "Piece of Heart",
       "types": "Big Octo",
     },
@@ -2312,6 +2336,10 @@ Object {
 
 exports[`LogicTweaks applyTweaks when no options are set updates the macros 1`] = `
 Object {
+  "60 Arrow Quiver": "Progressive Quiver x1",
+  "60 Bomb Bomb Bag": "Progressive Bomb Bag x1",
+  "99 Arrow Quiver": "Progressive Quiver x2",
+  "99 Bomb Bomb Bag": "Progressive Bomb Bag x2",
   "All 8 Triforce Shards": "Triforce Shard x8",
   "Any Master Sword": "Progressive Sword x2",
   "Any Wallet Upgrade": "Progressive Wallet x1",
@@ -2380,6 +2408,7 @@ Object {
   "Can Cut Down Hanging DRC Platform": "Hero's Sword | Bombs | Hero's Bow | Skull Hammer",
   "Can Cut Down Outset Trees": "Hero's Sword | Boomerang | Skull Hammer",
   "Can Cut Grass": "Hero's Sword | Skull Hammer | Boomerang | Bombs",
+  "Can Defeat 12 Eye Big Octos": "(Hero's Bow & 60 Arrow Quiver) | Light Arrows | Bombs | Boomerang",
   "Can Defeat Armos": "Hero's Sword | Hero's Bow | Bombs | Skull Hammer | Hookshot",
   "Can Defeat Armos Knights": "Bombs | Light Arrows",
   "Can Defeat Beamos": "Nothing",
@@ -2411,6 +2440,7 @@ Object {
   "Can Defeat Kargarocs": "Hero's Sword | Boomerang | Hero's Bow | Skull Hammer | Bombs",
   "Can Defeat Keese": "Hero's Sword | Hookshot | Grappling Hook | Boomerang | Hero's Bow | Bombs | Skull Hammer",
   "Can Defeat Magtails": "Hero's Sword | Skull Hammer | Boomerang | Hookshot | Bombs | Grappling Hook | Hero's Bow",
+  "Can Defeat Mighty Darknuts": "Can Defeat Darknuts Easily",
   "Can Defeat Miniblins": "Hero's Sword | Grappling Hook | Boomerang | Hero's Bow | Bombs | Skull Hammer",
   "Can Defeat Miniblins Easily": "Hero's Sword | Boomerang | Hero's Bow | Bombs | Skull Hammer",
   "Can Defeat Moblins": "Hero's Sword | Hero's Bow | Bombs | Skull Hammer",
@@ -2459,7 +2489,7 @@ Object {
   "Can Reach Ganon's Tower Phantom Ganon Room": "Can Access Ganon's Tower & Can Unlock Ganon's Tower Four Boss Door",
   "Can Reach and Defeat Ganondorf": "Can Reach and Defeat Puppet Ganon & Grappling Hook & Hookshot & Can Defeat Ganondorf",
   "Can Reach and Defeat Phantom Ganon": "Can Get Past Forsaken Fortress Gate & Can Defeat Phantom Ganon",
-  "Can Reach and Defeat Puppet Ganon": "Can Reach Ganon's Tower Phantom Ganon Room & Light Arrows & Can Defeat Moblins & Can Defeat Darknuts & Can Defeat Puppet Ganon",
+  "Can Reach and Defeat Puppet Ganon": "Can Reach Ganon's Tower Phantom Ganon Room & Light Arrows & Can Defeat Moblins & Can Defeat Mighty Darknuts & Can Defeat Puppet Ganon",
   "Can Remove Peahat Armor": "Boomerang | Hookshot | Deku Leaf | Skull Hammer | Hero's Bow | Bombs",
   "Can Stun Magtails": "Hero's Sword | Skull Hammer | Boomerang | Hookshot | Bombs | Grappling Hook | Hero's Bow",
   "Can Sword Fight with Orca": "Hero's Sword | In Swordless Mode",
@@ -2517,10 +2547,12 @@ Object {
   "Fire Arrows": "Progressive Bow x2",
   "Full Power Master Sword": "Progressive Sword x4",
   "Hero's Bow": "Progressive Bow x1",
+  "Hero's Shield": "Progressive Shield x1",
   "Hero's Sword": "Progressive Sword x1",
   "Ice Arrows": "Progressive Bow x2",
   "In Swordless Mode": "Option \\"sword_mode\\" Is \\"Swordless\\"",
   "Light Arrows": "Progressive Bow x3",
+  "Mirror Shield": "Progressive Shield x2",
   "Outside Swordless Mode": "Option \\"sword_mode\\" Is Not \\"Swordless\\"",
   "Picto Box": "Progressive Picto Box x1",
   "Rematch Bosses Skipped": "Option \\"skip_rematch_bosses\\" Enabled",

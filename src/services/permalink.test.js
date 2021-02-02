@@ -35,7 +35,7 @@ describe('Permalink', () => {
 
   describe('decode', () => {
     test('decodes a permalink', () => {
-      const options = Permalink.decode('MS44LjAAeWVldAAHAQMBP0DAyAAAACBQMgA=');
+      const options = Permalink.decode('MS45LjAAeWVldAAHAQMBP0DAA2AAAAAIUDIA');
 
       expect(options).toMatchSnapshot();
     });
@@ -45,7 +45,7 @@ describe('Permalink', () => {
       expect(() => Permalink.decode('H')).toThrow();
       expect(() => Permalink.decode('AAAA')).toThrow();
       expect(() => Permalink.decode('BBBBBBBBBBBBBBBBBBBBBBB')).toThrow();
-      expect(() => Permalink.decode('MS44LjAAeWVldAAfiwofnaslyAAAACBQMgA=')).toThrow();
+      expect(() => Permalink.decode('MS45LjAAeWVldAfwifjoijgAAwAAAAAAQTIA')).toThrow();
       expect(() => Permalink.decode('VIOEWJAFOEIWAJVEOWAIVJN')).toThrow();
       expect(() => Permalink.decode('vdsccccccccccccccccccccccccccccccccc')).toThrow();
       expect(() => Permalink.decode('AAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHH')).toThrow();
@@ -59,7 +59,7 @@ describe('Permalink', () => {
     let permalink;
 
     beforeEach(() => {
-      permalink = 'MS44LjAAeWVldAAHAQMBP0DAyAAAACBQMgA=';
+      permalink = 'MS45LjAAeWVldAAHAQMBP0DAA2AAAAAIUDIA';
       options = Permalink.decode(permalink);
     });
 

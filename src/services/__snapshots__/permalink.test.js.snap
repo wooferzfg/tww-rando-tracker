@@ -7,6 +7,7 @@ Object {
   "do_not_generate_spoiler_log": false,
   "instant_text_boxes": true,
   "keylunacy": false,
+  "num_race_mode_dungeons": 4,
   "num_starting_triforce_shards": 0,
   "progression_battlesquid": false,
   "progression_big_octos_gunboats": false,
@@ -38,7 +39,6 @@ Object {
   "randomize_music": false,
   "randomize_starting_island": false,
   "remove_music": false,
-  "remove_title_and_ending_videos": true,
   "reveal_full_sea_chart": true,
   "seed_name": "Seed",
   "skip_rematch_bosses": true,
@@ -63,7 +63,6 @@ Object {
     "Maggie's Letter": 0,
     "Magic Armor": 0,
     "Magic Meter Upgrade": 0,
-    "Mirror Shield": 0,
     "Moblin's Letter": 0,
     "Nayru's Pearl": 0,
     "Note to Mom": 0,
@@ -72,6 +71,7 @@ Object {
     "Progressive Bow": 0,
     "Progressive Picto Box": 0,
     "Progressive Quiver": 0,
+    "Progressive Shield": 1,
     "Progressive Sword": 0,
     "Progressive Wallet": 0,
     "Skull Hammer": 0,
@@ -83,13 +83,21 @@ Object {
   "starting_hcs": 0,
   "starting_pohs": 0,
   "swift_sail": true,
-  "sword_mode": "Start with Sword",
-  "version": "1.8.0",
+  "sword_mode": "Start with Hero's Sword",
+  "version": "1.9.0",
 }
 `;
 
 exports[`Permalink DROPDOWN_OPTIONS returns the correct dropdown options 1`] = `
 Object {
+  "num_race_mode_dungeons": Array [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+  ],
   "num_starting_triforce_shards": Array [
     0,
     1,
@@ -109,8 +117,8 @@ Object {
     "Dungeons and Secret Caves (Together)",
   ],
   "sword_mode": Array [
-    "Start with Sword",
-    "Randomized Sword",
+    "Start with Hero's Sword",
+    "No Starting Sword",
     "Swordless",
   ],
 }
@@ -124,6 +132,7 @@ Object {
   "INSTANT_TEXT_BOXES": "instant_text_boxes",
   "INVERT_CAMERA_X_AXIS": "invert_camera_x_axis",
   "KEYLUNACY": "keylunacy",
+  "NUM_RACE_MODE_DUNGEONS": "num_race_mode_dungeons",
   "NUM_STARTING_TRIFORCE_SHARDS": "num_starting_triforce_shards",
   "PROGRESSION_BATTLESQUID": "progression_battlesquid",
   "PROGRESSION_BIG_OCTOS_GUNBOATS": "progression_big_octos_gunboats",
@@ -155,7 +164,6 @@ Object {
   "RANDOMIZE_MUSIC": "randomize_music",
   "RANDOMIZE_STARTING_ISLAND": "randomize_starting_island",
   "REMOVE_MUSIC": "remove_music",
-  "REMOVE_TITLE_AND_ENDING_VIDEOS": "remove_title_and_ending_videos",
   "REVEAL_FULL_SEA_CHART": "reveal_full_sea_chart",
   "SEED_NAME": "seed_name",
   "SKIP_REMATCH_BOSSES": "skip_rematch_bosses",
@@ -180,8 +188,8 @@ Object {
 
 exports[`Permalink SWORD_MODE_OPTIONS returns the correct options 1`] = `
 Object {
-  "RANDOMIZED_SWORD": "Randomized Sword",
-  "START_WITH_SWORD": "Start with Sword",
+  "NO_STARTING_SWORD": "No Starting Sword",
+  "START_WITH_HEROS_SWORD": "Start with Hero's Sword",
   "SWORDLESS": "Swordless",
 }
 `;
@@ -193,6 +201,7 @@ Object {
   "do_not_generate_spoiler_log": false,
   "instant_text_boxes": true,
   "keylunacy": false,
+  "num_race_mode_dungeons": 4,
   "num_starting_triforce_shards": 3,
   "progression_battlesquid": false,
   "progression_big_octos_gunboats": false,
@@ -224,7 +233,6 @@ Object {
   "randomize_music": false,
   "randomize_starting_island": true,
   "remove_music": false,
-  "remove_title_and_ending_videos": true,
   "reveal_full_sea_chart": true,
   "seed_name": "yeet",
   "skip_rematch_bosses": true,
@@ -249,7 +257,6 @@ Object {
     "Maggie's Letter": 0,
     "Magic Armor": 0,
     "Magic Meter Upgrade": 0,
-    "Mirror Shield": 0,
     "Moblin's Letter": 0,
     "Nayru's Pearl": 0,
     "Note to Mom": 0,
@@ -258,6 +265,7 @@ Object {
     "Progressive Bow": 2,
     "Progressive Picto Box": 0,
     "Progressive Quiver": 0,
+    "Progressive Shield": 0,
     "Progressive Sword": 0,
     "Progressive Wallet": 1,
     "Skull Hammer": 0,
@@ -269,7 +277,7 @@ Object {
   "starting_hcs": 3,
   "starting_pohs": 9,
   "swift_sail": true,
-  "sword_mode": "Randomized Sword",
-  "version": "1.8.0",
+  "sword_mode": "No Starting Sword",
+  "version": "1.9.0",
 }
 `;

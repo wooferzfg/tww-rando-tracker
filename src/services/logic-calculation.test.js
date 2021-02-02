@@ -34,9 +34,10 @@ describe('LogicCalculation', () => {
         [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
         [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
         [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-        [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+        [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
       },
       startingGear: {
+        [LogicHelper.ITEMS.PROGRESSIVE_SHIELD]: 1,
         [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
       },
       flags: [
@@ -875,7 +876,7 @@ describe('LogicCalculation', () => {
             color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
           },
           {
-            location: 'Gunboat',
+            location: 'Southeast Gunboat',
             color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
           },
           {
@@ -952,11 +953,11 @@ describe('LogicCalculation', () => {
             color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           },
           {
-            location: 'Chuchu Cave - Behind First Boulder',
+            location: 'Chuchu Cave - Behind Left Boulder',
             color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           },
           {
-            location: 'Chuchu Cave - Behind Second Boulder',
+            location: 'Chuchu Cave - Behind Right Boulder',
             color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           },
           {
