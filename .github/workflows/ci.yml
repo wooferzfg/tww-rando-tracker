@@ -60,10 +60,13 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git clone -b gh-pages-main -q "https://github.com/wooferzfg/tww-rando-tracker" ./repo
+          git clone -b gh-pages-beta -q "https://github.com/wooferzfg/tww-rando-tracker" ./repo/beta
+          rm -r ./repo/beta/.git
           git clone -b speedrun -q "https://github.com/wooferzfg/tww-rando-tracker" ./repo/speedrun
           rm -r ./repo/speedrun/.git
           cd repo
           git checkout --orphan gh-pages
+          git add beta/
           git add speedrun/
           git add .
           git commit -m "Deploy site"
