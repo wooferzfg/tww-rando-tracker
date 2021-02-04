@@ -52,6 +52,17 @@ describe('Settings', () => {
       });
     });
 
+    describe('when using a beta build', () => {
+      beforeEach(() => {
+        // version = 1.9.0-BETA_2021-02-03
+        Settings.initializeFromPermalink('MS45LjAtQkVUQV8yMDIxLTAyLTAzAFdvbmRyb3VzTWlzZXJhYmxlUmVhZGluZwAHAQMADgBAAwAAAAAAAQAA');
+      });
+
+      test('sets the version to master', () => {
+        expect(Settings.version).toEqual('master');
+      });
+    });
+
     describe('all flags set', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink('MS44LjAAeWVldAD//z8ADgBACAAAAAAAAAA=');
