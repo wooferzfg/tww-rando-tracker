@@ -26,7 +26,7 @@ describe('TrackerState', () => {
       };
 
       LogicHelper.startingItems = {
-        "Hero's Shield": 1,
+        'Progressive Shield': 1,
         'Wind Waker': 1,
         "Boat's Sail": 1,
         "Wind's Requiem": 1,

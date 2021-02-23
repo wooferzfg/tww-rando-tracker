@@ -39,7 +39,9 @@
     "0": "Swift Sail",
     "1": "Swift Sail"
   },
-  "Mirror Shield": {
-    "0": "Hero's Shield"
+  "Progressive Shield": {
+    "0": "Hero's Shield",
+    "1": "Hero's Shield",
+    "2": "Mirror Shield"
   }
 }

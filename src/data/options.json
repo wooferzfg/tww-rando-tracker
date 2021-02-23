@@ -40,10 +40,10 @@
   "skip_rematch_bosses",
   "invert_camera_x_axis",
   "race_mode",
+  "num_race_mode_dungeons",
   "randomize_music",
   "disable_tingle_chests_with_tingle_bombs",
   "randomize_enemy_palettes",
-  "remove_title_and_ending_videos",
 
   "starting_gear",
   "starting_pohs",
