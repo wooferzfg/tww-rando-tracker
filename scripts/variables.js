@@ -165,7 +165,6 @@ const regularItems = [
   "Maggie's Letter",
   'Magic Armor',
   'Magic Meter Upgrade',
-  'Mirror Shield',
   "Moblin's Letter",
   "Nayru's Pearl",
   'Note to Mom',
@@ -181,6 +180,7 @@ const progressiveItems = [
   'Progressive Bow',
   'Progressive Picto Box',
   'Progressive Quiver',
+  'Progressive Shield',
   'Progressive Sword',
   'Progressive Wallet'
 ];

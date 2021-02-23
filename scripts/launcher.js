@@ -1,4 +1,4 @@
-const currentVersion = '1.8.0';
+const currentVersion = '1.9.0';
 var startingGear = 1;
 
 function parseFlags(bits, ids) {
@@ -14,7 +14,9 @@ function parseFlags(bits, ids) {
 function parseComboBox(bits, id) {
   var byteValue = getValueOfBits(bits, 8);
   var element = document.getElementById(id);
-  element.selectedIndex = byteValue;
+  if (element) {
+    element.selectedIndex = byteValue;
+  }
 }
 
 function parseSpinBox(bits, id, minVal, maxVal) {
@@ -95,7 +97,8 @@ function applyflags(element) {
       parseFlags(bits, ['' /* add_shortcut_warps_between_dungeons */, '' /* generate_spoiler_log */]);
       parseComboBox(bits, 'sword_mode');
       parseFlags(bits, ['skip_rematch_bosses', 'race_mode']);
-      parseFlags(bits, ['' /* randomize_bgm */, '' /* disable_tingle_chests_with_tingle_bombs */, '' /* randomize_enemy_palettes */, '' /* remove_title_and_ending_videos */]);
+      parseComboBox(bits, '' /* num_race_mode_dungeons */)
+      parseFlags(bits, ['' /* randomize_bgm */, '' /* disable_tingle_chests_with_tingle_bombs */, '' /* randomize_enemy_palettes */]);
       setStartingGear(bits);
       parseSpinBox(bits, '' /* starting_pohs */, 0, 44);
       parseSpinBox(bits, '' /* starting_hcs */, 0, 6);
