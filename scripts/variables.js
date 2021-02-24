@@ -199,8 +199,7 @@ var items = {
   'Bombs': 0,
   'Skull Hammer': 0,
   'Deku Leaf': 0,
-  "Hero's Shield": 0,
-  'Mirror Shield': 0,
+  'Progressive Shield': 0,
 
   'Triforce Shard': 0,
 
@@ -275,7 +274,7 @@ var options = {
   keylunacy: false,
   randomize_entrances: 'Disabled',
   randomize_charts: false,
-  sword_mode: 'Start with Sword',
+  sword_mode: "Start with Hero's Sword",
   skip_rematch_bosses: false,
   num_starting_triforce_shards: 0,
   race_mode: false,

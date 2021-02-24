@@ -102,9 +102,9 @@ function refreshAllImagesAndCounts() {
 
   // shields
   var l = 'shield';
-  if (items['Mirror Shield'] > 0) {
+  if (items['Progressive Shield'] > 1) {
     setImage(l, 'mirrorshield.png');
-  } else if (items["Hero's Shield"] > 0) {
+  } else if (items['Progressive Shield'] > 0) {
     setImage(l, 'herosshield.png');
   } else {
     setImage(l, 'noshield.png');
@@ -295,10 +295,6 @@ function itemInfo(element) {
     var itemCount = items[text];
     var textWithCount = text + ' x' + itemCount;
     text = getNameForItem(textWithCount);
-  } else if (text == "Hero's Shield") {
-    if (items['Mirror Shield'] == 1) {
-      text = 'Mirror Shield';
-    }
   } else if (text == 'Triforce Shard') {
     var shardCount = items['Triforce Shard'];
     if (shardCount == 8) {

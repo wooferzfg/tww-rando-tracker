@@ -92,7 +92,7 @@ function loadStartingItems() {
     gearRemaining = Math.floor(gearRemaining / 4);
   }
 
-  if (options.sword_mode == 'Start with Sword') {
+  if (options.sword_mode == "Start with Hero's Sword") {
     startingItems['Progressive Sword'] += 1;
   } else if (options.sword_mode == 'Swordless') {
     impossibleItems.push('Progressive Sword x1');
@@ -171,6 +171,13 @@ function getNameForItem(itemName) {
       if (numRequired == 2) {
         return 'Bomb Bag (99 Bombs)';
       }
+    } else if (item == 'Progressive Shield') {
+      if (numRequired <= 1) {
+        return "Hero's Shield";
+      }
+      if (numRequired == 2) {
+        return 'Mirror Shield';
+      }
     } else if (item == 'Triforce Shard') {
       return 'Triforce of Courage';
     }
@@ -181,16 +188,4 @@ function getNameForItem(itemName) {
     return 'Chart for ' + islands[islandIndex];
   }
   return itemName;
-}
-
-function incrementShield() {
-  if (items["Hero's Shield"] == 0) {
-    items["Hero's Shield"] = 1;
-  } else if (items['Mirror Shield'] == 0) {
-    items['Mirror Shield'] = 1;
-    setItemToLocation('Mirror Shield');
-  } else {
-    items["Hero's Shield"] = 0;
-    items['Mirror Shield'] = 0;
-  }
 }

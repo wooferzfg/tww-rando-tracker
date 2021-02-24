@@ -67,10 +67,10 @@ function loadFlags() {
   var swordValue = getParamInt('SWO', 0);
   switch (swordValue) {
     case 0:
-      options.sword_mode = 'Start with Sword';
+      options.sword_mode = "Start with Hero's Sword";
       break;
     case 1:
-      options.sword_mode = 'Randomized Sword';
+      options.sword_mode = 'No Starting Sword';
       break;
     case 2:
       options.sword_mode = 'Swordless';
