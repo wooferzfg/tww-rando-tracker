@@ -117,7 +117,7 @@ class ExtraLocation extends React.PureComponent {
 
     return (
       <div className="dungeon-icon">
-        <img src={locationIcon} alt={locationName} />
+        <img src={locationIcon} alt={locationName} draggable={false} />
       </div>
     );
   }

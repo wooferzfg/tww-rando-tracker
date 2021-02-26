@@ -57,6 +57,7 @@ class Item extends React.PureComponent {
         <img
           alt={itemName}
           src={itemImage}
+          draggable={false}
         />
       </div>
     );

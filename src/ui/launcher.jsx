@@ -327,7 +327,11 @@ export default class Launcher extends React.PureComponent {
       <div className="full-container">
         <div className="launcher-container">
           <div className="header">
-            <img src={HEADER_IMAGE} alt="The Legend of Zelda: The Wind Waker Randomizer Tracker" />
+            <img
+              src={HEADER_IMAGE}
+              alt="The Legend of Zelda: The Wind Waker Randomizer Tracker"
+              draggable={false}
+            />
           </div>
           <div className="settings">
             {this.permalinkContainer()}
