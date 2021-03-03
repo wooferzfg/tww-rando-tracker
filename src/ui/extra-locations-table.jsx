@@ -30,6 +30,7 @@ class ExtraLocationsTable extends React.PureComponent {
 
     const isDungeon = LogicHelper.isDungeon(locationName);
     const isMainDungeon = LogicHelper.isMainDungeon(locationName);
+    const isRaceModeDungeon = LogicHelper.isRaceModeDungeon(locationName);
 
     const {
       color,
@@ -50,15 +51,30 @@ class ExtraLocationsTable extends React.PureComponent {
       locationIcon = _.get(Images.IMAGES, ['MISC_LOCATIONS', locationName]);
     }
 
-    if (isMainDungeon) {
-      const smallKeyName = LogicHelper.smallKeyName(locationName);
-      const smallKeyCount = trackerState.getItemValue(smallKeyName);
+    if (isRaceModeDungeon) {
+      let smallKeyName;
+      let smallKeyCount;
+      let bigKeyName;
+      let bigKeyCount;
+      let entryName;
+      let entryCount;
 
-      const bigKeyName = LogicHelper.bigKeyName(locationName);
-      const bigKeyCount = trackerState.getItemValue(bigKeyName);
+      if (isMainDungeon) {
+        smallKeyName = LogicHelper.smallKeyName(locationName);
+        smallKeyCount = trackerState.getItemValue(smallKeyName);
 
-      const entryName = LogicHelper.entryName(locationName);
-      const entryCount = trackerState.getItemValue(entryName);
+        bigKeyName = LogicHelper.bigKeyName(locationName);
+        bigKeyCount = trackerState.getItemValue(bigKeyName);
+
+        entryName = LogicHelper.entryName(locationName);
+        entryCount = trackerState.getItemValue(entryName);
+      }
+
+      const dungeonMapName = LogicHelper.dungeonMapName(locationName);
+      const dungeonMapCount = trackerState.getItemValue(dungeonMapName);
+
+      const compassName = LogicHelper.compassName(locationName);
+      const compassCount = trackerState.getItemValue(compassName);
 
       return (
         <ExtraLocation
@@ -67,14 +83,19 @@ class ExtraLocationsTable extends React.PureComponent {
           clearSelectedItem={clearSelectedItem}
           clearSelectedLocation={clearSelectedLocation}
           color={color}
+          compassCount={compassCount}
+          compassName={compassName}
           decrementItem={decrementItem}
           disableLogic={disableLogic}
+          dungeonMapCount={dungeonMapCount}
+          dungeonMapName={dungeonMapName}
           entryCount={entryCount}
           entryName={entryName}
           key={locationName}
           incrementItem={incrementItem}
           isDungeon={isDungeon}
           isMainDungeon={isMainDungeon}
+          isRaceModeDungeon={isRaceModeDungeon}
           locationIcon={locationIcon}
           locationName={locationName}
           numAvailable={numAvailable}
@@ -99,6 +120,7 @@ class ExtraLocationsTable extends React.PureComponent {
         key={locationName}
         isDungeon={isDungeon}
         isMainDungeon={isMainDungeon}
+        isRaceModeDungeon={isRaceModeDungeon}
         locationIcon={locationIcon}
         locationName={locationName}
         numAvailable={numAvailable}
