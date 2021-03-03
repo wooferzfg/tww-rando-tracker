@@ -64,9 +64,13 @@ class Item extends React.PureComponent {
   }
 }
 
+Item.defaultProps = {
+  decrementItem: null,
+};
+
 Item.propTypes = {
   clearSelectedItem: PropTypes.func.isRequired,
-  decrementItem: PropTypes.func.isRequired,
+  decrementItem: PropTypes.func,
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
   incrementItem: PropTypes.func.isRequired,
   itemCount: PropTypes.number.isRequired,
