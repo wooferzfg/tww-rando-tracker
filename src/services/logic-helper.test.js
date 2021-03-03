@@ -1300,6 +1300,22 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('dungeonMapName', () => {
+    test('returns the name of the dungeon map for the dungeon', () => {
+      const dungeonMapName = LogicHelper.dungeonMapName('Forsaken Fortress');
+
+      expect(dungeonMapName).toEqual('FF Dungeon Map');
+    });
+  });
+
+  describe('compassName', () => {
+    test('returns the name of the small key for the dungeon', () => {
+      const compassName = LogicHelper.compassName('Earth Temple');
+
+      expect(compassName).toEqual('ET Compass');
+    });
+  });
+
   describe('maxSmallKeysForDungeon', () => {
     test('returns the max small keys for DRC', () => {
       const maxKeys = LogicHelper.maxSmallKeysForDungeon('Dragon Roost Cavern');

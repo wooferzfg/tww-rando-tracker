@@ -57,6 +57,10 @@ export default class Images {
           1: import('../images/triforcechartopen.png'),
         },
       },
+      COMPASSES: {
+        0: import('../images/compass.png'),
+        1: import('../images/compass_a.png'),
+      },
       DUNGEON_CHART_BACKGROUNDS: {
         [LogicHelper.DUNGEONS.DRAGON_ROOST_CAVERN]: import('../images/dungeon_mapfull0.png'),
         [LogicHelper.DUNGEONS.FORBIDDEN_WOODS]: import('../images/dungeon_mapfull1.png'),
@@ -69,6 +73,10 @@ export default class Images {
       DUNGEON_ENTRANCE: {
         0: import('../images/dungeon_noentry.png'),
         1: import('../images/dungeon_entered.png'),
+      },
+      DUNGEON_MAPS: {
+        0: import('../images/map.png'),
+        1: import('../images/map_a.png'),
       },
       DUNGEONS: {
         [LogicHelper.DUNGEONS.DRAGON_ROOST_CAVERN]: {
