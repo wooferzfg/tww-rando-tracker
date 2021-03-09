@@ -642,7 +642,7 @@ button:hover:enabled {
   padding: 6px 5px 5px 5px;
   white-space: normal;
   color: #bbbbbb;
-  font-size: 0.9em;
+  font-size: 18px;
 
   &.single-color {
     background-color: rgba(80, 80, 80, 1);
@@ -650,11 +650,24 @@ button:hover:enabled {
 
   table {
     border-spacing: 0;
+    display: inline;
+    float: left;
+
+    &.left-table {
+      width: 45%;
+    }
+
+    &.right-table {
+      width: 55%;
+    }
+
+    tr {
+      height: 28px;
+    }
 
     td {
-      height: 16px;
       margin: 0;
-      padding: 0;
+      padding: 3px 0;
 
       &:first-child {
         color: white;
@@ -663,11 +676,6 @@ button:hover:enabled {
         text-align: right;
         min-width: 40px;
         padding-right: 10px;
-      }
-    
-      &:last-child {
-        display: inline-block;
-        min-width: 300px;
       }
     }
   }
