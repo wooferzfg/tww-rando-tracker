@@ -30,18 +30,6 @@ class Buttons extends React.PureComponent {
       toggleSingleColorBackground,
     } = this.props;
 
-    const disableLogicText = disableLogic
-      ? 'Show Location Logic'
-      : 'Hide Location Logic';
-
-    const onlyProgressLocationsText = onlyProgressLocations
-      ? 'Show Non-Progress Locations'
-      : 'Hide Non-Progress Locations';
-
-    const singleColorBackgroundText = singleColorBackground
-      ? 'Hide Single Color Background'
-      : 'Show Single Color Background';
-
     const entrancesListText = entrancesListOpen
       ? 'Close Entrances'
       : 'View Entrances';
@@ -59,7 +47,8 @@ class Buttons extends React.PureComponent {
           onClick={toggleOnlyProgressLocations}
           type="button"
         >
-          {onlyProgressLocationsText}
+          <input type="checkbox" className="button-checkbox" checked={!onlyProgressLocations} />
+          Show Non-Progress Locations
         </button>
         {
           isRandomEntrances && (
@@ -75,13 +64,15 @@ class Buttons extends React.PureComponent {
           onClick={toggleDisableLogic}
           type="button"
         >
-          {disableLogicText}
+          <input type="checkbox" className="button-checkbox" checked={!disableLogic} />
+          Show Location Logic
         </button>
         <button
           onClick={toggleSingleColorBackground}
           type="button"
         >
-          {singleColorBackgroundText}
+          <input type="checkbox" className="button-checkbox" checked={singleColorBackground} />
+          Single Color Background
         </button>
       </div>
     );
