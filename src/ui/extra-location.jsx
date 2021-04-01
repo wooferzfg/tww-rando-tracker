@@ -6,6 +6,7 @@ import LogicHelper from '../services/logic-helper';
 
 import Images from './images';
 import Item from './item';
+import KeyDownWrapper from './key-down-wrapper';
 
 class ExtraLocation extends React.PureComponent {
   compassItem() {
@@ -234,7 +235,7 @@ class ExtraLocation extends React.PureComponent {
         onBlur={clearSelectedLocation}
         onClick={updateOpenedLocationFunc}
         onFocus={setSelectedLocationFunc}
-        onKeyDown={updateOpenedLocationFunc}
+        onKeyDown={KeyDownWrapper.onSpaceKey(updateOpenedLocationFunc)}
         onMouseOver={setSelectedLocationFunc}
         onMouseOut={clearSelectedLocation}
         role="button"

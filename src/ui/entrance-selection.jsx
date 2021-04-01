@@ -7,6 +7,7 @@ import LogicHelper from '../services/logic-helper';
 import TrackerState from '../services/tracker-state';
 
 import Images from './images';
+import KeyDownWrapper from './key-down-wrapper';
 import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
@@ -76,7 +77,7 @@ class EntranceSelection extends React.PureComponent {
       <div
         className={`detail-span ${notInteractiveClassName} ${color} ${fontSizeClassName}`}
         onClick={updateEntranceFunc}
-        onKeyDown={updateEntranceFunc}
+        onKeyDown={KeyDownWrapper.onSpaceKey(updateEntranceFunc)}
         role="button"
         tabIndex="0"
       >
@@ -150,7 +151,7 @@ class EntranceSelection extends React.PureComponent {
                 <div
                   className="detail-span"
                   onClick={clearOpenedMenus}
-                  onKeyDown={clearOpenedMenus}
+                  onKeyDown={KeyDownWrapper.onSpaceKey(clearOpenedMenus)}
                   role="button"
                   tabIndex="0"
                 >

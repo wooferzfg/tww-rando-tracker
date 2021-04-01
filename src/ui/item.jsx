@@ -4,6 +4,8 @@ import React from 'react';
 
 import LogicHelper from '../services/logic-helper';
 
+import KeyDownWrapper from './key-down-wrapper';
+
 class Item extends React.PureComponent {
   render() {
     const {
@@ -48,7 +50,7 @@ class Item extends React.PureComponent {
         onClick={incrementItemFunc}
         onContextMenu={decrementItemFunc}
         onFocus={setSelectedItemFunc}
-        onKeyDown={incrementItemFunc}
+        onKeyDown={KeyDownWrapper.onSpaceKey(incrementItemFunc)}
         onMouseOver={setSelectedItemFunc}
         onMouseOut={clearSelectedItem}
         role="button"
