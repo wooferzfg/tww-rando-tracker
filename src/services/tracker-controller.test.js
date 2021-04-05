@@ -15,6 +15,13 @@ import TrackerState from './tracker-state';
 describe('TrackerController', () => {
   beforeEach(() => {
     TrackerController.reset();
+
+    jest.spyOn(LogicLoader, 'loadLogicFiles').mockReturnValue(
+      Promise.resolve({
+        itemLocationsFile: TEST_ITEM_LOCATIONS,
+        macrosFile: TEST_MACROS,
+      }),
+    );
   });
 
   const validateReturnedData = (refreshedData) => {
@@ -31,15 +38,6 @@ describe('TrackerController', () => {
   };
 
   describe('initializeFromPermalink', () => {
-    beforeEach(() => {
-      jest.spyOn(LogicLoader, 'loadLogicFiles').mockReturnValue(
-        Promise.resolve({
-          itemLocationsFile: TEST_ITEM_LOCATIONS,
-          macrosFile: TEST_MACROS,
-        }),
-      );
-    });
-
     test('returns the correct initial data', async () => {
       const initialData = await TrackerController.initializeFromPermalink(
         Permalink.DEFAULT_PERMALINK,
