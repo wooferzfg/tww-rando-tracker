@@ -33,6 +33,7 @@ class DetailedLocationsTable extends React.PureComponent {
     const {
       location,
       color,
+      sphere,
     } = locationInfo;
 
     const {
@@ -58,7 +59,7 @@ class DetailedLocationsTable extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        {location}
+        {`[${sphere}] ${location}`}
       </div>
     );
 
@@ -112,7 +113,6 @@ class DetailedLocationsTable extends React.PureComponent {
     const locationChunks = _.chunk(detailedLocations, DetailedLocationsTable.NUM_ROWS);
     const arrangedLocations = _.zip(...locationChunks);
     const numColumns = _.size(locationChunks);
-
     const locationRows = _.map(arrangedLocations, (locationsRow, index) => (
       <tr key={index}>
         {_.map(locationsRow, (locationInfo) => this.detailedLocation(locationInfo, numColumns))}

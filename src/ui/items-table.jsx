@@ -37,7 +37,14 @@ class ItemsTable extends React.PureComponent {
     }
 
     const itemCount = trackerState.getItemValue(selectedItem);
-    const itemInfoText = LogicHelper.prettyNameForItem(selectedItem, itemCount);
+    const spheres = _.get(trackerState, ['items', selectedItem, 'sphere']);
+    debugger;
+
+    const sphereText = _.reduce(spheres, (textArray, sphere) => {
+      textArray.push(sphere && !_.isNil(sphere.value) ? `[${sphere.value}]` : '');
+      return textArray;
+    }, []);
+    const itemInfoText = `${LogicHelper.prettyNameForItem(selectedItem, itemCount)} ${_.join(sphereText, ' ')}`;
 
     return (
       <span className="item-info">{itemInfoText}</span>

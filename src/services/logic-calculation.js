@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import KEYS from '../data/keys.json';
 
+import BooleanExpression from './boolean-expression';
 import Locations from './locations';
 import LogicHelper from './logic-helper';
 import Memoizer from './memoizer';
@@ -45,6 +46,78 @@ export default class LogicCalculation {
     NON_PROGRESS_LOCATION: 'non-progress-location',
     UNAVAILABLE_LOCATION: 'unavailable-location',
   };
+
+  static getSphere(state, generalLocation, detailedLocation) {
+    const requirementsForLocation = LogicHelper.requirementsForLocation(
+      generalLocation,
+      detailedLocation,
+    );
+
+    const getSphere = (item) => {
+      let itemValue;
+      if (item === LogicHelper.TOKENS.NOTHING) {
+        return -1;
+      }
+
+      const itemCountRequirement = LogicHelper.parseItemCountRequirement(item);
+      if (!_.isNil(itemCountRequirement)) {
+        const {
+          countRequired,
+          itemName,
+        } = itemCountRequirement;
+
+        itemValue = state.getItemValue(itemName);
+        if (itemValue >= countRequired) {
+          return _.get(state.getItemSphere(itemName, countRequired), 'value');
+        }
+      } else {
+        itemValue = state.getItemValue(item);
+        if (itemValue === 1) {
+          return _.get(state.getItemSphere(item, itemValue), 'value');
+        }
+      }
+
+      return null;
+    };
+
+    const parseLogic = (requirments) => {
+      debugger;
+      let tempSphere;
+      let sphere;
+      const { type, items } = requirments;
+      _.forEach(items, (item) => {
+        if (BooleanExpression._isExpression(item)) {
+          tempSphere = parseLogic(item);
+        } else {
+          tempSphere = getSphere(item);
+        }
+
+        if (type === 'or') {
+          if (_.isNil(tempSphere)) {
+            return true;
+          }
+          if (tempSphere < (!_.isNil(sphere) ? sphere : 100)) {
+            sphere = tempSphere;
+          }
+        } else if (type === 'and') {
+          if (_.isNil(tempSphere)) {
+            sphere = null;
+            return false;
+          }
+          if (tempSphere > (!_.isNil(sphere) ? sphere : -100)) {
+            sphere = tempSphere;
+          }
+        }
+      });
+
+      return _.isNumber(sphere) ? sphere : null;
+    };
+
+    const tempSphere = parseLogic(requirementsForLocation);
+    const sphere = _.isNumber(tempSphere) ? tempSphere + 1 : null;
+    console.log(sphere);
+    return sphere;
+  }
 
   formattedRequirementsForLocation(generalLocation, detailedLocation) {
     const requirementsForLocation = LogicHelper.requirementsForLocation(
@@ -98,7 +171,6 @@ export default class LogicCalculation {
       generalLocation,
       { isDungeon, onlyProgressLocations },
     );
-
     return _.map(detailedLocations, (detailedLocation) => {
       const isAvailable = this._isLocationAvailable(generalLocation, detailedLocation);
       const isChecked = this.state.isLocationChecked(generalLocation, detailedLocation);
@@ -110,9 +182,12 @@ export default class LogicCalculation {
         isProgress,
       );
 
+      const sphere = LogicCalculation.getSphere(this.state, generalLocation, detailedLocation);
+
       return {
         location: detailedLocation,
         color,
+        sphere: _.isNumber(sphere) ? sphere : '?',
       };
     });
   }
@@ -227,7 +302,6 @@ export default class LogicCalculation {
       generalLocation,
       detailedLocation,
     );
-
     return this._areRequirementsMet(requirementsForLocation);
   }
 

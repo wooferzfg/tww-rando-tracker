@@ -58,7 +58,6 @@ export default class Locations {
 
   static detailedLocationsForGeneralLocation(generalLocation) {
     const generalLocationInfo = _.get(this.locations, generalLocation);
-
     if (!generalLocationInfo) {
       throw Error(`General location not found: ${generalLocation}`);
     }
