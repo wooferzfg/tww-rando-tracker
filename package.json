@@ -8,14 +8,14 @@
     "build:production": "webpack --mode=production",
     "lint": "eslint --max-warnings 0 \"src/**/*.jsx\" \"src/**/*.js\" \"*.js\"",
     "start": "webpack serve",
-    "test": "jest --env=node --coverage --maxWorkers=5"
+    "test": "jest --maxWorkers=5"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wooferzfg/tww-rando-tracker.git"
   },
   "dependencies": {
-    "js-yaml": "^4.0.0",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "memoizee": "^0.4.15",
     "prop-types": "^15.7.2",
@@ -28,21 +28,21 @@
     "react-tooltip": "^4.2.17"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.14",
+    "@babel/core": "^7.13.15",
     "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/plugin-transform-runtime": "^7.13.10",
-    "@babel/preset-env": "^7.13.12",
+    "@babel/plugin-transform-runtime": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
     "@babel/preset-react": "^7.13.13",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
-    "css-loader": "^5.2.0",
-    "eslint": "^7.23.0",
+    "css-loader": "^5.2.1",
+    "eslint": "^7.24.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.3.2",
+    "eslint-plugin-jest": "^24.3.5",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.23.1",
+    "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-sort-class-members": "^1.11.0",
     "favicons-webpack-plugin": "^4.2.0",
@@ -56,6 +56,6 @@
     "webpack": "^4.46.0",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2",
-    "workbox-webpack-plugin": "^6.1.2"
+    "workbox-webpack-plugin": "^6.1.5"
   }
 }
