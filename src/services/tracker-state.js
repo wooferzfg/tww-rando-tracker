@@ -120,7 +120,6 @@ export default class TrackerState {
 
     if (newItemCount > 0) {
       const lastLocation = _.get(newState, 'lastLocation');
-      debugger;
       if (!_.isNil(lastLocation)) {
         const {
           generalLocation,

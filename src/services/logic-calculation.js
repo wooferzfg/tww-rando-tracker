@@ -81,7 +81,6 @@ export default class LogicCalculation {
     };
 
     const parseLogic = (requirments) => {
-      debugger;
       let tempSphere;
       let sphere;
       const { type, items } = requirments;
