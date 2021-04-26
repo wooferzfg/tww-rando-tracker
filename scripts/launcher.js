@@ -1,5 +1,5 @@
 const currentVersion = '1.9.0';
-var startingGear = 137438953473;
+var startingGear = 137438953472;
 
 function parseFlags(bits, ids) {
   for (var i = 0; i < ids.length; i++) {
