@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: github.repository == 'wooferzfg/tww-rando-tracker' && github.ref == 'refs/heads/speedrun
+    if: github.repository == 'wooferzfg/tww-rando-tracker' && github.ref == 'refs/heads/speedrun'
 
     steps:
       - name: Deploy branches
