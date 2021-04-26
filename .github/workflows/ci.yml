@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - 'speedrun'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.repository == 'wooferzfg/tww-rando-tracker' && github.ref == 'refs/heads/speedrun
+
+    steps:
+      - name: Deploy branches
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git clone -b gh-pages-main -q "https://github.com/wooferzfg/tww-rando-tracker" ./repo
+          git clone -b speedrun -q "https://github.com/wooferzfg/tww-rando-tracker" ./repo/speedrun
+          rm -r ./repo/speedrun/.git
+          cd repo
+          git checkout --orphan gh-pages
+          git add speedrun/
+          git add .
+          git commit -m "Deploy site"
+          git push --force https://action:${{ secrets.GH_PAGES_DEPLOY }}@github.com/wooferzfg/tww-rando-tracker.git
