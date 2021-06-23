@@ -16,3 +16,4 @@ You can then build and serve the tracker application:
 ```bash
 npm start
 ```
+After the server starts, you can go to http://localhost:8080/ to open the tracker.
