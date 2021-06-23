@@ -47,7 +47,7 @@
     "eslint-plugin-sort-class-members": "^1.11.0",
     "favicons-webpack-plugin": "^4.2.0",
     "html-webpack-plugin": "^4.5.2",
-    "jest": "^27.0.4",
+    "jest": "^27.0.5",
     "sass": "^1.35.1",
     "sass-loader": "^10.1.1",
     "source-map-loader": "^1.1.3",
