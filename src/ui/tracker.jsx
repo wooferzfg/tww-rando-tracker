@@ -24,6 +24,8 @@ class Tracker extends React.PureComponent {
       disableLogic: false,
       entrancesListOpen: false,
       isLoading: true,
+      lastItem: null,
+      lastLocation: null,
       onlyProgressLocations: true,
       openedExit: null,
       openedLocation: null,
@@ -107,9 +109,27 @@ class Tracker extends React.PureComponent {
   }
 
   incrementItem(itemName) {
-    const { trackerState } = this.state;
+    const {
+      lastLocation,
+      trackerState,
+    } = this.state;
 
-    const newTrackerState = trackerState.incrementItem(itemName);
+    let newTrackerState = trackerState.incrementItem(itemName);
+
+    if (!_.isNil(lastLocation)) {
+      this.setState({ lastItem: itemName });
+
+      const {
+        generalLocation,
+        detailedLocation,
+      } = lastLocation;
+
+      newTrackerState = newTrackerState.setItemForLocation(
+        itemName,
+        generalLocation,
+        detailedLocation,
+      );
+    }
 
     this.updateTrackerState(newTrackerState);
   }
@@ -125,7 +145,24 @@ class Tracker extends React.PureComponent {
   toggleLocationChecked(generalLocation, detailedLocation) {
     const { trackerState } = this.state;
 
-    const newTrackerState = trackerState.toggleLocationChecked(generalLocation, detailedLocation);
+    let newTrackerState = trackerState.toggleLocationChecked(generalLocation, detailedLocation);
+
+    if (newTrackerState.isLocationChecked(generalLocation, detailedLocation)) {
+      this.setState({
+        lastItem: null,
+        lastLocation: {
+          generalLocation,
+          detailedLocation,
+        },
+      });
+    } else {
+      this.setState({
+        lastItem: null,
+        lastLocation: null,
+      });
+
+      newTrackerState = newTrackerState.unsetItemForLocation(generalLocation, detailedLocation);
+    }
 
     this.updateTrackerState(newTrackerState);
   }
