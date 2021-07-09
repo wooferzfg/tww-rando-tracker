@@ -17,16 +17,23 @@ export default class TrackerState {
       ),
       {},
     );
+    newState.itemsForLocations = Locations.mapLocations(() => null);
     newState.locationsChecked = Locations.mapLocations(() => false);
 
     return newState;
   }
 
-  static createStateRaw({ entrances, items, locationsChecked }) {
+  static createStateRaw({
+    entrances,
+    items,
+    itemsForLocations,
+    locationsChecked,
+  }) {
     const newState = new TrackerState();
 
     newState.entrances = entrances;
     newState.items = items;
+    newState.itemsForLocations = itemsForLocations;
     newState.locationsChecked = locationsChecked;
 
     return newState;
@@ -36,6 +43,7 @@ export default class TrackerState {
     return {
       entrances: this.entrances,
       items: this.items,
+      itemsForLocations: this.itemsForLocations,
       locationsChecked: this.locationsChecked,
     };
   }
@@ -107,12 +115,29 @@ export default class TrackerState {
     return newState;
   }
 
+  getItemForLocation(generalLocation, detailedLocation) {
+    return _.get(this.itemsForLocations, [generalLocation, detailedLocation]);
+  }
+
+  setItemForLocation(itemName, generalLocation, detailedLocation) {
+    const newState = this._clone();
+    _.set(newState.itemsForLocations, [generalLocation, detailedLocation], itemName);
+    return newState;
+  }
+
+  unsetItemForLocation(generalLocation, detailedLocation) {
+    const newState = this._clone();
+    _.set(newState.itemsForLocations, [generalLocation, detailedLocation], null);
+    return newState;
+  }
+
   _clone() {
     const newState = new TrackerState();
 
     newState.entrances = _.clone(this.entrances);
     newState.items = _.clone(this.items);
     newState.locationsChecked = _.cloneDeep(this.locationsChecked);
+    newState.itemsForLocations = _.cloneDeep(this.itemsForLocations);
 
     return newState;
   }

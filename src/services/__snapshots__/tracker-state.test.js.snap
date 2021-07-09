@@ -156,3 +156,14 @@ Object {
   "Wind's Requiem": 1,
 }
 `;
+
+exports[`TrackerState default initializes the items for locations 1`] = `
+Object {
+  "Dragon Roost Cavern": Object {
+    "Bird's Nest": null,
+  },
+  "Outset Island": Object {
+    "Savage Labyrinth - Floor 30": null,
+  },
+}
+`;
