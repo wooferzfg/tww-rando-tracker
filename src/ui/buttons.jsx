@@ -47,7 +47,7 @@ class Buttons extends React.PureComponent {
           onClick={toggleOnlyProgressLocations}
           type="button"
         >
-          <input type="checkbox" className="button-checkbox" checked={!onlyProgressLocations} />
+          <input type="checkbox" className="button-checkbox" checked={!onlyProgressLocations} readOnly />
           Show Non-Progress Locations
         </button>
         {
@@ -64,14 +64,14 @@ class Buttons extends React.PureComponent {
           onClick={toggleDisableLogic}
           type="button"
         >
-          <input type="checkbox" className="button-checkbox" checked={!disableLogic} />
+          <input type="checkbox" className="button-checkbox" checked={!disableLogic} readOnly />
           Show Location Logic
         </button>
         <button
           onClick={toggleSingleColorBackground}
           type="button"
         >
-          <input type="checkbox" className="button-checkbox" checked={singleColorBackground} />
+          <input type="checkbox" className="button-checkbox" checked={singleColorBackground} readOnly />
           Single Color Background
         </button>
       </div>
