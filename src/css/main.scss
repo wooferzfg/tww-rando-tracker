@@ -681,6 +681,25 @@ button:hover:enabled {
   }
 }
 
+.sphere-tracking {
+  background-color: rgba(220, 220, 220, 0.85);
+  width: 600px;
+  padding: 5px;
+
+  .last-location {
+    font-weight: bold;
+    height: 20px;
+  }
+
+  .last-item {
+    height: 20px;
+  }
+
+  .no-item {
+    font-style: italic;
+  }
+}
+
 .buttons {
   button {
     margin-left: 0;

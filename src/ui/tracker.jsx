@@ -11,6 +11,7 @@ import Buttons from './buttons';
 import Images from './images';
 import ItemsTable from './items-table';
 import LocationsTable from './locations-table';
+import SphereTracking from './sphere-tracking';
 import Statistics from './statistics';
 import Storage from './storage';
 
@@ -295,6 +296,8 @@ class Tracker extends React.PureComponent {
       disableLogic,
       entrancesListOpen,
       isLoading,
+      lastItem,
+      lastLocation,
       logic,
       onlyProgressLocations,
       openedExit,
@@ -351,6 +354,12 @@ class Tracker extends React.PureComponent {
               singleColorBackground={singleColorBackground}
             />
           </div>
+          {trackSpheres && (
+            <SphereTracking
+              lastItem={lastItem}
+              lastLocation={lastLocation}
+            />
+          )}
           <Buttons
             disableLogic={disableLogic}
             entrancesListOpen={entrancesListOpen}
