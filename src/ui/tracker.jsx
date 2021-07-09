@@ -29,6 +29,7 @@ class Tracker extends React.PureComponent {
       openedLocation: null,
       openedLocationIsDungeon: null,
       singleColorBackground: false,
+      trackSpheres: false,
     };
 
     this.initialize();
@@ -42,6 +43,7 @@ class Tracker extends React.PureComponent {
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(this);
+    this.toggleTrackSpheres = this.toggleTrackSpheres.bind(this);
     this.unsetExit = this.unsetExit.bind(this);
     this.updateEntranceForExit = this.updateEntranceForExit.bind(this);
     this.updateOpenedExit = this.updateOpenedExit.bind(this);
@@ -243,6 +245,14 @@ class Tracker extends React.PureComponent {
     });
   }
 
+  toggleTrackSpheres() {
+    const { trackSpheres } = this.state;
+
+    this.setState({
+      trackSpheres: !trackSpheres,
+    });
+  }
+
   render() {
     const {
       disableLogic,
@@ -255,6 +265,7 @@ class Tracker extends React.PureComponent {
       openedLocationIsDungeon,
       saveData,
       singleColorBackground,
+      trackSpheres,
       trackerState,
     } = this.state;
 
@@ -309,10 +320,12 @@ class Tracker extends React.PureComponent {
             onlyProgressLocations={onlyProgressLocations}
             saveData={saveData}
             singleColorBackground={singleColorBackground}
+            trackSpheres={trackSpheres}
             toggleDisableLogic={this.toggleDisableLogic}
             toggleEntrancesList={this.toggleEntrancesList}
             toggleOnlyProgressLocations={this.toggleOnlyProgressLocations}
             toggleSingleColorBackground={this.toggleSingleColorBackground}
+            toggleTrackSpheres={this.toggleTrackSpheres}
           />
         </div>
       );

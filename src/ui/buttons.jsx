@@ -24,10 +24,12 @@ class Buttons extends React.PureComponent {
       entrancesListOpen,
       onlyProgressLocations,
       singleColorBackground,
+      trackSpheres,
       toggleDisableLogic,
       toggleEntrancesList,
       toggleOnlyProgressLocations,
       toggleSingleColorBackground,
+      toggleTrackSpheres,
     } = this.props;
 
     const entrancesListText = entrancesListOpen
@@ -68,6 +70,13 @@ class Buttons extends React.PureComponent {
           Show Location Logic
         </button>
         <button
+          onClick={toggleTrackSpheres}
+          type="button"
+        >
+          <input type="checkbox" className="button-checkbox" checked={trackSpheres} readOnly />
+          Track Spheres
+        </button>
+        <button
           onClick={toggleSingleColorBackground}
           type="button"
         >
@@ -85,10 +94,12 @@ Buttons.propTypes = {
   onlyProgressLocations: PropTypes.bool.isRequired,
   saveData: PropTypes.string.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
   toggleDisableLogic: PropTypes.func.isRequired,
   toggleEntrancesList: PropTypes.func.isRequired,
   toggleOnlyProgressLocations: PropTypes.func.isRequired,
   toggleSingleColorBackground: PropTypes.func.isRequired,
+  toggleTrackSpheres: PropTypes.func.isRequired,
 };
 
 export default Buttons;
