@@ -48,6 +48,7 @@ class Tracker extends React.PureComponent {
     this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(this);
     this.toggleTrackSpheres = this.toggleTrackSpheres.bind(this);
     this.unsetExit = this.unsetExit.bind(this);
+    this.unsetLastLocation = this.unsetLastLocation.bind(this);
     this.updateEntranceForExit = this.updateEntranceForExit.bind(this);
     this.updateOpenedExit = this.updateOpenedExit.bind(this);
     this.updateOpenedLocation = this.updateOpenedLocation.bind(this);
@@ -291,6 +292,13 @@ class Tracker extends React.PureComponent {
     });
   }
 
+  unsetLastLocation() {
+    this.setState({
+      lastItem: null,
+      lastLocation: null,
+    });
+  }
+
   render() {
     const {
       disableLogic,
@@ -358,6 +366,7 @@ class Tracker extends React.PureComponent {
             <SphereTracking
               lastItem={lastItem}
               lastLocation={lastLocation}
+              unsetLastLocation={this.unsetLastLocation}
             />
           )}
           <Buttons

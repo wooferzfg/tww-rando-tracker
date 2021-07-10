@@ -2,11 +2,14 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import KeyDownWrapper from './key-down-wrapper';
+
 class SphereTracking extends React.PureComponent {
   render() {
     const {
       lastItem,
       lastLocation,
+      unsetLastLocation,
     } = this.props;
 
     if (_.isNil(lastLocation)) {
@@ -31,8 +34,19 @@ class SphereTracking extends React.PureComponent {
 
     return (
       <div className="sphere-tracking">
-        <div className="last-location">{`${generalLocation} - ${detailedLocation}`}</div>
-        {itemSelection}
+        <div className="last-location-and-item">
+          <div className="last-location">{`${generalLocation} - ${detailedLocation}`}</div>
+          {itemSelection}
+        </div>
+        <div
+          className="close-button"
+          onClick={unsetLastLocation}
+          onKeyDown={KeyDownWrapper.onSpaceKey(unsetLastLocation)}
+          role="button"
+          tabIndex="0"
+        >
+          X Close
+        </div>
       </div>
     );
   }
@@ -49,6 +63,7 @@ SphereTracking.propTypes = {
     generalLocation: PropTypes.string,
     detailedLocation: PropTypes.string,
   }),
+  unsetLastLocation: PropTypes.func.isRequired,
 };
 
 export default SphereTracking;
