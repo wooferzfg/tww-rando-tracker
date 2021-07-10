@@ -2,13 +2,15 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import TrackerState from '../services/tracker-state';
+
 import KeyDownWrapper from './key-down-wrapper';
 
 class SphereTracking extends React.PureComponent {
   render() {
     const {
-      lastItem,
       lastLocation,
+      trackerState,
       unsetLastLocation,
     } = this.props;
 
@@ -20,6 +22,8 @@ class SphereTracking extends React.PureComponent {
       generalLocation,
       detailedLocation,
     } = lastLocation;
+
+    const lastItem = trackerState.getItemForLocation(generalLocation, detailedLocation);
 
     let itemSelection;
     if (_.isNil(lastItem)) {
@@ -53,16 +57,15 @@ class SphereTracking extends React.PureComponent {
 }
 
 SphereTracking.defaultProps = {
-  lastItem: null,
   lastLocation: null,
 };
 
 SphereTracking.propTypes = {
-  lastItem: PropTypes.string,
   lastLocation: PropTypes.exact({
     generalLocation: PropTypes.string,
     detailedLocation: PropTypes.string,
   }),
+  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   unsetLastLocation: PropTypes.func.isRequired,
 };
 

@@ -25,7 +25,6 @@ class Tracker extends React.PureComponent {
       disableLogic: false,
       entrancesListOpen: false,
       isLoading: true,
-      lastItem: null,
       lastLocation: null,
       onlyProgressLocations: true,
       openedExit: null,
@@ -119,8 +118,6 @@ class Tracker extends React.PureComponent {
     let newTrackerState = trackerState.incrementItem(itemName);
 
     if (!_.isNil(lastLocation)) {
-      this.setState({ lastItem: itemName });
-
       const {
         generalLocation,
         detailedLocation,
@@ -151,17 +148,13 @@ class Tracker extends React.PureComponent {
 
     if (newTrackerState.isLocationChecked(generalLocation, detailedLocation)) {
       this.setState({
-        lastItem: null,
         lastLocation: {
           generalLocation,
           detailedLocation,
         },
       });
     } else {
-      this.setState({
-        lastItem: null,
-        lastLocation: null,
-      });
+      this.setState({ lastLocation: null });
 
       newTrackerState = newTrackerState.unsetItemForLocation(generalLocation, detailedLocation);
     }
@@ -293,10 +286,7 @@ class Tracker extends React.PureComponent {
   }
 
   unsetLastLocation() {
-    this.setState({
-      lastItem: null,
-      lastLocation: null,
-    });
+    this.setState({ lastLocation: null });
   }
 
   render() {
@@ -304,7 +294,6 @@ class Tracker extends React.PureComponent {
       disableLogic,
       entrancesListOpen,
       isLoading,
-      lastItem,
       lastLocation,
       logic,
       onlyProgressLocations,
@@ -364,8 +353,8 @@ class Tracker extends React.PureComponent {
           </div>
           {trackSpheres && (
             <SphereTracking
-              lastItem={lastItem}
               lastLocation={lastLocation}
+              trackerState={trackerState}
               unsetLastLocation={this.unsetLastLocation}
             />
           )}
