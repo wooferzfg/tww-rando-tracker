@@ -71,6 +71,7 @@ class LocationsTable extends React.PureComponent {
       openedLocationIsDungeon,
       toggleLocationChecked,
       trackerState,
+      trackSpheres,
       unsetExit,
       updateEntranceForExit,
       updateOpenedExit,
@@ -115,6 +116,8 @@ class LocationsTable extends React.PureComponent {
           onlyProgressLocations={onlyProgressLocations}
           openedLocation={openedLocation}
           openedLocationIsDungeon={openedLocationIsDungeon}
+          trackerState={trackerState}
+          trackSpheres={trackSpheres}
           toggleLocationChecked={toggleLocationChecked}
         />
       );
@@ -216,6 +219,7 @@ LocationsTable.propTypes = {
   singleColorBackground: PropTypes.bool.isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateEntranceForExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,

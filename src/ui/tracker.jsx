@@ -339,6 +339,7 @@ class Tracker extends React.PureComponent {
               singleColorBackground={singleColorBackground}
               toggleLocationChecked={this.toggleLocationChecked}
               trackerState={trackerState}
+              trackSpheres={trackSpheres}
               unsetExit={this.unsetExit}
               updateEntranceForExit={this.updateEntranceForExit}
               updateOpenedExit={this.updateOpenedExit}

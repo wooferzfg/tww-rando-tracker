@@ -17,8 +17,8 @@ class RequirementsTooltip extends React.PureComponent {
     ));
 
     return (
-      <div className="item-requirements">
-        <div className="item-requirements-title">Items Required</div>
+      <div className="tooltip">
+        <div className="tooltip-title">Items Required</div>
         <ul>
           {requirementsList}
         </ul>
