@@ -2,6 +2,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import LogicHelper from '../services/logic-helper';
 import TrackerState from '../services/tracker-state';
 
 import KeyDownWrapper from './key-down-wrapper';
@@ -31,8 +32,10 @@ class SphereTracking extends React.PureComponent {
         <div className="no-item last-item">No Item Selected</div>
       );
     } else {
+      const prettyItemName = LogicHelper.prettyNameForItem(lastItem, null);
+
       itemSelection = (
-        <div className="last-item">{lastItem}</div>
+        <div className="last-item">{prettyItemName}</div>
       );
     }
 

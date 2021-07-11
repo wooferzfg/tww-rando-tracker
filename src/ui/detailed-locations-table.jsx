@@ -35,10 +35,12 @@ class DetailedLocationsTable extends React.PureComponent {
       return null;
     }
 
+    const prettyItemName = LogicHelper.prettyNameForItem(itemForLocation, null);
+
     return (
       <div className="tooltip">
         <div className="tooltip-title">Item at Location</div>
-        <div>{itemForLocation}</div>
+        <div>{prettyItemName}</div>
       </div>
     );
   }

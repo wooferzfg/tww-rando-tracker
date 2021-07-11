@@ -443,6 +443,10 @@ export default class LogicHelper {
       return prettyNameOverride;
     }
 
+    if (_.isNil(itemCount)) {
+      return itemName;
+    }
+
     const maxItemCount = LogicHelper.maxItemCount(itemName);
     if (maxItemCount > 1) {
       return `${itemName} (${itemCount}/${maxItemCount})`;
