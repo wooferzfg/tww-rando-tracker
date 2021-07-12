@@ -5,6 +5,7 @@ import LogicLoader from './logic-loader';
 import LogicTweaks from './logic-tweaks';
 import Macros from './macros';
 import Settings from './settings';
+import Spheres from './spheres';
 import TrackerState from './tracker-state';
 
 export default class TrackerController {
@@ -57,11 +58,13 @@ export default class TrackerController {
 
   static refreshState(newState) {
     const logic = new LogicCalculation(newState);
+    const spheres = new Spheres(newState);
     const saveData = this._getSaveData(newState);
 
     return {
       logic,
       saveData,
+      spheres,
       trackerState: newState,
     };
   }

@@ -21,8 +21,8 @@ class EntrancesList extends React.PureComponent {
     const shortExitName = LogicHelper.shortEntranceName(exitName);
 
     return (
-      <div className="item-requirements">
-        <div className="item-requirements-title">Entrance Leads To</div>
+      <div className="tooltip">
+        <div className="tooltip-title">Entrance Leads To</div>
         <div>{shortExitName}</div>
       </div>
     );

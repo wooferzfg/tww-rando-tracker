@@ -17,14 +17,14 @@ export default class LogicCalculation {
       'formattedRequirementsForEntrance',
       'formattedRequirementsForLocation',
       'isBossDefeated',
+      'isEntranceAvailable',
+      'isLocationAvailable',
       'itemsNeededToFinishGame',
       'locationCounts',
       'locationsList',
       'totalLocationsAvailable',
       'totalLocationsChecked',
       'totalLocationsRemaining',
-      '_isEntranceAvailable',
-      '_isLocationAvailable',
       '_itemsRemainingForLocation',
       '_itemsRemainingForRequirement',
     ]);
@@ -73,7 +73,7 @@ export default class LogicCalculation {
 
     _.forEach(detailedLocations, (detailedLocation) => {
       if (!this.state.isLocationChecked(generalLocation, detailedLocation)) {
-        if (disableLogic || this._isLocationAvailable(generalLocation, detailedLocation)) {
+        if (disableLogic || this.isLocationAvailable(generalLocation, detailedLocation)) {
           numAvailable += 1;
 
           if (LogicHelper.isProgressLocation(generalLocation, detailedLocation)) {
@@ -100,7 +100,7 @@ export default class LogicCalculation {
     );
 
     return _.map(detailedLocations, (detailedLocation) => {
-      const isAvailable = this._isLocationAvailable(generalLocation, detailedLocation);
+      const isAvailable = this.isLocationAvailable(generalLocation, detailedLocation);
       const isChecked = this.state.isLocationChecked(generalLocation, detailedLocation);
       const isProgress = LogicHelper.isProgressLocation(generalLocation, detailedLocation);
 
@@ -149,7 +149,7 @@ export default class LogicCalculation {
           return 0;
         }
 
-        const isLocationAvailable = this._isLocationAvailable(
+        const isLocationAvailable = this.isLocationAvailable(
           generalLocation,
           detailedLocation,
         );
@@ -200,9 +200,28 @@ export default class LogicCalculation {
     return this.state.isLocationChecked(dungeonName, bossLocation);
   }
 
+  isLocationAvailable(generalLocation, detailedLocation) {
+    if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
+      return true;
+    }
+
+    const requirementsForLocation = LogicHelper.requirementsForLocation(
+      generalLocation,
+      detailedLocation,
+    );
+
+    return this._areRequirementsMet(requirementsForLocation);
+  }
+
+  isEntranceAvailable(dungeonOrCaveName) {
+    const requirementsForEntrance = LogicHelper.requirementsForEntrance(dungeonOrCaveName);
+
+    return this._areRequirementsMet(requirementsForEntrance);
+  }
+
   _entrancesListForEntrances(entrances, { disableLogic }) {
     return _.map(entrances, (dungeonOrCaveName) => {
-      const isAvailable = this._isEntranceAvailable(dungeonOrCaveName);
+      const isAvailable = this.isEntranceAvailable(dungeonOrCaveName);
       const isChecked = this.state.isEntranceChecked(dungeonOrCaveName);
 
       const color = LogicCalculation._locationColor(
@@ -216,25 +235,6 @@ export default class LogicCalculation {
         color,
       };
     });
-  }
-
-  _isLocationAvailable(generalLocation, detailedLocation) {
-    if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
-      return true;
-    }
-
-    const requirementsForLocation = LogicHelper.requirementsForLocation(
-      generalLocation,
-      detailedLocation,
-    );
-
-    return this._areRequirementsMet(requirementsForLocation);
-  }
-
-  _isEntranceAvailable(dungeonOrCaveName) {
-    const requirementsForEntrance = LogicHelper.requirementsForEntrance(dungeonOrCaveName);
-
-    return this._areRequirementsMet(requirementsForEntrance);
   }
 
   _areRequirementsMet(requirements) {
@@ -303,7 +303,7 @@ export default class LogicCalculation {
     }
 
     Memoizer.invalidate([
-      this._isLocationAvailable,
+      this.isLocationAvailable,
       this._itemsRemainingForRequirement,
     ]);
   }
@@ -342,7 +342,7 @@ export default class LogicCalculation {
   }
 
   _nonKeyRequirementsMetForLocation(generalLocation, detailedLocation, smallKeysRequired) {
-    if (this._isLocationAvailable(generalLocation, detailedLocation)) {
+    if (this.isLocationAvailable(generalLocation, detailedLocation)) {
       return true;
     }
 

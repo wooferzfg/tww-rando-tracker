@@ -141,7 +141,7 @@ describe('LogicCalculation', () => {
         test('shows the unlocked locations as available', () => {
           logic = new LogicCalculation(state);
 
-          const isLocationAvailable = logic._isLocationAvailable('Dragon Roost Cavern', 'Boarded Up Chest');
+          const isLocationAvailable = logic.isLocationAvailable('Dragon Roost Cavern', 'Boarded Up Chest');
 
           expect(isLocationAvailable).toEqual(true);
         });
@@ -1734,7 +1734,7 @@ describe('LogicCalculation', () => {
     });
   });
 
-  describe('_isLocationAvailable', () => {
+  describe('isLocationAvailable', () => {
     describe('when the location is checked', () => {
       beforeEach(() => {
         setLocations({
@@ -1751,7 +1751,7 @@ describe('LogicCalculation', () => {
       });
 
       test('returns true', () => {
-        const isLocationAvailable = logic._isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
+        const isLocationAvailable = logic.isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(isLocationAvailable).toEqual(true);
       });
@@ -1775,7 +1775,7 @@ describe('LogicCalculation', () => {
       });
 
       test('returns true', () => {
-        const isLocationAvailable = logic._isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
+        const isLocationAvailable = logic.isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(isLocationAvailable).toEqual(true);
       });
@@ -1798,14 +1798,14 @@ describe('LogicCalculation', () => {
       });
 
       test('returns false', () => {
-        const isLocationAvailable = logic._isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
+        const isLocationAvailable = logic.isLocationAvailable('Outset Island', 'Savage Labyrinth - Floor 30');
 
         expect(isLocationAvailable).toEqual(false);
       });
     });
   });
 
-  describe('_isEntranceAvailable', () => {
+  describe('isEntranceAvailable', () => {
     describe('when the entrance requirements are met', () => {
       beforeEach(() => {
         setMacros({
@@ -1818,7 +1818,7 @@ describe('LogicCalculation', () => {
       });
 
       test('returns true', () => {
-        const isEntranceAvailable = logic._isEntranceAvailable('Earth Temple');
+        const isEntranceAvailable = logic.isEntranceAvailable('Earth Temple');
 
         expect(isEntranceAvailable).toEqual(true);
       });
@@ -1832,7 +1832,7 @@ describe('LogicCalculation', () => {
       });
 
       test('returns false', () => {
-        const isEntranceAvailable = logic._isEntranceAvailable('Diamond Steppe Island Warp Maze Cave');
+        const isEntranceAvailable = logic.isEntranceAvailable('Diamond Steppe Island Warp Maze Cave');
 
         expect(isEntranceAvailable).toEqual(false);
       });

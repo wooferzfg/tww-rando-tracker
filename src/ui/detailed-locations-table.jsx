@@ -6,6 +6,8 @@ import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
 import Permalink from '../services/permalink';
 import Settings from '../services/settings';
+import Spheres from '../services/spheres';
+import TrackerState from '../services/tracker-state';
 
 import Images from './images';
 import KeyDownWrapper from './key-down-wrapper';
@@ -25,6 +27,25 @@ class DetailedLocationsTable extends React.PureComponent {
     );
   }
 
+  itemTooltip(generalLocation, detailedLocation) {
+    const { trackerState } = this.props;
+
+    const itemForLocation = trackerState.getItemForLocation(generalLocation, detailedLocation);
+
+    if (_.isNil(itemForLocation)) {
+      return null;
+    }
+
+    const prettyItemName = LogicHelper.prettyNameForItem(itemForLocation, null);
+
+    return (
+      <div className="tooltip">
+        <div className="tooltip-title">Item at Location</div>
+        <div>{prettyItemName}</div>
+      </div>
+    );
+  }
+
   detailedLocation(locationInfo, numColumns) {
     if (_.isNil(locationInfo)) {
       return null;
@@ -38,6 +59,8 @@ class DetailedLocationsTable extends React.PureComponent {
     const {
       disableLogic,
       openedLocation,
+      spheres,
+      trackSpheres,
       toggleLocationChecked,
     } = this.props;
 
@@ -50,6 +73,22 @@ class DetailedLocationsTable extends React.PureComponent {
 
     const toggleLocationFunc = () => toggleLocationChecked(openedLocation, location);
 
+    let locationText;
+    if (trackSpheres) {
+      const sphere = spheres.sphereForLocation(openedLocation, location);
+
+      let sphereText;
+      if (_.isNil(sphere)) {
+        sphereText = '?';
+      } else {
+        sphereText = sphere;
+      }
+
+      locationText = `[${sphereText}] ${location}`;
+    } else {
+      locationText = location;
+    }
+
     const locationElement = (
       <div
         className={`detail-span ${color} ${fontSizeClassName}`}
@@ -58,7 +97,7 @@ class DetailedLocationsTable extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        {location}
+        {locationText}
       </div>
     );
 
@@ -66,7 +105,16 @@ class DetailedLocationsTable extends React.PureComponent {
 
     let locationContent;
     if (disableLogic || isLocationChecked) {
-      locationContent = locationElement;
+      let itemTooltip = null;
+      if (trackSpheres) {
+        itemTooltip = this.itemTooltip(openedLocation, location);
+      }
+
+      locationContent = (
+        <Tooltip tooltipContent={itemTooltip}>
+          {locationElement}
+        </Tooltip>
+      );
     } else {
       const requirementsTooltip = this.requirementsTooltip(openedLocation, location);
 
@@ -184,6 +232,9 @@ DetailedLocationsTable.propTypes = {
   onlyProgressLocations: PropTypes.bool.isRequired,
   openedLocation: PropTypes.string.isRequired,
   openedLocationIsDungeon: PropTypes.bool.isRequired,
+  spheres: PropTypes.instanceOf(Spheres).isRequired,
+  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
 };
 

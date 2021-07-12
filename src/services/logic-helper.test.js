@@ -1896,21 +1896,35 @@ describe('LogicHelper', () => {
       });
 
       test('returns the pretty name for a Triforce Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7');
+        const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7', 0);
 
         expect(prettyName).toEqual('Chart for Seven-Star Isles');
       });
 
       test('returns the pretty name for a Treasure Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25');
+        const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25', 0);
 
         expect(prettyName).toEqual('Chart for Forsaken Fortress');
       });
 
       test('returns the regular name for the Ghost Ship Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Ghost Ship Chart');
+        const prettyName = LogicHelper.prettyNameForItem('Ghost Ship Chart', 0);
 
         expect(prettyName).toEqual('Ghost Ship Chart');
+      });
+
+      describe('when setting the item count to null', () => {
+        test('returns the pretty name for a Triforce Chart', () => {
+          const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7', null);
+
+          expect(prettyName).toEqual('Chart for Seven-Star Isles');
+        });
+
+        test('returns the pretty name for a Treasure Chart', () => {
+          const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25', null);
+
+          expect(prettyName).toEqual('Chart for Forsaken Fortress');
+        });
       });
     });
 
@@ -1924,21 +1938,49 @@ describe('LogicHelper', () => {
       });
 
       test('returns the regular name for a Triforce Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7');
+        const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7', 0);
 
         expect(prettyName).toEqual('Triforce Chart 7');
       });
 
       test('returns the regular name for a Treasure Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25');
+        const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25', 0);
 
         expect(prettyName).toEqual('Treasure Chart 25');
       });
 
       test('returns the regular name for the Ghost Ship Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Ghost Ship Chart');
+        const prettyName = LogicHelper.prettyNameForItem('Ghost Ship Chart', 0);
 
         expect(prettyName).toEqual('Ghost Ship Chart');
+      });
+
+      describe('when setting the item count to null', () => {
+        test('returns the regular name for a Triforce Chart', () => {
+          const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7', null);
+
+          expect(prettyName).toEqual('Triforce Chart 7');
+        });
+
+        test('returns the regular name for a Treasure Chart', () => {
+          const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25', null);
+
+          expect(prettyName).toEqual('Treasure Chart 25');
+        });
+      });
+    });
+
+    describe('when setting the item count to null', () => {
+      test('returns the regular name for a progressive item', () => {
+        const prettyName = LogicHelper.prettyNameForItem('Progressive Shield', null);
+
+        expect(prettyName).toEqual('Progressive Shield');
+      });
+
+      test('returns the regular name for a regular item', () => {
+        const prettyName = LogicHelper.prettyNameForItem('Deku Leaf', null);
+
+        expect(prettyName).toEqual('Deku Leaf');
       });
     });
   });

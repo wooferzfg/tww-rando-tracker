@@ -566,11 +566,11 @@ button:hover:enabled {
   color: #a69b8d;
 }
 
-.item-requirements {
+.tooltip {
   color: black;
   max-width: 300px;
 
-  .item-requirements-title {
+  .tooltip-title {
     font-weight: bold;
   }
 
@@ -678,6 +678,37 @@ button:hover:enabled {
         padding-right: 10px;
       }
     }
+  }
+}
+
+.sphere-tracking {
+  background-color: rgba(220, 220, 220, 0.85);
+  width: 650px;
+  padding: 5px;
+  display: flex;
+  user-select: none;
+
+  .last-location-and-item {
+    width: 580px;
+
+    .last-location {
+      font-weight: bold;
+      height: 20px;
+    }
+  
+    .last-item {
+      height: 20px;
+
+      &.no-item {
+        font-style: italic;
+      }
+    }
+  }
+
+  .close-button {
+    width: 70px;
+    text-align: right;
+    cursor: pointer;
   }
 }
 
