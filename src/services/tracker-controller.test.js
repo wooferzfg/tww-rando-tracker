@@ -9,6 +9,7 @@ import LogicLoader from './logic-loader';
 import Macros from './macros';
 import Permalink from './permalink';
 import Settings from './settings';
+import Spheres from './spheres';
 import TrackerController from './tracker-controller';
 import TrackerState from './tracker-state';
 
@@ -28,6 +29,7 @@ describe('TrackerController', () => {
     const {
       logic,
       saveData,
+      spheres,
       trackerState,
     } = refreshedData;
 
@@ -35,6 +37,8 @@ describe('TrackerController', () => {
     expect(trackerState).toBeInstanceOf(TrackerState);
     expect(logic).toBeInstanceOf(LogicCalculation);
     expect(logic.state).toBe(trackerState);
+    expect(spheres).toBeInstanceOf(Spheres);
+    expect(spheres.state).toBe(trackerState);
   };
 
   describe('initializeFromPermalink', () => {

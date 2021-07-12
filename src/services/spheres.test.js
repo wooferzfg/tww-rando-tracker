@@ -74,22 +74,22 @@ describe('Spheres', () => {
       });
 
       test('only sets sphere to 0 for accessible locations', () => {
-        const spheres = Spheres.calculate(trackerState);
+        const spheres = new Spheres(trackerState);
 
         expect(
-          _.get(spheres, ['Windfall Island', 'Jail - Tingle - First Gift']),
+          spheres.sphereForLocation('Windfall Island', 'Jail - Tingle - First Gift'),
         ).toEqual(0);
 
         expect(
-          _.get(spheres, ['Dragon Roost Cavern', 'Boarded Up Chest']),
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Boarded Up Chest'),
         ).toEqual(0);
 
         expect(
-          _.get(spheres, ['The Great Sea', 'Cyclos']),
+          spheres.sphereForLocation('The Great Sea', 'Cyclos'),
         ).toEqual(null);
 
         expect(
-          _.get(spheres, ['Forsaken Fortress', 'Chest on Bed']),
+          spheres.sphereForLocation('Forsaken Fortress', 'Chest on Bed'),
         ).toEqual(null);
       });
 
@@ -103,26 +103,26 @@ describe('Spheres', () => {
         });
 
         test('increases the sphere by 1 for each additional location', () => {
-          const spheres = Spheres.calculate(trackerState);
+          const spheres = new Spheres(trackerState);
 
           expect(
-            _.get(spheres, ['Windfall Island', 'Jail - Tingle - First Gift']),
+            spheres.sphereForLocation('Windfall Island', 'Jail - Tingle - First Gift'),
           ).toEqual(0);
 
           expect(
-            _.get(spheres, ['Pawprint Isle', 'Chuchu Cave - Behind Left Boulder']),
+            spheres.sphereForLocation('Pawprint Isle', 'Chuchu Cave - Behind Left Boulder'),
           ).toEqual(1);
 
           expect(
-            _.get(spheres, ['Greatfish Isle', 'Hidden Chest']),
+            spheres.sphereForLocation('Greatfish Isle', 'Hidden Chest'),
           ).toEqual(2);
 
           expect(
-            _.get(spheres, ['Diamond Steppe Island', 'Warp Maze Cave - First Chest']),
+            spheres.sphereForLocation('Diamond Steppe Island', 'Warp Maze Cave - First Chest'),
           ).toEqual(3);
 
           expect(
-            _.get(spheres, ["Bird's Peak Rock", 'Cave']),
+            spheres.sphereForLocation("Bird's Peak Rock", 'Cave'),
           ).toEqual(null);
         });
       });
@@ -136,30 +136,30 @@ describe('Spheres', () => {
         });
 
         test('assumes the highest possible sphere for each location', () => {
-          const spheres = Spheres.calculate(trackerState);
+          const spheres = new Spheres(trackerState);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Boarded Up Chest']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Boarded Up Chest'),
           ).toEqual(0);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Chest Across Lava Pit']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Chest Across Lava Pit'),
           ).toEqual(1);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Rat Room']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Rat Room'),
           ).toEqual(1);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', "Bird's Nest"]),
+            spheres.sphereForLocation('Dragon Roost Cavern', "Bird's Nest"),
           ).toEqual(1);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Dark Room']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Dark Room'),
           ).toEqual(1);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Gohma Heart Container']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Gohma Heart Container'),
           ).toEqual(1);
         });
       });
@@ -177,30 +177,30 @@ describe('Spheres', () => {
         });
 
         test('includes locations behind small keys in the same sphere', () => {
-          const spheres = Spheres.calculate(trackerState);
+          const spheres = new Spheres(trackerState);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Boarded Up Chest']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Boarded Up Chest'),
           ).toEqual(0);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Chest Across Lava Pit']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Chest Across Lava Pit'),
           ).toEqual(1);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Rat Room']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Rat Room'),
           ).toEqual(0);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', "Bird's Nest"]),
+            spheres.sphereForLocation('Dragon Roost Cavern', "Bird's Nest"),
           ).toEqual(0);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Dark Room']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Dark Room'),
           ).toEqual(0);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Gohma Heart Container']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Gohma Heart Container'),
           ).toEqual(1);
         });
       });
@@ -218,14 +218,14 @@ describe('Spheres', () => {
         });
 
         test('tracks spheres for charts correctly', () => {
-          const spheres = Spheres.calculate(trackerState);
+          const spheres = new Spheres(trackerState);
 
           expect(
-            _.get(spheres, ['Pawprint Isle', 'Sunken Treasure']),
+            spheres.sphereForLocation('Pawprint Isle', 'Sunken Treasure'),
           ).toEqual(1);
 
           expect(
-            _.get(spheres, ['Dragon Roost Island', 'Sunken Treasure']),
+            spheres.sphereForLocation('Dragon Roost Island', 'Sunken Treasure'),
           ).toEqual(null);
         });
       });
@@ -247,18 +247,18 @@ describe('Spheres', () => {
         });
 
         test('sets spheres correctly through the entrances', () => {
-          const spheres = Spheres.calculate(trackerState);
+          const spheres = new Spheres(trackerState);
 
           expect(
-            _.get(spheres, ['Pawprint Isle', 'Chuchu Cave - Chest']),
+            spheres.sphereForLocation('Pawprint Isle', 'Chuchu Cave - Chest'),
           ).toEqual(1);
 
           expect(
-            _.get(spheres, ['Pawprint Isle', 'Chuchu Cave - Scale the Wall']),
+            spheres.sphereForLocation('Pawprint Isle', 'Chuchu Cave - Scale the Wall'),
           ).toEqual(null);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'First Room']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'First Room'),
           ).toEqual(null);
         });
       });
@@ -285,30 +285,30 @@ describe('Spheres', () => {
         });
 
         test('includes locations behind small keys in the same sphere behind the random entrance', () => {
-          const spheres = Spheres.calculate(trackerState);
+          const spheres = new Spheres(trackerState);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Boarded Up Chest']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Boarded Up Chest'),
           ).toEqual(1);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Chest Across Lava Pit']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Chest Across Lava Pit'),
           ).toEqual(2);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Rat Room']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Rat Room'),
           ).toEqual(1);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', "Bird's Nest"]),
+            spheres.sphereForLocation('Dragon Roost Cavern', "Bird's Nest"),
           ).toEqual(1);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Dark Room']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Dark Room'),
           ).toEqual(1);
 
           expect(
-            _.get(spheres, ['Dragon Roost Cavern', 'Gohma Heart Container']),
+            spheres.sphereForLocation('Dragon Roost Cavern', 'Gohma Heart Container'),
           ).toEqual(2);
         });
       });

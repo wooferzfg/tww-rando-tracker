@@ -6,13 +6,20 @@ import LogicHelper from './logic-helper';
 import TrackerState from './tracker-state';
 
 export default class Spheres {
-  static calculate(trackerState) {
-    const spheres = new Spheres(trackerState);
-    return spheres.calculate();
+  constructor(trackerState) {
+    this.state = trackerState;
+    this.spheres = null;
   }
 
-  constructor(trackerState) {
-    this.trackerState = trackerState;
+  sphereForLocation(generalLocation, detailedLocation) {
+    if (_.isNil(this.spheres)) {
+      this._calculate();
+    }
+
+    return _.get(this.spheres, [generalLocation, detailedLocation]);
+  }
+
+  _calculate() {
     this.temporaryState = TrackerState.default();
     this.spheres = Locations.mapLocations(() => null);
     this.entrancesAdded = _.reduce(
@@ -22,9 +29,7 @@ export default class Spheres {
     );
     this.anyItemsAdded = true;
     this.currentSphere = 0;
-  }
 
-  calculate() {
     this._transferEntrances();
 
     while (this.anyItemsAdded) {
@@ -62,7 +67,7 @@ export default class Spheres {
 
   _transferEntrances() {
     _.forEach(LogicHelper.allRandomEntrances(), (dungeonOrCaveName) => {
-      const entranceForExit = this.trackerState.getEntranceForExit(dungeonOrCaveName);
+      const entranceForExit = this.state.getEntranceForExit(dungeonOrCaveName);
 
       if (!_.isNil(entranceForExit)) {
         this.temporaryState = this.temporaryState.setEntranceForExit(
@@ -123,7 +128,7 @@ export default class Spheres {
         return true; // continue
       }
 
-      const itemAtLocation = this.trackerState.getItemForLocation(
+      const itemAtLocation = this.state.getItemForLocation(
         dungeonName,
         detailedLocation,
       );
@@ -168,7 +173,7 @@ export default class Spheres {
 
     this._updateSphereForLocation(generalLocation, detailedLocation);
 
-    const itemAtLocation = this.trackerState.getItemForLocation(
+    const itemAtLocation = this.state.getItemForLocation(
       generalLocation,
       detailedLocation,
     );
