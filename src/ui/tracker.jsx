@@ -98,6 +98,7 @@ class Tracker extends React.PureComponent {
     const {
       logic,
       saveData,
+      spheres,
       trackerState,
     } = initialData;
 
@@ -105,6 +106,7 @@ class Tracker extends React.PureComponent {
       isLoading: false,
       logic,
       saveData,
+      spheres,
       trackerState,
     });
   }
@@ -180,6 +182,7 @@ class Tracker extends React.PureComponent {
     const {
       logic,
       saveData,
+      spheres,
       trackerState,
     } = TrackerController.refreshState(newTrackerState);
 
@@ -188,6 +191,7 @@ class Tracker extends React.PureComponent {
     this.setState({
       logic,
       saveData,
+      spheres,
       trackerState,
     });
   }
@@ -302,6 +306,7 @@ class Tracker extends React.PureComponent {
       openedLocationIsDungeon,
       saveData,
       singleColorBackground,
+      spheres,
       trackSpheres,
       trackerState,
     } = this.state;
@@ -337,6 +342,7 @@ class Tracker extends React.PureComponent {
               openedLocation={openedLocation}
               openedLocationIsDungeon={openedLocationIsDungeon}
               singleColorBackground={singleColorBackground}
+              spheres={spheres}
               toggleLocationChecked={this.toggleLocationChecked}
               trackerState={trackerState}
               trackSpheres={trackSpheres}

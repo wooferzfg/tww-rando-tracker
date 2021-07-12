@@ -6,6 +6,7 @@ import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
 import Permalink from '../services/permalink';
 import Settings from '../services/settings';
+import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
 import Images from './images';
@@ -58,6 +59,7 @@ class DetailedLocationsTable extends React.PureComponent {
     const {
       disableLogic,
       openedLocation,
+      spheres,
       trackSpheres,
       toggleLocationChecked,
     } = this.props;
@@ -71,6 +73,22 @@ class DetailedLocationsTable extends React.PureComponent {
 
     const toggleLocationFunc = () => toggleLocationChecked(openedLocation, location);
 
+    let locationText;
+    if (trackSpheres) {
+      const sphere = spheres.sphereForLocation(openedLocation, location);
+
+      let sphereText;
+      if (_.isNil(sphere)) {
+        sphereText = '?';
+      } else {
+        sphereText = sphere;
+      }
+
+      locationText = `[${sphereText}] ${location}`;
+    } else {
+      locationText = location;
+    }
+
     const locationElement = (
       <div
         className={`detail-span ${color} ${fontSizeClassName}`}
@@ -79,7 +97,7 @@ class DetailedLocationsTable extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        {location}
+        {locationText}
       </div>
     );
 
@@ -214,6 +232,7 @@ DetailedLocationsTable.propTypes = {
   onlyProgressLocations: PropTypes.bool.isRequired,
   openedLocation: PropTypes.string.isRequired,
   openedLocationIsDungeon: PropTypes.bool.isRequired,
+  spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,

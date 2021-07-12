@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import LogicCalculation from '../services/logic-calculation';
+import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
 import DetailedLocationsTable from './detailed-locations-table';
@@ -69,6 +70,7 @@ class LocationsTable extends React.PureComponent {
       openedExit,
       openedLocation,
       openedLocationIsDungeon,
+      spheres,
       toggleLocationChecked,
       trackerState,
       trackSpheres,
@@ -116,6 +118,7 @@ class LocationsTable extends React.PureComponent {
           onlyProgressLocations={onlyProgressLocations}
           openedLocation={openedLocation}
           openedLocationIsDungeon={openedLocationIsDungeon}
+          spheres={spheres}
           trackerState={trackerState}
           trackSpheres={trackSpheres}
           toggleLocationChecked={toggleLocationChecked}
@@ -217,6 +220,7 @@ LocationsTable.propTypes = {
   openedLocation: PropTypes.string,
   openedLocationIsDungeon: PropTypes.bool,
   singleColorBackground: PropTypes.bool.isRequired,
+  spheres: PropTypes.instanceOf(Spheres).isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
