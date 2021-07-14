@@ -1,0 +1,657 @@
+body {
+  background-image: url("../images/background.png");
+  font-family: 'Fira Sans', sans-serif;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.full-container {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: -8px;
+  right: -8px;
+  top: 0;
+  padding-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.launcher-container {
+  width: 100%;
+}
+
+.header {
+  display: block;
+  text-align: center;
+}
+
+.settings {
+  background: url("../images/menubg.png");
+  background-size: contain;
+  background-position: center center;
+  display: flex;
+  justify-content: center;
+  color: white;
+  width: 100%;
+  padding: 8px 0px;
+  flex-wrap: wrap;
+}
+
+#load-progress {
+  display: none;
+}
+
+.settings,
+.attribution,
+#item-info,
+#map-info,
+#chest-counts,
+#map-item-info {
+  text-shadow: 1.5px 1px rgba(0, 0, 0, 0.5);
+}
+
+.settings table {
+  width: 100%;
+  max-width: 1500px;
+  font-size: 1.2em;
+  table-layout: fixed;
+  color: white;
+}
+
+.settings td {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.label-text {
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+.slider-container {
+  text-align: right;
+  padding-right: 20px;
+  position: relative;
+}
+
+.select-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: inherit;
+}
+
+.select-container select {
+  height: 34px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+#num_starting_triforce_shards {
+  min-width: 80px;
+}
+
+.text-col {
+  width: 27%;
+}
+
+.button-col {
+  width: 6%;
+}
+
+.switch {
+  position: relative;
+  width: 60px;
+  height: 34px;
+  float: right;
+}
+
+.switch input {
+  display:none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+  border: 1px solid #808080;
+  background-color: #d2d2d2;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.permalink-container,
+.launcher-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 4px 0px;
+}
+
+.permalink-label {
+  font-size: 1.2em;
+}
+
+.permalink-input {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.launcher-button {
+  min-width: 200px;
+}
+
+button,
+#flags {
+  padding: 6px;
+  border-radius: 5px;
+  font-weight: bold;
+  border: 1px solid #808080;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.settings button,
+#flags {
+  font-size: 1em;
+}
+
+#flags {
+  margin-left: 4px;
+  width: 450px;
+}
+
+button,
+select {
+  background: linear-gradient(#d2d2d2,#c8c8c8);
+  font-family: 'Fira Sans', sans-serif;
+  min-width: 120px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+button:hover:enabled {
+  border-color: #323232;
+  cursor: pointer;
+}
+
+fieldset {
+  margin: 4px 20px;
+  border: 1px solid #c8c8c8;
+  padding: 0px 4px 4px 4px;
+  border-radius: 4px;
+  background-color: rgba(50, 50, 50, 0.4);
+}
+
+legend {
+  color: white;
+  padding: 2px;
+}
+
+.attribution,
+.attribution a {
+  text-align: center;
+  margin-top: 20px;
+  color: #C8C8C8;
+  font-size: 13px;
+}
+
+.attribution a:hover {
+  color: #969696;
+}
+
+.tracker {
+  flex-grow: 1;
+  -webkit-touch-callout: none;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+.tracker-container {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-bottom: 8px;
+}
+
+.item-tracker {
+  width: 434px;
+  height: 326px;
+  background: url("../images/trackerbg.png") no-repeat center center;
+  padding: 10px 11px;
+  background-size: cover;
+  float: left;
+  margin-right: 8px;
+  margin-bottom: 38px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.item-tracker.single-color {
+  background-image: none;
+  background-color: #69891C;
+}
+
+.item-tracker table {
+  text-align: center;
+}
+
+.item-tracker img {
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.item-tracker.single-color img {
+  filter: none;
+}
+
+.menu-items {
+  width: 100%;
+}
+
+.menu-items table {
+  width: 100%;
+}
+
+.dins-pearl {
+  float: left;
+}
+
+.other-items {
+  display: flex;
+  width: 100%;
+}
+
+.triforce-and-pearls {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 216px;
+}
+
+.pearls {
+  width: 96px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.pearls img {
+  position: relative;
+  z-index: 1;
+}
+
+.pearl-holder {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+}
+
+.pearl-holder img {
+  position: absolute;
+  left: 17px;
+  top: 19px;
+  z-index: 0;
+  filter: none;
+}
+
+.misc-items {
+  flex-grow: 1;
+}
+
+.misc-items table {
+  width: 100%;
+  height: 116px;
+}
+
+.chart-map-container {
+  float: left;
+  margin-right: 8px;
+  width: 364px;
+  height: 346px;
+  margin-bottom: 100px;
+}
+
+#chartmap {
+  font-size: 13px;
+  background: url("../images/sea_chart.png");
+}
+
+#chartmap,
+#zoommap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.maps {
+  padding: 7px 4px 3px 6px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.sea-sector {
+  position: relative;
+  float: left;
+  cursor: pointer;
+  width: 50.5px;
+  height: 48px;
+}
+
+.treasure-chart, .cave-entry {
+  width: 16px;
+  height: 16px;
+  float: left;
+  cursor: pointer;
+}
+
+.treasure-chart {
+  background: url("../images/chart.png");
+}
+
+.cave-entry {
+  background: url("../images/cave_noentry.png");
+}
+
+.chests-counter {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+}
+
+#item-info {
+  position: absolute;
+  color: white;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  margin-top: 7px;
+  left: 0;
+  top: 100%;
+}
+
+.map-info-container {
+  position: absolute;
+}
+
+.map-item-info-container {
+  position: absolute;
+}
+
+#map-info,
+#chest-counts,
+#map-item-info {
+  color: white;
+  position: absolute;
+  width: 364px;
+  text-align: center;
+}
+
+#map-info {
+  top: 7px;
+  font-size: 20px;
+}
+
+#chest-counts {
+  top: 29px;
+  font-size: 10px;
+  visibility: hidden;
+}
+
+#chests-avail,
+#chests-total {
+  font-size: 15px;
+}
+
+#map-item-info {
+  top: 50px;
+  font-size: 20px;
+}
+
+#zoommap {
+  display: none;
+}
+
+#zoommap table {
+  padding-top: 5px;
+  width: 100%;
+  table-layout: fixed;
+}
+
+#zoommap td {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#zoommap-background,
+.zoommap-cover {
+  position:absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#zoommap-background {
+  z-index: -2;
+  background: url("../images/map48.png");
+  background-size: cover;
+  background-position-y: 50%;
+}
+
+.zoommap-cover {
+  z-index: -1;
+  background-color: rgba(216, 186, 106, 0.7);
+}
+
+.detailspan {
+  line-height: 0.9em;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+
+.detailspan.detail-not-interactive {
+  cursor: auto;
+}
+
+.detail-small {
+  font-size: 13px;
+}
+
+.detail-smallest {
+  font-size: 10px;
+}
+
+.black-text {
+  color: #000000;
+}
+
+.black-text-strikethrough {
+  text-decoration: line-through;
+}
+
+.red-text {
+  color: #CC2929;
+}
+
+.yellow-text {
+  color: #808000;    
+}
+
+.blue-text {
+  color: #2929CC;
+}
+
+.gray-text {
+  color: #A69B8D;
+}
+
+.tool-tip-text,
+.song-notes {
+  display: none;
+}
+
+.tool-tip-text ul {
+  margin: 0;
+  padding-left: 15px;
+}
+
+.qtip-titlebar,
+.qtip-content {
+  color: black;
+}
+
+.tracker td img {
+cursor: pointer;
+}
+
+.extra-locations {
+  float: left;
+  background-color: rgba(160, 160, 160, 0.85);
+  width: 690px;
+  height: 266px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.extra-locations.single-color {
+  background-color: rgba(160, 160, 160, 1);
+}
+
+.extra-location {
+  width: 128px;
+  float: left;
+  background-position-y: 15px;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.dungeon-items {
+  display: flex;
+  justify-content: center;
+  height: 24px;
+}
+
+.dungeon-item {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  font-size: 0;
+}
+
+.small-key {
+  background: url("../images/smallkey.png");
+}
+
+.dungeon-entry {
+  background: url("../images/dungeon_noentry.png");
+}
+
+.boss-key {
+  background: url("../images/bosskey.png");
+}
+
+.extra-location-chests {
+  font-size: 16px;
+  text-align: center;
+}
+
+.dungeon-icon {
+  display: flex;
+  justify-content: center;
+}
+
+.statistics {
+  float: left;
+  width: 440px;
+  background-color: rgba(80, 80, 80, 0.85);
+  height: 86px;
+  margin: 0 0 8px 0;
+  padding: 5px;
+  white-space: normal;
+  color: #bbbbbb;
+  font-size: 0.9em;
+}
+
+.statistics.single-color {
+  background-color: rgba(80, 80, 80, 1);
+}
+
+.statistics dd {
+  color: white;
+  font-weight: bold;
+  margin: 0;
+  float: left;
+  text-align: right;
+  min-width: 40px;
+  padding-right: 10px
+}
+
+.statistics dt {
+  display: inline-block;
+  min-width: 300px;
+}
+
+.item-tracker .hide {
+  visibility: hidden;
+}
+
+.statistics dt.hide,
+.statistics dd.hide {
+  display: none;
+}
+
+.tracker-container button {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 5px;
+  width: 225px;
+}
