@@ -119,6 +119,31 @@ export default class TrackerState {
     return _.get(this.itemsForLocations, [generalLocation, detailedLocation]);
   }
 
+  getLocationsForItem(itemName) {
+    const generalLocations = _.filter(
+      _.keys(this.itemsForLocations),
+      (general) => _.some(
+        _.keys(this.itemsForLocations[general]),
+        (detailed) => _.get(this.itemsForLocations, [general, detailed]) === itemName,
+      ),
+    );
+    if (_.isEmpty(generalLocations)) {
+      return [];
+    }
+
+    return generalLocations.flatMap((general) => {
+      const detailedLocations = _.filter(
+        _.keys(this.itemsForLocations[general]),
+        (detailed) => _.get(this.itemsForLocations, [general, detailed]) === itemName,
+      );
+
+      return _.map(detailedLocations, (detailedLocation) => ({
+        generalLocation: general,
+        detailedLocation,
+      }));
+    });
+  }
+
   setItemForLocation(itemName, generalLocation, detailedLocation) {
     const newState = this._clone();
     _.set(newState.itemsForLocations, [generalLocation, detailedLocation], itemName);

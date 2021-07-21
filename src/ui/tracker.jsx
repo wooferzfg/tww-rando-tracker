@@ -328,6 +328,8 @@ class Tracker extends React.PureComponent {
               incrementItem={this.incrementItem}
               singleColorBackground={singleColorBackground}
               trackerState={trackerState}
+              trackSpheres={trackSpheres}
+              spheres={spheres}
             />
             <LocationsTable
               clearOpenedMenus={this.clearOpenedMenus}

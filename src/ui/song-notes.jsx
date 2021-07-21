@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import SONG_NOTES from '../data/song-notes.json';
+import Spheres from '../services/spheres';
 
+import FoundAtTooltip from './found-at-tooltip';
 import Images from './images';
 import Tooltip from './tooltip';
 
@@ -13,6 +15,8 @@ class SongNotes extends React.PureComponent {
       children,
       songCount,
       songName,
+      locations,
+      spheres,
     } = this.props;
 
     let songNotes;
@@ -30,9 +34,14 @@ class SongNotes extends React.PureComponent {
       );
 
       songNotes = (
-        <div className="song-notes">
-          {noteImages}
-        </div>
+        <>
+          <div className="song-notes">
+            {noteImages}
+          </div>
+          {!_.isEmpty(locations) && (
+            <FoundAtTooltip locations={locations} spheres={spheres} />
+          )}
+        </>
       );
     }
 
@@ -48,6 +57,16 @@ SongNotes.propTypes = {
   children: PropTypes.element.isRequired,
   songCount: PropTypes.number.isRequired,
   songName: PropTypes.string.isRequired,
+  spheres: PropTypes.instanceOf(Spheres),
+  locations: PropTypes.arrayOf(PropTypes.shape({
+    generalLocation: PropTypes.string.isRequired,
+    detailedLocation: PropTypes.string.isRequired,
+  })),
+};
+
+SongNotes.defaultProps = {
+  locations: [],
+  spheres: null,
 };
 
 export default SongNotes;

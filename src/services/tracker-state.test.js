@@ -509,6 +509,38 @@ describe('TrackerState', () => {
     });
   });
 
+  describe('getLocationsForItem', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+      state.itemsForLocations = {
+        'Windfall Island': {
+          'Maggie - Free Item': 'Progressive Sword',
+          'House of Wealth Chest': 'Progressive Sword',
+        },
+        'Dragon Roost Cavern': {
+          "Bird's Nest": 'Progressive Sword',
+        },
+      };
+    });
+
+    test('returns the location for the item', () => {
+      const location = state.getLocationsForItem('Progressive Sword');
+
+      expect(location).toEqual([{
+        generalLocation: 'Windfall Island',
+        detailedLocation: 'Maggie - Free Item',
+      }, {
+        generalLocation: 'Windfall Island',
+        detailedLocation: 'House of Wealth Chest',
+      }, {
+        generalLocation: 'Dragon Roost Cavern',
+        detailedLocation: "Bird's Nest",
+      }]);
+    });
+  });
+
   describe('getItemForLocation', () => {
     let state;
 

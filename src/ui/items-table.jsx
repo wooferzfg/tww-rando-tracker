@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import LogicHelper from '../services/logic-helper';
+import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
 import Images from './images';
@@ -40,19 +41,27 @@ class ItemsTable extends React.PureComponent {
     const itemInfoText = LogicHelper.prettyNameForItem(selectedItem, itemCount);
 
     return (
-      <span className="item-info">{itemInfoText}</span>
+      <span className="item-info">
+        {itemInfoText}
+      </span>
     );
   }
 
-  item(itemName) {
+  item(itemName, showLocationTooltip = true) {
     const {
       decrementItem,
       incrementItem,
       trackerState,
+      trackSpheres,
+      spheres,
     } = this.props;
 
     const itemCount = trackerState.getItemValue(itemName);
     const itemImages = _.get(Images.IMAGES, ['ITEMS', itemName]);
+    let locations = [];
+    if (showLocationTooltip && trackSpheres) {
+      locations = trackerState.getLocationsForItem(itemName);
+    }
 
     return (
       <Item
@@ -63,21 +72,26 @@ class ItemsTable extends React.PureComponent {
         itemCount={itemCount}
         itemName={itemName}
         setSelectedItem={this.setSelectedItem}
+        locations={locations}
+        spheres={spheres}
       />
     );
   }
 
   song(songName) {
-    const { trackerState } = this.props;
+    const { trackerState, trackSpheres, spheres } = this.props;
 
     const songCount = trackerState.getItemValue(songName);
+    const locations = trackSpheres ? trackerState.getLocationsForItem(songName) : [];
 
     return (
       <SongNotes
         songCount={songCount}
         songName={songName}
+        locations={locations}
+        spheres={spheres}
       >
-        {this.item(songName)}
+        {this.item(songName, false)}
       </SongNotes>
     );
   }
@@ -187,6 +201,8 @@ ItemsTable.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  spheres: PropTypes.instanceOf(Spheres).isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
 };
 
 export default ItemsTable;

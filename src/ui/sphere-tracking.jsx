@@ -42,7 +42,7 @@ class SphereTracking extends React.PureComponent {
     return (
       <div className="sphere-tracking">
         <div className="last-location-and-item">
-          <div className="last-location">{`${generalLocation} - ${detailedLocation}`}</div>
+          <div className="last-location">{`${generalLocation} | ${detailedLocation}`}</div>
           {itemSelection}
         </div>
         <div
