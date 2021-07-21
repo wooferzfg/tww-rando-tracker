@@ -24,23 +24,13 @@ class Buttons extends React.PureComponent {
       entrancesListOpen,
       onlyProgressLocations,
       singleColorBackground,
+      trackSpheres,
       toggleDisableLogic,
       toggleEntrancesList,
       toggleOnlyProgressLocations,
       toggleSingleColorBackground,
+      toggleTrackSpheres,
     } = this.props;
-
-    const disableLogicText = disableLogic
-      ? 'Show Location Logic'
-      : 'Hide Location Logic';
-
-    const onlyProgressLocationsText = onlyProgressLocations
-      ? 'Show Non-Progress Locations'
-      : 'Hide Non-Progress Locations';
-
-    const singleColorBackgroundText = singleColorBackground
-      ? 'Hide Single Color Background'
-      : 'Show Single Color Background';
 
     const entrancesListText = entrancesListOpen
       ? 'Close Entrances'
@@ -59,7 +49,8 @@ class Buttons extends React.PureComponent {
           onClick={toggleOnlyProgressLocations}
           type="button"
         >
-          {onlyProgressLocationsText}
+          <input type="checkbox" className="button-checkbox" checked={!onlyProgressLocations} readOnly />
+          Show Non-Progress Locations
         </button>
         {
           isRandomEntrances && (
@@ -75,13 +66,22 @@ class Buttons extends React.PureComponent {
           onClick={toggleDisableLogic}
           type="button"
         >
-          {disableLogicText}
+          <input type="checkbox" className="button-checkbox" checked={!disableLogic} readOnly />
+          Show Location Logic
+        </button>
+        <button
+          onClick={toggleTrackSpheres}
+          type="button"
+        >
+          <input type="checkbox" className="button-checkbox" checked={trackSpheres} readOnly />
+          Track Spheres
         </button>
         <button
           onClick={toggleSingleColorBackground}
           type="button"
         >
-          {singleColorBackgroundText}
+          <input type="checkbox" className="button-checkbox" checked={singleColorBackground} readOnly />
+          Single Color Background
         </button>
       </div>
     );
@@ -94,10 +94,12 @@ Buttons.propTypes = {
   onlyProgressLocations: PropTypes.bool.isRequired,
   saveData: PropTypes.string.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
   toggleDisableLogic: PropTypes.func.isRequired,
   toggleEntrancesList: PropTypes.func.isRequired,
   toggleOnlyProgressLocations: PropTypes.func.isRequired,
   toggleSingleColorBackground: PropTypes.func.isRequired,
+  toggleTrackSpheres: PropTypes.func.isRequired,
 };
 
 export default Buttons;

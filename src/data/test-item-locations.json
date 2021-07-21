@@ -27,7 +27,7 @@
   "Outset Island - Orca - Hit 500 Times": {
     "Need": "Can Sword Fight with Orca",
     "Original item": "Piece of Heart",
-    "Types": "No progression",
+    "Types": "Consumables only",
     "Paths": [
       "rels/d_a_npc_ji1.rel@42F7"
     ]
@@ -830,7 +830,7 @@
     ]
   },
   "Hyrule - Master Sword Chamber": {
-    "Need": "Can Access Hyrule & Can Defeat Darknuts",
+    "Need": "Can Access Hyrule & Can Defeat Mighty Darknuts",
     "Original item": "Master Sword (Powerless)",
     "Types": "Dungeon",
     "Paths": [
@@ -1389,7 +1389,7 @@
       "sea/Room33.arc/Chest000"
     ]
   },
-  "Private Oasis - Cabana Labyrinth - First Chest": {
+  "Private Oasis - Cabana Labyrinth - Lower Floor Chest": {
     "Need": "Can Access Cabana Labyrinth & Skull Hammer",
     "Original item": "Orange Rupee",
     "Types": "Puzzle Secret Cave",
@@ -1397,7 +1397,7 @@
       "TF_04/Stage.arc/Chest001"
     ]
   },
-  "Private Oasis - Cabana Labyrinth - Second Chest": {
+  "Private Oasis - Cabana Labyrinth - Upper Floor Chest": {
     "Need": "Can Access Cabana Labyrinth & Skull Hammer & Can Play Wind's Requiem",
     "Original item": "Triforce Chart 2",
     "Types": "Puzzle Secret Cave",
@@ -1549,7 +1549,7 @@
       "TyuTyu/Stage.arc/Chest003"
     ]
   },
-  "Pawprint Isle - Chuchu Cave - Behind First Boulder": {
+  "Pawprint Isle - Chuchu Cave - Behind Left Boulder": {
     "Need": "Can Access Pawprint Isle Chuchu Cave & Can Move Boulders",
     "Original item": "Purple Rupee",
     "Types": "Puzzle Secret Cave",
@@ -1557,7 +1557,7 @@
       "TyuTyu/Stage.arc/Chest001"
     ]
   },
-  "Pawprint Isle - Chuchu Cave - Behind Second Boulder": {
+  "Pawprint Isle - Chuchu Cave - Behind Right Boulder": {
     "Need": "Can Access Pawprint Isle Chuchu Cave & Can Move Boulders",
     "Original item": "Joy Pendant",
     "Types": "Puzzle Secret Cave",
@@ -1687,14 +1687,14 @@
   },
   "Tingle Island - Ankle - Reward for All Tingle Statues": {
     "Need": "Dragon Tingle Statue & Forbidden Tingle Statue & Goddess Tingle Statue & Earth Tingle Statue & Wind Tingle Statue",
-    "Original item": "Rainbow Rupee",
+    "Original item": "500 Rupees, reward for finding all Tingle Statues",
     "Types": "Misc",
     "Paths": [
       "rels/d_a_npc_tc.rel@6143"
     ]
   },
   "Tingle Island - Big Octo": {
-    "Need": "Can Defeat Big Octos & Grappling Hook",
+    "Need": "Can Defeat 12 Eye Big Octos & Grappling Hook",
     "Original item": "Piece of Heart",
     "Types": "Big Octo",
     "Paths": [
@@ -1811,7 +1811,7 @@
       "sea/Room16.arc/Chest002"
     ]
   },
-  "Rock Spire Isle - Gunboat": {
+  "Rock Spire Isle - Southeast Gunboat": {
     "Need": "Bombs & Grappling Hook",
     "Original item": "Piece of Heart",
     "Types": "Gunboat",
@@ -1988,7 +1988,7 @@
     ]
   },
   "Seven-Star Isles - Big Octo": {
-    "Need": "Can Defeat Big Octos & Grappling Hook",
+    "Need": "Can Defeat 12 Eye Big Octos & Grappling Hook",
     "Original item": "Piece of Heart",
     "Types": "Big Octo",
     "Paths": [

@@ -18,11 +18,12 @@ export default class Permalink {
 
   static DROPDOWN_OPTIONS = {
     [this.OPTIONS.RANDOMIZE_ENTRANCES]: RANDOMIZE_ENTRANCES_OPTIONS,
+    [this.OPTIONS.NUM_RACE_MODE_DUNGEONS]: _.range(1, 7),
     [this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: _.range(0, 9),
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'MS44LjAAU2VlZAAHAQMADgBACAAAAAAAAAA=';
+  static DEFAULT_PERMALINK = 'MS45LjAAU2VlZAAHAQMADgBAAwAAAAAAAQAA';
 
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);
@@ -83,10 +84,10 @@ export default class Permalink {
     this._dropdownConfig(this.OPTIONS.SWORD_MODE),
     this._booleanConfig(this.OPTIONS.SKIP_REMATCH_BOSSES),
     this._booleanConfig(this.OPTIONS.RACE_MODE),
+    this._dropdownConfig(this.OPTIONS.NUM_RACE_MODE_DUNGEONS),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_MUSIC),
     this._booleanConfig(this.OPTIONS.DISABLE_TINGLE_CHESTS_WITH_TINGLE_BOMBS),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
-    this._booleanConfig(this.OPTIONS.REMOVE_TITLE_AND_ENDING_VIDEOS),
     this._startingGearConfig(),
     this._spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
     this._spinBoxConfig(this.OPTIONS.STARTING_HCS, 0, 6),

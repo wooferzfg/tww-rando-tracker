@@ -382,8 +382,15 @@ button:hover:enabled {
 }
 
 .song-notes {
+  display: flex;
+  justify-content: center;
+
   img:not(:last-child) {
     margin-right: 3px;
+  }
+
+  & + .item-location {
+    margin-top: 10px;
   }
 }
 
@@ -498,7 +505,7 @@ button:hover:enabled {
         padding-bottom: 0;
       }
     }
-  
+
     .zoom-map-background,
     .zoom-map-cover {
       position: absolute;
@@ -506,7 +513,7 @@ button:hover:enabled {
       height: 100%;
       pointer-events: none;
     }
-  
+
     .zoom-map-background {
       z-index: -2;
 
@@ -517,7 +524,7 @@ button:hover:enabled {
         object-position: 50% 50%;
       }
     }
-  
+
     .zoom-map-cover {
       z-index: -1;
       background-color: rgba(216, 186, 106, 0.7);
@@ -540,7 +547,7 @@ button:hover:enabled {
       &.font-small {
         font-size: 13px;
       }
-      
+
       &.font-smallest {
         font-size: 10px;
       }
@@ -566,11 +573,11 @@ button:hover:enabled {
   color: #a69b8d;
 }
 
-.item-requirements {
+.tooltip {
   color: black;
   max-width: 300px;
 
-  .item-requirements-title {
+  .tooltip-title {
     font-weight: bold;
   }
 
@@ -583,7 +590,7 @@ button:hover:enabled {
 .extra-locations {
   float: left;
   background-color: rgba(160, 160, 160, 0.85);
-  width: 450px;
+  width: 630px;
   height: 242px;
   margin-right: 8px;
   margin-bottom: 8px;
@@ -593,12 +600,12 @@ button:hover:enabled {
   }
 
   .extra-location {
-    width: 80px;
+    width: 120px;
     float: left;
     background-position-y: 15px;
     display: flex;
     flex-direction: column;
-    margin: 5px;
+    margin: 3px;
     cursor: pointer;
     outline-style: none;
   }
@@ -608,7 +615,7 @@ button:hover:enabled {
     justify-content: center;
     height: 24px;
   }
-  
+
   .dungeon-item {
     width: 24px;
     height: 24px;
@@ -620,27 +627,29 @@ button:hover:enabled {
       outline-style: none;
     }
   }
-  
+
   .extra-location-chests {
     font-size: 16px;
     text-align: center;
   }
-  
+
   .dungeon-icon {
     display: flex;
+    justify-content: center;
+    height: 72px;
   }
 }
 
 .statistics {
   float: left;
-  width: 440px;
+  width: 620px;
   background-color: rgba(80, 80, 80, 0.85);
   height: 85px;
   margin: 0 0 8px 0;
   padding: 6px 5px 5px 5px;
   white-space: normal;
   color: #bbbbbb;
-  font-size: 0.9em;
+  font-size: 18px;
 
   &.single-color {
     background-color: rgba(80, 80, 80, 1);
@@ -648,11 +657,24 @@ button:hover:enabled {
 
   table {
     border-spacing: 0;
+    display: inline;
+    float: left;
+
+    &.left-table {
+      width: 45%;
+    }
+
+    &.right-table {
+      width: 55%;
+    }
+
+    tr {
+      height: 28px;
+    }
 
     td {
-      height: 16px;
       margin: 0;
-      padding: 0;
+      padding: 3px 0;
 
       &:first-child {
         color: white;
@@ -662,12 +684,38 @@ button:hover:enabled {
         min-width: 40px;
         padding-right: 10px;
       }
-    
-      &:last-child {
-        display: inline-block;
-        min-width: 300px;
+    }
+  }
+}
+
+.sphere-tracking {
+  background-color: rgba(220, 220, 220, 0.85);
+  width: 650px;
+  padding: 5px;
+  display: flex;
+  user-select: none;
+
+  .last-location-and-item {
+    width: 580px;
+
+    .last-location {
+      font-weight: bold;
+      height: 20px;
+    }
+
+    .last-item {
+      height: 20px;
+
+      &.no-item {
+        font-style: italic;
       }
     }
+  }
+
+  .close-button {
+    width: 70px;
+    text-align: right;
+    cursor: pointer;
   }
 }
 
@@ -677,5 +725,11 @@ button:hover:enabled {
     margin-right: 5px;
     margin-top: 5px;
     width: 225px;
+  }
+
+  .button-checkbox {
+    margin: 0 5px 0 0;
+    vertical-align: middle;
+    pointer-events: none;
   }
 }

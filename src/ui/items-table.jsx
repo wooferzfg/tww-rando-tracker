@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import LogicHelper from '../services/logic-helper';
+import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
 import Images from './images';
@@ -40,19 +41,27 @@ class ItemsTable extends React.PureComponent {
     const itemInfoText = LogicHelper.prettyNameForItem(selectedItem, itemCount);
 
     return (
-      <span className="item-info">{itemInfoText}</span>
+      <span className="item-info">
+        {itemInfoText}
+      </span>
     );
   }
 
-  item(itemName) {
+  item(itemName, showLocationTooltip = true) {
     const {
       decrementItem,
       incrementItem,
+      spheres,
       trackerState,
+      trackSpheres,
     } = this.props;
 
     const itemCount = trackerState.getItemValue(itemName);
     const itemImages = _.get(Images.IMAGES, ['ITEMS', itemName]);
+    let locations = [];
+    if (showLocationTooltip && trackSpheres) {
+      locations = trackerState.getLocationsForItem(itemName);
+    }
 
     return (
       <Item
@@ -62,22 +71,27 @@ class ItemsTable extends React.PureComponent {
         incrementItem={incrementItem}
         itemCount={itemCount}
         itemName={itemName}
+        locations={locations}
         setSelectedItem={this.setSelectedItem}
+        spheres={spheres}
       />
     );
   }
 
   song(songName) {
-    const { trackerState } = this.props;
+    const { trackerState, trackSpheres, spheres } = this.props;
 
     const songCount = trackerState.getItemValue(songName);
+    const locations = trackSpheres ? trackerState.getLocationsForItem(songName) : [];
 
     return (
       <SongNotes
+        locations={locations}
         songCount={songCount}
         songName={songName}
+        spheres={spheres}
       >
-        {this.item(songName)}
+        {this.item(songName, false)}
       </SongNotes>
     );
   }
@@ -110,7 +124,7 @@ class ItemsTable extends React.PureComponent {
                 this.item(LogicHelper.ITEMS.BAIT_BAG),
                 this.item(LogicHelper.ITEMS.PROGRESSIVE_BOW),
                 this.item(LogicHelper.ITEMS.BOMBS),
-                this.item(LogicHelper.ITEMS.MIRROR_SHIELD),
+                this.item(LogicHelper.ITEMS.PROGRESSIVE_SHIELD),
 
                 this.item(LogicHelper.ITEMS.CABANA_DEED),
                 this.item(LogicHelper.ITEMS.MAGGIES_LETTER),
@@ -186,7 +200,9 @@ ItemsTable.propTypes = {
   decrementItem: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
+  spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
 };
 
 export default ItemsTable;

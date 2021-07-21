@@ -14,7 +14,7 @@ class Statistics extends React.PureComponent {
 
     return (
       <div className={`statistics ${singleColorBackground ? 'single-color' : ''}`}>
-        <table>
+        <table className="left-table">
           <tbody>
             <tr>
               <td>{logic.totalLocationsChecked({ onlyProgressLocations })}</td>
@@ -30,6 +30,10 @@ class Statistics extends React.PureComponent {
               <td>{logic.totalLocationsRemaining({ onlyProgressLocations })}</td>
               <td>Locations Remaining</td>
             </tr>
+          </tbody>
+        </table>
+        <table className="right-table">
+          <tbody>
             {!disableLogic && (
               <tr>
                 <td>{logic.itemsNeededToFinishGame()}</td>

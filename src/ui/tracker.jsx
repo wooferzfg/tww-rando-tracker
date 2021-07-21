@@ -11,6 +11,7 @@ import Buttons from './buttons';
 import Images from './images';
 import ItemsTable from './items-table';
 import LocationsTable from './locations-table';
+import SphereTracking from './sphere-tracking';
 import Statistics from './statistics';
 import Storage from './storage';
 
@@ -24,11 +25,13 @@ class Tracker extends React.PureComponent {
       disableLogic: false,
       entrancesListOpen: false,
       isLoading: true,
+      lastLocation: null,
       onlyProgressLocations: true,
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
       singleColorBackground: false,
+      trackSpheres: false,
     };
 
     this.initialize();
@@ -42,7 +45,9 @@ class Tracker extends React.PureComponent {
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleSingleColorBackground = this.toggleSingleColorBackground.bind(this);
+    this.toggleTrackSpheres = this.toggleTrackSpheres.bind(this);
     this.unsetExit = this.unsetExit.bind(this);
+    this.unsetLastLocation = this.unsetLastLocation.bind(this);
     this.updateEntranceForExit = this.updateEntranceForExit.bind(this);
     this.updateOpenedExit = this.updateOpenedExit.bind(this);
     this.updateOpenedLocation = this.updateOpenedLocation.bind(this);
@@ -93,6 +98,7 @@ class Tracker extends React.PureComponent {
     const {
       logic,
       saveData,
+      spheres,
       trackerState,
     } = initialData;
 
@@ -100,14 +106,31 @@ class Tracker extends React.PureComponent {
       isLoading: false,
       logic,
       saveData,
+      spheres,
       trackerState,
     });
   }
 
   incrementItem(itemName) {
-    const { trackerState } = this.state;
+    const {
+      lastLocation,
+      trackerState,
+    } = this.state;
 
-    const newTrackerState = trackerState.incrementItem(itemName);
+    let newTrackerState = trackerState.incrementItem(itemName);
+
+    if (!_.isNil(lastLocation)) {
+      const {
+        generalLocation,
+        detailedLocation,
+      } = lastLocation;
+
+      newTrackerState = newTrackerState.setItemForLocation(
+        itemName,
+        generalLocation,
+        detailedLocation,
+      );
+    }
 
     this.updateTrackerState(newTrackerState);
   }
@@ -123,7 +146,20 @@ class Tracker extends React.PureComponent {
   toggleLocationChecked(generalLocation, detailedLocation) {
     const { trackerState } = this.state;
 
-    const newTrackerState = trackerState.toggleLocationChecked(generalLocation, detailedLocation);
+    let newTrackerState = trackerState.toggleLocationChecked(generalLocation, detailedLocation);
+
+    if (newTrackerState.isLocationChecked(generalLocation, detailedLocation)) {
+      this.setState({
+        lastLocation: {
+          generalLocation,
+          detailedLocation,
+        },
+      });
+    } else {
+      this.setState({ lastLocation: null });
+
+      newTrackerState = newTrackerState.unsetItemForLocation(generalLocation, detailedLocation);
+    }
 
     this.updateTrackerState(newTrackerState);
   }
@@ -146,6 +182,7 @@ class Tracker extends React.PureComponent {
     const {
       logic,
       saveData,
+      spheres,
       trackerState,
     } = TrackerController.refreshState(newTrackerState);
 
@@ -154,6 +191,7 @@ class Tracker extends React.PureComponent {
     this.setState({
       logic,
       saveData,
+      spheres,
       trackerState,
     });
   }
@@ -243,11 +281,24 @@ class Tracker extends React.PureComponent {
     });
   }
 
+  toggleTrackSpheres() {
+    const { trackSpheres } = this.state;
+
+    this.setState({
+      trackSpheres: !trackSpheres,
+    });
+  }
+
+  unsetLastLocation() {
+    this.setState({ lastLocation: null });
+  }
+
   render() {
     const {
       disableLogic,
       entrancesListOpen,
       isLoading,
+      lastLocation,
       logic,
       onlyProgressLocations,
       openedExit,
@@ -255,6 +306,8 @@ class Tracker extends React.PureComponent {
       openedLocationIsDungeon,
       saveData,
       singleColorBackground,
+      spheres,
+      trackSpheres,
       trackerState,
     } = this.state;
 
@@ -274,7 +327,9 @@ class Tracker extends React.PureComponent {
               decrementItem={this.decrementItem}
               incrementItem={this.incrementItem}
               singleColorBackground={singleColorBackground}
+              spheres={spheres}
               trackerState={trackerState}
+              trackSpheres={trackSpheres}
             />
             <LocationsTable
               clearOpenedMenus={this.clearOpenedMenus}
@@ -289,8 +344,10 @@ class Tracker extends React.PureComponent {
               openedLocation={openedLocation}
               openedLocationIsDungeon={openedLocationIsDungeon}
               singleColorBackground={singleColorBackground}
+              spheres={spheres}
               toggleLocationChecked={this.toggleLocationChecked}
               trackerState={trackerState}
+              trackSpheres={trackSpheres}
               unsetExit={this.unsetExit}
               updateEntranceForExit={this.updateEntranceForExit}
               updateOpenedExit={this.updateOpenedExit}
@@ -303,16 +360,25 @@ class Tracker extends React.PureComponent {
               singleColorBackground={singleColorBackground}
             />
           </div>
+          {trackSpheres && (
+            <SphereTracking
+              lastLocation={lastLocation}
+              trackerState={trackerState}
+              unsetLastLocation={this.unsetLastLocation}
+            />
+          )}
           <Buttons
             disableLogic={disableLogic}
             entrancesListOpen={entrancesListOpen}
             onlyProgressLocations={onlyProgressLocations}
             saveData={saveData}
             singleColorBackground={singleColorBackground}
+            trackSpheres={trackSpheres}
             toggleDisableLogic={this.toggleDisableLogic}
             toggleEntrancesList={this.toggleEntrancesList}
             toggleOnlyProgressLocations={this.toggleOnlyProgressLocations}
             toggleSingleColorBackground={this.toggleSingleColorBackground}
+            toggleTrackSpheres={this.toggleTrackSpheres}
           />
         </div>
       );

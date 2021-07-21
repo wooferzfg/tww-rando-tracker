@@ -116,7 +116,8 @@ export default class Settings {
 
   static _parseVersion(version) {
     const commitHashMatch = version.match(/([a-f\d]){7,}/);
+    const versionMatch = version.match(/^[0-9.]+$/);
 
-    return _.first(commitHashMatch) || version;
+    return _.first(commitHashMatch) || _.first(versionMatch) || 'master';
   }
 }

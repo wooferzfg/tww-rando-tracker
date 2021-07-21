@@ -23,7 +23,7 @@ describe('LogicHelper', () => {
         Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -44,7 +44,7 @@ describe('LogicHelper', () => {
         Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 7,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -65,7 +65,7 @@ describe('LogicHelper', () => {
         Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
           },
           startingGear: {
             [LogicHelper.ITEMS.BOMBS]: 1,
@@ -88,7 +88,7 @@ describe('LogicHelper', () => {
         Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -1300,6 +1300,22 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('dungeonMapName', () => {
+    test('returns the name of the dungeon map for the dungeon', () => {
+      const dungeonMapName = LogicHelper.dungeonMapName('Forsaken Fortress');
+
+      expect(dungeonMapName).toEqual('FF Dungeon Map');
+    });
+  });
+
+  describe('compassName', () => {
+    test('returns the name of the small key for the dungeon', () => {
+      const compassName = LogicHelper.compassName('Earth Temple');
+
+      expect(compassName).toEqual('ET Compass');
+    });
+  });
+
   describe('maxSmallKeysForDungeon', () => {
     test('returns the max small keys for DRC', () => {
       const maxKeys = LogicHelper.maxSmallKeysForDungeon('Dragon Roost Cavern');
@@ -1537,7 +1553,7 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
             [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
           },
           startingGear: {},
         });
@@ -1633,7 +1649,7 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
             [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_SWORD,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -1667,7 +1683,7 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
             Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
         },
         startingGear: {},
       });
@@ -1835,9 +1851,15 @@ describe('LogicHelper', () => {
     });
 
     test("Hero's Shield", () => {
-      const prettyName = LogicHelper.prettyNameForItem('Mirror Shield', 0);
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Shield', 1);
 
       expect(prettyName).toEqual("Hero's Shield");
+    });
+
+    test('Mirror Shield', () => {
+      const prettyName = LogicHelper.prettyNameForItem('Progressive Shield', 2);
+
+      expect(prettyName).toEqual('Mirror Shield');
     });
 
     test('DRC Small Key', () => {
@@ -1874,21 +1896,35 @@ describe('LogicHelper', () => {
       });
 
       test('returns the pretty name for a Triforce Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7');
+        const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7', 0);
 
         expect(prettyName).toEqual('Chart for Seven-Star Isles');
       });
 
       test('returns the pretty name for a Treasure Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25');
+        const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25', 0);
 
         expect(prettyName).toEqual('Chart for Forsaken Fortress');
       });
 
       test('returns the regular name for the Ghost Ship Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Ghost Ship Chart');
+        const prettyName = LogicHelper.prettyNameForItem('Ghost Ship Chart', 0);
 
         expect(prettyName).toEqual('Ghost Ship Chart');
+      });
+
+      describe('when setting the item count to null', () => {
+        test('returns the pretty name for a Triforce Chart', () => {
+          const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7', null);
+
+          expect(prettyName).toEqual('Chart for Seven-Star Isles');
+        });
+
+        test('returns the pretty name for a Treasure Chart', () => {
+          const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25', null);
+
+          expect(prettyName).toEqual('Chart for Forsaken Fortress');
+        });
       });
     });
 
@@ -1902,21 +1938,49 @@ describe('LogicHelper', () => {
       });
 
       test('returns the regular name for a Triforce Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7');
+        const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7', 0);
 
         expect(prettyName).toEqual('Triforce Chart 7');
       });
 
       test('returns the regular name for a Treasure Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25');
+        const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25', 0);
 
         expect(prettyName).toEqual('Treasure Chart 25');
       });
 
       test('returns the regular name for the Ghost Ship Chart', () => {
-        const prettyName = LogicHelper.prettyNameForItem('Ghost Ship Chart');
+        const prettyName = LogicHelper.prettyNameForItem('Ghost Ship Chart', 0);
 
         expect(prettyName).toEqual('Ghost Ship Chart');
+      });
+
+      describe('when setting the item count to null', () => {
+        test('returns the regular name for a Triforce Chart', () => {
+          const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7', null);
+
+          expect(prettyName).toEqual('Triforce Chart 7');
+        });
+
+        test('returns the regular name for a Treasure Chart', () => {
+          const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25', null);
+
+          expect(prettyName).toEqual('Treasure Chart 25');
+        });
+      });
+    });
+
+    describe('when setting the item count to null', () => {
+      test('returns the regular name for a progressive item', () => {
+        const prettyName = LogicHelper.prettyNameForItem('Progressive Shield', null);
+
+        expect(prettyName).toEqual('Progressive Shield');
+      });
+
+      test('returns the regular name for a regular item', () => {
+        const prettyName = LogicHelper.prettyNameForItem('Deku Leaf', null);
+
+        expect(prettyName).toEqual('Deku Leaf');
       });
     });
   });
@@ -1989,7 +2053,7 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
           [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+          [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
         },
         startingGear: {},
       });
@@ -2407,7 +2471,7 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "sword_mode" Is "Swordless"',
             options: {
-              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
             },
             expectedExpression: BooleanExpression.and('Impossible'),
           });
@@ -2429,7 +2493,7 @@ describe('LogicHelper', () => {
           testOptionRequirements({
             requirements: 'Option "sword_mode" Is Not "Swordless"',
             options: {
-              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.RANDOMIZED_SWORD,
+              [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
             },
             expectedExpression: BooleanExpression.and('Nothing'),
           });

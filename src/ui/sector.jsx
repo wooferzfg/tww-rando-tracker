@@ -4,6 +4,7 @@ import React from 'react';
 
 import Images from './images';
 import Item from './item';
+import KeyDownWrapper from './key-down-wrapper';
 
 class Sector extends React.PureComponent {
   chestsCounter() {
@@ -127,7 +128,7 @@ class Sector extends React.PureComponent {
         onBlur={clearSelectedLocation}
         onClick={updateOpenedLocationFunc}
         onFocus={setSelectedLocationFunc}
-        onKeyDown={updateOpenedLocationFunc}
+        onKeyDown={KeyDownWrapper.onSpaceKey(updateOpenedLocationFunc)}
         onMouseOver={setSelectedLocationFunc}
         onMouseOut={clearSelectedLocation}
         role="button"

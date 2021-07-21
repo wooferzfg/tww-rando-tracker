@@ -26,7 +26,7 @@ describe('TrackerState', () => {
       };
 
       LogicHelper.startingItems = {
-        "Hero's Shield": 1,
+        'Progressive Shield': 1,
         'Wind Waker': 1,
         "Boat's Sail": 1,
         "Wind's Requiem": 1,
@@ -53,6 +53,12 @@ describe('TrackerState', () => {
 
       expect(defaultState.locationsChecked).toMatchSnapshot();
     });
+
+    test('initializes the items for locations', () => {
+      const defaultState = TrackerState.default();
+
+      expect(defaultState.itemsForLocations).toMatchSnapshot();
+    });
   });
 
   describe('createStateRaw', () => {
@@ -68,15 +74,22 @@ describe('TrackerState', () => {
           "Bird's Nest": true,
         },
       };
+      const itemsForLocations = {
+        'Dragon Roost Cavern': {
+          "Bird's Nest": 'Deku Leaf',
+        },
+      };
 
       const newState = TrackerState.createStateRaw({
         entrances,
         items,
+        itemsForLocations,
         locationsChecked,
       });
 
       expect(newState.entrances).toEqual(entrances);
       expect(newState.items).toEqual(items);
+      expect(newState.itemsForLocations).toEqual(itemsForLocations);
       expect(newState.locationsChecked).toEqual(locationsChecked);
     });
   });
@@ -85,6 +98,7 @@ describe('TrackerState', () => {
     let expectedItems;
     let expectedEntrances;
     let expectedLocationsChecked;
+    let expectedItemsForLocations;
     let trackerState;
 
     beforeEach(() => {
@@ -99,10 +113,16 @@ describe('TrackerState', () => {
           "Bird's Nest": true,
         },
       };
+      expectedItemsForLocations = {
+        'Dragon Roost Cavern': {
+          "Bird's Nest": 'Deku Leaf',
+        },
+      };
 
       trackerState = TrackerState.createStateRaw({
         entrances: expectedEntrances,
         items: expectedItems,
+        itemsForLocations: expectedItemsForLocations,
         locationsChecked: expectedLocationsChecked,
       });
     });
@@ -113,6 +133,7 @@ describe('TrackerState', () => {
       expect(stateData).toEqual({
         entrances: expectedEntrances,
         items: expectedItems,
+        itemsForLocations: expectedItemsForLocations,
         locationsChecked: expectedLocationsChecked,
       });
     });
@@ -485,6 +506,103 @@ describe('TrackerState', () => {
 
       expect(newState.items).toEqual(initialItems);
       expect(newState.entrances).toEqual(initialEntrances);
+    });
+  });
+
+  describe('getLocationsForItem', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+      state.itemsForLocations = {
+        'Windfall Island': {
+          'Maggie - Free Item': 'Progressive Sword',
+          'House of Wealth Chest': 'Progressive Sword',
+          'Tott - Play Rhythm': 'Bombs',
+        },
+        'Dragon Roost Cavern': {
+          'First Room': 'Boomerang',
+          "Bird's Nest": 'Progressive Sword',
+        },
+      };
+    });
+
+    test('returns the location for the item', () => {
+      const location = state.getLocationsForItem('Progressive Sword');
+
+      expect(location).toEqual([{
+        generalLocation: 'Windfall Island',
+        detailedLocation: 'Maggie - Free Item',
+      }, {
+        generalLocation: 'Windfall Island',
+        detailedLocation: 'House of Wealth Chest',
+      }, {
+        generalLocation: 'Dragon Roost Cavern',
+        detailedLocation: "Bird's Nest",
+      }]);
+    });
+  });
+
+  describe('getItemForLocation', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+      state.itemsForLocations = {
+        'Windfall Island': {
+          'Maggie - Free Item': 'Deku Leaf',
+        },
+      };
+    });
+
+    test('returns the value of the entrance', () => {
+      const entranceValue = state.getItemForLocation('Windfall Island', 'Maggie - Free Item');
+
+      expect(entranceValue).toEqual('Deku Leaf');
+    });
+  });
+
+  describe('setItemForLocation', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+
+      state.itemsForLocations = {
+        'Dragon Roost Cavern': {
+          "Bird's Nest": null,
+        },
+      };
+    });
+
+    test('returns a new state with the item for location value modified', () => {
+      const newState = state.setItemForLocation('Grappling Hook', 'Windfall Island', 'Maggie - Free Item');
+
+      const newItemForLocation = _.get(newState.itemsForLocations, ['Windfall Island', 'Maggie - Free Item']);
+
+      expect(newItemForLocation).toEqual('Grappling Hook');
+    });
+  });
+
+  describe('unsetItemForLocation', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+
+      state.itemsForLocations = {
+        'Dragon Roost Cavern': {
+          "Bird's Nest": 'Bombs',
+        },
+      };
+    });
+
+    test('returns a new state with the item for location value set to null', () => {
+      const newState = state.unsetItemForLocation('Dragon Roost Cavern', "Bird's Nest");
+
+      const newItemForLocation = _.get(newState.itemsForLocations, ['Dragon Roost Cavern', "Bird's Nest"]);
+
+      expect(newItemForLocation).toEqual(null);
     });
   });
 });

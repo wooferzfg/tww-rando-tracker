@@ -19,7 +19,7 @@
       "Orca - Hit 500 Times": {
         "need": "Can Sword Fight with Orca",
         "originalItem": "Piece of Heart",
-        "types": "No progression"
+        "types": "Consumables only"
       },
       "Great Fairy": {
         "need": "Can Cut Down Outset Trees & Can Fly With Deku Leaf Outdoors & Can Move Boulders",
@@ -558,7 +558,7 @@
     },
     "Hyrule": {
       "Master Sword Chamber": {
-        "need": "Can Access Hyrule & Can Defeat Darknuts",
+        "need": "Can Access Hyrule & Can Defeat Mighty Darknuts",
         "originalItem": "Master Sword (Powerless)",
         "types": "Dungeon"
       }
@@ -942,12 +942,12 @@
         "originalItem": "Treasure Chart 27",
         "types": "Island Puzzle"
       },
-      "Cabana Labyrinth - First Chest": {
+      "Cabana Labyrinth - Lower Floor Chest": {
         "need": "Can Access Cabana Labyrinth & Skull Hammer",
         "originalItem": "Orange Rupee",
         "types": "Puzzle Secret Cave"
       },
-      "Cabana Labyrinth - Second Chest": {
+      "Cabana Labyrinth - Upper Floor Chest": {
         "need": "Can Access Cabana Labyrinth & Skull Hammer & Can Play Wind's Requiem",
         "originalItem": "Triforce Chart 2",
         "types": "Puzzle Secret Cave"
@@ -1105,12 +1105,12 @@
         "originalItem": "Piece of Heart",
         "types": "Puzzle Secret Cave"
       },
-      "Chuchu Cave - Behind First Boulder": {
+      "Chuchu Cave - Behind Left Boulder": {
         "need": "Can Access Pawprint Isle Chuchu Cave & Can Move Boulders",
         "originalItem": "Purple Rupee",
         "types": "Puzzle Secret Cave"
       },
-      "Chuchu Cave - Behind Second Boulder": {
+      "Chuchu Cave - Behind Right Boulder": {
         "need": "Can Access Pawprint Isle Chuchu Cave & Can Move Boulders",
         "originalItem": "Joy Pendant",
         "types": "Puzzle Secret Cave"
@@ -1234,11 +1234,11 @@
     "Tingle Island": {
       "Ankle - Reward for All Tingle Statues": {
         "need": "Tingle Statue x5",
-        "originalItem": "Rainbow Rupee",
+        "originalItem": "500 Rupees, reward for finding all Tingle Statues",
         "types": "Misc"
       },
       "Big Octo": {
-        "need": "Can Defeat Big Octos & Grappling Hook",
+        "need": "Can Defeat 12 Eye Big Octos & Grappling Hook",
         "originalItem": "Piece of Heart",
         "types": "Big Octo"
       },
@@ -1328,7 +1328,7 @@
         "originalItem": "Red Rupee",
         "types": "Platform"
       },
-      "Gunboat": {
+      "Southeast Gunboat": {
         "need": "Bombs & Grappling Hook",
         "originalItem": "Piece of Heart",
         "types": "Gunboat"
@@ -1502,7 +1502,7 @@
         "types": "Platform"
       },
       "Big Octo": {
-        "need": "Can Defeat Big Octos & Grappling Hook",
+        "need": "Can Defeat 12 Eye Big Octos & Grappling Hook",
         "originalItem": "Piece of Heart",
         "types": "Big Octo"
       },
@@ -1660,6 +1660,8 @@
     "Hero's Sword": "Progressive Sword x1",
     "Any Master Sword": "Progressive Sword x2",
     "Full Power Master Sword": "Progressive Sword x4",
+    "Hero's Shield": "Progressive Shield x1",
+    "Mirror Shield": "Progressive Shield x2",
     "Hero's Bow": "Progressive Bow x1",
     "Fire Arrows": "Progressive Bow x2",
     "Ice Arrows": "Progressive Bow x2",
@@ -1667,6 +1669,10 @@
     "Any Wallet Upgrade": "Progressive Wallet x1",
     "Picto Box": "Progressive Picto Box x1",
     "Deluxe Picto Box": "Progressive Picto Box x2",
+    "60 Bomb Bomb Bag": "Progressive Bomb Bag x1",
+    "99 Bomb Bomb Bag": "Progressive Bomb Bag x2",
+    "60 Arrow Quiver": "Progressive Quiver x1",
+    "99 Arrow Quiver": "Progressive Quiver x2",
     "All 8 Triforce Shards": "Triforce Shard x8",
     "Tingle Tuner Bombs": "Bombs",
     "Can Access Dungeon Entrance On Dragon Roost Island": "Nothing",
@@ -1734,7 +1740,7 @@
     "Can Complete All Memory Dungeons and Bosses": "Can Complete Memory Dragon Roost Cavern and Gohma & Can Complete Memory Forbidden Woods and Kalle Demos & Can Complete Memory Earth Temple and Jalhalla & Can Complete Memory Wind Temple and Molgera",
     "Can Unlock Ganon's Tower Four Boss Door": "Can Complete All Memory Dungeons and Bosses | Rematch Bosses Skipped",
     "Can Reach Ganon's Tower Phantom Ganon Room": "Can Access Ganon's Tower & Can Unlock Ganon's Tower Four Boss Door",
-    "Can Reach and Defeat Puppet Ganon": "Can Reach Ganon's Tower Phantom Ganon Room & Light Arrows & Can Defeat Moblins & Can Defeat Darknuts & Can Defeat Puppet Ganon",
+    "Can Reach and Defeat Puppet Ganon": "Can Reach Ganon's Tower Phantom Ganon Room & Light Arrows & Can Defeat Moblins & Can Defeat Mighty Darknuts & Can Defeat Puppet Ganon",
     "Can Defeat Puppet Ganon": "Boomerang",
     "Can Reach and Defeat Ganondorf": "Can Reach and Defeat Puppet Ganon & Grappling Hook & Hookshot & Can Defeat Ganondorf",
     "Can Defeat Ganondorf": "(Hero's Sword | In Swordless Mode) & Hero's Shield",
@@ -1755,6 +1761,7 @@
     "Can Defeat Moblins": "Hero's Sword | Hero's Bow | Bombs | Skull Hammer",
     "Can Defeat Darknuts": "Hero's Sword | Light Arrows | Skull Hammer",
     "Can Defeat Darknuts Easily": "Hero's Sword | Light Arrows",
+    "Can Defeat Mighty Darknuts": "Can Defeat Darknuts Easily",
     "Can Defeat Miniblins": "Hero's Sword | Grappling Hook | Boomerang | Hero's Bow | Bombs | Skull Hammer",
     "Can Defeat Miniblins Easily": "Hero's Sword | Boomerang | Hero's Bow | Bombs | Skull Hammer",
     "Can Defeat Red ChuChus": "Hero's Sword | Skull Hammer | Bombs | Hero's Bow",
@@ -1779,6 +1786,7 @@
     "Can Defeat Armos": "Hero's Sword | Hero's Bow | Bombs | Skull Hammer | Hookshot",
     "Can Defeat Armos Knights": "Bombs | Light Arrows",
     "Can Defeat Big Octos": "Hero's Bow | Bombs | Boomerang",
+    "Can Defeat 12 Eye Big Octos": "(Hero's Bow & 60 Arrow Quiver) | Light Arrows | Bombs | Boomerang",
     "Can Defeat Red Bubbles": "Hero's Sword | Skull Hammer | Hero's Bow | Bombs | ( (Deku Leaf | Hookshot) & Grappling Hook )",
     "Can Defeat Blue Bubbles": "Ice Arrows | Bombs | ( (Deku Leaf | Hookshot) & (Hero's Sword | Hero's Bow | Grappling Hook | Skull Hammer) )",
     "Can Defeat ReDeads": "Hero's Sword | Light Arrows | Skull Hammer | Bombs",
@@ -1867,12 +1875,15 @@
       "Great Fairy",
       "Puzzle Secret Cave",
       "Free Gift",
+      "Submarine",
+      "Sunken Treasure",
       "Expensive Purchase",
       "Other Chest",
-      "Misc"
+      "Misc",
+      "Battlesquid"
     ],
     "options": {
-      "version": "1.8.0",
+      "version": "1.9.0_b76f4ae",
       "seed_name": "Seed",
       "progression_dungeons": true,
       "progression_great_fairies": true,
@@ -1885,15 +1896,15 @@
       "progression_free_gifts": true,
       "progression_mail": false,
       "progression_platforms_rafts": false,
-      "progression_submarines": false,
+      "progression_submarines": true,
       "progression_eye_reef_chests": false,
       "progression_big_octos_gunboats": false,
       "progression_triforce_charts": false,
-      "progression_treasure_charts": false,
+      "progression_treasure_charts": true,
       "progression_expensive_purchases": true,
       "progression_misc": true,
       "progression_tingle_chests": false,
-      "progression_battlesquid": false,
+      "progression_battlesquid": true,
       "progression_savage_labyrinth": false,
       "progression_island_puzzles": false,
       "keylunacy": false,
@@ -1906,13 +1917,13 @@
       "num_starting_triforce_shards": 0,
       "add_shortcut_warps_between_dungeons": false,
       "do_not_generate_spoiler_log": false,
-      "sword_mode": "Start with Sword",
+      "sword_mode": "Start with Hero's Sword",
       "skip_rematch_bosses": true,
       "race_mode": false,
+      "num_race_mode_dungeons": 4,
       "randomize_music": false,
       "disable_tingle_chests_with_tingle_bombs": false,
       "randomize_enemy_palettes": false,
-      "remove_title_and_ending_videos": true,
       "starting_gear": {
         "Bait Bag": 0,
         "Bombs": 0,
@@ -1934,7 +1945,6 @@
         "Maggie's Letter": 0,
         "Magic Armor": 0,
         "Magic Meter Upgrade": 0,
-        "Mirror Shield": 0,
         "Moblin's Letter": 0,
         "Nayru's Pearl": 0,
         "Note to Mom": 0,
@@ -1948,6 +1958,7 @@
         "Progressive Bow": 0,
         "Progressive Picto Box": 0,
         "Progressive Quiver": 0,
+        "Progressive Shield": 0,
         "Progressive Sword": 0,
         "Progressive Wallet": 0
       },
@@ -1977,7 +1988,6 @@
       "Maggie's Letter": 0,
       "Magic Armor": 0,
       "Magic Meter Upgrade": 0,
-      "Mirror Shield": 0,
       "Moblin's Letter": 0,
       "Nayru's Pearl": 0,
       "Note to Mom": 0,
@@ -1991,10 +2001,11 @@
       "Progressive Bow": 0,
       "Progressive Picto Box": 0,
       "Progressive Quiver": 0,
+      "Progressive Shield": 0,
       "Progressive Sword": 0,
       "Progressive Wallet": 0
     },
-    "version": "1.8.0"
+    "version": "b76f4ae"
   },
   "trackerState": {
     "entrances": {},
@@ -2078,18 +2089,16 @@
       "Tingle Tuner": 0,
       "Wind Waker": 1,
       "Spoils Bag": 0,
-      "Grappling Hook": 0,
+      "Grappling Hook": 1,
       "Power Bracelets": 0,
       "Iron Boots": 0,
       "Bait Bag": 0,
-      "Boomerang": 0,
+      "Boomerang": 1,
       "Hookshot": 0,
       "Delivery Bag": 0,
       "Bombs": 0,
       "Skull Hammer": 0,
-      "Deku Leaf": 0,
-      "Hero's Shield": 1,
-      "Mirror Shield": 0,
+      "Deku Leaf": 1,
       "Triforce Shard": 0,
       "Nayru's Pearl": 0,
       "Din's Pearl": 0,
@@ -2109,7 +2118,8 @@
       "Magic Meter Upgrade": 0,
       "Ghost Ship Chart": 0,
       "Progressive Sword": 1,
-      "Progressive Bow": 0,
+      "Progressive Shield": 0,
+      "Progressive Bow": 3,
       "Progressive Wallet": 0,
       "Progressive Picto Box": 0,
       "Empty Bottle": 0,
@@ -2144,8 +2154,8 @@
         "Sunken Treasure": false
       },
       "Windfall Island": {
-        "Jail - Tingle - First Gift": false,
-        "Jail - Tingle - Second Gift": false,
+        "Jail - Tingle - First Gift": true,
+        "Jail - Tingle - Second Gift": true,
         "Jail - Maze Chest": false,
         "Chu Jelly Juice Shop - Give 15 Green Chu Jelly": false,
         "Chu Jelly Juice Shop - Give 15 Blue Chu Jelly": false,
@@ -2158,9 +2168,9 @@
         "Lenzo's House - Right Chest": false,
         "Lenzo's House - Become Lenzo's Assistant": false,
         "Lenzo's House - Bring Forest Firefly": false,
-        "House of Wealth Chest": false,
+        "House of Wealth Chest": true,
         "Maggie's Father - Give 20 Skull Necklaces": false,
-        "Maggie - Free Item": false,
+        "Maggie - Free Item": true,
         "Maggie - Delivery Reward": false,
         "Cafe Bar - Postman": false,
         "Kreeb - Light Up Lighthouse": false,
@@ -2351,8 +2361,8 @@
       },
       "Private Oasis": {
         "Chest at Top of Waterfall": false,
-        "Cabana Labyrinth - First Chest": false,
-        "Cabana Labyrinth - Second Chest": false,
+        "Cabana Labyrinth - Lower Floor Chest": false,
+        "Cabana Labyrinth - Upper Floor Chest": false,
         "Big Octo": false,
         "Sunken Treasure": false
       },
@@ -2398,8 +2408,8 @@
       },
       "Pawprint Isle": {
         "Chuchu Cave - Chest": false,
-        "Chuchu Cave - Behind First Boulder": false,
-        "Chuchu Cave - Behind Second Boulder": false,
+        "Chuchu Cave - Behind Left Boulder": false,
+        "Chuchu Cave - Behind Right Boulder": false,
         "Chuchu Cave - Scale the Wall": false,
         "Wizzrobe Cave": false,
         "Lookout Platform - Defeat the Enemies": false,
@@ -2457,7 +2467,7 @@
         "Western Lookout Platform - Destroy the Cannons": false,
         "Eastern Lookout Platform - Destroy the Cannons": false,
         "Center Lookout Platform": false,
-        "Gunboat": false,
+        "Southeast Gunboat": false,
         "Sunken Treasure": false
       },
       "Shark Island": {

@@ -4,8 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - 'master'
-      - 'speedrun'
+      - 'main'
 
 jobs:
   build:
@@ -13,10 +12,10 @@ jobs:
 
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Install Node
-        uses: actions/setup-node@v2.1.4
+        uses: actions/setup-node@v2.3.0
         with:
           node-version: '14.x'
 
@@ -41,30 +40,10 @@ jobs:
           npm run lint
 
       - name: Deploy
-        if: github.repository == 'wooferzfg/tww-rando-tracker' && github.ref == 'refs/heads/master'
-        uses: peaceiris/actions-gh-pages@v3
+        if: github.repository == 'wooferzfg/tww-rando-tracker' && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3.8.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.GH_PAGES_DEPLOY }}
           force_orphan: true
           publish_branch: gh-pages-main
           publish_dir: ./dist
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.repository == 'wooferzfg/tww-rando-tracker' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/speedrun')
-
-    steps:
-      - name: Deploy branches
-        run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-          git clone -b gh-pages-main -q "https://github.com/wooferzfg/tww-rando-tracker" ./repo
-          git clone -b speedrun -q "https://github.com/wooferzfg/tww-rando-tracker" ./repo/speedrun
-          rm -r ./repo/speedrun/.git
-          cd repo
-          git checkout --orphan gh-pages
-          git add speedrun/
-          git add .
-          git commit -m "Deploy site"
-          git push --force https://action:${{ secrets.GH_PAGES_DEPLOY }}@github.com/wooferzfg/tww-rando-tracker.git
