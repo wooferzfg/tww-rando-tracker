@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import LogicHelper from '../services/logic-helper';
+import Spheres from '../services/spheres';
 
+import FoundAtTooltip from './found-at-tooltip';
 import KeyDownWrapper from './key-down-wrapper';
+import Tooltip from './tooltip';
 
 class Item extends React.PureComponent {
-  render() {
+  item() {
     const {
       clearSelectedItem,
       decrementItem,
@@ -64,10 +67,26 @@ class Item extends React.PureComponent {
       </div>
     );
   }
+
+  render() {
+    const { locations, spheres } = this.props;
+
+    if (!_.isEmpty(locations)) {
+      return (
+        <Tooltip tooltipContent={<FoundAtTooltip locations={locations} spheres={spheres} />}>
+          {this.item()}
+        </Tooltip>
+      );
+    }
+
+    return this.item();
+  }
 }
 
 Item.defaultProps = {
   decrementItem: null,
+  locations: [],
+  spheres: null,
 };
 
 Item.propTypes = {
@@ -77,7 +96,12 @@ Item.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   itemCount: PropTypes.number.isRequired,
   itemName: PropTypes.string.isRequired,
+  locations: PropTypes.arrayOf(PropTypes.shape({
+    generalLocation: PropTypes.string.isRequired,
+    detailedLocation: PropTypes.string.isRequired,
+  })),
   setSelectedItem: PropTypes.func.isRequired,
+  spheres: PropTypes.instanceOf(Spheres),
 };
 
 export default Item;

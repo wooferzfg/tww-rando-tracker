@@ -119,6 +119,23 @@ export default class TrackerState {
     return _.get(this.itemsForLocations, [generalLocation, detailedLocation]);
   }
 
+  getLocationsForItem(itemName) {
+    const locationsForItem = [];
+
+    _.forEach(this.itemsForLocations, (generalLocationData, generalLocation) => {
+      _.forEach(generalLocationData, (itemAtLocation, detailedLocation) => {
+        if (itemAtLocation === itemName) {
+          locationsForItem.push({
+            generalLocation,
+            detailedLocation,
+          });
+        }
+      });
+    });
+
+    return locationsForItem;
+  }
+
   setItemForLocation(itemName, generalLocation, detailedLocation) {
     const newState = this._clone();
     _.set(newState.itemsForLocations, [generalLocation, detailedLocation], itemName);

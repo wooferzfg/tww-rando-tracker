@@ -382,8 +382,15 @@ button:hover:enabled {
 }
 
 .song-notes {
+  display: flex;
+  justify-content: center;
+
   img:not(:last-child) {
     margin-right: 3px;
+  }
+
+  & + .item-location {
+    margin-top: 10px;
   }
 }
 
@@ -498,7 +505,7 @@ button:hover:enabled {
         padding-bottom: 0;
       }
     }
-  
+
     .zoom-map-background,
     .zoom-map-cover {
       position: absolute;
@@ -506,7 +513,7 @@ button:hover:enabled {
       height: 100%;
       pointer-events: none;
     }
-  
+
     .zoom-map-background {
       z-index: -2;
 
@@ -517,7 +524,7 @@ button:hover:enabled {
         object-position: 50% 50%;
       }
     }
-  
+
     .zoom-map-cover {
       z-index: -1;
       background-color: rgba(216, 186, 106, 0.7);
@@ -540,7 +547,7 @@ button:hover:enabled {
       &.font-small {
         font-size: 13px;
       }
-      
+
       &.font-smallest {
         font-size: 10px;
       }
@@ -608,7 +615,7 @@ button:hover:enabled {
     justify-content: center;
     height: 24px;
   }
-  
+
   .dungeon-item {
     width: 24px;
     height: 24px;
@@ -620,12 +627,12 @@ button:hover:enabled {
       outline-style: none;
     }
   }
-  
+
   .extra-location-chests {
     font-size: 16px;
     text-align: center;
   }
-  
+
   .dungeon-icon {
     display: flex;
     justify-content: center;
@@ -695,7 +702,7 @@ button:hover:enabled {
       font-weight: bold;
       height: 20px;
     }
-  
+
     .last-item {
       height: 20px;
 
