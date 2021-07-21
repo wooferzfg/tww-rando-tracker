@@ -13,9 +13,9 @@ class SongNotes extends React.PureComponent {
   render() {
     const {
       children,
+      locations,
       songCount,
       songName,
-      locations,
       spheres,
     } = this.props;
 
@@ -55,13 +55,13 @@ class SongNotes extends React.PureComponent {
 
 SongNotes.propTypes = {
   children: PropTypes.element.isRequired,
-  songCount: PropTypes.number.isRequired,
-  songName: PropTypes.string.isRequired,
-  spheres: PropTypes.instanceOf(Spheres),
   locations: PropTypes.arrayOf(PropTypes.shape({
     generalLocation: PropTypes.string.isRequired,
     detailedLocation: PropTypes.string.isRequired,
   })),
+  songCount: PropTypes.number.isRequired,
+  songName: PropTypes.string.isRequired,
+  spheres: PropTypes.instanceOf(Spheres),
 };
 
 SongNotes.defaultProps = {

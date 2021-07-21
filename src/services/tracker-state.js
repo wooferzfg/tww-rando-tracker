@@ -120,28 +120,20 @@ export default class TrackerState {
   }
 
   getLocationsForItem(itemName) {
-    const generalLocations = _.filter(
-      _.keys(this.itemsForLocations),
-      (general) => _.some(
-        _.keys(this.itemsForLocations[general]),
-        (detailed) => _.get(this.itemsForLocations, [general, detailed]) === itemName,
-      ),
-    );
-    if (_.isEmpty(generalLocations)) {
-      return [];
-    }
+    const locationsForItem = [];
 
-    return generalLocations.flatMap((general) => {
-      const detailedLocations = _.filter(
-        _.keys(this.itemsForLocations[general]),
-        (detailed) => _.get(this.itemsForLocations, [general, detailed]) === itemName,
-      );
-
-      return _.map(detailedLocations, (detailedLocation) => ({
-        generalLocation: general,
-        detailedLocation,
-      }));
+    _.forEach(this.itemsForLocations, (generalLocationData, generalLocation) => {
+      _.forEach(generalLocationData, (itemAtLocation, detailedLocation) => {
+        if (itemAtLocation === itemName) {
+          locationsForItem.push({
+            generalLocation,
+            detailedLocation,
+          });
+        }
+      });
     });
+
+    return locationsForItem;
   }
 
   setItemForLocation(itemName, generalLocation, detailedLocation) {

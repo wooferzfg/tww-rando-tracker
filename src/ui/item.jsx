@@ -96,11 +96,11 @@ Item.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   itemCount: PropTypes.number.isRequired,
   itemName: PropTypes.string.isRequired,
-  setSelectedItem: PropTypes.func.isRequired,
   locations: PropTypes.arrayOf(PropTypes.shape({
     generalLocation: PropTypes.string.isRequired,
     detailedLocation: PropTypes.string.isRequired,
   })),
+  setSelectedItem: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres),
 };
 

@@ -518,8 +518,10 @@ describe('TrackerState', () => {
         'Windfall Island': {
           'Maggie - Free Item': 'Progressive Sword',
           'House of Wealth Chest': 'Progressive Sword',
+          'Tott - Play Rhythm': 'Bombs',
         },
         'Dragon Roost Cavern': {
+          'First Room': 'Boomerang',
           "Bird's Nest": 'Progressive Sword',
         },
       };

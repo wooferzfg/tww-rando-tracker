@@ -51,9 +51,9 @@ class ItemsTable extends React.PureComponent {
     const {
       decrementItem,
       incrementItem,
+      spheres,
       trackerState,
       trackSpheres,
-      spheres,
     } = this.props;
 
     const itemCount = trackerState.getItemValue(itemName);
@@ -71,8 +71,8 @@ class ItemsTable extends React.PureComponent {
         incrementItem={incrementItem}
         itemCount={itemCount}
         itemName={itemName}
-        setSelectedItem={this.setSelectedItem}
         locations={locations}
+        setSelectedItem={this.setSelectedItem}
         spheres={spheres}
       />
     );
@@ -86,9 +86,9 @@ class ItemsTable extends React.PureComponent {
 
     return (
       <SongNotes
+        locations={locations}
         songCount={songCount}
         songName={songName}
-        locations={locations}
         spheres={spheres}
       >
         {this.item(songName, false)}
@@ -200,8 +200,8 @@ ItemsTable.propTypes = {
   decrementItem: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
   singleColorBackground: PropTypes.bool.isRequired,
-  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
+  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
 };
 
