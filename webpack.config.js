@@ -1,9 +1,9 @@
 const path = require('path');
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const sass = require('sass');
+const webpack = require('webpack');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = (env, argv) => {
@@ -16,7 +16,7 @@ module.exports = (env, argv) => {
   };
 
   if (isProduction) {
-    faviconsWebpackPluginSettings.prefix = '';
+    faviconsWebpackPluginSettings.prefix = '.';
     faviconsWebpackPluginSettings.publicPath = '.';
   }
 
@@ -33,11 +33,16 @@ module.exports = (env, argv) => {
     resolve: {
       extensions: ['.webpack.js', '.js', '.jsx', '.json', '.png'],
     },
+    output: {
+      clean: true,
+    },
     plugins: [
-      ...(isProduction ? [new CleanWebpackPlugin()] : []),
       new FaviconsWebpackPlugin(faviconsWebpackPluginSettings),
       new HtmlWebpackPlugin({
         template: './src/index.html',
+      }),
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
       }),
       ...(isProduction ? [new WorkboxPlugin.GenerateSW({
         clientsClaim: true,
@@ -75,9 +80,6 @@ module.exports = (env, argv) => {
           ],
         },
       ],
-    },
-    node: {
-      fs: 'empty',
     },
     mode: isProduction ? 'production' : 'development',
   };
