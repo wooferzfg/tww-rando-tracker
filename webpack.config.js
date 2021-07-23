@@ -73,11 +73,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.png$/,
-          use: [
-            {
-              loader: 'url-loader',
-            },
-          ],
+          type: 'asset/resource',
         },
       ],
     },
