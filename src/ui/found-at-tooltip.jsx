@@ -10,23 +10,24 @@ class FoundAtTooltip extends React.PureComponent {
 
     const sortedLocations = _.sortBy(
       locations,
-      (location) => {
-        const { generalLocation, detailedLocation } = location;
+      ({ generalLocation, detailedLocation }) => {
         const sphereForLocation = spheres.sphereForLocation(generalLocation, detailedLocation);
-
-        _.set(location, 'sphere', sphereForLocation);
 
         return _.isNil(sphereForLocation) ? Number.MAX_SAFE_INTEGER : sphereForLocation;
       },
     );
 
-    const locationsList = _.map(sortedLocations, (
-      { generalLocation, detailedLocation, sphere },
-    ) => (
-      <li key={`${generalLocation}-${detailedLocation}`}>
-        {`[${_.isNil(sphere) ? '?' : sphere}] ${generalLocation} | ${detailedLocation}`}
-      </li>
-    ));
+    const locationsList = _.map(sortedLocations, ({ generalLocation, detailedLocation }) => {
+      const sphere = spheres.sphereForLocation(generalLocation, detailedLocation);
+      const sphereText = _.isNil(sphere) ? '?' : sphere;
+      const locationName = `${generalLocation} | ${detailedLocation}`;
+
+      return (
+        <li key={locationName}>
+          {`[${sphereText}] ${locationName}`}
+        </li>
+      );
+    });
 
     return (
       <div className="tooltip item-location">
