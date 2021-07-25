@@ -76,13 +76,7 @@ class DetailedLocationsTable extends React.PureComponent {
     let locationText;
     if (trackSpheres) {
       const sphere = spheres.sphereForLocation(openedLocation, location);
-
-      let sphereText;
-      if (_.isNil(sphere)) {
-        sphereText = '?';
-      } else {
-        sphereText = sphere;
-      }
+      const sphereText = _.isNil(sphere) ? '?' : sphere;
 
       locationText = `[${sphereText}] ${location}`;
     } else {
