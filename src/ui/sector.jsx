@@ -152,7 +152,7 @@ Sector.propTypes = {
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   entrances: PropTypes.arrayOf(
-    PropTypes.shape({
+    PropTypes.exact({
       entryCount: PropTypes.number,
       entryName: PropTypes.string,
       locationName: PropTypes.string,

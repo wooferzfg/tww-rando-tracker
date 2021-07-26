@@ -164,12 +164,12 @@ class LocationsTable extends React.PureComponent {
 
   render() {
     const {
+      backgroundColor,
       decrementItem,
       disableLogic,
       incrementItem,
       logic,
       onlyProgressLocations,
-      singleColorBackground,
       trackerState,
       unsetExit,
       updateOpenedExit,
@@ -180,6 +180,7 @@ class LocationsTable extends React.PureComponent {
       <>
         {this.chartContainer()}
         <ExtraLocationsTable
+          backgroundColor={backgroundColor}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
           decrementItem={decrementItem}
@@ -190,7 +191,6 @@ class LocationsTable extends React.PureComponent {
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
-          singleColorBackground={singleColorBackground}
           trackerState={trackerState}
           unsetExit={unsetExit}
           updateOpenedExit={updateOpenedExit}
@@ -202,12 +202,14 @@ class LocationsTable extends React.PureComponent {
 }
 
 LocationsTable.defaultProps = {
+  backgroundColor: null,
   openedExit: null,
   openedLocation: null,
   openedLocationIsDungeon: null,
 };
 
 LocationsTable.propTypes = {
+  backgroundColor: PropTypes.string,
   clearOpenedMenus: PropTypes.func.isRequired,
   clearRaceModeBannedLocations: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
@@ -219,7 +221,6 @@ LocationsTable.propTypes = {
   openedExit: PropTypes.string,
   openedLocation: PropTypes.string,
   openedLocationIsDungeon: PropTypes.bool,
-  singleColorBackground: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,

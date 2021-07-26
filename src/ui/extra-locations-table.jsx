@@ -132,10 +132,13 @@ class ExtraLocationsTable extends React.PureComponent {
   }
 
   render() {
-    const { singleColorBackground } = this.props;
+    const { backgroundColor } = this.props;
 
     return (
-      <div className={`extra-locations ${singleColorBackground ? 'single-color' : ''}`}>
+      <div
+        className="extra-locations"
+        style={{ backgroundColor }}
+      >
         {this.extraLocation(LogicHelper.DUNGEONS.DRAGON_ROOST_CAVERN)}
         {this.extraLocation(LogicHelper.DUNGEONS.FORBIDDEN_WOODS)}
         {this.extraLocation(LogicHelper.DUNGEONS.TOWER_OF_THE_GODS)}
@@ -151,7 +154,12 @@ class ExtraLocationsTable extends React.PureComponent {
   }
 }
 
+ExtraLocationsTable.defaultProps = {
+  backgroundColor: null,
+};
+
 ExtraLocationsTable.propTypes = {
+  backgroundColor: PropTypes.string,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
@@ -162,7 +170,6 @@ ExtraLocationsTable.propTypes = {
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
-  singleColorBackground: PropTypes.bool.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,

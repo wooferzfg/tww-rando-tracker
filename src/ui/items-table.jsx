@@ -97,11 +97,14 @@ class ItemsTable extends React.PureComponent {
   }
 
   render() {
-    const { singleColorBackground } = this.props;
+    const { backgroundColor } = this.props;
 
     return (
-      <div className={`item-tracker ${singleColorBackground ? 'single-color' : ''}`}>
-        <div className="item-tracker-background">
+      <div className={`item-tracker ${backgroundColor ? 'single-color' : ''}`}>
+        <div
+          className="item-tracker-background"
+          style={{ backgroundColor }}
+        >
           <img src={Images.IMAGES.ITEMS_TABLE_BACKGROUND} alt="" />
         </div>
         <div className="item-tracker-items">
@@ -196,10 +199,14 @@ class ItemsTable extends React.PureComponent {
   }
 }
 
+ItemsTable.defaultProps = {
+  backgroundColor: null,
+};
+
 ItemsTable.propTypes = {
+  backgroundColor: PropTypes.string,
   decrementItem: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
-  singleColorBackground: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,

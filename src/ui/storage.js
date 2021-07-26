@@ -16,6 +16,16 @@ export default class Storage {
     localStorage.setItem(this._SAVE_FILE_KEY, saveData);
   }
 
+  static loadPreferences() {
+    const preferencesString = localStorage.getItem(this._PREFERENCES_KEY);
+    return JSON.parse(preferencesString);
+  }
+
+  static savePreferences(preferences) {
+    const preferencesString = JSON.stringify(preferences);
+    localStorage.setItem(this._PREFERENCES_KEY, preferencesString);
+  }
+
   static async exportFile(saveData) {
     const blob = new Blob([saveData], { type: 'application/json' });
     const url = await URL.createObjectURL(blob);
@@ -42,6 +52,8 @@ export default class Storage {
   static _SAVE_FILE_KEY = 'saveData';
 
   static _EXPORT_FILE_NAME = 'tww_rando_tracker_progress.json';
+
+  static _PREFERENCES_KEY = 'preferences';
 
   static async _loadFileFromDialog() {
     return new Promise((resolve, reject) => {
