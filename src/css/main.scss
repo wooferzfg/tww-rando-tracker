@@ -264,7 +264,6 @@ button:hover:enabled {
   &.single-color {
     .item-tracker-background {
       background-image: none;
-      background-color: #69891c;
 
       img {
         visibility: hidden;
@@ -595,10 +594,6 @@ button:hover:enabled {
   margin-right: 8px;
   margin-bottom: 8px;
 
-  &.single-color {
-    background-color: rgba(160, 160, 160, 1);
-  }
-
   .extra-location {
     width: 120px;
     float: left;
@@ -650,10 +645,6 @@ button:hover:enabled {
   white-space: normal;
   color: #bbbbbb;
   font-size: 18px;
-
-  &.single-color {
-    background-color: rgba(80, 80, 80, 1);
-  }
 
   table {
     border-spacing: 0;
@@ -731,5 +722,67 @@ button:hover:enabled {
     margin: 0 5px 0 0;
     vertical-align: middle;
     pointer-events: none;
+  }
+}
+
+.color-picker-window {
+  position: fixed;
+  background-color: white;
+  padding: 10px;
+  width: 400px;
+  user-select: none;
+
+  .close-color-picker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .color-picker-wrapper {
+    position: absolute;
+    z-index: 10;
+  }
+
+  .color-picker-top-row {
+    display: flex;
+  }
+
+  .color-picker-title {
+    font-size: 20px;
+  }
+
+  .color-picker-row {
+    display: flex;
+    height: 35px;
+    align-items: center;
+  }
+
+  .color-picker-label {
+    cursor: pointer;
+    width: 360px;
+    margin-left: 5px;
+  }
+
+  .color-picker-checkbox {
+    cursor: pointer;
+  }
+
+  .color-picker-button {
+    border: 2px solid white;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1);
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
+  }
+
+  .close-button {
+    cursor: pointer;
+    text-align: right;
+    height: 25px;
+    flex-grow: 1;
   }
 }

@@ -39,7 +39,7 @@ class FoundAtTooltip extends React.PureComponent {
 }
 
 FoundAtTooltip.propTypes = {
-  locations: PropTypes.arrayOf(PropTypes.shape({
+  locations: PropTypes.arrayOf(PropTypes.exact({
     generalLocation: PropTypes.string.isRequired,
     detailedLocation: PropTypes.string.isRequired,
   })).isRequired,

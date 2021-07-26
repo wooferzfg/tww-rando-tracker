@@ -20,18 +20,21 @@ class Buttons extends React.PureComponent {
 
   render() {
     const {
+      colorPickerOpen,
       disableLogic,
       entrancesListOpen,
       onlyProgressLocations,
-      singleColorBackground,
       trackSpheres,
+      toggleColorPicker,
       toggleDisableLogic,
       toggleEntrancesList,
       toggleOnlyProgressLocations,
-      toggleSingleColorBackground,
       toggleTrackSpheres,
     } = this.props;
 
+    const colorPickerText = colorPickerOpen
+      ? 'Close Color Picker'
+      : 'Open Color Picker';
     const entrancesListText = entrancesListOpen
       ? 'Close Entrances'
       : 'View Entrances';
@@ -77,11 +80,10 @@ class Buttons extends React.PureComponent {
           Track Spheres
         </button>
         <button
-          onClick={toggleSingleColorBackground}
+          onClick={toggleColorPicker}
           type="button"
         >
-          <input type="checkbox" className="button-checkbox" checked={singleColorBackground} readOnly />
-          Single Color Background
+          {colorPickerText}
         </button>
       </div>
     );
@@ -89,16 +91,16 @@ class Buttons extends React.PureComponent {
 }
 
 Buttons.propTypes = {
+  colorPickerOpen: PropTypes.bool.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   entrancesListOpen: PropTypes.bool.isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   saveData: PropTypes.string.isRequired,
-  singleColorBackground: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  toggleColorPicker: PropTypes.func.isRequired,
   toggleDisableLogic: PropTypes.func.isRequired,
   toggleEntrancesList: PropTypes.func.isRequired,
   toggleOnlyProgressLocations: PropTypes.func.isRequired,
-  toggleSingleColorBackground: PropTypes.func.isRequired,
   toggleTrackSpheres: PropTypes.func.isRequired,
 };
 

@@ -6,14 +6,17 @@ import LogicCalculation from '../services/logic-calculation';
 class Statistics extends React.PureComponent {
   render() {
     const {
+      backgroundColor,
       disableLogic,
       logic,
       onlyProgressLocations,
-      singleColorBackground,
     } = this.props;
 
     return (
-      <div className={`statistics ${singleColorBackground ? 'single-color' : ''}`}>
+      <div
+        className="statistics"
+        style={{ backgroundColor }}
+      >
         <table className="left-table">
           <tbody>
             <tr>
@@ -53,11 +56,15 @@ class Statistics extends React.PureComponent {
   }
 }
 
+Statistics.defaultProps = {
+  backgroundColor: null,
+};
+
 Statistics.propTypes = {
+  backgroundColor: PropTypes.string,
   disableLogic: PropTypes.bool.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
-  singleColorBackground: PropTypes.bool.isRequired,
 };
 
 export default Statistics;

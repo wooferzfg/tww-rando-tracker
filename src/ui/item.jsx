@@ -96,7 +96,7 @@ Item.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   itemCount: PropTypes.number.isRequired,
   itemName: PropTypes.string.isRequired,
-  locations: PropTypes.arrayOf(PropTypes.shape({
+  locations: PropTypes.arrayOf(PropTypes.exact({
     generalLocation: PropTypes.string.isRequired,
     detailedLocation: PropTypes.string.isRequired,
   })),

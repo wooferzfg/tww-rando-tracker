@@ -55,7 +55,7 @@ class SongNotes extends React.PureComponent {
 
 SongNotes.propTypes = {
   children: PropTypes.element.isRequired,
-  locations: PropTypes.arrayOf(PropTypes.shape({
+  locations: PropTypes.arrayOf(PropTypes.exact({
     generalLocation: PropTypes.string.isRequired,
     detailedLocation: PropTypes.string.isRequired,
   })),
