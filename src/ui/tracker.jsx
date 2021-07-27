@@ -66,9 +66,7 @@ class Tracker extends React.PureComponent {
 
     const preferences = Storage.loadPreferences();
     if (!_.isNil(preferences)) {
-      const { colors } = preferences;
-
-      this.updateColors(colors);
+      this.updatePreferences(preferences);
     }
 
     const {
@@ -214,9 +212,7 @@ class Tracker extends React.PureComponent {
   toggleDisableLogic() {
     const { disableLogic } = this.state;
 
-    this.setState({
-      disableLogic: !disableLogic,
-    });
+    this.updatePreferences({ disableLogic: !disableLogic });
   }
 
   clearOpenedMenus() {
@@ -283,9 +279,7 @@ class Tracker extends React.PureComponent {
   toggleOnlyProgressLocations() {
     const { onlyProgressLocations } = this.state;
 
-    this.setState({
-      onlyProgressLocations: !onlyProgressLocations,
-    });
+    this.updatePreferences({ onlyProgressLocations: !onlyProgressLocations });
   }
 
   toggleColorPicker() {
@@ -299,9 +293,7 @@ class Tracker extends React.PureComponent {
   toggleTrackSpheres() {
     const { trackSpheres } = this.state;
 
-    this.setState({
-      trackSpheres: !trackSpheres,
-    });
+    this.updatePreferences({ trackSpheres: !trackSpheres });
   }
 
   unsetLastLocation() {
@@ -309,18 +301,28 @@ class Tracker extends React.PureComponent {
   }
 
   updateColors(colorChanges) {
-    const { colors } = this.state;
-    const newColors = _.reduce(
-      colors,
-      (accumulator, previousColor, key) => {
-        const color = _.get(colorChanges, key, previousColor);
-        return _.set(accumulator, key, color);
-      },
-      {},
-    );
+    this.updatePreferences({ colors: colorChanges });
+  }
 
-    this.setState({ colors: newColors });
-    Storage.savePreferences({ colors: newColors });
+  updatePreferences(preferenceChanges) {
+    const {
+      colors,
+      disableLogic,
+      onlyProgressLocations,
+      trackSpheres,
+    } = this.state;
+
+    const existingPreferences = {
+      colors,
+      disableLogic,
+      onlyProgressLocations,
+      trackSpheres,
+    };
+
+    const newPreferences = _.merge({}, existingPreferences, preferenceChanges);
+
+    this.setState(newPreferences);
+    Storage.savePreferences(newPreferences);
   }
 
   render() {
