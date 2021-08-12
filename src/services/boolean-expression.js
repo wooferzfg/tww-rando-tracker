@@ -29,30 +29,30 @@ export default class BooleanExpression {
     orReducer,
   }) {
     return this._map({
-      handleAnd: (items, itemMappingFunc) => (
+      handleAnd: (items, recursiveMappingFunc) => (
         _.reduce(
           items,
-          (accumulator, item) => {
-            const { isMapped, mappedItem } = itemMappingFunc(item);
+          (accumulator, unmappedItem) => {
+            const { isMapped, item } = recursiveMappingFunc(unmappedItem);
 
             return andReducer({
               accumulator,
-              item: mappedItem,
+              item,
               isReduced: isMapped,
             });
           },
           andInitialValue,
         )
       ),
-      handleOr: (items, itemMappingFunc) => (
+      handleOr: (items, recursiveMappingFunc) => (
         _.reduce(
           items,
-          (accumulator, item) => {
-            const { isMapped, mappedItem } = itemMappingFunc(item);
+          (accumulator, unmappedItem) => {
+            const { isMapped, item } = recursiveMappingFunc(unmappedItem);
 
             return orReducer({
               accumulator,
-              item: mappedItem,
+              item,
               isReduced: isMapped,
             });
           },
@@ -64,18 +64,18 @@ export default class BooleanExpression {
 
   evaluate({ isItemTrue }) {
     return this._map({
-      handleAnd: (items, itemMappingFunc) => (
-        _.every(items, (item) => {
-          const { isMapped, mappedItem } = itemMappingFunc(item);
+      handleAnd: (items, recursiveMappingFunc) => (
+        _.every(items, (unmappedItem) => {
+          const { isMapped, item } = recursiveMappingFunc(unmappedItem);
 
-          return isMapped ? mappedItem : isItemTrue(item);
+          return isMapped ? item : isItemTrue(item);
         })
       ),
-      handleOr: (items, itemMappingFunc) => (
-        _.some(items, (item) => {
-          const { isMapped, mappedItem } = itemMappingFunc(item);
+      handleOr: (items, recursiveMappingFunc) => (
+        _.some(items, (unmappedItem) => {
+          const { isMapped, item } = recursiveMappingFunc(unmappedItem);
 
-          return isMapped ? mappedItem : isItemTrue(item);
+          return isMapped ? item : isItemTrue(item);
         })
       ),
     });
@@ -101,27 +101,27 @@ export default class BooleanExpression {
   };
 
   _map({ handleAnd, handleOr }) {
-    const itemMappingFunc = (item) => {
+    const recursiveMappingFunc = (item) => {
       if (BooleanExpression._isExpression(item)) {
         const mappedItem = item._map({ handleAnd, handleOr });
 
         return {
-          mappedItem,
+          item: mappedItem,
           isMapped: true,
         };
       }
       return {
-        mappedItem: item,
+        item,
         isMapped: false,
       };
     };
 
     if (this.isAnd()) {
-      return handleAnd(this.items, itemMappingFunc);
+      return handleAnd(this.items, recursiveMappingFunc);
     }
 
     if (this.isOr()) {
-      return handleOr(this.items, itemMappingFunc);
+      return handleOr(this.items, recursiveMappingFunc);
     }
 
     throw Error(`Invalid type: ${this.type}`);
