@@ -239,27 +239,21 @@ describe('BooleanExpression', () => {
       const reducedExpression = expression.reduce({
         andInitialValue: '[AND]',
         andReducer: ({
-          accumulator, item, isReduced, index, collection,
+          accumulator, item, isReduced,
         }) => {
           const itemString = isReduced ? `(${item})` : item;
-          if (index === 0) {
-            return `${accumulator} ${itemString}`;
-          }
-          return `${accumulator} &${collection.length}& ${itemString}`;
+          return `${accumulator} && ${itemString}`;
         },
         orInitialValue: '[OR]',
         orReducer: ({
-          accumulator, item, isReduced, index, collection,
+          accumulator, item, isReduced,
         }) => {
           const itemString = isReduced ? `(${item})` : item;
-          if (index === 0) {
-            return `${accumulator} ${itemString}`;
-          }
-          return `${accumulator} |${collection.length}| ${itemString}`;
+          return `${accumulator} || ${itemString}`;
         },
       });
 
-      expect(reducedExpression).toEqual('[OR] Apple |2| ([AND] Banana &3& ([OR] Coconut |2| Egg) &3& Durian)');
+      expect(reducedExpression).toEqual('[OR] || Apple || ([AND] && Banana && ([OR] || Coconut || Egg) && Durian)');
     });
   });
 
