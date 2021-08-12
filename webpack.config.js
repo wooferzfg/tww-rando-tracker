@@ -73,7 +73,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.png$/,
-          type: 'asset/resource',
+          type: 'asset/inline',
         },
       ],
     },
