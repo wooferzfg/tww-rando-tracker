@@ -81,13 +81,10 @@ export default class BooleanExpression {
     });
   }
 
-  simplify({
-    implies,
-    iterations = 3,
-  }) {
+  simplify({ implies }) {
     let updatedExpression = this._flatten();
 
-    for (let i = 1; i <= iterations; i += 1) {
+    for (let i = 1; i <= 3; i += 1) {
       updatedExpression = updatedExpression._removeDuplicateChildren(implies);
       updatedExpression = updatedExpression._removeDuplicateExpressions(implies);
     }
