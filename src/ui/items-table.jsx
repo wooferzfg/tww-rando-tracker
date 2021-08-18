@@ -58,6 +58,7 @@ class ItemsTable extends React.PureComponent {
 
     const itemCount = trackerState.getItemValue(itemName);
     const itemImages = _.get(Images.IMAGES, ['ITEMS', itemName]);
+
     let locations = [];
     if (showLocationTooltip && trackSpheres) {
       locations = trackerState.getLocationsForItem(itemName);

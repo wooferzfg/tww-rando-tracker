@@ -2,6 +2,8 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import LogicCalculation from '../services/logic-calculation';
+import LogicHelper from '../services/logic-helper';
 import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
@@ -12,11 +14,21 @@ import KeyDownWrapper from './key-down-wrapper';
 class Sector extends React.PureComponent {
   chestsCounter() {
     const {
-      color,
       disableLogic,
+      island,
+      logic,
+      onlyProgressLocations,
+    } = this.props;
+
+    const {
+      color,
       numAvailable,
       numRemaining,
-    } = this.props;
+    } = logic.locationCounts(island, {
+      isDungeon: false,
+      onlyProgressLocations,
+      disableLogic,
+    });
 
     const className = `chests-counter ${color}`;
     const chestCounts = disableLogic ? numRemaining : `${numAvailable}/${numRemaining}`;
@@ -30,17 +42,22 @@ class Sector extends React.PureComponent {
 
   chartItem() {
     const {
-      chartCount,
-      chartName,
-      chartType,
       clearSelectedItem,
       decrementItem,
       incrementItem,
+      island,
       setSelectedItem,
       spheres,
       trackerState,
       trackSpheres,
     } = this.props;
+
+    const {
+      chartName,
+      chartType,
+    } = LogicHelper.chartForIsland(island);
+
+    const chartCount = trackerState.getItemValue(chartName);
 
     const chartImages = _.get(Images.IMAGES, ['CHARTS', chartType]);
 
@@ -66,15 +83,40 @@ class Sector extends React.PureComponent {
     );
   }
 
+  entrances() {
+    if (!LogicHelper.isRandomCaveEntrances()) {
+      return [];
+    }
+
+    const {
+      island,
+      trackerState,
+    } = this.props;
+
+    const cavesForIsland = LogicHelper.cavesForIsland(island);
+
+    return _.map(cavesForIsland, (caveName) => {
+      const entryName = LogicHelper.entryName(caveName);
+      const entryCount = trackerState.getItemValue(entryName);
+
+      return {
+        entryCount,
+        entryName,
+        locationName: caveName,
+      };
+    });
+  }
+
   entryItems() {
     const {
       clearSelectedItem,
       clearSelectedLocation,
-      entrances,
       setSelectedExit,
       unsetExit,
       updateOpenedExit,
     } = this.props;
+
+    const entrances = this.entrances();
 
     return _.map(entrances, (entrance) => {
       const {
@@ -156,25 +198,14 @@ class Sector extends React.PureComponent {
 }
 
 Sector.propTypes = {
-  chartCount: PropTypes.number.isRequired,
-  chartName: PropTypes.string.isRequired,
-  chartType: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
-  entrances: PropTypes.arrayOf(
-    PropTypes.exact({
-      entryCount: PropTypes.number,
-      entryName: PropTypes.string,
-      locationName: PropTypes.string,
-    }),
-  ).isRequired,
   incrementItem: PropTypes.func.isRequired,
   island: PropTypes.string.isRequired,
-  numAvailable: PropTypes.number.isRequired,
-  numRemaining: PropTypes.number.isRequired,
+  logic: PropTypes.instanceOf(LogicCalculation).isRequired,
+  onlyProgressLocations: PropTypes.bool.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,

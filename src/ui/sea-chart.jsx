@@ -2,7 +2,6 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import ISLANDS from '../data/islands.json';
 import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
 import Spheres from '../services/spheres';
@@ -32,55 +31,17 @@ class SeaChart extends React.PureComponent {
       updateOpenedLocation,
     } = this.props;
 
-    const {
-      chartName,
-      chartType,
-    } = LogicHelper.chartForIsland(island);
-
-    const chartCount = trackerState.getItemValue(chartName);
-
-    let entrances = [];
-    if (LogicHelper.isRandomCaveEntrances()) {
-      const cavesForIsland = LogicHelper.cavesForIsland(island);
-
-      entrances = _.map(cavesForIsland, (caveName) => {
-        const entryName = LogicHelper.entryName(caveName);
-        const entryCount = trackerState.getItemValue(entryName);
-
-        return {
-          entryCount,
-          entryName,
-          locationName: caveName,
-        };
-      });
-    }
-
-    const {
-      color,
-      numAvailable,
-      numRemaining,
-    } = logic.locationCounts(island, {
-      isDungeon: false,
-      onlyProgressLocations,
-      disableLogic,
-    });
-
     return (
       <Sector
-        chartCount={chartCount}
-        chartName={chartName}
-        chartType={chartType}
-        color={color}
         clearSelectedItem={clearSelectedItem}
         clearSelectedLocation={clearSelectedLocation}
         decrementItem={decrementItem}
         disableLogic={disableLogic}
-        entrances={entrances}
         key={island}
         incrementItem={incrementItem}
         island={island}
-        numAvailable={numAvailable}
-        numRemaining={numRemaining}
+        logic={logic}
+        onlyProgressLocations={onlyProgressLocations}
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
@@ -95,7 +56,7 @@ class SeaChart extends React.PureComponent {
   }
 
   render() {
-    const islands = _.map(ISLANDS, (island) => this.sector(island));
+    const islands = _.map(LogicHelper.ISLANDS, (island) => this.sector(island));
 
     return (
       <div className="chart-map">
