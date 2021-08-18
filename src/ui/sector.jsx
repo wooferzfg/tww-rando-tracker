@@ -2,6 +2,9 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import Spheres from '../services/spheres';
+import TrackerState from '../services/tracker-state';
+
 import Images from './images';
 import Item from './item';
 import KeyDownWrapper from './key-down-wrapper';
@@ -34,9 +37,17 @@ class Sector extends React.PureComponent {
       decrementItem,
       incrementItem,
       setSelectedItem,
+      spheres,
+      trackerState,
+      trackSpheres,
     } = this.props;
 
     const chartImages = _.get(Images.IMAGES, ['CHARTS', chartType]);
+
+    let locations = [];
+    if (trackSpheres) {
+      locations = trackerState.getLocationsForItem(chartName);
+    }
 
     return (
       <div className="treasure-chart">
@@ -47,7 +58,9 @@ class Sector extends React.PureComponent {
           incrementItem={incrementItem}
           itemCount={chartCount}
           itemName={chartName}
+          locations={locations}
           setSelectedItem={setSelectedItem}
+          spheres={spheres}
         />
       </div>
     );
@@ -165,6 +178,9 @@ Sector.propTypes = {
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
+  spheres: PropTypes.instanceOf(Spheres).isRequired,
+  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,

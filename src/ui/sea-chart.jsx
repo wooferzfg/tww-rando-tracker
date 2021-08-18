@@ -5,6 +5,7 @@ import React from 'react';
 import ISLANDS from '../data/islands.json';
 import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
+import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
 import Images from './images';
@@ -23,7 +24,9 @@ class SeaChart extends React.PureComponent {
       setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
+      spheres,
       trackerState,
+      trackSpheres,
       unsetExit,
       updateOpenedExit,
       updateOpenedLocation,
@@ -81,6 +84,9 @@ class SeaChart extends React.PureComponent {
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
+        spheres={spheres}
+        trackerState={trackerState}
+        trackSpheres={trackSpheres}
         unsetExit={unsetExit}
         updateOpenedExit={updateOpenedExit}
         updateOpenedLocation={updateOpenedLocation}
@@ -115,7 +121,9 @@ SeaChart.propTypes = {
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
+  spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
