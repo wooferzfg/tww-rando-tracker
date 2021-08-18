@@ -24,7 +24,7 @@ class ExtraLocation extends React.PureComponent {
       trackSpheres,
     } = this.props;
 
-    const dungeonMapImages = _.get(Images.IMAGES, 'COMPASSES');
+    const compassImages = _.get(Images.IMAGES, 'COMPASSES');
 
     let locations = [];
     if (trackSpheres) {
@@ -36,7 +36,7 @@ class ExtraLocation extends React.PureComponent {
         <Item
           clearSelectedItem={clearSelectedItem}
           decrementItem={decrementItem}
-          images={dungeonMapImages}
+          images={compassImages}
           incrementItem={incrementItem}
           itemCount={compassCount}
           itemName={compassName}
