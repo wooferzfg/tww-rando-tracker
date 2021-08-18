@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import LogicHelper from '../services/logic-helper';
+import Spheres from '../services/spheres';
+import TrackerState from '../services/tracker-state';
 
 import Images from './images';
 import Item from './item';
@@ -17,9 +19,17 @@ class ExtraLocation extends React.PureComponent {
       decrementItem,
       incrementItem,
       setSelectedItem,
+      spheres,
+      trackerState,
+      trackSpheres,
     } = this.props;
 
     const dungeonMapImages = _.get(Images.IMAGES, 'COMPASSES');
+
+    let locations = [];
+    if (trackSpheres) {
+      locations = trackerState.getLocationsForItem(compassName);
+    }
 
     return (
       <div className="dungeon-item compass">
@@ -30,7 +40,9 @@ class ExtraLocation extends React.PureComponent {
           incrementItem={incrementItem}
           itemCount={compassCount}
           itemName={compassName}
+          locations={locations}
           setSelectedItem={setSelectedItem}
+          spheres={spheres}
         />
       </div>
     );
@@ -44,9 +56,17 @@ class ExtraLocation extends React.PureComponent {
       dungeonMapName,
       incrementItem,
       setSelectedItem,
+      spheres,
+      trackerState,
+      trackSpheres,
     } = this.props;
 
     const dungeonMapImages = _.get(Images.IMAGES, 'DUNGEON_MAPS');
+
+    let locations = [];
+    if (trackSpheres) {
+      locations = trackerState.getLocationsForItem(dungeonMapName);
+    }
 
     return (
       <div className="dungeon-item dungeon-map">
@@ -57,7 +77,9 @@ class ExtraLocation extends React.PureComponent {
           incrementItem={incrementItem}
           itemCount={dungeonMapCount}
           itemName={dungeonMapName}
+          locations={locations}
           setSelectedItem={setSelectedItem}
+          spheres={spheres}
         />
       </div>
     );
@@ -71,9 +93,17 @@ class ExtraLocation extends React.PureComponent {
       setSelectedItem,
       smallKeyCount,
       smallKeyName,
+      spheres,
+      trackerState,
+      trackSpheres,
     } = this.props;
 
     const smallKeyImages = _.get(Images.IMAGES, 'SMALL_KEYS');
+
+    let locations = [];
+    if (trackSpheres) {
+      locations = trackerState.getLocationsForItem(smallKeyName);
+    }
 
     return (
       <div className="dungeon-item small-key">
@@ -84,7 +114,9 @@ class ExtraLocation extends React.PureComponent {
           incrementItem={incrementItem}
           itemCount={smallKeyCount}
           itemName={smallKeyName}
+          locations={locations}
           setSelectedItem={setSelectedItem}
+          spheres={spheres}
         />
       </div>
     );
@@ -98,9 +130,17 @@ class ExtraLocation extends React.PureComponent {
       decrementItem,
       incrementItem,
       setSelectedItem,
+      spheres,
+      trackerState,
+      trackSpheres,
     } = this.props;
 
     const bigKeyImages = _.get(Images.IMAGES, 'BIG_KEYS');
+
+    let locations = [];
+    if (trackSpheres) {
+      locations = trackerState.getLocationsForItem(bigKeyName);
+    }
 
     return (
       <div className="dungeon-item big-key">
@@ -111,7 +151,9 @@ class ExtraLocation extends React.PureComponent {
           incrementItem={incrementItem}
           itemCount={bigKeyCount}
           itemName={bigKeyName}
+          locations={locations}
           setSelectedItem={setSelectedItem}
+          spheres={spheres}
         />
       </div>
     );
@@ -296,6 +338,9 @@ ExtraLocation.propTypes = {
   setSelectedLocation: PropTypes.func.isRequired,
   smallKeyCount: PropTypes.number,
   smallKeyName: PropTypes.string,
+  spheres: PropTypes.instanceOf(Spheres),
+  trackerState: PropTypes.instanceOf(TrackerState),
+  trackSpheres: PropTypes.bool,
   unsetExit: PropTypes.func,
   updateOpenedExit: PropTypes.func,
   updateOpenedLocation: PropTypes.func.isRequired,
