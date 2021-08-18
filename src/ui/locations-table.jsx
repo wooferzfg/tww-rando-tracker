@@ -172,7 +172,9 @@ class LocationsTable extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
+      spheres,
       trackerState,
+      trackSpheres,
       unsetExit,
       updateOpenedExit,
       updateOpenedLocation,
@@ -193,7 +195,9 @@ class LocationsTable extends React.PureComponent {
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
+          spheres={spheres}
           trackerState={trackerState}
+          trackSpheres={trackSpheres}
           unsetExit={unsetExit}
           updateOpenedExit={updateOpenedExit}
           updateOpenedLocation={updateOpenedLocation}
