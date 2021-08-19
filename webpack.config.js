@@ -26,8 +26,9 @@ module.exports = (env, argv) => {
     },
     devtool: isProduction ? undefined : 'source-map',
     devServer: {
-      contentBase: basePath,
-      compress: true,
+      static: {
+        directory: basePath,
+      },
       port: 8080,
     },
     resolve: {
