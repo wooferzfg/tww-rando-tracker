@@ -16,7 +16,9 @@
       "newlines-between": "always"
     }],
     "no-underscore-dangle": "off",
-    "valid-jsdoc": "error"
+    "valid-jsdoc": ["error", {
+      "requireReturn": false
+    }]
   },
   "settings": {
     "import/resolver": {
