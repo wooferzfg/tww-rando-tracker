@@ -372,6 +372,7 @@ export default class LogicHelper {
       }
     }
 
+    // istanbul ignore next
     throw Error(`Could not determine keys required for location: ${generalLocation} - ${detailedLocation}`);
   }
 
@@ -527,6 +528,7 @@ export default class LogicHelper {
       return `Can Access Secret Cave Entrance on ${caveEntranceName}`;
     }
 
+    // istanbul ignore next
     throw Error(`Could not find macro name for entrance: ${dungeonOrCaveName}`);
   }
 

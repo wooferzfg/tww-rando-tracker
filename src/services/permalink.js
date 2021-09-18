@@ -97,6 +97,7 @@ export default class Permalink {
 
   static _stringConfig(optionName) {
     if (_.isNil(optionName)) {
+      // istanbul ignore next
       throw Error('Invalid string option config');
     }
 
@@ -109,6 +110,7 @@ export default class Permalink {
         const stringValue = _.get(options, optionName);
 
         if (_.isNil(stringValue)) {
+          // istanbul ignore next
           throw Error(`Invalid value for option: ${optionName}`);
         }
 
@@ -119,6 +121,7 @@ export default class Permalink {
 
   static _booleanConfig(optionName) {
     if (_.isNil(optionName)) {
+      // istanbul ignore next
       throw Error('Invalid boolean option config');
     }
 
@@ -131,6 +134,7 @@ export default class Permalink {
         const booleanValue = _.get(options, optionName);
 
         if (_.isNil(booleanValue)) {
+          // istanbul ignore next
           throw Error(`Invalid value for option: ${booleanValue}`);
         }
 
@@ -141,12 +145,14 @@ export default class Permalink {
 
   static _dropdownConfig(optionName) {
     if (_.isNil(optionName)) {
+      // istanbul ignore next
       throw Error('Invalid dropdown option config');
     }
 
     const dropdownOptions = _.get(this.DROPDOWN_OPTIONS, optionName);
 
     if (_.isNil(dropdownOptions)) {
+      // istanbul ignore next
       throw Error(`Invalid dropdown options for option: ${optionName}`);
     }
 
@@ -156,6 +162,7 @@ export default class Permalink {
         const dropdownValue = _.get(dropdownOptions, dropdownIndex);
 
         if (_.isNil(dropdownValue)) {
+          // istanbul ignore next
           throw Error(`Invalid dropdown index: ${dropdownIndex} for option: ${optionName}`);
         }
 
@@ -166,6 +173,7 @@ export default class Permalink {
         const dropdownIndex = _.indexOf(dropdownOptions, dropdownValue);
 
         if (dropdownIndex < 0) {
+          // istanbul ignore next
           throw Error(`Invalid dropdown value: ${dropdownValue} for option: ${optionName}`);
         }
 
@@ -194,6 +202,7 @@ export default class Permalink {
           const itemValue = _.get(options, [optionName, item]);
 
           if (_.isNil(itemValue)) {
+            // istanbul ignore next
             throw Error(`Invalid value for starting item: ${item}`);
           }
 
@@ -204,6 +213,7 @@ export default class Permalink {
           const itemValue = _.get(options, [optionName, item]);
 
           if (_.isNil(itemValue)) {
+            // istanbul ignore next
             throw Error(`Invalid value for starting item: ${item}`);
           }
 
@@ -215,6 +225,7 @@ export default class Permalink {
 
   static _spinBoxConfig(optionName, minValue, maxValue) {
     if (_.isNil(optionName)) {
+      // istanbul ignore next
       throw Error('Invalid spin box option config');
     }
 
@@ -229,6 +240,7 @@ export default class Permalink {
         const spinBoxValue = _.get(options, optionName);
 
         if (_.isNil(spinBoxValue)) {
+          // istanbul ignore next
           throw Error(`Invalid value for option: ${spinBoxValue}`);
         }
 

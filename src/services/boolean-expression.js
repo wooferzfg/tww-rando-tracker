@@ -121,6 +121,7 @@ export default class BooleanExpression {
       return handleOr(this.items, recursiveMappingFunc);
     }
 
+    // istanbul ignore next
     throw Error(`Invalid type: ${this.type}`);
   }
 
@@ -131,6 +132,7 @@ export default class BooleanExpression {
     if (this.isOr()) {
       return BooleanExpression._TYPES.AND;
     }
+    // istanbul ignore next
     throw Error(`Invalid type: ${this.type}`);
   }
 
@@ -235,6 +237,7 @@ export default class BooleanExpression {
           return false; // break loop
         }
       } else {
+        // istanbul ignore next
         throw Error(`Invalid type: ${expressionType}`);
       }
 

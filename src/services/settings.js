@@ -57,6 +57,7 @@ export default class Settings {
 
   static isFlagActive(flag) {
     if (_.isNil(flag)) {
+      // istanbul ignore next
       throw Error(`Invalid flag: ${flag}`);
     }
 
@@ -67,6 +68,7 @@ export default class Settings {
     const optionValue = _.get(this.options, optionName);
 
     if (_.isNil(optionName)) {
+      // istanbul ignore next
       throw Error(`Invalid option: ${optionName}`);
     }
 
