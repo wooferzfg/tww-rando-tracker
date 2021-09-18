@@ -39,6 +39,11 @@ jobs:
           set -e
           npm run lint
 
+      - name: Generate docs
+        run: |
+          set -e
+          npm run docs
+
       - name: Deploy
         if: github.repository == 'wooferzfg/tww-rando-tracker' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3.8.0

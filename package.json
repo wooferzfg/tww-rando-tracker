@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack",
     "build:production": "webpack --mode=production",
+    "docs": "jsdoc -c .jsdoc.json",
     "lint": "eslint --max-warnings 0 \"src/**/*.jsx\" \"src/**/*.js\" \"*.js\"",
     "start": "webpack serve",
     "test": "jest --maxWorkers=5"
@@ -49,6 +50,7 @@
     "favicons-webpack-plugin": "^5.0.2",
     "html-webpack-plugin": "^5.3.2",
     "jest": "^27.2.0",
+    "jsdoc": "^3.6.7",
     "sass": "^1.41.1",
     "sass-loader": "^12.1.0",
     "source-map-loader": "^3.0.0",
