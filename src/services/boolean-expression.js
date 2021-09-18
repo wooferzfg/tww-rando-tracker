@@ -3,7 +3,7 @@ import _ from 'lodash';
 /**
  * This class defines a boolean expression, which is a collection of items
  * grouped together by "and"/"or" statements. For example,
- * ((Apple and Banana) or Coconut).
+ * (("X > 5" or "X < 2") and "Y = 10").
  *
  * @class
  */
