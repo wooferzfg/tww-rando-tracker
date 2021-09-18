@@ -11,7 +11,7 @@ import Macros from './macros';
 import Permalink from './permalink';
 import Settings from './settings';
 
-export default class LogicTweaks {
+class LogicTweaks {
   static applyTweaks() {
     this._updateLocations();
     this._updateMacros();
@@ -152,3 +152,5 @@ export default class LogicTweaks {
     Macros.setMacro('All 8 Triforce Shards', 'Triforce Shard x8');
   }
 }
+
+export default LogicTweaks;

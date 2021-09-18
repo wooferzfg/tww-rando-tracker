@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export default class Macros {
+class Macros {
   static initialize(macrosFile) {
     this.macros = macrosFile;
   }
@@ -21,3 +21,5 @@ export default class Macros {
     _.set(this.macros, macroName, value);
   }
 }
+
+export default Macros;

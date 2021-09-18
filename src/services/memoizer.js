@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import memoize from 'memoizee';
 
-export default class Memoizer {
+class Memoizer {
   static memoize(parentObject, functionNames) {
     _.forEach(functionNames, (functionName) => {
       const functionToMemoize = _.get(parentObject, functionName);
@@ -22,3 +22,5 @@ export default class Memoizer {
     });
   }
 }
+
+export default Memoizer;

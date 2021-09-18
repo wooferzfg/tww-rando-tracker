@@ -8,7 +8,7 @@ import Memoizer from './memoizer';
 import Permalink from './permalink';
 import Settings from './settings';
 
-export default class LogicCalculation {
+class LogicCalculation {
   constructor(state) {
     this.state = state;
 
@@ -653,3 +653,5 @@ export default class LogicCalculation {
     return this.state.getItemValue(itemName);
   }
 }
+
+export default LogicCalculation;

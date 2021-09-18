@@ -7,7 +7,7 @@ import _ from 'lodash';
  *
  * @class
  */
-export default class BooleanExpression {
+class BooleanExpression {
   /**
    * @param {any[]} items The items in the boolean expression. Each item can
    *   either be an object of an arbitrary type or a boolean expression.
@@ -517,3 +517,5 @@ export default class BooleanExpression {
     return BooleanExpression._createFlatExpression(newItems, this.type);
   }
 }
+
+export default BooleanExpression;

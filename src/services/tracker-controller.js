@@ -8,7 +8,7 @@ import Settings from './settings';
 import Spheres from './spheres';
 import TrackerState from './tracker-state';
 
-export default class TrackerController {
+class TrackerController {
   static async initializeFromPermalink(permalink) {
     Settings.initializeFromPermalink(permalink);
 
@@ -80,3 +80,5 @@ export default class TrackerController {
     return JSON.stringify(saveData);
   }
 }
+
+export default TrackerController;

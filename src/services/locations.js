@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export default class Locations {
+class Locations {
   static initialize(itemLocationsFile) {
     this.locations = {};
 
@@ -94,3 +94,5 @@ export default class Locations {
     };
   }
 }
+
+export default Locations;

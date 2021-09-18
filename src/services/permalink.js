@@ -9,7 +9,7 @@ import SWORD_MODE_OPTIONS from '../data/sword-mode-options.json';
 import BinaryString from './binary-string';
 import Constants from './constants';
 
-export default class Permalink {
+class Permalink {
   static OPTIONS = Constants.createFromArray(OPTIONS);
 
   static RANDOMIZE_ENTRANCES_OPTIONS = Constants.createFromArray(RANDOMIZE_ENTRANCES_OPTIONS);
@@ -249,3 +249,5 @@ export default class Permalink {
     };
   }
 }
+
+export default Permalink;

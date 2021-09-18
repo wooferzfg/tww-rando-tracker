@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export default class BinaryString {
+class BinaryString {
   constructor(binaryData = [], bitOffset = 0) {
     this.binaryData = binaryData;
     this.bitOffset = bitOffset;
@@ -124,3 +124,5 @@ export default class BinaryString {
     return Buffer.from(binaryArray).toString();
   }
 }
+
+export default BinaryString;

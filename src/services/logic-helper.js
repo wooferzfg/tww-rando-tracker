@@ -21,7 +21,7 @@ import Memoizer from './memoizer';
 import Permalink from './permalink';
 import Settings from './settings';
 
-export default class LogicHelper {
+class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
       'bossLocation',
@@ -774,3 +774,5 @@ export default class LogicHelper {
     return true;
   }
 }
+
+export default LogicHelper;

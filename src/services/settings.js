@@ -5,7 +5,7 @@ import FLAGS from '../data/flags.json';
 import Constants from './constants';
 import Permalink from './permalink';
 
-export default class Settings {
+class Settings {
   static initializeFromPermalink(permalinkString) {
     this.options = Permalink.decode(permalinkString);
 
@@ -123,3 +123,5 @@ export default class Settings {
     return _.first(commitHashMatch) || _.first(versionMatch) || 'master';
   }
 }
+
+export default Settings;

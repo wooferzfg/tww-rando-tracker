@@ -3,7 +3,7 @@ import _ from 'lodash';
 import Locations from './locations';
 import LogicHelper from './logic-helper';
 
-export default class TrackerState {
+class TrackerState {
   static default() {
     const newState = new TrackerState();
 
@@ -172,3 +172,5 @@ export default class TrackerState {
     return newState;
   }
 }
+
+export default TrackerState;
