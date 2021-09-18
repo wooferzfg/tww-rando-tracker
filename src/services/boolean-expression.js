@@ -1,27 +1,79 @@
 import _ from 'lodash';
 
+/**
+ * This class defines a boolean expression, which is a collection of items
+ * grouped together by "and"/"or" statements. For example,
+ * ((Apple and Banana) or Coconut).
+ *
+ * @class
+ */
 export default class BooleanExpression {
+  /**
+   * @param {any[]} items The items in the boolean expression. Each item can
+   *   either be an object of an arbitrary type or a boolean expression.
+   * @param {string} type The type of the boolean expression ('and'/'or');
+   */
   constructor(items, type) {
     this.items = items;
     this.type = type;
   }
 
+  /**
+   * Constructs a new boolean expression with the 'and' type.
+   *
+   * @param  {...any} items The items in the boolean expression. Each item can
+   *   either be an object of an arbitrary type or a boolean expression.
+   * @returns {BooleanExpression} The new boolean expression.
+   */
   static and(...items) {
     return new BooleanExpression(items, this._TYPES.AND);
   }
 
+  /**
+   * Constructs a new boolean expression with the 'or' type.
+   *
+   * @param  {...any} items The items in the boolean expression. Each item can
+   *   either be an object of an arbitrary type or a boolean expression.
+   * @returns {BooleanExpression} The new boolean expression.
+   */
   static or(...items) {
     return new BooleanExpression(items, this._TYPES.OR);
   }
 
+  /**
+   * @returns {boolean} Whether the expression is an 'and' expression.
+   */
   isAnd() {
     return this.type === BooleanExpression._TYPES.AND;
   }
 
+  /**
+   * @returns {boolean} Whether the expression is an 'or' expression.
+   */
   isOr() {
     return this.type === BooleanExpression._TYPES.OR;
   }
 
+  /**
+   * @param {object} options The options for reduction.
+   * @param {any} options.andInitialValue The initial value for an expression
+   *   with the 'and' type.
+   * @param {Function} options.andReducer A function that takes an object with
+   *   three keys: `accumulator` (the accumulated value for the current
+   *   expression), `item` (the current item), and `isReduced` (whether the
+   *   current item is a nested boolean expression that has already been
+   *   reduced). This function is only used for expressions that have the 'and'
+   *   type.
+   * @param {any} options.orInitialValue The initial value for an expression
+   *   with the 'or' type.
+   * @param {Function} options.orReducer A function that takes an object with
+   *   three keys: `accumulator` (the accumulated value for the current
+   *   expression), `item` (the current item), and `isReduced` (whether the
+   *   current item is a nested boolean expression that has already been
+   *   reduced). This function is only used for expressions that have the 'or'
+   *   type.
+   * @returns {any} The reduced value of the expression.
+   */
   reduce({
     andInitialValue,
     andReducer,
@@ -62,6 +114,13 @@ export default class BooleanExpression {
     });
   }
 
+  /**
+   * @param {object} options The options for evaluation.
+   * @param {Function} options.isItemTrue A function that takes an argument that
+   *   is an item in the boolean expression. The function returns whether the
+   *   given item is true or false.
+   * @returns {boolean} Whether the overall expression is true or false.
+   */
   evaluate({ isItemTrue }) {
     return this._map({
       handleAnd: (items, recursiveMappingFunc) => (
@@ -81,6 +140,14 @@ export default class BooleanExpression {
     });
   }
 
+  /**
+   * @param {object} options The options for simplification.
+   * @param {Function} options.implies A function that takes two arguments that
+   *   are both items in the boolean expression. The function returns whether
+   *   the first item being true implies that the second item is true. For
+   *   example, "X > 5" would imply "X > 3".
+   * @returns {BooleanExpression} The simplified boolean expression.
+   */
   simplify({ implies }) {
     let updatedExpression = this._flatten();
 
