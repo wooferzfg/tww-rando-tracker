@@ -15,7 +15,8 @@
       },
       "newlines-between": "always"
     }],
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "valid-jsdoc": "error"
   },
   "settings": {
     "import/resolver": {
