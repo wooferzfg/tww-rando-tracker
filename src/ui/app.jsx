@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   HashRouter,
-  Switch,
   Route,
+  Routes,
+  useParams,
 } from 'react-router-dom';
 
 import Launcher from './launcher';
@@ -11,33 +13,37 @@ import Tracker from './tracker';
 import '../css/main.scss';
 
 export default () => {
-  const renderTracker = (loadProgress) => (routerComponentProps) => {
-    const { match } = routerComponentProps;
+  const RenderTracker = ({ loadProgress }) => {
+    const { permalink } = useParams();
 
     return (
-      <Tracker match={match} loadProgress={loadProgress} />
+      <Tracker permalink={permalink} loadProgress={loadProgress} />
     );
+  };
+
+  RenderTracker.propTypes = {
+    loadProgress: PropTypes.bool.isRequired,
   };
 
   return (
     <HashRouter>
-      <Switch>
+      <Routes>
         <Route
           exact
           path="/"
-          component={Launcher}
+          element={<Launcher />}
         />
         <Route
           exact
           path="/tracker/new/:permalink"
-          render={renderTracker(false)}
+          element={<RenderTracker loadProgress={false} />}
         />
         <Route
           exact
           path="/tracker/load/:permalink"
-          render={renderTracker(true)}
+          element={<RenderTracker loadProgress />}
         />
-      </Switch>
+      </Routes>
     </HashRouter>
   );
 };

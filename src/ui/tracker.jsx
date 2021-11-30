@@ -69,12 +69,7 @@ class Tracker extends React.PureComponent {
       this.updatePreferences(preferences);
     }
 
-    const {
-      loadProgress,
-      match: {
-        params: { permalink },
-      },
-    } = this.props;
+    const { loadProgress, permalink } = this.props;
 
     let initialData;
 
@@ -446,11 +441,7 @@ class Tracker extends React.PureComponent {
 
 Tracker.propTypes = {
   loadProgress: PropTypes.bool.isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.exact({
-      permalink: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+  permalink: PropTypes.string.isRequired,
 };
 
 export default Tracker;
