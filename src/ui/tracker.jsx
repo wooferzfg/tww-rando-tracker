@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Loader from 'react-loader-spinner';
+import { Oval } from 'react-loader-spinner';
 import { ToastContainer, toast } from 'react-toastify';
 
 import LogicHelper from '../services/logic-helper';
@@ -351,7 +351,7 @@ class Tracker extends React.PureComponent {
     if (isLoading) {
       content = (
         <div className="loading-spinner">
-          <Loader color="white" type="Oval" />
+          <Oval color="white" />
         </div>
       );
     } else {
