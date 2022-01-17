@@ -351,7 +351,7 @@ class Tracker extends React.PureComponent {
     if (isLoading) {
       content = (
         <div className="loading-spinner">
-          <Oval color="white" />
+          <Oval color="white" secondaryColor="gray" />
         </div>
       );
     } else {
