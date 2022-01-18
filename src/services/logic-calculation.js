@@ -452,7 +452,7 @@ class LogicCalculation {
     LEFT_PAREN: '(',
     OR: ' or ',
     RIGHT_PAREN: ')',
-  }
+  };
 
   _formatRequirements(requirements) {
     const evaluatedRequirements = this._evaluatedRequirements(requirements);
