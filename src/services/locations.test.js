@@ -213,7 +213,8 @@ describe('Locations', () => {
 
     test('returns the value for the location and provided info key', () => {
       const location = Locations.getLocation(
-        'Outset Island', 'Savage Labyrinth - Floor 30',
+        'Outset Island',
+        'Savage Labyrinth - Floor 30',
         Locations.KEYS.NEED,
       );
 

@@ -12,19 +12,19 @@ import Tracker from './tracker';
 
 import '../css/main.scss';
 
-export default () => {
-  const RenderTracker = ({ loadProgress }) => {
-    const { permalink } = useParams();
+function RenderTracker({ loadProgress }) {
+  const { permalink } = useParams();
 
-    return (
-      <Tracker permalink={permalink} loadProgress={loadProgress} />
-    );
-  };
+  return (
+    <Tracker permalink={permalink} loadProgress={loadProgress} />
+  );
+}
 
-  RenderTracker.propTypes = {
-    loadProgress: PropTypes.bool.isRequired,
-  };
+RenderTracker.propTypes = {
+  loadProgress: PropTypes.bool.isRequired,
+};
 
+export default function App() {
   return (
     <HashRouter>
       <Routes>
@@ -46,4 +46,4 @@ export default () => {
       </Routes>
     </HashRouter>
   );
-};
+}

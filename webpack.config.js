@@ -49,7 +49,7 @@ module.exports = (env, argv) => {
         clientsClaim: true,
         skipWaiting: true,
         runtimeCaching: [{
-          urlPattern: new RegExp('https://raw.githubusercontent.com'),
+          urlPattern: /https:\/\/raw\.githubusercontent\.com/,
           handler: 'StaleWhileRevalidate',
         }],
       })] : []),
