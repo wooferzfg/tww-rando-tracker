@@ -50,7 +50,7 @@
     "favicons-webpack-plugin": "^5.0.2",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.7",
-    "jsdoc": "^3.6.7",
+    "jsdoc": "^3.6.9",
     "sass": "^1.49.0",
     "sass-loader": "^12.4.0",
     "source-map-loader": "^3.0.1",
