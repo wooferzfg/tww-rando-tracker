@@ -51,7 +51,7 @@
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.7",
     "jsdoc": "^3.6.10",
-    "sass": "^1.49.3",
+    "sass": "^1.49.7",
     "sass-loader": "^12.4.0",
     "source-map-loader": "^3.0.1",
     "style-loader": "^3.3.1",
