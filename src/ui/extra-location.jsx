@@ -2,7 +2,10 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
+import Spheres from '../services/spheres';
+import TrackerState from '../services/tracker-state';
 
 import Images from './images';
 import Item from './item';
@@ -12,25 +15,37 @@ class ExtraLocation extends React.PureComponent {
   compassItem() {
     const {
       clearSelectedItem,
-      compassCount,
-      compassName,
       decrementItem,
       incrementItem,
+      locationName,
       setSelectedItem,
+      spheres,
+      trackerState,
+      trackSpheres,
     } = this.props;
 
-    const dungeonMapImages = _.get(Images.IMAGES, 'COMPASSES');
+    const compassName = LogicHelper.compassName(locationName);
+    const compassCount = trackerState.getItemValue(compassName);
+
+    const compassImages = _.get(Images.IMAGES, 'COMPASSES');
+
+    let locations = [];
+    if (trackSpheres) {
+      locations = trackerState.getLocationsForItem(compassName);
+    }
 
     return (
       <div className="dungeon-item compass">
         <Item
           clearSelectedItem={clearSelectedItem}
           decrementItem={decrementItem}
-          images={dungeonMapImages}
+          images={compassImages}
           incrementItem={incrementItem}
           itemCount={compassCount}
           itemName={compassName}
+          locations={locations}
           setSelectedItem={setSelectedItem}
+          spheres={spheres}
         />
       </div>
     );
@@ -40,13 +55,23 @@ class ExtraLocation extends React.PureComponent {
     const {
       clearSelectedItem,
       decrementItem,
-      dungeonMapCount,
-      dungeonMapName,
       incrementItem,
+      locationName,
       setSelectedItem,
+      spheres,
+      trackerState,
+      trackSpheres,
     } = this.props;
 
+    const dungeonMapName = LogicHelper.dungeonMapName(locationName);
+    const dungeonMapCount = trackerState.getItemValue(dungeonMapName);
+
     const dungeonMapImages = _.get(Images.IMAGES, 'DUNGEON_MAPS');
+
+    let locations = [];
+    if (trackSpheres) {
+      locations = trackerState.getLocationsForItem(dungeonMapName);
+    }
 
     return (
       <div className="dungeon-item dungeon-map">
@@ -57,7 +82,9 @@ class ExtraLocation extends React.PureComponent {
           incrementItem={incrementItem}
           itemCount={dungeonMapCount}
           itemName={dungeonMapName}
+          locations={locations}
           setSelectedItem={setSelectedItem}
+          spheres={spheres}
         />
       </div>
     );
@@ -68,12 +95,22 @@ class ExtraLocation extends React.PureComponent {
       clearSelectedItem,
       decrementItem,
       incrementItem,
+      locationName,
       setSelectedItem,
-      smallKeyCount,
-      smallKeyName,
+      spheres,
+      trackerState,
+      trackSpheres,
     } = this.props;
 
+    const smallKeyName = LogicHelper.smallKeyName(locationName);
+    const smallKeyCount = trackerState.getItemValue(smallKeyName);
+
     const smallKeyImages = _.get(Images.IMAGES, 'SMALL_KEYS');
+
+    let locations = [];
+    if (trackSpheres) {
+      locations = trackerState.getLocationsForItem(smallKeyName);
+    }
 
     return (
       <div className="dungeon-item small-key">
@@ -84,7 +121,9 @@ class ExtraLocation extends React.PureComponent {
           incrementItem={incrementItem}
           itemCount={smallKeyCount}
           itemName={smallKeyName}
+          locations={locations}
           setSelectedItem={setSelectedItem}
+          spheres={spheres}
         />
       </div>
     );
@@ -92,15 +131,25 @@ class ExtraLocation extends React.PureComponent {
 
   bigKeyItem() {
     const {
-      bigKeyCount,
-      bigKeyName,
       clearSelectedItem,
       decrementItem,
       incrementItem,
+      locationName,
       setSelectedItem,
+      spheres,
+      trackerState,
+      trackSpheres,
     } = this.props;
 
+    const bigKeyName = LogicHelper.bigKeyName(locationName);
+    const bigKeyCount = trackerState.getItemValue(bigKeyName);
+
     const bigKeyImages = _.get(Images.IMAGES, 'BIG_KEYS');
+
+    let locations = [];
+    if (trackSpheres) {
+      locations = trackerState.getLocationsForItem(bigKeyName);
+    }
 
     return (
       <div className="dungeon-item big-key">
@@ -111,7 +160,9 @@ class ExtraLocation extends React.PureComponent {
           incrementItem={incrementItem}
           itemCount={bigKeyCount}
           itemName={bigKeyName}
+          locations={locations}
           setSelectedItem={setSelectedItem}
+          spheres={spheres}
         />
       </div>
     );
@@ -120,13 +171,15 @@ class ExtraLocation extends React.PureComponent {
   entrance() {
     const {
       clearSelectedItem,
-      entryCount,
-      entryName,
       locationName,
       setSelectedExit,
+      trackerState,
       unsetExit,
       updateOpenedExit,
     } = this.props;
+
+    const entryName = LogicHelper.entryName(locationName);
+    const entryCount = trackerState.getItemValue(entryName);
 
     const entranceImages = _.get(Images.IMAGES, 'DUNGEON_ENTRANCE');
 
@@ -155,10 +208,10 @@ class ExtraLocation extends React.PureComponent {
   }
 
   dungeonItems() {
-    const {
-      isMainDungeon,
-      isRaceModeDungeon,
-    } = this.props;
+    const { locationName } = this.props;
+
+    const isMainDungeon = LogicHelper.isMainDungeon(locationName);
+    const isRaceModeDungeon = LogicHelper.isRaceModeDungeon(locationName);
 
     return (
       <div className="dungeon-items">
@@ -181,9 +234,19 @@ class ExtraLocation extends React.PureComponent {
 
   locationIcon() {
     const {
-      locationIcon,
+      isDungeon,
       locationName,
+      logic,
     } = this.props;
+
+    let locationIcon;
+    if (isDungeon) {
+      const isBossDefeated = logic.isBossDefeated(locationName);
+
+      locationIcon = _.get(Images.IMAGES, ['DUNGEONS', locationName, isBossDefeated]);
+    } else {
+      locationIcon = _.get(Images.IMAGES, ['MISC_LOCATIONS', locationName]);
+    }
 
     return (
       <div className="dungeon-icon">
@@ -194,11 +257,22 @@ class ExtraLocation extends React.PureComponent {
 
   chestsCounter() {
     const {
-      color,
       disableLogic,
+      isDungeon,
+      locationName,
+      logic,
+      onlyProgressLocations,
+    } = this.props;
+
+    const {
+      color,
       numAvailable,
       numRemaining,
-    } = this.props;
+    } = logic.locationCounts(locationName, {
+      isDungeon,
+      onlyProgressLocations,
+      disableLogic,
+    });
 
     const className = `extra-location-chests ${color}`;
     const chestCounts = disableLogic ? numRemaining : `${numAvailable}/${numRemaining}`;
@@ -249,55 +323,24 @@ class ExtraLocation extends React.PureComponent {
   }
 }
 
-ExtraLocation.defaultProps = {
-  bigKeyCount: null,
-  bigKeyName: null,
-  clearSelectedItem: null,
-  compassCount: null,
-  compassName: null,
-  decrementItem: null,
-  dungeonMapCount: null,
-  dungeonMapName: null,
-  entryCount: null,
-  entryName: null,
-  incrementItem: null,
-  setSelectedExit: null,
-  setSelectedItem: null,
-  smallKeyCount: null,
-  smallKeyName: null,
-  unsetExit: null,
-  updateOpenedExit: null,
-};
-
 ExtraLocation.propTypes = {
-  bigKeyCount: PropTypes.number,
-  bigKeyName: PropTypes.string,
-  clearSelectedItem: PropTypes.func,
+  clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
-  color: PropTypes.string.isRequired,
-  compassCount: PropTypes.number,
-  compassName: PropTypes.string,
-  decrementItem: PropTypes.func,
+  decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
-  dungeonMapCount: PropTypes.number,
-  dungeonMapName: PropTypes.string,
-  entryCount: PropTypes.number,
-  entryName: PropTypes.string,
-  incrementItem: PropTypes.func,
+  incrementItem: PropTypes.func.isRequired,
   isDungeon: PropTypes.bool.isRequired,
-  isMainDungeon: PropTypes.bool.isRequired,
-  isRaceModeDungeon: PropTypes.bool.isRequired,
-  locationIcon: PropTypes.string.isRequired,
   locationName: PropTypes.string.isRequired,
-  numAvailable: PropTypes.number.isRequired,
-  numRemaining: PropTypes.number.isRequired,
-  setSelectedExit: PropTypes.func,
-  setSelectedItem: PropTypes.func,
+  logic: PropTypes.instanceOf(LogicCalculation).isRequired,
+  onlyProgressLocations: PropTypes.bool.isRequired,
+  setSelectedExit: PropTypes.func.isRequired,
+  setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
-  smallKeyCount: PropTypes.number,
-  smallKeyName: PropTypes.string,
-  unsetExit: PropTypes.func,
-  updateOpenedExit: PropTypes.func,
+  spheres: PropTypes.instanceOf(Spheres).isRequired,
+  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
+  unsetExit: PropTypes.func.isRequired,
+  updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
 };
 

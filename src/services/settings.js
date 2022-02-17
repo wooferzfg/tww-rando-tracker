@@ -5,7 +5,7 @@ import FLAGS from '../data/flags.json';
 import Constants from './constants';
 import Permalink from './permalink';
 
-export default class Settings {
+class Settings {
   static initializeFromPermalink(permalinkString) {
     this.options = Permalink.decode(permalinkString);
 
@@ -57,6 +57,7 @@ export default class Settings {
 
   static isFlagActive(flag) {
     if (_.isNil(flag)) {
+      // istanbul ignore next
       throw Error(`Invalid flag: ${flag}`);
     }
 
@@ -67,6 +68,7 @@ export default class Settings {
     const optionValue = _.get(this.options, optionName);
 
     if (_.isNil(optionName)) {
+      // istanbul ignore next
       throw Error(`Invalid option: ${optionName}`);
     }
 
@@ -121,3 +123,5 @@ export default class Settings {
     return _.first(commitHashMatch) || _.first(versionMatch) || 'master';
   }
 }
+
+export default Settings;

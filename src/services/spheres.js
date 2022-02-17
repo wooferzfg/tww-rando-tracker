@@ -5,7 +5,7 @@ import LogicCalculation from './logic-calculation';
 import LogicHelper from './logic-helper';
 import TrackerState from './tracker-state';
 
-export default class Spheres {
+class Spheres {
   constructor(trackerState) {
     this.state = trackerState;
     this.spheres = null;
@@ -184,3 +184,5 @@ export default class Spheres {
     }
   }
 }
+
+export default Spheres;

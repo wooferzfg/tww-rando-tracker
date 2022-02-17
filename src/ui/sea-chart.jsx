@@ -2,9 +2,9 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import ISLANDS from '../data/islands.json';
 import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
+import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
 import Images from './images';
@@ -23,64 +23,31 @@ class SeaChart extends React.PureComponent {
       setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
+      spheres,
       trackerState,
+      trackSpheres,
       unsetExit,
       updateOpenedExit,
       updateOpenedLocation,
     } = this.props;
 
-    const {
-      chartName,
-      chartType,
-    } = LogicHelper.chartForIsland(island);
-
-    const chartCount = trackerState.getItemValue(chartName);
-
-    let entrances = [];
-    if (LogicHelper.isRandomCaveEntrances()) {
-      const cavesForIsland = LogicHelper.cavesForIsland(island);
-
-      entrances = _.map(cavesForIsland, (caveName) => {
-        const entryName = LogicHelper.entryName(caveName);
-        const entryCount = trackerState.getItemValue(entryName);
-
-        return {
-          entryCount,
-          entryName,
-          locationName: caveName,
-        };
-      });
-    }
-
-    const {
-      color,
-      numAvailable,
-      numRemaining,
-    } = logic.locationCounts(island, {
-      isDungeon: false,
-      onlyProgressLocations,
-      disableLogic,
-    });
-
     return (
       <Sector
-        chartCount={chartCount}
-        chartName={chartName}
-        chartType={chartType}
-        color={color}
         clearSelectedItem={clearSelectedItem}
         clearSelectedLocation={clearSelectedLocation}
         decrementItem={decrementItem}
         disableLogic={disableLogic}
-        entrances={entrances}
         key={island}
         incrementItem={incrementItem}
         island={island}
-        numAvailable={numAvailable}
-        numRemaining={numRemaining}
+        logic={logic}
+        onlyProgressLocations={onlyProgressLocations}
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
+        spheres={spheres}
+        trackerState={trackerState}
+        trackSpheres={trackSpheres}
         unsetExit={unsetExit}
         updateOpenedExit={updateOpenedExit}
         updateOpenedLocation={updateOpenedLocation}
@@ -89,7 +56,7 @@ class SeaChart extends React.PureComponent {
   }
 
   render() {
-    const islands = _.map(ISLANDS, (island) => this.sector(island));
+    const islands = _.map(LogicHelper.ISLANDS, (island) => this.sector(island));
 
     return (
       <div className="chart-map">
@@ -115,7 +82,9 @@ SeaChart.propTypes = {
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
+  spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,

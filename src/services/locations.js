@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export default class Locations {
+class Locations {
   static initialize(itemLocationsFile) {
     this.locations = {};
 
@@ -60,6 +60,7 @@ export default class Locations {
     const generalLocationInfo = _.get(this.locations, generalLocation);
 
     if (!generalLocationInfo) {
+      // istanbul ignore next
       throw Error(`General location not found: ${generalLocation}`);
     }
 
@@ -68,6 +69,7 @@ export default class Locations {
 
   static getLocation(generalLocation, detailedLocation, infoKey) {
     if (!_.has(this.locations, [generalLocation, detailedLocation])) {
+      // istanbul ignore next
       throw Error(`Location not found: ${generalLocation} - ${detailedLocation}`);
     }
 
@@ -82,6 +84,7 @@ export default class Locations {
     const locationMatch = fullLocationName.match(/((?:(?! - ).)+) - (.+)/);
 
     if (!locationMatch) {
+      // istanbul ignore next
       throw Error(`Location name: "${fullLocationName}" could not be parsed!`);
     }
 
@@ -91,3 +94,5 @@ export default class Locations {
     };
   }
 }
+
+export default Locations;

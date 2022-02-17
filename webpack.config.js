@@ -26,8 +26,9 @@ module.exports = (env, argv) => {
     },
     devtool: isProduction ? undefined : 'source-map',
     devServer: {
-      contentBase: basePath,
-      compress: true,
+      static: {
+        directory: basePath,
+      },
       port: 8080,
     },
     resolve: {
@@ -48,7 +49,7 @@ module.exports = (env, argv) => {
         clientsClaim: true,
         skipWaiting: true,
         runtimeCaching: [{
-          urlPattern: new RegExp('https://raw.githubusercontent.com'),
+          urlPattern: /https:\/\/raw\.githubusercontent\.com/,
           handler: 'StaleWhileRevalidate',
         }],
       })] : []),
@@ -73,7 +74,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.png$/,
-          type: 'asset/resource',
+          type: 'asset/inline',
         },
       ],
     },

@@ -1,13 +1,12 @@
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
+import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
 import ExtraLocation from './extra-location';
-import Images from './images';
 
 class ExtraLocationsTable extends React.PureComponent {
   extraLocation(locationName) {
@@ -22,120 +21,49 @@ class ExtraLocationsTable extends React.PureComponent {
       setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
+      spheres,
       trackerState,
+      trackSpheres,
       unsetExit,
       updateOpenedExit,
       updateOpenedLocation,
     } = this.props;
 
     const isDungeon = LogicHelper.isDungeon(locationName);
-    const isMainDungeon = LogicHelper.isMainDungeon(locationName);
-    const isRaceModeDungeon = LogicHelper.isRaceModeDungeon(locationName);
-
-    const {
-      color,
-      numAvailable,
-      numRemaining,
-    } = logic.locationCounts(locationName, {
-      isDungeon,
-      onlyProgressLocations,
-      disableLogic,
-    });
-
-    let locationIcon;
-    if (isDungeon) {
-      const isBossDefeated = logic.isBossDefeated(locationName);
-
-      locationIcon = _.get(Images.IMAGES, ['DUNGEONS', locationName, isBossDefeated]);
-    } else {
-      locationIcon = _.get(Images.IMAGES, ['MISC_LOCATIONS', locationName]);
-    }
-
-    if (isRaceModeDungeon) {
-      let smallKeyName;
-      let smallKeyCount;
-      let bigKeyName;
-      let bigKeyCount;
-      let entryName;
-      let entryCount;
-
-      if (isMainDungeon) {
-        smallKeyName = LogicHelper.smallKeyName(locationName);
-        smallKeyCount = trackerState.getItemValue(smallKeyName);
-
-        bigKeyName = LogicHelper.bigKeyName(locationName);
-        bigKeyCount = trackerState.getItemValue(bigKeyName);
-
-        entryName = LogicHelper.entryName(locationName);
-        entryCount = trackerState.getItemValue(entryName);
-      }
-
-      const dungeonMapName = LogicHelper.dungeonMapName(locationName);
-      const dungeonMapCount = trackerState.getItemValue(dungeonMapName);
-
-      const compassName = LogicHelper.compassName(locationName);
-      const compassCount = trackerState.getItemValue(compassName);
-
-      return (
-        <ExtraLocation
-          bigKeyCount={bigKeyCount}
-          bigKeyName={bigKeyName}
-          clearSelectedItem={clearSelectedItem}
-          clearSelectedLocation={clearSelectedLocation}
-          color={color}
-          compassCount={compassCount}
-          compassName={compassName}
-          decrementItem={decrementItem}
-          disableLogic={disableLogic}
-          dungeonMapCount={dungeonMapCount}
-          dungeonMapName={dungeonMapName}
-          entryCount={entryCount}
-          entryName={entryName}
-          key={locationName}
-          incrementItem={incrementItem}
-          isDungeon={isDungeon}
-          isMainDungeon={isMainDungeon}
-          isRaceModeDungeon={isRaceModeDungeon}
-          locationIcon={locationIcon}
-          locationName={locationName}
-          numAvailable={numAvailable}
-          numRemaining={numRemaining}
-          setSelectedExit={setSelectedExit}
-          setSelectedItem={setSelectedItem}
-          setSelectedLocation={setSelectedLocation}
-          smallKeyCount={smallKeyCount}
-          smallKeyName={smallKeyName}
-          unsetExit={unsetExit}
-          updateOpenedExit={updateOpenedExit}
-          updateOpenedLocation={updateOpenedLocation}
-        />
-      );
-    }
 
     return (
       <ExtraLocation
-        color={color}
-        disableLogic={disableLogic}
+        clearSelectedItem={clearSelectedItem}
         clearSelectedLocation={clearSelectedLocation}
+        decrementItem={decrementItem}
+        disableLogic={disableLogic}
         key={locationName}
+        incrementItem={incrementItem}
         isDungeon={isDungeon}
-        isMainDungeon={isMainDungeon}
-        isRaceModeDungeon={isRaceModeDungeon}
-        locationIcon={locationIcon}
         locationName={locationName}
-        numAvailable={numAvailable}
-        numRemaining={numRemaining}
+        logic={logic}
+        onlyProgressLocations={onlyProgressLocations}
+        setSelectedExit={setSelectedExit}
+        setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
+        spheres={spheres}
+        trackerState={trackerState}
+        trackSpheres={trackSpheres}
+        unsetExit={unsetExit}
+        updateOpenedExit={updateOpenedExit}
         updateOpenedLocation={updateOpenedLocation}
       />
     );
   }
 
   render() {
-    const { singleColorBackground } = this.props;
+    const { backgroundColor } = this.props;
 
     return (
-      <div className={`extra-locations ${singleColorBackground ? 'single-color' : ''}`}>
+      <div
+        className="extra-locations"
+        style={{ backgroundColor }}
+      >
         {this.extraLocation(LogicHelper.DUNGEONS.DRAGON_ROOST_CAVERN)}
         {this.extraLocation(LogicHelper.DUNGEONS.FORBIDDEN_WOODS)}
         {this.extraLocation(LogicHelper.DUNGEONS.TOWER_OF_THE_GODS)}
@@ -151,7 +79,12 @@ class ExtraLocationsTable extends React.PureComponent {
   }
 }
 
+ExtraLocationsTable.defaultProps = {
+  backgroundColor: null,
+};
+
 ExtraLocationsTable.propTypes = {
+  backgroundColor: PropTypes.string,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
@@ -162,8 +95,9 @@ ExtraLocationsTable.propTypes = {
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
-  singleColorBackground: PropTypes.bool.isRequired,
+  spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,

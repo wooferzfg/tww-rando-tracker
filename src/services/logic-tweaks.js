@@ -11,7 +11,17 @@ import Macros from './macros';
 import Permalink from './permalink';
 import Settings from './settings';
 
-export default class LogicTweaks {
+/**
+ * This class handles modifications that must be made to the randomizer logic
+ * in order for it to work correctly with the tracker.
+ *
+ * @class
+ */
+class LogicTweaks {
+  /**
+   * This method makes the necessary modifications to the `Locations` and
+   * `Macros` for the tracker to function correctly.
+   */
   static applyTweaks() {
     this._updateLocations();
     this._updateMacros();
@@ -152,3 +162,5 @@ export default class LogicTweaks {
     Macros.setMacro('All 8 Triforce Shards', 'Triforce Shard x8');
   }
 }
+
+export default LogicTweaks;

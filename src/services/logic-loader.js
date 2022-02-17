@@ -2,7 +2,7 @@ import yaml from 'js-yaml';
 
 import Settings from './settings';
 
-export default class LogicLoader {
+class LogicLoader {
   static async loadLogicFiles() {
     const itemLocationsFile = await this._loadLogicFile('item_locations.txt');
     const macrosFile = await this._loadLogicFile('macros.txt');
@@ -30,3 +30,5 @@ export default class LogicLoader {
     return `https://raw.githubusercontent.com/LagoLunatic/wwrando/${Settings.getVersion()}/logic/${fileName}`;
   }
 }
+
+export default LogicLoader;

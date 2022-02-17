@@ -3,7 +3,7 @@
   "env": {
     "browser": true
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "plugins": [
     "react"
   ],
@@ -15,7 +15,10 @@
       },
       "newlines-between": "always"
     }],
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "valid-jsdoc": ["error", {
+      "requireReturn": false
+    }]
   },
   "settings": {
     "import/resolver": {

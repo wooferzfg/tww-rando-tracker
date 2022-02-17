@@ -10,6 +10,7 @@ import KeyDownWrapper from './key-down-wrapper';
 class SphereTracking extends React.PureComponent {
   render() {
     const {
+      backgroundColor,
       lastLocation,
       trackerState,
       unsetLastLocation,
@@ -40,7 +41,10 @@ class SphereTracking extends React.PureComponent {
     }
 
     return (
-      <div className="sphere-tracking">
+      <div
+        className="sphere-tracking"
+        style={{ backgroundColor }}
+      >
         <div className="last-location-and-item">
           <div className="last-location">{`${generalLocation} | ${detailedLocation}`}</div>
           {itemSelection}
@@ -60,10 +64,12 @@ class SphereTracking extends React.PureComponent {
 }
 
 SphereTracking.defaultProps = {
+  backgroundColor: null,
   lastLocation: null,
 };
 
 SphereTracking.propTypes = {
+  backgroundColor: PropTypes.string,
   lastLocation: PropTypes.exact({
     generalLocation: PropTypes.string,
     detailedLocation: PropTypes.string,

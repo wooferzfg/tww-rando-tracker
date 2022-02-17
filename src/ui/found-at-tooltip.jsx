@@ -17,11 +17,17 @@ class FoundAtTooltip extends React.PureComponent {
       },
     );
 
-    const locationsList = _.map(sortedLocations, ({ generalLocation, detailedLocation }) => (
-      <li key={`${generalLocation}-${detailedLocation}`}>
-        {`${generalLocation} | ${detailedLocation}`}
-      </li>
-    ));
+    const locationsList = _.map(sortedLocations, ({ generalLocation, detailedLocation }) => {
+      const sphere = spheres.sphereForLocation(generalLocation, detailedLocation);
+      const sphereText = _.isNil(sphere) ? '?' : sphere;
+      const locationName = `${generalLocation} | ${detailedLocation}`;
+
+      return (
+        <li key={locationName}>
+          {`[${sphereText}] ${locationName}`}
+        </li>
+      );
+    });
 
     return (
       <div className="tooltip item-location">
@@ -33,7 +39,7 @@ class FoundAtTooltip extends React.PureComponent {
 }
 
 FoundAtTooltip.propTypes = {
-  locations: PropTypes.arrayOf(PropTypes.shape({
+  locations: PropTypes.arrayOf(PropTypes.exact({
     generalLocation: PropTypes.string.isRequired,
     detailedLocation: PropTypes.string.isRequired,
   })).isRequired,

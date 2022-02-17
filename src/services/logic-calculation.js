@@ -8,7 +8,7 @@ import Memoizer from './memoizer';
 import Permalink from './permalink';
 import Settings from './settings';
 
-export default class LogicCalculation {
+class LogicCalculation {
   constructor(state) {
     this.state = state;
 
@@ -375,6 +375,7 @@ export default class LogicCalculation {
     if (!_.isNil(remainingItems)) {
       return remainingItems;
     }
+    // istanbul ignore next
     throw Error(`Could not parse requirement: ${requirement}`);
   }
 
@@ -451,7 +452,7 @@ export default class LogicCalculation {
     LEFT_PAREN: '(',
     OR: ' or ',
     RIGHT_PAREN: ')',
-  }
+  };
 
   _formatRequirements(requirements) {
     const evaluatedRequirements = this._evaluatedRequirements(requirements);
@@ -535,6 +536,7 @@ export default class LogicCalculation {
         _.flattenDeep(this._createReadableRequirementsHelper(requirements, false)),
       ];
     }
+    // istanbul ignore next
     throw Error(`Invalid requirements: ${JSON.stringify(requirements)}`);
   }
 
@@ -590,6 +592,7 @@ export default class LogicCalculation {
             text: this._PLAIN_TEXT_STRINGS.OR,
           });
         } else {
+          // istanbul ignore next
           throw Error(`Invalid requirements: ${JSON.stringify(requirements)}`);
         }
       }
@@ -650,3 +653,5 @@ export default class LogicCalculation {
     return this.state.getItemValue(itemName);
   }
 }
+
+export default LogicCalculation;
