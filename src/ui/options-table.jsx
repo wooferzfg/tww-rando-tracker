@@ -44,7 +44,7 @@ class OptionsTable extends React.PureComponent {
 }
 
 OptionsTable.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  options: PropTypes.arrayOf(PropTypes.element).isRequired,
   numColumns: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
 };
