@@ -50,7 +50,7 @@ Table.defaultProps = {
 };
 
 Table.propTypes = {
-  elements: PropTypes.arrayOf(PropTypes.object).isRequired,
+  elements: PropTypes.arrayOf(PropTypes.element).isRequired,
   numColumns: PropTypes.number.isRequired,
   wrapCells: PropTypes.bool,
   wrapTable: PropTypes.bool,

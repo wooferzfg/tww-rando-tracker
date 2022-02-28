@@ -28,7 +28,12 @@ class RequirementsTooltip extends React.PureComponent {
 }
 
 RequirementsTooltip.propTypes = {
-  requirements: PropTypes.arrayOf(PropTypes.array).isRequired,
+  requirements: PropTypes.arrayOf(PropTypes.arrayOf(
+    PropTypes.exact({
+      color: PropTypes.string,
+      text: PropTypes.string,
+    }),
+  )).isRequired,
 };
 
 export default RequirementsTooltip;
