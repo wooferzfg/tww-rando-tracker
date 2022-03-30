@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import App from './ui/app';
 
@@ -11,7 +11,6 @@ if (process.env.NODE_ENV === 'production') {
   }
 }
 
-ReactDOM.render(
-  <App />,
+createRoot(
   document.getElementById('base'),
-);
+).render(<App />);
