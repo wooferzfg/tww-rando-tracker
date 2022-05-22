@@ -50,7 +50,7 @@ class ChartList extends React.PureComponent {
 
     let chartContent;
     if (mappedChartValue === 1) {
-      const island = LogicHelper.islandForChart(chartName);
+      const island = LogicHelper.islandForChart(item);
 
       const tooltip = (
         <div className="tooltip">

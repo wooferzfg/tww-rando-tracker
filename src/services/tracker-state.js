@@ -7,7 +7,6 @@ class TrackerState {
   static default() {
     const newState = new TrackerState();
 
-    newState.chartMapping = {};
     newState.entrances = {};
     newState.fakeCharts = {};
     newState.items = _.reduce(
@@ -115,11 +114,7 @@ class TrackerState {
     const newState = this._clone({ locationsChecked: true });
 
     const isChecked = this.isLocationChecked(generalLocation, detailedLocation);
-    _.set(
-      newState.locationsChecked,
-      [generalLocation, detailedLocation],
-      !isChecked,
-    );
+    _.set(newState.locationsChecked, [generalLocation, detailedLocation], !isChecked);
 
     return newState;
   }
@@ -212,7 +207,9 @@ class TrackerState {
     newState.fakeCharts = clonefakeCharts
       ? _.clone(this.fakeCharts)
       : this.fakeCharts;
-    newState.items = cloneItems ? _.clone(this.items) : this.items;
+    newState.items = cloneItems
+      ? _.clone(this.items)
+      : this.items;
     newState.locationsChecked = cloneLocationsChecked
       ? _.cloneDeep(this.locationsChecked)
       : this.locationsChecked;
