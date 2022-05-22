@@ -7,15 +7,14 @@ class TrackerState {
   static default() {
     const newState = new TrackerState();
 
+    newState.chartMapping = {};
     newState.entrances = {};
+    newState.fakeCharts = {};
     newState.items = _.reduce(
       LogicHelper.ALL_ITEMS,
-      (accumulator, item) => _.set(
-        accumulator,
-        item,
-        LogicHelper.startingItemCount(item),
-      ),
-      {},
+      (accumulator, item) =>
+        _.set(accumulator, item, LogicHelper.startingItemCount(item)),
+      {}
     );
     newState.itemsForLocations = Locations.mapLocations(() => null);
     newState.locationsChecked = Locations.mapLocations(() => false);
@@ -25,6 +24,7 @@ class TrackerState {
 
   static createStateRaw({
     entrances,
+    fakeCharts,
     items,
     itemsForLocations,
     locationsChecked,
@@ -32,6 +32,7 @@ class TrackerState {
     const newState = new TrackerState();
 
     newState.entrances = entrances;
+    newState.fakeCharts = fakeCharts;
     newState.items = items;
     newState.itemsForLocations = itemsForLocations;
     newState.locationsChecked = locationsChecked;
@@ -42,6 +43,7 @@ class TrackerState {
   readState() {
     return {
       entrances: this.entrances,
+      fakeCharts: this.fakeCharts,
       items: this.items,
       itemsForLocations: this.itemsForLocations,
       locationsChecked: this.locationsChecked,
@@ -83,7 +85,10 @@ class TrackerState {
   }
 
   getExitForEntrance(dungeonOrCaveName) {
-    return _.findKey(this.entrances, (entranceName) => entranceName === dungeonOrCaveName);
+    return _.findKey(
+      this.entrances,
+      (entranceName) => entranceName === dungeonOrCaveName
+    );
   }
 
   setEntranceForExit(exitName, entranceName) {
@@ -110,7 +115,11 @@ class TrackerState {
     const newState = this._clone({ locationsChecked: true });
 
     const isChecked = this.isLocationChecked(generalLocation, detailedLocation);
-    _.set(newState.locationsChecked, [generalLocation, detailedLocation], !isChecked);
+    _.set(
+      newState.locationsChecked,
+      [generalLocation, detailedLocation],
+      !isChecked
+    );
 
     return newState;
   }
@@ -122,34 +131,86 @@ class TrackerState {
   getLocationsForItem(itemName) {
     const locationsForItem = [];
 
-    _.forEach(this.itemsForLocations, (generalLocationData, generalLocation) => {
-      _.forEach(generalLocationData, (itemAtLocation, detailedLocation) => {
-        if (itemAtLocation === itemName) {
-          locationsForItem.push({
-            generalLocation,
-            detailedLocation,
-          });
-        }
-      });
-    });
+    _.forEach(
+      this.itemsForLocations,
+      (generalLocationData, generalLocation) => {
+        _.forEach(generalLocationData, (itemAtLocation, detailedLocation) => {
+          if (itemAtLocation === itemName) {
+            locationsForItem.push({
+              generalLocation,
+              detailedLocation,
+            });
+          }
+        });
+      }
+    );
 
     return locationsForItem;
   }
 
   setItemForLocation(itemName, generalLocation, detailedLocation) {
     const newState = this._clone({ itemsForLocations: true });
-    _.set(newState.itemsForLocations, [generalLocation, detailedLocation], itemName);
+    _.set(
+      newState.itemsForLocations,
+      [generalLocation, detailedLocation],
+      itemName
+    );
+    return newState;
+  }
+
+  getFakeChartInfo(fakeChartName) {
+    return _.get(this.fakeCharts, [fakeChartName], {});
+  }
+
+  getFakeChartForChart(chartName) {
+    return _.findKey(this.fakeCharts, { item: chartName });
+  }
+
+  incrementFakeChart(fakeChartName) {
+    const newState = this._clone({ fakeCharts: true });
+    const { value } = this.getFakeChartInfo(fakeChartName);
+
+    let newItemCount = 1 + (!_.isNil(value) ? value : 0);
+    if (newItemCount > 1) {
+      newItemCount = 0;
+    }
+
+    _.set(newState.fakeCharts, [fakeChartName, "value"], newItemCount);
+
+    return newState;
+  }
+
+  setChartMapping(chartName, realChart) {
+    const newState = this._clone({ fakeCharts: true });
+
+    _.set(newState.fakeCharts, [chartName, "item"], realChart);
+
+    return newState;
+  }
+
+  unsetChartMapping(chartName) {
+    const newState = this._clone({ fakeCharts: true });
+
+    const fakeChart = this.getFakeChartForChart(chartName);
+
+    _.set(newState.fakeCharts, [fakeChart, "item"], null);
+
     return newState;
   }
 
   unsetItemForLocation(generalLocation, detailedLocation) {
     const newState = this._clone({ itemsForLocations: true });
-    _.set(newState.itemsForLocations, [generalLocation, detailedLocation], null);
+    _.set(
+      newState.itemsForLocations,
+      [generalLocation, detailedLocation],
+      null
+    );
     return newState;
   }
 
   _clone({
     entrances: cloneEntrances,
+    fakeCharts: clonefakeCharts,
     items: cloneItems,
     locationsChecked: cloneLocationsChecked,
     itemsForLocations: cloneItemsForLocations,
@@ -159,9 +220,10 @@ class TrackerState {
     newState.entrances = cloneEntrances
       ? _.clone(this.entrances)
       : this.entrances;
-    newState.items = cloneItems
-      ? _.clone(this.items)
-      : this.items;
+    newState.fakeCharts = clonefakeCharts
+      ? _.clone(this.fakeCharts)
+      : this.fakeCharts;
+    newState.items = cloneItems ? _.clone(this.items) : this.items;
     newState.locationsChecked = cloneLocationsChecked
       ? _.cloneDeep(this.locationsChecked)
       : this.locationsChecked;

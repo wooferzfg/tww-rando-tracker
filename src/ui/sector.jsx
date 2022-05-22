@@ -83,6 +83,59 @@ class Sector extends React.PureComponent {
     );
   }
 
+  fakeChart() {
+    const {
+      clearSelectedChart,
+      clearSelectedLocation,
+      island,
+      setSelectedChart,
+      spheres,
+      trackerState,
+      trackSpheres,
+      updateOpenedChart,
+      unsetChartMapping,
+    } = this.props;
+
+    const {
+      chartName,
+      chartType,
+    } = LogicHelper.chartForIsland(island);
+
+    const chartCount = trackerState.getItemValue(chartName);
+
+    const chartImages = _.get(Images.IMAGES, ['CHARTS', chartType]);
+
+    let locations = [];
+    if (trackSpheres) {
+      locations = trackerState.getLocationsForItem(chartName);
+    }
+    const updateOpenedChartFunc = () => {
+      if (chartCount > 0) {
+        unsetChartMapping(chartName);
+      } else {
+        clearSelectedChart();
+        clearSelectedLocation();
+
+        updateOpenedChart(chartName);
+      }
+    };
+
+    return (
+      <div className="treasure-chart">
+        <Item
+          clearSelectedItem={clearSelectedChart}
+          images={chartImages}
+          incrementItem={updateOpenedChartFunc}
+          itemCount={chartCount}
+          itemName={chartName}
+          locations={locations}
+          setSelectedItem={setSelectedChart}
+          spheres={spheres}
+        />
+      </div>
+    );
+  }
+
   entrances() {
     if (!LogicHelper.isRandomCaveEntrances()) {
       return [];
@@ -189,7 +242,7 @@ class Sector extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        {this.chartItem()}
+        {LogicHelper.isRandomizedCharts() ? this.fakeChart() : this.chartItem()}
         {this.entryItems()}
         {this.chestsCounter()}
       </div>
@@ -198,6 +251,7 @@ class Sector extends React.PureComponent {
 }
 
 Sector.propTypes = {
+  clearSelectedChart: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
@@ -206,13 +260,16 @@ Sector.propTypes = {
   island: PropTypes.string.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  setSelectedChart: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  unsetChartMapping: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
+  updateOpenedChart: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
 };

@@ -44,6 +44,7 @@ class MapInfo extends React.PureComponent {
 
   mapItemInfo() {
     const {
+      selectedChart,
       selectedExit,
       selectedItem,
       trackerState,
@@ -60,6 +61,17 @@ class MapInfo extends React.PureComponent {
         itemInfoText = `${shortEntranceName} → ${shortExitName}`;
       } else {
         itemInfoText = LogicHelper.entryName(selectedExit);
+      }
+    }
+
+    if (!_.isNil(selectedChart)) {
+      const fakeChart = trackerState.getFakeChartForChart(selectedChart);
+      const prettyChartName = LogicHelper.prettyNameForItem(selectedChart);
+      if (fakeChart) {
+        const resolvedFakeChartName = fakeChart.replace('Fake ', '');
+        itemInfoText = `${resolvedFakeChartName} → ${prettyChartName}`;
+      } else {
+        itemInfoText = prettyChartName;
       }
     }
 
@@ -90,6 +102,7 @@ class MapInfo extends React.PureComponent {
 }
 
 MapInfo.defaultProps = {
+  selectedChart: null,
   selectedExit: null,
   selectedItem: null,
   selectedLocation: null,
@@ -100,6 +113,7 @@ MapInfo.propTypes = {
   disableLogic: PropTypes.bool.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  selectedChart: PropTypes.string,
   selectedExit: PropTypes.string,
   selectedItem: PropTypes.string,
   selectedLocation: PropTypes.string,

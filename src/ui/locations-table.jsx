@@ -6,6 +6,8 @@ import LogicCalculation from '../services/logic-calculation';
 import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
+import ChartList from './chart-list';
+import ChartListSelect from './chart-list-select';
 import DetailedLocationsTable from './detailed-locations-table';
 import EntranceSelection from './entrance-selection';
 import EntrancesList from './entrances-list';
@@ -18,17 +20,24 @@ class LocationsTable extends React.PureComponent {
     super(props);
 
     this.state = {
+      selectedChart: null,
       selectedExit: null,
       selectedItem: null,
       selectedLocation: null,
       selectedLocationIsDungeon: null,
     };
 
+    this.setSelectedChart = this.setSelectedChart.bind(this);
     this.setSelectedExit = this.setSelectedExit.bind(this);
     this.setSelectedItem = this.setSelectedItem.bind(this);
-    this.clearSelectedItem = this.clearSelectedItem.bind(this);
     this.setSelectedLocation = this.setSelectedLocation.bind(this);
+    this.clearSelectedChart = this.clearSelectedChart.bind(this);
+    this.clearSelectedItem = this.clearSelectedItem.bind(this);
     this.clearSelectedLocation = this.clearSelectedLocation.bind(this);
+  }
+
+  setSelectedChart(chartName) {
+    this.setState({ selectedChart: chartName });
   }
 
   setSelectedExit(exitName) {
@@ -46,6 +55,12 @@ class LocationsTable extends React.PureComponent {
     });
   }
 
+  clearSelectedChart() {
+    this.setState({
+      selectedChart: null,
+    });
+  }
+
   clearSelectedItem() {
     this.setState({
       selectedExit: null,
@@ -59,14 +74,19 @@ class LocationsTable extends React.PureComponent {
 
   chartContainer() {
     const {
+      chartListOpen,
+      chartListSelect,
       clearOpenedMenus,
       clearRaceModeBannedLocations,
+      decrementFakeTreasureChart,
       decrementItem,
       disableLogic,
       entrancesListOpen,
+      incrementFakeTreasureChart,
       incrementItem,
       logic,
       onlyProgressLocations,
+      openedChart,
       openedExit,
       openedLocation,
       openedLocationIsDungeon,
@@ -74,13 +94,17 @@ class LocationsTable extends React.PureComponent {
       toggleLocationChecked,
       trackerState,
       trackSpheres,
+      unsetChartMapping,
       unsetExit,
+      updateChartMapping,
       updateEntranceForExit,
+      updateOpenedChart,
       updateOpenedExit,
       updateOpenedLocation,
     } = this.props;
 
     const {
+      selectedChart,
       selectedExit,
       selectedItem,
       selectedLocation,
@@ -88,7 +112,31 @@ class LocationsTable extends React.PureComponent {
     } = this.state;
 
     let chartElement;
-    if (entrancesListOpen) {
+    if (openedChart || chartListSelect) {
+      chartElement = (
+        <ChartListSelect
+          clearOpenedMenus={clearOpenedMenus}
+          decrementFakeTreasureChart={decrementFakeTreasureChart}
+          decrementItem={decrementItem}
+          incrementFakeTreasureChart={incrementFakeTreasureChart}
+          incrementItem={incrementItem}
+          openedChart={openedChart}
+          spheres={spheres}
+          trackerState={trackerState}
+          trackSpheres={trackSpheres}
+          updateChartMapping={updateChartMapping}
+        />
+      );
+    } else if (chartListOpen) {
+      chartElement = (
+        <ChartList
+          clearOpenedMenus={clearOpenedMenus}
+          spheres={spheres}
+          trackerState={trackerState}
+          trackSpheres={trackSpheres}
+        />
+      );
+    } else if (entrancesListOpen) {
       chartElement = (
         <EntrancesList
           clearOpenedMenus={clearOpenedMenus}
@@ -127,20 +175,26 @@ class LocationsTable extends React.PureComponent {
     } else {
       chartElement = (
         <SeaChart
+          clearSelectedChart={this.clearSelectedChart}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
+          decrementFakeTreasureChart={decrementFakeTreasureChart}
           decrementItem={decrementItem}
           disableLogic={disableLogic}
+          incrementFakeTreasureChart={incrementFakeTreasureChart}
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
+          setSelectedChart={this.setSelectedChart}
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
           spheres={spheres}
           trackerState={trackerState}
           trackSpheres={trackSpheres}
+          unsetChartMapping={unsetChartMapping}
           unsetExit={unsetExit}
+          updateOpenedChart={updateOpenedChart}
           updateOpenedExit={updateOpenedExit}
           updateOpenedLocation={updateOpenedLocation}
         />
@@ -154,6 +208,7 @@ class LocationsTable extends React.PureComponent {
           disableLogic={disableLogic}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
+          selectedChart={selectedChart}
           selectedExit={selectedExit}
           selectedItem={selectedItem}
           selectedLocation={selectedLocation}
@@ -209,6 +264,7 @@ class LocationsTable extends React.PureComponent {
 
 LocationsTable.defaultProps = {
   backgroundColor: null,
+  openedChart: null,
   openedExit: null,
   openedLocation: null,
   openedLocationIsDungeon: null,
@@ -216,14 +272,19 @@ LocationsTable.defaultProps = {
 
 LocationsTable.propTypes = {
   backgroundColor: PropTypes.string,
+  chartListOpen: PropTypes.bool.isRequired,
+  chartListSelect: PropTypes.bool.isRequired,
   clearOpenedMenus: PropTypes.func.isRequired,
   clearRaceModeBannedLocations: PropTypes.func.isRequired,
+  decrementFakeTreasureChart: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   entrancesListOpen: PropTypes.bool.isRequired,
+  incrementFakeTreasureChart: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  openedChart: PropTypes.string,
   openedExit: PropTypes.string,
   openedLocation: PropTypes.string,
   openedLocationIsDungeon: PropTypes.bool,
@@ -232,6 +293,9 @@ LocationsTable.propTypes = {
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetExit: PropTypes.func.isRequired,
+  unsetChartMapping: PropTypes.func.isRequired,
+  updateChartMapping: PropTypes.func.isRequired,
+  updateOpenedChart: PropTypes.func.isRequired,
   updateEntranceForExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,

@@ -8,6 +8,7 @@ import TrackerState from '../services/tracker-state';
 
 import Images from './images';
 import Item from './item';
+import KeyDownWrapper from './key-down-wrapper';
 import SongNotes from './song-notes';
 import Table from './table';
 
@@ -97,6 +98,36 @@ class ItemsTable extends React.PureComponent {
     );
   }
 
+  chart() {
+    const { toggleChartSelection } = this.props;
+
+    const itemImage = _.get(Images.IMAGES, ['CHARTS', 'Treasure_Chart']);
+
+    const setSelectedItemFunc = () => {
+      this.setState({ selectedItem: 'Charts' });
+    };
+
+    return (
+      <div
+        className="item-container"
+        onClick={toggleChartSelection}
+        onBlur={this.clearSelectedItem}
+        onFocus={setSelectedItemFunc}
+        onKeyDown={KeyDownWrapper.onSpaceKey(toggleChartSelection)}
+        onMouseOver={setSelectedItemFunc}
+        onMouseOut={this.clearSelectedItem}
+        role="button"
+        tabIndex="0"
+      >
+        <img
+          alt="Charts"
+          src={itemImage}
+          draggable={false}
+        />
+      </div>
+    );
+  }
+
   render() {
     const { backgroundColor } = this.props;
 
@@ -180,7 +211,6 @@ class ItemsTable extends React.PureComponent {
             <div className="misc-items">
               <Table
                 elements={[
-                  null,
                   this.item(LogicHelper.ITEMS.TINGLE_STATUE),
                   this.item(LogicHelper.ITEMS.GHOST_SHIP_CHART),
                   this.item(LogicHelper.ITEMS.HURRICANE_SPIN),
@@ -188,6 +218,7 @@ class ItemsTable extends React.PureComponent {
                   this.item(LogicHelper.ITEMS.PROGRESSIVE_QUIVER),
                   this.item(LogicHelper.ITEMS.PROGRESSIVE_WALLET),
                   this.item(LogicHelper.ITEMS.MAGIC_METER_UPGRADE),
+                  this.chart(),
                 ]}
                 numColumns={4}
               />
@@ -208,6 +239,7 @@ ItemsTable.propTypes = {
   backgroundColor: PropTypes.string,
   decrementItem: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
+  toggleChartSelection: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,

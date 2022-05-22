@@ -13,42 +13,54 @@ import Sector from './sector';
 class SeaChart extends React.PureComponent {
   sector(island) {
     const {
+      clearSelectedChart,
       clearSelectedItem,
       clearSelectedLocation,
       decrementItem,
+      decrementFakeTreasureChart,
       disableLogic,
+      incrementFakeTreasureChart,
       incrementItem,
       logic,
       onlyProgressLocations,
+      setSelectedChart,
       setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
       spheres,
       trackerState,
       trackSpheres,
+      unsetChartMapping,
       unsetExit,
+      updateOpenedChart,
       updateOpenedExit,
       updateOpenedLocation,
     } = this.props;
 
     return (
       <Sector
+        clearSelectedChart={clearSelectedChart}
         clearSelectedItem={clearSelectedItem}
         clearSelectedLocation={clearSelectedLocation}
+        decrementFakeTreasureChart={decrementFakeTreasureChart}
         decrementItem={decrementItem}
         disableLogic={disableLogic}
         key={island}
+        incrementFakeTreasureChart={incrementFakeTreasureChart}
         incrementItem={incrementItem}
         island={island}
         logic={logic}
         onlyProgressLocations={onlyProgressLocations}
+        setSelectedChart={setSelectedChart}
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
         spheres={spheres}
         trackerState={trackerState}
         trackSpheres={trackSpheres}
+        unsetChartMapping={unsetChartMapping}
         unsetExit={unsetExit}
+        updateOpenedChart={updateOpenedChart}
         updateOpenedExit={updateOpenedExit}
         updateOpenedLocation={updateOpenedLocation}
       />
@@ -72,20 +84,26 @@ class SeaChart extends React.PureComponent {
 }
 
 SeaChart.propTypes = {
+  clearSelectedChart: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
+  decrementFakeTreasureChart: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
+  incrementFakeTreasureChart: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  setSelectedChart: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  unsetChartMapping: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
+  updateOpenedChart: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
 };
