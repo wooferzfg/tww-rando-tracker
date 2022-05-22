@@ -167,7 +167,12 @@ class LogicHelper {
 
   static cavesForIsland(islandName) {
     return _.compact(
-      _.map(CAVE_ENTRANCES, (caveEntrance, caveIndex) => (_.startsWith(caveEntrance, islandName) ? _.get(CAVES, caveIndex) : null)),
+      _.map(
+        CAVE_ENTRANCES,
+        (caveEntrance, caveIndex) => (
+          _.startsWith(caveEntrance, islandName) ? _.get(CAVES, caveIndex) : null
+        ),
+      ),
     );
   }
 
@@ -176,10 +181,8 @@ class LogicHelper {
       [
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS
-          .DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS
-          .DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
       ],
       this._randomizeEntrancesOption(),
     );
@@ -189,10 +192,8 @@ class LogicHelper {
     return _.includes(
       [
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS
-          .DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS
-          .DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
       ],
       this._randomizeEntrancesOption(),
     );
@@ -202,10 +203,8 @@ class LogicHelper {
     return _.includes(
       [
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS
-          .DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS
-          .DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
       ],
       this._randomizeEntrancesOption(),
     );
@@ -226,7 +225,9 @@ class LogicHelper {
       return this.allRandomEntrances();
     }
 
-    return this.isDungeon(dungeonOrCaveName) ? this.mainDungeons() : CAVES;
+    return this.isDungeon(dungeonOrCaveName)
+      ? this.mainDungeons()
+      : CAVES;
   }
 
   static parseChartNumber(chartName) {
@@ -259,17 +260,17 @@ class LogicHelper {
     }
 
     const locationTypesList = _.split(locationTypes, ', ');
-    return _.every(locationTypesList, (flag) => Settings.isFlagActive(flag));
+    return _.every(
+      locationTypesList,
+      (flag) => Settings.isFlagActive(flag),
+    );
   }
 
   static isRandomizedCharts() {
     return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS);
   }
 
-  static filterDetailedLocations(
-    generalLocation,
-    { isDungeon, onlyProgressLocations },
-  ) {
+  static filterDetailedLocations(generalLocation, { isDungeon, onlyProgressLocations }) {
     const detailedLocations = Locations.detailedLocationsForGeneralLocation(generalLocation);
 
     return _.filter(detailedLocations, (detailedLocation) => {
@@ -289,11 +290,7 @@ class LogicHelper {
   }
 
   static isPotentialKeyLocation(generalLocation, detailedLocation) {
-    if (
-      !this._isValidLocation(generalLocation, detailedLocation, {
-        isDungeon: true,
-      })
-    ) {
+    if (!this._isValidLocation(generalLocation, detailedLocation, { isDungeon: true })) {
       return false;
     }
 
@@ -332,15 +329,18 @@ class LogicHelper {
 
     const detailedLocations = Locations.detailedLocationsForGeneralLocation(dungeonName);
 
-    return _.find(detailedLocations, (detailedLocation) => {
-      const originalItem = Locations.getLocation(
-        dungeonName,
-        detailedLocation,
-        Locations.KEYS.ORIGINAL_ITEM,
-      );
+    return _.find(
+      detailedLocations,
+      (detailedLocation) => {
+        const originalItem = Locations.getLocation(
+          dungeonName,
+          detailedLocation,
+          Locations.KEYS.ORIGINAL_ITEM,
+        );
 
-      return originalItem === 'Heart Container';
-    });
+        return originalItem === 'Heart Container';
+      },
+    );
   }
 
   static smallKeyName(dungeonName) {
@@ -371,11 +371,7 @@ class LogicHelper {
   static smallKeysRequiredForLocation(generalLocation, detailedLocation) {
     const maxSmallKeys = this.maxSmallKeysForDungeon(generalLocation);
 
-    for (
-      let numSmallKeys = 0;
-      numSmallKeys <= maxSmallKeys;
-      numSmallKeys += 1
-    ) {
+    for (let numSmallKeys = 0; numSmallKeys <= maxSmallKeys; numSmallKeys += 1) {
       if (
         this.isLocationAvailableWithSmallKeys(
           generalLocation,
@@ -391,15 +387,16 @@ class LogicHelper {
     }
 
     // istanbul ignore next
-    throw Error(
-      `Could not determine keys required for location: ${generalLocation} - ${detailedLocation}`,
-    );
+    throw Error(`Could not determine keys required for location: ${generalLocation} - ${detailedLocation}`);
   }
 
   static isLocationAvailableWithSmallKeys(
     generalLocation,
     detailedLocation,
-    { numSmallKeys, nonKeyRequirementMet },
+    {
+      numSmallKeys,
+      nonKeyRequirementMet,
+    },
   ) {
     const requirementsForLocation = this.requirementsForLocation(
       generalLocation,
@@ -413,7 +410,10 @@ class LogicHelper {
         const itemCountRequirement = this.parseItemCountRequirement(requirement);
 
         if (!_.isNil(itemCountRequirement)) {
-          const { countRequired, itemName } = itemCountRequirement;
+          const {
+            countRequired,
+            itemName,
+          } = itemCountRequirement;
 
           if (itemName === smallKeyName) {
             return numSmallKeys >= countRequired;
@@ -426,10 +426,7 @@ class LogicHelper {
   }
 
   static requirementsForLocation(generalLocation, detailedLocation) {
-    const rawRequirements = this._rawRequirementsForLocation(
-      generalLocation,
-      detailedLocation,
-    );
+    const rawRequirements = this._rawRequirementsForLocation(generalLocation, detailedLocation);
     return this._simplifiedItemRequirements(rawRequirements);
   }
 
@@ -443,11 +440,12 @@ class LogicHelper {
     const itemCountRequirement = this.parseItemCountRequirement(itemRequirement);
 
     if (!_.isNil(itemCountRequirement)) {
-      const { itemName, countRequired } = itemCountRequirement;
+      const {
+        itemName,
+        countRequired,
+      } = itemCountRequirement;
 
-      return (
-        this._prettyNameOverride(itemName, countRequired) || itemRequirement
-      );
+      return this._prettyNameOverride(itemName, countRequired) || itemRequirement;
     }
 
     return this._prettyNameOverride(itemRequirement) || itemRequirement;
@@ -484,10 +482,7 @@ class LogicHelper {
     const chartName = _.get(CHARTS, islandIndex);
 
     let chartType;
-    if (
-      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)
-      || _.includes(chartName, 'Treasure')
-    ) {
+    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) || _.includes(chartName, 'Treasure')) {
       chartType = this.CHART_TYPES.TREASURE;
     } else {
       chartType = this.CHART_TYPES.TRIFORCE;
@@ -509,11 +504,7 @@ class LogicHelper {
       detailedLocation,
     }));
 
-    const additionalLocations = _.get(
-      RACE_MODE_BANNED_LOCATIONS,
-      dungeonName,
-      [],
-    );
+    const additionalLocations = _.get(RACE_MODE_BANNED_LOCATIONS, dungeonName, []);
 
     return _.concat(dungeonLocations, additionalLocations);
   }
@@ -572,7 +563,10 @@ class LogicHelper {
 
   static _simplifiedItemRequirements(requirements) {
     return requirements.simplify({
-      implies: (firstRequirement, secondRequirement) => this._requirementImplies(firstRequirement, secondRequirement),
+      implies: (
+        firstRequirement,
+        secondRequirement,
+      ) => this._requirementImplies(firstRequirement, secondRequirement),
     });
   }
 
@@ -592,18 +586,9 @@ class LogicHelper {
     const firstItemCountRequirement = LogicHelper.parseItemCountRequirement(firstRequirement);
     const secondItemCountRequirement = LogicHelper.parseItemCountRequirement(secondRequirement);
 
-    if (
-      !_.isNil(firstItemCountRequirement)
-      && !_.isNil(secondItemCountRequirement)
-    ) {
-      if (
-        firstItemCountRequirement.itemName
-        === secondItemCountRequirement.itemName
-      ) {
-        return (
-          firstItemCountRequirement.countRequired
-          > secondItemCountRequirement.countRequired
-        );
+    if (!_.isNil(firstItemCountRequirement) && !_.isNil(secondItemCountRequirement)) {
+      if (firstItemCountRequirement.itemName === secondItemCountRequirement.itemName) {
+        return firstItemCountRequirement.countRequired > secondItemCountRequirement.countRequired;
       }
     }
 
@@ -638,7 +623,9 @@ class LogicHelper {
   }
 
   static _splitExpression(expression) {
-    return _.compact(_.map(expression.split(/\s*([(&|)])\s*/g), _.trim));
+    return _.compact(
+      _.map(expression.split(/\s*([(&|)])\s*/g), _.trim),
+    );
   }
 
   static _checkOptionEnabledRequirement(requirement) {
@@ -678,10 +665,7 @@ class LogicHelper {
         const optionValue = Settings.getOptionValue(optionName);
         const expectedValue = requirementMatch[2];
 
-        optionEnabledRequirementValue = matcher.value(
-          optionValue,
-          expectedValue,
-        );
+        optionEnabledRequirementValue = matcher.value(optionValue, expectedValue);
 
         return false; // break loop
       }
@@ -692,18 +676,14 @@ class LogicHelper {
   }
 
   static _checkOtherLocationRequirement(requirement) {
-    const otherLocationMatch = requirement.match(
-      /Can Access Other Location "([^"]+)"/,
-    );
+    const otherLocationMatch = requirement.match(/Can Access Other Location "([^"]+)"/);
     if (otherLocationMatch) {
-      const { generalLocation, detailedLocation } = Locations.splitLocationName(
-        otherLocationMatch[1],
-      );
-
-      return this._rawRequirementsForLocation(
+      const {
         generalLocation,
         detailedLocation,
-      );
+      } = Locations.splitLocationName(otherLocationMatch[1]);
+
+      return this._rawRequirementsForLocation(generalLocation, detailedLocation);
     }
 
     return null;
@@ -742,9 +722,7 @@ class LogicHelper {
 
     const optionEnabledRequirementValue = this._checkOptionEnabledRequirement(requirement);
     if (!_.isNil(optionEnabledRequirementValue)) {
-      return optionEnabledRequirementValue
-        ? this.TOKENS.NOTHING
-        : this.TOKENS.IMPOSSIBLE;
+      return optionEnabledRequirementValue ? this.TOKENS.NOTHING : this.TOKENS.IMPOSSIBLE;
     }
 
     const otherLocationRequirementValue = this._checkOtherLocationRequirement(requirement);
@@ -754,9 +732,7 @@ class LogicHelper {
 
     const predeterminedItemRequirementValue = this._checkPredeterminedItemRequirement(requirement);
     if (!_.isNil(predeterminedItemRequirementValue)) {
-      return predeterminedItemRequirementValue
-        ? this.TOKENS.NOTHING
-        : this.TOKENS.IMPOSSIBLE;
+      return predeterminedItemRequirementValue ? this.TOKENS.NOTHING : this.TOKENS.IMPOSSIBLE;
     }
 
     return requirement;

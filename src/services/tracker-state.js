@@ -12,9 +12,12 @@ class TrackerState {
     newState.fakeCharts = {};
     newState.items = _.reduce(
       LogicHelper.ALL_ITEMS,
-      (accumulator, item) =>
-        _.set(accumulator, item, LogicHelper.startingItemCount(item)),
-      {}
+      (accumulator, item) => _.set(
+        accumulator,
+        item,
+        LogicHelper.startingItemCount(item),
+      ),
+      {},
     );
     newState.itemsForLocations = Locations.mapLocations(() => null);
     newState.locationsChecked = Locations.mapLocations(() => false);
@@ -85,10 +88,7 @@ class TrackerState {
   }
 
   getExitForEntrance(dungeonOrCaveName) {
-    return _.findKey(
-      this.entrances,
-      (entranceName) => entranceName === dungeonOrCaveName
-    );
+    return _.findKey(this.entrances, (entranceName) => entranceName === dungeonOrCaveName);
   }
 
   setEntranceForExit(exitName, entranceName) {
@@ -118,7 +118,7 @@ class TrackerState {
     _.set(
       newState.locationsChecked,
       [generalLocation, detailedLocation],
-      !isChecked
+      !isChecked,
     );
 
     return newState;
@@ -131,30 +131,23 @@ class TrackerState {
   getLocationsForItem(itemName) {
     const locationsForItem = [];
 
-    _.forEach(
-      this.itemsForLocations,
-      (generalLocationData, generalLocation) => {
-        _.forEach(generalLocationData, (itemAtLocation, detailedLocation) => {
-          if (itemAtLocation === itemName) {
-            locationsForItem.push({
-              generalLocation,
-              detailedLocation,
-            });
-          }
-        });
-      }
-    );
+    _.forEach(this.itemsForLocations, (generalLocationData, generalLocation) => {
+      _.forEach(generalLocationData, (itemAtLocation, detailedLocation) => {
+        if (itemAtLocation === itemName) {
+          locationsForItem.push({
+            generalLocation,
+            detailedLocation,
+          });
+        }
+      });
+    });
 
     return locationsForItem;
   }
 
   setItemForLocation(itemName, generalLocation, detailedLocation) {
     const newState = this._clone({ itemsForLocations: true });
-    _.set(
-      newState.itemsForLocations,
-      [generalLocation, detailedLocation],
-      itemName
-    );
+    _.set(newState.itemsForLocations, [generalLocation, detailedLocation], itemName);
     return newState;
   }
 
@@ -175,7 +168,7 @@ class TrackerState {
       newItemCount = 0;
     }
 
-    _.set(newState.fakeCharts, [fakeChartName, "value"], newItemCount);
+    _.set(newState.fakeCharts, [fakeChartName, 'value'], newItemCount);
 
     return newState;
   }
@@ -183,7 +176,7 @@ class TrackerState {
   setChartMapping(chartName, realChart) {
     const newState = this._clone({ fakeCharts: true });
 
-    _.set(newState.fakeCharts, [chartName, "item"], realChart);
+    _.set(newState.fakeCharts, [chartName, 'item'], realChart);
 
     return newState;
   }
@@ -193,18 +186,14 @@ class TrackerState {
 
     const fakeChart = this.getFakeChartForChart(chartName);
 
-    _.set(newState.fakeCharts, [fakeChart, "item"], null);
+    _.set(newState.fakeCharts, [fakeChart, 'item'], null);
 
     return newState;
   }
 
   unsetItemForLocation(generalLocation, detailedLocation) {
     const newState = this._clone({ itemsForLocations: true });
-    _.set(
-      newState.itemsForLocations,
-      [generalLocation, detailedLocation],
-      null
-    );
+    _.set(newState.itemsForLocations, [generalLocation, detailedLocation], null);
     return newState;
   }
 
