@@ -78,11 +78,9 @@ class LocationsTable extends React.PureComponent {
       chartListSelect,
       clearOpenedMenus,
       clearRaceModeBannedLocations,
-      decrementFakeTreasureChart,
       decrementItem,
       disableLogic,
       entrancesListOpen,
-      incrementFakeTreasureChart,
       incrementItem,
       logic,
       onlyProgressLocations,
@@ -116,9 +114,7 @@ class LocationsTable extends React.PureComponent {
       chartElement = (
         <ChartListSelect
           clearOpenedMenus={clearOpenedMenus}
-          decrementFakeTreasureChart={decrementFakeTreasureChart}
           decrementItem={decrementItem}
-          incrementFakeTreasureChart={incrementFakeTreasureChart}
           incrementItem={incrementItem}
           openedChart={openedChart}
           spheres={spheres}
@@ -178,10 +174,8 @@ class LocationsTable extends React.PureComponent {
           clearSelectedChart={this.clearSelectedChart}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
-          decrementFakeTreasureChart={decrementFakeTreasureChart}
           decrementItem={decrementItem}
           disableLogic={disableLogic}
-          incrementFakeTreasureChart={incrementFakeTreasureChart}
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
@@ -276,11 +270,9 @@ LocationsTable.propTypes = {
   chartListSelect: PropTypes.bool.isRequired,
   clearOpenedMenus: PropTypes.func.isRequired,
   clearRaceModeBannedLocations: PropTypes.func.isRequired,
-  decrementFakeTreasureChart: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   entrancesListOpen: PropTypes.bool.isRequired,
-  incrementFakeTreasureChart: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,

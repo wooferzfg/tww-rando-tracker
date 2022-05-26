@@ -83,7 +83,7 @@ class Sector extends React.PureComponent {
     );
   }
 
-  fakeChart() {
+  chartIsland() {
     const {
       clearSelectedChart,
       clearSelectedLocation,
@@ -96,27 +96,25 @@ class Sector extends React.PureComponent {
       unsetChartMapping,
     } = this.props;
 
-    const {
-      chartName,
-      chartType,
-    } = LogicHelper.chartForIsland(island);
+    const name = `Chart for ${island}`;
 
-    const chartCount = trackerState.getItemValue(chartName);
+    const chartCount = trackerState.getItemValue(name);
 
-    const chartImages = _.get(Images.IMAGES, ['CHARTS', chartType]);
+    const chartImages = _.get(Images.IMAGES, ['CHARTS', 'Treasure']);
 
     let locations = [];
     if (trackSpheres) {
-      locations = trackerState.getLocationsForItem(chartName);
+      locations = trackerState.getLocationsForItem(name);
     }
+
     const updateOpenedChartFunc = () => {
       if (chartCount > 0) {
-        unsetChartMapping(chartName);
+        unsetChartMapping(name);
       } else {
         clearSelectedChart();
         clearSelectedLocation();
 
-        updateOpenedChart(chartName);
+        updateOpenedChart(name);
       }
     };
 
@@ -127,7 +125,7 @@ class Sector extends React.PureComponent {
           images={chartImages}
           incrementItem={updateOpenedChartFunc}
           itemCount={chartCount}
-          itemName={chartName}
+          itemName={name}
           locations={locations}
           setSelectedItem={setSelectedChart}
           spheres={spheres}
@@ -242,7 +240,7 @@ class Sector extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        {LogicHelper.isRandomizedCharts() ? this.fakeChart() : this.chartItem()}
+        {LogicHelper.isRandomizedCharts() ? this.chartIsland() : this.chartItem()}
         {this.entryItems()}
         {this.chestsCounter()}
       </div>

@@ -8,7 +8,7 @@ class TrackerState {
     const newState = new TrackerState();
 
     newState.entrances = {};
-    newState.fakeCharts = {};
+    newState.islandsForCharts = {};
     newState.items = _.reduce(
       LogicHelper.ALL_ITEMS,
       (accumulator, item) => _.set(
@@ -26,7 +26,7 @@ class TrackerState {
 
   static createStateRaw({
     entrances,
-    fakeCharts,
+    islandsForCharts,
     items,
     itemsForLocations,
     locationsChecked,
@@ -34,7 +34,7 @@ class TrackerState {
     const newState = new TrackerState();
 
     newState.entrances = entrances;
-    newState.fakeCharts = fakeCharts;
+    newState.islandsForCharts = islandsForCharts;
     newState.items = items;
     newState.itemsForLocations = itemsForLocations;
     newState.locationsChecked = locationsChecked;
@@ -45,7 +45,7 @@ class TrackerState {
   readState() {
     return {
       entrances: this.entrances,
-      fakeCharts: this.fakeCharts,
+      islandsForCharts: this.islandsForCharts,
       items: this.items,
       itemsForLocations: this.itemsForLocations,
       locationsChecked: this.locationsChecked,
@@ -146,42 +146,30 @@ class TrackerState {
     return newState;
   }
 
-  getFakeChartInfo(fakeChartName) {
-    return _.get(this.fakeCharts, [fakeChartName], {});
+  getChartForIsland(island) {
+    return _.findKey(this.islandsForCharts, (chartName) => island === chartName);
   }
 
-  getFakeChartForChart(chartName) {
-    return _.findKey(this.fakeCharts, { item: chartName });
+  getIslandsForChart(chartName) {
+    return _.get(this.islandsForCharts, chartName);
   }
 
-  incrementFakeChart(fakeChartName) {
-    const newState = this._clone({ fakeCharts: true });
-    const { value } = this.getFakeChartInfo(fakeChartName);
+  setChartMapping(chartName, chartForIsland) {
+    const newState = this._clone({ islandsForCharts: true });
+    const island = chartForIsland.replace('Chart for ', '');
 
-    let newItemCount = 1 + (!_.isNil(value) ? value : 0);
-    if (newItemCount > 1) {
-      newItemCount = 0;
-    }
-
-    _.set(newState.fakeCharts, [fakeChartName, 'value'], newItemCount);
+    _.set(newState.islandsForCharts, chartName, island);
 
     return newState;
   }
 
-  setChartMapping(chartName, realChart) {
-    const newState = this._clone({ fakeCharts: true });
+  unsetChartMapping(chartForIsland) {
+    const newState = this._clone({ islandsForCharts: true });
+    const island = chartForIsland.replace('Chart for ', '');
 
-    _.set(newState.fakeCharts, [chartName, 'item'], realChart);
+    const chartName = _.findKey(this.islandsForCharts, (chart) => island === chart);
 
-    return newState;
-  }
-
-  unsetChartMapping(chartName) {
-    const newState = this._clone({ fakeCharts: true });
-
-    const fakeChart = this.getFakeChartForChart(chartName);
-
-    _.set(newState.fakeCharts, [fakeChart, 'item'], null);
+    _.unset(newState.islandsForCharts, chartName);
 
     return newState;
   }
@@ -194,7 +182,7 @@ class TrackerState {
 
   _clone({
     entrances: cloneEntrances,
-    fakeCharts: clonefakeCharts,
+    islandsForCharts: cloneIslandsForCharts,
     items: cloneItems,
     locationsChecked: cloneLocationsChecked,
     itemsForLocations: cloneItemsForLocations,
@@ -204,9 +192,9 @@ class TrackerState {
     newState.entrances = cloneEntrances
       ? _.clone(this.entrances)
       : this.entrances;
-    newState.fakeCharts = clonefakeCharts
-      ? _.clone(this.fakeCharts)
-      : this.fakeCharts;
+    newState.islandsForCharts = cloneIslandsForCharts
+      ? _.clone(this.islandsForCharts)
+      : this.islandsForCharts;
     newState.items = cloneItems
       ? _.clone(this.items)
       : this.items;

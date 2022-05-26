@@ -16,7 +16,7 @@ import Tooltip from './tooltip';
 class ChartListSelect extends React.PureComponent {
   static NUM_ROWS = 20;
 
-  mapFakeChart(chartName) {
+  mapChart(chartName) {
     const {
       openedChart,
       trackerState,
@@ -26,15 +26,18 @@ class ChartListSelect extends React.PureComponent {
     if (_.isNil(chartName)) {
       return null;
     }
-    const fakeChartName = `Fake ${chartName}`;
 
-    const { value, item } = trackerState.getFakeChartInfo(fakeChartName);
-    const mappedChartValue = trackerState.getItemValue(item);
+    const itemCount = trackerState.getItemValue(chartName);
+
+    const mappedIslandForChart = trackerState.getIslandsForChart(chartName);
+    const isChartMapped = !_.isNil(mappedIslandForChart);
+
+    const notInteractiveClassName = isChartMapped ? 'detail-not-interactive' : '';
 
     let color;
-    if (mappedChartValue === 1) {
+    if (isChartMapped) {
       color = LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
-    } else if (value === 1) {
+    } else if (itemCount === 1) {
       color = LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION;
     } else {
       color = LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION;
@@ -42,13 +45,14 @@ class ChartListSelect extends React.PureComponent {
 
     const updateChartMappingFunc = (event) => {
       event.stopPropagation();
-
-      updateChartMapping(fakeChartName, openedChart);
+      if (!isChartMapped) {
+        updateChartMapping(chartName, openedChart);
+      }
     };
 
     const chartElement = (
       <div
-        className={`detail-span ${color} font-smallest`}
+        className={`detail-span ${notInteractiveClassName} ${color} font-smallest`}
         onClick={updateChartMappingFunc}
         onContextMenu={updateChartMappingFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(updateChartMappingFunc)}
@@ -60,13 +64,11 @@ class ChartListSelect extends React.PureComponent {
     );
 
     let chartContent;
-    if (mappedChartValue === 1) {
-      const island = LogicHelper.islandForChart(item);
-
+    if (isChartMapped) {
       const tooltip = (
         <div className="tooltip">
           <div className="tooltip-title">Chart Leads To</div>
-          <div>{island}</div>
+          <div>{mappedIslandForChart}</div>
         </div>
       );
 
@@ -80,77 +82,6 @@ class ChartListSelect extends React.PureComponent {
     }
 
     return <td key={chartName}>{chartContent}</td>;
-  }
-
-  fakeChart(chartName, showLocationTooltip = true) {
-    if (_.isNil(chartName)) {
-      return null;
-    }
-
-    const {
-      decrementFakeTreasureChart,
-      incrementFakeTreasureChart,
-      spheres,
-      trackSpheres,
-      trackerState,
-    } = this.props;
-
-    const fakeChartName = `Fake ${chartName}`;
-
-    const { value } = trackerState.getFakeChartInfo(fakeChartName);
-
-    let locations = [];
-    if (showLocationTooltip && trackSpheres) {
-      locations = trackerState.getLocationsForItem(fakeChartName);
-    }
-
-    let color;
-    if (value === 1) {
-      color = LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
-    } else {
-      color = LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION;
-    }
-
-    const incrementFakeChartFunc = (event) => {
-      event.stopPropagation();
-
-      incrementFakeTreasureChart(fakeChartName);
-    };
-
-    const decrementFakeChartFunc = (event) => {
-      event.stopPropagation();
-
-      decrementFakeTreasureChart(fakeChartName);
-    };
-
-    const chartElement = (
-      <div
-        className={`detail-span ${color} font-smallest`}
-        onClick={incrementFakeChartFunc}
-        onContextMenu={decrementFakeChartFunc}
-        onKeyDown={KeyDownWrapper.onSpaceKey(incrementFakeChartFunc)}
-        role="button"
-        tabIndex="0"
-      >
-        {chartName}
-      </div>
-    );
-
-    const outerChartElement = !_.isEmpty(locations) ? (
-      <td key={chartName}>
-        <Tooltip
-          tooltipContent={
-            <FoundAtTooltip locations={locations} spheres={spheres} />
-          }
-        >
-          {chartElement}
-        </Tooltip>
-      </td>
-    ) : (
-      <td key={chartName}>{chartElement}</td>
-    );
-
-    return outerChartElement;
   }
 
   chart(chartName, showLocationTooltip = true) {
@@ -227,12 +158,7 @@ class ChartListSelect extends React.PureComponent {
     const chartChunks = _.chunk([...treasureCharts, ...triforceCharts], ChartListSelect.NUM_ROWS);
     const arrangedCharts = _.zip(...chartChunks);
 
-    const chartType = (chart) => {
-      if (LogicHelper.isRandomizedCharts()) {
-        return openedChart ? this.mapFakeChart(chart) : this.fakeChart(chart);
-      }
-      return this.chart(chart);
-    };
+    const chartType = (chart) => (openedChart ? this.mapChart(chart) : this.chart(chart));
 
     const chartRows = _.map(arrangedCharts, (chartsRow, index) => (
       <tr key={index}>
@@ -284,9 +210,7 @@ ChartListSelect.defaultProps = {
 
 ChartListSelect.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
-  decrementFakeTreasureChart: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
-  incrementFakeTreasureChart: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
   openedChart: PropTypes.string,
   spheres: PropTypes.instanceOf(Spheres).isRequired,

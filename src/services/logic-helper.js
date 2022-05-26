@@ -3,6 +3,7 @@ import _ from 'lodash';
 import CAVE_ENTRANCES from '../data/cave-entrances.json';
 import CAVES from '../data/caves.json';
 import CHARTS from '../data/charts.json';
+import CHARTS_FOR_ISLAND from '../data/chartsForIsland.json';
 import DUNGEON_ENTRANCES from '../data/dungeon-entrances.json';
 import DUNGEONS from '../data/dungeons.json';
 import ISLANDS from '../data/islands.json';
@@ -67,8 +68,8 @@ class LogicHelper {
       this._isValidLocation,
     ]);
 
-    this.startingItems = null;
     this.impossibleItems = null;
+    this.startingItems = null;
   }
 
   static DEFEAT_GANONDORF_LOCATION = 'Defeat Ganondorf';
@@ -98,6 +99,7 @@ class LogicHelper {
   static ALL_ITEMS = _.concat(
     _.map(CAVES, (cave) => this.entryName(cave)),
     CHARTS,
+    CHARTS_FOR_ISLAND,
     _.map(DUNGEONS, (dungeon) => this.entryName(dungeon)),
     _.keys(ITEMS),
     _.keys(KEYS),
@@ -471,10 +473,10 @@ class LogicHelper {
   }
 
   static islandForChart(chartName) {
-    const chartIndex = _.indexOf(CHARTS, chartName);
-    const islandName = _.get(ISLANDS, chartIndex);
+    const index = _.indexOf(CHARTS, chartName);
+    const island = _.get(ISLANDS, index);
 
-    return islandName;
+    return island;
   }
 
   static chartForIsland(islandName) {
@@ -491,6 +493,7 @@ class LogicHelper {
     return {
       chartName,
       chartType,
+      islandIndex,
     };
   }
 
@@ -522,7 +525,6 @@ class LogicHelper {
       const islandIndex = _.indexOf(CHARTS, itemName);
       return `Chart for ${_.get(ISLANDS, islandIndex)}`;
     }
-
     return _.get(PRETTY_ITEM_NAMES, [itemName, itemCount]);
   }
 

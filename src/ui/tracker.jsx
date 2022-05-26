@@ -5,6 +5,7 @@ import { Oval } from 'react-loader-spinner';
 import { ToastContainer, toast } from 'react-toastify';
 
 import LogicHelper from '../services/logic-helper';
+import Macros from '../services/macros';
 import TrackerController from '../services/tracker-controller';
 
 import Buttons from './buttons';
@@ -49,8 +50,6 @@ class Tracker extends React.PureComponent {
     this.clearOpenedMenus = this.clearOpenedMenus.bind(this);
     this.clearRaceModeBannedLocations = this.clearRaceModeBannedLocations.bind(this);
     this.decrementItem = this.decrementItem.bind(this);
-    this.decrementFakeTreasureChart = this.decrementFakeTreasureChart.bind(this);
-    this.incrementFakeTreasureChart = this.incrementFakeTreasureChart.bind(this);
     this.incrementItem = this.incrementItem.bind(this);
     this.toggleChartSelection = this.toggleChartSelection.bind(this);
     this.toggleChartList = this.toggleChartList.bind(this);
@@ -278,23 +277,23 @@ class Tracker extends React.PureComponent {
     });
   }
 
-  updateChartMapping(chartName, openedChart) {
+  updateChartMapping(selectedChart, chartForIsland) {
     const { trackerState } = this.state;
 
     const newTrackerState = trackerState
-      .setChartMapping(chartName, openedChart)
-      .incrementItem(openedChart);
+      .setChartMapping(selectedChart, chartForIsland)
+      .incrementItem(chartForIsland);
 
     this.updateTrackerState(newTrackerState);
     this.clearOpenedMenus();
   }
 
-  unsetChartMapping(chartName) {
+  unsetChartMapping(chartForIsland) {
     const { trackerState } = this.state;
 
     const newTrackerState = trackerState
-      .decrementItem(chartName)
-      .unsetChartMapping(chartName);
+      .decrementItem(chartForIsland)
+      .unsetChartMapping(chartForIsland);
 
     this.updateTrackerState(newTrackerState);
   }
@@ -309,34 +308,6 @@ class Tracker extends React.PureComponent {
       openedLocation: null,
       openedLocationIsDungeon: null,
     });
-  }
-
-  incrementFakeTreasureChart(chartName) {
-    const { lastLocation, trackerState } = this.state;
-
-    let newTrackerState = trackerState.incrementFakeChart(chartName);
-
-    if (!_.isNil(lastLocation)) {
-      const {
-        generalLocation,
-        detailedLocation,
-      } = lastLocation;
-
-      newTrackerState = newTrackerState.setItemForLocation(
-        chartName,
-        generalLocation,
-        detailedLocation,
-      );
-    }
-
-    this.updateTrackerState(newTrackerState);
-  }
-
-  decrementFakeTreasureChart(chartName) {
-    const { trackerState } = this.state;
-
-    const newTrackerState = trackerState.decrementItem(chartName);
-    this.updateTrackerState(newTrackerState);
   }
 
   toggleChartSelection() {
@@ -485,11 +456,9 @@ class Tracker extends React.PureComponent {
               chartListSelect={chartListSelect}
               clearOpenedMenus={this.clearOpenedMenus}
               clearRaceModeBannedLocations={this.clearRaceModeBannedLocations}
-              decrementFakeTreasureChart={this.decrementFakeTreasureChart}
               decrementItem={this.decrementItem}
               disableLogic={disableLogic}
               entrancesListOpen={entrancesListOpen}
-              incrementFakeTreasureChart={this.incrementFakeTreasureChart}
               incrementItem={this.incrementItem}
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}

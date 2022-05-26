@@ -17,9 +17,7 @@ class SeaChart extends React.PureComponent {
       clearSelectedItem,
       clearSelectedLocation,
       decrementItem,
-      decrementFakeTreasureChart,
       disableLogic,
-      incrementFakeTreasureChart,
       incrementItem,
       logic,
       onlyProgressLocations,
@@ -42,11 +40,9 @@ class SeaChart extends React.PureComponent {
         clearSelectedChart={clearSelectedChart}
         clearSelectedItem={clearSelectedItem}
         clearSelectedLocation={clearSelectedLocation}
-        decrementFakeTreasureChart={decrementFakeTreasureChart}
         decrementItem={decrementItem}
         disableLogic={disableLogic}
         key={island}
-        incrementFakeTreasureChart={incrementFakeTreasureChart}
         incrementItem={incrementItem}
         island={island}
         logic={logic}
@@ -87,10 +83,8 @@ SeaChart.propTypes = {
   clearSelectedChart: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
-  decrementFakeTreasureChart: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
-  incrementFakeTreasureChart: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,

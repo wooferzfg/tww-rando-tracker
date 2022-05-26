@@ -65,13 +65,12 @@ class MapInfo extends React.PureComponent {
     }
 
     if (!_.isNil(selectedChart)) {
-      const fakeChart = trackerState.getFakeChartForChart(selectedChart);
-      const prettyChartName = LogicHelper.prettyNameForItem(selectedChart);
-      if (fakeChart) {
-        const resolvedFakeChartName = fakeChart.replace('Fake ', '');
-        itemInfoText = `${resolvedFakeChartName} → ${prettyChartName}`;
+      const chartForIsland = trackerState.getChartForIsland(selectedChart);
+      if (chartForIsland) {
+        const island = selectedChart.replace('Chart for ', '');
+        itemInfoText = `${chartForIsland} → ${island}`;
       } else {
-        itemInfoText = prettyChartName;
+        itemInfoText = selectedChart;
       }
     }
 
