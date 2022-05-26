@@ -5,7 +5,6 @@ import { Oval } from 'react-loader-spinner';
 import { ToastContainer, toast } from 'react-toastify';
 
 import LogicHelper from '../services/logic-helper';
-import Macros from '../services/macros';
 import TrackerController from '../services/tracker-controller';
 
 import Buttons from './buttons';

@@ -68,8 +68,8 @@ class LogicHelper {
       this._isValidLocation,
     ]);
 
-    this.impossibleItems = null;
     this.startingItems = null;
+    this.impossibleItems = null;
   }
 
   static DEFEAT_GANONDORF_LOCATION = 'Defeat Ganondorf';
@@ -513,18 +513,11 @@ class LogicHelper {
   }
 
   static _prettyNameOverride(itemName, itemCount = 1) {
-    if (
-      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)
-      && itemName.match(/(Treasure|Triforce) Chart (\d)+/)
-    ) {
-      if (itemName.match(/Fake/)) {
-        const chartName = itemName.replace('Fake ', '');
-        return chartName;
-      }
-
+    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) && itemName.match(/(Treasure|Triforce) Chart (\d)+/)) {
       const islandIndex = _.indexOf(CHARTS, itemName);
       return `Chart for ${_.get(ISLANDS, islandIndex)}`;
     }
+
     return _.get(PRETTY_ITEM_NAMES, [itemName, itemCount]);
   }
 

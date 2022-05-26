@@ -25,8 +25,6 @@ class LogicTweaks {
   static applyTweaks() {
     this._updateLocations();
     this._updateMacros();
-
-    console.log(Macros.readAll());
   }
 
   static _updateLocations() {

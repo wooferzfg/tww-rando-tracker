@@ -22,8 +22,6 @@ class TrackerController {
 
     LogicTweaks.applyTweaks();
 
-    
-
     LogicHelper.initialize();
 
     return this.refreshState(
