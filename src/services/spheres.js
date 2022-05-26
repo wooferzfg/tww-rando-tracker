@@ -178,8 +178,21 @@ class Spheres {
       detailedLocation,
     );
 
+    let chartForIsland;
+    if (!_.isNil(itemAtLocation)
+        && LogicHelper.isRandomizedCharts()
+        && itemAtLocation.match(/(Treasure|Triforce) Chart (\d)+/)) {
+      const island = this.state.getIslandsForChart(itemAtLocation);
+      if (!_.isNil(island)) {
+        chartForIsland = `Chart for ${island}`;
+      }
+    }
+
     if (!_.isNil(itemAtLocation)) {
       this._updateStateWithItem(itemAtLocation);
+      if (!_.isNil(chartForIsland)) {
+        this._updateStateWithItem(chartForIsland);
+      }
       this.anyItemsAdded = true;
     }
   }
