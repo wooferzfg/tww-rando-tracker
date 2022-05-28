@@ -7,7 +7,6 @@ import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
 import ChartList from './chart-list';
-import ChartListSelect from './chart-list-select';
 import DetailedLocationsTable from './detailed-locations-table';
 import EntranceSelection from './entrance-selection';
 import EntrancesList from './entrances-list';
@@ -75,7 +74,6 @@ class LocationsTable extends React.PureComponent {
   chartContainer() {
     const {
       chartListOpen,
-      chartListSelect,
       clearOpenedMenus,
       clearRaceModeBannedLocations,
       decrementItem,
@@ -110,9 +108,9 @@ class LocationsTable extends React.PureComponent {
     } = this.state;
 
     let chartElement;
-    if (openedChart || chartListSelect) {
+    if (openedChart || chartListOpen) {
       chartElement = (
-        <ChartListSelect
+        <ChartList
           clearOpenedMenus={clearOpenedMenus}
           decrementItem={decrementItem}
           incrementItem={incrementItem}
@@ -121,15 +119,6 @@ class LocationsTable extends React.PureComponent {
           trackerState={trackerState}
           trackSpheres={trackSpheres}
           updateChartMapping={updateChartMapping}
-        />
-      );
-    } else if (chartListOpen) {
-      chartElement = (
-        <ChartList
-          clearOpenedMenus={clearOpenedMenus}
-          spheres={spheres}
-          trackerState={trackerState}
-          trackSpheres={trackSpheres}
         />
       );
     } else if (entrancesListOpen) {
@@ -267,7 +256,6 @@ LocationsTable.defaultProps = {
 LocationsTable.propTypes = {
   backgroundColor: PropTypes.string,
   chartListOpen: PropTypes.bool.isRequired,
-  chartListSelect: PropTypes.bool.isRequired,
   clearOpenedMenus: PropTypes.func.isRequired,
   clearRaceModeBannedLocations: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,

@@ -24,7 +24,6 @@ class Tracker extends React.PureComponent {
 
     this.state = {
       chartListOpen: false,
-      chartListSelect: false,
       colorPickerOpen: false,
       colors: {
         extraLocationsBackground: null,
@@ -50,7 +49,6 @@ class Tracker extends React.PureComponent {
     this.clearRaceModeBannedLocations = this.clearRaceModeBannedLocations.bind(this);
     this.decrementItem = this.decrementItem.bind(this);
     this.incrementItem = this.incrementItem.bind(this);
-    this.toggleChartSelection = this.toggleChartSelection.bind(this);
     this.toggleChartList = this.toggleChartList.bind(this);
     this.toggleColorPicker = this.toggleColorPicker.bind(this);
     this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
@@ -220,7 +218,6 @@ class Tracker extends React.PureComponent {
   clearOpenedMenus() {
     this.setState({
       chartListOpen: false,
-      chartListSelect: false,
       entrancesListOpen: false,
       openedChart: null,
       openedExit: null,
@@ -232,7 +229,6 @@ class Tracker extends React.PureComponent {
   updateOpenedExit(dungeonOrCaveName) {
     this.setState({
       chartListOpen: false,
-      chartListSelect: false,
       entrancesListOpen: false,
       openedChart: null,
       openedExit: dungeonOrCaveName,
@@ -267,7 +263,6 @@ class Tracker extends React.PureComponent {
   updateOpenedLocation({ locationName, isDungeon }) {
     this.setState({
       chartListOpen: false,
-      chartListSelect: false,
       entrancesListOpen: false,
       openedChart: null,
       openedExit: null,
@@ -300,23 +295,8 @@ class Tracker extends React.PureComponent {
   updateOpenedChart(openedChart) {
     this.setState({
       chartListOpen: false,
-      chartListSelect: false,
       entrancesListOpen: false,
       openedChart,
-      openedExit: null,
-      openedLocation: null,
-      openedLocationIsDungeon: null,
-    });
-  }
-
-  toggleChartSelection() {
-    const { chartListSelect } = this.state;
-
-    this.setState({
-      chartListOpen: false,
-      chartListSelect: !chartListSelect,
-      entrancesListOpen: false,
-      openedChart: null,
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
@@ -328,7 +308,6 @@ class Tracker extends React.PureComponent {
 
     this.setState({
       chartListOpen: !chartListOpen,
-      chartListSelect: false,
       entrancesListOpen: false,
       openedChart: null,
       openedExit: null,
@@ -342,7 +321,6 @@ class Tracker extends React.PureComponent {
 
     this.setState({
       entrancesListOpen: !entrancesListOpen,
-      chartListSelect: false,
       openedChart: null,
       openedExit: null,
       openedLocation: null,
@@ -402,7 +380,6 @@ class Tracker extends React.PureComponent {
   render() {
     const {
       chartListOpen,
-      chartListSelect,
       colorPickerOpen,
       colors,
       disableLogic,
@@ -444,7 +421,6 @@ class Tracker extends React.PureComponent {
               backgroundColor={itemsTableBackground}
               decrementItem={this.decrementItem}
               incrementItem={this.incrementItem}
-              toggleChartSelection={this.toggleChartSelection}
               spheres={spheres}
               trackerState={trackerState}
               trackSpheres={trackSpheres}
@@ -452,7 +428,6 @@ class Tracker extends React.PureComponent {
             <LocationsTable
               backgroundColor={extraLocationsBackground}
               chartListOpen={chartListOpen}
-              chartListSelect={chartListSelect}
               clearOpenedMenus={this.clearOpenedMenus}
               clearRaceModeBannedLocations={this.clearRaceModeBannedLocations}
               decrementItem={this.decrementItem}

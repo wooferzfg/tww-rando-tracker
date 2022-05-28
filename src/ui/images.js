@@ -55,8 +55,7 @@ export default class Images {
         [LogicHelper.CHART_TYPES.TRIFORCE]: {
           0: import('../images/triforcechart.png'),
           1: import('../images/triforcechartopen.png'),
-        },
-        Treasure_Chart: import('../images/treasurechart.png'),
+        }
       },
       COMPASSES: {
         0: import('../images/compass.png'),

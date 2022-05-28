@@ -16,31 +16,46 @@ import Tooltip from './tooltip';
 class ChartList extends React.PureComponent {
   static NUM_ROWS = 20;
 
-  mapFakeChart(chartName) {
+  mapChart(chartName) {
     const {
+      openedChart,
       trackerState,
+      updateChartMapping,
     } = this.props;
 
     if (_.isNil(chartName)) {
       return null;
     }
-    const fakeChartName = `Fake ${chartName}`;
 
-    const { value, item } = trackerState.getFakeChartInfo(fakeChartName);
-    const mappedChartValue = trackerState.getItemValue(item);
+    const itemCount = trackerState.getItemValue(chartName);
+
+    const mappedIslandForChart = trackerState.getIslandsForChart(chartName);
+    const isChartMapped = !_.isNil(mappedIslandForChart);
+
+    const notInteractiveClassName = isChartMapped ? 'detail-not-interactive' : '';
 
     let color;
-    if (mappedChartValue === 1) {
+    if (isChartMapped) {
       color = LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
-    } else if (value === 1) {
+    } else if (itemCount === 1) {
       color = LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION;
     } else {
       color = LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION;
     }
 
+    const updateChartMappingFunc = (event) => {
+      event.stopPropagation();
+      if (!isChartMapped) {
+        updateChartMapping(chartName, openedChart);
+      }
+    };
+
     const chartElement = (
       <div
-        className={`detail-span ${color} font-smallest`}
+        className={`detail-span ${notInteractiveClassName} ${color} font-smallest`}
+        onClick={updateChartMappingFunc}
+        onContextMenu={updateChartMappingFunc}
+        onKeyDown={KeyDownWrapper.onSpaceKey(updateChartMappingFunc)}
         role="button"
         tabIndex="0"
       >
@@ -49,13 +64,11 @@ class ChartList extends React.PureComponent {
     );
 
     let chartContent;
-    if (mappedChartValue === 1) {
-      const island = LogicHelper.islandForChart(item);
-
+    if (isChartMapped) {
       const tooltip = (
         <div className="tooltip">
           <div className="tooltip-title">Chart Leads To</div>
-          <div>{island}</div>
+          <div>{mappedIslandForChart}</div>
         </div>
       );
 
@@ -77,6 +90,8 @@ class ChartList extends React.PureComponent {
     }
 
     const {
+      decrementItem,
+      incrementItem,
       spheres,
       trackerState,
       trackSpheres,
@@ -93,9 +108,24 @@ class ChartList extends React.PureComponent {
       locations = trackerState.getLocationsForItem(chartName);
     }
 
+    const incrementItemFunc = (event) => {
+      event.stopPropagation();
+
+      incrementItem(chartName);
+    };
+
+    const decrementItemFunc = (event) => {
+      event.preventDefault();
+
+      decrementItem(chartName);
+    };
+
     const chartElement = (
       <div
         className={`detail-span ${color} font-smallest`}
+        onClick={incrementItemFunc}
+        onContextMenu={decrementItemFunc}
+        onKeyDown={KeyDownWrapper.onSpaceKey(incrementItemFunc)}
         role="button"
         tabIndex="0"
       >
@@ -121,18 +151,18 @@ class ChartList extends React.PureComponent {
   }
 
   render() {
-    const { clearOpenedMenus } = this.props;
+    const { clearOpenedMenus, openedChart } = this.props;
     const treasureCharts = _.sortBy(_.filter(CHARTS, (o) => o.includes('Treasure Chart')), (o) => LogicHelper.parseChartNumber(o));
     const triforceCharts = _.sortBy(_.filter(CHARTS, (o) => o.includes('Triforce Chart')), (o) => LogicHelper.parseChartNumber(o));
 
     const chartChunks = _.chunk([...treasureCharts, ...triforceCharts], ChartList.NUM_ROWS);
     const arrangedCharts = _.zip(...chartChunks);
 
+    const chartType = (chart) => (openedChart ? this.mapChart(chart) : this.chart(chart));
+
     const chartRows = _.map(arrangedCharts, (chartsRow, index) => (
       <tr key={index}>
-        {_.map(chartsRow, (chart) => (LogicHelper.isRandomizedCharts()
-          ? this.mapFakeChart(chart)
-          : this.chart(chart)))}
+        {_.map(chartsRow, (chart) => chartType(chart))}
       </tr>
     ));
 
@@ -145,6 +175,13 @@ class ChartList extends React.PureComponent {
         <table className="header-table">
           <tbody>
             <tr>
+              {openedChart && (
+              <td>
+                <div className="detail-span detail-not-interactive">
+                  Choose Chart
+                </div>
+              </td>
+              )}
               <td>
                 <div
                   className="detail-span"
@@ -167,11 +204,19 @@ class ChartList extends React.PureComponent {
   }
 }
 
+ChartList.defaultProps = {
+  openedChart: null,
+};
+
 ChartList.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
+  decrementItem: PropTypes.func.isRequired,
+  incrementItem: PropTypes.func.isRequired,
+  openedChart: PropTypes.string,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  updateChartMapping: PropTypes.func.isRequired,
 };
 
 export default ChartList;
