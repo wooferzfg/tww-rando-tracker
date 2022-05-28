@@ -26,13 +26,13 @@ class LocationsTable extends React.PureComponent {
       selectedLocationIsDungeon: null,
     };
 
-    this.clearSelectedChart = this.clearSelectedChart.bind(this);
-    this.clearSelectedItem = this.clearSelectedItem.bind(this);
-    this.clearSelectedLocation = this.clearSelectedLocation.bind(this);
     this.setSelectedChart = this.setSelectedChart.bind(this);
+    this.clearSelectedChart = this.clearSelectedChart.bind(this);
     this.setSelectedExit = this.setSelectedExit.bind(this);
     this.setSelectedItem = this.setSelectedItem.bind(this);
+    this.clearSelectedItem = this.clearSelectedItem.bind(this);
     this.setSelectedLocation = this.setSelectedLocation.bind(this);
+    this.clearSelectedLocation = this.clearSelectedLocation.bind(this);
   }
 
   setSelectedChart(chartName) {

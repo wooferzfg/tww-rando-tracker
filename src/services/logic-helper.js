@@ -232,8 +232,8 @@ class LogicHelper {
       : CAVES;
   }
 
-  static parseChartNumber(chartName) {
-    return parseInt(chartName?.match(/Chart (\d+)/i)[1], 10);
+  static parseChartNumber(chart) {
+    return parseInt(chart?.match(/Chart (\d+)/i)[1], 10);
   }
 
   static parseItemCountRequirement(requirement) {
@@ -472,8 +472,8 @@ class LogicHelper {
     return itemName;
   }
 
-  static islandForChart(chartName) {
-    const index = _.indexOf(CHARTS, chartName);
+  static islandForChart(chart) {
+    const index = _.indexOf(CHARTS, chart);
     const island = _.get(ISLANDS, index);
 
     return island;
@@ -493,7 +493,6 @@ class LogicHelper {
     return {
       chartName,
       chartType,
-      islandIndex,
     };
   }
 

@@ -147,18 +147,18 @@ class TrackerState {
   }
 
   getChartForIsland(island) {
-    return _.findKey(this.islandsForCharts, (chartName) => island === chartName);
+    return _.findKey(this.islandsForCharts, (chart) => island === chart);
   }
 
-  getIslandsForChart(chartName) {
-    return _.get(this.islandsForCharts, chartName);
+  getIslandsForChart(chart) {
+    return _.get(this.islandsForCharts, chart);
   }
 
-  setChartMapping(chartName, chartForIsland) {
+  setChartMapping(chart, chartForIsland) {
     const newState = this._clone({ islandsForCharts: true });
     const island = chartForIsland.replace('Chart for ', '');
 
-    _.set(newState.islandsForCharts, chartName, island);
+    _.set(newState.islandsForCharts, chart, island);
 
     return newState;
   }
