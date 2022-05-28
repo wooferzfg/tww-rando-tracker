@@ -133,19 +133,38 @@ class ChartList extends React.PureComponent {
       </div>
     );
 
-    const outerChartElement = !_.isEmpty(locations) ? (
-      <td key={chartName}>
-        <Tooltip
-          tooltipContent={
-            <FoundAtTooltip locations={locations} spheres={spheres} />
-          }
-        >
-          {chartElement}
-        </Tooltip>
-      </td>
-    ) : (
-      <td key={chartName}>{chartElement}</td>
-    );
+    const foundAtTooltipContent = !_.isEmpty(locations)
+      ? <FoundAtTooltip locations={locations} spheres={spheres} />
+      : null;
+
+    const mappedIslandForChart = trackerState.getIslandsForChart(chartName);
+    const chartLeadsTo = !_.isNil(mappedIslandForChart) ? (
+      <div className="tooltip">
+        <div className="tooltip-title">Chart Leads To</div>
+        <div>{mappedIslandForChart}</div>
+      </div>
+    ) : null;
+
+    let outerChartElement;
+    if (foundAtTooltipContent || chartLeadsTo) {
+      const tooltipContent = (
+        <>
+          {foundAtTooltipContent}
+          {chartLeadsTo}
+        </>
+      );
+      outerChartElement = (
+        <td key={chartName}>
+          <Tooltip
+            tooltipContent={tooltipContent}
+          >
+            {chartElement}
+          </Tooltip>
+        </td>
+      );
+    } else {
+      outerChartElement = <td key={chartName}>{chartElement}</td>;
+    }
 
     return outerChartElement;
   }
