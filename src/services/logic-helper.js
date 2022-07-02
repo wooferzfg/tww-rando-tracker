@@ -480,7 +480,7 @@ class LogicHelper {
 
   static islandForChart(chart) {
     const index = _.indexOf(CHARTS, chart);
-    const island = _.get(ISLANDS, index);
+    const island = _.get(ISLANDS, index, null);
 
     return island;
   }

@@ -747,13 +747,13 @@ describe('LogicHelper', () => {
     test('invalid chart number', () => {
       const chartNumber = LogicHelper.parseChartNumber('Triforce chart 1A');
 
-      expect(chartNumber).toEqual(null);
+      expect(chartNumber).toBeNull();
     });
 
     test('grapple hook', () => {
       const chartNumber = LogicHelper.parseChartNumber('Grapple Hook');
 
-      expect(chartNumber).toEqual(null);
+      expect(chartNumber).toBeNull();
     });
   });
 
@@ -1011,6 +1011,28 @@ describe('LogicHelper', () => {
 
         expect(isProgressLocation).toEqual(true);
       });
+    });
+  });
+
+  describe('isRandomizedCharts', () => {
+    test('returns true when randomized charts is on', () => {
+      Settings.initializeRaw({
+        options: {
+          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+        },
+      });
+
+      expect(LogicHelper.isRandomizedCharts()).toBe(true);
+    });
+
+    test('returns false when randomized charts is off', () => {
+      Settings.initializeRaw({
+        options: {
+          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+        },
+      });
+
+      expect(LogicHelper.isRandomizedCharts()).toBe(false);
     });
   });
 
@@ -2008,6 +2030,26 @@ describe('LogicHelper', () => {
 
         expect(prettyName).toEqual('Deku Leaf');
       });
+    });
+  });
+
+  describe('islandForChart', () => {
+    test('returns null for invalid chart', () => {
+      const island = LogicHelper.islandForChart('Grapple Hook');
+
+      expect(island).toBeNull();
+    });
+
+    test('returns island for treasure chart', () => {
+      const island = LogicHelper.islandForChart('Treasure Chart 30');
+
+      expect(island).toBe('Pawprint Isle');
+    });
+
+    test('returns island for triforce chart', () => {
+      const island = LogicHelper.islandForChart('Triforce Chart 2');
+
+      expect(island).toBe('Gale Isle');
     });
   });
 
