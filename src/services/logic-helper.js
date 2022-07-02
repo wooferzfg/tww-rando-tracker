@@ -233,7 +233,13 @@ class LogicHelper {
   }
 
   static parseChartNumber(chart) {
-    return parseInt(chart?.match(/Chart (\d+)/i)[1], 10);
+    const matches = chart?.match(/Chart (\d+$)/i);
+
+    if (matches && !_.isNil(matches[1])) {
+      return parseInt(matches[1], 10);
+    }
+
+    return null;
   }
 
   static parseItemCountRequirement(requirement) {
