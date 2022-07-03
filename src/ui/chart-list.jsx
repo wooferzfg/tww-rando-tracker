@@ -16,20 +16,20 @@ import Tooltip from './tooltip';
 class ChartList extends React.PureComponent {
   static NUM_ROWS = 20;
 
-  mapChart(chartName) {
+  mapChart(chart) {
     const {
-      openedChart,
+      openedChartForIsland,
       trackerState,
       updateChartMapping,
     } = this.props;
 
-    if (_.isNil(chartName)) {
+    if (_.isNil(chart)) {
       return null;
     }
 
-    const itemCount = trackerState.getItemValue(chartName);
+    const itemCount = trackerState.getItemValue(chart);
 
-    const mappedIslandForChart = trackerState.getIslandsForChart(chartName);
+    const mappedIslandForChart = trackerState.getIslandsForChart(chart);
     const isChartMapped = !_.isNil(mappedIslandForChart);
 
     const notInteractiveClassName = isChartMapped ? 'detail-not-interactive' : '';
@@ -46,7 +46,7 @@ class ChartList extends React.PureComponent {
     const updateChartMappingFunc = (event) => {
       event.stopPropagation();
       if (!isChartMapped) {
-        updateChartMapping(chartName, openedChart);
+        updateChartMapping(chart, openedChartForIsland);
       }
     };
 
@@ -59,7 +59,7 @@ class ChartList extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        {chartName}
+        {chart}
       </div>
     );
 
@@ -81,7 +81,7 @@ class ChartList extends React.PureComponent {
       chartContent = chartElement;
     }
 
-    return <td key={chartName}>{chartContent}</td>;
+    return <td key={chart}>{chartContent}</td>;
   }
 
   chart(chartName, showLocationTooltip = true) {
@@ -170,14 +170,14 @@ class ChartList extends React.PureComponent {
   }
 
   render() {
-    const { clearOpenedMenus, openedChart } = this.props;
+    const { clearOpenedMenus, openedChartForIsland } = this.props;
     const treasureCharts = _.sortBy(_.filter(CHARTS, (o) => o.includes('Treasure Chart')), (o) => LogicHelper.parseChartNumber(o));
     const triforceCharts = _.sortBy(_.filter(CHARTS, (o) => o.includes('Triforce Chart')), (o) => LogicHelper.parseChartNumber(o));
 
     const chartChunks = _.chunk([...treasureCharts, ...triforceCharts], ChartList.NUM_ROWS);
     const arrangedCharts = _.zip(...chartChunks);
 
-    const chartType = (chart) => (openedChart ? this.mapChart(chart) : this.chart(chart));
+    const chartType = (chart) => (openedChartForIsland ? this.mapChart(chart) : this.chart(chart));
 
     const chartRows = _.map(arrangedCharts, (chartsRow, index) => (
       <tr key={index}>
@@ -194,7 +194,7 @@ class ChartList extends React.PureComponent {
         <table className="header-table">
           <tbody>
             <tr>
-              {openedChart && (
+              {openedChartForIsland && (
               <td>
                 <div className="detail-span detail-not-interactive">
                   Choose Chart
@@ -224,14 +224,14 @@ class ChartList extends React.PureComponent {
 }
 
 ChartList.defaultProps = {
-  openedChart: null,
+  openedChartForIsland: null,
 };
 
 ChartList.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
-  openedChart: PropTypes.string,
+  openedChartForIsland: PropTypes.string,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,

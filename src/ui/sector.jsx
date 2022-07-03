@@ -92,7 +92,7 @@ class Sector extends React.PureComponent {
       spheres,
       trackerState,
       trackSpheres,
-      updateOpenedChart,
+      updateOpenedChartForIsland,
       unsetChartMapping,
     } = this.props;
 
@@ -107,14 +107,14 @@ class Sector extends React.PureComponent {
       locations = trackerState.getLocationsForItem(name);
     }
 
-    const updateOpenedChartFunc = () => {
+    const updateOpenedChartForIslandFunc = () => {
       if (chartCount > 0) {
         unsetChartMapping(name);
       } else {
         clearSelectedChart();
         clearSelectedLocation();
 
-        updateOpenedChart(name);
+        updateOpenedChartForIsland(name);
       }
     };
 
@@ -123,7 +123,7 @@ class Sector extends React.PureComponent {
         <Item
           clearSelectedItem={clearSelectedChart}
           images={chartImages}
-          incrementItem={updateOpenedChartFunc}
+          incrementItem={updateOpenedChartForIslandFunc}
           itemCount={chartCount}
           itemName={name}
           locations={locations}
@@ -267,7 +267,7 @@ Sector.propTypes = {
   trackSpheres: PropTypes.bool.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
-  updateOpenedChart: PropTypes.func.isRequired,
+  updateOpenedChartForIsland: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
 };

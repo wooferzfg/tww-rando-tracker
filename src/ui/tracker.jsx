@@ -36,7 +36,7 @@ class Tracker extends React.PureComponent {
       isLoading: true,
       lastLocation: null,
       onlyProgressLocations: true,
-      openedChart: null,
+      openedChartForIsland: null,
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
@@ -62,7 +62,7 @@ class Tracker extends React.PureComponent {
     this.updateChartMapping = this.updateChartMapping.bind(this);
     this.updateColors = this.updateColors.bind(this);
     this.updateEntranceForExit = this.updateEntranceForExit.bind(this);
-    this.updateOpenedChart = this.updateOpenedChart.bind(this);
+    this.updateOpenedChartForIsland = this.updateOpenedChartForIsland.bind(this);
     this.updateOpenedExit = this.updateOpenedExit.bind(this);
     this.updateOpenedLocation = this.updateOpenedLocation.bind(this);
   }
@@ -219,7 +219,7 @@ class Tracker extends React.PureComponent {
     this.setState({
       chartListOpen: false,
       entrancesListOpen: false,
-      openedChart: null,
+      openedChartForIsland: null,
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
@@ -230,7 +230,7 @@ class Tracker extends React.PureComponent {
     this.setState({
       chartListOpen: false,
       entrancesListOpen: false,
-      openedChart: null,
+      openedChartForIsland: null,
       openedExit: dungeonOrCaveName,
       openedLocation: null,
       openedLocationIsDungeon: null,
@@ -264,7 +264,7 @@ class Tracker extends React.PureComponent {
     this.setState({
       chartListOpen: false,
       entrancesListOpen: false,
-      openedChart: null,
+      openedChartForIsland: null,
       openedExit: null,
       openedLocation: locationName,
       openedLocationIsDungeon: isDungeon,
@@ -292,11 +292,11 @@ class Tracker extends React.PureComponent {
     this.updateTrackerState(newTrackerState);
   }
 
-  updateOpenedChart(openedChart) {
+  updateOpenedChartForIsland(openedChartForIsland) {
     this.setState({
       chartListOpen: false,
       entrancesListOpen: false,
-      openedChart,
+      openedChartForIsland,
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
@@ -309,7 +309,7 @@ class Tracker extends React.PureComponent {
     this.setState({
       chartListOpen: !chartListOpen,
       entrancesListOpen: false,
-      openedChart: null,
+      openedChartForIsland: null,
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
@@ -321,7 +321,7 @@ class Tracker extends React.PureComponent {
 
     this.setState({
       entrancesListOpen: !entrancesListOpen,
-      openedChart: null,
+      openedChartForIsland: null,
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
@@ -388,7 +388,7 @@ class Tracker extends React.PureComponent {
       lastLocation,
       logic,
       onlyProgressLocations,
-      openedChart,
+      openedChartForIsland,
       openedExit,
       openedLocation,
       openedLocationIsDungeon,
@@ -436,7 +436,7 @@ class Tracker extends React.PureComponent {
               incrementItem={this.incrementItem}
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
-              openedChart={openedChart}
+              openedChartForIsland={openedChartForIsland}
               openedExit={openedExit}
               openedLocation={openedLocation}
               openedLocationIsDungeon={openedLocationIsDungeon}
@@ -445,7 +445,7 @@ class Tracker extends React.PureComponent {
               trackerState={trackerState}
               trackSpheres={trackSpheres}
               updateChartMapping={this.updateChartMapping}
-              updateOpenedChart={this.updateOpenedChart}
+              updateOpenedChartForIsland={this.updateOpenedChartForIsland}
               unsetChartMapping={this.unsetChartMapping}
               unsetExit={this.unsetExit}
               updateEntranceForExit={this.updateEntranceForExit}

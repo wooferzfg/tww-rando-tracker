@@ -82,7 +82,7 @@ class LocationsTable extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
-      openedChart,
+      openedChartForIsland,
       openedExit,
       openedLocation,
       openedLocationIsDungeon,
@@ -94,7 +94,7 @@ class LocationsTable extends React.PureComponent {
       unsetExit,
       updateChartMapping,
       updateEntranceForExit,
-      updateOpenedChart,
+      updateOpenedChartForIsland,
       updateOpenedExit,
       updateOpenedLocation,
     } = this.props;
@@ -108,13 +108,13 @@ class LocationsTable extends React.PureComponent {
     } = this.state;
 
     let chartElement;
-    if (openedChart || chartListOpen) {
+    if (openedChartForIsland || chartListOpen) {
       chartElement = (
         <ChartList
           clearOpenedMenus={clearOpenedMenus}
           decrementItem={decrementItem}
           incrementItem={incrementItem}
-          openedChart={openedChart}
+          openedChartForIsland={openedChartForIsland}
           spheres={spheres}
           trackerState={trackerState}
           trackSpheres={trackSpheres}
@@ -177,7 +177,7 @@ class LocationsTable extends React.PureComponent {
           trackSpheres={trackSpheres}
           unsetChartMapping={unsetChartMapping}
           unsetExit={unsetExit}
-          updateOpenedChart={updateOpenedChart}
+          updateOpenedChartForIsland={updateOpenedChartForIsland}
           updateOpenedExit={updateOpenedExit}
           updateOpenedLocation={updateOpenedLocation}
         />
@@ -247,7 +247,7 @@ class LocationsTable extends React.PureComponent {
 
 LocationsTable.defaultProps = {
   backgroundColor: null,
-  openedChart: null,
+  openedChartForIsland: null,
   openedExit: null,
   openedLocation: null,
   openedLocationIsDungeon: null,
@@ -264,7 +264,7 @@ LocationsTable.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
-  openedChart: PropTypes.string,
+  openedChartForIsland: PropTypes.string,
   openedExit: PropTypes.string,
   openedLocation: PropTypes.string,
   openedLocationIsDungeon: PropTypes.bool,
@@ -275,7 +275,7 @@ LocationsTable.propTypes = {
   unsetExit: PropTypes.func.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
   updateChartMapping: PropTypes.func.isRequired,
-  updateOpenedChart: PropTypes.func.isRequired,
+  updateOpenedChartForIsland: PropTypes.func.isRequired,
   updateEntranceForExit: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,

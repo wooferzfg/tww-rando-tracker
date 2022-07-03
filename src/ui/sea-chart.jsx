@@ -30,7 +30,7 @@ class SeaChart extends React.PureComponent {
       trackSpheres,
       unsetChartMapping,
       unsetExit,
-      updateOpenedChart,
+      updateOpenedChartForIsland,
       updateOpenedExit,
       updateOpenedLocation,
     } = this.props;
@@ -56,7 +56,7 @@ class SeaChart extends React.PureComponent {
         trackSpheres={trackSpheres}
         unsetChartMapping={unsetChartMapping}
         unsetExit={unsetExit}
-        updateOpenedChart={updateOpenedChart}
+        updateOpenedChartForIsland={updateOpenedChartForIsland}
         updateOpenedExit={updateOpenedExit}
         updateOpenedLocation={updateOpenedLocation}
       />
@@ -97,7 +97,7 @@ SeaChart.propTypes = {
   trackSpheres: PropTypes.bool.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
-  updateOpenedChart: PropTypes.func.isRequired,
+  updateOpenedChartForIsland: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
 };
