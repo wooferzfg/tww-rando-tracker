@@ -65,7 +65,7 @@ class MapInfo extends React.PureComponent {
     }
 
     if (!_.isNil(selectedChart)) {
-      const island = selectedChart.replace('Chart for ', '');
+      const island = LogicHelper.islandFromChartFromIsland(selectedChart);
       const chartForIsland = trackerState.getChartForIsland(island);
       if (chartForIsland) {
         itemInfoText = `${chartForIsland} → ${island}`;

@@ -28,6 +28,7 @@ class LogicHelper {
       'bossLocation',
       'chartForIsland',
       'filterDetailedLocations',
+      'islandFromChartFromIsland',
       'islandForChart',
       'isPotentialKeyLocation',
       'isProgressLocation',
@@ -52,6 +53,7 @@ class LogicHelper {
       this.bossLocation,
       this.chartForIsland,
       this.filterDetailedLocations,
+      this.islandFromChartFromIsland,
       this.islandForChart,
       this.isPotentialKeyLocation,
       this.isProgressLocation,
@@ -476,6 +478,10 @@ class LogicHelper {
     }
 
     return itemName;
+  }
+
+  static islandFromChartFromIsland(chartFromIsland) {
+    return chartFromIsland.replace('Chart for ', '');
   }
 
   static islandForChart(chart) {

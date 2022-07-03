@@ -182,7 +182,7 @@ class Spheres {
     if (!_.isNil(itemAtLocation)
         && LogicHelper.isRandomizedCharts()
         && itemAtLocation.match(/(Treasure|Triforce) Chart (\d)+/)) {
-      const island = this.state.getIslandsForChart(itemAtLocation);
+      const island = this.state.getIslandForChart(itemAtLocation);
       if (!_.isNil(island)) {
         chartForIsland = `Chart for ${island}`;
       }

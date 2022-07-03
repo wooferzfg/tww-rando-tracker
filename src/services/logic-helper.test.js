@@ -1028,7 +1028,7 @@ describe('LogicHelper', () => {
     test('returns false when randomized charts is off', () => {
       Settings.initializeRaw({
         options: {
-          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
         },
       });
 
@@ -2030,6 +2030,13 @@ describe('LogicHelper', () => {
 
         expect(prettyName).toEqual('Deku Leaf');
       });
+    });
+  });
+
+  describe('islandFromChartFromIsland', () => {
+    test('returns island from valid string', () => {
+      const result = LogicHelper.islandFromChartFromIsland('Chart for Windfall Island');
+      expect(result).toBe('Windfall Island');
     });
   });
 

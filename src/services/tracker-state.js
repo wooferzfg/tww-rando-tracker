@@ -150,13 +150,13 @@ class TrackerState {
     return _.findKey(this.islandsForCharts, (chart) => island === chart);
   }
 
-  getIslandsForChart(chart) {
+  getIslandForChart(chart) {
     return _.get(this.islandsForCharts, chart);
   }
 
   setChartMapping(chart, chartForIsland) {
     const newState = this._clone({ islandsForCharts: true });
-    const island = chartForIsland.replace('Chart for ', '');
+    const island = LogicHelper.islandFromChartFromIsland(chartForIsland);
 
     _.set(newState.islandsForCharts, chart, island);
 
@@ -165,7 +165,7 @@ class TrackerState {
 
   unsetChartMapping(chartForIsland) {
     const newState = this._clone({ islandsForCharts: true });
-    const island = chartForIsland.replace('Chart for ', '');
+    const island = LogicHelper.islandFromChartFromIsland(chartForIsland);
 
     const chartName = _.findKey(this.islandsForCharts, (chart) => island === chart);
 

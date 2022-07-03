@@ -29,7 +29,7 @@ class ChartList extends React.PureComponent {
 
     const itemCount = trackerState.getItemValue(chart);
 
-    const mappedIslandForChart = trackerState.getIslandsForChart(chart);
+    const mappedIslandForChart = trackerState.getIslandForChart(chart);
     const isChartMapped = !_.isNil(mappedIslandForChart);
 
     const notInteractiveClassName = isChartMapped ? 'detail-not-interactive' : '';
@@ -137,7 +137,7 @@ class ChartList extends React.PureComponent {
       ? <FoundAtTooltip locations={locations} spheres={spheres} />
       : null;
 
-    const mappedIslandForChart = trackerState.getIslandsForChart(chartName);
+    const mappedIslandForChart = trackerState.getIslandForChart(chartName);
     const chartLeadsTo = !_.isNil(mappedIslandForChart) ? (
       <div className="tooltip">
         <div className="tooltip-title">Chart Leads To</div>
