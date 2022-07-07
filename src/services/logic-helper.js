@@ -524,11 +524,6 @@ class LogicHelper {
   }
 
   static _prettyNameOverride(itemName, itemCount = 1) {
-    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) && itemName.match(/(Treasure|Triforce) Chart (\d)+/)) {
-      const islandIndex = _.indexOf(CHARTS, itemName);
-      return `Chart for ${_.get(ISLANDS, islandIndex)}`;
-    }
-
     return _.get(PRETTY_ITEM_NAMES, [itemName, itemCount]);
   }
 

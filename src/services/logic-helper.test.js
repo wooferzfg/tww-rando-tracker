@@ -1943,16 +1943,16 @@ describe('LogicHelper', () => {
         });
       });
 
-      test('returns the pretty name for a Triforce Chart', () => {
+      test('returns the regular name for a Triforce Chart', () => {
         const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7', 0);
 
-        expect(prettyName).toEqual('Chart for Seven-Star Isles');
+        expect(prettyName).toEqual('Triforce Chart 7');
       });
 
-      test('returns the pretty name for a Treasure Chart', () => {
+      test('returns the regular name for a Treasure Chart', () => {
         const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25', 0);
 
-        expect(prettyName).toEqual('Chart for Forsaken Fortress');
+        expect(prettyName).toEqual('Treasure Chart 25');
       });
 
       test('returns the regular name for the Ghost Ship Chart', () => {
@@ -1962,16 +1962,16 @@ describe('LogicHelper', () => {
       });
 
       describe('when setting the item count to null', () => {
-        test('returns the pretty name for a Triforce Chart', () => {
+        test('returns the regular name for a Triforce Chart', () => {
           const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7', null);
 
-          expect(prettyName).toEqual('Chart for Seven-Star Isles');
+          expect(prettyName).toEqual('Triforce Chart 7');
         });
 
-        test('returns the pretty name for a Treasure Chart', () => {
+        test('returns the regular name for a Treasure Chart', () => {
           const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25', null);
 
-          expect(prettyName).toEqual('Chart for Forsaken Fortress');
+          expect(prettyName).toEqual('Treasure Chart 25');
         });
       });
     });
