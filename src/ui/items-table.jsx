@@ -187,7 +187,7 @@ class ItemsTable extends React.PureComponent {
                   this.item(LogicHelper.ITEMS.PROGRESSIVE_BOMB_BAG),
                   this.item(LogicHelper.ITEMS.PROGRESSIVE_QUIVER),
                   this.item(LogicHelper.ITEMS.PROGRESSIVE_WALLET),
-                  this.item(LogicHelper.ITEMS.MAGIC_METER_UPGRADE),
+                  this.item(LogicHelper.ITEMS.PROGRESSIVE_MAGIC_METER),
                 ]}
                 numColumns={4}
               />

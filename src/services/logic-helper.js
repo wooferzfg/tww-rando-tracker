@@ -600,8 +600,6 @@ class LogicHelper {
       [this.ITEMS.WIND_WAKER]: 1,
       [this.ITEMS.BOATS_SAIL]: 1,
       [this.ITEMS.WINDS_REQUIEM]: 1,
-      [this.ITEMS.BALLAD_OF_GALES]: 1,
-      [this.ITEMS.SONG_OF_PASSING]: 1,
       [this.ITEMS.TRIFORCE_SHARD]: Settings.getOptionValue(
         Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS,
       ),
