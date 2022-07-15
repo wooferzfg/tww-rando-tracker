@@ -43,5 +43,10 @@
     "0": "Hero's Shield",
     "1": "Hero's Shield",
     "2": "Mirror Shield"
+  },
+  "Progressive Magic Meter": {
+    "0": "Magic Meter",
+    "1": "Magic Meter",
+    "2": "Magic Meter Upgrade"
   }
 }
