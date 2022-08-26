@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LogicHelper ALL_ITEMS returns a list of all the items, including entrances, charts, and keys 1`] = `
-Array [
+[
   "Entered Savage Labyrinth",
   "Entered Dragon Roost Island Cave",
   "Entered Fire Mountain Cave",
@@ -147,7 +147,7 @@ Array [
 `;
 
 exports[`LogicHelper DUNGEONS returns the correct dungeons 1`] = `
-Object {
+{
   "DRAGON_ROOST_CAVERN": "Dragon Roost Cavern",
   "EARTH_TEMPLE": "Earth Temple",
   "FORBIDDEN_WOODS": "Forbidden Woods",
@@ -159,7 +159,7 @@ Object {
 `;
 
 exports[`LogicHelper ISLANDS returns the correct islands 1`] = `
-Object {
+{
   "ANGULAR_ISLES": "Angular Isles",
   "BIRDS_PEAK_ROCK": "Bird's Peak Rock",
   "BOATING_COURSE": "Boating Course",
@@ -213,7 +213,7 @@ Object {
 `;
 
 exports[`LogicHelper ITEMS returns the correct items 1`] = `
-Object {
+{
   "BAIT_BAG": "Bait Bag",
   "BALLAD_OF_GALES": "Ballad of Gales",
   "BOATS_SAIL": "Boat's Sail",
@@ -273,7 +273,7 @@ Object {
 `;
 
 exports[`LogicHelper MISC_LOCATIONS returns the correct miscellanous locations 1`] = `
-Object {
+{
   "HYRULE": "Hyrule",
   "MAILBOX": "Mailbox",
   "THE_GREAT_SEA": "The Great Sea",
@@ -281,7 +281,7 @@ Object {
 `;
 
 exports[`LogicHelper allRandomEntrances when dungeon and cave entrances are randomized separately returns all the dungeons and caves 1`] = `
-Array [
+[
   "Dragon Roost Cavern",
   "Forbidden Woods",
   "Tower of the Gods",
@@ -311,7 +311,7 @@ Array [
 `;
 
 exports[`LogicHelper allRandomEntrances when dungeon and cave entrances are randomized together returns all the dungeons and caves 1`] = `
-Array [
+[
   "Dragon Roost Cavern",
   "Forbidden Woods",
   "Tower of the Gods",
@@ -341,7 +341,7 @@ Array [
 `;
 
 exports[`LogicHelper allRandomEntrances when only cave entrances are randomized returns all the caves 1`] = `
-Array [
+[
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
   "Fire Mountain Secret Cave",
@@ -366,7 +366,7 @@ Array [
 `;
 
 exports[`LogicHelper allRandomEntrances when only dungeon entrances are randomized returns all the dungeons 1`] = `
-Array [
+[
   "Dragon Roost Cavern",
   "Forbidden Woods",
   "Tower of the Gods",
@@ -376,7 +376,7 @@ Array [
 `;
 
 exports[`LogicHelper initialize when in swordless mode sets sword to 0 in the starting items and adds impossible items 1`] = `
-Object {
+{
   "Ballad of Gales": 1,
   "Boat's Sail": 1,
   "Progressive Sword": 0,
@@ -388,14 +388,14 @@ Object {
 `;
 
 exports[`LogicHelper initialize when in swordless mode sets sword to 0 in the starting items and adds impossible items 2`] = `
-Object {
+{
   "Hurricane Spin": 1,
   "Progressive Sword": 1,
 }
 `;
 
 exports[`LogicHelper initialize when starting without a sword sets sword to 0 in the starting items 1`] = `
-Object {
+{
   "Ballad of Gales": 1,
   "Boat's Sail": 1,
   "Progressive Sword": 0,
@@ -407,7 +407,7 @@ Object {
 `;
 
 exports[`LogicHelper initialize with no starting shards, no starting gear, and starting with a sword sets the starting and impossible items 1`] = `
-Object {
+{
   "Ballad of Gales": 1,
   "Boat's Sail": 1,
   "Progressive Sword": 1,
@@ -419,7 +419,7 @@ Object {
 `;
 
 exports[`LogicHelper initialize with starting gear sets the starting items based on the starting gear 1`] = `
-Object {
+{
   "Ballad of Gales": 1,
   "Boat's Sail": 1,
   "Bombs": 1,
@@ -433,7 +433,7 @@ Object {
 `;
 
 exports[`LogicHelper initialize with starting shards sets the number of starting shards 1`] = `
-Object {
+{
   "Ballad of Gales": 1,
   "Boat's Sail": 1,
   "Progressive Sword": 1,
@@ -445,72 +445,72 @@ Object {
 `;
 
 exports[`LogicHelper raceModeBannedLocations returns the correct locations for Dragon Roost Cavern 1`] = `
-Array [
-  Object {
+[
+  {
     "detailedLocation": "First Room",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Alcove With Water Jugs",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Boarded Up Chest",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Chest Across Lava Pit",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Rat Room",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Rat Room Boarded Up Chest",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Bird's Nest",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Dark Room",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Tingle Chest in Hub Room",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Pot Room Chest",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Mini-Boss",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Under Rope Bridge",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Tingle Statue Chest",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Big Key Chest",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Boss Stairs Right Chest",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Boss Stairs Left Chest",
     "generalLocation": "Dragon Roost Cavern",
   },
-  Object {
+  {
     "detailedLocation": "Gohma Heart Container",
     "generalLocation": "Dragon Roost Cavern",
   },
@@ -518,72 +518,72 @@ Array [
 `;
 
 exports[`LogicHelper raceModeBannedLocations returns the correct locations for Earth Temple 1`] = `
-Array [
-  Object {
+[
+  {
     "detailedLocation": "Transparent Chest In Warp Pot Room",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Chest Behind Destructible Walls",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Transparent Chest in First Crypt",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Chest In Three Blocks Room",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Chest Behind Statues",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Casket in Second Crypt",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Stalfos Mini-Boss Room",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Tingle Statue Chest",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "End of Foggy Room With Floormasters",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Kill All Floormasters in Foggy Room",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Chest in Third Crypt",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Many Mirrors Room Right Chest",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Many Mirrors Room Left Chest",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Stalfos Crypt Room",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Big Key Chest",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Jalhalla Heart Container",
     "generalLocation": "Earth Temple",
   },
-  Object {
+  {
     "detailedLocation": "Letter from Baito",
     "generalLocation": "Mailbox",
   },
@@ -591,72 +591,72 @@ Array [
 `;
 
 exports[`LogicHelper raceModeBannedLocations returns the correct locations for Forbidden Woods 1`] = `
-Array [
-  Object {
+[
+  {
     "detailedLocation": "First Room",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Inside Hollow Tree's Mouth",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Climb to Top Using Boko Baba Bulbs",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Hole in Tree",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Morth Pit",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Vine Maze Left Chest",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Vine Maze Right Chest",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Tall Room Before Mini-Boss",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Mothula Mini-Boss Room",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Past Seeds Hanging by Vines",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Chest Across Red Hanging Flower",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Tingle Statue Chest",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Chest in Locked Tree Trunk",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Big Key Chest",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Double Mothula Room",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Kalle Demos Heart Container",
     "generalLocation": "Forbidden Woods",
   },
-  Object {
+  {
     "detailedLocation": "Letter from Orca",
     "generalLocation": "Mailbox",
   },
@@ -664,36 +664,36 @@ Array [
 `;
 
 exports[`LogicHelper raceModeBannedLocations returns the correct locations for Forsaken Fortress 1`] = `
-Array [
-  Object {
+[
+  {
     "detailedLocation": "Phantom Ganon",
     "generalLocation": "Forsaken Fortress",
   },
-  Object {
+  {
     "detailedLocation": "Chest Outside Upper Jail Cell",
     "generalLocation": "Forsaken Fortress",
   },
-  Object {
+  {
     "detailedLocation": "Chest Inside Lower Jail Cell",
     "generalLocation": "Forsaken Fortress",
   },
-  Object {
+  {
     "detailedLocation": "Chest Guarded By Bokoblin",
     "generalLocation": "Forsaken Fortress",
   },
-  Object {
+  {
     "detailedLocation": "Chest on Bed",
     "generalLocation": "Forsaken Fortress",
   },
-  Object {
+  {
     "detailedLocation": "Helmaroc King Heart Container",
     "generalLocation": "Forsaken Fortress",
   },
-  Object {
+  {
     "detailedLocation": "Letter from Aryll",
     "generalLocation": "Mailbox",
   },
-  Object {
+  {
     "detailedLocation": "Letter from Tingle",
     "generalLocation": "Mailbox",
   },
@@ -701,60 +701,60 @@ Array [
 `;
 
 exports[`LogicHelper raceModeBannedLocations returns the correct locations for Tower of the Gods 1`] = `
-Array [
-  Object {
+[
+  {
     "detailedLocation": "Chest Behind Bombable Walls",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "Hop Across Floating Boxes",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "Light Two Torches",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "Skulls Room Chest",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "Shoot Eye Above Skulls Room Chest",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "Tingle Statue Chest",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "First Chest Guarded by Armos Knights",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "Stone Tablet",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "Darknut Mini-Boss Room",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "Second Chest Guarded by Armos Knights",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "Floating Platforms Room",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "Top of Floating Platforms Room",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "Big Key Chest",
     "generalLocation": "Tower of the Gods",
   },
-  Object {
+  {
     "detailedLocation": "Gohdan Heart Container",
     "generalLocation": "Tower of the Gods",
   },
@@ -762,60 +762,60 @@ Array [
 `;
 
 exports[`LogicHelper raceModeBannedLocations returns the correct locations for Wind Temple 1`] = `
-Array [
-  Object {
+[
+  {
     "detailedLocation": "Chest Between Two Dirt Patches",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Tingle Statue Chest",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Chest Behind Stone Head",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Chest in Left Alcove",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Big Key Chest",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Chest In Many Cyclones Room",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Chest In Middle Of Hub Room",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Spike Wall Room - First Chest",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Spike Wall Room - Destroy All Cracked Floors",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Wizzrobe Mini-Boss Room",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Chest at Top of Hub Room",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Chest Behind Seven Armos",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Kill All Enemies in Tall Basement Room",
     "generalLocation": "Wind Temple",
   },
-  Object {
+  {
     "detailedLocation": "Molgera Heart Container",
     "generalLocation": "Wind Temple",
   },
@@ -823,7 +823,7 @@ Array [
 `;
 
 exports[`LogicHelper randomEntrancesForExit when dungeon and cave entrances are randomized separately when the exit is a cave returns all the caves 1`] = `
-Array [
+[
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
   "Fire Mountain Secret Cave",
@@ -848,7 +848,7 @@ Array [
 `;
 
 exports[`LogicHelper randomEntrancesForExit when dungeon and cave entrances are randomized separately when the exit is a dungeon returns all the dungeons 1`] = `
-Array [
+[
   "Dragon Roost Cavern",
   "Forbidden Woods",
   "Tower of the Gods",
@@ -858,7 +858,7 @@ Array [
 `;
 
 exports[`LogicHelper randomEntrancesForExit when dungeon and cave entrances are randomized together when the exit is a cave returns all the dungeons and caves 1`] = `
-Array [
+[
   "Dragon Roost Cavern",
   "Forbidden Woods",
   "Tower of the Gods",
@@ -888,7 +888,7 @@ Array [
 `;
 
 exports[`LogicHelper randomEntrancesForExit when dungeon and cave entrances are randomized together when the exit is a dungeon returns all the dungeons and caves 1`] = `
-Array [
+[
   "Dragon Roost Cavern",
   "Forbidden Woods",
   "Tower of the Gods",
@@ -918,7 +918,7 @@ Array [
 `;
 
 exports[`LogicHelper randomEntrancesForExit when only cave entrances are randomized returns all the caves 1`] = `
-Array [
+[
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
   "Fire Mountain Secret Cave",
@@ -943,7 +943,7 @@ Array [
 `;
 
 exports[`LogicHelper randomEntrancesForExit when only dungeon entrances are randomized returns all the dungeons 1`] = `
-Array [
+[
   "Dragon Roost Cavern",
   "Forbidden Woods",
   "Tower of the Gods",
@@ -954,7 +954,7 @@ Array [
 
 exports[`LogicHelper requirementsForEntrance returns simplified requirements for Bomb Island Secret Cave 1`] = `
 BooleanExpression {
-  "items": Array [
+  "items": [
     "Bombs",
     "Power Bracelets",
   ],
@@ -964,11 +964,11 @@ BooleanExpression {
 
 exports[`LogicHelper requirementsForEntrance returns simplified requirements for Forbidden Woods 1`] = `
 BooleanExpression {
-  "items": Array [
+  "items": [
     "Grappling Hook",
     "Deku Leaf",
     BooleanExpression {
-      "items": Array [
+      "items": [
         "Progressive Sword x1",
         "Skull Hammer",
         "Boomerang",
@@ -984,7 +984,7 @@ BooleanExpression {
 
 exports[`LogicHelper requirementsForLocation when starting with a sword returns simplified requirements for Cliff Plateau Isles - Cave 1`] = `
 BooleanExpression {
-  "items": Array [
+  "items": [
     "Nothing",
   ],
   "type": "and",
@@ -993,7 +993,7 @@ BooleanExpression {
 
 exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Cliff Plateau Isles - Cave 1`] = `
 BooleanExpression {
-  "items": Array [
+  "items": [
     "Progressive Sword x1",
     "Boomerang",
     "Skull Hammer",
@@ -1001,7 +1001,7 @@ BooleanExpression {
     "Hookshot",
     "Bombs",
     BooleanExpression {
-      "items": Array [
+      "items": [
         "Deku Leaf",
         "Grappling Hook",
       ],
@@ -1014,7 +1014,7 @@ BooleanExpression {
 
 exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container 1`] = `
 BooleanExpression {
-  "items": Array [
+  "items": [
     "DRC Small Key x4",
     "Grappling Hook",
     "DRC Big Key",
@@ -1025,7 +1025,7 @@ BooleanExpression {
 
 exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Earth Temple - Jalhalla Heart Container 1`] = `
 BooleanExpression {
-  "items": Array [
+  "items": [
     "Power Bracelets",
     "Command Melody",
     "Progressive Shield x2",
@@ -1040,7 +1040,7 @@ BooleanExpression {
 
 exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Mailbox - Beedle's Silver Membership Reward 1`] = `
 BooleanExpression {
-  "items": Array [
+  "items": [
     "Bait Bag",
     "Bombs",
     "Progressive Bow x1",
@@ -1052,13 +1052,13 @@ BooleanExpression {
 
 exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30 1`] = `
 BooleanExpression {
-  "items": Array [
+  "items": [
     BooleanExpression {
-      "items": Array [
+      "items": [
         BooleanExpression {
-          "items": Array [
+          "items": [
             BooleanExpression {
-              "items": Array [
+              "items": [
                 "Progressive Sword x1",
                 "Boomerang",
                 "Skull Hammer",
@@ -1075,17 +1075,17 @@ BooleanExpression {
     },
     "Power Bracelets",
     BooleanExpression {
-      "items": Array [
+      "items": [
         "Boomerang",
         BooleanExpression {
-          "items": Array [
+          "items": [
             "Hookshot",
             "Progressive Sword x1",
           ],
           "type": "and",
         },
         BooleanExpression {
-          "items": Array [
+          "items": [
             "Deku Leaf",
             "Progressive Sword x1",
           ],
@@ -1098,9 +1098,9 @@ BooleanExpression {
       "type": "or",
     },
     BooleanExpression {
-      "items": Array [
+      "items": [
         BooleanExpression {
-          "items": Array [
+          "items": [
             "Boomerang",
             "Progressive Sword x1",
           ],
@@ -1109,7 +1109,7 @@ BooleanExpression {
         "Progressive Bow x1",
         "Bombs",
         BooleanExpression {
-          "items": Array [
+          "items": [
             "Deku Leaf",
             "Progressive Sword x1",
           ],
@@ -1120,7 +1120,7 @@ BooleanExpression {
       "type": "or",
     },
     BooleanExpression {
-      "items": Array [
+      "items": [
         "Progressive Sword x1",
         "Progressive Bow x3",
         "Skull Hammer",
@@ -1128,7 +1128,7 @@ BooleanExpression {
       "type": "or",
     },
     BooleanExpression {
-      "items": Array [
+      "items": [
         "Grappling Hook",
         "Progressive Sword x1",
         "Skull Hammer",
@@ -1142,9 +1142,9 @@ BooleanExpression {
 
 exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Outset Island - Savage Labyrinth - Floor 50 1`] = `
 BooleanExpression {
-  "items": Array [
+  "items": [
     BooleanExpression {
-      "items": Array [
+      "items": [
         "Deku Leaf",
         "Hookshot",
       ],
@@ -1160,10 +1160,10 @@ BooleanExpression {
 
 exports[`LogicHelper requirementsForLocation when swordless returns simplified requirements for The Great Sea - Ghost Ship 1`] = `
 BooleanExpression {
-  "items": Array [
+  "items": [
     "Ghost Ship Chart",
     BooleanExpression {
-      "items": Array [
+      "items": [
         "Progressive Bow x3",
         "Skull Hammer",
         "Bombs",
