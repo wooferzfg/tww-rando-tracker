@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TrackerState default initializes the checked locations 1`] = `
-Object {
-  "Dragon Roost Cavern": Object {
+{
+  "Dragon Roost Cavern": {
     "Bird's Nest": false,
   },
-  "Outset Island": Object {
+  "Outset Island": {
     "Savage Labyrinth - Floor 30": false,
   },
 }
 `;
 
 exports[`TrackerState default initializes the items 1`] = `
-Object {
+{
   "Bait Bag": 0,
   "Ballad of Gales": 1,
   "Boat's Sail": 1,
@@ -158,11 +158,11 @@ Object {
 `;
 
 exports[`TrackerState default initializes the items for locations 1`] = `
-Object {
-  "Dragon Roost Cavern": Object {
+{
+  "Dragon Roost Cavern": {
     "Bird's Nest": null,
   },
-  "Outset Island": Object {
+  "Outset Island": {
     "Savage Labyrinth - Floor 30": null,
   },
 }

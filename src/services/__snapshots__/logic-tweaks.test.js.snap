@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LogicTweaks applyTweaks when cave entrances are randomized updates the macros 1`] = `
-Object {
+{
   "60 Arrow Quiver": "Progressive Quiver x1",
   "60 Bomb Bomb Bag": "Progressive Bomb Bag x1",
   "99 Arrow Quiver": "Progressive Quiver x2",
@@ -135,7 +135,7 @@ Object {
   "Can Farm Golden Feathers": "Grappling Hook & Spoils Bag",
   "Can Farm Green Chu Jelly": "Grappling Hook & Spoils Bag",
   "Can Farm Joy Pendants": "Grappling Hook & Spoils Bag",
-  "Can Farm Knight's Crests": "Grappling Hook & Spoils Bag & ( (Has Accessed Other Location \\"Ice Ring Isle - Inner Cave - Chest\\") | (Has Accessed Other Location \\"Outset Island - Savage Labyrinth - Floor 30\\") | (Has Accessed Other Location \\"Earth Temple - Big Key Chest\\" & Can Defeat Darknuts Easily) | (Has Accessed Other Location \\"Wind Temple - Big Key Chest\\" & Can Defeat Darknuts Easily) | (Has Accessed Other Location \\"Shark Island - Cave\\") | (Has Accessed Other Location \\"Stone Watcher Island - Cave\\" & Can Defeat Darknuts Easily) | (Has Accessed Other Location \\"Overlook Island - Cave\\" & Can Defeat Darknuts Easily) | (Can Access Hyrule) )",
+  "Can Farm Knight's Crests": "Grappling Hook & Spoils Bag & ( (Has Accessed Other Location "Ice Ring Isle - Inner Cave - Chest") | (Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30") | (Has Accessed Other Location "Earth Temple - Big Key Chest" & Can Defeat Darknuts Easily) | (Has Accessed Other Location "Wind Temple - Big Key Chest" & Can Defeat Darknuts Easily) | (Has Accessed Other Location "Shark Island - Cave") | (Has Accessed Other Location "Stone Watcher Island - Cave" & Can Defeat Darknuts Easily) | (Has Accessed Other Location "Overlook Island - Cave" & Can Defeat Darknuts Easily) | (Can Access Hyrule) )",
   "Can Farm Lots of Rupees": "Nothing",
   "Can Farm Skull Necklaces": "Grappling Hook & Spoils Bag",
   "Can Fly With Deku Leaf Outdoors": "Deku Leaf & Can Play Wind's Requiem",
@@ -146,7 +146,7 @@ Object {
   "Can Get Past Hyrule Barrier": "Can Access Hyrule & (Full Power Master Sword | In Swordless Mode)",
   "Can Hit Diamond Switches at Range": "Boomerang | Hero's Bow | Hookshot",
   "Can Move Boulders": "Bombs | Power Bracelets",
-  "Can Obtain 15 Blue Chu Jelly": "Can Get Blue Chu Jelly from Blue ChuChus & ( Can Move Boulders | Hookshot | Bombs | Grappling Hook | Hookshot | (Can Access Secret Cave Entrance on Shark Island & Can Fly With Deku Leaf Outdoors) | Can Access Other Location \\"Cliff Plateau Isles - Highest Isle\\" | Deku Leaf | Can Access Secret Cave Entrance on Boating Course ) & Spoils Bag",
+  "Can Obtain 15 Blue Chu Jelly": "Can Get Blue Chu Jelly from Blue ChuChus & ( Can Move Boulders | Hookshot | Bombs | Grappling Hook | Hookshot | (Can Access Secret Cave Entrance on Shark Island & Can Fly With Deku Leaf Outdoors) | Can Access Other Location "Cliff Plateau Isles - Highest Isle" | Deku Leaf | Can Access Secret Cave Entrance on Boating Course ) & Spoils Bag",
   "Can Play Ballad of Gales": "Wind Waker & Ballad of Gales",
   "Can Play Command Melody": "Wind Waker & Command Melody",
   "Can Play Earth God's Lyric": "Wind Waker & Earth God's Lyric",
@@ -216,12 +216,12 @@ Object {
   "Hero's Shield": "Progressive Shield x1",
   "Hero's Sword": "Progressive Sword x1",
   "Ice Arrows": "Progressive Bow x2",
-  "In Swordless Mode": "Option \\"sword_mode\\" Is \\"Swordless\\"",
+  "In Swordless Mode": "Option "sword_mode" Is "Swordless"",
   "Light Arrows": "Progressive Bow x3",
   "Mirror Shield": "Progressive Shield x2",
-  "Outside Swordless Mode": "Option \\"sword_mode\\" Is Not \\"Swordless\\"",
+  "Outside Swordless Mode": "Option "sword_mode" Is Not "Swordless"",
   "Picto Box": "Progressive Picto Box x1",
-  "Rematch Bosses Skipped": "Option \\"skip_rematch_bosses\\" Enabled",
+  "Rematch Bosses Skipped": "Option "skip_rematch_bosses" Enabled",
   "Rescued Aryll": "Nothing",
   "Rescued Tingle": "Nothing",
   "TODO": "Impossible",
@@ -230,7 +230,7 @@ Object {
 `;
 
 exports[`LogicTweaks applyTweaks when charts are randomized updates the macros 1`] = `
-Object {
+{
   "60 Arrow Quiver": "Progressive Quiver x1",
   "60 Bomb Bomb Bag": "Progressive Bomb Bag x1",
   "99 Arrow Quiver": "Progressive Quiver x2",
@@ -364,7 +364,7 @@ Object {
   "Can Farm Golden Feathers": "Grappling Hook & Spoils Bag",
   "Can Farm Green Chu Jelly": "Grappling Hook & Spoils Bag",
   "Can Farm Joy Pendants": "Grappling Hook & Spoils Bag",
-  "Can Farm Knight's Crests": "Grappling Hook & Spoils Bag & ( (Has Accessed Other Location \\"Ice Ring Isle - Inner Cave - Chest\\") | (Has Accessed Other Location \\"Outset Island - Savage Labyrinth - Floor 30\\") | (Has Accessed Other Location \\"Earth Temple - Big Key Chest\\" & Can Defeat Darknuts Easily) | (Has Accessed Other Location \\"Wind Temple - Big Key Chest\\" & Can Defeat Darknuts Easily) | (Has Accessed Other Location \\"Shark Island - Cave\\") | (Has Accessed Other Location \\"Stone Watcher Island - Cave\\" & Can Defeat Darknuts Easily) | (Has Accessed Other Location \\"Overlook Island - Cave\\" & Can Defeat Darknuts Easily) | (Can Access Hyrule) )",
+  "Can Farm Knight's Crests": "Grappling Hook & Spoils Bag & ( (Has Accessed Other Location "Ice Ring Isle - Inner Cave - Chest") | (Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30") | (Has Accessed Other Location "Earth Temple - Big Key Chest" & Can Defeat Darknuts Easily) | (Has Accessed Other Location "Wind Temple - Big Key Chest" & Can Defeat Darknuts Easily) | (Has Accessed Other Location "Shark Island - Cave") | (Has Accessed Other Location "Stone Watcher Island - Cave" & Can Defeat Darknuts Easily) | (Has Accessed Other Location "Overlook Island - Cave" & Can Defeat Darknuts Easily) | (Can Access Hyrule) )",
   "Can Farm Lots of Rupees": "Nothing",
   "Can Farm Skull Necklaces": "Grappling Hook & Spoils Bag",
   "Can Fly With Deku Leaf Outdoors": "Deku Leaf & Can Play Wind's Requiem",
@@ -375,7 +375,7 @@ Object {
   "Can Get Past Hyrule Barrier": "Can Access Hyrule & (Full Power Master Sword | In Swordless Mode)",
   "Can Hit Diamond Switches at Range": "Boomerang | Hero's Bow | Hookshot",
   "Can Move Boulders": "Bombs | Power Bracelets",
-  "Can Obtain 15 Blue Chu Jelly": "Can Get Blue Chu Jelly from Blue ChuChus & ( Can Move Boulders | Hookshot | Bombs | Grappling Hook | Hookshot | (Can Access Secret Cave Entrance on Shark Island & Can Fly With Deku Leaf Outdoors) | Can Access Other Location \\"Cliff Plateau Isles - Highest Isle\\" | Deku Leaf | Can Access Secret Cave Entrance on Boating Course ) & Spoils Bag",
+  "Can Obtain 15 Blue Chu Jelly": "Can Get Blue Chu Jelly from Blue ChuChus & ( Can Move Boulders | Hookshot | Bombs | Grappling Hook | Hookshot | (Can Access Secret Cave Entrance on Shark Island & Can Fly With Deku Leaf Outdoors) | Can Access Other Location "Cliff Plateau Isles - Highest Isle" | Deku Leaf | Can Access Secret Cave Entrance on Boating Course ) & Spoils Bag",
   "Can Play Ballad of Gales": "Wind Waker & Ballad of Gales",
   "Can Play Command Melody": "Wind Waker & Command Melody",
   "Can Play Earth God's Lyric": "Wind Waker & Earth God's Lyric",
@@ -445,12 +445,12 @@ Object {
   "Hero's Shield": "Progressive Shield x1",
   "Hero's Sword": "Progressive Sword x1",
   "Ice Arrows": "Progressive Bow x2",
-  "In Swordless Mode": "Option \\"sword_mode\\" Is \\"Swordless\\"",
+  "In Swordless Mode": "Option "sword_mode" Is "Swordless"",
   "Light Arrows": "Progressive Bow x3",
   "Mirror Shield": "Progressive Shield x2",
-  "Outside Swordless Mode": "Option \\"sword_mode\\" Is Not \\"Swordless\\"",
+  "Outside Swordless Mode": "Option "sword_mode" Is Not "Swordless"",
   "Picto Box": "Progressive Picto Box x1",
-  "Rematch Bosses Skipped": "Option \\"skip_rematch_bosses\\" Enabled",
+  "Rematch Bosses Skipped": "Option "skip_rematch_bosses" Enabled",
   "Rescued Aryll": "Nothing",
   "Rescued Tingle": "Nothing",
   "TODO": "Impossible",
@@ -459,7 +459,7 @@ Object {
 `;
 
 exports[`LogicTweaks applyTweaks when dungeon entrances are randomized updates the macros 1`] = `
-Object {
+{
   "60 Arrow Quiver": "Progressive Quiver x1",
   "60 Bomb Bomb Bag": "Progressive Bomb Bag x1",
   "99 Arrow Quiver": "Progressive Quiver x2",
@@ -593,7 +593,7 @@ Object {
   "Can Farm Golden Feathers": "Grappling Hook & Spoils Bag",
   "Can Farm Green Chu Jelly": "Grappling Hook & Spoils Bag",
   "Can Farm Joy Pendants": "Grappling Hook & Spoils Bag",
-  "Can Farm Knight's Crests": "Grappling Hook & Spoils Bag & ( (Has Accessed Other Location \\"Ice Ring Isle - Inner Cave - Chest\\") | (Has Accessed Other Location \\"Outset Island - Savage Labyrinth - Floor 30\\") | (Has Accessed Other Location \\"Earth Temple - Big Key Chest\\" & Can Defeat Darknuts Easily) | (Has Accessed Other Location \\"Wind Temple - Big Key Chest\\" & Can Defeat Darknuts Easily) | (Has Accessed Other Location \\"Shark Island - Cave\\") | (Has Accessed Other Location \\"Stone Watcher Island - Cave\\" & Can Defeat Darknuts Easily) | (Has Accessed Other Location \\"Overlook Island - Cave\\" & Can Defeat Darknuts Easily) | (Can Access Hyrule) )",
+  "Can Farm Knight's Crests": "Grappling Hook & Spoils Bag & ( (Has Accessed Other Location "Ice Ring Isle - Inner Cave - Chest") | (Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30") | (Has Accessed Other Location "Earth Temple - Big Key Chest" & Can Defeat Darknuts Easily) | (Has Accessed Other Location "Wind Temple - Big Key Chest" & Can Defeat Darknuts Easily) | (Has Accessed Other Location "Shark Island - Cave") | (Has Accessed Other Location "Stone Watcher Island - Cave" & Can Defeat Darknuts Easily) | (Has Accessed Other Location "Overlook Island - Cave" & Can Defeat Darknuts Easily) | (Can Access Hyrule) )",
   "Can Farm Lots of Rupees": "Nothing",
   "Can Farm Skull Necklaces": "Grappling Hook & Spoils Bag",
   "Can Fly With Deku Leaf Outdoors": "Deku Leaf & Can Play Wind's Requiem",
@@ -604,7 +604,7 @@ Object {
   "Can Get Past Hyrule Barrier": "Can Access Hyrule & (Full Power Master Sword | In Swordless Mode)",
   "Can Hit Diamond Switches at Range": "Boomerang | Hero's Bow | Hookshot",
   "Can Move Boulders": "Bombs | Power Bracelets",
-  "Can Obtain 15 Blue Chu Jelly": "Can Get Blue Chu Jelly from Blue ChuChus & ( Can Move Boulders | Hookshot | Bombs | Grappling Hook | Hookshot | (Can Access Secret Cave Entrance on Shark Island & Can Fly With Deku Leaf Outdoors) | Can Access Other Location \\"Cliff Plateau Isles - Highest Isle\\" | Deku Leaf | Can Access Secret Cave Entrance on Boating Course ) & Spoils Bag",
+  "Can Obtain 15 Blue Chu Jelly": "Can Get Blue Chu Jelly from Blue ChuChus & ( Can Move Boulders | Hookshot | Bombs | Grappling Hook | Hookshot | (Can Access Secret Cave Entrance on Shark Island & Can Fly With Deku Leaf Outdoors) | Can Access Other Location "Cliff Plateau Isles - Highest Isle" | Deku Leaf | Can Access Secret Cave Entrance on Boating Course ) & Spoils Bag",
   "Can Play Ballad of Gales": "Wind Waker & Ballad of Gales",
   "Can Play Command Melody": "Wind Waker & Command Melody",
   "Can Play Earth God's Lyric": "Wind Waker & Earth God's Lyric",
@@ -674,12 +674,12 @@ Object {
   "Hero's Shield": "Progressive Shield x1",
   "Hero's Sword": "Progressive Sword x1",
   "Ice Arrows": "Progressive Bow x2",
-  "In Swordless Mode": "Option \\"sword_mode\\" Is \\"Swordless\\"",
+  "In Swordless Mode": "Option "sword_mode" Is "Swordless"",
   "Light Arrows": "Progressive Bow x3",
   "Mirror Shield": "Progressive Shield x2",
-  "Outside Swordless Mode": "Option \\"sword_mode\\" Is Not \\"Swordless\\"",
+  "Outside Swordless Mode": "Option "sword_mode" Is Not "Swordless"",
   "Picto Box": "Progressive Picto Box x1",
-  "Rematch Bosses Skipped": "Option \\"skip_rematch_bosses\\" Enabled",
+  "Rematch Bosses Skipped": "Option "skip_rematch_bosses" Enabled",
   "Rescued Aryll": "Nothing",
   "Rescued Tingle": "Nothing",
   "TODO": "Impossible",
@@ -688,1644 +688,1644 @@ Object {
 `;
 
 exports[`LogicTweaks applyTweaks when no options are set updates the locations 1`] = `
-Object {
-  "Angular Isles": Object {
-    "Cave": Object {
+{
+  "Angular Isles": {
+    "Cave": {
       "need": "Can Access Angular Isles Secret Cave & Can Aim Mirror Shield & (Deku Leaf | Hookshot)",
       "originalItem": "Silver Rupee",
       "types": "Puzzle Secret Cave",
     },
-    "Peak": Object {
+    "Peak": {
       "need": "Nothing",
       "originalItem": "Piece of Heart",
       "types": "Island Puzzle",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 47",
       "originalItem": "Piece of Heart",
       "types": "Sunken Treasure",
     },
   },
-  "Bird's Peak Rock": Object {
-    "Cave": Object {
+  "Bird's Peak Rock": {
+    "Cave": {
       "need": "Can Access Bird's Peak Rock Secret Cave & Can Play Wind's Requiem",
       "originalItem": "Triforce Chart 3",
       "types": "Puzzle Secret Cave",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 35",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Boating Course": Object {
-    "Cave": Object {
+  "Boating Course": {
+    "Cave": {
       "need": "Can Access Boating Course Secret Cave & Can Hit Diamond Switches at Range & Can Defeat Miniblins Easily",
       "originalItem": "Submarine Chart",
       "types": "Puzzle Secret Cave, Combat Secret Cave",
     },
-    "Raft": Object {
+    "Raft": {
       "need": "Nothing",
       "originalItem": "Boko Baba Seed",
       "types": "Raft",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 48",
       "originalItem": "Sea Hearts Chart",
       "types": "Sunken Treasure",
     },
   },
-  "Bomb Island": Object {
-    "Cave": Object {
+  "Bomb Island": {
+    "Cave": {
       "need": "Can Access Bomb Island Secret Cave & Can Stun Magtails",
       "originalItem": "Piece of Heart",
       "types": "Puzzle Secret Cave",
     },
-    "Lookout Platform - Defeat the Enemies": Object {
+    "Lookout Platform - Defeat the Enemies": {
       "need": "Nothing",
       "originalItem": "Red Rupee",
       "types": "Platform",
     },
-    "Submarine": Object {
+    "Submarine": {
       "need": "Nothing",
       "originalItem": "Empty Bottle",
       "types": "Submarine",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 34",
       "originalItem": "Piece of Heart",
       "types": "Sunken Treasure",
     },
   },
-  "Cliff Plateau Isles": Object {
-    "Cave": Object {
+  "Cliff Plateau Isles": {
+    "Cave": {
       "need": "Can Access Cliff Plateau Isles Secret Cave & Can Defeat Boko Babas",
       "originalItem": "Joy Pendant",
       "types": "Puzzle Secret Cave",
     },
-    "Highest Isle": Object {
+    "Highest Isle": {
       "need": "Can Access Cliff Plateau Isles Secret Cave & Can Defeat Boko Babas & Deku Leaf",
       "originalItem": "Treasure Chart 25",
       "types": "Puzzle Secret Cave",
     },
-    "Lookout Platform": Object {
+    "Lookout Platform": {
       "need": "Nothing",
       "originalItem": "Boko Baba Seed",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 42",
       "originalItem": "Triforce Shard 5",
       "types": "Sunken Triforce",
     },
   },
-  "Crescent Moon Island": Object {
-    "Chest": Object {
+  "Crescent Moon Island": {
+    "Chest": {
       "need": "Nothing",
       "originalItem": "Treasure Chart 10",
       "types": "Other Chest",
     },
-    "Submarine": Object {
+    "Submarine": {
       "need": "Can Defeat Miniblins",
       "originalItem": "Treasure Chart 9",
       "types": "Submarine",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 5",
       "originalItem": "Piece of Heart",
       "types": "Sunken Treasure",
     },
   },
-  "Cyclops Reef": Object {
-    "Destroy the Cannons and Gunboats": Object {
+  "Cyclops Reef": {
+    "Destroy the Cannons and Gunboats": {
       "need": "Bombs & Can Fly With Deku Leaf Outdoors",
       "originalItem": "Treasure Chart 21",
       "types": "Eye Reef Chest",
     },
-    "Lookout Platform - Defeat the Enemies": Object {
+    "Lookout Platform - Defeat the Enemies": {
       "need": "Nothing",
       "originalItem": "Golden Feather",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 24 & Bombs",
       "originalItem": "Light Ring Chart",
       "types": "Sunken Treasure",
     },
   },
-  "Diamond Steppe Island": Object {
-    "Big Octo": Object {
+  "Diamond Steppe Island": {
+    "Big Octo": {
       "need": "Can Defeat Big Octos & Grappling Hook",
       "originalItem": "Orange Rupee",
       "types": "Big Octo",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 36",
       "originalItem": "Piece of Heart",
       "types": "Sunken Treasure",
     },
-    "Warp Maze Cave - First Chest": Object {
+    "Warp Maze Cave - First Chest": {
       "need": "Can Access Diamond Steppe Island Warp Maze Cave",
       "originalItem": "Joy Pendant",
       "types": "Puzzle Secret Cave",
     },
-    "Warp Maze Cave - Second Chest": Object {
+    "Warp Maze Cave - Second Chest": {
       "need": "Can Access Diamond Steppe Island Warp Maze Cave",
       "originalItem": "Ghost Ship Chart",
       "types": "Puzzle Secret Cave",
     },
   },
-  "Dragon Roost Cavern": Object {
-    "Alcove With Water Jugs": Object {
+  "Dragon Roost Cavern": {
+    "Alcove With Water Jugs": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x1",
       "originalItem": "Dungeon Map",
       "types": "Dungeon",
     },
-    "Big Key Chest": Object {
+    "Big Key Chest": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x1 & ( (DRC Small Key x4 & Can Cut Down Hanging DRC Platform) | Deku Leaf | Ice Arrows ) & Grappling Hook",
       "originalItem": "Big Key",
       "types": "Dungeon",
     },
-    "Bird's Nest": Object {
+    "Bird's Nest": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x3",
       "originalItem": "Small Key",
       "types": "Dungeon",
     },
-    "Boarded Up Chest": Object {
+    "Boarded Up Chest": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x1",
       "originalItem": "Small Key",
       "types": "Dungeon",
     },
-    "Boss Stairs Left Chest": Object {
+    "Boss Stairs Left Chest": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & (Grappling Hook | Deku Leaf | Hookshot | Ice Arrows)",
       "originalItem": "Yellow Rupee",
       "types": "Dungeon",
     },
-    "Boss Stairs Right Chest": Object {
+    "Boss Stairs Right Chest": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & (Grappling Hook | Deku Leaf | Hookshot | Ice Arrows)",
       "originalItem": "Knight's Crest",
       "types": "Dungeon",
     },
-    "Chest Across Lava Pit": Object {
+    "Chest Across Lava Pit": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x2 & (Grappling Hook | Deku Leaf)",
       "originalItem": "Treasure Chart 11",
       "types": "Dungeon",
     },
-    "Dark Room": Object {
+    "Dark Room": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x4",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "First Room": Object {
+    "First Room": {
       "need": "Can Access Dragon Roost Cavern",
       "originalItem": "Small Key",
       "types": "Dungeon",
     },
-    "Gohma Heart Container": Object {
+    "Gohma Heart Container": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & Grappling Hook & DRC Big Key & Can Defeat Gohma",
       "originalItem": "Heart Container",
       "types": "Dungeon",
     },
-    "Mini-Boss": Object {
+    "Mini-Boss": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x4",
       "originalItem": "Grappling Hook",
       "types": "Dungeon",
     },
-    "Pot Room Chest": Object {
+    "Pot Room Chest": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x4",
       "originalItem": "Treasure Chart 39",
       "types": "Dungeon",
     },
-    "Rat Room": Object {
+    "Rat Room": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x2",
       "originalItem": "Compass",
       "types": "Dungeon",
     },
-    "Rat Room Boarded Up Chest": Object {
+    "Rat Room Boarded Up Chest": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x2",
       "originalItem": "Small Key",
       "types": "Dungeon",
     },
-    "Tingle Chest in Hub Room": Object {
+    "Tingle Chest in Hub Room": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & Tingle Tuner Bombs",
       "originalItem": "Yellow Rupee",
       "types": "Tingle Chest, Dungeon",
     },
-    "Tingle Statue Chest": Object {
+    "Tingle Statue Chest": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x1 & ( (DRC Small Key x4 & Can Cut Down Hanging DRC Platform) | Deku Leaf | Ice Arrows ) & Grappling Hook & Tingle Tuner Bombs",
       "originalItem": "Dragon Tingle Statue",
       "types": "Tingle Chest, Dungeon",
     },
-    "Under Rope Bridge": Object {
+    "Under Rope Bridge": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & (Grappling Hook | Can Fly With Deku Leaf Outdoors)",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
   },
-  "Dragon Roost Island": Object {
-    "Chest on Top of Boulder": Object {
+  "Dragon Roost Island": {
+    "Chest on Top of Boulder": {
       "need": "Hero's Bow | (Bait Bag & Can Buy Hyoi Pears) | Boomerang | Bombs",
       "originalItem": "Silver Rupee",
       "types": "Island Puzzle",
     },
-    "Fly Across Platforms Around Island": Object {
+    "Fly Across Platforms Around Island": {
       "need": "Can Fly With Deku Leaf Outdoors & (Can Cut Grass | Magic Meter Upgrade)",
       "originalItem": "Orange Rupee",
       "types": "Island Puzzle",
     },
-    "Rito Aerie - Baito": Object {
+    "Rito Aerie - Baito": {
       "need": "Nothing",
       "originalItem": "Note to Mom",
       "types": "Minigame",
     },
-    "Rito Aerie - Give Hoskit 20 Golden Feathers": Object {
+    "Rito Aerie - Give Hoskit 20 Golden Feathers": {
       "need": "Spoils Bag & Can Farm Golden Feathers",
       "originalItem": "Orange Rupee",
       "types": "Spoils Trading",
     },
-    "Secret Cave": Object {
+    "Secret Cave": {
       "need": "Can Access Dragon Roost Island Secret Cave & Can Defeat Keese & Can Defeat Red ChuChus",
       "originalItem": "Purple Rupee",
       "types": "Combat Secret Cave",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 13",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
-    "Wind Shrine": Object {
+    "Wind Shrine": {
       "need": "Wind Waker",
       "originalItem": "Wind's Requiem",
       "types": "Misc",
     },
   },
-  "Earth Temple": Object {
-    "Big Key Chest": Object {
+  "Earth Temple": {
+    "Big Key Chest": {
       "need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Power Bracelets & Skull Hammer & ET Small Key x3 & Can Defeat Red Bubbles & Can Defeat Blue Bubbles & Can Defeat Darknuts",
       "originalItem": "Big Key",
       "types": "Dungeon",
     },
-    "Casket in Second Crypt": Object {
+    "Casket in Second Crypt": {
       "need": "Can Access Earth Temple & Can Play Command Melody & ET Small Key x2 & Fire Arrows & Power Bracelets & Can Defeat Floormasters",
       "originalItem": "Small Key",
       "types": "Dungeon",
     },
-    "Chest Behind Destructible Walls": Object {
+    "Chest Behind Destructible Walls": {
       "need": "Can Access Earth Temple & Can Play Command Melody & Can Defeat Red ChuChus & Can Defeat Green ChuChus & Can Defeat Dark ChuChus & Skull Hammer & Mirror Shield",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "Chest Behind Statues": Object {
+    "Chest Behind Statues": {
       "need": "Can Access Earth Temple & Can Play Command Melody & ET Small Key x2 & Fire Arrows & Power Bracelets & Can Defeat Floormasters",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "Chest In Three Blocks Room": Object {
+    "Chest In Three Blocks Room": {
       "need": "Can Access Earth Temple & Can Play Command Melody & ET Small Key x2 & Fire Arrows & Power Bracelets & Can Defeat Floormasters",
       "originalItem": "Compass",
       "types": "Dungeon",
     },
-    "Chest in Third Crypt": Object {
+    "Chest in Third Crypt": {
       "need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Power Bracelets & Skull Hammer & ET Small Key x3 & Can Defeat Red Bubbles",
       "originalItem": "Red Rupee",
       "types": "Dungeon",
     },
-    "End of Foggy Room With Floormasters": Object {
+    "End of Foggy Room With Floormasters": {
       "need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric",
       "originalItem": "Small Key",
       "types": "Dungeon",
     },
-    "Jalhalla Heart Container": Object {
+    "Jalhalla Heart Container": {
       "need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Power Bracelets & Skull Hammer & ET Small Key x3 & Can Defeat Red Bubbles & ET Big Key & Can Defeat Jalhalla",
       "originalItem": "Heart Container",
       "types": "Dungeon",
     },
-    "Kill All Floormasters in Foggy Room": Object {
+    "Kill All Floormasters in Foggy Room": {
       "need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Can Defeat Floormasters",
       "originalItem": "Treasure Chart 20",
       "types": "Dungeon",
     },
-    "Many Mirrors Room Left Chest": Object {
+    "Many Mirrors Room Left Chest": {
       "need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Power Bracelets & Skull Hammer & ET Small Key x3 & Can Defeat Red Bubbles",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "Many Mirrors Room Right Chest": Object {
+    "Many Mirrors Room Right Chest": {
       "need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Power Bracelets & Skull Hammer & ET Small Key x3 & Can Defeat Red Bubbles",
       "originalItem": "Purple Rupee",
       "types": "Dungeon",
     },
-    "Stalfos Crypt Room": Object {
+    "Stalfos Crypt Room": {
       "need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Power Bracelets & Skull Hammer & ET Small Key x3 & Can Defeat Red Bubbles & Can Defeat Stalfos",
       "originalItem": "Treasure Chart 12",
       "types": "Dungeon",
     },
-    "Stalfos Mini-Boss Room": Object {
+    "Stalfos Mini-Boss Room": {
       "need": "Can Access Earth Temple & Can Play Command Melody & ET Small Key x3 & Fire Arrows & Power Bracelets & Can Defeat Floormasters & (Can Defeat Stalfos | Hookshot)",
       "originalItem": "Mirror Shield",
       "types": "Dungeon",
     },
-    "Tingle Statue Chest": Object {
+    "Tingle Statue Chest": {
       "need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Tingle Tuner Bombs",
       "originalItem": "Earth Tingle Statue",
       "types": "Tingle Chest, Dungeon",
     },
-    "Transparent Chest In Warp Pot Room": Object {
+    "Transparent Chest In Warp Pot Room": {
       "need": "Can Access Earth Temple & Can Play Command Melody",
       "originalItem": "Dungeon Map",
       "types": "Dungeon",
     },
-    "Transparent Chest in First Crypt": Object {
+    "Transparent Chest in First Crypt": {
       "need": "Can Access Earth Temple & Can Play Command Melody & Skull Hammer & Power Bracelets",
       "originalItem": "Small Key",
       "types": "Dungeon",
     },
   },
-  "Eastern Fairy Island": Object {
-    "Great Fairy": Object {
+  "Eastern Fairy Island": {
+    "Great Fairy": {
       "need": "Can Move Boulders",
       "originalItem": "60 Bomb Bomb Bag",
       "types": "Great Fairy",
     },
-    "Lookout Platform - Defeat the Cannons and Enemies": Object {
+    "Lookout Platform - Defeat the Cannons and Enemies": {
       "need": "Can Destroy Cannons",
       "originalItem": "Boko Baba Seed",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 19",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Eastern Triangle Island": Object {
-    "Sunken Treasure": Object {
+  "Eastern Triangle Island": {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 27",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Fire Mountain": Object {
-    "Big Octo": Object {
+  "Fire Mountain": {
+    "Big Octo": {
       "need": "Can Defeat Big Octos & Grappling Hook",
       "originalItem": "Orange Rupee",
       "types": "Big Octo",
     },
-    "Cave - Chest": Object {
+    "Cave - Chest": {
       "need": "Can Access Fire Mountain Secret Cave & Can Defeat Magtails",
       "originalItem": "Power Bracelets",
       "types": "Puzzle Secret Cave",
     },
-    "Lookout Platform - Destroy the Cannons": Object {
+    "Lookout Platform - Destroy the Cannons": {
       "need": "Can Destroy Cannons",
       "originalItem": "Golden Feather",
       "types": "Platform",
     },
-    "Lookout Platform Chest": Object {
+    "Lookout Platform Chest": {
       "need": "Nothing",
       "originalItem": "Yellow Rupee",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 20",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Five-Eye Reef": Object {
-    "Destroy the Cannons": Object {
+  "Five-Eye Reef": {
+    "Destroy the Cannons": {
       "need": "Can Destroy Cannons & Can Fly With Deku Leaf Outdoors",
       "originalItem": "Treasure Chart 41",
       "types": "Eye Reef Chest",
     },
-    "Lookout Platform": Object {
+    "Lookout Platform": {
       "need": "Nothing",
       "originalItem": "Golden Feather",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 37 & Can Destroy Cannons",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Five-Star Isles": Object {
-    "Lookout Platform - Destroy the Cannons": Object {
+  "Five-Star Isles": {
+    "Lookout Platform - Destroy the Cannons": {
       "need": "Can Destroy Cannons",
       "originalItem": "Golden Feather",
       "types": "Platform",
     },
-    "Raft": Object {
+    "Raft": {
       "need": "Nothing",
       "originalItem": "Red Rupee",
       "types": "Raft",
     },
-    "Submarine": Object {
+    "Submarine": {
       "need": "Nothing",
       "originalItem": "Piece of Heart",
       "types": "Submarine",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 49",
       "originalItem": "Piece of Heart",
       "types": "Sunken Treasure",
     },
   },
-  "Flight Control Platform": Object {
-    "Bird-Man Contest - First Prize": Object {
+  "Flight Control Platform": {
+    "Bird-Man Contest - First Prize": {
       "need": "Can Fly With Deku Leaf Outdoors & Magic Meter Upgrade",
       "originalItem": "Piece of Heart",
       "types": "Minigame",
     },
-    "Submarine": Object {
+    "Submarine": {
       "need": "Can Defeat Wizzrobes & Can Defeat Red ChuChus & Can Defeat Green ChuChus & Can Defeat Miniblins & Can Defeat Wizzrobes at Range",
       "originalItem": "Platform Chart",
       "types": "Submarine",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 14",
       "originalItem": "Island Hearts Chart",
       "types": "Sunken Treasure",
     },
   },
-  "Forbidden Woods": Object {
-    "Big Key Chest": Object {
+  "Forbidden Woods": {
+    "Big Key Chest": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook & Boomerang",
       "originalItem": "Big Key",
       "types": "Dungeon",
     },
-    "Chest Across Red Hanging Flower": Object {
+    "Chest Across Red Hanging Flower": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook & Boomerang",
       "originalItem": "Yellow Rupee",
       "types": "Dungeon",
     },
-    "Chest in Locked Tree Trunk": Object {
+    "Chest in Locked Tree Trunk": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook & Boomerang",
       "originalItem": "Treasure Chart 15",
       "types": "Dungeon",
     },
-    "Climb to Top Using Boko Baba Bulbs": Object {
+    "Climb to Top Using Boko Baba Bulbs": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Door Flowers",
       "originalItem": "Treasure Chart 1",
       "types": "Dungeon",
     },
-    "Double Mothula Room": Object {
+    "Double Mothula Room": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & (Can Defeat Door Flowers | Grappling Hook) & Can Defeat Mothulas",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "First Room": Object {
+    "First Room": {
       "need": "Can Access Forbidden Woods",
       "originalItem": "Dungeon Map",
       "types": "Dungeon",
     },
-    "Hole in Tree": Object {
+    "Hole in Tree": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas",
       "originalItem": "Red Rupee",
       "types": "Dungeon",
     },
-    "Inside Hollow Tree's Mouth": Object {
+    "Inside Hollow Tree's Mouth": {
       "need": "Can Access Forbidden Woods & (Can Defeat Door Flowers | Can Defeat Boko Babas)",
       "originalItem": "Knight's Crest",
       "types": "Dungeon",
     },
-    "Kalle Demos Heart Container": Object {
+    "Kalle Demos Heart Container": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & (Can Defeat Door Flowers | Grappling Hook) & Can Defeat Mothulas & FW Big Key & Can Defeat Kalle Demos",
       "originalItem": "Heart Container",
       "types": "Dungeon",
     },
-    "Morth Pit": Object {
+    "Morth Pit": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook",
       "originalItem": "Yellow Rupee",
       "types": "Dungeon",
     },
-    "Mothula Mini-Boss Room": Object {
+    "Mothula Mini-Boss Room": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Winged Mothulas",
       "originalItem": "Boomerang",
       "types": "Dungeon",
     },
-    "Past Seeds Hanging by Vines": Object {
+    "Past Seeds Hanging by Vines": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Door Flowers & Can Destroy Seeds Hanging by Vines",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "Tall Room Before Mini-Boss": Object {
+    "Tall Room Before Mini-Boss": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Peahats",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "Tingle Statue Chest": Object {
+    "Tingle Statue Chest": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Grappling Hook & Boomerang & Tingle Tuner Bombs",
       "originalItem": "Forbidden Tingle Statue",
       "types": "Tingle Chest, Dungeon",
     },
-    "Vine Maze Left Chest": Object {
+    "Vine Maze Left Chest": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook",
       "originalItem": "Compass",
       "types": "Dungeon",
     },
-    "Vine Maze Right Chest": Object {
+    "Vine Maze Right Chest": {
       "need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook",
       "originalItem": "Small Key",
       "types": "Dungeon",
     },
   },
-  "Forest Haven": Object {
-    "On Tree Branch": Object {
+  "Forest Haven": {
+    "On Tree Branch": {
       "need": "Can Access Forest Haven & Grappling Hook",
       "originalItem": "Deku Leaf",
       "types": "Island Puzzle",
     },
-    "Small Island Chest": Object {
+    "Small Island Chest": {
       "need": "Can Access Forest Haven & Grappling Hook & Can Fly With Deku Leaf Outdoors",
       "originalItem": "Treasure Chart 3",
       "types": "Island Puzzle",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 41",
       "originalItem": "Piece of Heart",
       "types": "Sunken Treasure",
     },
   },
-  "Forsaken Fortress": Object {
-    "Chest Guarded By Bokoblin": Object {
+  "Forsaken Fortress": {
+    "Chest Guarded By Bokoblin": {
       "need": "Can Get Inside Forsaken Fortress",
       "originalItem": "Compass",
       "types": "Dungeon",
     },
-    "Chest Inside Lower Jail Cell": Object {
+    "Chest Inside Lower Jail Cell": {
       "need": "Can Get Inside Forsaken Fortress",
       "originalItem": "Piece of Heart",
       "types": "Dungeon",
     },
-    "Chest Outside Upper Jail Cell": Object {
+    "Chest Outside Upper Jail Cell": {
       "need": "Can Get Inside Forsaken Fortress & (Deku Leaf | Hookshot)",
       "originalItem": "Dungeon Map",
       "types": "Dungeon",
     },
-    "Chest on Bed": Object {
+    "Chest on Bed": {
       "need": "Can Get Inside Forsaken Fortress",
       "originalItem": "Yellow Rupee",
       "types": "Dungeon",
     },
-    "Helmaroc King Heart Container": Object {
+    "Helmaroc King Heart Container": {
       "need": "Can Get Inside Forsaken Fortress & Skull Hammer & (Deku Leaf | Hookshot) & Can Defeat Helmaroc King",
       "originalItem": "Heart Container",
       "types": "Dungeon",
     },
-    "Phantom Ganon": Object {
+    "Phantom Ganon": {
       "need": "Can Reach and Defeat Phantom Ganon",
       "originalItem": "Skull Hammer",
       "types": "Dungeon",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 1",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Four-Eye Reef": Object {
-    "Destroy the Cannons and Gunboats": Object {
+  "Four-Eye Reef": {
+    "Destroy the Cannons and Gunboats": {
       "need": "Bombs & Can Fly With Deku Leaf Outdoors",
       "originalItem": "Treasure Chart 19",
       "types": "Eye Reef Chest",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 8 & Bombs",
       "originalItem": "Great Fairy Chart",
       "types": "Sunken Treasure",
     },
   },
-  "Gale Isle": Object {
-    "Sunken Treasure": Object {
+  "Gale Isle": {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 4",
       "originalItem": "Triforce Shard 2",
       "types": "Sunken Triforce",
     },
   },
-  "Ganon's Tower": Object {
-    "Defeat Ganondorf": Object {
+  "Ganon's Tower": {
+    "Defeat Ganondorf": {
       "need": "Can Reach and Defeat Ganondorf",
     },
-    "Maze Chest": Object {
+    "Maze Chest": {
       "need": "Can Reach Ganon's Tower Phantom Ganon Room & Can Defeat Phantom Ganon",
       "originalItem": "Light Arrow",
       "types": "Dungeon",
     },
   },
-  "Greatfish Isle": Object {
-    "Hidden Chest": Object {
+  "Greatfish Isle": {
+    "Hidden Chest": {
       "need": "Can Fly With Deku Leaf Outdoors",
       "originalItem": "Piece of Heart",
       "types": "Island Puzzle",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 23",
       "originalItem": "Triforce Shard 1",
       "types": "Sunken Triforce",
     },
   },
-  "Headstone Island": Object {
-    "Submarine": Object {
+  "Headstone Island": {
+    "Submarine": {
       "need": "Can Defeat Bombchus",
       "originalItem": "Treasure Chart 14",
       "types": "Submarine",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 45",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
-    "Top of the Island": Object {
+    "Top of the Island": {
       "need": "Bait Bag & Can Buy Hyoi Pears",
       "originalItem": "Piece of Heart",
       "types": "Island Puzzle",
     },
   },
-  "Horseshoe Island": Object {
-    "Cave": Object {
+  "Horseshoe Island": {
+    "Cave": {
       "need": "Can Access Horseshoe Island Secret Cave & Can Defeat Mothulas & Can Defeat Winged Mothulas",
       "originalItem": "Treasure Chart 8",
       "types": "Combat Secret Cave",
     },
-    "Northwestern Lookout Platform": Object {
+    "Northwestern Lookout Platform": {
       "need": "Nothing",
       "originalItem": "Skull Necklace",
       "types": "Platform",
     },
-    "Play Golf": Object {
+    "Play Golf": {
       "need": "Deku Leaf & (Can Fly With Deku Leaf Outdoors | Hookshot)",
       "originalItem": "Treasure Chart 28",
       "types": "Island Puzzle",
     },
-    "Southeastern Lookout Platform": Object {
+    "Southeastern Lookout Platform": {
       "need": "Nothing",
       "originalItem": "Golden Feather",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 43",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Hyrule": Object {
-    "Master Sword Chamber": Object {
+  "Hyrule": {
+    "Master Sword Chamber": {
       "need": "Can Access Hyrule & Can Defeat Mighty Darknuts",
       "originalItem": "Master Sword (Powerless)",
       "types": "Dungeon",
     },
   },
-  "Ice Ring Isle": Object {
-    "Cave - Chest": Object {
+  "Ice Ring Isle": {
+    "Cave - Chest": {
       "need": "Can Access Ice Ring Isle Secret Cave",
       "originalItem": "Iron Boots",
       "types": "Puzzle Secret Cave",
     },
-    "Frozen Chest": Object {
+    "Frozen Chest": {
       "need": "Fire Arrows",
       "originalItem": "Treasure Chart 36",
       "types": "Island Puzzle",
     },
-    "Inner Cave - Chest": Object {
+    "Inner Cave - Chest": {
       "need": "Can Access Ice Ring Isle Secret Cave & Iron Boots & Fire Arrows",
       "originalItem": "Orange Rupee",
       "types": "Puzzle Secret Cave, Combat Secret Cave",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 40",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Islet of Steel": Object {
-    "Interior": Object {
+  "Islet of Steel": {
+    "Interior": {
       "need": "Bombs & Can Play Wind's Requiem",
       "originalItem": "Triforce Chart 1",
       "types": "Other Chest",
     },
-    "Lookout Platform - Defeat the Enemies": Object {
+    "Lookout Platform - Defeat the Enemies": {
       "need": "Can Defeat Wizzrobes at Range",
       "originalItem": "Skull Necklace",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 30",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Mailbox": Object {
-    "Beedle's Gold Membership Reward": Object {
+  "Mailbox": {
+    "Beedle's Gold Membership Reward": {
       "need": "( Bait Bag | Bombs | Hero's Bow | Empty Bottle ) & Song of Passing",
       "originalItem": "Fill-Up Coupon",
       "types": "No progression",
     },
-    "Beedle's Silver Membership Reward": Object {
+    "Beedle's Silver Membership Reward": {
       "need": "( Bait Bag | Bombs | Hero's Bow | Empty Bottle ) & Song of Passing",
       "originalItem": "Complimentary ID",
       "types": "No progression",
     },
-    "Letter Advertising Bombs in Beedle's Shop": Object {
+    "Letter Advertising Bombs in Beedle's Shop": {
       "need": "Bombs",
       "originalItem": "Beedle's Chart",
       "types": "Mail",
     },
-    "Letter Advertising Rock Spire Shop Ship": Object {
+    "Letter Advertising Rock Spire Shop Ship": {
       "need": "Any Wallet Upgrade",
       "originalItem": "Green Rupee",
       "types": "Mail",
     },
-    "Letter from Aryll": Object {
-      "need": "Has Accessed Other Location \\"Forsaken Fortress - Helmaroc King Heart Container\\" & Song of Passing",
+    "Letter from Aryll": {
+      "need": "Has Accessed Other Location "Forsaken Fortress - Helmaroc King Heart Container" & Song of Passing",
       "originalItem": "Red Rupee",
       "types": "Mail, Dungeon",
     },
-    "Letter from Baito": Object {
-      "need": "Delivery Bag & Note to Mom & Song of Passing & Has Accessed Other Location \\"Earth Temple - Jalhalla Heart Container\\"",
+    "Letter from Baito": {
+      "need": "Delivery Bag & Note to Mom & Song of Passing & Has Accessed Other Location "Earth Temple - Jalhalla Heart Container"",
       "originalItem": "Red Rupee",
       "types": "Mail, Dungeon",
     },
-    "Letter from Baito's Mother": Object {
+    "Letter from Baito's Mother": {
       "need": "Delivery Bag & Note to Mom & Song of Passing",
       "originalItem": "Piece of Heart",
       "types": "Mail",
     },
-    "Letter from Grandma": Object {
+    "Letter from Grandma": {
       "need": "Empty Bottle & Can Get Fairies & Song of Passing",
       "originalItem": "Red Rupee",
       "types": "Mail",
     },
-    "Letter from Hoskit's Girlfriend": Object {
+    "Letter from Hoskit's Girlfriend": {
       "need": "Spoils Bag & Can Farm Golden Feathers & Song of Passing",
       "originalItem": "Piece of Heart (Alternate Message)",
       "types": "Mail, Spoils Trading",
     },
-    "Letter from Komali's Father": Object {
+    "Letter from Komali's Father": {
       "need": "Farore's Pearl",
       "originalItem": "Piece of Heart",
       "types": "Mail",
     },
-    "Letter from Orca": Object {
-      "need": "Has Accessed Other Location \\"Forbidden Woods - Kalle Demos Heart Container\\"",
+    "Letter from Orca": {
+      "need": "Has Accessed Other Location "Forbidden Woods - Kalle Demos Heart Container"",
       "originalItem": "Red Rupee",
       "types": "Mail, Dungeon",
     },
-    "Letter from Tingle": Object {
-      "need": "Rescued Tingle & Any Wallet Upgrade & Has Accessed Other Location \\"Forsaken Fortress - Helmaroc King Heart Container\\" & Song of Passing",
+    "Letter from Tingle": {
+      "need": "Rescued Tingle & Any Wallet Upgrade & Has Accessed Other Location "Forsaken Fortress - Helmaroc King Heart Container" & Song of Passing",
       "originalItem": "IN-credible Chart",
       "types": "Mail, Dungeon, Expensive Purchase",
     },
   },
-  "Mother and Child Isles": Object {
-    "Inside Mother Isle": Object {
+  "Mother and Child Isles": {
+    "Inside Mother Isle": {
       "need": "Can Play Ballad of Gales",
       "originalItem": "Fire and Ice Arrows",
       "types": "Other Chest",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 9",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Needle Rock Isle": Object {
-    "Cave": Object {
+  "Needle Rock Isle": {
+    "Cave": {
       "need": "Can Access Needle Rock Isle Secret Cave & Fire Arrows",
       "originalItem": "Orange Rupee",
       "types": "Puzzle Secret Cave",
     },
-    "Chest": Object {
+    "Chest": {
       "need": "Bait Bag & Can Buy Hyoi Pears",
       "originalItem": "Piece of Heart",
       "types": "Island Puzzle",
     },
-    "Golden Gunboat": Object {
+    "Golden Gunboat": {
       "need": "Bombs & Grappling Hook",
       "originalItem": "Triforce Chart 5",
       "types": "Gunboat",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 29",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Northern Fairy Island": Object {
-    "Great Fairy": Object {
+  "Northern Fairy Island": {
+    "Great Fairy": {
       "need": "Nothing",
       "originalItem": "1000 Rupee Wallet",
       "types": "Great Fairy",
     },
-    "Submarine": Object {
+    "Submarine": {
       "need": "Nothing",
       "originalItem": "Treasure Chart 22",
       "types": "Submarine",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 3",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Northern Triangle Island": Object {
-    "Sunken Treasure": Object {
+  "Northern Triangle Island": {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 18",
       "originalItem": "Octo Chart",
       "types": "Sunken Treasure",
     },
   },
-  "Outset Island": Object {
-    "Dig up Black Soil": Object {
+  "Outset Island": {
+    "Dig up Black Soil": {
       "need": "Bait Bag & Can Buy Bait & Power Bracelets",
       "originalItem": "Piece of Heart",
       "types": "Island Puzzle",
     },
-    "Great Fairy": Object {
+    "Great Fairy": {
       "need": "Can Cut Down Outset Trees & Can Fly With Deku Leaf Outdoors & Can Move Boulders",
       "originalItem": "5000 Rupee Wallet",
       "types": "Great Fairy",
     },
-    "Jabun's Cave": Object {
+    "Jabun's Cave": {
       "need": "Bombs",
       "originalItem": "Nayru's Pearl",
       "types": "Island Puzzle",
     },
-    "Mesa the Grasscutter's House": Object {
+    "Mesa the Grasscutter's House": {
       "need": "Nothing",
       "originalItem": "Red Rupee",
       "types": "Other Chest",
     },
-    "Orca - Give 10 Knight's Crests": Object {
+    "Orca - Give 10 Knight's Crests": {
       "need": "Spoils Bag & Can Farm Knight's Crests & Can Sword Fight with Orca",
       "originalItem": "Hurricane Spin",
       "types": "Spoils Trading",
     },
-    "Orca - Hit 500 Times": Object {
+    "Orca - Hit 500 Times": {
       "need": "Can Sword Fight with Orca",
       "originalItem": "Piece of Heart",
       "types": "Consumables only",
     },
-    "Savage Labyrinth - Floor 30": Object {
+    "Savage Labyrinth - Floor 30": {
       "need": "Can Access Savage Labyrinth & Can Defeat Keese & Can Defeat Miniblins & Can Defeat Red ChuChus & Can Defeat Magtails & Can Defeat Fire Keese & Can Defeat Peahats & Can Defeat Green ChuChus & Can Defeat Boko Babas & Can Defeat Mothulas & Can Defeat Winged Mothulas & Can Defeat Wizzrobes & Can Defeat Armos & Can Defeat Yellow ChuChus & Can Defeat Red Bubbles & Can Defeat Darknuts & Can Play Wind's Requiem & (Grappling Hook | Hero's Sword | Skull Hammer)",
       "originalItem": "Triforce Chart 6",
       "types": "Savage Labyrinth",
     },
-    "Savage Labyrinth - Floor 50": Object {
-      "need": "Can Access Other Location \\"Outset Island - Savage Labyrinth - Floor 30\\" & Can Aim Mirror Shield & Can Defeat ReDeads & Can Defeat Blue Bubbles & Can Defeat Dark ChuChus & Can Defeat Poes & Can Defeat Stalfos & Skull Hammer",
+    "Savage Labyrinth - Floor 50": {
+      "need": "Can Access Other Location "Outset Island - Savage Labyrinth - Floor 30" & Can Aim Mirror Shield & Can Defeat ReDeads & Can Defeat Blue Bubbles & Can Defeat Dark ChuChus & Can Defeat Poes & Can Defeat Stalfos & Skull Hammer",
       "originalItem": "Piece of Heart",
       "types": "Savage Labyrinth",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 44",
       "originalItem": "Triforce Shard 4",
       "types": "Sunken Triforce",
     },
-    "Underneath Link's House": Object {
+    "Underneath Link's House": {
       "need": "Nothing",
       "originalItem": "Orange Rupee",
       "types": "Other Chest",
     },
   },
-  "Overlook Island": Object {
-    "Cave": Object {
+  "Overlook Island": {
+    "Cave": {
       "need": "Can Access Overlook Island Secret Cave & Can Defeat Stalfos & Can Defeat Wizzrobes & Can Defeat Red ChuChus & Can Defeat Green ChuChus & Can Defeat Keese & Can Defeat Fire Keese & Can Defeat Morths & Can Defeat Kargarocs & Can Defeat Darknuts & Can Play Wind's Requiem",
       "originalItem": "Triforce Chart 8",
       "types": "Combat Secret Cave",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 7",
       "originalItem": "Secret Cave Chart",
       "types": "Sunken Treasure",
     },
   },
-  "Pawprint Isle": Object {
-    "Chuchu Cave - Behind Left Boulder": Object {
+  "Pawprint Isle": {
+    "Chuchu Cave - Behind Left Boulder": {
       "need": "Can Access Pawprint Isle Chuchu Cave & Can Move Boulders",
       "originalItem": "Purple Rupee",
       "types": "Puzzle Secret Cave",
     },
-    "Chuchu Cave - Behind Right Boulder": Object {
+    "Chuchu Cave - Behind Right Boulder": {
       "need": "Can Access Pawprint Isle Chuchu Cave & Can Move Boulders",
       "originalItem": "Joy Pendant",
       "types": "Puzzle Secret Cave",
     },
-    "Chuchu Cave - Chest": Object {
+    "Chuchu Cave - Chest": {
       "need": "Can Access Pawprint Isle Chuchu Cave",
       "originalItem": "Piece of Heart",
       "types": "Puzzle Secret Cave",
     },
-    "Chuchu Cave - Scale the Wall": Object {
+    "Chuchu Cave - Scale the Wall": {
       "need": "Can Access Pawprint Isle Chuchu Cave & Grappling Hook",
       "originalItem": "Red Rupee",
       "types": "Puzzle Secret Cave",
     },
-    "Lookout Platform - Defeat the Enemies": Object {
+    "Lookout Platform - Defeat the Enemies": {
       "need": "Nothing",
       "originalItem": "Red Rupee",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 12",
       "originalItem": "Piece of Heart",
       "types": "Sunken Treasure",
     },
-    "Wizzrobe Cave": Object {
+    "Wizzrobe Cave": {
       "need": "Can Access Pawprint Isle Wizzrobe Cave & Can Defeat Wizzrobes at Range & Can Defeat Fire Keese & Can Defeat Magtails & Can Defeat Red ChuChus & Can Defeat Green ChuChus & Can Defeat Yellow ChuChus & Can Defeat Red Bubbles & Can Remove Peahat Armor",
       "originalItem": "Silver Rupee",
       "types": "Combat Secret Cave",
     },
   },
-  "Private Oasis": Object {
-    "Big Octo": Object {
+  "Private Oasis": {
+    "Big Octo": {
       "need": "Can Defeat Big Octos & Grappling Hook",
       "originalItem": "Orange Rupee",
       "types": "Big Octo",
     },
-    "Cabana Labyrinth - Lower Floor Chest": Object {
+    "Cabana Labyrinth - Lower Floor Chest": {
       "need": "Can Access Cabana Labyrinth & Skull Hammer",
       "originalItem": "Orange Rupee",
       "types": "Puzzle Secret Cave",
     },
-    "Cabana Labyrinth - Upper Floor Chest": Object {
+    "Cabana Labyrinth - Upper Floor Chest": {
       "need": "Can Access Cabana Labyrinth & Skull Hammer & Can Play Wind's Requiem",
       "originalItem": "Triforce Chart 2",
       "types": "Puzzle Secret Cave",
     },
-    "Chest at Top of Waterfall": Object {
+    "Chest at Top of Waterfall": {
       "need": "Hookshot | Can Fly With Deku Leaf Outdoors",
       "originalItem": "Treasure Chart 27",
       "types": "Island Puzzle",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 33",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Rock Spire Isle": Object {
-    "Beedle's Special Shop Ship - 500 Rupee Item": Object {
+  "Rock Spire Isle": {
+    "Beedle's Special Shop Ship - 500 Rupee Item": {
       "need": "Any Wallet Upgrade & Can Farm Lots of Rupees",
       "originalItem": "Empty Bottle",
       "types": "Expensive Purchase",
     },
-    "Beedle's Special Shop Ship - 900 Rupee Item": Object {
+    "Beedle's Special Shop Ship - 900 Rupee Item": {
       "need": "Any Wallet Upgrade & Can Farm Lots of Rupees",
       "originalItem": "Treasure Chart 4",
       "types": "Expensive Purchase",
     },
-    "Beedle's Special Shop Ship - 950 Rupee Item": Object {
+    "Beedle's Special Shop Ship - 950 Rupee Item": {
       "need": "Any Wallet Upgrade & Can Farm Lots of Rupees",
       "originalItem": "Piece of Heart",
       "types": "Expensive Purchase",
     },
-    "Cave": Object {
+    "Cave": {
       "need": "Can Access Rock Spire Isle Secret Cave",
       "originalItem": "Treasure Chart 37",
       "types": "Combat Secret Cave",
     },
-    "Center Lookout Platform": Object {
+    "Center Lookout Platform": {
       "need": "Nothing",
       "originalItem": "Red Rupee",
       "types": "Platform",
     },
-    "Eastern Lookout Platform - Destroy the Cannons": Object {
+    "Eastern Lookout Platform - Destroy the Cannons": {
       "need": "Can Destroy Cannons & Can Fly With Deku Leaf Outdoors",
       "originalItem": "Golden Feather",
       "types": "Platform",
     },
-    "Southeast Gunboat": Object {
+    "Southeast Gunboat": {
       "need": "Bombs & Grappling Hook",
       "originalItem": "Piece of Heart",
       "types": "Gunboat",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 16",
       "originalItem": "Piece of Heart",
       "types": "Sunken Treasure",
     },
-    "Western Lookout Platform - Destroy the Cannons": Object {
+    "Western Lookout Platform - Destroy the Cannons": {
       "need": "Can Destroy Cannons & Can Fly With Deku Leaf Outdoors",
       "originalItem": "Orange Rupee",
       "types": "Platform",
     },
   },
-  "Seven-Star Isles": Object {
-    "Big Octo": Object {
+  "Seven-Star Isles": {
+    "Big Octo": {
       "need": "Can Defeat 12 Eye Big Octos & Grappling Hook",
       "originalItem": "Piece of Heart",
       "types": "Big Octo",
     },
-    "Center Lookout Platform": Object {
+    "Center Lookout Platform": {
       "need": "Nothing",
       "originalItem": "Red Rupee",
       "types": "Platform",
     },
-    "Northern Lookout Platform": Object {
+    "Northern Lookout Platform": {
       "need": "Nothing",
       "originalItem": "Golden Feather",
       "types": "Platform",
     },
-    "Southern Lookout Platform": Object {
+    "Southern Lookout Platform": {
       "need": "Can Defeat Wizzrobes at Range",
       "originalItem": "Treasure Chart 16",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 6 & Bombs",
       "originalItem": "Triforce Shard 7",
       "types": "Sunken Triforce",
     },
   },
-  "Shark Island": Object {
-    "Cave": Object {
+  "Shark Island": {
+    "Cave": {
       "need": "Can Access Shark Island Secret Cave & Can Defeat Miniblins",
       "originalItem": "Silver Rupee",
       "types": "Combat Secret Cave",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 38",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Six-Eye Reef": Object {
-    "Destroy the Cannons and Gunboats": Object {
+  "Six-Eye Reef": {
+    "Destroy the Cannons and Gunboats": {
       "need": "Bombs & Can Fly With Deku Leaf Outdoors",
       "originalItem": "Treasure Chart 26",
       "types": "Eye Reef Chest",
     },
-    "Lookout Platform - Destroy the Cannons": Object {
+    "Lookout Platform - Destroy the Cannons": {
       "need": "Can Destroy Cannons",
       "originalItem": "Skull Necklace",
       "types": "Platform",
     },
-    "Submarine": Object {
+    "Submarine": {
       "need": "Nothing",
       "originalItem": "Piece of Heart",
       "types": "Submarine",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 25 & Bombs",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Southern Fairy Island": Object {
-    "Great Fairy": Object {
+  "Southern Fairy Island": {
+    "Great Fairy": {
       "need": "Bombs | Fire Arrows",
       "originalItem": "99 Bomb Bomb Bag",
       "types": "Great Fairy",
     },
-    "Lookout Platform - Destroy the Northwest Cannons": Object {
+    "Lookout Platform - Destroy the Northwest Cannons": {
       "need": "Can Destroy Cannons & Can Fly With Deku Leaf Outdoors",
       "originalItem": "Treasure Chart 40",
       "types": "Platform",
     },
-    "Lookout Platform - Destroy the Southeast Cannons": Object {
+    "Lookout Platform - Destroy the Southeast Cannons": {
       "need": "Can Destroy Cannons & Can Fly With Deku Leaf Outdoors",
       "originalItem": "Skull Necklace",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 39",
       "originalItem": "Piece of Heart",
       "types": "Sunken Treasure",
     },
   },
-  "Southern Triangle Island": Object {
-    "Sunken Treasure": Object {
+  "Southern Triangle Island": {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 32 & Can Defeat Seahats",
       "originalItem": "Triforce Shard 6",
       "types": "Sunken Triforce",
     },
   },
-  "Spectacle Island": Object {
-    "Barrel Shooting - First Prize": Object {
+  "Spectacle Island": {
+    "Barrel Shooting - First Prize": {
       "need": "Nothing",
       "originalItem": "Piece of Heart",
       "types": "Minigame",
     },
-    "Barrel Shooting - Second Prize": Object {
+    "Barrel Shooting - Second Prize": {
       "need": "Nothing",
       "originalItem": "Treasure Chart 17",
       "types": "Minigame",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 10",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Star Belt Archipelago": Object {
-    "Lookout Platform": Object {
+  "Star Belt Archipelago": {
+    "Lookout Platform": {
       "need": "Nothing",
       "originalItem": "Red Rupee",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 21",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Star Island": Object {
-    "Cave": Object {
+  "Star Island": {
+    "Cave": {
       "need": "Can Access Star Island Secret Cave & Can Defeat Magtails",
       "originalItem": "Piece of Heart",
       "types": "Combat Secret Cave",
     },
-    "Lookout Platform": Object {
+    "Lookout Platform": {
       "need": "Nothing",
       "originalItem": "Golden Feather",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 2",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Stone Watcher Island": Object {
-    "Cave": Object {
+  "Stone Watcher Island": {
+    "Cave": {
       "need": "Can Access Stone Watcher Island Secret Cave & Can Defeat Armos & Can Defeat Wizzrobes & Can Defeat Darknuts & Can Play Wind's Requiem",
       "originalItem": "Triforce Chart 7",
       "types": "Combat Secret Cave",
     },
-    "Lookout Platform - Destroy the Cannons": Object {
+    "Lookout Platform - Destroy the Cannons": {
       "need": "Can Destroy Cannons",
       "originalItem": "Piece of Heart",
       "types": "Platform",
     },
-    "Lookout Platform Chest": Object {
+    "Lookout Platform Chest": {
       "need": "Nothing",
       "originalItem": "Red Rupee",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 31",
       "originalItem": "Triforce Shard 3",
       "types": "Sunken Triforce",
     },
   },
-  "The Great Sea": Object {
-    "Beedle's Shop Ship - 20 Rupee Item": Object {
+  "The Great Sea": {
+    "Beedle's Shop Ship - 20 Rupee Item": {
       "need": "Nothing",
       "originalItem": "Bait Bag",
       "types": "Misc",
     },
-    "Cyclos": Object {
+    "Cyclos": {
       "need": "Hero's Bow",
       "originalItem": "Ballad of Gales",
       "types": "Misc",
     },
-    "Ghost Ship": Object {
+    "Ghost Ship": {
       "need": "Ghost Ship Chart & Can Play Ballad of Gales & Can Defeat Wizzrobes & Can Defeat Poes & Can Defeat ReDeads & Can Defeat Stalfos",
       "originalItem": "Triforce Chart 4",
       "types": "Other Chest",
     },
-    "Goron Trading Reward": Object {
+    "Goron Trading Reward": {
       "need": "Rescued Aryll & Delivery Bag",
       "originalItem": "Piece of Heart",
       "types": "Long Sidequest, Expensive Purchase",
     },
-    "Salvage Corp Gift": Object {
+    "Salvage Corp Gift": {
       "need": "Nothing",
       "originalItem": "Treasure Chart 34",
       "types": "Free Gift",
     },
-    "Withered Trees": Object {
-      "need": "Can Access Forest Haven & Empty Bottle & Can Play Ballad of Gales & Can Access Other Location \\"Cliff Plateau Isles - Highest Isle\\"",
+    "Withered Trees": {
+      "need": "Can Access Forest Haven & Empty Bottle & Can Play Ballad of Gales & Can Access Other Location "Cliff Plateau Isles - Highest Isle"",
       "originalItem": "Piece of Heart",
       "types": "Long Sidequest",
     },
   },
-  "Thorned Fairy Island": Object {
-    "Great Fairy": Object {
+  "Thorned Fairy Island": {
+    "Great Fairy": {
       "need": "Skull Hammer",
       "originalItem": "99 Arrow Quiver",
       "types": "Great Fairy",
     },
-    "Northeastern Lookout Platform - Destroy the Cannons": Object {
+    "Northeastern Lookout Platform - Destroy the Cannons": {
       "need": "Can Destroy Cannons",
       "originalItem": "Golden Feather",
       "types": "Platform",
     },
-    "Southwestern Lookout Platform - Defeat the Enemies": Object {
+    "Southwestern Lookout Platform - Defeat the Enemies": {
       "need": "Can Fly With Deku Leaf Outdoors",
       "originalItem": "Boko Baba Seed",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 28",
       "originalItem": "Piece of Heart",
       "types": "Sunken Treasure",
     },
   },
-  "Three-Eye Reef": Object {
-    "Destroy the Cannons and Gunboats": Object {
+  "Three-Eye Reef": {
+    "Destroy the Cannons and Gunboats": {
       "need": "Bombs & Can Fly With Deku Leaf Outdoors",
       "originalItem": "Treasure Chart 32",
       "types": "Eye Reef Chest",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 22 & Bombs",
       "originalItem": "Piece of Heart",
       "types": "Sunken Treasure",
     },
   },
-  "Tingle Island": Object {
-    "Ankle - Reward for All Tingle Statues": Object {
+  "Tingle Island": {
+    "Ankle - Reward for All Tingle Statues": {
       "need": "Tingle Statue x5",
       "originalItem": "500 Rupees, reward for finding all Tingle Statues",
       "types": "Misc",
     },
-    "Big Octo": Object {
+    "Big Octo": {
       "need": "Can Defeat 12 Eye Big Octos & Grappling Hook",
       "originalItem": "Piece of Heart",
       "types": "Big Octo",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 17",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Tower of the Gods": Object {
-    "Big Key Chest": Object {
+  "Tower of the Gods": {
+    "Big Key Chest": {
       "need": "Can Access Tower of the Gods & Bombs & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Deku Leaf) & Can Play Command Melody & Hero's Bow & TotG Small Key x2 & Deku Leaf",
       "originalItem": "Big Key",
       "types": "Dungeon",
     },
-    "Chest Behind Bombable Walls": Object {
+    "Chest Behind Bombable Walls": {
       "need": "Can Access Tower of the Gods & Bombs",
       "originalItem": "Dungeon Map",
       "types": "Dungeon",
     },
-    "Darknut Mini-Boss Room": Object {
+    "Darknut Mini-Boss Room": {
       "need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Deku Leaf) & (Can Play Command Melody | Hero's Bow) & Can Defeat Darknuts",
       "originalItem": "Hero's Bow",
       "types": "Dungeon",
     },
-    "First Chest Guarded by Armos Knights": Object {
+    "First Chest Guarded by Armos Knights": {
       "need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Hero's Bow",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "Floating Platforms Room": Object {
+    "Floating Platforms Room": {
       "need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Deku Leaf) & Can Play Command Melody & Hero's Bow",
       "originalItem": "Small Key",
       "types": "Dungeon",
     },
-    "Gohdan Heart Container": Object {
+    "Gohdan Heart Container": {
       "need": "Can Access Tower of the Gods & Bombs & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Deku Leaf) & Can Play Command Melody & Hero's Bow & TotG Small Key x2 & Deku Leaf & Can Defeat Armos & TotG Big Key & Can Defeat Gohdan",
       "originalItem": "Heart Container",
       "types": "Dungeon",
     },
-    "Hop Across Floating Boxes": Object {
+    "Hop Across Floating Boxes": {
       "need": "Can Access Tower of the Gods",
       "originalItem": "Small Key",
       "types": "Dungeon",
     },
-    "Light Two Torches": Object {
+    "Light Two Torches": {
       "need": "Can Access Tower of the Gods & Bombs",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "Second Chest Guarded by Armos Knights": Object {
+    "Second Chest Guarded by Armos Knights": {
       "need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Deku Leaf) & Can Play Command Melody & Hero's Bow & Can Play Wind's Requiem",
       "originalItem": "Treasure Chart 30",
       "types": "Dungeon",
     },
-    "Shoot Eye Above Skulls Room Chest": Object {
+    "Shoot Eye Above Skulls Room Chest": {
       "need": "Can Access Tower of the Gods & Bombs & Hero's Bow",
       "originalItem": "Treasure Chart 6",
       "types": "Dungeon",
     },
-    "Skulls Room Chest": Object {
+    "Skulls Room Chest": {
       "need": "Can Access Tower of the Gods & Bombs",
       "originalItem": "Compass",
       "types": "Dungeon",
     },
-    "Stone Tablet": Object {
+    "Stone Tablet": {
       "need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker",
       "originalItem": "Command Melody",
       "types": "Dungeon",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 26",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
-    "Tingle Statue Chest": Object {
+    "Tingle Statue Chest": {
       "need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Tingle Tuner Bombs",
       "originalItem": "Goddess Tingle Statue",
       "types": "Tingle Chest, Dungeon",
     },
-    "Top of Floating Platforms Room": Object {
+    "Top of Floating Platforms Room": {
       "need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Deku Leaf) & Can Play Command Melody & Hero's Bow",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
   },
-  "Two-Eye Reef": Object {
-    "Big Octo Great Fairy": Object {
+  "Two-Eye Reef": {
+    "Big Octo Great Fairy": {
       "need": "Can Defeat Big Octos",
       "originalItem": "Magic Meter Upgrade",
       "types": "Big Octo, Great Fairy",
     },
-    "Destroy the Cannons and Gunboats": Object {
+    "Destroy the Cannons and Gunboats": {
       "need": "Bombs & Can Fly With Deku Leaf Outdoors",
       "originalItem": "Treasure Chart 13",
       "types": "Eye Reef Chest",
     },
-    "Lookout Platform": Object {
+    "Lookout Platform": {
       "need": "Nothing",
       "originalItem": "Purple Rupee",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 46 & Bombs",
       "originalItem": "Triforce Shard 8",
       "types": "Sunken Triforce",
     },
   },
-  "Western Fairy Island": Object {
-    "Great Fairy": Object {
+  "Western Fairy Island": {
+    "Great Fairy": {
       "need": "Skull Hammer",
       "originalItem": "60 Arrow Quiver",
       "types": "Great Fairy",
     },
-    "Lookout Platform": Object {
+    "Lookout Platform": {
       "need": "Nothing",
       "originalItem": "Skull Necklace",
       "types": "Platform",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 15",
       "originalItem": "Silver Rupee",
       "types": "Sunken Treasure",
     },
   },
-  "Wind Temple": Object {
-    "Big Key Chest": Object {
+  "Wind Temple": {
+    "Big Key Chest": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & Can Play Wind God's Aria & Can Defeat Darknuts",
       "originalItem": "Big Key",
       "types": "Dungeon",
     },
-    "Chest Behind Seven Armos": Object {
+    "Chest Behind Seven Armos": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) ) & Can Defeat Armos",
       "originalItem": "Small Key",
       "types": "Dungeon",
     },
-    "Chest Behind Stone Head": Object {
+    "Chest Behind Stone Head": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & Hookshot",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "Chest Between Two Dirt Patches": Object {
+    "Chest Between Two Dirt Patches": {
       "need": "Can Access Wind Temple & Can Play Command Melody",
       "originalItem": "Orange Rupee",
       "types": "Dungeon",
     },
-    "Chest In Many Cyclones Room": Object {
+    "Chest In Many Cyclones Room": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( (Can Cut Grass | Magic Meter Upgrade) | (Hookshot & Can Defeat Blue Bubbles) )",
       "originalItem": "Dungeon Map",
       "types": "Dungeon",
     },
-    "Chest In Middle Of Hub Room": Object {
+    "Chest In Middle Of Hub Room": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
       "originalItem": "Compass",
       "types": "Dungeon",
     },
-    "Chest at Top of Hub Room": Object {
+    "Chest at Top of Hub Room": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "Chest in Left Alcove": Object {
+    "Chest in Left Alcove": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "Kill All Enemies in Tall Basement Room": Object {
+    "Kill All Enemies in Tall Basement Room": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & Hookshot & Can Defeat Blue Bubbles & WT Small Key x2 & Can Defeat Stalfos & Can Defeat Wizzrobes & Can Defeat Morths",
       "originalItem": "Treasure Chart 5",
       "types": "Dungeon",
     },
-    "Molgera Heart Container": Object {
+    "Molgera Heart Container": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & Hookshot & Can Defeat Blue Bubbles & WT Small Key x2 & Can Play Wind God's Aria & WT Big Key & Can Defeat Molgera",
       "originalItem": "Heart Container",
       "types": "Dungeon",
     },
-    "Spike Wall Room - Destroy All Cracked Floors": Object {
+    "Spike Wall Room - Destroy All Cracked Floors": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
       "originalItem": "Treasure Chart 35",
       "types": "Dungeon",
     },
-    "Spike Wall Room - First Chest": Object {
+    "Spike Wall Room - First Chest": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
       "originalItem": "Small Key",
       "types": "Dungeon",
     },
-    "Tingle Statue Chest": Object {
+    "Tingle Statue Chest": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & Tingle Tuner Bombs",
       "originalItem": "Wind Tingle Statue",
       "types": "Tingle Chest, Dungeon",
     },
-    "Wizzrobe Mini-Boss Room": Object {
+    "Wizzrobe Mini-Boss Room": {
       "need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) ) & WT Small Key x2 & Can Defeat Darknuts & Can Remove Peahat Armor",
       "originalItem": "Hookshot",
       "types": "Dungeon",
     },
   },
-  "Windfall Island": Object {
-    "40 Rupee Auction": Object {
+  "Windfall Island": {
+    "40 Rupee Auction": {
       "need": "Nothing",
       "originalItem": "Joy Pendant",
       "types": "Expensive Purchase, Minigame",
     },
-    "5 Rupee Auction": Object {
+    "5 Rupee Auction": {
       "need": "Nothing",
       "originalItem": "Treasure Chart 18",
       "types": "Expensive Purchase, Minigame",
     },
-    "60 Rupee Auction": Object {
+    "60 Rupee Auction": {
       "need": "Nothing",
       "originalItem": "Treasure Chart 38",
       "types": "Expensive Purchase, Minigame",
     },
-    "80 Rupee Auction": Object {
+    "80 Rupee Auction": {
       "need": "Nothing",
       "originalItem": "Piece of Heart",
       "types": "Expensive Purchase, Minigame",
     },
-    "Battlesquid - First Prize": Object {
+    "Battlesquid - First Prize": {
       "need": "Nothing",
       "originalItem": "Piece of Heart",
       "types": "Battlesquid",
     },
-    "Battlesquid - Second Prize": Object {
+    "Battlesquid - Second Prize": {
       "need": "Nothing",
       "originalItem": "Treasure Chart 7",
       "types": "Battlesquid",
     },
-    "Battlesquid - Under 20 Shots Prize": Object {
+    "Battlesquid - Under 20 Shots Prize": {
       "need": "Nothing",
       "originalItem": "Treasure Chart 23",
       "types": "Battlesquid",
     },
-    "Cafe Bar - Postman": Object {
+    "Cafe Bar - Postman": {
       "need": "Rescued Aryll & Delivery Bag & Maggie's Letter",
       "originalItem": "Moblin's Letter",
       "types": "Short Sidequest",
     },
-    "Chu Jelly Juice Shop - Give 15 Blue Chu Jelly": Object {
+    "Chu Jelly Juice Shop - Give 15 Blue Chu Jelly": {
       "need": "Can Obtain 15 Blue Chu Jelly",
       "originalItem": "Blue Potion",
       "types": "Spoils Trading, Long Sidequest",
     },
-    "Chu Jelly Juice Shop - Give 15 Green Chu Jelly": Object {
+    "Chu Jelly Juice Shop - Give 15 Green Chu Jelly": {
       "need": "Can Farm Green Chu Jelly",
       "originalItem": "Green Potion",
       "types": "Spoils Trading",
     },
-    "House of Wealth Chest": Object {
+    "House of Wealth Chest": {
       "need": "Nothing",
       "originalItem": "Red Rupee",
       "types": "Other Chest",
     },
-    "Ivan - Catch Killer Bees": Object {
+    "Ivan - Catch Killer Bees": {
       "need": "Nothing",
       "originalItem": "Piece of Heart",
       "types": "Short Sidequest",
     },
-    "Jail - Maze Chest": Object {
+    "Jail - Maze Chest": {
       "need": "Nothing",
       "originalItem": "Picto Box",
       "types": "Island Puzzle",
     },
-    "Jail - Tingle - First Gift": Object {
+    "Jail - Tingle - First Gift": {
       "need": "Nothing",
       "originalItem": "Tingle Tuner",
       "types": "Free Gift",
     },
-    "Jail - Tingle - Second Gift": Object {
+    "Jail - Tingle - Second Gift": {
       "need": "Nothing",
       "originalItem": "Tingle's Chart",
       "types": "Free Gift",
     },
-    "Kamo - Full Moon Photo": Object {
+    "Kamo - Full Moon Photo": {
       "need": "Deluxe Picto Box & Song of Passing",
       "originalItem": "Treasure Chart 31",
       "types": "Long Sidequest",
     },
-    "Kreeb - Light Up Lighthouse": Object {
+    "Kreeb - Light Up Lighthouse": {
       "need": "Can Play Wind's Requiem & Fire Arrows",
       "originalItem": "Piece of Heart",
       "types": "Short Sidequest",
     },
-    "Lenzo's House - Become Lenzo's Assistant": Object {
+    "Lenzo's House - Become Lenzo's Assistant": {
       "need": "Picto Box",
       "originalItem": "Joy Pendant",
       "types": "Long Sidequest",
     },
-    "Lenzo's House - Bring Forest Firefly": Object {
+    "Lenzo's House - Bring Forest Firefly": {
       "need": "Picto Box & Empty Bottle & Can Access Forest Haven",
       "originalItem": "Deluxe Picto Box",
       "types": "Long Sidequest",
     },
-    "Lenzo's House - Left Chest": Object {
+    "Lenzo's House - Left Chest": {
       "need": "Can Play Wind's Requiem & Picto Box",
       "originalItem": "Treasure Chart 29",
       "types": "Short Sidequest",
     },
-    "Lenzo's House - Right Chest": Object {
+    "Lenzo's House - Right Chest": {
       "need": "Can Play Wind's Requiem & Picto Box",
       "originalItem": "Purple Rupee",
       "types": "Short Sidequest",
     },
-    "Linda and Anton": Object {
+    "Linda and Anton": {
       "need": "Deluxe Picto Box & Song of Passing",
       "originalItem": "Piece of Heart",
       "types": "Long Sidequest",
     },
-    "Maggie - Delivery Reward": Object {
+    "Maggie - Delivery Reward": {
       "need": "Rescued Aryll & Delivery Bag & Moblin's Letter",
       "originalItem": "Piece of Heart",
       "types": "Short Sidequest",
     },
-    "Maggie - Free Item": Object {
+    "Maggie - Free Item": {
       "need": "Rescued Aryll",
       "originalItem": "Maggie's Letter",
       "types": "Free Gift",
     },
-    "Maggie's Father - Give 20 Skull Necklaces": Object {
+    "Maggie's Father - Give 20 Skull Necklaces": {
       "need": "Rescued Aryll & Spoils Bag & Can Farm Skull Necklaces",
       "originalItem": "Treasure Chart 2",
       "types": "Spoils Trading",
     },
-    "Mila - Follow the Thief": Object {
+    "Mila - Follow the Thief": {
       "need": "Rescued Aryll",
       "originalItem": "Empty Bottle",
       "types": "Short Sidequest",
     },
-    "Minenco - Miss Windfall Photo": Object {
+    "Minenco - Miss Windfall Photo": {
       "need": "Deluxe Picto Box",
       "originalItem": "Treasure Chart 33",
       "types": "Short Sidequest",
     },
-    "Mrs. Marie - Catch Killer Bees": Object {
+    "Mrs. Marie - Catch Killer Bees": {
       "need": "Nothing",
       "originalItem": "Purple Rupee",
       "types": "Short Sidequest",
     },
-    "Mrs. Marie - Give 1 Joy Pendant": Object {
+    "Mrs. Marie - Give 1 Joy Pendant": {
       "need": "Spoils Bag",
       "originalItem": "Red Rupee",
       "types": "Spoils Trading",
     },
-    "Mrs. Marie - Give 21 Joy Pendants": Object {
+    "Mrs. Marie - Give 21 Joy Pendants": {
       "need": "Spoils Bag & Can Farm Joy Pendants",
       "originalItem": "Cabana Deed",
       "types": "Spoils Trading",
     },
-    "Mrs. Marie - Give 40 Joy Pendants": Object {
+    "Mrs. Marie - Give 40 Joy Pendants": {
       "need": "Spoils Bag & Can Farm Joy Pendants",
       "originalItem": "Hero's Charm",
       "types": "Spoils Trading",
     },
-    "Pirate Ship": Object {
+    "Pirate Ship": {
       "need": "Nothing",
       "originalItem": "Bombs",
       "types": "Minigame",
     },
-    "Pompie and Vera - Secret Meeting Photo": Object {
+    "Pompie and Vera - Secret Meeting Photo": {
       "need": "Can Play Wind's Requiem & Picto Box",
       "originalItem": "Treasure Chart 24",
       "types": "Short Sidequest",
     },
-    "Sam - Decorate the Town": Object {
+    "Sam - Decorate the Town": {
       "need": "Rescued Aryll & Delivery Bag",
       "originalItem": "Piece of Heart",
       "types": "Long Sidequest",
     },
-    "Sunken Treasure": Object {
+    "Sunken Treasure": {
       "need": "Grappling Hook & Chart for Island 11",
       "originalItem": "Green Rupee",
       "types": "Sunken Treasure",
     },
-    "Tott - Teach Rhythm": Object {
+    "Tott - Teach Rhythm": {
       "need": "Wind Waker",
       "originalItem": "Song of Passing",
       "types": "Free Gift",
     },
-    "Transparent Chest": Object {
+    "Transparent Chest": {
       "need": "Can Play Wind's Requiem & Fire Arrows & (Can Fly With Deku Leaf Outdoors | Hookshot)",
       "originalItem": "Piece of Heart",
       "types": "Short Sidequest",
     },
-    "Zunari - Stock Exotic Flower in Zunari's Shop": Object {
+    "Zunari - Stock Exotic Flower in Zunari's Shop": {
       "need": "Rescued Aryll & Delivery Bag",
       "originalItem": "Magic Armor",
       "types": "Short Sidequest",
@@ -2335,7 +2335,7 @@ Object {
 `;
 
 exports[`LogicTweaks applyTweaks when no options are set updates the macros 1`] = `
-Object {
+{
   "60 Arrow Quiver": "Progressive Quiver x1",
   "60 Bomb Bomb Bag": "Progressive Bomb Bag x1",
   "99 Arrow Quiver": "Progressive Quiver x2",
@@ -2469,7 +2469,7 @@ Object {
   "Can Farm Golden Feathers": "Grappling Hook & Spoils Bag",
   "Can Farm Green Chu Jelly": "Grappling Hook & Spoils Bag",
   "Can Farm Joy Pendants": "Grappling Hook & Spoils Bag",
-  "Can Farm Knight's Crests": "Grappling Hook & Spoils Bag & ( (Has Accessed Other Location \\"Ice Ring Isle - Inner Cave - Chest\\") | (Has Accessed Other Location \\"Outset Island - Savage Labyrinth - Floor 30\\") | (Has Accessed Other Location \\"Earth Temple - Big Key Chest\\" & Can Defeat Darknuts Easily) | (Has Accessed Other Location \\"Wind Temple - Big Key Chest\\" & Can Defeat Darknuts Easily) | (Has Accessed Other Location \\"Shark Island - Cave\\") | (Has Accessed Other Location \\"Stone Watcher Island - Cave\\" & Can Defeat Darknuts Easily) | (Has Accessed Other Location \\"Overlook Island - Cave\\" & Can Defeat Darknuts Easily) | (Can Access Hyrule) )",
+  "Can Farm Knight's Crests": "Grappling Hook & Spoils Bag & ( (Has Accessed Other Location "Ice Ring Isle - Inner Cave - Chest") | (Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30") | (Has Accessed Other Location "Earth Temple - Big Key Chest" & Can Defeat Darknuts Easily) | (Has Accessed Other Location "Wind Temple - Big Key Chest" & Can Defeat Darknuts Easily) | (Has Accessed Other Location "Shark Island - Cave") | (Has Accessed Other Location "Stone Watcher Island - Cave" & Can Defeat Darknuts Easily) | (Has Accessed Other Location "Overlook Island - Cave" & Can Defeat Darknuts Easily) | (Can Access Hyrule) )",
   "Can Farm Lots of Rupees": "Nothing",
   "Can Farm Skull Necklaces": "Grappling Hook & Spoils Bag",
   "Can Fly With Deku Leaf Outdoors": "Deku Leaf & Can Play Wind's Requiem",
@@ -2480,7 +2480,7 @@ Object {
   "Can Get Past Hyrule Barrier": "Can Access Hyrule & (Full Power Master Sword | In Swordless Mode)",
   "Can Hit Diamond Switches at Range": "Boomerang | Hero's Bow | Hookshot",
   "Can Move Boulders": "Bombs | Power Bracelets",
-  "Can Obtain 15 Blue Chu Jelly": "Can Get Blue Chu Jelly from Blue ChuChus & ( Can Move Boulders | Hookshot | Bombs | Grappling Hook | Hookshot | (Can Access Secret Cave Entrance on Shark Island & Can Fly With Deku Leaf Outdoors) | Can Access Other Location \\"Cliff Plateau Isles - Highest Isle\\" | Deku Leaf | Can Access Secret Cave Entrance on Boating Course ) & Spoils Bag",
+  "Can Obtain 15 Blue Chu Jelly": "Can Get Blue Chu Jelly from Blue ChuChus & ( Can Move Boulders | Hookshot | Bombs | Grappling Hook | Hookshot | (Can Access Secret Cave Entrance on Shark Island & Can Fly With Deku Leaf Outdoors) | Can Access Other Location "Cliff Plateau Isles - Highest Isle" | Deku Leaf | Can Access Secret Cave Entrance on Boating Course ) & Spoils Bag",
   "Can Play Ballad of Gales": "Wind Waker & Ballad of Gales",
   "Can Play Command Melody": "Wind Waker & Command Melody",
   "Can Play Earth God's Lyric": "Wind Waker & Earth God's Lyric",
@@ -2550,12 +2550,12 @@ Object {
   "Hero's Shield": "Progressive Shield x1",
   "Hero's Sword": "Progressive Sword x1",
   "Ice Arrows": "Progressive Bow x2",
-  "In Swordless Mode": "Option \\"sword_mode\\" Is \\"Swordless\\"",
+  "In Swordless Mode": "Option "sword_mode" Is "Swordless"",
   "Light Arrows": "Progressive Bow x3",
   "Mirror Shield": "Progressive Shield x2",
-  "Outside Swordless Mode": "Option \\"sword_mode\\" Is Not \\"Swordless\\"",
+  "Outside Swordless Mode": "Option "sword_mode" Is Not "Swordless"",
   "Picto Box": "Progressive Picto Box x1",
-  "Rematch Bosses Skipped": "Option \\"skip_rematch_bosses\\" Enabled",
+  "Rematch Bosses Skipped": "Option "skip_rematch_bosses" Enabled",
   "Rescued Aryll": "Nothing",
   "Rescued Tingle": "Nothing",
   "TODO": "Impossible",
