@@ -19,15 +19,15 @@ class LocationsTable extends React.PureComponent {
     super(props);
 
     this.state = {
-      selectedChart: null,
+      selectedChartForIsland: null,
       selectedExit: null,
       selectedItem: null,
       selectedLocation: null,
       selectedLocationIsDungeon: null,
     };
 
-    this.setSelectedChart = this.setSelectedChart.bind(this);
-    this.clearSelectedChart = this.clearSelectedChart.bind(this);
+    this.setSelectedChartForIsland = this.setSelectedChartForIsland.bind(this);
+    this.clearSelectedChartForIsland = this.clearSelectedChartForIsland.bind(this);
     this.setSelectedExit = this.setSelectedExit.bind(this);
     this.setSelectedItem = this.setSelectedItem.bind(this);
     this.clearSelectedItem = this.clearSelectedItem.bind(this);
@@ -35,8 +35,8 @@ class LocationsTable extends React.PureComponent {
     this.clearSelectedLocation = this.clearSelectedLocation.bind(this);
   }
 
-  setSelectedChart(chartName) {
-    this.setState({ selectedChart: chartName });
+  setSelectedChartForIsland(chartForIsland) {
+    this.setState({ selectedChartForIsland: chartForIsland });
   }
 
   setSelectedExit(exitName) {
@@ -54,9 +54,9 @@ class LocationsTable extends React.PureComponent {
     });
   }
 
-  clearSelectedChart() {
+  clearSelectedChartForIsland() {
     this.setState({
-      selectedChart: null,
+      selectedChartForIsland: null,
     });
   }
 
@@ -100,7 +100,7 @@ class LocationsTable extends React.PureComponent {
     } = this.props;
 
     const {
-      selectedChart,
+      selectedChartForIsland,
       selectedExit,
       selectedItem,
       selectedLocation,
@@ -118,6 +118,7 @@ class LocationsTable extends React.PureComponent {
           trackerState={trackerState}
           trackSpheres={trackSpheres}
           updateChartMapping={updateChartMapping}
+          unsetChartMapping={unsetChartMapping}
         />
       );
     } else if (entrancesListOpen) {
@@ -159,7 +160,7 @@ class LocationsTable extends React.PureComponent {
     } else {
       chartElement = (
         <SeaChart
-          clearSelectedChart={this.clearSelectedChart}
+          clearSelectedChartForIsland={this.clearSelectedChartForIsland}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
           decrementItem={decrementItem}
@@ -167,7 +168,7 @@ class LocationsTable extends React.PureComponent {
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
-          setSelectedChart={this.setSelectedChart}
+          setSelectedChartForIsland={this.setSelectedChartForIsland}
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
@@ -190,7 +191,7 @@ class LocationsTable extends React.PureComponent {
           disableLogic={disableLogic}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
-          selectedChart={selectedChart}
+          selectedChartForIsland={selectedChartForIsland}
           selectedExit={selectedExit}
           selectedItem={selectedItem}
           selectedLocation={selectedLocation}

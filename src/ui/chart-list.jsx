@@ -92,9 +92,12 @@ class ChartList extends React.PureComponent {
       spheres,
       trackerState,
       trackSpheres,
+      unsetChartMapping,
     } = this.props;
 
     const itemCount = trackerState.getItemValue(chartName);
+    const mappedIslandForChart = trackerState.getIslandForChart(chartName);
+    const isChartMapped = !_.isNil(mappedIslandForChart);
 
     const color = itemCount === 1
       ? LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION
@@ -108,12 +111,18 @@ class ChartList extends React.PureComponent {
     const incrementItemFunc = (event) => {
       event.stopPropagation();
 
-      incrementItem(chartName);
+      if (LogicHelper.isRandomizedChartsSettings()) {
+        if (isChartMapped) {
+          unsetChartMapping(LogicHelper.chartForIslandName(mappedIslandForChart));
+        }
+      } else {
+        incrementItem(chartName);
+      }
     };
 
     const chartElement = (
       <div
-        className={`detail-span ${color} font-smallest`}
+        className={`detail-span ${LogicHelper.isRandomizedChartsSettings() && !isChartMapped ? 'detail-not-interactive' : ''} ${color} font-smallest`}
         onClick={incrementItemFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(incrementItemFunc)}
         role="button"
@@ -127,8 +136,7 @@ class ChartList extends React.PureComponent {
       ? <FoundAtTooltip locations={locations} spheres={spheres} />
       : null;
 
-    const mappedIslandForChart = trackerState.getIslandForChart(chartName);
-    const chartLeadsTo = !_.isNil(mappedIslandForChart) ? (
+    const chartLeadsTo = isChartMapped ? (
       <div className="tooltip">
         <div className="tooltip-title">Chart Leads To</div>
         <div>{mappedIslandForChart}</div>
@@ -225,6 +233,7 @@ ChartList.propTypes = {
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   updateChartMapping: PropTypes.func.isRequired,
+  unsetChartMapping: PropTypes.func.isRequired,
 };
 
 export default ChartList;

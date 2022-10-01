@@ -1036,6 +1036,52 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('chartForIslandName', () => {
+    test('returns chart for island name', () => {
+      expect(LogicHelper.chartForIslandName('Outset Island')).toBe('Chart for Outset Island');
+    });
+  });
+
+  describe('isRandomizedChart', () => {
+    describe('when randomized charts is on', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+          },
+        });
+      });
+      test('returns true when treasure chart', () => {
+        expect(LogicHelper.isRandomizedChart('Treasure Chart 25')).toBe(true);
+      });
+      test('returns true when triforce chart', () => {
+        expect(LogicHelper.isRandomizedChart('Triforce Chart 25')).toBe(true);
+      });
+      test('returns false when item', () => {
+        expect(LogicHelper.isRandomizedChart('Bombs')).toBe(false);
+      });
+    });
+
+    describe('when randomized charts is off', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+          },
+        });
+      });
+      test('returns true when treasure chart', () => {
+        expect(LogicHelper.isRandomizedChart('Treasure Chart 25')).toBe(false);
+      });
+      test('returns true when triforce chart', () => {
+        expect(LogicHelper.isRandomizedChart('Triforce Chart 25')).toBe(false);
+      });
+      test('returns false when item', () => {
+        expect(LogicHelper.isRandomizedChart('Bombs')).toBe(false);
+      });
+    });
+  });
+
   describe('filterDetailedLocations', () => {
     beforeEach(() => {
       Settings.initializeRaw({

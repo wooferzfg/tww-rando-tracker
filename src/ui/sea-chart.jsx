@@ -13,7 +13,7 @@ import Sector from './sector';
 class SeaChart extends React.PureComponent {
   sector(island) {
     const {
-      clearSelectedChart,
+      clearSelectedChartForIsland,
       clearSelectedItem,
       clearSelectedLocation,
       decrementItem,
@@ -21,7 +21,7 @@ class SeaChart extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
-      setSelectedChart,
+      setSelectedChartForIsland,
       setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
@@ -37,7 +37,7 @@ class SeaChart extends React.PureComponent {
 
     return (
       <Sector
-        clearSelectedChart={clearSelectedChart}
+        clearSelectedChartForIsland={clearSelectedChartForIsland}
         clearSelectedItem={clearSelectedItem}
         clearSelectedLocation={clearSelectedLocation}
         decrementItem={decrementItem}
@@ -47,7 +47,7 @@ class SeaChart extends React.PureComponent {
         island={island}
         logic={logic}
         onlyProgressLocations={onlyProgressLocations}
-        setSelectedChart={setSelectedChart}
+        setSelectedChartForIsland={setSelectedChartForIsland}
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
@@ -80,7 +80,7 @@ class SeaChart extends React.PureComponent {
 }
 
 SeaChart.propTypes = {
-  clearSelectedChart: PropTypes.func.isRequired,
+  clearSelectedChartForIsland: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
@@ -88,7 +88,7 @@ SeaChart.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
-  setSelectedChart: PropTypes.func.isRequired,
+  setSelectedChartForIsland: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,

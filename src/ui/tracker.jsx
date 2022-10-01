@@ -276,6 +276,7 @@ class Tracker extends React.PureComponent {
 
     const newTrackerState = trackerState
       .setChartMapping(chart, chartForIsland)
+      .incrementItem(chart)
       .incrementItem(chartForIsland);
 
     this.updateTrackerState(newTrackerState);
@@ -286,6 +287,7 @@ class Tracker extends React.PureComponent {
     const { trackerState } = this.state;
 
     const newTrackerState = trackerState
+      .decrementChartItem(chartForIsland)
       .decrementItem(chartForIsland)
       .unsetChartMapping(chartForIsland);
 

@@ -52,7 +52,7 @@ class Buttons extends React.PureComponent {
           type="button"
         >
           Export Progress
-      </button>
+        </button>
         <button
           onClick={toggleOnlyProgressLocations}
           type="button"

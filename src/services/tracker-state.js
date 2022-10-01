@@ -82,6 +82,12 @@ class TrackerState {
     return newState;
   }
 
+  decrementChartItem(chartForIsland) {
+    const chart = this.getChartFromChartMapping(chartForIsland);
+
+    return this.decrementItem(chart);
+  }
+
   getEntranceForExit(dungeonOrCaveName) {
     return _.get(this.entrances, dungeonOrCaveName);
   }
@@ -163,13 +169,18 @@ class TrackerState {
     return newState;
   }
 
-  unsetChartMapping(chartForIsland) {
-    const newState = this._clone({ islandsForCharts: true });
+  getChartFromChartMapping(chartForIsland) {
     const island = LogicHelper.islandFromChartFromIsland(chartForIsland);
 
-    const chartName = _.findKey(this.islandsForCharts, (chart) => island === chart);
+    return _.findKey(this.islandsForCharts, (chartKey) => island === chartKey);
+  }
 
-    _.unset(newState.islandsForCharts, chartName);
+  unsetChartMapping(chartForIsland) {
+    const newState = this._clone({ islandsForCharts: true });
+
+    const chart = this.getChartFromChartMapping(chartForIsland);
+
+    _.unset(newState.islandsForCharts, chart);
 
     return newState;
   }

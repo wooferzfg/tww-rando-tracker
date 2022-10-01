@@ -85,10 +85,10 @@ class Sector extends React.PureComponent {
 
   chartIsland() {
     const {
-      clearSelectedChart,
+      clearSelectedChartForIsland,
       clearSelectedLocation,
       island,
-      setSelectedChart,
+      setSelectedChartForIsland,
       spheres,
       trackerState,
       trackSpheres,
@@ -111,7 +111,7 @@ class Sector extends React.PureComponent {
       if (chartCount > 0) {
         unsetChartMapping(name);
       } else {
-        clearSelectedChart();
+        clearSelectedChartForIsland();
         clearSelectedLocation();
 
         updateOpenedChartForIsland(name);
@@ -121,13 +121,13 @@ class Sector extends React.PureComponent {
     return (
       <div className="treasure-chart">
         <Item
-          clearSelectedItem={clearSelectedChart}
+          clearSelectedItem={clearSelectedChartForIsland}
           images={chartImages}
           incrementItem={updateOpenedChartForIslandFunc}
           itemCount={chartCount}
           itemName={name}
           locations={locations}
-          setSelectedItem={setSelectedChart}
+          setSelectedItem={setSelectedChartForIsland}
           spheres={spheres}
         />
       </div>
@@ -249,7 +249,7 @@ class Sector extends React.PureComponent {
 }
 
 Sector.propTypes = {
-  clearSelectedChart: PropTypes.func.isRequired,
+  clearSelectedChartForIsland: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
@@ -258,7 +258,7 @@ Sector.propTypes = {
   island: PropTypes.string.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
-  setSelectedChart: PropTypes.func.isRequired,
+  setSelectedChartForIsland: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,

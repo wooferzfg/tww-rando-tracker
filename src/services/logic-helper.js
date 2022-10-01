@@ -280,11 +280,7 @@ class LogicHelper {
   }
 
   static isRandomizedChart(item) {
-    return this.isRandomizedChartsSettings() && item.match(/(Treasure|Triforce) Chart (\d)+/);
-  }
-
-  static chartForIslandName(island) {
-    return `Chart for ${island}`;
+    return this.isRandomizedChartsSettings() && /(Treasure|Triforce) Chart (\d)+/.test(item);
   }
 
   static allTreasureCharts() {
@@ -521,6 +517,10 @@ class LogicHelper {
       chartName,
       chartType,
     };
+  }
+
+  static chartForIslandName(island) {
+    return `Chart for ${island}`;
   }
 
   static raceModeBannedLocations(dungeonName) {
