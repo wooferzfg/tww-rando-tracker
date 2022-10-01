@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Settings FLAGS returns the correct flags 1`] = `
-Object {
+{
   "BATTLESQUID": "Battlesquid",
   "BIG_OCTO": "Big Octo",
   "COMBAT_SECRET_CAVE": "Combat Secret Cave",
@@ -31,7 +31,7 @@ Object {
 `;
 
 exports[`Settings initializeFromPermalink all starting gear set initializes the starting gear 1`] = `
-Object {
+{
   "Bait Bag": 1,
   "Bombs": 1,
   "Boomerang": 1,
@@ -72,7 +72,7 @@ Object {
 `;
 
 exports[`Settings initializeFromPermalink default settings initializes the options 1`] = `
-Object {
+{
   "add_shortcut_warps_between_dungeons": false,
   "disable_tingle_chests_with_tingle_bombs": false,
   "do_not_generate_spoiler_log": false,
@@ -113,7 +113,7 @@ Object {
   "reveal_full_sea_chart": true,
   "seed_name": "yeet",
   "skip_rematch_bosses": true,
-  "starting_gear": Object {
+  "starting_gear": {
     "Bait Bag": 0,
     "Bombs": 0,
     "Boomerang": 0,
@@ -160,7 +160,7 @@ Object {
 `;
 
 exports[`Settings initializeFromPermalink default settings initializes the starting gear 1`] = `
-Object {
+{
   "Bait Bag": 0,
   "Bombs": 0,
   "Boomerang": 0,
