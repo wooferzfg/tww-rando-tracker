@@ -40,7 +40,7 @@ class DetailedLocationsTable extends React.PureComponent {
 
     let chartLeadsTo;
     if (LogicHelper.isRandomizedChart(itemForLocation)) {
-      const mappedIslandForChart = trackerState.getIslandForChart(itemForLocation);
+      const mappedIslandForChart = trackerState.getIslandFromChartMapping(itemForLocation);
       chartLeadsTo = !_.isNil(mappedIslandForChart) ? (
         <>
           <div className="tooltip-title">Chart Leads To</div>

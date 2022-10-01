@@ -82,12 +82,6 @@ class TrackerState {
     return newState;
   }
 
-  decrementChartItem(chartForIsland) {
-    const chart = this.getChartFromChartMapping(chartForIsland);
-
-    return this.decrementItem(chart);
-  }
-
   getEntranceForExit(dungeonOrCaveName) {
     return _.get(this.entrances, dungeonOrCaveName);
   }
@@ -152,33 +146,28 @@ class TrackerState {
     return newState;
   }
 
-  getChartForIsland(island) {
+  getChartFromChartMapping(island) {
     return _.findKey(this.islandsForCharts, (chart) => island === chart);
   }
 
-  getIslandForChart(chart) {
+  getIslandFromChartMapping(chart) {
     return _.get(this.islandsForCharts, chart);
   }
 
   setChartMapping(chart, chartForIsland) {
     const newState = this._clone({ islandsForCharts: true });
-    const island = LogicHelper.islandFromChartFromIsland(chartForIsland);
+    const island = LogicHelper.islandFromChartForIsland(chartForIsland);
 
     _.set(newState.islandsForCharts, chart, island);
 
     return newState;
   }
 
-  getChartFromChartMapping(chartForIsland) {
-    const island = LogicHelper.islandFromChartFromIsland(chartForIsland);
-
-    return _.findKey(this.islandsForCharts, (chartKey) => island === chartKey);
-  }
-
   unsetChartMapping(chartForIsland) {
     const newState = this._clone({ islandsForCharts: true });
 
-    const chart = this.getChartFromChartMapping(chartForIsland);
+    const island = LogicHelper.islandFromChartForIsland(chartForIsland);
+    const chart = this.getChartFromChartMapping(island);
 
     _.unset(newState.islandsForCharts, chart);
 

@@ -181,7 +181,7 @@ class Spheres {
     let chartForIsland;
     if (!_.isNil(itemAtLocation)
         && LogicHelper.isRandomizedChart(itemAtLocation)) {
-      const island = this.state.getIslandForChart(itemAtLocation);
+      const island = this.state.getIslandFromChartMapping(itemAtLocation);
       if (!_.isNil(island)) {
         chartForIsland = LogicHelper.chartForIslandName(island);
       }

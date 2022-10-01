@@ -1082,6 +1082,18 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('allTreasureCharts', () => {
+    test('returns expected treasure charts', () => {
+      expect(LogicHelper.allTreasureCharts()).toMatchSnapshot();
+    });
+  });
+
+  describe('allTriforceCharts', () => {
+    test('returns expected triforce charts', () => {
+      expect(LogicHelper.allTriforceCharts()).toMatchSnapshot();
+    });
+  });
+
   describe('filterDetailedLocations', () => {
     beforeEach(() => {
       Settings.initializeRaw({
@@ -2079,10 +2091,9 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('islandFromChartFromIsland', () => {
+  describe('islandFromChartForIsland', () => {
     test('returns island from valid string', () => {
-      const result = LogicHelper.islandFromChartFromIsland('Chart for Windfall Island');
-      expect(result).toBe('Windfall Island');
+      expect(LogicHelper.islandFromChartForIsland('Chart for Windfall Island')).toBe('Windfall Island');
     });
   });
 

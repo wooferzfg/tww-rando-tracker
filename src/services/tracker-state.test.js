@@ -484,21 +484,21 @@ describe('TrackerState', () => {
     });
   });
 
-  describe('getChartForIsland', () => {
-    test('returns island', () => {
+  describe('getChartFromChartMapping', () => {
+    test('returns chart', () => {
       const state = new TrackerState();
 
       state.islandsForCharts = {
         'Treasure Chart 24': 'Windfall Island',
       };
 
-      const chart = state.getChartForIsland('Windfall Island');
+      const chart = state.getChartFromChartMapping('Windfall Island');
 
       expect(chart).toBe('Treasure Chart 24');
     });
   });
 
-  describe('getIslandForChart', () => {
+  describe('getIslandFromChartMapping', () => {
     test('returns island', () => {
       const state = new TrackerState();
 
@@ -506,7 +506,7 @@ describe('TrackerState', () => {
         'Treasure Chart 24': 'Windfall Island',
       };
 
-      const island = state.getIslandForChart('Treasure Chart 24');
+      const island = state.getIslandFromChartMapping('Treasure Chart 24');
 
       expect(island).toBe('Windfall Island');
     });

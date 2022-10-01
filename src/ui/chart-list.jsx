@@ -28,7 +28,7 @@ class ChartList extends React.PureComponent {
 
     const itemCount = trackerState.getItemValue(chart);
 
-    const mappedIslandForChart = trackerState.getIslandForChart(chart);
+    const mappedIslandForChart = trackerState.getIslandFromChartMapping(chart);
     const isChartMapped = !_.isNil(mappedIslandForChart);
 
     const notInteractiveClassName = isChartMapped ? 'detail-not-interactive' : '';
@@ -96,7 +96,7 @@ class ChartList extends React.PureComponent {
     } = this.props;
 
     const itemCount = trackerState.getItemValue(chartName);
-    const mappedIslandForChart = trackerState.getIslandForChart(chartName);
+    const mappedIslandForChart = trackerState.getIslandFromChartMapping(chartName);
     const isChartMapped = !_.isNil(mappedIslandForChart);
 
     const color = itemCount === 1

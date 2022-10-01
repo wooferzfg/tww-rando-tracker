@@ -286,8 +286,11 @@ class Tracker extends React.PureComponent {
   unsetChartMapping(chartForIsland) {
     const { trackerState } = this.state;
 
+    const island = LogicHelper.islandFromChartForIsland(chartForIsland);
+    const chart = trackerState.getChartFromChartMapping(island);
+
     const newTrackerState = trackerState
-      .decrementChartItem(chartForIsland)
+      .decrementItem(chart)
       .decrementItem(chartForIsland)
       .unsetChartMapping(chartForIsland);
 
