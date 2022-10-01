@@ -180,11 +180,10 @@ class Spheres {
 
     let chartForIsland;
     if (!_.isNil(itemAtLocation)
-        && LogicHelper.isRandomizedCharts()
-        && itemAtLocation.match(/(Treasure|Triforce) Chart (\d)+/)) {
+        && LogicHelper.isRandomizedChart(itemAtLocation)) {
       const island = this.state.getIslandForChart(itemAtLocation);
       if (!_.isNil(island)) {
-        chartForIsland = `Chart for ${island}`;
+        chartForIsland = LogicHelper.chartForIslandName(island);
       }
     }
 

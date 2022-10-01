@@ -155,7 +155,7 @@ class LogicTweaks {
       // wallet upgrades
       const name = LogicHelper.islandForChart(chart);
       const macroName = `Chart for Island ${index + 1}`;
-      Macros.setMacro(macroName, `Chart for ${name}`);
+      Macros.setMacro(macroName, LogicHelper.chartForIslandName(name));
     });
   }
 

@@ -96,7 +96,7 @@ class Sector extends React.PureComponent {
       unsetChartMapping,
     } = this.props;
 
-    const name = `Chart for ${island}`;
+    const name = LogicHelper.chartForIslandName(island);
 
     const chartCount = trackerState.getItemValue(name);
 
@@ -240,7 +240,7 @@ class Sector extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        {LogicHelper.isRandomizedCharts() ? this.chartIsland() : this.chartItem()}
+        {LogicHelper.isRandomizedChartsSettings() ? this.chartIsland() : this.chartItem()}
         {this.entryItems()}
         {this.chestsCounter()}
       </div>

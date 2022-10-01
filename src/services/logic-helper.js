@@ -3,7 +3,6 @@ import _ from 'lodash';
 import CAVE_ENTRANCES from '../data/cave-entrances.json';
 import CAVES from '../data/caves.json';
 import CHARTS from '../data/charts.json';
-import CHARTS_FOR_ISLAND from '../data/chartsForIsland.json';
 import DUNGEON_ENTRANCES from '../data/dungeon-entrances.json';
 import DUNGEONS from '../data/dungeons.json';
 import ISLANDS from '../data/islands.json';
@@ -32,7 +31,6 @@ class LogicHelper {
       'islandForChart',
       'isPotentialKeyLocation',
       'isProgressLocation',
-      'isRandomizedCharts',
       'mainDungeons',
       'maxItemCount',
       'parseChartNumber',
@@ -57,7 +55,6 @@ class LogicHelper {
       this.islandForChart,
       this.isPotentialKeyLocation,
       this.isProgressLocation,
-      this.isRandomizedCharts,
       this.mainDungeons,
       this.maxItemCount,
       this.parseChartNumber,
@@ -75,6 +72,8 @@ class LogicHelper {
   }
 
   static DEFEAT_GANONDORF_LOCATION = 'Defeat Ganondorf';
+
+  static NUM_TRIFORCE_CHARTS = 8;
 
   static DUNGEONS = Constants.createFromArray(DUNGEONS);
 
@@ -101,7 +100,7 @@ class LogicHelper {
   static ALL_ITEMS = _.concat(
     _.map(CAVES, (cave) => this.entryName(cave)),
     CHARTS,
-    CHARTS_FOR_ISLAND,
+    _.map(ISLANDS, (island) => this.chartForIslandName(island)),
     _.map(DUNGEONS, (dungeon) => this.entryName(dungeon)),
     _.keys(ITEMS),
     _.keys(KEYS),
@@ -276,8 +275,24 @@ class LogicHelper {
     );
   }
 
-  static isRandomizedCharts() {
+  static isRandomizedChartsSettings() {
     return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS);
+  }
+
+  static isRandomizedChart(item) {
+    return this.isRandomizedChartsSettings() && item.match(/(Treasure|Triforce) Chart (\d)+/);
+  }
+
+  static chartForIslandName(island) {
+    return `Chart for ${island}`;
+  }
+
+  static allTreasureCharts() {
+    return _.range(1, CHARTS.length - this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Treasure Chart ${number}`);
+  }
+
+  static allTriforceCharts() {
+    return _.range(1, this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Triforce Chart ${number}`);
   }
 
   static filterDetailedLocations(generalLocation, { isDungeon, onlyProgressLocations }) {

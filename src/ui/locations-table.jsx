@@ -112,7 +112,6 @@ class LocationsTable extends React.PureComponent {
       chartElement = (
         <ChartList
           clearOpenedMenus={clearOpenedMenus}
-          decrementItem={decrementItem}
           incrementItem={incrementItem}
           openedChartForIsland={openedChartForIsland}
           spheres={spheres}

@@ -52,7 +52,7 @@ class Buttons extends React.PureComponent {
           type="button"
         >
           Export Progress
-        </button>
+      </button>
         <button
           onClick={toggleOnlyProgressLocations}
           type="button"
@@ -70,6 +70,10 @@ class Buttons extends React.PureComponent {
             </button>
           )
         }
+        <button onClick={toggleChartList} type="button">
+          {chartListText}
+        </button>
+        <br />
         <button
           onClick={toggleDisableLogic}
           type="button"
@@ -89,9 +93,6 @@ class Buttons extends React.PureComponent {
           type="button"
         >
           {colorPickerText}
-        </button>
-        <button onClick={toggleChartList} type="button">
-          {chartListText}
         </button>
       </div>
     );

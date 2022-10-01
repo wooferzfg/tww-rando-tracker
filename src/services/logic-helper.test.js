@@ -1014,7 +1014,7 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('isRandomizedCharts', () => {
+  describe('isRandomizedChartsSettings', () => {
     test('returns true when randomized charts is on', () => {
       Settings.initializeRaw({
         options: {
@@ -1022,7 +1022,7 @@ describe('LogicHelper', () => {
         },
       });
 
-      expect(LogicHelper.isRandomizedCharts()).toBe(true);
+      expect(LogicHelper.isRandomizedChartsSettings()).toBe(true);
     });
 
     test('returns false when randomized charts is off', () => {
@@ -1032,7 +1032,7 @@ describe('LogicHelper', () => {
         },
       });
 
-      expect(LogicHelper.isRandomizedCharts()).toBe(false);
+      expect(LogicHelper.isRandomizedChartsSettings()).toBe(false);
     });
   });
 

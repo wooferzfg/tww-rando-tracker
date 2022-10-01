@@ -2,7 +2,6 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import CHARTS from '../data/charts.json';
 import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
 import Spheres from '../services/spheres';
@@ -54,7 +53,6 @@ class ChartList extends React.PureComponent {
       <div
         className={`detail-span ${notInteractiveClassName} ${color} font-smallest`}
         onClick={updateChartMappingFunc}
-        onContextMenu={updateChartMappingFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(updateChartMappingFunc)}
         role="button"
         tabIndex="0"
@@ -90,7 +88,6 @@ class ChartList extends React.PureComponent {
     }
 
     const {
-      decrementItem,
       incrementItem,
       spheres,
       trackerState,
@@ -114,17 +111,10 @@ class ChartList extends React.PureComponent {
       incrementItem(chartName);
     };
 
-    const decrementItemFunc = (event) => {
-      event.preventDefault();
-
-      decrementItem(chartName);
-    };
-
     const chartElement = (
       <div
         className={`detail-span ${color} font-smallest`}
         onClick={incrementItemFunc}
-        onContextMenu={decrementItemFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(incrementItemFunc)}
         role="button"
         tabIndex="0"
@@ -171,8 +161,8 @@ class ChartList extends React.PureComponent {
 
   render() {
     const { clearOpenedMenus, openedChartForIsland } = this.props;
-    const treasureCharts = _.sortBy(_.filter(CHARTS, (o) => o.includes('Treasure Chart')), (o) => LogicHelper.parseChartNumber(o));
-    const triforceCharts = _.sortBy(_.filter(CHARTS, (o) => o.includes('Triforce Chart')), (o) => LogicHelper.parseChartNumber(o));
+    const treasureCharts = LogicHelper.allTreasureCharts();
+    const triforceCharts = LogicHelper.allTriforceCharts();
 
     const chartChunks = _.chunk([...treasureCharts, ...triforceCharts], ChartList.NUM_ROWS);
     const arrangedCharts = _.zip(...chartChunks);
@@ -229,7 +219,6 @@ ChartList.defaultProps = {
 
 ChartList.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
-  decrementItem: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
   openedChartForIsland: PropTypes.string,
   spheres: PropTypes.instanceOf(Spheres).isRequired,

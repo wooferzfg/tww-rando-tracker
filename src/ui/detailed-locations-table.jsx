@@ -39,7 +39,7 @@ class DetailedLocationsTable extends React.PureComponent {
     const prettyItemName = LogicHelper.prettyNameForItem(itemForLocation, null);
 
     let chartLeadsTo;
-    if (LogicHelper.isRandomizedCharts() && itemForLocation.match(/(Treasure|Triforce) Chart (\d)+/)) {
+    if (LogicHelper.isRandomizedChart(itemForLocation)) {
       const mappedIslandForChart = trackerState.getIslandForChart(itemForLocation);
       chartLeadsTo = !_.isNil(mappedIslandForChart) ? (
         <>
