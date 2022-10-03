@@ -46,7 +46,7 @@
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-sort-class-members": "^1.15.2",
-    "favicons": "^6.2.2",
+    "favicons": "^7.0.1",
     "favicons-webpack-plugin": "^5.0.2",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^29.0.3",
