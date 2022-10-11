@@ -272,13 +272,34 @@ class Tracker extends React.PureComponent {
   }
 
   updateChartMapping(chart, chartForIsland) {
-    const { trackerState } = this.state;
+    const { lastLocation, trackerState } = this.state;
 
-    let newTrackerState = trackerState
+    let newTrackerState = trackerState;
+
+    const currentMappedIsland = trackerState.getIslandFromChartMapping(chart);
+    if (currentMappedIsland) {
+      newTrackerState = newTrackerState
+        .decrementItem(LogicHelper.chartForIslandName(currentMappedIsland));
+    }
+
+    newTrackerState = newTrackerState
       .setChartMapping(chart, chartForIsland);
 
     if (newTrackerState.getItemValue(chart) === 0) {
       newTrackerState = newTrackerState.incrementItem(chart);
+
+      if (!_.isNil(lastLocation)) {
+        const {
+          generalLocation,
+          detailedLocation,
+        } = lastLocation;
+
+        newTrackerState = newTrackerState.setItemForLocation(
+          chart,
+          generalLocation,
+          detailedLocation,
+        );
+      }
     }
 
     if (newTrackerState.getItemValue(chartForIsland) === 0) {
@@ -292,11 +313,7 @@ class Tracker extends React.PureComponent {
   unsetChartMapping(chartForIsland) {
     const { trackerState } = this.state;
 
-    const island = LogicHelper.islandFromChartForIsland(chartForIsland);
-    const chart = trackerState.getChartFromChartMapping(island);
-
     const newTrackerState = trackerState
-      .decrementItem(chart)
       .decrementItem(chartForIsland)
       .unsetChartMapping(chartForIsland);
 
