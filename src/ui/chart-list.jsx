@@ -44,9 +44,8 @@ class ChartList extends React.PureComponent {
 
     const updateChartMappingFunc = (event) => {
       event.stopPropagation();
-      if (!isChartMapped) {
-        updateChartMapping(chart, openedChartForIsland);
-      }
+
+      updateChartMapping(chart, openedChartForIsland);
     };
 
     const chartElement = (
@@ -111,18 +110,18 @@ class ChartList extends React.PureComponent {
     const incrementItemFunc = (event) => {
       event.stopPropagation();
 
+      incrementItem(chartName);
+
       if (LogicHelper.isRandomizedChartsSettings()) {
         if (isChartMapped) {
           unsetChartMapping(LogicHelper.chartForIslandName(mappedIslandForChart));
         }
-      } else {
-        incrementItem(chartName);
       }
     };
 
     const chartElement = (
       <div
-        className={`detail-span ${LogicHelper.isRandomizedChartsSettings() && !isChartMapped ? 'detail-not-interactive' : ''} ${color} font-smallest`}
+        className={`detail-span ${color} font-smallest`}
         onClick={incrementItemFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(incrementItemFunc)}
         role="button"

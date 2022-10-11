@@ -274,10 +274,16 @@ class Tracker extends React.PureComponent {
   updateChartMapping(chart, chartForIsland) {
     const { trackerState } = this.state;
 
-    const newTrackerState = trackerState
-      .setChartMapping(chart, chartForIsland)
-      .incrementItem(chart)
-      .incrementItem(chartForIsland);
+    let newTrackerState = trackerState
+      .setChartMapping(chart, chartForIsland);
+
+    if (newTrackerState.getItemValue(chart) === 0) {
+      newTrackerState = newTrackerState.incrementItem(chart);
+    }
+
+    if (newTrackerState.getItemValue(chartForIsland) === 0) {
+      newTrackerState = newTrackerState.incrementItem(chartForIsland);
+    }
 
     this.updateTrackerState(newTrackerState);
     this.clearOpenedMenus();
