@@ -274,15 +274,7 @@ class Tracker extends React.PureComponent {
   updateChartMapping(chart, chartForIsland) {
     const { lastLocation, trackerState } = this.state;
 
-    let newTrackerState = trackerState;
-
-    const currentMappedIsland = trackerState.getIslandFromChartMapping(chart);
-    if (currentMappedIsland) {
-      newTrackerState = newTrackerState
-        .decrementItem(LogicHelper.chartForIslandName(currentMappedIsland));
-    }
-
-    newTrackerState = newTrackerState
+    let newTrackerState = trackerState
       .setChartMapping(chart, chartForIsland);
 
     if (newTrackerState.getItemValue(chart) === 0) {

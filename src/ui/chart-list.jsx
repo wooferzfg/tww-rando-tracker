@@ -45,7 +45,9 @@ class ChartList extends React.PureComponent {
     const updateChartMappingFunc = (event) => {
       event.stopPropagation();
 
-      updateChartMapping(chart, openedChartForIsland);
+      if (!isChartMapped) {
+        updateChartMapping(chart, openedChartForIsland);
+      }
     };
 
     const chartElement = (
