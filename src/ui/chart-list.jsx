@@ -149,6 +149,9 @@ class ChartList extends React.PureComponent {
       const tooltipContent = (
         <>
           {foundAtTooltipContent}
+          {foundAtTooltipContent && chartLeadsTo && (
+            <div className="tooltip-spacer" />
+          )}
           {chartLeadsTo}
         </>
       );
