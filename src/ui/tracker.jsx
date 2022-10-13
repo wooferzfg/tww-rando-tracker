@@ -302,6 +302,8 @@ class Tracker extends React.PureComponent {
     this.clearOpenedMenus();
   }
 
+  // Unset via sector should only remove mapping.
+  // Unset via chart-list should remove both mapping and decrement chart.
   unsetChartMapping(chartForIsland, decrementChart) {
     const { trackerState } = this.state;
     let newTrackerState = trackerState;
