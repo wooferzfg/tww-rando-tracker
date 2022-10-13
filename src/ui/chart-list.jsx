@@ -97,7 +97,11 @@ class ChartList extends React.PureComponent {
     } = this.props;
 
     const itemCount = trackerState.getItemValue(chartName);
-    const mappedIslandForChart = trackerState.getIslandFromChartMapping(chartName);
+    const mappedIslandForChart = (
+      LogicHelper.isRandomizedChartsSettings()
+        ? trackerState.getIslandFromChartMapping(chartName)
+        : LogicHelper.islandForChart(chartName)
+    );
     const isChartMapped = !_.isNil(mappedIslandForChart);
 
     const color = itemCount === 1
