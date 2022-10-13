@@ -116,7 +116,7 @@ class ChartList extends React.PureComponent {
 
       if (LogicHelper.isRandomizedChartsSettings()) {
         if (isChartMapped) {
-          unsetChartMapping(LogicHelper.chartForIslandName(mappedIslandForChart));
+          unsetChartMapping(LogicHelper.chartForIslandName(mappedIslandForChart), true);
         }
       }
     };

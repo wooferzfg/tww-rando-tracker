@@ -96,25 +96,25 @@ class Sector extends React.PureComponent {
       unsetChartMapping,
     } = this.props;
 
-    const name = LogicHelper.chartForIslandName(island);
+    const chartForIsland = LogicHelper.chartForIslandName(island);
 
-    const chartCount = trackerState.getItemValue(name);
+    const chartCount = trackerState.getItemValue(chartForIsland);
 
     const chartImages = _.get(Images.IMAGES, ['CHARTS', 'Treasure']);
 
     let locations = [];
     if (trackSpheres) {
-      locations = trackerState.getLocationsForItem(name);
+      locations = trackerState.getLocationsForItem(chartForIsland);
     }
 
     const updateOpenedChartForIslandFunc = () => {
       if (chartCount > 0) {
-        unsetChartMapping(name);
+        unsetChartMapping(chartForIsland, false);
       } else {
         clearSelectedChartForIsland();
         clearSelectedLocation();
 
-        updateOpenedChartForIsland(name);
+        updateOpenedChartForIsland(chartForIsland);
       }
     };
 
@@ -125,7 +125,7 @@ class Sector extends React.PureComponent {
           images={chartImages}
           incrementItem={updateOpenedChartForIslandFunc}
           itemCount={chartCount}
-          itemName={name}
+          itemName={chartForIsland}
           locations={locations}
           setSelectedItem={setSelectedChartForIsland}
           spheres={spheres}

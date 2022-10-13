@@ -302,10 +302,19 @@ class Tracker extends React.PureComponent {
     this.clearOpenedMenus();
   }
 
-  unsetChartMapping(chartForIsland) {
+  unsetChartMapping(chartForIsland, decrementChart) {
     const { trackerState } = this.state;
+    let newTrackerState = trackerState;
 
-    const newTrackerState = trackerState
+    if (decrementChart) {
+      const island = LogicHelper.islandFromChartForIsland(chartForIsland);
+      const chart = trackerState.getChartFromChartMapping(island);
+
+      newTrackerState = newTrackerState
+        .decrementItem(chart);
+    }
+
+    newTrackerState = newTrackerState
       .decrementItem(chartForIsland)
       .unsetChartMapping(chartForIsland);
 
