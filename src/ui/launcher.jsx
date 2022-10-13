@@ -16,7 +16,7 @@ import 'react-toggle/style.css';
 export default class Launcher extends React.PureComponent {
   static openTrackerWindow(route) {
     const windowWidth = 1507;
-    const windowHeight = 550;
+    const windowHeight = 585;
 
     window.open(
       `#/tracker${route}`,

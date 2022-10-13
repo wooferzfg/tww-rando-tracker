@@ -8,6 +8,7 @@ class TrackerState {
     const newState = new TrackerState();
 
     newState.entrances = {};
+    newState.islandsForCharts = {};
     newState.items = _.reduce(
       LogicHelper.ALL_ITEMS,
       (accumulator, item) => _.set(
@@ -25,6 +26,7 @@ class TrackerState {
 
   static createStateRaw({
     entrances,
+    islandsForCharts,
     items,
     itemsForLocations,
     locationsChecked,
@@ -32,6 +34,7 @@ class TrackerState {
     const newState = new TrackerState();
 
     newState.entrances = entrances;
+    newState.islandsForCharts = islandsForCharts;
     newState.items = items;
     newState.itemsForLocations = itemsForLocations;
     newState.locationsChecked = locationsChecked;
@@ -42,6 +45,7 @@ class TrackerState {
   readState() {
     return {
       entrances: this.entrances,
+      islandsForCharts: this.islandsForCharts,
       items: this.items,
       itemsForLocations: this.itemsForLocations,
       locationsChecked: this.locationsChecked,
@@ -142,6 +146,34 @@ class TrackerState {
     return newState;
   }
 
+  getChartFromChartMapping(island) {
+    return _.findKey(this.islandsForCharts, (chart) => island === chart);
+  }
+
+  getIslandFromChartMapping(chart) {
+    return _.get(this.islandsForCharts, chart);
+  }
+
+  setChartMapping(chart, chartForIsland) {
+    const newState = this._clone({ islandsForCharts: true });
+    const island = LogicHelper.islandFromChartForIsland(chartForIsland);
+
+    _.set(newState.islandsForCharts, chart, island);
+
+    return newState;
+  }
+
+  unsetChartMapping(chartForIsland) {
+    const newState = this._clone({ islandsForCharts: true });
+
+    const island = LogicHelper.islandFromChartForIsland(chartForIsland);
+    const chart = this.getChartFromChartMapping(island);
+
+    _.unset(newState.islandsForCharts, chart);
+
+    return newState;
+  }
+
   unsetItemForLocation(generalLocation, detailedLocation) {
     const newState = this._clone({ itemsForLocations: true });
     _.set(newState.itemsForLocations, [generalLocation, detailedLocation], null);
@@ -150,6 +182,7 @@ class TrackerState {
 
   _clone({
     entrances: cloneEntrances,
+    islandsForCharts: cloneIslandsForCharts,
     items: cloneItems,
     locationsChecked: cloneLocationsChecked,
     itemsForLocations: cloneItemsForLocations,
@@ -159,6 +192,9 @@ class TrackerState {
     newState.entrances = cloneEntrances
       ? _.clone(this.entrances)
       : this.entrances;
+    newState.islandsForCharts = cloneIslandsForCharts
+      ? _.clone(this.islandsForCharts)
+      : this.islandsForCharts;
     newState.items = cloneItems
       ? _.clone(this.items)
       : this.items;

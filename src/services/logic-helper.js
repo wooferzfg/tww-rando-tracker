@@ -27,6 +27,8 @@ class LogicHelper {
       'bossLocation',
       'chartForIsland',
       'filterDetailedLocations',
+      'islandFromChartForIsland',
+      'islandForChart',
       'isPotentialKeyLocation',
       'isProgressLocation',
       'mainDungeons',
@@ -48,6 +50,8 @@ class LogicHelper {
       this.bossLocation,
       this.chartForIsland,
       this.filterDetailedLocations,
+      this.islandFromChartForIsland,
+      this.islandForChart,
       this.isPotentialKeyLocation,
       this.isProgressLocation,
       this.mainDungeons,
@@ -66,6 +70,8 @@ class LogicHelper {
   }
 
   static DEFEAT_GANONDORF_LOCATION = 'Defeat Ganondorf';
+
+  static NUM_TRIFORCE_CHARTS = 8;
 
   static DUNGEONS = Constants.createFromArray(DUNGEONS);
 
@@ -92,6 +98,7 @@ class LogicHelper {
   static ALL_ITEMS = _.concat(
     _.map(CAVES, (cave) => this.entryName(cave)),
     CHARTS,
+    _.map(ISLANDS, (island) => this.chartForIslandName(island)),
     _.map(DUNGEONS, (dungeon) => this.entryName(dungeon)),
     _.keys(ITEMS),
     _.keys(KEYS),
@@ -254,6 +261,22 @@ class LogicHelper {
       locationTypesList,
       (flag) => Settings.isFlagActive(flag),
     );
+  }
+
+  static isRandomizedChartsSettings() {
+    return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS);
+  }
+
+  static isRandomizedChart(item) {
+    return this.isRandomizedChartsSettings() && /(Treasure|Triforce) Chart (\d)+/.test(item);
+  }
+
+  static allTreasureCharts() {
+    return _.range(1, CHARTS.length - this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Treasure Chart ${number}`);
+  }
+
+  static allTriforceCharts() {
+    return _.range(1, this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Triforce Chart ${number}`);
   }
 
   static filterDetailedLocations(generalLocation, { isDungeon, onlyProgressLocations }) {
@@ -456,6 +479,17 @@ class LogicHelper {
     return itemName;
   }
 
+  static islandFromChartForIsland(chartFromIsland) {
+    return chartFromIsland.replace('Chart for ', '');
+  }
+
+  static islandForChart(chart) {
+    const index = _.indexOf(CHARTS, chart);
+    const island = _.get(ISLANDS, index, null);
+
+    return island;
+  }
+
   static chartForIsland(islandName) {
     const islandIndex = _.indexOf(ISLANDS, islandName);
     const chartName = _.get(CHARTS, islandIndex);
@@ -471,6 +505,10 @@ class LogicHelper {
       chartName,
       chartType,
     };
+  }
+
+  static chartForIslandName(island) {
+    return `Chart for ${island}`;
   }
 
   static raceModeBannedLocations(dungeonName) {
@@ -489,11 +527,6 @@ class LogicHelper {
   }
 
   static _prettyNameOverride(itemName, itemCount = 1) {
-    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) && itemName.match(/(Treasure|Triforce) Chart (\d)+/)) {
-      const islandIndex = _.indexOf(CHARTS, itemName);
-      return `Chart for ${_.get(ISLANDS, islandIndex)}`;
-    }
-
     return _.get(PRETTY_ITEM_NAMES, [itemName, itemCount]);
   }
 

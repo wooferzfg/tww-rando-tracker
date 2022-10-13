@@ -178,8 +178,20 @@ class Spheres {
       detailedLocation,
     );
 
+    let chartForIsland;
+    if (!_.isNil(itemAtLocation)
+        && LogicHelper.isRandomizedChart(itemAtLocation)) {
+      const island = this.state.getIslandFromChartMapping(itemAtLocation);
+      if (!_.isNil(island)) {
+        chartForIsland = LogicHelper.chartForIslandName(island);
+      }
+    }
+
     if (!_.isNil(itemAtLocation)) {
       this._updateStateWithItem(itemAtLocation);
+      if (!_.isNil(chartForIsland)) {
+        this._updateStateWithItem(chartForIsland);
+      }
       this.anyItemsAdded = true;
     }
   }

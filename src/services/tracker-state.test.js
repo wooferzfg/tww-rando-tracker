@@ -484,6 +484,80 @@ describe('TrackerState', () => {
     });
   });
 
+  describe('getChartFromChartMapping', () => {
+    test('returns chart', () => {
+      const state = new TrackerState();
+
+      state.islandsForCharts = {
+        'Treasure Chart 24': 'Windfall Island',
+      };
+
+      const chart = state.getChartFromChartMapping('Windfall Island');
+
+      expect(chart).toBe('Treasure Chart 24');
+    });
+  });
+
+  describe('getIslandFromChartMapping', () => {
+    test('returns island', () => {
+      const state = new TrackerState();
+
+      state.islandsForCharts = {
+        'Treasure Chart 24': 'Windfall Island',
+      };
+
+      const island = state.getIslandFromChartMapping('Treasure Chart 24');
+
+      expect(island).toBe('Windfall Island');
+    });
+  });
+
+  describe('setChartMapping', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+
+      state.islandsForCharts = {};
+    });
+
+    test('sets chart mapping', () => {
+      const newState = state.setChartMapping('Treasure Chart 10', 'Chart for Outset Island');
+
+      const newIslandsForCharts = _.get(newState.islandsForCharts, 'Treasure Chart 10');
+
+      expect(newIslandsForCharts).toBe('Outset Island');
+    });
+  });
+
+  describe('unsetChartMapping', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+
+      state.islandsForCharts = {
+        'Treasure Chart 23': 'Pawprint Isle',
+      };
+    });
+
+    test('removes chart mapping', () => {
+      const newState = state.unsetChartMapping('Chart for Pawprint Isle');
+
+      const newIslandsForCharts = _.get(newState.islandsForCharts, 'Treasure Chart 23', null);
+
+      expect(newIslandsForCharts).toBe(null);
+    });
+
+    test('does not remove chart mapping for different chart', () => {
+      const newState = state.unsetChartMapping('Chart for Windfall Island');
+
+      const newIslandsForCharts = _.get(newState.islandsForCharts, 'Treasure Chart 23', null);
+
+      expect(newIslandsForCharts).toBe('Pawprint Isle');
+    });
+  });
+
   describe('unsetItemForLocation', () => {
     let state;
 

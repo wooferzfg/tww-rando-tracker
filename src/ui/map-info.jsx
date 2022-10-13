@@ -44,6 +44,7 @@ class MapInfo extends React.PureComponent {
 
   mapItemInfo() {
     const {
+      selectedChartForIsland,
       selectedExit,
       selectedItem,
       trackerState,
@@ -60,6 +61,16 @@ class MapInfo extends React.PureComponent {
         itemInfoText = `${shortEntranceName} → ${shortExitName}`;
       } else {
         itemInfoText = LogicHelper.entryName(selectedExit);
+      }
+    }
+
+    if (!_.isNil(selectedChartForIsland)) {
+      const island = LogicHelper.islandFromChartForIsland(selectedChartForIsland);
+      const chart = trackerState.getChartFromChartMapping(island);
+      if (chart) {
+        itemInfoText = `${chart} → ${island}`;
+      } else {
+        itemInfoText = selectedChartForIsland;
       }
     }
 
@@ -90,6 +101,7 @@ class MapInfo extends React.PureComponent {
 }
 
 MapInfo.defaultProps = {
+  selectedChartForIsland: null,
   selectedExit: null,
   selectedItem: null,
   selectedLocation: null,
@@ -100,6 +112,7 @@ MapInfo.propTypes = {
   disableLogic: PropTypes.bool.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  selectedChartForIsland: PropTypes.string,
   selectedExit: PropTypes.string,
   selectedItem: PropTypes.string,
   selectedLocation: PropTypes.string,

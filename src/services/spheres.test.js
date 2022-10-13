@@ -217,16 +217,26 @@ describe('Spheres', () => {
           updateForItemAndLocation('Grappling Hook', 'Windfall Island', 'Tott - Teach Rhythm');
         });
 
-        test('tracks spheres for charts correctly', () => {
+        test('tracks spheres for charts correctly before mapping', () => {
           const spheres = new Spheres(trackerState);
 
           expect(
             spheres.sphereForLocation('Pawprint Isle', 'Sunken Treasure'),
-          ).toEqual(1);
+          ).toEqual(null);
 
           expect(
             spheres.sphereForLocation('Dragon Roost Island', 'Sunken Treasure'),
           ).toEqual(null);
+        });
+
+        test('tracks spheres for charts correctly after mapping', () => {
+          trackerState = trackerState.setChartMapping('Treasure Chart 30', 'Star Island');
+
+          const spheres = new Spheres(trackerState);
+
+          expect(
+            spheres.sphereForLocation('Star Island', 'Sunken Treasure'),
+          ).toEqual(1);
         });
       });
 

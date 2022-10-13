@@ -988,6 +988,86 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('isRandomizedChartsSettings', () => {
+    test('returns true when randomized charts is on', () => {
+      Settings.initializeRaw({
+        options: {
+          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+        },
+      });
+
+      expect(LogicHelper.isRandomizedChartsSettings()).toBe(true);
+    });
+
+    test('returns false when randomized charts is off', () => {
+      Settings.initializeRaw({
+        options: {
+          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+        },
+      });
+
+      expect(LogicHelper.isRandomizedChartsSettings()).toBe(false);
+    });
+  });
+
+  describe('chartForIslandName', () => {
+    test('returns chart for island name', () => {
+      expect(LogicHelper.chartForIslandName('Outset Island')).toBe('Chart for Outset Island');
+    });
+  });
+
+  describe('isRandomizedChart', () => {
+    describe('when randomized charts is on', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+          },
+        });
+      });
+      test('returns true when treasure chart', () => {
+        expect(LogicHelper.isRandomizedChart('Treasure Chart 25')).toBe(true);
+      });
+      test('returns true when triforce chart', () => {
+        expect(LogicHelper.isRandomizedChart('Triforce Chart 25')).toBe(true);
+      });
+      test('returns false when item', () => {
+        expect(LogicHelper.isRandomizedChart('Bombs')).toBe(false);
+      });
+    });
+
+    describe('when randomized charts is off', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+          },
+        });
+      });
+      test('returns true when treasure chart', () => {
+        expect(LogicHelper.isRandomizedChart('Treasure Chart 25')).toBe(false);
+      });
+      test('returns true when triforce chart', () => {
+        expect(LogicHelper.isRandomizedChart('Triforce Chart 25')).toBe(false);
+      });
+      test('returns false when item', () => {
+        expect(LogicHelper.isRandomizedChart('Bombs')).toBe(false);
+      });
+    });
+  });
+
+  describe('allTreasureCharts', () => {
+    test('returns expected treasure charts', () => {
+      expect(LogicHelper.allTreasureCharts()).toMatchSnapshot();
+    });
+  });
+
+  describe('allTriforceCharts', () => {
+    test('returns expected triforce charts', () => {
+      expect(LogicHelper.allTriforceCharts()).toMatchSnapshot();
+    });
+  });
+
   describe('filterDetailedLocations', () => {
     beforeEach(() => {
       Settings.initializeRaw({
@@ -1895,16 +1975,16 @@ describe('LogicHelper', () => {
         });
       });
 
-      test('returns the pretty name for a Triforce Chart', () => {
+      test('returns the regular name for a Triforce Chart', () => {
         const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7', 0);
 
-        expect(prettyName).toEqual('Chart for Seven-Star Isles');
+        expect(prettyName).toEqual('Triforce Chart 7');
       });
 
-      test('returns the pretty name for a Treasure Chart', () => {
+      test('returns the regular name for a Treasure Chart', () => {
         const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25', 0);
 
-        expect(prettyName).toEqual('Chart for Forsaken Fortress');
+        expect(prettyName).toEqual('Treasure Chart 25');
       });
 
       test('returns the regular name for the Ghost Ship Chart', () => {
@@ -1914,16 +1994,16 @@ describe('LogicHelper', () => {
       });
 
       describe('when setting the item count to null', () => {
-        test('returns the pretty name for a Triforce Chart', () => {
+        test('returns the regular name for a Triforce Chart', () => {
           const prettyName = LogicHelper.prettyNameForItem('Triforce Chart 7', null);
 
-          expect(prettyName).toEqual('Chart for Seven-Star Isles');
+          expect(prettyName).toEqual('Triforce Chart 7');
         });
 
-        test('returns the pretty name for a Treasure Chart', () => {
+        test('returns the regular name for a Treasure Chart', () => {
           const prettyName = LogicHelper.prettyNameForItem('Treasure Chart 25', null);
 
-          expect(prettyName).toEqual('Chart for Forsaken Fortress');
+          expect(prettyName).toEqual('Treasure Chart 25');
         });
       });
     });
@@ -1982,6 +2062,32 @@ describe('LogicHelper', () => {
 
         expect(prettyName).toEqual('Deku Leaf');
       });
+    });
+  });
+
+  describe('islandFromChartForIsland', () => {
+    test('returns island from valid string', () => {
+      expect(LogicHelper.islandFromChartForIsland('Chart for Windfall Island')).toBe('Windfall Island');
+    });
+  });
+
+  describe('islandForChart', () => {
+    test('returns null for invalid chart', () => {
+      const island = LogicHelper.islandForChart('Grapple Hook');
+
+      expect(island).toBeNull();
+    });
+
+    test('returns island for treasure chart', () => {
+      const island = LogicHelper.islandForChart('Treasure Chart 30');
+
+      expect(island).toBe('Pawprint Isle');
+    });
+
+    test('returns island for triforce chart', () => {
+      const island = LogicHelper.islandForChart('Triforce Chart 2');
+
+      expect(island).toBe('Gale Isle');
     });
   });
 
