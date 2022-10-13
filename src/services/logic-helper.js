@@ -33,7 +33,6 @@ class LogicHelper {
       'isProgressLocation',
       'mainDungeons',
       'maxItemCount',
-      'parseChartNumber',
       'parseItemCountRequirement',
       'prettyNameForItem',
       'prettyNameForItemRequirement',
@@ -57,7 +56,6 @@ class LogicHelper {
       this.isProgressLocation,
       this.mainDungeons,
       this.maxItemCount,
-      this.parseChartNumber,
       this.parseItemCountRequirement,
       this.prettyNameForItem,
       this.prettyNameForItemRequirement,
@@ -231,16 +229,6 @@ class LogicHelper {
     return this.isDungeon(dungeonOrCaveName)
       ? this.mainDungeons()
       : CAVES;
-  }
-
-  static parseChartNumber(chart) {
-    const matches = chart?.match(/Chart (\d+$)/i);
-
-    if (matches && !_.isNil(matches[1])) {
-      return parseInt(matches[1], 10);
-    }
-
-    return null;
   }
 
   static parseItemCountRequirement(requirement) {

@@ -731,32 +731,6 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('parseChartNumber', () => {
-    test('treasure chart', () => {
-      const chartNumber = LogicHelper.parseChartNumber('Treasure chart 30');
-
-      expect(chartNumber).toEqual(30);
-    });
-
-    test('triforce chart', () => {
-      const chartNumber = LogicHelper.parseChartNumber('Triforce chart 13');
-
-      expect(chartNumber).toEqual(13);
-    });
-
-    test('invalid chart number', () => {
-      const chartNumber = LogicHelper.parseChartNumber('Triforce chart 1A');
-
-      expect(chartNumber).toBeNull();
-    });
-
-    test('grapple hook', () => {
-      const chartNumber = LogicHelper.parseChartNumber('Grapple Hook');
-
-      expect(chartNumber).toBeNull();
-    });
-  });
-
   describe('parseItemCountRequirement', () => {
     test('progressive item', () => {
       const itemCountRequirement = LogicHelper.parseItemCountRequirement('Progressive Sword x4');
