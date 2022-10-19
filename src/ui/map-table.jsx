@@ -4,6 +4,19 @@ import React from 'react';
 import KeyDownWrapper from './key-down-wrapper';
 
 class MapTable extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.rightClickTable = this.rightClickTable.bind(this);
+  }
+
+  rightClickTable(event) {
+    event.preventDefault();
+
+    const { closeFunc } = this.props;
+    closeFunc();
+  }
+
   render() {
     const {
       backgroundImage,
@@ -14,7 +27,7 @@ class MapTable extends React.PureComponent {
     } = this.props;
 
     return (
-      <div className="zoom-map">
+      <div className="zoom-map" onContextMenu={this.rightClickTable}>
         <div className="zoom-map-cover" />
         <div className="zoom-map-background">
           <img src={backgroundImage} alt="" />
