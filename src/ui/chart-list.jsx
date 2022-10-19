@@ -10,6 +10,7 @@ import TrackerState from '../services/tracker-state';
 import FoundAtTooltip from './found-at-tooltip';
 import Images from './images';
 import KeyDownWrapper from './key-down-wrapper';
+import MapTable from './map-table';
 import Tooltip from './tooltip';
 
 class ChartList extends React.PureComponent {
@@ -192,39 +193,18 @@ class ChartList extends React.PureComponent {
     ));
 
     return (
-      <div className="zoom-map">
-        <div className="zoom-map-cover" />
-        <div className="zoom-map-background">
-          <img src={Images.IMAGES.EMPTY_BACKGROUND} alt="" />
-        </div>
-        <table className="header-table">
-          <tbody>
-            <tr>
-              {openedChartForIsland && (
-              <td>
-                <div className="detail-span detail-not-interactive">
-                  Choose Chart
-                </div>
-              </td>
-              )}
-              <td>
-                <div
-                  className="detail-span"
-                  onClick={clearOpenedMenus}
-                  onKeyDown={KeyDownWrapper.onSpaceKey(clearOpenedMenus)}
-                  role="button"
-                  tabIndex="0"
-                >
-                  X Close
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table className="detailed-locations-table">
-          <tbody>{chartRows}</tbody>
-        </table>
-      </div>
+      <MapTable
+        backgroundImage={Images.IMAGES.EMPTY_BACKGROUND}
+        closeFunc={clearOpenedMenus}
+        headerCellsBeforeClose={openedChartForIsland && (
+          <td>
+            <div className="detail-span detail-not-interactive">
+              Choose Chart
+            </div>
+          </td>
+        )}
+        tableRows={chartRows}
+      />
     );
   }
 }

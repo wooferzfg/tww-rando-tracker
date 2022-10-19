@@ -11,6 +11,7 @@ import TrackerState from '../services/tracker-state';
 
 import Images from './images';
 import KeyDownWrapper from './key-down-wrapper';
+import MapTable from './map-table';
 import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
@@ -197,35 +198,12 @@ class DetailedLocationsTable extends React.PureComponent {
     }
 
     return (
-      <div className="zoom-map">
-        <div className="zoom-map-cover" />
-        <div className="zoom-map-background">
-          <img src={backgroundImage} alt="" />
-        </div>
-        <table className="header-table">
-          <tbody>
-            <tr>
-              <td>
-                <div
-                  className="detail-span"
-                  onClick={clearOpenedMenus}
-                  onKeyDown={KeyDownWrapper.onSpaceKey(clearOpenedMenus)}
-                  role="button"
-                  tabIndex="0"
-                >
-                  X Close
-                </div>
-              </td>
-              {clearAllElement}
-            </tr>
-          </tbody>
-        </table>
-        <table className="detailed-locations-table">
-          <tbody>
-            {locationRows}
-          </tbody>
-        </table>
-      </div>
+      <MapTable
+        backgroundImage={backgroundImage}
+        closeFunc={clearOpenedMenus}
+        headerCellsAfterClose={clearAllElement}
+        tableRows={locationRows}
+      />
     );
   }
 }
