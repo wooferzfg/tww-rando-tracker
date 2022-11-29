@@ -14,7 +14,7 @@ class BinaryString {
   }
 
   toBase64() {
-    return BinaryString._binaryToBase64(this.binaryData);
+    return BinaryString._binaryToBase64(this.binaryData, this.bitOffset);
   }
 
   popString() {
@@ -111,8 +111,16 @@ class BinaryString {
     return Array.from(buffer.values());
   }
 
-  static _binaryToBase64(binaryArray) {
-    return Buffer.from(binaryArray).toString('base64');
+  static _binaryToBase64(binaryArray, bitOffset) {
+    let binaryDataToLoad = binaryArray;
+    if (bitOffset === 0) {
+      // If the bit offset ends up being exactly 0, add a 0 byte to the end of
+      // the binary data. This matches the behavior of permalink encoding in
+      // wwrando.
+      binaryDataToLoad = _.concat(binaryArray, 0);
+    }
+
+    return Buffer.from(binaryDataToLoad).toString('base64');
   }
 
   static _stringToBinary(utf8String) {
