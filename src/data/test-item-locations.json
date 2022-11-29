@@ -16,7 +16,7 @@
     ]
   },
   "Outset Island - Orca - Give 10 Knight's Crests": {
-    "Need": "Spoils Bag & Can Farm Knight's Crests & Can Sword Fight with Orca",
+    "Need": "Spoils Bag & Can Farm Knight's Crests & Can Sword Fight with Orca & Magic Meter",
     "Original item": "Hurricane Spin",
     "Types": "Spoils Trading",
     "Paths": [
@@ -448,7 +448,7 @@
     ]
   },
   "Dragon Roost Cavern - Chest Across Lava Pit": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x2 & (Grappling Hook | Deku Leaf)",
+    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x2 & (Grappling Hook | Can Fly With Deku Leaf Indoors)",
     "Original item": "Treasure Chart 11",
     "Types": "Dungeon",
     "Paths": [
@@ -521,7 +521,7 @@
     ]
   },
   "Dragon Roost Cavern - Tingle Statue Chest": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x1 & ( (DRC Small Key x4 & Can Cut Down Hanging DRC Platform) | Deku Leaf | Ice Arrows ) & Grappling Hook & Tingle Tuner Bombs",
+    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x1 & ( (DRC Small Key x4 & Can Cut Down Hanging DRC Platform) | Can Fly With Deku Leaf Indoors | Ice Arrows ) & Grappling Hook & Tingle Tuner Bombs",
     "Original item": "Dragon Tingle Statue",
     "Types": "Tingle Chest, Dungeon",
     "Paths": [
@@ -529,7 +529,7 @@
     ]
   },
   "Dragon Roost Cavern - Big Key Chest": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x1 & ( (DRC Small Key x4 & Can Cut Down Hanging DRC Platform) | Deku Leaf | Ice Arrows ) & Grappling Hook",
+    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x1 & ( (DRC Small Key x4 & Can Cut Down Hanging DRC Platform) | Can Fly With Deku Leaf Indoors | Ice Arrows ) & Grappling Hook",
     "Original item": "Big Key",
     "Types": "Dungeon",
     "Paths": [
@@ -537,7 +537,7 @@
     ]
   },
   "Dragon Roost Cavern - Boss Stairs Right Chest": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & (Grappling Hook | Deku Leaf | Hookshot | Ice Arrows)",
+    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & (Grappling Hook | Can Fly With Deku Leaf Indoors | Hookshot | Ice Arrows)",
     "Original item": "Knight's Crest",
     "Types": "Dungeon",
     "Paths": [
@@ -545,7 +545,7 @@
     ]
   },
   "Dragon Roost Cavern - Boss Stairs Left Chest": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & (Grappling Hook | Deku Leaf | Hookshot | Ice Arrows)",
+    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & (Grappling Hook | Can Fly With Deku Leaf Indoors | Hookshot | Ice Arrows)",
     "Original item": "Yellow Rupee",
     "Types": "Dungeon",
     "Paths": [
@@ -596,7 +596,7 @@
     ]
   },
   "Forbidden Woods - Climb to Top Using Boko Baba Bulbs": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Door Flowers",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Door Flowers",
     "Original item": "Treasure Chart 1",
     "Types": "Dungeon",
     "Paths": [
@@ -604,7 +604,7 @@
     ]
   },
   "Forbidden Woods - Hole in Tree": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas",
     "Original item": "Red Rupee",
     "Types": "Dungeon",
     "Paths": [
@@ -612,7 +612,7 @@
     ]
   },
   "Forbidden Woods - Morth Pit": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook",
     "Original item": "Yellow Rupee",
     "Types": "Dungeon",
     "Paths": [
@@ -620,7 +620,7 @@
     ]
   },
   "Forbidden Woods - Vine Maze Left Chest": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook",
     "Original item": "Compass",
     "Types": "Dungeon",
     "Paths": [
@@ -628,7 +628,7 @@
     ]
   },
   "Forbidden Woods - Vine Maze Right Chest": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
@@ -636,7 +636,7 @@
     ]
   },
   "Forbidden Woods - Tall Room Before Mini-Boss": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Peahats",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Peahats",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -644,7 +644,7 @@
     ]
   },
   "Forbidden Woods - Mothula Mini-Boss Room": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Winged Mothulas",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Winged Mothulas",
     "Original item": "Boomerang",
     "Types": "Dungeon",
     "Paths": [
@@ -652,7 +652,7 @@
     ]
   },
   "Forbidden Woods - Past Seeds Hanging by Vines": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Door Flowers & Can Destroy Seeds Hanging by Vines",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Door Flowers & Can Destroy Seeds Hanging by Vines",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -660,7 +660,7 @@
     ]
   },
   "Forbidden Woods - Chest Across Red Hanging Flower": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook & Boomerang",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & Boomerang",
     "Original item": "Yellow Rupee",
     "Types": "Dungeon",
     "Paths": [
@@ -668,7 +668,7 @@
     ]
   },
   "Forbidden Woods - Tingle Statue Chest": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Grappling Hook & Boomerang & Tingle Tuner Bombs",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Grappling Hook & Boomerang & Tingle Tuner Bombs",
     "Original item": "Forbidden Tingle Statue",
     "Types": "Tingle Chest, Dungeon",
     "Paths": [
@@ -676,7 +676,7 @@
     ]
   },
   "Forbidden Woods - Chest in Locked Tree Trunk": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook & Boomerang",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & Boomerang",
     "Original item": "Treasure Chart 15",
     "Types": "Dungeon",
     "Paths": [
@@ -684,7 +684,7 @@
     ]
   },
   "Forbidden Woods - Big Key Chest": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & Grappling Hook & Boomerang",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & Boomerang",
     "Original item": "Big Key",
     "Types": "Dungeon",
     "Paths": [
@@ -692,7 +692,7 @@
     ]
   },
   "Forbidden Woods - Double Mothula Room": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & (Can Defeat Door Flowers | Grappling Hook) & Can Defeat Mothulas",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & (Can Defeat Door Flowers | Grappling Hook) & Can Defeat Mothulas",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -700,7 +700,7 @@
     ]
   },
   "Forbidden Woods - Kalle Demos Heart Container": {
-    "Need": "Can Access Forbidden Woods & Deku Leaf & Can Defeat Boko Babas & (Can Defeat Door Flowers | Grappling Hook) & Can Defeat Mothulas & FW Big Key & Can Defeat Kalle Demos",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & (Can Defeat Door Flowers | Grappling Hook) & Can Defeat Mothulas & FW Big Key & Can Defeat Kalle Demos",
     "Original item": "Heart Container",
     "Types": "Dungeon",
     "Paths": [
@@ -781,7 +781,7 @@
     ]
   },
   "Tower of the Gods - Darknut Mini-Boss Room": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Deku Leaf) & (Can Play Command Melody | Hero's Bow) & Can Defeat Darknuts",
+    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & (Can Play Command Melody | Hero's Bow) & Can Defeat Darknuts",
     "Original item": "Hero's Bow",
     "Types": "Dungeon",
     "Paths": [
@@ -789,7 +789,7 @@
     ]
   },
   "Tower of the Gods - Second Chest Guarded by Armos Knights": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Deku Leaf) & Can Play Command Melody & Hero's Bow & Can Play Wind's Requiem",
+    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow & Can Play Wind's Requiem",
     "Original item": "Treasure Chart 30",
     "Types": "Dungeon",
     "Paths": [
@@ -797,7 +797,7 @@
     ]
   },
   "Tower of the Gods - Floating Platforms Room": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Deku Leaf) & Can Play Command Melody & Hero's Bow",
+    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
@@ -805,7 +805,7 @@
     ]
   },
   "Tower of the Gods - Top of Floating Platforms Room": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Deku Leaf) & Can Play Command Melody & Hero's Bow",
+    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -813,7 +813,7 @@
     ]
   },
   "Tower of the Gods - Big Key Chest": {
-    "Need": "Can Access Tower of the Gods & Bombs & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Deku Leaf) & Can Play Command Melody & Hero's Bow & TotG Small Key x2 & Deku Leaf",
+    "Need": "Can Access Tower of the Gods & Bombs & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow & TotG Small Key x2 & Can Fly With Deku Leaf Indoors",
     "Original item": "Big Key",
     "Types": "Dungeon",
     "Paths": [
@@ -821,7 +821,7 @@
     ]
   },
   "Tower of the Gods - Gohdan Heart Container": {
-    "Need": "Can Access Tower of the Gods & Bombs & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Deku Leaf) & Can Play Command Melody & Hero's Bow & TotG Small Key x2 & Deku Leaf & Can Defeat Armos & TotG Big Key & Can Defeat Gohdan",
+    "Need": "Can Access Tower of the Gods & Bombs & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow & TotG Small Key x2 & Can Fly With Deku Leaf Indoors & Can Defeat Armos & TotG Big Key & Can Defeat Gohdan",
     "Original item": "Heart Container",
     "Types": "Dungeon",
     "Paths": [
@@ -847,7 +847,7 @@
     ]
   },
   "Forsaken Fortress - Chest Outside Upper Jail Cell": {
-    "Need": "Can Get Inside Forsaken Fortress & (Deku Leaf | Hookshot)",
+    "Need": "Can Get Inside Forsaken Fortress & (Can Fly With Deku Leaf Indoors | Hookshot)",
     "Original item": "Dungeon Map",
     "Types": "Dungeon",
     "Paths": [
@@ -887,7 +887,7 @@
     ]
   },
   "Forsaken Fortress - Helmaroc King Heart Container": {
-    "Need": "Can Get Inside Forsaken Fortress & Skull Hammer & (Deku Leaf | Hookshot) & Can Defeat Helmaroc King",
+    "Need": "Can Get Inside Forsaken Fortress & Skull Hammer & (Can Fly With Deku Leaf Indoors | Hookshot) & Can Defeat Helmaroc King",
     "Original item": "Heart Container",
     "Types": "Dungeon",
     "Paths": [
@@ -1117,7 +1117,7 @@
     ]
   },
   "Wind Temple - Tingle Statue Chest": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & Tingle Tuner Bombs",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Tingle Tuner Bombs",
     "Original item": "Wind Tingle Statue",
     "Types": "Tingle Chest, Dungeon",
     "Paths": [
@@ -1125,7 +1125,7 @@
     ]
   },
   "Wind Temple - Chest Behind Stone Head": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & Hookshot",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Hookshot",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -1133,7 +1133,7 @@
     ]
   },
   "Wind Temple - Chest in Left Alcove": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -1141,7 +1141,7 @@
     ]
   },
   "Wind Temple - Big Key Chest": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & Can Play Wind God's Aria & Can Defeat Darknuts",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Can Play Wind God's Aria & Can Defeat Darknuts",
     "Original item": "Big Key",
     "Types": "Dungeon",
     "Paths": [
@@ -1149,7 +1149,7 @@
     ]
   },
   "Wind Temple - Chest In Many Cyclones Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( (Can Cut Grass | Magic Meter Upgrade) | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( (Can Cut Grass | Magic Meter Upgrade) | (Hookshot & Can Defeat Blue Bubbles) )",
     "Original item": "Dungeon Map",
     "Types": "Dungeon",
     "Paths": [
@@ -1157,7 +1157,7 @@
     ]
   },
   "Wind Temple - Chest In Middle Of Hub Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
     "Original item": "Compass",
     "Types": "Dungeon",
     "Paths": [
@@ -1165,7 +1165,7 @@
     ]
   },
   "Wind Temple - Spike Wall Room - First Chest": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
@@ -1173,7 +1173,7 @@
     ]
   },
   "Wind Temple - Spike Wall Room - Destroy All Cracked Floors": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
     "Original item": "Treasure Chart 35",
     "Types": "Dungeon",
     "Paths": [
@@ -1181,7 +1181,7 @@
     ]
   },
   "Wind Temple - Wizzrobe Mini-Boss Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) ) & WT Small Key x2 & Can Defeat Darknuts & Can Remove Peahat Armor",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) ) & WT Small Key x2 & Can Defeat Darknuts & Can Remove Peahat Armor",
     "Original item": "Hookshot",
     "Types": "Dungeon",
     "Paths": [
@@ -1189,7 +1189,7 @@
     ]
   },
   "Wind Temple - Chest at Top of Hub Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -1197,7 +1197,7 @@
     ]
   },
   "Wind Temple - Chest Behind Seven Armos": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) ) & Can Defeat Armos",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) ) & Can Defeat Armos",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
@@ -1205,7 +1205,7 @@
     ]
   },
   "Wind Temple - Kill All Enemies in Tall Basement Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & Hookshot & Can Defeat Blue Bubbles & WT Small Key x2 & Can Defeat Stalfos & Can Defeat Wizzrobes & Can Defeat Morths",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Hookshot & Can Defeat Blue Bubbles & WT Small Key x2 & Can Defeat Stalfos & Can Defeat Wizzrobes & Can Defeat Morths",
     "Original item": "Treasure Chart 5",
     "Types": "Dungeon",
     "Paths": [
@@ -1213,7 +1213,7 @@
     ]
   },
   "Wind Temple - Molgera Heart Container": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Deku Leaf & Hookshot & Can Defeat Blue Bubbles & WT Small Key x2 & Can Play Wind God's Aria & WT Big Key & Can Defeat Molgera",
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Hookshot & Can Defeat Blue Bubbles & WT Small Key x2 & Can Play Wind God's Aria & WT Big Key & Can Defeat Molgera",
     "Original item": "Heart Container",
     "Types": "Dungeon",
     "Paths": [
@@ -1247,7 +1247,7 @@
     ]
   },
   "Mailbox - Letter from Baito": {
-    "Need": "Delivery Bag & Note to Mom & Song of Passing & Can Access Other Location \"Earth Temple - Jalhalla Heart Container\"",
+    "Need": "Delivery Bag & Note to Mom & Can Access Other Location \"Earth Temple - Jalhalla Heart Container\"",
     "Original item": "Red Rupee",
     "Types": "Mail, Dungeon",
     "Paths": [
@@ -1462,7 +1462,7 @@
     ]
   },
   "Angular Isles - Cave": {
-    "Need": "Can Access Angular Isles Secret Cave & Can Aim Mirror Shield & (Deku Leaf | Hookshot)",
+    "Need": "Can Access Angular Isles Secret Cave & Can Aim Mirror Shield & (Can Fly With Deku Leaf Indoors | Hookshot)",
     "Original item": "Silver Rupee",
     "Types": "Puzzle Secret Cave",
     "Paths": [
@@ -1836,7 +1836,7 @@
     ]
   },
   "Cliff Plateau Isles - Highest Isle": {
-    "Need": "Can Access Cliff Plateau Isles Secret Cave & Can Defeat Boko Babas & Deku Leaf",
+    "Need": "Can Access Cliff Plateau Isles Secret Cave & Can Defeat Boko Babas & Can Fly With Deku Leaf Indoors",
     "Original item": "Treasure Chart 25",
     "Types": "Puzzle Secret Cave",
     "Paths": [
@@ -1868,7 +1868,7 @@
     ]
   },
   "Horseshoe Island - Play Golf": {
-    "Need": "Deku Leaf & (Can Fly With Deku Leaf Outdoors | Hookshot)",
+    "Need": "Can Fan With Deku Leaf & (Can Fly With Deku Leaf Outdoors | Hookshot)",
     "Original item": "Treasure Chart 28",
     "Types": "Island Puzzle",
     "Paths": [
