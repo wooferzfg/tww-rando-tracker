@@ -19,7 +19,7 @@ jobs:
       - name: Install npm packages
         run: |
           set -e
-          npm install --force
+          npm install
 
       - name: Build UI
         run: |
