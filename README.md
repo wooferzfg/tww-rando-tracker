@@ -6,7 +6,7 @@ This is a tracker for [The Wind Waker Randomizer](https://github.com/LagoLunatic
 
 ## Build Instructions
 
-Building and running the tracker locally requires you to [install Node 16](https://nodejs.org/en/download/).
+Building and running the tracker locally requires you to [install Node 18](https://nodejs.org/en/download/).
 
 After installing Node and cloning the repository, install the required dependencies:
 ```bash
