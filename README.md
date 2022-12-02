@@ -10,7 +10,7 @@ Building and running the tracker locally requires you to [install Node 18](https
 
 After installing Node and cloning the repository, install the required dependencies:
 ```bash
-npm install --force
+npm install
 ```
 You can then build and serve the tracker application:
 ```bash
