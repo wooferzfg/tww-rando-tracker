@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
 class Tooltip extends React.PureComponent {
   render() {
@@ -17,13 +18,17 @@ class Tooltip extends React.PureComponent {
     const tooltipId = _.uniqueId('tooltip');
 
     return (
-      <div className="tooltip-wrapper" data-tip data-for={tooltipId}>
+      <div
+        className="tooltip-wrapper"
+        data-tooltip-content
+        id={tooltipId}
+        data-tooltip-place="bottom"
+        data-tooltip-variant="light"
+      >
         {children}
         <ReactTooltip
-          effect="solid"
-          id={tooltipId}
-          place="bottom"
-          type="light"
+          anchorId={tooltipId}
+          className="tooltip-element"
         >
           {tooltipContent}
         </ReactTooltip>

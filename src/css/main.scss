@@ -575,6 +575,7 @@ button:hover:enabled {
 .tooltip {
   color: black;
   max-width: 300px;
+  font-size: 13px;
 
   .tooltip-title {
     font-weight: bold;
@@ -588,6 +589,10 @@ button:hover:enabled {
 
 .tooltip-spacer {
   height: 15px;
+}
+
+.tooltip-element {
+  z-index: 100;
 }
 
 .extra-locations {
