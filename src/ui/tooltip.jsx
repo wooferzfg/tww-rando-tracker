@@ -2,7 +2,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
-import 'react-tooltip/dist/react-tooltip.css'
+import 'react-tooltip/dist/react-tooltip.css';
 
 class Tooltip extends React.PureComponent {
   render() {
