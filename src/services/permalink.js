@@ -23,7 +23,7 @@ class Permalink {
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'MS4xMC4wAEEABwEDAGweAIAGEAAAABAAggAAAA==';
+  static DEFAULT_PERMALINK = 'MS4xMC4wAEEABwEDAAygvgMA0AACAAAAAkAQAAA=';
 
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);
@@ -79,7 +79,12 @@ class Permalink {
     this._booleanConfig(this.OPTIONS.FISHMEN_HINTS),
     this._booleanConfig(this.OPTIONS.HOHO_HINTS),
     this._booleanConfig(this.OPTIONS.KORL_HINTS),
-    this._spinBoxConfig(this.OPTIONS.NUM_HINTS, 1, 32),
+    this._spinBoxConfig(this.OPTIONS.NUM_PATH_HINTS, 0, 15),
+    this._spinBoxConfig(this.OPTIONS.NUM_BARREN_HINTS, 0, 15),
+    this._spinBoxConfig(this.OPTIONS.NUM_LOCATION_HINTS, 0, 15),
+    this._spinBoxConfig(this.OPTIONS.NUM_ITEM_HINTS, 0, 15),
+    this._booleanConfig(this.OPTIONS.CRYPTIC_HINTS),
+    this._booleanConfig(this.OPTIONS.PRIORITIZE_REMOTE_HINTS),
     this._booleanConfig(this.OPTIONS.SWIFT_SAIL),
     this._booleanConfig(this.OPTIONS.INSTANT_TEXT_BOXES),
     this._booleanConfig(this.OPTIONS.REVEAL_FULL_SEA_CHART),

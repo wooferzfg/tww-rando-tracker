@@ -33,7 +33,12 @@
   "fishmen_hints",
   "hoho_hints",
   "korl_hints",
-  "num_hints",
+  "num_path_hints",
+  "num_barren_hints",
+  "num_location_hints",
+  "num_item_hints",
+  "cryptic_hints",
+  "prioritize_remote_hints",
 
   "swift_sail",
   "instant_text_boxes",
