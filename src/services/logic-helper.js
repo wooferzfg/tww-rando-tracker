@@ -104,6 +104,10 @@ class LogicHelper {
     _.keys(KEYS),
   );
 
+  static ALL_TREASURE_CHARTS = _.range(1, CHARTS.length - this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Treasure Chart ${number}`);
+
+  static ALL_TRIFORCE_CHARTS = _.range(1, this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Triforce Chart ${number}`);
+
   static startingItemCount(item) {
     return _.get(this.startingItems, item, 0);
   }
@@ -269,14 +273,6 @@ class LogicHelper {
 
   static isRandomizedChart(item) {
     return this.isRandomizedChartsSettings() && /(Treasure|Triforce) Chart (\d)+/.test(item);
-  }
-
-  static allTreasureCharts() {
-    return _.range(1, CHARTS.length - this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Treasure Chart ${number}`);
-  }
-
-  static allTriforceCharts() {
-    return _.range(1, this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Triforce Chart ${number}`);
   }
 
   static filterDetailedLocations(generalLocation, { isDungeon, onlyProgressLocations }) {

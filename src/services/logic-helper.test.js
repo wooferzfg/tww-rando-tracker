@@ -170,9 +170,19 @@ describe('LogicHelper', () => {
 
   describe('ALL_ITEMS', () => {
     test('returns a list of all the items, including entrances, charts, and keys', () => {
-      const allItems = LogicHelper.ALL_ITEMS;
+      expect(LogicHelper.ALL_ITEMS).toMatchSnapshot();
+    });
+  });
 
-      expect(allItems).toMatchSnapshot();
+  describe('ALL_TREASURE_CHARTS', () => {
+    test('returns expected treasure charts', () => {
+      expect(LogicHelper.ALL_TREASURE_CHARTS).toMatchSnapshot();
+    });
+  });
+
+  describe('ALL_TRIFORCE_CHARTS', () => {
+    test('returns expected triforce charts', () => {
+      expect(LogicHelper.ALL_TRIFORCE_CHARTS).toMatchSnapshot();
     });
   });
 
@@ -1053,18 +1063,6 @@ describe('LogicHelper', () => {
       test('returns false when item', () => {
         expect(LogicHelper.isRandomizedChart('Bombs')).toBe(false);
       });
-    });
-  });
-
-  describe('allTreasureCharts', () => {
-    test('returns expected treasure charts', () => {
-      expect(LogicHelper.allTreasureCharts()).toMatchSnapshot();
-    });
-  });
-
-  describe('allTriforceCharts', () => {
-    test('returns expected triforce charts', () => {
-      expect(LogicHelper.allTriforceCharts()).toMatchSnapshot();
     });
   });
 
