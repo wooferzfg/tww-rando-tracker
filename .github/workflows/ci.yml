@@ -43,6 +43,7 @@ jobs:
         run: |
           set -e
           npm run docs
+          mv ./docs ./dist/
 
       - name: Deploy
         if: github.repository == 'wooferzfg/tww-rando-tracker' && github.ref == 'refs/heads/main'
