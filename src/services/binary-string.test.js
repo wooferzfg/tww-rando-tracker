@@ -17,14 +17,36 @@ describe('BinaryString', () => {
   });
 
   describe('toBase64', () => {
-    beforeEach(() => {
-      binaryString = new BinaryString([49, 46, 56, 46, 48, 0, 121, 101, 101], 0);
+    describe('when the bit offset is not 0', () => {
+      beforeEach(() => {
+        binaryString = new BinaryString([49, 46, 56, 46, 48, 0, 121, 101, 101], 1);
+      });
+
+      test('returns the correct base64 string without extra padding', () => {
+        const base64Output = binaryString.toBase64();
+
+        expect(base64Output).toEqual('MS44LjAAeWVl');
+      });
     });
 
-    test('returns the correct base64 string', () => {
-      const base64Output = binaryString.toBase64();
+    describe('when the bit offset is 0', () => {
+      beforeEach(() => {
+        binaryString = new BinaryString(
+          [
+            49, 46, 49, 48, 46, 48, 0, 121, 101,
+            101, 116, 0, 7, 1, 3, 1, 109, 126,
+            128, 128, 7, 192, 0, 0, 0, 0, 0,
+            1, 40, 25,
+          ],
+          0,
+        );
+      });
 
-      expect(base64Output).toEqual('MS44LjAAeWVl');
+      test('returns the correct base64 string with a zero byte at the end', () => {
+        const base64Output = binaryString.toBase64();
+
+        expect(base64Output).toEqual('MS4xMC4wAHllZXQABwEDAW1+gIAHwAAAAAAAASgZAA==');
+      });
     });
   });
 

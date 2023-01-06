@@ -156,13 +156,13 @@ exports[`LogicHelper ALL_ITEMS returns a list of all the items, including entran
   "Moblin's Letter",
   "Cabana Deed",
   "Tingle Statue",
-  "Magic Meter Upgrade",
   "Ghost Ship Chart",
   "Progressive Sword",
   "Progressive Shield",
   "Progressive Bow",
   "Progressive Wallet",
   "Progressive Picto Box",
+  "Progressive Magic Meter",
   "Empty Bottle",
   "Telescope",
   "Magic Armor",
@@ -182,6 +182,15 @@ exports[`LogicHelper ALL_ITEMS returns a list of all the items, including entran
   "ET Compass",
   "WT Dungeon Map",
   "WT Compass",
+  "Beedle's Chart",
+  "Fill-Up Coupon",
+  "Great Fairy Chart",
+  "Light Ring Chart",
+  "Octo Chart",
+  "Platform Chart",
+  "Secret Cave Chart",
+  "Submarine Chart",
+  "Tingle's Chart",
   "DRC Big Key",
   "DRC Small Key",
   "FW Big Key",
@@ -324,6 +333,7 @@ exports[`LogicHelper ITEMS returns the correct items 1`] = `
 {
   "BAIT_BAG": "Bait Bag",
   "BALLAD_OF_GALES": "Ballad of Gales",
+  "BEEDLES_CHART": "Beedle's Chart",
   "BOATS_SAIL": "Boat's Sail",
   "BOMBS": "Bombs",
   "BOOMERANG": "Boomerang",
@@ -341,32 +351,40 @@ exports[`LogicHelper ITEMS returns the correct items 1`] = `
   "FARORES_PEARL": "Farore's Pearl",
   "FF_COMPASS": "FF Compass",
   "FF_DUNGEON_MAP": "FF Dungeon Map",
+  "FILL_UP_COUPON": "Fill-Up Coupon",
   "FW_COMPASS": "FW Compass",
   "FW_DUNGEON_MAP": "FW Dungeon Map",
   "GHOST_SHIP_CHART": "Ghost Ship Chart",
   "GRAPPLING_HOOK": "Grappling Hook",
+  "GREAT_FAIRY_CHART": "Great Fairy Chart",
   "HEROS_CHARM": "Hero's Charm",
   "HOOKSHOT": "Hookshot",
   "HURRICANE_SPIN": "Hurricane Spin",
   "IRON_BOOTS": "Iron Boots",
+  "LIGHT_RING_CHART": "Light Ring Chart",
   "MAGGIES_LETTER": "Maggie's Letter",
   "MAGIC_ARMOR": "Magic Armor",
-  "MAGIC_METER_UPGRADE": "Magic Meter Upgrade",
   "MOBLINS_LETTER": "Moblin's Letter",
   "NAYRUS_PEARL": "Nayru's Pearl",
   "NOTE_TO_MOM": "Note to Mom",
+  "OCTO_CHART": "Octo Chart",
+  "PLATFORM_CHART": "Platform Chart",
   "POWER_BRACELETS": "Power Bracelets",
   "PROGRESSIVE_BOMB_BAG": "Progressive Bomb Bag",
   "PROGRESSIVE_BOW": "Progressive Bow",
+  "PROGRESSIVE_MAGIC_METER": "Progressive Magic Meter",
   "PROGRESSIVE_PICTO_BOX": "Progressive Picto Box",
   "PROGRESSIVE_QUIVER": "Progressive Quiver",
   "PROGRESSIVE_SHIELD": "Progressive Shield",
   "PROGRESSIVE_SWORD": "Progressive Sword",
   "PROGRESSIVE_WALLET": "Progressive Wallet",
+  "SECRET_CAVE_CHART": "Secret Cave Chart",
   "SKULL_HAMMER": "Skull Hammer",
   "SONG_OF_PASSING": "Song of Passing",
   "SPOILS_BAG": "Spoils Bag",
+  "SUBMARINE_CHART": "Submarine Chart",
   "TELESCOPE": "Telescope",
+  "TINGLES_CHART": "Tingle's Chart",
   "TINGLE_STATUE": "Tingle Statue",
   "TINGLE_TUNER": "Tingle Tuner",
   "TOT_G_COMPASS": "TotG Compass",
@@ -485,10 +503,8 @@ exports[`LogicHelper allRandomEntrances when only dungeon entrances are randomiz
 
 exports[`LogicHelper initialize when in swordless mode sets sword to 0 in the starting items and adds impossible items 1`] = `
 {
-  "Ballad of Gales": 1,
   "Boat's Sail": 1,
   "Progressive Sword": 0,
-  "Song of Passing": 1,
   "Triforce Shard": 0,
   "Wind Waker": 1,
   "Wind's Requiem": 1,
@@ -504,10 +520,8 @@ exports[`LogicHelper initialize when in swordless mode sets sword to 0 in the st
 
 exports[`LogicHelper initialize when starting without a sword sets sword to 0 in the starting items 1`] = `
 {
-  "Ballad of Gales": 1,
   "Boat's Sail": 1,
   "Progressive Sword": 0,
-  "Song of Passing": 1,
   "Triforce Shard": 0,
   "Wind Waker": 1,
   "Wind's Requiem": 1,
@@ -516,10 +530,8 @@ exports[`LogicHelper initialize when starting without a sword sets sword to 0 in
 
 exports[`LogicHelper initialize with no starting shards, no starting gear, and starting with a sword sets the starting and impossible items 1`] = `
 {
-  "Ballad of Gales": 1,
   "Boat's Sail": 1,
   "Progressive Sword": 1,
-  "Song of Passing": 1,
   "Triforce Shard": 0,
   "Wind Waker": 1,
   "Wind's Requiem": 1,
@@ -528,12 +540,10 @@ exports[`LogicHelper initialize with no starting shards, no starting gear, and s
 
 exports[`LogicHelper initialize with starting gear sets the starting items based on the starting gear 1`] = `
 {
-  "Ballad of Gales": 1,
   "Boat's Sail": 1,
   "Bombs": 1,
   "Deku Leaf": 1,
   "Progressive Sword": 3,
-  "Song of Passing": 1,
   "Triforce Shard": 0,
   "Wind Waker": 1,
   "Wind's Requiem": 1,
@@ -542,10 +552,8 @@ exports[`LogicHelper initialize with starting gear sets the starting items based
 
 exports[`LogicHelper initialize with starting shards sets the number of starting shards 1`] = `
 {
-  "Ballad of Gales": 1,
   "Boat's Sail": 1,
   "Progressive Sword": 1,
-  "Song of Passing": 1,
   "Triforce Shard": 7,
   "Wind Waker": 1,
   "Wind's Requiem": 1,
@@ -1075,13 +1083,14 @@ BooleanExpression {
   "items": [
     "Grappling Hook",
     "Deku Leaf",
+    "Progressive Magic Meter x1",
     BooleanExpression {
       "items": [
         "Progressive Sword x1",
         "Skull Hammer",
         "Boomerang",
         "Bombs",
-        "Magic Meter Upgrade",
+        "Progressive Magic Meter x2",
       ],
       "type": "or",
     },
@@ -1149,12 +1158,18 @@ BooleanExpression {
 exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Mailbox - Beedle's Silver Membership Reward 1`] = `
 BooleanExpression {
   "items": [
-    "Bait Bag",
-    "Bombs",
-    "Progressive Bow x1",
-    "Empty Bottle",
+    BooleanExpression {
+      "items": [
+        "Bait Bag",
+        "Bombs",
+        "Progressive Bow x1",
+        "Empty Bottle",
+      ],
+      "type": "or",
+    },
+    "Song of Passing",
   ],
-  "type": "or",
+  "type": "and",
 }
 `;
 
@@ -1174,6 +1189,7 @@ BooleanExpression {
               "type": "or",
             },
             "Deku Leaf",
+            "Progressive Magic Meter x1",
           ],
           "type": "and",
         },
@@ -1182,6 +1198,15 @@ BooleanExpression {
       "type": "or",
     },
     "Power Bracelets",
+    BooleanExpression {
+      "items": [
+        "Progressive Sword x1",
+        "Skull Hammer",
+        "Bombs",
+        "Progressive Bow x1",
+      ],
+      "type": "or",
+    },
     BooleanExpression {
       "items": [
         "Boomerang",
@@ -1230,7 +1255,13 @@ BooleanExpression {
     BooleanExpression {
       "items": [
         "Progressive Sword x1",
-        "Progressive Bow x3",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+          ],
+          "type": "and",
+        },
         "Skull Hammer",
       ],
       "type": "or",
@@ -1253,13 +1284,34 @@ BooleanExpression {
   "items": [
     BooleanExpression {
       "items": [
-        "Deku Leaf",
+        BooleanExpression {
+          "items": [
+            "Deku Leaf",
+            "Progressive Magic Meter x1",
+          ],
+          "type": "and",
+        },
         "Hookshot",
       ],
       "type": "or",
     },
     "Power Bracelets",
     "Progressive Shield x2",
+    BooleanExpression {
+      "items": [
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x2",
+            "Progressive Magic Meter x1",
+          ],
+          "type": "and",
+        },
+        "Bombs",
+        "Deku Leaf",
+        "Hookshot",
+      ],
+      "type": "or",
+    },
     "Skull Hammer",
   ],
   "type": "and",
@@ -1270,9 +1322,25 @@ exports[`LogicHelper requirementsForLocation when swordless returns simplified r
 BooleanExpression {
   "items": [
     "Ghost Ship Chart",
+    "Ballad of Gales",
     BooleanExpression {
       "items": [
-        "Progressive Bow x3",
+        "Progressive Bow x1",
+        "Hookshot",
+        "Bombs",
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+    BooleanExpression {
+      "items": [
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+          ],
+          "type": "and",
+        },
         "Skull Hammer",
         "Bombs",
       ],

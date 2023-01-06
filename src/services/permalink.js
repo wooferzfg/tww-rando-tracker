@@ -23,7 +23,7 @@ class Permalink {
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'MS45LjAAU2VlZAAHAQMADgBAAwAAAAAAAQAA';
+  static DEFAULT_PERMALINK = 'MS4xMC4wAEEABwEDAAygvgMA0AACAAAAAAGAIAAA';
 
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);
@@ -75,6 +75,16 @@ class Permalink {
     this._dropdownConfig(this.OPTIONS.RANDOMIZE_ENTRANCES),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_CHARTS),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_STARTING_ISLAND),
+    this._booleanConfig(this.OPTIONS.CHEST_TYPE_MATCHES_CONTENTS),
+    this._booleanConfig(this.OPTIONS.FISHMEN_HINTS),
+    this._booleanConfig(this.OPTIONS.HOHO_HINTS),
+    this._booleanConfig(this.OPTIONS.KORL_HINTS),
+    this._spinBoxConfig(this.OPTIONS.NUM_PATH_HINTS, 0, 15),
+    this._spinBoxConfig(this.OPTIONS.NUM_BARREN_HINTS, 0, 15),
+    this._spinBoxConfig(this.OPTIONS.NUM_LOCATION_HINTS, 0, 15),
+    this._spinBoxConfig(this.OPTIONS.NUM_ITEM_HINTS, 0, 15),
+    this._booleanConfig(this.OPTIONS.CRYPTIC_HINTS),
+    this._booleanConfig(this.OPTIONS.PRIORITIZE_REMOTE_HINTS),
     this._booleanConfig(this.OPTIONS.SWIFT_SAIL),
     this._booleanConfig(this.OPTIONS.INSTANT_TEXT_BOXES),
     this._booleanConfig(this.OPTIONS.REVEAL_FULL_SEA_CHART),
@@ -86,7 +96,6 @@ class Permalink {
     this._booleanConfig(this.OPTIONS.RACE_MODE),
     this._dropdownConfig(this.OPTIONS.NUM_RACE_MODE_DUNGEONS),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_MUSIC),
-    this._booleanConfig(this.OPTIONS.DISABLE_TINGLE_CHESTS_WITH_TINGLE_BOMBS),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
     this._startingGearConfig(),
     this._spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
@@ -233,7 +242,7 @@ class Permalink {
 
     return {
       decode: (binaryString, options) => {
-        const spinBoxValue = binaryString.popNumber(numBits);
+        const spinBoxValue = binaryString.popNumber(numBits) + minValue;
         _.set(options, optionName, spinBoxValue);
       },
       encode: (binaryString, options) => {
@@ -244,7 +253,7 @@ class Permalink {
           throw Error(`Invalid value for option: ${spinBoxValue}`);
         }
 
-        binaryString.addNumber(spinBoxValue, numBits);
+        binaryString.addNumber(spinBoxValue - minValue, numBits);
       },
     };
   }
