@@ -47,7 +47,7 @@ jobs:
 
       - name: Deploy
         if: github.repository == 'wooferzfg/tww-rando-tracker' && github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3.9.0
+        uses: peaceiris/actions-gh-pages@v3.9.1
         with:
           personal_token: ${{ secrets.GH_PAGES_DEPLOY }}
           force_orphan: true

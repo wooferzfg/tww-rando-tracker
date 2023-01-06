@@ -27,7 +27,7 @@ jobs:
           npm run build:production
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3.9.0
+        uses: peaceiris/actions-gh-pages@v3.9.1
         with:
           personal_token: ${{ secrets.GH_PAGES_DEPLOY }}
           force_orphan: true
