@@ -3,6 +3,10 @@
   "env": {
     "browser": true
   },
+  "globals": {
+    "BUILD_DATE": "readonly",
+    "COMMIT_HASH": "readonly",
+  },
   "parser": "@babel/eslint-parser",
   "plugins": [
     "react"
