@@ -6,7 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const moment = require('moment');
 const sass = require('sass');
 const webpack = require('webpack');
-const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = (env, argv) => {
   const basePath = __dirname;
@@ -54,14 +53,6 @@ module.exports = (env, argv) => {
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
-      ...(isProduction ? [new WorkboxPlugin.GenerateSW({
-        clientsClaim: true,
-        skipWaiting: true,
-        runtimeCaching: [{
-          urlPattern: /https:\/\/raw\.githubusercontent\.com/,
-          handler: 'StaleWhileRevalidate',
-        }],
-      })] : []),
     ],
     module: {
       rules: [
