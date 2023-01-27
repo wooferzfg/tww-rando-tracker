@@ -51,7 +51,7 @@
     "favicons": "^7.0.2",
     "favicons-webpack-plugin": "^6.0.0",
     "html-webpack-plugin": "^5.5.0",
-    "jest": "^29.4.0",
+    "jest": "^29.4.1",
     "jsdoc": "^4.0.0",
     "moment": "^2.29.4",
     "sass": "^1.57.1",
