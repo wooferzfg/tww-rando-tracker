@@ -50,7 +50,7 @@
     "eslint-plugin-sort-class-members": "^1.18.0",
     "favicons": "^7.1.2",
     "favicons-webpack-plugin": "^6.0.0",
-    "html-webpack-plugin": "^5.5.1",
+    "html-webpack-plugin": "^5.5.3",
     "jest": "^29.5.0",
     "jsdoc": "^4.0.2",
     "moment": "^2.29.4",
