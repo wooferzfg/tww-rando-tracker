@@ -9,6 +9,14 @@ import TrackerState from '../services/tracker-state';
 import ExtraLocation from './extra-location';
 
 class ExtraLocationsTable extends React.PureComponent {
+  static NUM_EXTRA_LOCATIONS = 5;
+
+  static EXTRA_WIDTH = 30;
+
+  static getWidth() {
+    return this.NUM_EXTRA_LOCATIONS * ExtraLocation.getWidth() + this.EXTRA_WIDTH;
+  }
+
   extraLocation(locationName) {
     const {
       clearSelectedItem,
@@ -62,7 +70,7 @@ class ExtraLocationsTable extends React.PureComponent {
     return (
       <div
         className="extra-locations"
-        style={{ backgroundColor }}
+        style={{ backgroundColor, width: ExtraLocationsTable.getWidth() }}
       >
         {this.extraLocation(LogicHelper.DUNGEONS.DRAGON_ROOST_CAVERN)}
         {this.extraLocation(LogicHelper.DUNGEONS.FORBIDDEN_WOODS)}

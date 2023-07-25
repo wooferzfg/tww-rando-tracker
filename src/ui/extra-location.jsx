@@ -12,6 +12,22 @@ import Item from './item';
 import KeyDownWrapper from './key-down-wrapper';
 
 class ExtraLocation extends React.PureComponent {
+  static NUM_CONSISTENT_ITEMS = 4;
+
+  static ITEM_WIDTH = 24;
+
+  static EXTRA_WIDTH = 10;
+
+  static MIN_WIDTH = 120;
+
+  static getWidth() {
+    const numItems = this.NUM_CONSISTENT_ITEMS
+      + (LogicHelper.isRandomDungeonEntrances() ? 1 : 0)
+      + (LogicHelper.isRandomBossEntrances() ? 1 : 0);
+
+    return Math.max(this.ITEM_WIDTH * numItems + this.EXTRA_WIDTH, this.MIN_WIDTH);
+  }
+
   compassItem() {
     const {
       clearSelectedItem,
@@ -168,28 +184,38 @@ class ExtraLocation extends React.PureComponent {
     );
   }
 
-  entrance() {
+  bossEntrance() {
+    const { locationName } = this.props;
+    const bossName = LogicHelper.bossForDungeon(locationName);
+    return this.entrance(bossName);
+  }
+
+  dungeonEntrance() {
+    const { locationName } = this.props;
+    return this.entrance(locationName);
+  }
+
+  entrance(zoneName) {
     const {
       clearSelectedItem,
-      locationName,
       setSelectedExit,
       trackerState,
       unsetExit,
       updateOpenedExit,
     } = this.props;
 
-    const entryName = LogicHelper.entryName(locationName);
+    const entryName = LogicHelper.entryName(zoneName);
     const entryCount = trackerState.getItemValue(entryName);
 
     const entranceImages = _.get(Images.IMAGES, 'DUNGEON_ENTRANCE');
 
-    const setSelectedItemFunc = () => setSelectedExit(locationName);
+    const setSelectedItemFunc = () => setSelectedExit(zoneName);
 
     const incrementItemFunc = () => {
       if (entryCount > 0) {
-        unsetExit(locationName);
+        unsetExit(zoneName);
       } else {
-        updateOpenedExit(locationName);
+        updateOpenedExit(zoneName);
       }
     };
 
@@ -217,7 +243,8 @@ class ExtraLocation extends React.PureComponent {
       <div className="dungeon-items">
         { isMainDungeon && (
           <>
-            { LogicHelper.isRandomDungeonEntrances() && this.entrance() }
+            {LogicHelper.isRandomDungeonEntrances() && this.dungeonEntrance()}
+            {LogicHelper.isRandomBossEntrances() && this.bossEntrance()}
             {this.smallKeyItem()}
             {this.bigKeyItem()}
           </>
@@ -314,6 +341,7 @@ class ExtraLocation extends React.PureComponent {
         onMouseOut={clearSelectedLocation}
         role="button"
         tabIndex="0"
+        style={{ width: ExtraLocation.getWidth() }}
       >
         {this.dungeonItems()}
         {this.locationIcon()}

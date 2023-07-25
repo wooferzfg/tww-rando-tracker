@@ -598,13 +598,11 @@ button:hover:enabled {
 .extra-locations {
   float: left;
   background-color: rgba(160, 160, 160, 0.85);
-  width: 630px;
   height: 242px;
   margin-right: 8px;
   margin-bottom: 8px;
 
   .extra-location {
-    width: 120px;
     float: left;
     background-position-y: 15px;
     display: flex;
@@ -650,7 +648,6 @@ button:hover:enabled {
 
 .statistics {
   float: left;
-  width: 620px;
   background-color: rgba(80, 80, 80, 0.85);
   height: 85px;
   margin: 0 0 8px 0;

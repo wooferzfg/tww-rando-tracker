@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+import BOSSES from '../data/bosses.json';
 import CAVE_ENTRANCES from '../data/cave-entrances.json';
 import CAVES from '../data/caves.json';
 import CHARTS from '../data/charts.json';
@@ -24,6 +25,8 @@ import Settings from './settings';
 class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
+      'allRandomEntrances',
+      'bossForDungeon',
       'bossLocation',
       'chartForIsland',
       'filterDetailedLocations',
@@ -38,6 +41,8 @@ class LogicHelper {
       'prettyNameForItemRequirement',
       'requirementsForEntrance',
       'requirementsForLocation',
+      'shortEntranceName',
+      'shortExitName',
       'smallKeysRequiredForLocation',
       '_isValidLocation',
     ]);
@@ -47,6 +52,8 @@ class LogicHelper {
 
   static reset() {
     Memoizer.invalidate([
+      this.allRandomEntrances,
+      this.bossForDungeon,
       this.bossLocation,
       this.chartForIsland,
       this.filterDetailedLocations,
@@ -61,6 +68,8 @@ class LogicHelper {
       this.prettyNameForItemRequirement,
       this.requirementsForEntrance,
       this.requirementsForLocation,
+      this.shortEntranceName,
+      this.shortExitName,
       this.smallKeysRequiredForLocation,
       this._isValidLocation,
     ]);
@@ -99,7 +108,10 @@ class LogicHelper {
     _.map(CAVES, (cave) => this.entryName(cave)),
     CHARTS,
     _.map(ISLANDS, (island) => this.chartForIslandName(island)),
-    _.map(DUNGEONS, (dungeon) => this.entryName(dungeon)),
+    _.map(this.mainDungeons(), (dungeon) => this.entryName(dungeon)),
+    _.map(this.mainDungeons(), (dungeon) => this.entryName(
+      this.bossForDungeon(dungeon),
+    )),
     _.keys(ITEMS),
     _.keys(KEYS),
   );
@@ -156,18 +168,37 @@ class LogicHelper {
     return this.isDungeon(dungeonName);
   }
 
-  static entryName(dungeonOrCaveName) {
-    const entranceName = this.isDungeon(dungeonOrCaveName)
-      ? this._shortDungeonName(dungeonOrCaveName)
-      : this._shortCaveName(dungeonOrCaveName);
+  static entryName(zoneName) {
+    let entranceName;
+    if (this._isBoss(zoneName)) {
+      entranceName = zoneName;
+    } else if (this.isDungeon(zoneName)) {
+      entranceName = this._shortDungeonName(zoneName);
+    } else {
+      entranceName = this._shortCaveName(zoneName);
+    }
 
     return this._entryNameForEntranceName(entranceName);
   }
 
-  static shortEntranceName(dungeonOrCaveName) {
-    return this.isDungeon(dungeonOrCaveName)
-      ? dungeonOrCaveName
-      : this._shortCaveName(dungeonOrCaveName);
+  static shortEntranceName(zoneName) {
+    if (this._isBoss(zoneName)) {
+      const shortDungeonName = this._shortDungeonName(
+        this._dungeonForBoss(zoneName),
+      );
+      return `${shortDungeonName} Boss Door`;
+    }
+    if (this.isDungeon(zoneName)) {
+      return zoneName;
+    }
+    return this._shortCaveName(zoneName);
+  }
+
+  static shortExitName(zoneName) {
+    if (this._isBoss(zoneName) || this.isDungeon(zoneName)) {
+      return zoneName;
+    }
+    return this._shortCaveName(zoneName);
   }
 
   static cavesForIsland(islandName) {
@@ -188,6 +219,9 @@ class LogicHelper {
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
       ],
       this._randomizeEntrancesOption(),
     );
@@ -199,6 +233,9 @@ class LogicHelper {
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
       ],
       this._randomizeEntrancesOption(),
     );
@@ -210,6 +247,19 @@ class LogicHelper {
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+      ],
+      this._randomizeEntrancesOption(),
+    );
+  }
+
+  static isRandomBossEntrances() {
+    return _.includes(
+      [
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
       ],
       this._randomizeEntrancesOption(),
     );
@@ -217,22 +267,25 @@ class LogicHelper {
 
   static allRandomEntrances() {
     return _.concat(
-      this.isRandomDungeonEntrances() ? this.mainDungeons() : [],
+      this._allDungeonEntrances(),
       this.isRandomCaveEntrances() ? CAVES : [],
     );
   }
 
-  static randomEntrancesForExit(dungeonOrCaveName) {
-    if (
-      this._randomizeEntrancesOption()
-      === Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER
-    ) {
-      return this.allRandomEntrances();
+  static randomEntrancesForExit(zoneName) {
+    let possibleEntrances;
+    if (this._isRandomEntrancesTogether()) {
+      possibleEntrances = this.allRandomEntrances();
+    } else if (this._isBoss(zoneName) || this.isDungeon(zoneName)) {
+      possibleEntrances = this._allDungeonEntrances();
+    } else {
+      return CAVES;
     }
 
-    return this.isDungeon(dungeonOrCaveName)
-      ? this.mainDungeons()
-      : CAVES;
+    if (this.isDungeon(zoneName) && this.isRandomBossEntrances()) {
+      return _.without(possibleEntrances, this.bossForDungeon(zoneName));
+    }
+    return possibleEntrances;
   }
 
   static parseItemCountRequirement(requirement) {
@@ -315,16 +368,7 @@ class LogicHelper {
       return false;
     }
 
-    const locationRequirements = Locations.getLocation(
-      generalLocation,
-      detailedLocation,
-      Locations.KEYS.NEED,
-    );
-    if (_.includes(locationRequirements, 'Big Key')) {
-      return false;
-    }
-
-    return true;
+    return !_.includes(locationTypes, Settings.FLAGS.BOSS);
   }
 
   static bossLocation(dungeonName) {
@@ -337,15 +381,20 @@ class LogicHelper {
     return _.find(
       detailedLocations,
       (detailedLocation) => {
-        const originalItem = Locations.getLocation(
+        const locationTypes = Locations.getLocation(
           dungeonName,
           detailedLocation,
-          Locations.KEYS.ORIGINAL_ITEM,
+          Locations.KEYS.TYPES,
         );
 
-        return originalItem === 'Heart Container';
+        return _.includes(locationTypes, Settings.FLAGS.BOSS);
       },
     );
+  }
+
+  static bossForDungeon(dungeonName) {
+    const dungeonIndex = _.indexOf(DUNGEONS, dungeonName);
+    return BOSSES[dungeonIndex];
   }
 
   static smallKeyName(dungeonName) {
@@ -435,8 +484,8 @@ class LogicHelper {
     return this._simplifiedItemRequirements(rawRequirements);
   }
 
-  static requirementsForEntrance(dungeonOrCaveName) {
-    const macroName = this._macroNameForEntrance(dungeonOrCaveName);
+  static requirementsForEntrance(zoneName) {
+    const macroName = this._macroNameForEntrance(zoneName);
     const rawRequirements = this._booleanExpressionForRequirements(macroName);
     return this._simplifiedItemRequirements(rawRequirements);
   }
@@ -544,21 +593,27 @@ class LogicHelper {
     return SHORT_DUNGEON_NAMES[dungeonIndex];
   }
 
-  static _macroNameForEntrance(dungeonOrCaveName) {
-    const dungeonIndex = _.indexOf(DUNGEONS, dungeonOrCaveName);
+  static _macroNameForEntrance(zoneName) {
+    const bossIndex = _.indexOf(BOSSES, zoneName);
+    if (bossIndex >= 0) {
+      const dungeonName = DUNGEONS[bossIndex];
+      return `Can Access Boss Entrance in ${dungeonName}`;
+    }
+
+    const dungeonIndex = _.indexOf(DUNGEONS, zoneName);
     if (dungeonIndex >= 0) {
       const dungeonEntranceName = _.get(DUNGEON_ENTRANCES, dungeonIndex);
       return `Can Access Dungeon Entrance ${dungeonEntranceName}`;
     }
 
-    const caveIndex = _.indexOf(CAVES, dungeonOrCaveName);
+    const caveIndex = _.indexOf(CAVES, zoneName);
     if (caveIndex >= 0) {
       const caveEntranceName = _.get(CAVE_ENTRANCES, caveIndex);
       return `Can Access Secret Cave Entrance on ${caveEntranceName}`;
     }
 
     // istanbul ignore next
-    throw Error(`Could not find macro name for entrance: ${dungeonOrCaveName}`);
+    throw Error(`Could not find macro name for entrance: ${zoneName}`);
   }
 
   static _simplifiedItemRequirements(requirements) {
@@ -799,6 +854,42 @@ class LogicHelper {
     }
 
     return true;
+  }
+
+  static _isRandomEntrancesTogether() {
+    return _.includes(
+      [
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+      ],
+      this._randomizeEntrancesOption(),
+    );
+  }
+
+  static _mainDungeonBosses() {
+    return _.map(
+      this.mainDungeons(),
+      (dungeonName) => this.bossForDungeon(dungeonName),
+    );
+  }
+
+  static _isBoss(bossName) {
+    return _.includes(BOSSES, bossName);
+  }
+
+  static _dungeonForBoss(bossName) {
+    const bossIndex = _.indexOf(BOSSES, bossName);
+    return DUNGEONS[bossIndex];
+  }
+
+  static _allDungeonEntrances() {
+    if (!this.isRandomDungeonEntrances()) {
+      return [];
+    }
+    if (!this.isRandomBossEntrances()) {
+      return this.mainDungeons();
+    }
+    return _.concat(this.mainDungeons(), this._mainDungeonBosses());
   }
 }
 

@@ -37,6 +37,7 @@ class LogicTweaks {
   static _updateMacros() {
     this._updateDungeonEntranceMacros();
     this._updateCaveEntranceMacros();
+    this._updateBossEntranceMacros();
     this._updateChartMacros();
     this._updateTriforceMacro();
     this._applyHasAccessedLocationTweaksForMacros();
@@ -141,6 +142,19 @@ class LogicTweaks {
     _.forEach(CAVES, (cave) => {
       const macroName = this._canAccessMacroName(cave);
       const entryName = LogicHelper.entryName(cave);
+      Macros.setMacro(macroName, entryName);
+    });
+  }
+
+  static _updateBossEntranceMacros() {
+    if (!LogicHelper.isRandomBossEntrances()) {
+      return;
+    }
+
+    _.forEach(LogicHelper.mainDungeons(), (dungeonName) => {
+      const bossName = LogicHelper.bossForDungeon(dungeonName);
+      const macroName = `Can Access ${bossName} Boss Arena`;
+      const entryName = LogicHelper.entryName(bossName);
       Macros.setMacro(macroName, entryName);
     });
   }

@@ -53,12 +53,12 @@ class Spheres {
     _.set(this.spheres, [generalLocation, detailedLocation], this.currentSphere);
   }
 
-  _isEntranceAdded(dungeonOrCaveName) {
-    return _.get(this.entrancesAdded, dungeonOrCaveName);
+  _isEntranceAdded(zoneName) {
+    return _.get(this.entrancesAdded, zoneName);
   }
 
-  _setEntranceAdded(dungeonOrCaveName) {
-    _.set(this.entrancesAdded, dungeonOrCaveName, true);
+  _setEntranceAdded(zoneName) {
+    _.set(this.entrancesAdded, zoneName, true);
   }
 
   _updateStateWithItem(itemName) {
@@ -66,12 +66,12 @@ class Spheres {
   }
 
   _transferEntrances() {
-    _.forEach(LogicHelper.allRandomEntrances(), (dungeonOrCaveName) => {
-      const entranceForExit = this.state.getEntranceForExit(dungeonOrCaveName);
+    _.forEach(LogicHelper.allRandomEntrances(), (zoneName) => {
+      const entranceForExit = this.state.getEntranceForExit(zoneName);
 
       if (!_.isNil(entranceForExit)) {
         this.temporaryState = this.temporaryState.setEntranceForExit(
-          dungeonOrCaveName,
+          zoneName,
           entranceForExit,
         );
       }
@@ -79,27 +79,34 @@ class Spheres {
   }
 
   _updateEntranceItems() {
-    const logic = new LogicCalculation(this.temporaryState);
+    let logic = new LogicCalculation(this.temporaryState);
 
-    _.forEach(LogicHelper.allRandomEntrances(), (dungeonOrCaveName) => {
-      if (this._isEntranceAdded(dungeonOrCaveName)) {
-        return true; // continue
+    const entrancesToCheck = _.clone(LogicHelper.allRandomEntrances());
+
+    for (let i = 0; i < entrancesToCheck.length; i += 1) {
+      const zoneName = entrancesToCheck[i];
+
+      if (this._isEntranceAdded(zoneName)) {
+        continue;
       }
 
-      const exitForEntrance = this.temporaryState.getExitForEntrance(dungeonOrCaveName);
+      const exitForEntrance = this.temporaryState.getExitForEntrance(zoneName);
       if (_.isNil(exitForEntrance)) {
-        return true; // continue
+        continue;
       }
 
-      if (logic.isEntranceAvailable(dungeonOrCaveName)) {
+      if (logic.isEntranceAvailable(zoneName)) {
         const entryName = LogicHelper.entryName(exitForEntrance);
 
         this._updateStateWithItem(entryName);
-        this._setEntranceAdded(dungeonOrCaveName);
-      }
+        this._setEntranceAdded(zoneName);
 
-      return true; // continue
-    });
+        if (LogicHelper.isDungeon(exitForEntrance) && LogicHelper.isRandomBossEntrances()) {
+          entrancesToCheck.push(LogicHelper.bossForDungeon(exitForEntrance));
+          logic = new LogicCalculation(this.temporaryState);
+        }
+      }
+    }
   }
 
   _updateSmallKeys() {

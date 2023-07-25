@@ -147,6 +147,9 @@ exports[`Permalink DROPDOWN_OPTIONS returns the correct dropdown options 1`] = `
     "Secret Caves",
     "Dungeons and Secret Caves (Separately)",
     "Dungeons and Secret Caves (Together)",
+    "Nested Dungeons",
+    "Nested Dungeons and Secret Caves (Separately)",
+    "Nested Dungeons and Secret Caves (Together)",
   ],
   "sword_mode": [
     "Start with Hero's Sword",
@@ -224,6 +227,9 @@ exports[`Permalink RANDOMIZE_ENTRANCES_OPTIONS returns the correct options 1`] =
   "DUNGEONS": "Dungeons",
   "DUNGEONS_AND_SECRET_CAVES_SEPARATELY": "Dungeons and Secret Caves (Separately)",
   "DUNGEONS_AND_SECRET_CAVES_TOGETHER": "Dungeons and Secret Caves (Together)",
+  "NESTED_DUNGEONS": "Nested Dungeons",
+  "NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY": "Nested Dungeons and Secret Caves (Separately)",
+  "NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER": "Nested Dungeons and Secret Caves (Together)",
   "SECRET_CAVES": "Secret Caves",
 }
 `;

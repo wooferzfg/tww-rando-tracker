@@ -4,6 +4,7 @@ exports[`Settings FLAGS returns the correct flags 1`] = `
 {
   "BATTLESQUID": "Battlesquid",
   "BIG_OCTO": "Big Octo",
+  "BOSS": "Boss",
   "COMBAT_SECRET_CAVE": "Combat Secret Cave",
   "DUNGEON": "Dungeon",
   "EXPENSIVE_PURCHASE": "Expensive Purchase",

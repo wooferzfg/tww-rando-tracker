@@ -226,24 +226,24 @@ class Tracker extends React.PureComponent {
     });
   }
 
-  updateOpenedExit(dungeonOrCaveName) {
+  updateOpenedExit(zoneName) {
     this.setState({
       chartListOpen: false,
       entrancesListOpen: false,
       openedChartForIsland: null,
-      openedExit: dungeonOrCaveName,
+      openedExit: zoneName,
       openedLocation: null,
       openedLocationIsDungeon: null,
     });
   }
 
-  unsetExit(dungeonOrCaveName) {
+  unsetExit(zoneName) {
     const { trackerState } = this.state;
 
-    const entryName = LogicHelper.entryName(dungeonOrCaveName);
+    const entryName = LogicHelper.entryName(zoneName);
     const newTrackerState = trackerState
       .incrementItem(entryName)
-      .unsetEntranceForExit(dungeonOrCaveName);
+      .unsetEntranceForExit(zoneName);
 
     this.updateTrackerState(newTrackerState);
   }

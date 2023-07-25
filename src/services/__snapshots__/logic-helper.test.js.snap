@@ -123,10 +123,13 @@ exports[`LogicHelper ALL_ITEMS returns a list of all the items, including entran
   "Entered DRC",
   "Entered FW",
   "Entered TotG",
-  "Entered FF",
   "Entered ET",
   "Entered WT",
-  "Entered GT",
+  "Entered Gohma",
+  "Entered Kalle Demos",
+  "Entered Gohdan",
+  "Entered Jalhalla",
+  "Entered Molgera",
   "Tingle Tuner",
   "Wind Waker",
   "Spoils Bag",
@@ -498,6 +501,91 @@ exports[`LogicHelper allRandomEntrances when only dungeon entrances are randomiz
   "Tower of the Gods",
   "Earth Temple",
   "Wind Temple",
+]
+`;
+
+exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances and caves separately returns all the dungeons, bosses, and caves 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Gohma",
+  "Kalle Demos",
+  "Gohdan",
+  "Jalhalla",
+  "Molgera",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances and caves together returns all the dungeons, bosses, and caves 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Gohma",
+  "Kalle Demos",
+  "Gohdan",
+  "Jalhalla",
+  "Molgera",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances returns all the dungeons and bosses 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Gohma",
+  "Kalle Demos",
+  "Gohdan",
+  "Jalhalla",
+  "Molgera",
 ]
 `;
 
@@ -1068,6 +1156,193 @@ exports[`LogicHelper randomEntrancesForExit when only dungeon entrances are rand
 ]
 `;
 
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances when the exit is a boss returns all the dungeons and bosses 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Gohma",
+  "Kalle Demos",
+  "Gohdan",
+  "Jalhalla",
+  "Molgera",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances when the exit is a dungeon returns all the dungeons and bosses except its own boss door 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Kalle Demos",
+  "Gohdan",
+  "Jalhalla",
+  "Molgera",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves separately when the exit is a boss returns all the dungeons and bosses 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Gohma",
+  "Kalle Demos",
+  "Gohdan",
+  "Jalhalla",
+  "Molgera",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves separately when the exit is a cave returns all the caves 1`] = `
+[
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves separately when the exit is a dungeon returns all the dungeons and bosses except its own boss door 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Kalle Demos",
+  "Gohdan",
+  "Jalhalla",
+  "Molgera",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a boss returns all the dungeons, caves, and bosses 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Gohma",
+  "Kalle Demos",
+  "Gohdan",
+  "Jalhalla",
+  "Molgera",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a cave returns all the dungeons, caves, and bosses 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Gohma",
+  "Kalle Demos",
+  "Gohdan",
+  "Jalhalla",
+  "Molgera",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a dungeon returns all the dungeons, caves, and bosses except its own boss door 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "Kalle Demos",
+  "Gohdan",
+  "Jalhalla",
+  "Molgera",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+]
+`;
+
 exports[`LogicHelper requirementsForEntrance returns simplified requirements for Bomb Island Secret Cave 1`] = `
 BooleanExpression {
   "items": [
@@ -1094,6 +1369,22 @@ BooleanExpression {
       ],
       "type": "or",
     },
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForEntrance returns simplified requirements for Jalhalla 1`] = `
+BooleanExpression {
+  "items": [
+    "Entered ET",
+    "Command Melody",
+    "Progressive Shield x2",
+    "Earth God's Lyric",
+    "Power Bracelets",
+    "Skull Hammer",
+    "ET Small Key x3",
+    "ET Big Key",
   ],
   "type": "and",
 }

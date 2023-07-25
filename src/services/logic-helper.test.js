@@ -374,6 +374,12 @@ describe('LogicHelper', () => {
 
       expect(entryName).toEqual('Entered Dragon Roost Island Cave');
     });
+
+    test('returns the entry name based on a boss name', () => {
+      const entryName = LogicHelper.entryName('Gohma');
+
+      expect(entryName).toEqual('Entered Gohma');
+    });
   });
 
   describe('shortEntranceName', () => {
@@ -393,6 +399,38 @@ describe('LogicHelper', () => {
       const shortEntranceName = LogicHelper.shortEntranceName('Diamond Steppe Island Warp Maze Cave');
 
       expect(shortEntranceName).toEqual('Diamond Steppe Island Cave');
+    });
+
+    test('returns the boss door name', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Kalle Demos');
+
+      expect(shortEntranceName).toEqual('FW Boss Door');
+    });
+  });
+
+  describe('shortExitName', () => {
+    test('returns the unmodified dungeon name', () => {
+      const shortExitName = LogicHelper.shortExitName('Dragon Roost Cavern');
+
+      expect(shortExitName).toEqual('Dragon Roost Cavern');
+    });
+
+    test('returns the cave name without mentioning secret caves', () => {
+      const shortExitName = LogicHelper.shortExitName('Dragon Roost Island Secret Cave');
+
+      expect(shortExitName).toEqual('Dragon Roost Island Cave');
+    });
+
+    test('returns the cave name without mentioning warp maze caves', () => {
+      const shortExitName = LogicHelper.shortExitName('Diamond Steppe Island Warp Maze Cave');
+
+      expect(shortExitName).toEqual('Diamond Steppe Island Cave');
+    });
+
+    test('returns the boss name', () => {
+      const shortExitName = LogicHelper.shortExitName('Kalle Demos');
+
+      expect(shortExitName).toEqual('Kalle Demos');
     });
   });
 
@@ -493,6 +531,23 @@ describe('LogicHelper', () => {
         expect(isRandomEntrances).toEqual(false);
       });
     });
+
+    describe('when there are nested random entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        const isRandomEntrances = LogicHelper.isRandomEntrances();
+
+        expect(isRandomEntrances).toEqual(true);
+      });
+    });
   });
 
   describe('isRandomDungeonEntrances', () => {
@@ -529,6 +584,23 @@ describe('LogicHelper', () => {
         expect(isRandomDungeonEntrances).toEqual(false);
       });
     });
+
+    describe('when there are nested random entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        const isRandomDungeonEntrances = LogicHelper.isRandomDungeonEntrances();
+
+        expect(isRandomDungeonEntrances).toEqual(true);
+      });
+    });
   });
 
   describe('isRandomCaveEntrances', () => {
@@ -562,6 +634,93 @@ describe('LogicHelper', () => {
         const isRandomCaveEntrances = LogicHelper.isRandomCaveEntrances();
 
         expect(isRandomCaveEntrances).toEqual(false);
+      });
+    });
+
+    describe('when there are nested random entrances without caves', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+          },
+        });
+      });
+
+      test('returns false', () => {
+        const isRandomCaveEntrances = LogicHelper.isRandomCaveEntrances();
+
+        expect(isRandomCaveEntrances).toEqual(false);
+      });
+    });
+
+    describe('when there are nested random entrances with caves', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        const isRandomCaveEntrances = LogicHelper.isRandomCaveEntrances();
+
+        expect(isRandomCaveEntrances).toEqual(true);
+      });
+    });
+  });
+
+  describe('isRandomBossEntrances', () => {
+    describe('when there are nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        const isRandomBossEntrances = LogicHelper.isRandomBossEntrances();
+
+        expect(isRandomBossEntrances).toEqual(true);
+      });
+    });
+
+    describe('when there are nested dungeon entrances with caves', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        const isRandomBossEntrances = LogicHelper.isRandomBossEntrances();
+
+        expect(isRandomBossEntrances).toEqual(true);
+      });
+    });
+
+    describe('when there are only regular dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+          },
+        });
+      });
+
+      test('returns false', () => {
+        const isRandomBossEntrances = LogicHelper.isRandomBossEntrances();
+
+        expect(isRandomBossEntrances).toEqual(false);
       });
     });
   });
@@ -651,6 +810,57 @@ describe('LogicHelper', () => {
         expect(allRandomEntrances).toMatchSnapshot();
       });
     });
+
+    describe('when there are nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+          },
+        });
+      });
+
+      test('returns all the dungeons and bosses', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toMatchSnapshot();
+      });
+    });
+
+    describe('when there are nested dungeon entrances and caves separately', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+          },
+        });
+      });
+
+      test('returns all the dungeons, bosses, and caves', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toMatchSnapshot();
+      });
+    });
+
+    describe('when there are nested dungeon entrances and caves together', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+          },
+        });
+      });
+
+      test('returns all the dungeons, bosses, and caves', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toMatchSnapshot();
+      });
+    });
   });
 
   describe('randomEntrancesForExit', () => {
@@ -735,6 +945,103 @@ describe('LogicHelper', () => {
 
       describe('when the exit is a cave', () => {
         test('returns all the dungeons and caves', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Savage Labyrinth');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when there are nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon', () => {
+        test('returns all the dungeons and bosses except its own boss door', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Dragon Roost Cavern');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a boss', () => {
+        test('returns all the dungeons and bosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when there are nested dungeon entrances with caves separately', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon', () => {
+        test('returns all the dungeons and bosses except its own boss door', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Dragon Roost Cavern');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a boss', () => {
+        test('returns all the dungeons and bosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a cave', () => {
+        test('returns all the caves', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Savage Labyrinth');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when there are nested dungeon entrances with caves together', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon', () => {
+        test('returns all the dungeons, caves, and bosses except its own boss door', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Dragon Roost Cavern');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a boss', () => {
+        test('returns all the dungeons, caves, and bosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a cave', () => {
+        test('returns all the dungeons, caves, and bosses', () => {
           const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Savage Labyrinth');
 
           expect(randomEntrancesForExit).toMatchSnapshot();
@@ -1307,8 +1614,8 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Dragon Roost Cavern': {
             'Gohma Heart Container': {
-              need: 'Grappling Hook & DRC Big Key',
-              types: 'Dungeon',
+              need: 'Entered Gohma & Grappling Hook',
+              types: 'Dungeon, Boss',
             },
           },
         };
@@ -1328,18 +1635,18 @@ describe('LogicHelper', () => {
         'Dragon Roost Cavern': {
           'Gohma Heart Container': {
             originalItem: 'Heart Container',
-            types: 'Dungeon',
+            types: 'Dungeon, Boss',
           },
         },
         'Tower of the Gods': {
           'Gohdan Heart Container': {
             originalItem: 'Heart Container',
-            types: 'Dungeon',
+            types: 'Dungeon, Boss',
           },
         },
         "Ganon's Tower": {
           'Defeat Ganondorf': {
-            types: 'Dungeon',
+            need: 'Can Reach and Defeat Ganondorf',
           },
         },
       };
@@ -1361,6 +1668,14 @@ describe('LogicHelper', () => {
       const bossLocation = LogicHelper.bossLocation("Ganon's Tower");
 
       expect(bossLocation).toEqual('Defeat Ganondorf');
+    });
+  });
+
+  describe('bossForDungeon', () => {
+    test('returns the name of the boss for the dungeon', () => {
+      const bossName = LogicHelper.bossForDungeon('Tower of the Gods');
+
+      expect(bossName).toEqual('Gohdan');
     });
   });
 
@@ -1761,7 +2076,7 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.RACE_MODE]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
           [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-            Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+            Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
         },
@@ -1790,6 +2105,12 @@ describe('LogicHelper', () => {
 
     test('returns simplified requirements for Bomb Island Secret Cave', () => {
       const requirements = LogicHelper.requirementsForEntrance('Bomb Island Secret Cave');
+
+      expect(requirements).toMatchSnapshot();
+    });
+
+    test('returns simplified requirements for Jalhalla', () => {
+      const requirements = LogicHelper.requirementsForEntrance('Jalhalla');
 
       expect(requirements).toMatchSnapshot();
     });
@@ -2665,7 +2986,7 @@ describe('LogicHelper', () => {
     test('returns the correct macro name for a dungeon', () => {
       const macroName = LogicHelper._macroNameForEntrance('Forbidden Woods');
 
-      expect(macroName).toEqual('Can Access Dungeon Entrance In Forest Haven Sector');
+      expect(macroName).toEqual('Can Access Dungeon Entrance in Forest Haven Sector');
     });
 
     test('returns the correct macro name for a cave', () => {

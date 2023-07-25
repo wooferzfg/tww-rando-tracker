@@ -68,6 +68,23 @@ describe('LogicTweaks', () => {
       });
     });
 
+    describe('when there are nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+          },
+        });
+      });
+
+      test('updates the macros', () => {
+        LogicTweaks.applyTweaks();
+
+        expect(Macros.macros).toMatchSnapshot();
+      });
+    });
+
     describe('when charts are randomized', () => {
       beforeEach(() => {
         Settings.initializeRaw({

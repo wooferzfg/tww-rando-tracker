@@ -25,7 +25,7 @@ class EntranceSelection extends React.PureComponent {
     const { trackerState } = this.props;
 
     const exitName = trackerState.getExitForEntrance(entranceName);
-    const shortExitName = LogicHelper.shortEntranceName(exitName);
+    const shortExitName = LogicHelper.shortExitName(exitName);
 
     return (
       <div className="tooltip">

@@ -44,6 +44,7 @@ describe('LogicCalculation', () => {
         [LogicHelper.ITEMS.SONG_OF_PASSING]: 1,
       },
       flags: [
+        Settings.FLAGS.BOSS,
         Settings.FLAGS.DUNGEON,
         Settings.FLAGS.PUZZLE_SECRET_CAVE,
         Settings.FLAGS.GREAT_FAIRY,
@@ -447,7 +448,7 @@ describe('LogicCalculation', () => {
   describe('formattedRequirementsForEntrance', () => {
     beforeEach(() => {
       setMacros({
-        'Can Access Dungeon Entrance On Headstone Island': 'Power Bracelets',
+        'Can Access Dungeon Entrance on Headstone Island': 'Power Bracelets',
       });
 
       logic = new LogicCalculation(
@@ -1704,6 +1705,7 @@ describe('LogicCalculation', () => {
           'Gohma Heart Container': {
             need: 'DRC Big Key',
             originalItem: 'Heart Container',
+            types: 'Dungeon, Boss',
           },
         },
       });
@@ -1812,7 +1814,7 @@ describe('LogicCalculation', () => {
     describe('when the entrance requirements are met', () => {
       beforeEach(() => {
         setMacros({
-          'Can Access Dungeon Entrance On Headstone Island': 'Power Bracelets',
+          'Can Access Dungeon Entrance on Headstone Island': 'Power Bracelets',
         });
 
         logic = new LogicCalculation(

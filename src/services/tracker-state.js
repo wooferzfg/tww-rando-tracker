@@ -82,12 +82,12 @@ class TrackerState {
     return newState;
   }
 
-  getEntranceForExit(dungeonOrCaveName) {
-    return _.get(this.entrances, dungeonOrCaveName);
+  getEntranceForExit(zoneName) {
+    return _.get(this.entrances, zoneName);
   }
 
-  getExitForEntrance(dungeonOrCaveName) {
-    return _.findKey(this.entrances, (entranceName) => entranceName === dungeonOrCaveName);
+  getExitForEntrance(zoneName) {
+    return _.findKey(this.entrances, (entranceName) => entranceName === zoneName);
   }
 
   setEntranceForExit(exitName, entranceName) {
@@ -96,14 +96,14 @@ class TrackerState {
     return newState;
   }
 
-  unsetEntranceForExit(dungeonOrCaveName) {
+  unsetEntranceForExit(zoneName) {
     const newState = this._clone({ entrances: true });
-    _.unset(newState.entrances, dungeonOrCaveName);
+    _.unset(newState.entrances, zoneName);
     return newState;
   }
 
-  isEntranceChecked(dungeonOrCaveName) {
-    return _.includes(this.entrances, dungeonOrCaveName);
+  isEntranceChecked(zoneName) {
+    return _.includes(this.entrances, zoneName);
   }
 
   isLocationChecked(generalLocation, detailedLocation) {
