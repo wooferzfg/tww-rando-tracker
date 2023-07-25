@@ -629,6 +629,10 @@ button:hover:enabled {
 
     .item-container {
       outline-style: none;
+
+      &.static-item {
+        cursor: auto;
+      }
     }
   }
 
