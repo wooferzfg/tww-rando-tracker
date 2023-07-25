@@ -23,6 +23,7 @@ class DetailedLocationsTable extends React.PureComponent {
     }
     return 13;
   }
+
   requirementsTooltip(generalLocation, detailedLocation) {
     const { logic } = this.props;
 
