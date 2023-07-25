@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
 import TEST_MACROS from '../data/test-macros.json';
 
@@ -1080,8 +1082,8 @@ describe('LogicHelper', () => {
         ],
       });
 
-      Locations.initialize(TEST_ITEM_LOCATIONS);
-      Macros.initialize(TEST_MACROS);
+      Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+      Macros.initialize(_.cloneDeep(TEST_MACROS));
 
       LogicTweaks.applyTweaks();
 
@@ -1636,8 +1638,8 @@ describe('LogicHelper', () => {
           startingGear: {},
         });
 
-        Locations.initialize(TEST_ITEM_LOCATIONS);
-        Macros.initialize(TEST_MACROS);
+        Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+        Macros.initialize(_.cloneDeep(TEST_MACROS));
 
         LogicTweaks.applyTweaks();
 
@@ -1702,8 +1704,8 @@ describe('LogicHelper', () => {
           startingGear: {},
         });
 
-        Locations.initialize(TEST_ITEM_LOCATIONS);
-        Macros.initialize(TEST_MACROS);
+        Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+        Macros.initialize(_.cloneDeep(TEST_MACROS));
 
         LogicTweaks.applyTweaks();
 
@@ -1734,8 +1736,8 @@ describe('LogicHelper', () => {
           },
         });
 
-        Locations.initialize(TEST_ITEM_LOCATIONS);
-        Macros.initialize(TEST_MACROS);
+        Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+        Macros.initialize(_.cloneDeep(TEST_MACROS));
 
         LogicTweaks.applyTweaks();
 
@@ -1766,8 +1768,8 @@ describe('LogicHelper', () => {
         startingGear: {},
       });
 
-      Locations.initialize(TEST_ITEM_LOCATIONS);
-      Macros.initialize(TEST_MACROS);
+      Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+      Macros.initialize(_.cloneDeep(TEST_MACROS));
 
       LogicTweaks.applyTweaks();
 
@@ -2162,8 +2164,8 @@ describe('LogicHelper', () => {
         startingGear: {},
       });
 
-      Locations.initialize(TEST_ITEM_LOCATIONS);
-      Macros.initialize(TEST_MACROS);
+      Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+      Macros.initialize(_.cloneDeep(TEST_MACROS));
 
       LogicTweaks.applyTweaks();
 

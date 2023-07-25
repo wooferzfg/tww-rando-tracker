@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
 import TEST_MACROS from '../data/test-macros.json';
 import TEST_SAVE_DATA from '../data/test-save-data.json';
@@ -19,8 +21,8 @@ describe('TrackerController', () => {
 
     jest.spyOn(LogicLoader, 'loadLogicFiles').mockReturnValue(
       Promise.resolve({
-        itemLocationsFile: TEST_ITEM_LOCATIONS,
-        macrosFile: TEST_MACROS,
+        itemLocationsFile: _.cloneDeep(TEST_ITEM_LOCATIONS),
+        macrosFile: _.cloneDeep(TEST_MACROS),
       }),
     );
   });
