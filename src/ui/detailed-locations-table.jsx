@@ -16,8 +16,13 @@ import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
 class DetailedLocationsTable extends React.PureComponent {
-  static NUM_ROWS = 13;
-
+  numRows() {
+    const { trackSpheres } = this.props;
+    if (trackSpheres) {
+      return 12;
+    }
+    return 13;
+  }
   requirementsTooltip(generalLocation, detailedLocation) {
     const { logic } = this.props;
 
@@ -164,7 +169,7 @@ class DetailedLocationsTable extends React.PureComponent {
       },
     );
 
-    const locationChunks = _.chunk(detailedLocations, DetailedLocationsTable.NUM_ROWS);
+    const locationChunks = _.chunk(detailedLocations, this.numRows());
     const arrangedLocations = _.zip(...locationChunks);
     const numColumns = _.size(locationChunks);
 
