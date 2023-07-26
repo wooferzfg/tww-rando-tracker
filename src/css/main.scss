@@ -16,7 +16,7 @@ body {
   position: absolute;
   left: -8px;
   right: -8px;
-  top: 0;
+  top: -8px;
   padding-bottom: 10px;
   box-sizing: border-box;
 }
@@ -35,7 +35,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 4px 0px;
+    padding: 4px 0 0 0;
   }
 
   .permalink-label {
