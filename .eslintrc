@@ -19,6 +19,7 @@
       },
       "newlines-between": "always"
     }],
+    "no-continue": "off",
     "no-underscore-dangle": "off",
     "valid-jsdoc": ["error", {
       "requireReturn": false
