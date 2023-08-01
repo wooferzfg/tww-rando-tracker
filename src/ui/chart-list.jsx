@@ -14,8 +14,6 @@ import MapTable from './map-table';
 import Tooltip from './tooltip';
 
 class ChartList extends React.PureComponent {
-  static NUM_ROWS = 20;
-
   mapChart(chart) {
     const {
       openedChartForIsland,
@@ -179,19 +177,19 @@ class ChartList extends React.PureComponent {
   render() {
     const { clearOpenedMenus, openedChartForIsland } = this.props;
 
-    const chartChunks = _.chunk([
-      ...LogicHelper.ALL_TREASURE_CHARTS,
-      ...LogicHelper.ALL_TRIFORCE_CHARTS,
-    ], ChartList.NUM_ROWS);
-    const arrangedCharts = _.zip(...chartChunks);
+    const chartItemFunc = (chart) => (
+      openedChartForIsland
+        ? this.mapChart(chart)
+        : this.chart(chart)
+    );
 
-    const chartType = (chart) => (openedChartForIsland ? this.mapChart(chart) : this.chart(chart));
-
-    const chartRows = _.map(arrangedCharts, (chartsRow, index) => (
-      <tr key={index}>
-        {_.map(chartsRow, (chart) => chartType(chart))}
-      </tr>
-    ));
+    const chartRows = MapTable.groupIntoChunks(
+      [
+        ...LogicHelper.ALL_TREASURE_CHARTS,
+        ...LogicHelper.ALL_TRIFORCE_CHARTS,
+      ],
+      chartItemFunc,
+    );
 
     return (
       <MapTable

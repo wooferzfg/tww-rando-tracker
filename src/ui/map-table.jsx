@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -5,6 +6,27 @@ import ContextMenuWrapper from './context-menu-wrapper';
 import KeyDownWrapper from './key-down-wrapper';
 
 class MapTable extends React.PureComponent {
+  static MAX_COLUMNS = 3;
+
+  static NUM_ROWS = 13;
+
+  static groupIntoChunks(tableItems, mappingFunc) {
+    const numItems = _.size(tableItems);
+    const numColumns = Math.min(
+      Math.ceil(numItems / this.NUM_ROWS),
+      this.MAX_COLUMNS,
+    );
+    const numRows = Math.ceil(numItems / numColumns);
+    const chunks = _.chunk(tableItems, numRows);
+    const arrangedItems = _.zip(...chunks);
+
+    return _.map(arrangedItems, (tableRow, index) => (
+      <tr key={index}>
+        {_.map(tableRow, (item) => mappingFunc(item, numColumns))}
+      </tr>
+    ));
+  }
+
   constructor(props) {
     super(props);
 

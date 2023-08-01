@@ -13,7 +13,11 @@ import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
 class EntranceSelection extends React.PureComponent {
-  static NUM_ROWS = 13;
+  constructor(props) {
+    super(props);
+
+    this.entrance = this.entrance.bind(this);
+  }
 
   exitTooltip(entranceName) {
     const { trackerState } = this.props;
@@ -124,15 +128,10 @@ class EntranceSelection extends React.PureComponent {
 
     const entrances = logic.entrancesListForExit(openedExit, { disableLogic });
 
-    const entranceChunks = _.chunk(entrances, EntranceSelection.NUM_ROWS);
-    const arrangedEntrances = _.zip(...entranceChunks);
-    const numColumns = _.size(entranceChunks);
-
-    const entranceRows = _.map(arrangedEntrances, (locationsRow, index) => (
-      <tr key={index}>
-        {_.map(locationsRow, (entranceInfo) => this.entrance(entranceInfo, numColumns))}
-      </tr>
-    ));
+    const entranceRows = MapTable.groupIntoChunks(
+      entrances,
+      this.entrance,
+    );
 
     return (
       <MapTable
