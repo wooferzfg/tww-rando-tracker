@@ -8,16 +8,14 @@ import KeyDownWrapper from './key-down-wrapper';
 class MapTable extends React.PureComponent {
   static MAX_COLUMNS = 3;
 
-  static NUM_ROWS = 13;
-
-  static groupIntoChunks(tableItems, mappingFunc) {
+  static groupIntoChunks(tableItems, mappingFunc, numRows = 13) {
     const numItems = _.size(tableItems);
     const numColumns = Math.min(
-      Math.ceil(numItems / this.NUM_ROWS),
+      Math.ceil(numItems / numRows),
       this.MAX_COLUMNS,
     );
-    const numRows = Math.ceil(numItems / numColumns);
-    const chunks = _.chunk(tableItems, numRows);
+    const updatedNumRows = Math.ceil(numItems / numColumns);
+    const chunks = _.chunk(tableItems, updatedNumRows);
     const arrangedItems = _.zip(...chunks);
 
     return _.map(arrangedItems, (tableRow, index) => (

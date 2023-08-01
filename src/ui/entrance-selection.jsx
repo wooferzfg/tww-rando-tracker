@@ -13,6 +13,8 @@ import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
 class EntranceSelection extends React.PureComponent {
+  static NUM_ROWS = 13;
+
   constructor(props) {
     super(props);
 
@@ -131,6 +133,7 @@ class EntranceSelection extends React.PureComponent {
     const entranceRows = MapTable.groupIntoChunks(
       entrances,
       this.entrance,
+      EntranceSelection.NUM_ROWS,
     );
 
     return (

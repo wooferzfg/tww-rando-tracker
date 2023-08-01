@@ -14,6 +14,8 @@ import MapTable from './map-table';
 import Tooltip from './tooltip';
 
 class ChartList extends React.PureComponent {
+  static NUM_ROWS = 20;
+
   mapChart(chart) {
     const {
       openedChartForIsland,
@@ -189,6 +191,7 @@ class ChartList extends React.PureComponent {
         ...LogicHelper.ALL_TRIFORCE_CHARTS,
       ],
       chartItemFunc,
+      ChartList.NUM_ROWS,
     );
 
     return (
