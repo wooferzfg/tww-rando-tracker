@@ -110,7 +110,7 @@ export default class Images {
       },
       EMPTY_BACKGROUND: import('../images/mapempty.png'),
       ISLAND_CHART_BACKGROUNDS: {
-        [LogicHelper.ISLANDS.FORSAKEN_FORTRESS]: import('../images/mapfull0.png'),
+        [LogicHelper.ISLANDS.FORSAKEN_FORTRESS_SECTOR]: import('../images/mapfull0.png'),
         [LogicHelper.ISLANDS.STAR_ISLAND]: import('../images/mapfull1.png'),
         [LogicHelper.ISLANDS.NORTHERN_FAIRY_ISLAND]: import('../images/mapfull2.png'),
         [LogicHelper.ISLANDS.GALE_ISLE]: import('../images/mapfull3.png'),
@@ -135,7 +135,7 @@ export default class Images {
         [LogicHelper.ISLANDS.GREATFISH_ISLE]: import('../images/mapfull22.png'),
         [LogicHelper.ISLANDS.CYCLOPS_REEF]: import('../images/mapfull23.png'),
         [LogicHelper.ISLANDS.SIX_EYE_REEF]: import('../images/mapfull24.png'),
-        [LogicHelper.ISLANDS.TOWER_OF_THE_GODS]: import('../images/mapfull25.png'),
+        [LogicHelper.ISLANDS.TOWER_OF_THE_GODS_SECTOR]: import('../images/mapfull25.png'),
         [LogicHelper.ISLANDS.EASTERN_TRIANGLE_ISLAND]: import('../images/mapfull26.png'),
         [LogicHelper.ISLANDS.THORNED_FAIRY_ISLAND]: import('../images/mapfull27.png'),
         [LogicHelper.ISLANDS.NEEDLE_ROCK_ISLE]: import('../images/mapfull28.png'),

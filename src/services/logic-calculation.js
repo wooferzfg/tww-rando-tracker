@@ -61,10 +61,10 @@ class LogicCalculation {
     return this._formatRequirements(requirementsForEntrance);
   }
 
-  locationCounts(generalLocation, { isDungeon, onlyProgressLocations, disableLogic }) {
+  locationCounts(generalLocation, { onlyProgressLocations, disableLogic }) {
     const detailedLocations = LogicHelper.filterDetailedLocations(
       generalLocation,
-      { isDungeon, onlyProgressLocations },
+      { onlyProgressLocations },
     );
 
     let anyProgress = false;
@@ -93,10 +93,10 @@ class LogicCalculation {
     };
   }
 
-  locationsList(generalLocation, { isDungeon, onlyProgressLocations, disableLogic }) {
+  locationsList(generalLocation, { onlyProgressLocations, disableLogic }) {
     const detailedLocations = LogicHelper.filterDetailedLocations(
       generalLocation,
-      { isDungeon, onlyProgressLocations },
+      { onlyProgressLocations },
     );
 
     return _.map(detailedLocations, (detailedLocation) => {

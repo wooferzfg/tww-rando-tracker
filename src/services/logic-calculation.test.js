@@ -472,7 +472,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct counts for Dragon Roost Cavern', () => {
       const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
-        isDungeon: true,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -486,7 +485,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct counts for Forbidden Woods', () => {
       const locationCounts = logic.locationCounts('Forbidden Woods', {
-        isDungeon: true,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -500,7 +498,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct counts for Windfall Island', () => {
       const locationCounts = logic.locationCounts('Windfall Island', {
-        isDungeon: false,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -514,7 +511,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct counts for the Forsaken Fortress dungeon', () => {
       const locationCounts = logic.locationCounts('Forsaken Fortress', {
-        isDungeon: true,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -528,7 +524,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct counts for The Great Sea', () => {
       const locationCounts = logic.locationCounts('The Great Sea', {
-        isDungeon: false,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -543,7 +538,6 @@ describe('LogicCalculation', () => {
     describe('when showing non-progress locations', () => {
       test('returns the correct counts for the Forsaken Fortress island', () => {
         const locationCounts = logic.locationCounts('Forsaken Fortress Sector', {
-          isDungeon: false,
           onlyProgressLocations: false,
           disableLogic: false,
         });
@@ -557,7 +551,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct counts for Rock Spire Isle', () => {
         const locationCounts = logic.locationCounts('Rock Spire Isle', {
-          isDungeon: false,
           onlyProgressLocations: false,
           disableLogic: false,
         });
@@ -571,7 +564,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct counts for Windfall Island', () => {
         const locationCounts = logic.locationCounts('Windfall Island', {
-          isDungeon: false,
           onlyProgressLocations: false,
           disableLogic: false,
         });
@@ -596,7 +588,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct counts for Dragon Roost Cavern', () => {
         const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
-          isDungeon: true,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -610,7 +601,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct counts for Mother and Child Isles', () => {
         const locationCounts = logic.locationCounts('Mother and Child Isles', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -634,7 +624,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct counts for Dragon Roost Cavern', () => {
         const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
-          isDungeon: true,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -648,7 +637,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct counts for Forbidden Woods', () => {
         const locationCounts = logic.locationCounts('Forbidden Woods', {
-          isDungeon: true,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -664,7 +652,6 @@ describe('LogicCalculation', () => {
     describe('when location logic is disabled', () => {
       test('returns the correct count for Outset Island', () => {
         const locationCounts = logic.locationCounts('Outset Island', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: true,
         });
@@ -678,7 +665,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct count for Islet of Steel', () => {
         const locationCounts = logic.locationCounts('Islet of Steel', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: true,
         });
@@ -692,7 +678,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct count for Greatfish Isle', () => {
         const locationCounts = logic.locationCounts('Greatfish Isle', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: true,
         });
@@ -707,7 +692,6 @@ describe('LogicCalculation', () => {
       describe('when showing non-progress locations', () => {
         test('returns the correct count for Spectacle Island', () => {
           const locationCounts = logic.locationCounts('Spectacle Island', {
-            isDungeon: false,
             onlyProgressLocations: false,
             disableLogic: true,
           });
@@ -721,7 +705,6 @@ describe('LogicCalculation', () => {
 
         test('returns the correct count for Windfall Island', () => {
           const locationCounts = logic.locationCounts('Windfall Island', {
-            isDungeon: false,
             onlyProgressLocations: false,
             disableLogic: true,
           });
@@ -745,7 +728,6 @@ describe('LogicCalculation', () => {
 
         test('returns the correct count for Dragon Roost Cavern', () => {
           const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
-            isDungeon: true,
             onlyProgressLocations: true,
             disableLogic: true,
           });
@@ -767,7 +749,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct locations for the Forsaken Fortress dungeon', () => {
       const locationsList = logic.locationsList('Forsaken Fortress', {
-        isDungeon: true,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -802,7 +783,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct locations for The Great Sea', () => {
       const locationsList = logic.locationsList('The Great Sea', {
-        isDungeon: false,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -830,7 +810,6 @@ describe('LogicCalculation', () => {
     describe('when showing non-progress locations', () => {
       test('returns the correct locations for the Forsaken Fortress island', () => {
         const locationsList = logic.locationsList('Forsaken Fortress Sector', {
-          isDungeon: false,
           onlyProgressLocations: false,
           disableLogic: false,
         });
@@ -845,7 +824,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Rock Spire Isle', () => {
         const locationsList = logic.locationsList('Rock Spire Isle', {
-          isDungeon: false,
           onlyProgressLocations: false,
           disableLogic: false,
         });
@@ -902,7 +880,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Cliff Plateau Isles', () => {
         const locationsList = logic.locationsList('Cliff Plateau Isles', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -921,7 +898,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Mother and Child Isles', () => {
         const locationsList = logic.locationsList('Mother and Child Isles', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -946,7 +922,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Pawprint Isle', () => {
         const locationsList = logic.locationsList('Pawprint Isle', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -973,7 +948,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Forsaken Fortress', () => {
         const locationsList = logic.locationsList('Forsaken Fortress', {
-          isDungeon: true,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -1010,7 +984,6 @@ describe('LogicCalculation', () => {
     describe('when location logic is disabled', () => {
       test('returns the correct locations for Outset Island', () => {
         const locationsList = logic.locationsList('Outset Island', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: true,
         });
@@ -1033,7 +1006,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Islet of Steel', () => {
         const locationsList = logic.locationsList('Islet of Steel', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: true,
         });
@@ -1048,7 +1020,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Greatfish Isle', () => {
         const locationsList = logic.locationsList('Greatfish Isle', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: true,
         });
@@ -1059,7 +1030,6 @@ describe('LogicCalculation', () => {
       describe('when showing non-progress locations', () => {
         test('returns the correct locations for Spectacle Island', () => {
           const locationsList = logic.locationsList('Spectacle Island', {
-            isDungeon: false,
             onlyProgressLocations: false,
             disableLogic: true,
           });
@@ -1082,7 +1052,6 @@ describe('LogicCalculation', () => {
 
         test('returns the correct locations for Bomb Island', () => {
           const locationsList = logic.locationsList('Bomb Island', {
-            isDungeon: false,
             onlyProgressLocations: false,
             disableLogic: true,
           });
@@ -1117,7 +1086,6 @@ describe('LogicCalculation', () => {
 
         test("returns the correct locations for Ganon's Tower", () => {
           const locationsList = logic.locationsList("Ganon's Tower", {
-            isDungeon: true,
             onlyProgressLocations: true,
             disableLogic: true,
           });

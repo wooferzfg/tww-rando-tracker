@@ -13,7 +13,6 @@ class MapInfo extends React.PureComponent {
       logic,
       onlyProgressLocations,
       selectedLocation,
-      selectedLocationIsDungeon,
     } = this.props;
 
     if (_.isNil(selectedLocation)) {
@@ -24,7 +23,6 @@ class MapInfo extends React.PureComponent {
       numAvailable,
       numRemaining,
     } = logic.locationCounts(selectedLocation, {
-      isDungeon: selectedLocationIsDungeon,
       onlyProgressLocations,
       disableLogic,
     });
@@ -105,7 +103,6 @@ MapInfo.defaultProps = {
   selectedExit: null,
   selectedItem: null,
   selectedLocation: null,
-  selectedLocationIsDungeon: null,
 };
 
 MapInfo.propTypes = {
@@ -116,7 +113,6 @@ MapInfo.propTypes = {
   selectedExit: PropTypes.string,
   selectedItem: PropTypes.string,
   selectedLocation: PropTypes.string,
-  selectedLocationIsDungeon: PropTypes.bool,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
 };
 

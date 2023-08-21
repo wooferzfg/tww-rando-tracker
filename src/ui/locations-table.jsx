@@ -23,7 +23,6 @@ class LocationsTable extends React.PureComponent {
       selectedExit: null,
       selectedItem: null,
       selectedLocation: null,
-      selectedLocationIsDungeon: null,
     };
 
     this.setSelectedChartForIsland = this.setSelectedChartForIsland.bind(this);
@@ -47,10 +46,9 @@ class LocationsTable extends React.PureComponent {
     this.setState({ selectedItem: itemName });
   }
 
-  setSelectedLocation({ locationName, isDungeon }) {
+  setSelectedLocation({ locationName }) {
     this.setState({
       selectedLocation: locationName,
-      selectedLocationIsDungeon: isDungeon,
     });
   }
 
@@ -104,7 +102,6 @@ class LocationsTable extends React.PureComponent {
       selectedExit,
       selectedItem,
       selectedLocation,
-      selectedLocationIsDungeon,
     } = this.state;
 
     let chartElement;
@@ -195,7 +192,6 @@ class LocationsTable extends React.PureComponent {
           selectedExit={selectedExit}
           selectedItem={selectedItem}
           selectedLocation={selectedLocation}
-          selectedLocationIsDungeon={selectedLocationIsDungeon}
           trackerState={trackerState}
         />
       </div>

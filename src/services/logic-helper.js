@@ -44,8 +44,7 @@ class LogicHelper {
       'shortEntranceName',
       'shortExitName',
       'smallKeysRequiredForLocation',
-      '_isValidLocation',
-      '_raceModeDungeons',
+      '_raceModeDungeonBosses',
     ]);
 
     this._setStartingAndImpossibleItems();
@@ -72,8 +71,7 @@ class LogicHelper {
       this.shortEntranceName,
       this.shortExitName,
       this.smallKeysRequiredForLocation,
-      this._isValidLocation,
-      this._raceModeDungeons,
+      this._raceModeDungeonBosses,
     ]);
 
     this.startingItems = null;
@@ -111,9 +109,7 @@ class LogicHelper {
     CHARTS,
     _.map(ISLANDS, (island) => this.chartForIslandName(island)),
     _.map(this.mainDungeons(), (dungeon) => this.entryName(dungeon)),
-    _.map(this._raceModeDungeons(), (dungeon) => this.entryName(
-      this.bossForDungeon(dungeon),
-    )),
+    _.map(this._raceModeDungeonBosses(), (boss) => this.entryName(boss)),
     _.keys(ITEMS),
     _.keys(KEYS),
   );
@@ -330,30 +326,18 @@ class LogicHelper {
     return this.isRandomizedChartsSettings() && /(Treasure|Triforce) Chart (\d)+/.test(item);
   }
 
-  static filterDetailedLocations(generalLocation, { isDungeon, onlyProgressLocations }) {
+  static filterDetailedLocations(generalLocation, { onlyProgressLocations }) {
     const detailedLocations = Locations.detailedLocationsForGeneralLocation(generalLocation);
 
-    return _.filter(detailedLocations, (detailedLocation) => {
-      if (
-        !_.isNil(isDungeon)
-        && !this._isValidLocation(generalLocation, detailedLocation, { isDungeon })
-      ) {
-        return false;
-      }
-
-      if (onlyProgressLocations) {
-        return this.isProgressLocation(generalLocation, detailedLocation);
-      }
-
-      return true;
-    });
+    if (onlyProgressLocations) {
+      return _.filter(detailedLocations, (detailedLocation) => (
+        this.isProgressLocation(generalLocation, detailedLocation)
+      ));
+    }
+    return detailedLocations;
   }
 
   static isPotentialKeyLocation(generalLocation, detailedLocation) {
-    if (!this._isValidLocation(generalLocation, detailedLocation, { isDungeon: true })) {
-      return false;
-    }
-
     if (!this.isMainDungeon(generalLocation)) {
       return false;
     }
@@ -559,10 +543,7 @@ class LogicHelper {
   }
 
   static raceModeBannedLocations(dungeonName) {
-    const detailedLocations = this.filterDetailedLocations(dungeonName, {
-      isDungeon: true,
-      onlyProgressLocations: false,
-    });
+    const detailedLocations = Locations.detailedLocationsForGeneralLocation(dungeonName);
     const dungeonLocations = _.map(detailedLocations, (detailedLocation) => ({
       generalLocation: dungeonName,
       detailedLocation,
@@ -832,32 +813,6 @@ class LogicHelper {
     return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_ENTRANCES);
   }
 
-  static _isValidLocation(generalLocation, detailedLocation, { isDungeon }) {
-    const isValidDungeon = this.isDungeon(generalLocation);
-    const isValidIsland = _.includes(ISLANDS, generalLocation);
-    const isValidMiscLocation = _.includes(MISC_LOCATIONS, generalLocation);
-
-    if (isDungeon && !isValidDungeon) {
-      return false;
-    }
-    if (!isDungeon && !isValidIsland && !isValidMiscLocation) {
-      return false;
-    }
-
-    if (isValidDungeon && isValidIsland) {
-      const locationTypes = Locations.getLocation(
-        generalLocation,
-        detailedLocation,
-        Locations.KEYS.TYPES,
-      );
-      const hasDungeonType = _.includes(locationTypes, Settings.FLAGS.DUNGEON);
-
-      return hasDungeonType === isDungeon;
-    }
-
-    return true;
-  }
-
   static _isRandomEntrancesTogether() {
     return _.includes(
       [
@@ -868,9 +823,11 @@ class LogicHelper {
     );
   }
 
-  static _mainDungeonBosses() {
+  static _raceModeDungeonBosses() {
+    const raceModeDungeons = _.filter(DUNGEONS, (dungeon) => this.isRaceModeDungeon(dungeon));
+
     return _.map(
-      this.mainDungeons(),
+      raceModeDungeons,
       (dungeonName) => this.bossForDungeon(dungeonName),
     );
   }
@@ -891,11 +848,7 @@ class LogicHelper {
     if (!this.isRandomBossEntrances()) {
       return this.mainDungeons();
     }
-    return _.concat(this.mainDungeons(), this._mainDungeonBosses());
-  }
-
-  static _raceModeDungeons() {
-    return _.filter(DUNGEONS, (dungeon) => this.isRaceModeDungeon(dungeon));
+    return _.concat(this.mainDungeons(), this._raceModeDungeonBosses());
   }
 }
 

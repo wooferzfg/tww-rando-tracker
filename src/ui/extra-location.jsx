@@ -242,9 +242,13 @@ class ExtraLocation extends React.PureComponent {
     return (
       <div className="dungeon-items">
         { isMainDungeon && (
+          LogicHelper.isRandomDungeonEntrances() && this.dungeonEntrance()
+        )}
+        { isRaceModeDungeon && (
+          LogicHelper.isRandomBossEntrances() && this.bossEntrance()
+        )}
+        { isMainDungeon && (
           <>
-            {LogicHelper.isRandomDungeonEntrances() && this.dungeonEntrance()}
-            {LogicHelper.isRandomBossEntrances() && this.bossEntrance()}
             {this.smallKeyItem()}
             {this.bigKeyItem()}
           </>
@@ -325,10 +329,7 @@ class ExtraLocation extends React.PureComponent {
       locationName,
     });
 
-    const setSelectedLocationFunc = () => setSelectedLocation({
-      isDungeon,
-      locationName,
-    });
+    const setSelectedLocationFunc = () => setSelectedLocation({ locationName });
 
     return (
       <div

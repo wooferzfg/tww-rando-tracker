@@ -163,7 +163,6 @@ class DetailedLocationsTable extends React.PureComponent {
       openedLocation,
       {
         disableLogic,
-        isDungeon: openedLocationIsDungeon,
         onlyProgressLocations,
       },
     );

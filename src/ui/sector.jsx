@@ -223,10 +223,7 @@ class Sector extends React.PureComponent {
       });
     };
 
-    const setSelectedLocationFunc = () => setSelectedLocation({
-      isDungeon: false,
-      locationName: island,
-    });
+    const setSelectedLocationFunc = () => setSelectedLocation({ locationName: island });
 
     return (
       <div

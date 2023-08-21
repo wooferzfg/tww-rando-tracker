@@ -111,10 +111,7 @@ class Spheres {
 
   _updateSmallKeys() {
     _.forEach(LogicHelper.mainDungeons(), (dungeonName) => {
-      const locations = LogicHelper.filterDetailedLocations(
-        dungeonName,
-        { isDungeon: true },
-      );
+      const locations = Locations.detailedLocationsForGeneralLocation(dungeonName);
       const smallKeyName = LogicHelper.smallKeyName(dungeonName);
 
       let anySmallKeysAdded = true;

@@ -1070,170 +1070,6 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('_isValidLocation', () => {
-    describe('when isDungeon is true', () => {
-      describe('when the location is in a unique dungeon', () => {
-        test('returns true', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            "Ganon's Tower",
-            'Defeat Ganondorf',
-            { isDungeon: true },
-          );
-
-          expect(isValidLocation).toEqual(true);
-        });
-      });
-
-      describe('when the location is on an island', () => {
-        test('returns false', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Outset Island',
-            'Great Fairy',
-            { isDungeon: true },
-          );
-
-          expect(isValidLocation).toEqual(false);
-        });
-      });
-
-      describe('when the location is in a dungeon that is also an island', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Tower of the Gods': {
-              'Light Two Torches': {
-                types: 'Dungeon',
-              },
-            },
-          };
-        });
-
-        test('returns true', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Tower of the Gods',
-            'Light Two Torches',
-            { isDungeon: true },
-          );
-
-          expect(isValidLocation).toEqual(true);
-        });
-      });
-
-      describe('when the location is on an island that is also a dungeon', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Tower of the Gods Sector': {
-              'Sunken Treasure': {
-                types: 'Sunken Treasure',
-              },
-            },
-          };
-        });
-
-        test('returns false', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Tower of the Gods Sector',
-            'Sunken Treasure',
-            { isDungeon: true },
-          );
-
-          expect(isValidLocation).toEqual(false);
-        });
-      });
-    });
-
-    describe('when isDungeon is false', () => {
-      describe('when the location is on a unique island', () => {
-        test('returns true', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Windfall Island',
-            'Tott',
-            { isDungeon: false },
-          );
-
-          expect(isValidLocation).toEqual(true);
-        });
-      });
-
-      describe('when the location is in a dungeon', () => {
-        test('returns false', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Forbidden Woods',
-            'First Room',
-            { isDungeon: false },
-          );
-
-          expect(isValidLocation).toEqual(false);
-        });
-      });
-
-      describe('when the location is on an island that is also a dungeon', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Forsaken Fortress Sector': {
-              'Sunken Treasure': {
-                types: 'Sunken Treasure',
-              },
-            },
-          };
-        });
-
-        test('returns true', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Forsaken Fortress Sector',
-            'Sunken Treasure',
-            { isDungeon: false },
-          );
-
-          expect(isValidLocation).toEqual(true);
-        });
-      });
-
-      describe('when the location is in a dungeon that is also an island', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Forsaken Fortress': {
-              'Phantom Ganon': {
-                types: 'Dungeon',
-              },
-            },
-          };
-        });
-
-        test('returns false', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Forsaken Fortress',
-            'Phantom Ganon',
-            { isDungeon: false },
-          );
-
-          expect(isValidLocation).toEqual(false);
-        });
-      });
-
-      describe('when the location is in a miscellaneous location', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            Mailbox: {
-              'Letter from Baito': {
-                types: 'Mail',
-              },
-            },
-          };
-        });
-
-        test('returns true', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Mailbox',
-            'Letter from Baito',
-            { isDungeon: false },
-          );
-
-          expect(isValidLocation).toEqual(true);
-        });
-      });
-    });
-  });
-
   describe('isProgressLocation', () => {
     describe('when the location has a type that is not in the flags', () => {
       beforeEach(() => {
@@ -1400,7 +1236,6 @@ describe('LogicHelper', () => {
     describe('when onlyProgressLocations is true', () => {
       test('returns the correct locations for Windfall Island', () => {
         const filteredLocations = LogicHelper.filterDetailedLocations('Windfall Island', {
-          isDungeon: false,
           onlyProgressLocations: true,
         });
 
@@ -1416,7 +1251,6 @@ describe('LogicHelper', () => {
 
       test('includes sunken treasure for the Tower of the Gods island', () => {
         const filteredLocations = LogicHelper.filterDetailedLocations('Tower of the Gods Sector', {
-          isDungeon: false,
           onlyProgressLocations: true,
         });
 
@@ -1425,7 +1259,6 @@ describe('LogicHelper', () => {
 
       test('includes no locations for the Tower of the Gods dungeon', () => {
         const filteredLocations = LogicHelper.filterDetailedLocations('Tower of the Gods', {
-          isDungeon: true,
           onlyProgressLocations: true,
         });
 
@@ -1434,7 +1267,6 @@ describe('LogicHelper', () => {
 
       test("includes Defeat Ganondorf in Ganon's Tower", () => {
         const filteredLocations = LogicHelper.filterDetailedLocations("Ganon's Tower", {
-          isDungeon: true,
           onlyProgressLocations: true,
         });
 
@@ -1445,7 +1277,6 @@ describe('LogicHelper', () => {
     describe('when onlyProgressLocations is false', () => {
       test('returns the correct locations for Forsaken Fortress', () => {
         const filteredLocations = LogicHelper.filterDetailedLocations('Forsaken Fortress', {
-          isDungeon: true,
           onlyProgressLocations: false,
         });
 
@@ -1461,7 +1292,6 @@ describe('LogicHelper', () => {
 
       test('returns the correct locations for Bomb Island', () => {
         const filteredLocations = LogicHelper.filterDetailedLocations('Bomb Island', {
-          isDungeon: false,
           onlyProgressLocations: false,
         });
 
@@ -1475,7 +1305,6 @@ describe('LogicHelper', () => {
 
       test("returns the correct locations for Ganon's Tower", () => {
         const filteredLocations = LogicHelper.filterDetailedLocations("Ganon's Tower", {
-          isDungeon: true,
           onlyProgressLocations: false,
         });
 
@@ -1487,7 +1316,6 @@ describe('LogicHelper', () => {
 
       test('returns the correct locations for Hyrule', () => {
         const filteredLocations = LogicHelper.filterDetailedLocations('Hyrule', {
-          isDungeon: false,
           onlyProgressLocations: false,
         });
 
