@@ -1121,7 +1121,7 @@ describe('LogicHelper', () => {
       describe('when the location is on an island that is also a dungeon', () => {
         beforeEach(() => {
           Locations.locations = {
-            'Tower of the Gods': {
+            'Tower of the Gods Sector': {
               'Sunken Treasure': {
                 types: 'Sunken Treasure',
               },
@@ -1131,7 +1131,7 @@ describe('LogicHelper', () => {
 
         test('returns false', () => {
           const isValidLocation = LogicHelper._isValidLocation(
-            'Tower of the Gods',
+            'Tower of the Gods Sector',
             'Sunken Treasure',
             { isDungeon: true },
           );
@@ -1169,7 +1169,7 @@ describe('LogicHelper', () => {
       describe('when the location is on an island that is also a dungeon', () => {
         beforeEach(() => {
           Locations.locations = {
-            'Forsaken Fortress': {
+            'Forsaken Fortress Sector': {
               'Sunken Treasure': {
                 types: 'Sunken Treasure',
               },
@@ -1179,7 +1179,7 @@ describe('LogicHelper', () => {
 
         test('returns true', () => {
           const isValidLocation = LogicHelper._isValidLocation(
-            'Forsaken Fortress',
+            'Forsaken Fortress Sector',
             'Sunken Treasure',
             { isDungeon: false },
           );
@@ -1415,7 +1415,7 @@ describe('LogicHelper', () => {
       });
 
       test('includes sunken treasure for the Tower of the Gods island', () => {
-        const filteredLocations = LogicHelper.filterDetailedLocations('Tower of the Gods', {
+        const filteredLocations = LogicHelper.filterDetailedLocations('Tower of the Gods Sector', {
           isDungeon: false,
           onlyProgressLocations: true,
         });
@@ -1494,24 +1494,6 @@ describe('LogicHelper', () => {
         expect(filteredLocations).toEqual(['Master Sword Chamber']);
       });
     });
-
-    describe('when isDungeon is not given', () => {
-      test('includes both island and dungeon locations', () => {
-        const filteredLocations = LogicHelper.filterDetailedLocations('Forsaken Fortress', {
-          onlyProgressLocations: false,
-        });
-
-        expect(filteredLocations).toEqual([
-          'Phantom Ganon',
-          'Chest Outside Upper Jail Cell',
-          'Chest Inside Lower Jail Cell',
-          'Chest Guarded By Bokoblin',
-          'Chest on Bed',
-          'Helmaroc King Heart Container',
-          'Sunken Treasure',
-        ]);
-      });
-    });
   });
 
   describe('isPotentialKeyLocation', () => {
@@ -1555,7 +1537,7 @@ describe('LogicHelper', () => {
     describe('when the location is on an island that is also a dungeon', () => {
       beforeEach(() => {
         Locations.locations = {
-          'Tower of the Gods': {
+          'Tower of the Gods Sector': {
             'Sunken Treasure': {
               types: 'Sunken Treasure',
             },
@@ -1564,7 +1546,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns false', () => {
-        const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Tower of the Gods', 'Sunken Treasure');
+        const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Tower of the Gods Sector', 'Sunken Treasure');
 
         expect(isPotentialKeyLocation).toEqual(false);
       });
@@ -2432,7 +2414,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns a Treasure Chart when the island has a Treasure Chart', () => {
-        const chartInfo = LogicHelper.chartForIsland('Forsaken Fortress');
+        const chartInfo = LogicHelper.chartForIsland('Forsaken Fortress Sector');
 
         expect(chartInfo).toEqual({
           chartName: 'Treasure Chart 25',
@@ -2460,7 +2442,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns a Treasure Chart when an island has one', () => {
-        const chartInfo = LogicHelper.chartForIsland('Forsaken Fortress');
+        const chartInfo = LogicHelper.chartForIsland('Forsaken Fortress Sector');
 
         expect(chartInfo).toEqual({
           chartName: 'Treasure Chart 25',

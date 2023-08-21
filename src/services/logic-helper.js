@@ -45,6 +45,7 @@ class LogicHelper {
       'shortExitName',
       'smallKeysRequiredForLocation',
       '_isValidLocation',
+      '_raceModeDungeons',
     ]);
 
     this._setStartingAndImpossibleItems();
@@ -72,6 +73,7 @@ class LogicHelper {
       this.shortExitName,
       this.smallKeysRequiredForLocation,
       this._isValidLocation,
+      this._raceModeDungeons,
     ]);
 
     this.startingItems = null;
@@ -109,7 +111,7 @@ class LogicHelper {
     CHARTS,
     _.map(ISLANDS, (island) => this.chartForIslandName(island)),
     _.map(this.mainDungeons(), (dungeon) => this.entryName(dungeon)),
-    _.map(this.mainDungeons(), (dungeon) => this.entryName(
+    _.map(this._raceModeDungeons(), (dungeon) => this.entryName(
       this.bossForDungeon(dungeon),
     )),
     _.keys(ITEMS),
@@ -890,6 +892,10 @@ class LogicHelper {
       return this.mainDungeons();
     }
     return _.concat(this.mainDungeons(), this._mainDungeonBosses());
+  }
+
+  static _raceModeDungeons() {
+    return _.filter(DUNGEONS, (dungeon) => this.isRaceModeDungeon(dungeon));
   }
 }
 

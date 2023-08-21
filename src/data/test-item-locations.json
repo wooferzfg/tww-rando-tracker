@@ -757,7 +757,7 @@
     ]
   },
   "Tower of the Gods - Tingle Statue Chest": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Tingle Tuner Bombs",
+    "Need": "Can Reach Tower of the Gods Second Floor & Tingle Tuner Bombs",
     "Original item": "Goddess Tingle Statue",
     "Types": "Tingle Chest, Dungeon",
     "Paths": [
@@ -765,7 +765,7 @@
     ]
   },
   "Tower of the Gods - First Chest Guarded by Armos Knights": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Hero's Bow",
+    "Need": "Can Reach Tower of the Gods Second Floor & Hero's Bow",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -773,7 +773,7 @@
     ]
   },
   "Tower of the Gods - Stone Tablet": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker",
+    "Need": "Can Reach Tower of the Gods Second Floor & ( Can Bring East Servant of the Tower | Can Bring West Servant of the Tower | Can Bring North Servant of the Tower ) & Wind Waker",
     "Original item": "Command Melody",
     "Types": "Dungeon",
     "Paths": [
@@ -781,7 +781,7 @@
     ]
   },
   "Tower of the Gods - Darknut Mini-Boss Room": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & (Can Play Command Melody | Hero's Bow) & Can Defeat Darknuts",
+    "Need": "Can Reach Tower of the Gods Second Floor & (Grappling Hook | Can Fly With Deku Leaf Indoors) & (Can Play Command Melody | Hero's Bow) & Can Defeat Darknuts",
     "Original item": "Hero's Bow",
     "Types": "Dungeon",
     "Paths": [
@@ -789,7 +789,7 @@
     ]
   },
   "Tower of the Gods - Second Chest Guarded by Armos Knights": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow & Can Play Wind's Requiem",
+    "Need": "Can Reach Tower of the Gods Second Floor & Bombs & Can Play Wind's Requiem",
     "Original item": "Treasure Chart 30",
     "Types": "Dungeon",
     "Paths": [
@@ -797,7 +797,7 @@
     ]
   },
   "Tower of the Gods - Floating Platforms Room": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow",
+    "Need": "Can Reach Tower of the Gods Second Floor & Hero's Bow",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
@@ -805,7 +805,7 @@
     ]
   },
   "Tower of the Gods - Top of Floating Platforms Room": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow",
+    "Need": "Can Reach Tower of the Gods Second Floor & Hero's Bow",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -813,7 +813,7 @@
     ]
   },
   "Tower of the Gods - Big Key Chest": {
-    "Need": "Can Access Tower of the Gods & Bombs & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow & TotG Small Key x2 & Can Fly With Deku Leaf Indoors",
+    "Need": "Can Reach Tower of the Gods Third Floor",
     "Original item": "Big Key",
     "Types": "Dungeon",
     "Paths": [
@@ -887,7 +887,7 @@
     ]
   },
   "Forsaken Fortress - Helmaroc King Heart Container": {
-    "Need": "Can Get Inside Forsaken Fortress & Skull Hammer & (Can Fly With Deku Leaf Indoors | Hookshot) & Can Defeat Helmaroc King",
+    "Need": "Can Access Helmaroc King Boss Arena & Can Defeat Helmaroc King",
     "Original item": "Heart Container",
     "Types": "Dungeon, Boss",
     "Paths": [
@@ -2091,7 +2091,7 @@
       "Abship/Room1.arc/Chest000"
     ]
   },
-  "Forsaken Fortress - Sunken Treasure": {
+  "Forsaken Fortress Sector - Sunken Treasure": {
     "Need": "Grappling Hook & Chart for Island 1",
     "Original item": "Silver Rupee",
     "Types": "Sunken Treasure",
@@ -2366,7 +2366,7 @@
       "sea/Room25.arc/ScalableObject00A"
     ]
   },
-  "Tower of the Gods - Sunken Treasure": {
+  "Tower of the Gods Sector - Sunken Treasure": {
     "Need": "Grappling Hook & Chart for Island 26",
     "Original item": "Silver Rupee",
     "Types": "Sunken Treasure",

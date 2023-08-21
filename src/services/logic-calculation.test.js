@@ -542,7 +542,7 @@ describe('LogicCalculation', () => {
 
     describe('when showing non-progress locations', () => {
       test('returns the correct counts for the Forsaken Fortress island', () => {
-        const locationCounts = logic.locationCounts('Forsaken Fortress', {
+        const locationCounts = logic.locationCounts('Forsaken Fortress Sector', {
           isDungeon: false,
           onlyProgressLocations: false,
           disableLogic: false,
@@ -829,7 +829,7 @@ describe('LogicCalculation', () => {
 
     describe('when showing non-progress locations', () => {
       test('returns the correct locations for the Forsaken Fortress island', () => {
-        const locationsList = logic.locationsList('Forsaken Fortress', {
+        const locationsList = logic.locationsList('Forsaken Fortress Sector', {
           isDungeon: false,
           onlyProgressLocations: false,
           disableLogic: false,
