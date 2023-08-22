@@ -281,7 +281,7 @@ class LogicCalculation {
     );
 
     if (!Settings.getOptionValue(Permalink.OPTIONS.KEYLUNACY)) {
-      _.forEach(LogicHelper.mainDungeons(), (dungeonName) => {
+      _.forEach(LogicHelper.MAIN_DUNGEONS, (dungeonName) => {
         const {
           guaranteedSmallKeys,
           guaranteedBigKeys,

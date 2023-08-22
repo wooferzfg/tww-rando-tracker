@@ -127,7 +127,7 @@ class LogicTweaks {
       return;
     }
 
-    _.forEach(LogicHelper.mainDungeons(), (dungeon) => {
+    _.forEach(LogicHelper.MAIN_DUNGEONS, (dungeon) => {
       const macroName = this._canAccessMacroName(dungeon);
       const entryName = LogicHelper.entryName(dungeon);
       Macros.setMacro(macroName, entryName);
@@ -151,7 +151,7 @@ class LogicTweaks {
       return;
     }
 
-    _.forEach(LogicHelper.mainDungeons(), (dungeonName) => {
+    _.forEach(LogicHelper.RACE_MODE_DUNGEONS, (dungeonName) => {
       const bossName = LogicHelper.bossForDungeon(dungeonName);
       const macroName = `Can Access ${bossName} Boss Arena`;
       const entryName = LogicHelper.entryName(bossName);

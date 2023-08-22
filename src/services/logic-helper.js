@@ -34,7 +34,6 @@ class LogicHelper {
       'islandForChart',
       'isPotentialKeyLocation',
       'isProgressLocation',
-      'mainDungeons',
       'maxItemCount',
       'parseItemCountRequirement',
       'prettyNameForItem',
@@ -44,7 +43,6 @@ class LogicHelper {
       'shortEntranceName',
       'shortExitName',
       'smallKeysRequiredForLocation',
-      '_raceModeDungeonBosses',
     ]);
 
     this._setStartingAndImpossibleItems();
@@ -61,7 +59,6 @@ class LogicHelper {
       this.islandForChart,
       this.isPotentialKeyLocation,
       this.isProgressLocation,
-      this.mainDungeons,
       this.maxItemCount,
       this.parseItemCountRequirement,
       this.prettyNameForItem,
@@ -71,7 +68,6 @@ class LogicHelper {
       this.shortEntranceName,
       this.shortExitName,
       this.smallKeysRequiredForLocation,
-      this._raceModeDungeonBosses,
     ]);
 
     this.startingItems = null;
@@ -83,6 +79,10 @@ class LogicHelper {
   static NUM_TRIFORCE_CHARTS = 8;
 
   static DUNGEONS = Constants.createFromArray(DUNGEONS);
+
+  static MAIN_DUNGEONS = _.filter(DUNGEONS, (dungeon) => this.isMainDungeon(dungeon));
+
+  static RACE_MODE_DUNGEONS = _.filter(DUNGEONS, (dungeon) => this.isRaceModeDungeon(dungeon));
 
   static ISLANDS = Constants.createFromArray(ISLANDS);
 
@@ -108,8 +108,10 @@ class LogicHelper {
     _.map(CAVES, (cave) => this.entryName(cave)),
     CHARTS,
     _.map(ISLANDS, (island) => this.chartForIslandName(island)),
-    _.map(this.mainDungeons(), (dungeon) => this.entryName(dungeon)),
-    _.map(this._raceModeDungeonBosses(), (boss) => this.entryName(boss)),
+    _.map(this.MAIN_DUNGEONS, (dungeon) => this.entryName(dungeon)),
+    _.map(this.RACE_MODE_DUNGEONS, (dungeon) => this.entryName(
+      this.bossForDungeon(dungeon),
+    )),
     _.keys(ITEMS),
     _.keys(KEYS),
   );
@@ -149,10 +151,6 @@ class LogicHelper {
       return false;
     }
     return this.isDungeon(dungeonName);
-  }
-
-  static mainDungeons() {
-    return _.filter(DUNGEONS, (dungeon) => this.isMainDungeon(dungeon));
   }
 
   static isDungeon(dungeonName) {
@@ -823,15 +821,6 @@ class LogicHelper {
     );
   }
 
-  static _raceModeDungeonBosses() {
-    const raceModeDungeons = _.filter(DUNGEONS, (dungeon) => this.isRaceModeDungeon(dungeon));
-
-    return _.map(
-      raceModeDungeons,
-      (dungeonName) => this.bossForDungeon(dungeonName),
-    );
-  }
-
   static _isBoss(bossName) {
     return _.includes(BOSSES, bossName);
   }
@@ -846,9 +835,14 @@ class LogicHelper {
       return [];
     }
     if (!this.isRandomBossEntrances()) {
-      return this.mainDungeons();
+      return this.MAIN_DUNGEONS;
     }
-    return _.concat(this.mainDungeons(), this._raceModeDungeonBosses());
+
+    const bossEntrances = _.map(
+      this.RACE_MODE_DUNGEONS,
+      (dungeonName) => this.bossForDungeon(dungeonName),
+    );
+    return _.concat(this.MAIN_DUNGEONS, bossEntrances);
   }
 }
 

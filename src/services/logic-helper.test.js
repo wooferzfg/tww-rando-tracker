@@ -188,6 +188,18 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('MAIN_DUNGEONS', () => {
+    test('returns all dungeons with keys', () => {
+      expect(LogicHelper.MAIN_DUNGEONS).toMatchSnapshot();
+    });
+  });
+
+  describe('RACE_MODE_DUNGEONS', () => {
+    test('returns all dungeons in race mode', () => {
+      expect(LogicHelper.RACE_MODE_DUNGEONS).toMatchSnapshot();
+    });
+  });
+
   describe('startingItemCount', () => {
     beforeEach(() => {
       LogicHelper.startingItems = {

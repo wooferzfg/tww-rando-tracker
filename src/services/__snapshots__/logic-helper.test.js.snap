@@ -402,12 +402,33 @@ exports[`LogicHelper ITEMS returns the correct items 1`] = `
 }
 `;
 
+exports[`LogicHelper MAIN_DUNGEONS returns all dungeons with keys 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+]
+`;
+
 exports[`LogicHelper MISC_LOCATIONS returns the correct miscellanous locations 1`] = `
 {
   "HYRULE": "Hyrule",
   "MAILBOX": "Mailbox",
   "THE_GREAT_SEA": "The Great Sea",
 }
+`;
+
+exports[`LogicHelper RACE_MODE_DUNGEONS returns all dungeons in race mode 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Forsaken Fortress",
+  "Earth Temple",
+  "Wind Temple",
+]
 `;
 
 exports[`LogicHelper allRandomEntrances when dungeon and cave entrances are randomized separately returns all the dungeons and caves 1`] = `
