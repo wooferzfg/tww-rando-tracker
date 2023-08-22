@@ -241,11 +241,11 @@ class ExtraLocation extends React.PureComponent {
 
     return (
       <div className="dungeon-items">
-        { isMainDungeon && (
-          LogicHelper.isRandomDungeonEntrances() && this.dungeonEntrance()
+        { isMainDungeon && LogicHelper.isRandomDungeonEntrances() && (
+          this.dungeonEntrance()
         )}
-        { isRaceModeDungeon && (
-          LogicHelper.isRandomBossEntrances() && this.bossEntrance()
+        { isRaceModeDungeon && LogicHelper.isRandomBossEntrances() && (
+          this.bossEntrance()
         )}
         { isMainDungeon && (
           <>
