@@ -217,8 +217,8 @@ class ExtraLocation extends React.PureComponent {
       <div className="dungeon-items">
         { isMainDungeon && (
           <>
-            {this.smallKeyItem()}
             { LogicHelper.isRandomDungeonEntrances() && this.entrance() }
+            {this.smallKeyItem()}
             {this.bigKeyItem()}
           </>
         )}

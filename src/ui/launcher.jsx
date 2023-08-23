@@ -16,7 +16,7 @@ import 'react-toggle/style.css';
 export default class Launcher extends React.PureComponent {
   static openTrackerWindow(route) {
     const windowWidth = 1507;
-    const windowHeight = 550;
+    const windowHeight = 585;
 
     window.open(
       `#/tracker${route}`,
@@ -341,9 +341,16 @@ export default class Launcher extends React.PureComponent {
             {this.launchButtonContainer()}
           </div>
           <div className="attribution">
-            <span>Maintained by wooferzfg • Source Code on </span>
-            <a href="https://github.com/wooferzfg/tww-rando-tracker">GitHub</a>
-            <span> • Original Tracker by BigDunka</span>
+            <span>Maintained by wooferzfg • Original Tracker by BigDunka • </span>
+            <a href={`https://github.com/wooferzfg/tww-rando-tracker/commit/${COMMIT_HASH}`} target="_blank" rel="noreferrer">
+              Version:
+              {' '}
+              {COMMIT_HASH}
+              {' '}
+              (
+              {BUILD_DATE}
+              )
+            </a>
           </div>
         </div>
         <ToastContainer />

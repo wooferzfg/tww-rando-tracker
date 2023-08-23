@@ -8,11 +8,18 @@ import TrackerState from '../services/tracker-state';
 
 import Images from './images';
 import KeyDownWrapper from './key-down-wrapper';
+import MapTable from './map-table';
 import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
 class EntranceSelection extends React.PureComponent {
   static NUM_ROWS = 13;
+
+  constructor(props) {
+    super(props);
+
+    this.entrance = this.entrance.bind(this);
+  }
 
   exitTooltip(entranceName) {
     const { trackerState } = this.props;
@@ -123,50 +130,25 @@ class EntranceSelection extends React.PureComponent {
 
     const entrances = logic.entrancesListForExit(openedExit, { disableLogic });
 
-    const entranceChunks = _.chunk(entrances, EntranceSelection.NUM_ROWS);
-    const arrangedEntrances = _.zip(...entranceChunks);
-    const numColumns = _.size(entranceChunks);
-
-    const entranceRows = _.map(arrangedEntrances, (locationsRow, index) => (
-      <tr key={index}>
-        {_.map(locationsRow, (entranceInfo) => this.entrance(entranceInfo, numColumns))}
-      </tr>
-    ));
+    const entranceRows = MapTable.groupIntoChunks(
+      entrances,
+      this.entrance,
+      EntranceSelection.NUM_ROWS,
+    );
 
     return (
-      <div className="zoom-map">
-        <div className="zoom-map-cover" />
-        <div className="zoom-map-background">
-          <img src={Images.IMAGES.EMPTY_BACKGROUND} alt="" />
-        </div>
-        <table className="header-table">
-          <tbody>
-            <tr>
-              <td>
-                <div className="detail-span detail-not-interactive">
-                  Choose Entrance
-                </div>
-              </td>
-              <td>
-                <div
-                  className="detail-span"
-                  onClick={clearOpenedMenus}
-                  onKeyDown={KeyDownWrapper.onSpaceKey(clearOpenedMenus)}
-                  role="button"
-                  tabIndex="0"
-                >
-                  X Close
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table className="detailed-locations-table">
-          <tbody>
-            {entranceRows}
-          </tbody>
-        </table>
-      </div>
+      <MapTable
+        backgroundImage={Images.IMAGES.EMPTY_BACKGROUND}
+        closeFunc={clearOpenedMenus}
+        headerCellsBeforeClose={(
+          <td>
+            <div className="detail-span detail-not-interactive">
+              Choose Entrance
+            </div>
+          </td>
+        )}
+        tableRows={entranceRows}
+      />
     );
   }
 }

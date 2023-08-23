@@ -6,14 +6,23 @@ This is a tracker for [The Wind Waker Randomizer](https://github.com/LagoLunatic
 
 ## Build Instructions
 
-Building and running the tracker locally requires you to [install Node 16](https://nodejs.org/en/download/).
+Building and running the tracker locally requires you to install [Node 18](https://nodejs.org/en/download/) and [Git](https://git-scm.com/downloads).
 
-After installing Node and cloning the repository, install the required dependencies:
+Clone the repository by running the following in a command prompt:
 ```bash
-npm install --force
+git clone https://github.com/wooferzfg/tww-rando-tracker.git
+```
+
+Navigate to the `tww-rando-tracker` folder and install dependencies:
+```bash
+cd tww-rando-tracker && npm install
 ```
 You can then build and serve the tracker application:
 ```bash
 npm start
 ```
-After the server starts, you can go to http://localhost:8080/ to open the tracker.
+After the server starts, you can go to [localhost:8080](http://localhost:8080/) to open the tracker.
+
+## Documentation
+
+Code documentation is available at [wooferzfg.me/tww-rando-tracker/docs](https://www.wooferzfg.me/tww-rando-tracker/docs).

@@ -17,8 +17,8 @@ describe('LogicTweaks', () => {
       Macros.reset();
       Settings.reset();
 
-      Locations.initialize(TEST_ITEM_LOCATIONS);
-      Macros.initialize(TEST_MACROS);
+      Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+      Macros.initialize(_.cloneDeep(TEST_MACROS));
     });
 
     describe('when no options are set', () => {

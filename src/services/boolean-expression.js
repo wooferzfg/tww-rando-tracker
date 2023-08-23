@@ -369,32 +369,26 @@ class BooleanExpression {
     expressionType,
     implies,
   }) {
-    let itemIsSubsumed = false;
-
-    _.forEach(itemsCollection, (otherItem) => {
+    return _.some(itemsCollection, (otherItem) => {
       if (this._isExpression(otherItem)) {
-        return true; // continue
+        return false;
       }
 
       if (expressionType === this._TYPES.AND) {
         if (implies(otherItem, item)) {
-          itemIsSubsumed = true;
-          return false; // break loop
+          return true;
         }
       } else if (expressionType === this._TYPES.OR) {
         if (implies(item, otherItem)) {
-          itemIsSubsumed = true;
-          return false; // break loop
+          return true;
         }
       } else {
         // istanbul ignore next
         throw Error(`Invalid type: ${expressionType}`);
       }
 
-      return true; // continue
+      return false;
     });
-
-    return itemIsSubsumed;
   }
 
   /**
@@ -616,11 +610,9 @@ class BooleanExpression {
    * @private
    */
   _expressionIsSubsumed({ expressionToCheck, index, implies }) {
-    let expressionIsSubsumed = false;
-
-    _.forEach(this.items, (otherItem, otherIndex) => {
+    return _.some(this.items, (otherItem, otherIndex) => {
       if (otherIndex === index) {
-        return true; // continue
+        return false;
       }
 
       let otherExpression;
@@ -638,14 +630,11 @@ class BooleanExpression {
       });
 
       if (isSubsumed) {
-        expressionIsSubsumed = true;
-        return false; // break loop
+        return true;
       }
 
-      return true; // continue
+      return false;
     });
-
-    return expressionIsSubsumed;
   }
 
   /**

@@ -153,8 +153,9 @@ class LogicTweaks {
     _.forEach(CHARTS, (chart, index) => {
       // assume everything is a Treasure Chart and clear any additional requirements like
       // wallet upgrades
+      const island = LogicHelper.islandForChart(chart);
       const macroName = `Chart for Island ${index + 1}`;
-      Macros.setMacro(macroName, chart);
+      Macros.setMacro(macroName, LogicHelper.chartForIslandName(island));
     });
   }
 

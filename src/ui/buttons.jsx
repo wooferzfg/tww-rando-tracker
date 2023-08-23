@@ -20,11 +20,13 @@ class Buttons extends React.PureComponent {
 
   render() {
     const {
+      chartListOpen,
       colorPickerOpen,
       disableLogic,
       entrancesListOpen,
       onlyProgressLocations,
       trackSpheres,
+      toggleChartList,
       toggleColorPicker,
       toggleDisableLogic,
       toggleEntrancesList,
@@ -38,6 +40,9 @@ class Buttons extends React.PureComponent {
     const entrancesListText = entrancesListOpen
       ? 'Close Entrances'
       : 'View Entrances';
+    const chartListText = chartListOpen
+      ? 'Close Chart List'
+      : 'View Charts';
     const isRandomEntrances = LogicHelper.isRandomEntrances();
 
     return (
@@ -65,6 +70,10 @@ class Buttons extends React.PureComponent {
             </button>
           )
         }
+        <button onClick={toggleChartList} type="button">
+          {chartListText}
+        </button>
+        <br />
         <button
           onClick={toggleDisableLogic}
           type="button"
@@ -91,12 +100,14 @@ class Buttons extends React.PureComponent {
 }
 
 Buttons.propTypes = {
+  chartListOpen: PropTypes.bool.isRequired,
   colorPickerOpen: PropTypes.bool.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   entrancesListOpen: PropTypes.bool.isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   saveData: PropTypes.string.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  toggleChartList: PropTypes.func.isRequired,
   toggleColorPicker: PropTypes.func.isRequired,
   toggleDisableLogic: PropTypes.func.isRequired,
   toggleEntrancesList: PropTypes.func.isRequired,

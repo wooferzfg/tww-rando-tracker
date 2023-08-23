@@ -11,11 +11,16 @@ import TrackerState from '../services/tracker-state';
 
 import Images from './images';
 import KeyDownWrapper from './key-down-wrapper';
+import MapTable from './map-table';
 import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
 class DetailedLocationsTable extends React.PureComponent {
-  static NUM_ROWS = 13;
+  constructor(props) {
+    super(props);
+
+    this.detailedLocation = this.detailedLocation.bind(this);
+  }
 
   requirementsTooltip(generalLocation, detailedLocation) {
     const { logic } = this.props;
@@ -38,10 +43,22 @@ class DetailedLocationsTable extends React.PureComponent {
 
     const prettyItemName = LogicHelper.prettyNameForItem(itemForLocation, null);
 
+    let chartLeadsTo;
+    if (LogicHelper.isRandomizedChart(itemForLocation)) {
+      const mappedIslandForChart = trackerState.getIslandFromChartMapping(itemForLocation);
+      chartLeadsTo = !_.isNil(mappedIslandForChart) ? (
+        <>
+          <div className="tooltip-title">Chart Leads To</div>
+          <div>{mappedIslandForChart}</div>
+        </>
+      ) : null;
+    }
+
     return (
       <div className="tooltip">
         <div className="tooltip-title">Item at Location</div>
         <div>{prettyItemName}</div>
+        {chartLeadsTo}
       </div>
     );
   }
@@ -151,15 +168,10 @@ class DetailedLocationsTable extends React.PureComponent {
       },
     );
 
-    const locationChunks = _.chunk(detailedLocations, DetailedLocationsTable.NUM_ROWS);
-    const arrangedLocations = _.zip(...locationChunks);
-    const numColumns = _.size(locationChunks);
-
-    const locationRows = _.map(arrangedLocations, (locationsRow, index) => (
-      <tr key={index}>
-        {_.map(locationsRow, (locationInfo) => this.detailedLocation(locationInfo, numColumns))}
-      </tr>
-    ));
+    const locationRows = MapTable.groupIntoChunks(
+      detailedLocations,
+      this.detailedLocation,
+    );
 
     let clearAllElement;
     if (
@@ -185,35 +197,12 @@ class DetailedLocationsTable extends React.PureComponent {
     }
 
     return (
-      <div className="zoom-map">
-        <div className="zoom-map-cover" />
-        <div className="zoom-map-background">
-          <img src={backgroundImage} alt="" />
-        </div>
-        <table className="header-table">
-          <tbody>
-            <tr>
-              <td>
-                <div
-                  className="detail-span"
-                  onClick={clearOpenedMenus}
-                  onKeyDown={KeyDownWrapper.onSpaceKey(clearOpenedMenus)}
-                  role="button"
-                  tabIndex="0"
-                >
-                  X Close
-                </div>
-              </td>
-              {clearAllElement}
-            </tr>
-          </tbody>
-        </table>
-        <table className="detailed-locations-table">
-          <tbody>
-            {locationRows}
-          </tbody>
-        </table>
-      </div>
+      <MapTable
+        backgroundImage={backgroundImage}
+        closeFunc={clearOpenedMenus}
+        headerCellsAfterClose={clearAllElement}
+        tableRows={locationRows}
+      />
     );
   }
 }

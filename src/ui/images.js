@@ -356,9 +356,10 @@ export default class Images {
           1: import('../images/item25_a.png'),
           2: import('../images/item25_2_a.png'),
         },
-        [LogicHelper.ITEMS.MAGIC_METER_UPGRADE]: {
+        [LogicHelper.ITEMS.PROGRESSIVE_MAGIC_METER]: {
           0: import('../images/item26.png'),
           1: import('../images/item26_a.png'),
+          2: import('../images/item26_2_a.png'),
         },
       },
       ITEMS_TABLE_BACKGROUND: import('../images/trackerbg.png'),

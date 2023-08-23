@@ -1,35 +1,33 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import React from 'react';
-import ReactTooltip from 'react-tooltip';
+import React, { useId } from 'react';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
-class Tooltip extends React.PureComponent {
-  render() {
-    const {
-      children,
-      tooltipContent,
-    } = this.props;
-
-    if (_.isNil(tooltipContent)) {
-      return children;
-    }
-
-    const tooltipId = _.uniqueId('tooltip');
-
-    return (
-      <div className="tooltip-wrapper" data-tip data-for={tooltipId}>
-        {children}
-        <ReactTooltip
-          effect="solid"
-          id={tooltipId}
-          place="bottom"
-          type="light"
-        >
-          {tooltipContent}
-        </ReactTooltip>
-      </div>
-    );
+function Tooltip({ children, tooltipContent }) {
+  if (_.isNil(tooltipContent)) {
+    return children;
   }
+
+  const tooltipId = useId();
+
+  return (
+    <div
+      className="tooltip-wrapper"
+      data-tooltip-content
+      id={tooltipId}
+      data-tooltip-place="bottom"
+      data-tooltip-variant="light"
+    >
+      {children}
+      <ReactTooltip
+        anchorId={tooltipId}
+        className="tooltip-element"
+      >
+        {tooltipContent}
+      </ReactTooltip>
+    </div>
+  );
 }
 
 Tooltip.defaultProps = {

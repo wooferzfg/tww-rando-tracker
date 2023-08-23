@@ -16,8 +16,8 @@ body {
   position: absolute;
   left: -8px;
   right: -8px;
-  top: 0;
-  padding-bottom: 15px;
+  top: -8px;
+  padding-bottom: 10px;
   box-sizing: border-box;
 }
 
@@ -35,7 +35,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 4px 0px;
+    padding: 4px 0 0 0;
   }
 
   .permalink-label {
@@ -73,7 +73,7 @@ body {
   .attribution,
   .attribution a {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
     color: #c8c8c8;
     font-size: 13px;
   }
@@ -575,6 +575,7 @@ button:hover:enabled {
 .tooltip {
   color: black;
   max-width: 300px;
+  font-size: 13px;
 
   .tooltip-title {
     font-weight: bold;
@@ -584,6 +585,14 @@ button:hover:enabled {
     margin: 5px 0 0 0;
     padding-left: 15px;
   }
+}
+
+.tooltip-spacer {
+  height: 15px;
+}
+
+.tooltip-element {
+  z-index: 100;
 }
 
 .extra-locations {
@@ -620,6 +629,10 @@ button:hover:enabled {
 
     .item-container {
       outline-style: none;
+
+      &.static-item {
+        cursor: auto;
+      }
     }
   }
 
@@ -715,7 +728,7 @@ button:hover:enabled {
     margin-left: 0;
     margin-right: 5px;
     margin-top: 5px;
-    width: 225px;
+    width: 250px;
   }
 
   .button-checkbox {
