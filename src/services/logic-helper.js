@@ -40,6 +40,7 @@ class LogicHelper {
       'isPotentialKeyLocation',
       'isProgressLocation',
       'maxItemCount',
+      'nestedEntrancesForExit',
       'parseItemCountRequirement',
       'prettyNameForItem',
       'prettyNameForItemRequirement',
@@ -68,6 +69,7 @@ class LogicHelper {
       this.isPotentialKeyLocation,
       this.isProgressLocation,
       this.maxItemCount,
+      this.nestedEntrancesForExit,
       this.parseItemCountRequirement,
       this.prettyNameForItem,
       this.prettyNameForItemRequirement,
@@ -318,11 +320,10 @@ class LogicHelper {
     );
   }
 
-  static isRandomNestedEntrances() {
+  static isRandomNestedDungeonEntrances() {
     return _.includes(
       [
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
         Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
       ],
@@ -330,12 +331,15 @@ class LogicHelper {
     );
   }
 
-  static isRandomNestedDungeonEntrances() {
-    return this.isRandomDungeonEntrances() && this.isRandomNestedEntrances();
-  }
-
   static isRandomNestedCaveEntrances() {
-    return this.isRandomCaveEntrances() && this.isRandomNestedEntrances();
+    return _.includes(
+      [
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+      ],
+      this._randomizeEntrancesOption(),
+    );
   }
 
   static allRandomEntrances() {
@@ -355,17 +359,15 @@ class LogicHelper {
       possibleEntrances = this._allCaveEntrances();
     }
 
-    if (this.isRandomNestedEntrances()) {
-      return _.difference(
-        possibleEntrances,
-        this.nestedEntrancesForExit(zoneName),
-      );
-    }
-    return possibleEntrances;
+    return _.difference(
+      possibleEntrances,
+      this.nestedEntrancesForExit(zoneName),
+    );
   }
 
   static nestedEntrancesForExit(zoneName) {
-    return _.get(NESTED_ENTRANCES, zoneName, []);
+    const nestedEntrances = _.get(NESTED_ENTRANCES, zoneName, []);
+    return _.intersection(nestedEntrances, this.allRandomEntrances());
   }
 
   static parseItemCountRequirement(requirement) {

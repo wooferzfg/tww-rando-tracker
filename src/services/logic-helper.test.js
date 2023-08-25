@@ -944,76 +944,6 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('isRandomNestedEntrances', () => {
-    describe('when there are nested dungeon entrances', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
-          },
-        });
-      });
-
-      test('returns true', () => {
-        const isRandomNestedEntrances = LogicHelper.isRandomNestedEntrances();
-
-        expect(isRandomNestedEntrances).toEqual(true);
-      });
-    });
-
-    describe('when there are nested dungeon entrances with caves', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-          },
-        });
-      });
-
-      test('returns true', () => {
-        const isRandomNestedEntrances = LogicHelper.isRandomNestedEntrances();
-
-        expect(isRandomNestedEntrances).toEqual(true);
-      });
-    });
-
-    describe('when there are nested cave entrances', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
-          },
-        });
-      });
-
-      test('returns true', () => {
-        const isRandomNestedEntrances = LogicHelper.isRandomNestedEntrances();
-
-        expect(isRandomNestedEntrances).toEqual(true);
-      });
-    });
-
-    describe('when there are only regular dungeon entrances', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
-          },
-        });
-      });
-
-      test('returns false', () => {
-        const isRandomNestedEntrances = LogicHelper.isRandomNestedEntrances();
-
-        expect(isRandomNestedEntrances).toEqual(false);
-      });
-    });
-  });
-
   describe('isRandomNestedDungeonEntrances', () => {
     describe('when there are nested dungeon entrances', () => {
       beforeEach(() => {
@@ -1588,35 +1518,127 @@ describe('LogicHelper', () => {
   });
 
   describe('nestedEntrancesForExit', () => {
-    describe('when the exit is a dungeon with only a boss door', () => {
-      test('returns the boss', () => {
-        const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Dragon Roost Cavern');
+    describe('when there are no nested entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+          },
+        });
+      });
 
-        expect(nestedEntrancesForExit).toEqual(['Gohma']);
+      describe('when the exit is a dungeon', () => {
+        test('returns an empty array', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods');
+
+          expect(nestedEntrancesForExit).toEqual([]);
+        });
+      });
+
+      describe('when the exit is a cave', () => {
+        test('returns an empty array', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Ice Ring Isle Secret Cave');
+
+          expect(nestedEntrancesForExit).toEqual([]);
+        });
       });
     });
 
-    describe('when the exit is a dungeon with boss and miniboss doors', () => {
-      test('returns the boss and miniboss', () => {
-        const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods');
+    describe('when there are nested entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+          },
+        });
+      });
 
-        expect(nestedEntrancesForExit).toEqual(['Kalle Demos', 'FW Miniboss']);
+      describe('when the exit is a dungeon with only a boss door', () => {
+        test('returns the boss', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Dragon Roost Cavern');
+
+          expect(nestedEntrancesForExit).toEqual(['Gohma']);
+        });
+      });
+
+      describe('when the exit is a dungeon with boss and miniboss doors', () => {
+        test('returns the boss and miniboss', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods');
+
+          expect(nestedEntrancesForExit).toEqual(['Kalle Demos', 'FW Miniboss']);
+        });
+      });
+
+      describe('when the exit is a cave with an inner cave', () => {
+        test('returns the inner cave', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Ice Ring Isle Secret Cave');
+
+          expect(nestedEntrancesForExit).toEqual(['Ice Ring Isle Inner Cave']);
+        });
+      });
+
+      describe('when the exit does not have nested entrances', () => {
+        test('returns an empty array', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Overlook Island Secret Cave');
+
+          expect(nestedEntrancesForExit).toEqual([]);
+        });
       });
     });
 
-    describe('when the exit is a cave with an inner cave', () => {
-      test('returns the inner cave', () => {
-        const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Ice Ring Isle Secret Cave');
+    describe('when there are nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+          },
+        });
+      });
 
-        expect(nestedEntrancesForExit).toEqual(['Ice Ring Isle Inner Cave']);
+      describe('when the exit is a dungeon with boss and miniboss doors', () => {
+        test('returns the boss and miniboss', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods');
+
+          expect(nestedEntrancesForExit).toEqual(['Kalle Demos', 'FW Miniboss']);
+        });
+      });
+
+      describe('when the exit is a cave', () => {
+        test('returns an empty array', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Ice Ring Isle Secret Cave');
+
+          expect(nestedEntrancesForExit).toEqual([]);
+        });
       });
     });
 
-    describe('when the exit does not have nested entrances', () => {
-      test('returns an empty array', () => {
-        const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Overlook Island Secret Cave');
+    describe('when there are nested cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
+          },
+        });
+      });
 
-        expect(nestedEntrancesForExit).toEqual([]);
+      describe('when the exit is a dungeon', () => {
+        test('returns an empty array', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods');
+
+          expect(nestedEntrancesForExit).toEqual([]);
+        });
+      });
+
+      describe('when the exit is a cave with an inner cave', () => {
+        test('returns the inner cave', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Ice Ring Isle Secret Cave');
+
+          expect(nestedEntrancesForExit).toEqual(['Ice Ring Isle Inner Cave']);
+        });
       });
     });
   });
