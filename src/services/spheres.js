@@ -101,9 +101,12 @@ class Spheres {
         this._updateStateWithItem(entryName);
         this._setEntranceAdded(zoneName);
 
-        if (LogicHelper.isDungeon(exitForEntrance) && LogicHelper.isRandomBossEntrances()) {
-          entrancesToCheck.push(LogicHelper.bossForDungeon(exitForEntrance));
-          logic = new LogicCalculation(this.temporaryState);
+        if (LogicHelper.isRandomNestedEntrances()) {
+          const nestedEntrances = LogicHelper.nestedEntrancesForExit(exitForEntrance);
+          if (nestedEntrances.length > 0) {
+            entrancesToCheck.push(...nestedEntrances);
+            logic = new LogicCalculation(this.temporaryState);
+          }
         }
       }
     }

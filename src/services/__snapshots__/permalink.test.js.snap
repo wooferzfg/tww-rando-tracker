@@ -148,6 +148,7 @@ exports[`Permalink DROPDOWN_OPTIONS returns the correct dropdown options 1`] = `
     "Dungeons and Secret Caves (Separately)",
     "Dungeons and Secret Caves (Together)",
     "Nested Dungeons",
+    "Nested Secret Caves",
     "Nested Dungeons and Secret Caves (Separately)",
     "Nested Dungeons and Secret Caves (Together)",
   ],
@@ -230,6 +231,7 @@ exports[`Permalink RANDOMIZE_ENTRANCES_OPTIONS returns the correct options 1`] =
   "NESTED_DUNGEONS": "Nested Dungeons",
   "NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY": "Nested Dungeons and Secret Caves (Separately)",
   "NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER": "Nested Dungeons and Secret Caves (Together)",
+  "NESTED_SECRET_CAVES": "Nested Secret Caves",
   "SECRET_CAVES": "Secret Caves",
 }
 `;

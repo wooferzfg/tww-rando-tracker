@@ -38,6 +38,7 @@ class LogicTweaks {
     this._updateDungeonEntranceMacros();
     this._updateCaveEntranceMacros();
     this._updateBossEntranceMacros();
+    this._updateMinibossEntranceMacros();
     this._updateChartMacros();
     this._updateTriforceMacro();
     this._applyHasAccessedLocationTweaksForMacros();
@@ -85,7 +86,7 @@ class LogicTweaks {
   }
 
   static _replaceCanAccessOtherLocation(requirements) {
-    return requirements.replace(/Can Access Other Location/g, 'Has Accessed Other Location');
+    return requirements.replace(/Can Access Item Location/g, 'Has Accessed Other Location');
   }
 
   static _applyHasAccessedLocationTweaksForLocations() {
@@ -140,14 +141,16 @@ class LogicTweaks {
     }
 
     _.forEach(CAVES, (cave) => {
-      const macroName = this._canAccessMacroName(cave);
-      const entryName = LogicHelper.entryName(cave);
-      Macros.setMacro(macroName, entryName);
+      if (LogicHelper.isRandomNestedCaveEntrances() || !LogicHelper.isInnerCave(cave)) {
+        const macroName = this._canAccessMacroName(cave);
+        const entryName = LogicHelper.entryName(cave);
+        Macros.setMacro(macroName, entryName);
+      }
     });
   }
 
   static _updateBossEntranceMacros() {
-    if (!LogicHelper.isRandomBossEntrances()) {
+    if (!LogicHelper.isRandomNestedDungeonEntrances()) {
       return;
     }
 
@@ -155,6 +158,19 @@ class LogicTweaks {
       const bossName = LogicHelper.bossForDungeon(dungeonName);
       const macroName = `Can Access ${bossName} Boss Arena`;
       const entryName = LogicHelper.entryName(bossName);
+      Macros.setMacro(macroName, entryName);
+    });
+  }
+
+  static _updateMinibossEntranceMacros() {
+    if (!LogicHelper.isRandomNestedDungeonEntrances()) {
+      return;
+    }
+
+    _.forEach(LogicHelper.RANDOM_MINIBOSS_DUNGEONS, (dungeonName) => {
+      const minibossName = LogicHelper.minibossForDungeon(dungeonName);
+      const macroName = `Can Access ${dungeonName} Miniboss Arena`;
+      const entryName = LogicHelper.entryName(minibossName);
       Macros.setMacro(macroName, entryName);
     });
   }

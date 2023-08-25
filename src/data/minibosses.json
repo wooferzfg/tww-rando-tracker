@@ -1,0 +1,21 @@
+[
+    null,
+    {
+        "entranceName": "FW Miniboss",
+        "locationName": "Mothula Mini-Boss Room"
+    },
+    {
+        "entranceName": "TotG Miniboss",
+        "locationName": "Darknut Mini-Boss Room"
+    },
+    null,
+    {
+        "entranceName": "ET Miniboss",
+        "locationName": "Stalfos Mini-Boss Room"
+    },
+    {
+        "entranceName": "WT Miniboss",
+        "locationName": "Wizzrobe Mini-Boss Room"
+    },
+    null
+]

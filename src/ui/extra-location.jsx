@@ -23,7 +23,7 @@ class ExtraLocation extends React.PureComponent {
   static getWidth() {
     const numItems = this.NUM_CONSISTENT_ITEMS
       + (LogicHelper.isRandomDungeonEntrances() ? 1 : 0)
-      + (LogicHelper.isRandomBossEntrances() ? 1 : 0);
+      + (LogicHelper.isRandomNestedDungeonEntrances() ? 2 : 0);
 
     return Math.max(this.ITEM_WIDTH * numItems + this.EXTRA_WIDTH, this.MIN_WIDTH);
   }
@@ -190,6 +190,12 @@ class ExtraLocation extends React.PureComponent {
     return this.entrance(bossName);
   }
 
+  minibossEntrance() {
+    const { locationName } = this.props;
+    const minibossName = LogicHelper.minibossForDungeon(locationName);
+    return this.entrance(minibossName);
+  }
+
   dungeonEntrance() {
     const { locationName } = this.props;
     return this.entrance(locationName);
@@ -238,13 +244,18 @@ class ExtraLocation extends React.PureComponent {
 
     const isMainDungeon = LogicHelper.isMainDungeon(locationName);
     const isRaceModeDungeon = LogicHelper.isRaceModeDungeon(locationName);
+    const hasRandomizedMiniboss = LogicHelper.hasRandomizedMiniboss(locationName);
+    const isNestedDungeonEntrances = LogicHelper.isRandomNestedDungeonEntrances();
 
     return (
       <div className="dungeon-items">
         { isMainDungeon && LogicHelper.isRandomDungeonEntrances() && (
           this.dungeonEntrance()
         )}
-        { isRaceModeDungeon && LogicHelper.isRandomBossEntrances() && (
+        { hasRandomizedMiniboss && isNestedDungeonEntrances && (
+          this.minibossEntrance()
+        )}
+        { isRaceModeDungeon && isNestedDungeonEntrances && (
           this.bossEntrance()
         )}
         { isMainDungeon && (

@@ -85,6 +85,23 @@ describe('LogicTweaks', () => {
       });
     });
 
+    describe('when there are nested cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
+          },
+        });
+      });
+
+      test('updates the macros', () => {
+        LogicTweaks.applyTweaks();
+
+        expect(Macros.macros).toMatchSnapshot();
+      });
+    });
+
     describe('when charts are randomized', () => {
       beforeEach(() => {
         Settings.initializeRaw({

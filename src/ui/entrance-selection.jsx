@@ -13,7 +13,7 @@ import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
 class EntranceSelection extends React.PureComponent {
-  static NUM_ROWS = 16;
+  static NUM_ROWS = 17;
 
   constructor(props) {
     super(props);
