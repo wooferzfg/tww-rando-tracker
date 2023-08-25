@@ -184,23 +184,6 @@ class ExtraLocation extends React.PureComponent {
     );
   }
 
-  bossEntrance() {
-    const { locationName } = this.props;
-    const bossName = LogicHelper.bossForDungeon(locationName);
-    return this.entrance(bossName);
-  }
-
-  minibossEntrance() {
-    const { locationName } = this.props;
-    const minibossName = LogicHelper.minibossForDungeon(locationName);
-    return this.entrance(minibossName);
-  }
-
-  dungeonEntrance() {
-    const { locationName } = this.props;
-    return this.entrance(locationName);
-  }
-
   entrance(zoneName) {
     const {
       clearSelectedItem,
@@ -242,22 +225,15 @@ class ExtraLocation extends React.PureComponent {
   dungeonItems() {
     const { locationName } = this.props;
 
+    const entrances = LogicHelper.entrancesForDungeon(locationName);
+    const entranceElements = _.map(entrances, (entrance) => this.entrance(entrance));
+
     const isMainDungeon = LogicHelper.isMainDungeon(locationName);
     const isRaceModeDungeon = LogicHelper.isRaceModeDungeon(locationName);
-    const hasRandomizedMiniboss = LogicHelper.hasRandomizedMiniboss(locationName);
-    const isNestedDungeonEntrances = LogicHelper.isRandomNestedDungeonEntrances();
 
     return (
       <div className="dungeon-items">
-        { isMainDungeon && LogicHelper.isRandomDungeonEntrances() && (
-          this.dungeonEntrance()
-        )}
-        { hasRandomizedMiniboss && isNestedDungeonEntrances && (
-          this.minibossEntrance()
-        )}
-        { isRaceModeDungeon && isNestedDungeonEntrances && (
-          this.bossEntrance()
-        )}
+        {entranceElements}
         { isMainDungeon && (
           <>
             {this.smallKeyItem()}

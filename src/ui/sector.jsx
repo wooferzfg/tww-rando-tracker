@@ -135,10 +135,6 @@ class Sector extends React.PureComponent {
   }
 
   entrances() {
-    if (!LogicHelper.isRandomCaveEntrances()) {
-      return [];
-    }
-
     const {
       island,
       trackerState,

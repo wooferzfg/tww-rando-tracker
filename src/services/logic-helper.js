@@ -30,7 +30,9 @@ class LogicHelper {
       'allRandomEntrances',
       'bossForDungeon',
       'bossLocation',
+      'cavesForIsland',
       'chartForIsland',
+      'entrancesForDungeon',
       'filterDetailedLocations',
       'isInnerCave',
       'islandFromChartForIsland',
@@ -56,7 +58,9 @@ class LogicHelper {
       this.allRandomEntrances,
       this.bossForDungeon,
       this.bossLocation,
+      this.cavesForIsland,
       this.chartForIsland,
+      this.entrancesForDungeon,
       this.filterDetailedLocations,
       this.isInnerCave,
       this.islandFromChartForIsland,
@@ -238,6 +242,10 @@ class LogicHelper {
   }
 
   static cavesForIsland(islandName) {
+    if (!this.isRandomCaveEntrances()) {
+      return [];
+    }
+
     return _.compact(
       _.map(
         CAVE_ENTRANCES,
@@ -253,6 +261,29 @@ class LogicHelper {
         },
       ),
     );
+  }
+
+  static entrancesForDungeon(dungeonName) {
+    if (!this.isRandomDungeonEntrances()) {
+      return [];
+    }
+
+    const dungeonEntrance = this.isMainDungeon(dungeonName) ? [dungeonName] : [];
+    if (!this.isRandomNestedDungeonEntrances()) {
+      return dungeonEntrance;
+    }
+
+    const minibossEntrance = (
+      this.hasRandomizedMiniboss(dungeonName)
+        ? [this.minibossForDungeon(dungeonName)]
+        : []
+    );
+    const bossEntrance = (
+      this.isRaceModeDungeon(dungeonName)
+        ? [this.bossForDungeon(dungeonName)]
+        : []
+    );
+    return _.concat(dungeonEntrance, minibossEntrance, bossEntrance);
   }
 
   static isRandomEntrances() {

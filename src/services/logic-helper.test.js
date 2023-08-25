@@ -565,7 +565,33 @@ describe('LogicHelper', () => {
   });
 
   describe('cavesForIsland', () => {
+    describe('when there are no random cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+          },
+        });
+      });
+
+      test('returns an empty array', () => {
+        const caveEntrances = LogicHelper.cavesForIsland('Cliff Plateau Isles');
+
+        expect(caveEntrances).toEqual([]);
+      });
+    });
+
     describe('when there are no nested cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+          },
+        });
+      });
+
       test('returns no cave entrances when the island has no entrances', () => {
         const caveEntrances = LogicHelper.cavesForIsland('Windfall Island');
 
@@ -617,6 +643,77 @@ describe('LogicHelper', () => {
           'Cliff Plateau Isles Secret Cave',
           'Cliff Plateau Isles Inner Cave',
         ]);
+      });
+    });
+  });
+
+  describe('entrancesForDungeon', () => {
+    describe('when dungeon entrances are not randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+          },
+        });
+      });
+
+      test('returns an empty array', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+
+        expect(entrancesForDungeon).toEqual([]);
+      });
+    });
+
+    describe('when there are no nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+          },
+        });
+      });
+
+      test('returns just the dungeon entrance for a dungeon with a random entrance', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+
+        expect(entrancesForDungeon).toEqual(['Forbidden Woods']);
+      });
+
+      test('returns no entrances for a dungeon with no random entrance', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
+
+        expect(entrancesForDungeon).toEqual([]);
+      });
+    });
+
+    describe('when there are nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
+              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+          },
+        });
+      });
+
+      test('returns the dungeon and boss for DRC', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Dragon Roost Cavern');
+
+        expect(entrancesForDungeon).toEqual(['Dragon Roost Cavern', 'Gohma']);
+      });
+
+      test('returns the dungeon, miniboss, and boss for FW', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+
+        expect(entrancesForDungeon).toEqual(['Forbidden Woods', 'FW Miniboss', 'Kalle Demos']);
+      });
+
+      test('returns only the boss for FF', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
+
+        expect(entrancesForDungeon).toEqual(['Helmaroc King']);
       });
     });
   });
