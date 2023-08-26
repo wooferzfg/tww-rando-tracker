@@ -106,6 +106,7 @@ exports[`Settings initializeFromPermalink default settings initializes the optio
   "instant_text_boxes": true,
   "keylunacy": false,
   "korl_hints": false,
+  "mix_entrances": "Keep Separate",
   "num_barren_hints": 0,
   "num_item_hints": 15,
   "num_location_hints": 5,
@@ -136,11 +137,14 @@ exports[`Settings initializeFromPermalink default settings initializes the optio
   "progression_treasure_charts": false,
   "progression_triforce_charts": false,
   "race_mode": false,
+  "randomize_boss_entrances": false,
   "randomize_charts": false,
+  "randomize_dungeon_entrances": false,
   "randomize_enemies": false,
   "randomize_enemy_palettes": false,
-  "randomize_entrances": "Disabled",
-  "randomize_music": false,
+  "randomize_miniboss_entrances": false,
+  "randomize_secret_cave_entrances": false,
+  "randomize_secret_cave_inner_entrances": false,
   "randomize_starting_island": false,
   "remove_music": false,
   "reveal_full_sea_chart": true,
@@ -211,7 +215,7 @@ exports[`Settings initializeFromPermalink default settings initializes the optio
   "starting_pohs": 0,
   "swift_sail": true,
   "sword_mode": "Start with Hero's Sword",
-  "version": "1.10.0",
+  "version": "1.11.0",
 }
 `;
 

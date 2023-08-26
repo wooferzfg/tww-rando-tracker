@@ -220,6 +220,41 @@ export default class Launcher extends React.PureComponent {
     );
   }
 
+  entranceRandomizerOptionsTable() {
+    return (
+      <OptionsTable
+        title="Entrance Randomizer Options"
+        numColumns={3}
+        options={[
+          this.toggleInput({
+            labelText: 'Dungeons',
+            optionName: Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES,
+          }),
+          this.toggleInput({
+            labelText: 'Secret Caves',
+            optionName: Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES,
+          }),
+          this.dropdownInput({
+            labelText: 'Mix Entrances',
+            optionName: Permalink.OPTIONS.MIX_ENTRANCES,
+          }),
+          this.toggleInput({
+            labelText: 'Nested Bosses',
+            optionName: Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES,
+          }),
+          this.toggleInput({
+            labelText: 'Nested Minibosses',
+            optionName: Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES,
+          }),
+          this.toggleInput({
+            labelText: 'Inner Secret Caves',
+            optionName: Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES,
+          }),
+        ]}
+      />
+    );
+  }
+
   additionalRandomizationOptionsTable() {
     return (
       <OptionsTable
@@ -241,10 +276,6 @@ export default class Launcher extends React.PureComponent {
           this.toggleInput({
             labelText: 'Race Mode',
             optionName: Permalink.OPTIONS.RACE_MODE,
-          }),
-          this.dropdownInput({
-            labelText: 'Randomize Entrances',
-            optionName: Permalink.OPTIONS.RANDOMIZE_ENTRANCES,
           }),
           this.toggleInput({
             labelText: 'Randomize Charts',
@@ -336,6 +367,7 @@ export default class Launcher extends React.PureComponent {
           <div className="settings">
             {this.permalinkContainer()}
             {this.progressItemLocationsTable()}
+            {this.entranceRandomizerOptionsTable()}
             {this.additionalRandomizationOptionsTable()}
             {this.convenienceTweaksTable()}
             {this.launchButtonContainer()}

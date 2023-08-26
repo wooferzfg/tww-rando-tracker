@@ -11,6 +11,7 @@ exports[`Permalink DEFAULT_PERMALINK returns the default options 1`] = `
   "instant_text_boxes": true,
   "keylunacy": false,
   "korl_hints": false,
+  "mix_entrances": "Keep Separate",
   "num_barren_hints": 0,
   "num_item_hints": 15,
   "num_location_hints": 5,
@@ -41,11 +42,14 @@ exports[`Permalink DEFAULT_PERMALINK returns the default options 1`] = `
   "progression_treasure_charts": false,
   "progression_triforce_charts": false,
   "race_mode": false,
+  "randomize_boss_entrances": false,
   "randomize_charts": false,
+  "randomize_dungeon_entrances": false,
   "randomize_enemies": false,
   "randomize_enemy_palettes": false,
-  "randomize_entrances": "Disabled",
-  "randomize_music": false,
+  "randomize_miniboss_entrances": false,
+  "randomize_secret_cave_entrances": false,
+  "randomize_secret_cave_inner_entrances": false,
   "randomize_starting_island": false,
   "remove_music": false,
   "reveal_full_sea_chart": true,
@@ -116,12 +120,16 @@ exports[`Permalink DEFAULT_PERMALINK returns the default options 1`] = `
   "starting_pohs": 0,
   "swift_sail": true,
   "sword_mode": "Start with Hero's Sword",
-  "version": "1.10.0",
+  "version": "1.11.0",
 }
 `;
 
 exports[`Permalink DROPDOWN_OPTIONS returns the correct dropdown options 1`] = `
 {
+  "mix_entrances": [
+    "Keep Separate",
+    "Mix Together",
+  ],
   "num_race_mode_dungeons": [
     1,
     2,
@@ -141,22 +149,18 @@ exports[`Permalink DROPDOWN_OPTIONS returns the correct dropdown options 1`] = `
     7,
     8,
   ],
-  "randomize_entrances": [
-    "Disabled",
-    "Dungeons",
-    "Secret Caves",
-    "Dungeons and Secret Caves (Separately)",
-    "Dungeons and Secret Caves (Together)",
-    "Nested Dungeons",
-    "Nested Secret Caves",
-    "Nested Dungeons and Secret Caves (Separately)",
-    "Nested Dungeons and Secret Caves (Together)",
-  ],
   "sword_mode": [
     "Start with Hero's Sword",
     "No Starting Sword",
     "Swordless",
   ],
+}
+`;
+
+exports[`Permalink MIX_ENTRANCES_OPTIONS returns the correct options 1`] = `
+{
+  "KEEP_SEPARATE": "Keep Separate",
+  "MIX_TOGETHER": "Mix Together",
 }
 `;
 
@@ -173,6 +177,7 @@ exports[`Permalink OPTIONS returns the correct options 1`] = `
   "INVERT_SEA_COMPASS_X_AXIS": "invert_sea_compass_x_axis",
   "KEYLUNACY": "keylunacy",
   "KORL_HINTS": "korl_hints",
+  "MIX_ENTRANCES": "mix_entrances",
   "NUM_BARREN_HINTS": "num_barren_hints",
   "NUM_ITEM_HINTS": "num_item_hints",
   "NUM_LOCATION_HINTS": "num_location_hints",
@@ -203,11 +208,14 @@ exports[`Permalink OPTIONS returns the correct options 1`] = `
   "PROGRESSION_TREASURE_CHARTS": "progression_treasure_charts",
   "PROGRESSION_TRIFORCE_CHARTS": "progression_triforce_charts",
   "RACE_MODE": "race_mode",
+  "RANDOMIZE_BOSS_ENTRANCES": "randomize_boss_entrances",
   "RANDOMIZE_CHARTS": "randomize_charts",
+  "RANDOMIZE_DUNGEON_ENTRANCES": "randomize_dungeon_entrances",
   "RANDOMIZE_ENEMIES": "randomize_enemies",
   "RANDOMIZE_ENEMY_PALETTES": "randomize_enemy_palettes",
-  "RANDOMIZE_ENTRANCES": "randomize_entrances",
-  "RANDOMIZE_MUSIC": "randomize_music",
+  "RANDOMIZE_MINIBOSS_ENTRANCES": "randomize_miniboss_entrances",
+  "RANDOMIZE_SECRET_CAVE_ENTRANCES": "randomize_secret_cave_entrances",
+  "RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES": "randomize_secret_cave_inner_entrances",
   "RANDOMIZE_STARTING_ISLAND": "randomize_starting_island",
   "REMOVE_MUSIC": "remove_music",
   "REVEAL_FULL_SEA_CHART": "reveal_full_sea_chart",
@@ -219,20 +227,6 @@ exports[`Permalink OPTIONS returns the correct options 1`] = `
   "SWIFT_SAIL": "swift_sail",
   "SWORD_MODE": "sword_mode",
   "VERSION": "version",
-}
-`;
-
-exports[`Permalink RANDOMIZE_ENTRANCES_OPTIONS returns the correct options 1`] = `
-{
-  "DISABLED": "Disabled",
-  "DUNGEONS": "Dungeons",
-  "DUNGEONS_AND_SECRET_CAVES_SEPARATELY": "Dungeons and Secret Caves (Separately)",
-  "DUNGEONS_AND_SECRET_CAVES_TOGETHER": "Dungeons and Secret Caves (Together)",
-  "NESTED_DUNGEONS": "Nested Dungeons",
-  "NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY": "Nested Dungeons and Secret Caves (Separately)",
-  "NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER": "Nested Dungeons and Secret Caves (Together)",
-  "NESTED_SECRET_CAVES": "Nested Secret Caves",
-  "SECRET_CAVES": "Secret Caves",
 }
 `;
 
@@ -255,6 +249,7 @@ exports[`Permalink decode decodes a permalink 1`] = `
   "instant_text_boxes": true,
   "keylunacy": false,
   "korl_hints": false,
+  "mix_entrances": "Mix Together",
   "num_barren_hints": 0,
   "num_item_hints": 15,
   "num_location_hints": 5,
@@ -285,11 +280,14 @@ exports[`Permalink decode decodes a permalink 1`] = `
   "progression_treasure_charts": false,
   "progression_triforce_charts": false,
   "race_mode": true,
+  "randomize_boss_entrances": false,
   "randomize_charts": false,
+  "randomize_dungeon_entrances": false,
   "randomize_enemies": false,
   "randomize_enemy_palettes": false,
-  "randomize_entrances": "Secret Caves",
-  "randomize_music": false,
+  "randomize_miniboss_entrances": true,
+  "randomize_secret_cave_entrances": true,
+  "randomize_secret_cave_inner_entrances": true,
   "randomize_starting_island": true,
   "remove_music": false,
   "reveal_full_sea_chart": true,
@@ -360,6 +358,6 @@ exports[`Permalink decode decodes a permalink 1`] = `
   "starting_pohs": 9,
   "swift_sail": true,
   "sword_mode": "No Starting Sword",
-  "version": "1.10.0",
+  "version": "1.11.0",
 }
 `;

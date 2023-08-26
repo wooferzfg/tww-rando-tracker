@@ -26,7 +26,12 @@
   "progression_island_puzzles",
 
   "keylunacy",
-  "randomize_entrances",
+  "randomize_dungeon_entrances",
+  "randomize_secret_cave_entrances",
+  "mix_entrances",
+  "randomize_miniboss_entrances",
+  "randomize_boss_entrances",
+  "randomize_secret_cave_inner_entrances",
   "randomize_charts",
   "randomize_starting_island",
   "chest_type_matches_contents",
@@ -52,7 +57,6 @@
   "invert_sea_compass_x_axis",
   "race_mode",
   "num_race_mode_dungeons",
-  "randomize_music",
   "randomize_enemy_palettes",
 
   "starting_gear",

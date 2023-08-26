@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
+import MIX_ENTRANCES_OPTIONS from '../data/mix-entrances-options.json';
 import OPTIONS from '../data/options.json';
 import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items.json';
-import RANDOMIZE_ENTRANCES_OPTIONS from '../data/randomize-entrances-options.json';
 import REGULAR_STARTING_ITEMS from '../data/regular-starting-items.json';
 import SWORD_MODE_OPTIONS from '../data/sword-mode-options.json';
 
@@ -12,18 +12,18 @@ import Constants from './constants';
 class Permalink {
   static OPTIONS = Constants.createFromArray(OPTIONS);
 
-  static RANDOMIZE_ENTRANCES_OPTIONS = Constants.createFromArray(RANDOMIZE_ENTRANCES_OPTIONS);
+  static MIX_ENTRANCES_OPTIONS = Constants.createFromArray(MIX_ENTRANCES_OPTIONS);
 
   static SWORD_MODE_OPTIONS = Constants.createFromArray(SWORD_MODE_OPTIONS);
 
   static DROPDOWN_OPTIONS = {
-    [this.OPTIONS.RANDOMIZE_ENTRANCES]: RANDOMIZE_ENTRANCES_OPTIONS,
+    [this.OPTIONS.MIX_ENTRANCES]: MIX_ENTRANCES_OPTIONS,
     [this.OPTIONS.NUM_RACE_MODE_DUNGEONS]: _.range(1, 7),
     [this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: _.range(0, 9),
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'MS4xMC4wAEEABwEDAAygvgMA0AACAAAAAAGAIAAA';
+  static DEFAULT_PERMALINK = 'MS4xMS4wAEEABwEDAIAB1HcAABogAAAAABAACAIAAA==';
 
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);
@@ -72,7 +72,12 @@ class Permalink {
     this._booleanConfig(this.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH),
     this._booleanConfig(this.OPTIONS.PROGRESSION_ISLAND_PUZZLES),
     this._booleanConfig(this.OPTIONS.KEYLUNACY),
-    this._dropdownConfig(this.OPTIONS.RANDOMIZE_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES),
+    this._dropdownConfig(this.OPTIONS.MIX_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_BOSS_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_CHARTS),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_STARTING_ISLAND),
     this._booleanConfig(this.OPTIONS.CHEST_TYPE_MATCHES_CONTENTS),
@@ -95,7 +100,6 @@ class Permalink {
     this._booleanConfig(this.OPTIONS.SKIP_REMATCH_BOSSES),
     this._booleanConfig(this.OPTIONS.RACE_MODE),
     this._dropdownConfig(this.OPTIONS.NUM_RACE_MODE_DUNGEONS),
-    this._booleanConfig(this.OPTIONS.RANDOMIZE_MUSIC),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
     this._startingGearConfig(),
     this._spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
