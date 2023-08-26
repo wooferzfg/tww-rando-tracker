@@ -4,6 +4,8 @@ import React from 'react';
 
 import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
+import Permalink from '../services/permalink';
+import Settings from '../services/settings';
 import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
@@ -22,8 +24,9 @@ class ExtraLocation extends React.PureComponent {
 
   static getWidth() {
     const numItems = this.NUM_CONSISTENT_ITEMS
-      + (LogicHelper.isRandomDungeonEntrances() ? 1 : 0)
-      + (LogicHelper.isRandomNestedDungeonEntrances() ? 2 : 0);
+      + (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES) ? 1 : 0)
+      + (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES) ? 1 : 0)
+      + (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES) ? 1 : 0);
 
     return Math.max(this.ITEM_WIDTH * numItems + this.EXTRA_WIDTH, this.MIN_WIDTH);
   }

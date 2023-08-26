@@ -32,7 +32,12 @@ describe('LogicCalculation', () => {
         [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
         [Permalink.OPTIONS.RACE_MODE]: false,
         [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-        [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+        [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+        [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+        [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
         [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
         [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
       },
@@ -1110,7 +1115,12 @@ describe('LogicCalculation', () => {
       beforeEach(() => {
         fullSetup({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1126,7 +1136,12 @@ describe('LogicCalculation', () => {
       beforeEach(() => {
         fullSetup({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1163,7 +1178,12 @@ describe('LogicCalculation', () => {
       beforeEach(() => {
         fullSetup({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1200,7 +1220,12 @@ describe('LogicCalculation', () => {
       beforeEach(() => {
         fullSetup({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
 
@@ -1245,8 +1270,12 @@ describe('LogicCalculation', () => {
       beforeEach(() => {
         fullSetup({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });

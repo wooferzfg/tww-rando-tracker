@@ -4,6 +4,8 @@ import React from 'react';
 
 import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
+import Permalink from '../services/permalink';
+import Settings from '../services/settings';
 import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
@@ -233,7 +235,11 @@ class Sector extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        {LogicHelper.isRandomizedChartsSettings() ? this.chartIsland() : this.chartItem()}
+        {
+          Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)
+            ? this.chartIsland()
+            : this.chartItem()
+        }
         {this.entryItems()}
         {this.chestsCounter()}
       </div>

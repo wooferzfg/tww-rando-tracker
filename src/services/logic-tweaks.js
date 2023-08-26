@@ -1,6 +1,5 @@
 import _ from 'lodash';
 
-import CAVES from '../data/caves.json';
 import CHARTS from '../data/charts.json';
 import HAS_ACCESSED_LOCATION_TWEAKS from '../data/has-accessed-location-tweaks.json';
 import ISLANDS from '../data/islands.json';
@@ -124,7 +123,7 @@ class LogicTweaks {
   }
 
   static _updateDungeonEntranceMacros() {
-    if (!LogicHelper.isRandomDungeonEntrances()) {
+    if (!Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES)) {
       return;
     }
 
@@ -136,21 +135,15 @@ class LogicTweaks {
   }
 
   static _updateCaveEntranceMacros() {
-    if (!LogicHelper.isRandomCaveEntrances()) {
-      return;
-    }
-
-    _.forEach(CAVES, (cave) => {
-      if (LogicHelper.isRandomNestedCaveEntrances() || !LogicHelper.isInnerCave(cave)) {
-        const macroName = this._canAccessMacroName(cave);
-        const entryName = LogicHelper.entryName(cave);
-        Macros.setMacro(macroName, entryName);
-      }
+    _.forEach(LogicHelper.allCaveEntrances(), (cave) => {
+      const macroName = this._canAccessMacroName(cave);
+      const entryName = LogicHelper.entryName(cave);
+      Macros.setMacro(macroName, entryName);
     });
   }
 
   static _updateBossEntranceMacros() {
-    if (!LogicHelper.isRandomNestedDungeonEntrances()) {
+    if (!Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES)) {
       return;
     }
 
@@ -163,7 +156,7 @@ class LogicTweaks {
   }
 
   static _updateMinibossEntranceMacros() {
-    if (!LogicHelper.isRandomNestedDungeonEntrances()) {
+    if (!Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)) {
       return;
     }
 

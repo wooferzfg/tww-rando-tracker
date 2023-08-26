@@ -569,8 +569,8 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -586,8 +586,8 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -630,8 +630,8 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
           },
         });
       });
@@ -645,6 +645,29 @@ describe('LogicHelper', () => {
         ]);
       });
     });
+
+    describe('when there are only nested cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('includes nested caves', () => {
+        const caveEntrances = LogicHelper.cavesForIsland('Cliff Plateau Isles');
+
+        expect(caveEntrances).toEqual(['Cliff Plateau Isles Inner Cave']);
+      });
+
+      test('returns no caves for other islands', () => {
+        const caveEntrances = LogicHelper.cavesForIsland('Pawprint Isle');
+
+        expect(caveEntrances).toEqual([]);
+      });
+    });
   });
 
   describe('entrancesForDungeon', () => {
@@ -652,8 +675,9 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
           },
         });
       });
@@ -669,8 +693,9 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
           },
         });
       });
@@ -688,12 +713,13 @@ describe('LogicHelper', () => {
       });
     });
 
-    describe('when there are nested dungeon entrances', () => {
+    describe('when dungeons, bosses, and minibosses are randomized', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
           },
         });
       });
@@ -716,6 +742,66 @@ describe('LogicHelper', () => {
         expect(entrancesForDungeon).toEqual(['Helmaroc King']);
       });
     });
+
+    describe('when only bosses are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('returns only the boss for DRC', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Dragon Roost Cavern');
+
+        expect(entrancesForDungeon).toEqual(['Gohma']);
+      });
+
+      test('returns only the boss for FW', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+
+        expect(entrancesForDungeon).toEqual(['Kalle Demos']);
+      });
+
+      test('returns only the boss for FF', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
+
+        expect(entrancesForDungeon).toEqual(['Helmaroc King']);
+      });
+    });
+
+    describe('when only minibosses are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns no entrances for DRC', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Dragon Roost Cavern');
+
+        expect(entrancesForDungeon).toEqual([]);
+      });
+
+      test('returns only the miniboss for FW', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+
+        expect(entrancesForDungeon).toEqual(['FW Miniboss']);
+      });
+
+      test('returns no entrances for FF', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
+
+        expect(entrancesForDungeon).toEqual([]);
+      });
+    });
   });
 
   describe('isRandomEntrances', () => {
@@ -723,8 +809,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -740,8 +830,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -757,8 +851,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -774,8 +872,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -791,8 +893,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
           },
         });
       });
@@ -805,292 +911,17 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('isRandomDungeonEntrances', () => {
-    describe('when dungeon entrances are randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-          },
-        });
-      });
-
-      test('returns true', () => {
-        const isRandomDungeonEntrances = LogicHelper.isRandomDungeonEntrances();
-
-        expect(isRandomDungeonEntrances).toEqual(true);
-      });
-    });
-
-    describe('when dungeon entrances are not randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
-          },
-        });
-      });
-
-      test('returns false', () => {
-        const isRandomDungeonEntrances = LogicHelper.isRandomDungeonEntrances();
-
-        expect(isRandomDungeonEntrances).toEqual(false);
-      });
-    });
-
-    describe('when there are nested random cave entrances', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
-          },
-        });
-      });
-
-      test('returns false', () => {
-        const isRandomDungeonEntrances = LogicHelper.isRandomDungeonEntrances();
-
-        expect(isRandomDungeonEntrances).toEqual(false);
-      });
-    });
-
-    describe('when there are nested random dungeon entrances', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
-          },
-        });
-      });
-
-      test('returns true', () => {
-        const isRandomDungeonEntrances = LogicHelper.isRandomDungeonEntrances();
-
-        expect(isRandomDungeonEntrances).toEqual(true);
-      });
-    });
-  });
-
-  describe('isRandomCaveEntrances', () => {
-    describe('when cave entrances are randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-          },
-        });
-      });
-
-      test('returns true', () => {
-        const isRandomCaveEntrances = LogicHelper.isRandomCaveEntrances();
-
-        expect(isRandomCaveEntrances).toEqual(true);
-      });
-    });
-
-    describe('when cave entrances are not randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
-          },
-        });
-      });
-
-      test('returns false', () => {
-        const isRandomCaveEntrances = LogicHelper.isRandomCaveEntrances();
-
-        expect(isRandomCaveEntrances).toEqual(false);
-      });
-    });
-
-    describe('when there are nested random entrances without caves', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
-          },
-        });
-      });
-
-      test('returns false', () => {
-        const isRandomCaveEntrances = LogicHelper.isRandomCaveEntrances();
-
-        expect(isRandomCaveEntrances).toEqual(false);
-      });
-    });
-
-    describe('when there are nested random entrances with caves', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-          },
-        });
-      });
-
-      test('returns true', () => {
-        const isRandomCaveEntrances = LogicHelper.isRandomCaveEntrances();
-
-        expect(isRandomCaveEntrances).toEqual(true);
-      });
-    });
-  });
-
-  describe('isRandomNestedDungeonEntrances', () => {
-    describe('when there are nested dungeon entrances', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
-          },
-        });
-      });
-
-      test('returns true', () => {
-        const isRandomNestedDungeonEntrances = LogicHelper.isRandomNestedDungeonEntrances();
-
-        expect(isRandomNestedDungeonEntrances).toEqual(true);
-      });
-    });
-
-    describe('when there are nested dungeon entrances with caves', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-          },
-        });
-      });
-
-      test('returns true', () => {
-        const isRandomNestedDungeonEntrances = LogicHelper.isRandomNestedDungeonEntrances();
-
-        expect(isRandomNestedDungeonEntrances).toEqual(true);
-      });
-    });
-
-    describe('when there are nested cave entrances', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
-          },
-        });
-      });
-
-      test('returns false', () => {
-        const isRandomNestedDungeonEntrances = LogicHelper.isRandomNestedDungeonEntrances();
-
-        expect(isRandomNestedDungeonEntrances).toEqual(false);
-      });
-    });
-
-    describe('when there are only regular dungeon entrances', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
-          },
-        });
-      });
-
-      test('returns false', () => {
-        const isRandomNestedDungeonEntrances = LogicHelper.isRandomNestedDungeonEntrances();
-
-        expect(isRandomNestedDungeonEntrances).toEqual(false);
-      });
-    });
-  });
-
-  describe('isRandomNestedCaveEntrances', () => {
-    describe('when there are nested cave entrances', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
-          },
-        });
-      });
-
-      test('returns true', () => {
-        const isRandomNestedCaveEntrances = LogicHelper.isRandomNestedCaveEntrances();
-
-        expect(isRandomNestedCaveEntrances).toEqual(true);
-      });
-    });
-
-    describe('when there are nested dungeon entrances with caves', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-          },
-        });
-      });
-
-      test('returns true', () => {
-        const isRandomNestedCaveEntrances = LogicHelper.isRandomNestedCaveEntrances();
-
-        expect(isRandomNestedCaveEntrances).toEqual(true);
-      });
-    });
-
-    describe('when there are nested dungeon entrances', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
-          },
-        });
-      });
-
-      test('returns false', () => {
-        const isRandomNestedCaveEntrances = LogicHelper.isRandomNestedCaveEntrances();
-
-        expect(isRandomNestedCaveEntrances).toEqual(false);
-      });
-    });
-
-    describe('when there are only regular cave entrances', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
-          },
-        });
-      });
-
-      test('returns false', () => {
-        const isRandomNestedCaveEntrances = LogicHelper.isRandomNestedCaveEntrances();
-
-        expect(isRandomNestedCaveEntrances).toEqual(false);
-      });
-    });
-  });
-
   describe('allRandomEntrances', () => {
     describe('when entrances are not randomized', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1106,8 +937,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1123,8 +958,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1140,8 +979,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1157,8 +1000,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1174,13 +1021,17 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
 
-      test('returns all the dungeons and bosses', () => {
+      test('returns all the dungeons, bosses, and minibosses', () => {
         const allRandomEntrances = LogicHelper.allRandomEntrances();
 
         expect(allRandomEntrances).toMatchSnapshot();
@@ -1191,8 +1042,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
           },
         });
       });
@@ -1208,8 +1063,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
           },
         });
       });
@@ -1225,8 +1084,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
           },
         });
       });
@@ -1237,6 +1100,97 @@ describe('LogicHelper', () => {
         expect(allRandomEntrances).toMatchSnapshot();
       });
     });
+
+    describe('when only inner entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('returns all the bosses, minibosses, and inner caves', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('allCaveEntrances', () => {
+    describe('when entrances are not randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns an empty array', () => {
+        const allCaveEntrances = LogicHelper.allCaveEntrances();
+
+        expect(allCaveEntrances).toEqual([]);
+      });
+    });
+
+    describe('when only normal cave entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns all the caves without inner caves', () => {
+        const allCaveEntrances = LogicHelper.allCaveEntrances();
+
+        expect(allCaveEntrances).toMatchSnapshot();
+      });
+    });
+
+    describe('when there are nested cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('returns all the caves and inner caves', () => {
+        const allCaveEntrances = LogicHelper.allCaveEntrances();
+
+        expect(allCaveEntrances).toMatchSnapshot();
+      });
+    });
+
+    describe('when only inner entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('returns only the inner caves', () => {
+        const allCaveEntrances = LogicHelper.allCaveEntrances();
+
+        expect(allCaveEntrances).toMatchSnapshot();
+      });
+    });
   });
 
   describe('randomEntrancesForExit', () => {
@@ -1244,8 +1198,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1261,8 +1219,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1278,8 +1240,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1305,8 +1271,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1332,8 +1302,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1367,8 +1341,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
           },
         });
       });
@@ -1402,15 +1380,19 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
           },
         });
       });
 
       describe('when the exit is a dungeon', () => {
         test('returns all the dungeons, bosses, and minibosses except its own boss door and miniboss', () => {
-          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('DTower of the Gods');
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Tower of the Gods');
 
           expect(randomEntrancesForExit).toMatchSnapshot();
         });
@@ -1461,8 +1443,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
           },
         });
       });
@@ -1515,6 +1501,45 @@ describe('LogicHelper', () => {
         });
       });
     });
+
+    describe('when only inner entrances are randomized separately', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+          },
+        });
+      });
+
+      describe('when the exit is a boss', () => {
+        test('returns all the bosses and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a miniboss', () => {
+        test('returns all the bosses and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('ET Miniboss');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is an inner cave', () => {
+        test('returns all the inner caves', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Cliff Plateau Isles Inner Cave');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
   });
 
   describe('nestedEntrancesForExit', () => {
@@ -1522,8 +1547,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1549,8 +1578,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
           },
         });
       });
@@ -1592,8 +1625,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           },
         });
       });
@@ -1619,8 +1656,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
           },
         });
       });
@@ -1638,6 +1679,37 @@ describe('LogicHelper', () => {
           const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Ice Ring Isle Secret Cave');
 
           expect(nestedEntrancesForExit).toEqual(['Ice Ring Isle Inner Cave']);
+        });
+      });
+    });
+
+    describe('when there are only nested minibosses', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon', () => {
+        test('returns only the miniboss', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('FW Miniboss');
+
+          expect(nestedEntrancesForExit).toEqual([]);
+        });
+      });
+
+      describe('when the exit is a cave', () => {
+        test('returns an empty array', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Ice Ring Isle Secret Cave');
+
+          expect(nestedEntrancesForExit).toEqual([]);
         });
       });
     });
@@ -1733,28 +1805,6 @@ describe('LogicHelper', () => {
 
         expect(isProgressLocation).toEqual(true);
       });
-    });
-  });
-
-  describe('isRandomizedChartsSettings', () => {
-    test('returns true when randomized charts is on', () => {
-      Settings.initializeRaw({
-        options: {
-          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
-        },
-      });
-
-      expect(LogicHelper.isRandomizedChartsSettings()).toBe(true);
-    });
-
-    test('returns false when randomized charts is off', () => {
-      Settings.initializeRaw({
-        options: {
-          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-        },
-      });
-
-      expect(LogicHelper.isRandomizedChartsSettings()).toBe(false);
     });
   });
 
@@ -2043,12 +2093,11 @@ describe('LogicHelper', () => {
         };
       });
 
-      describe('when there are nested dungeon entrances', () => {
+      describe('when minibosses are randomized', () => {
         beforeEach(() => {
           Settings.initializeRaw({
             options: {
-              [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-                Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
+              [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
             },
           });
         });
@@ -2060,29 +2109,11 @@ describe('LogicHelper', () => {
         });
       });
 
-      describe('when there are only nested cave entrances', () => {
+      describe('when minibosses are not randomized', () => {
         beforeEach(() => {
           Settings.initializeRaw({
             options: {
-              [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-                Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
-            },
-          });
-        });
-
-        test('returns true', () => {
-          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Wizzrobe Mini-Boss Room');
-
-          expect(isPotentialKeyLocation).toEqual(true);
-        });
-      });
-
-      describe('when there are no nested random entrances', () => {
-        beforeEach(() => {
-          Settings.initializeRaw({
-            options: {
-              [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-                Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+              [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
             },
           });
         });
@@ -2413,7 +2444,12 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.RACE_MODE]: false,
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
             [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
           },
@@ -2479,7 +2515,12 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.RACE_MODE]: false,
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
             [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,
           },
@@ -2509,7 +2550,12 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.RACE_MODE]: false,
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
             [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
           },
@@ -2542,8 +2588,12 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
           [Permalink.OPTIONS.RACE_MODE]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-            Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+          [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
         },
@@ -2957,7 +3007,12 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
           [Permalink.OPTIONS.RACE_MODE]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+          [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
         },

@@ -27,6 +27,7 @@ import Settings from './settings';
 class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
+      'allCaveEntrances',
       'allRandomEntrances',
       'bossForDungeon',
       'bossLocation',
@@ -56,6 +57,7 @@ class LogicHelper {
 
   static reset() {
     Memoizer.invalidate([
+      this.allCaveEntrances,
       this.allRandomEntrances,
       this.bossForDungeon,
       this.bossLocation,
@@ -244,10 +246,6 @@ class LogicHelper {
   }
 
   static cavesForIsland(islandName) {
-    if (!this.isRandomCaveEntrances()) {
-      return [];
-    }
-
     return _.compact(
       _.map(
         CAVE_ENTRANCES,
@@ -256,107 +254,90 @@ class LogicHelper {
             return null;
           }
           const caveName = _.get(CAVES, caveIndex);
-          if (!this.isRandomNestedCaveEntrances() && this.isInnerCave(caveName)) {
-            return null;
+          if (this.isInnerCave(caveName)) {
+            if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES)) {
+              return caveName;
+            }
+          } else if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES)) {
+            return caveName;
           }
-          return caveName;
+          return null;
         },
       ),
     );
   }
 
   static entrancesForDungeon(dungeonName) {
-    if (!this.isRandomDungeonEntrances()) {
-      return [];
+    let dungeonEntrance;
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES)
+      && this.isMainDungeon(dungeonName)
+    ) {
+      dungeonEntrance = [dungeonName];
+    } else {
+      dungeonEntrance = [];
     }
 
-    const dungeonEntrance = this.isMainDungeon(dungeonName) ? [dungeonName] : [];
-    if (!this.isRandomNestedDungeonEntrances()) {
-      return dungeonEntrance;
+    let minibossEntrance;
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
+      && this.hasRandomizedMiniboss(dungeonName)
+    ) {
+      minibossEntrance = [this.minibossForDungeon(dungeonName)];
+    } else {
+      minibossEntrance = [];
     }
 
-    const minibossEntrance = (
-      this.hasRandomizedMiniboss(dungeonName)
-        ? [this.minibossForDungeon(dungeonName)]
-        : []
-    );
-    const bossEntrance = (
-      this.isRaceModeDungeon(dungeonName)
-        ? [this.bossForDungeon(dungeonName)]
-        : []
-    );
+    let bossEntrance;
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES)
+      && this.isRaceModeDungeon(dungeonName)
+    ) {
+      bossEntrance = [this.bossForDungeon(dungeonName)];
+    } else {
+      bossEntrance = [];
+    }
+
     return _.concat(dungeonEntrance, minibossEntrance, bossEntrance);
   }
 
   static isRandomEntrances() {
-    return this.isRandomDungeonEntrances() || this.isRandomCaveEntrances();
-  }
-
-  static isRandomDungeonEntrances() {
-    return _.includes(
-      [
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-      ],
-      this._randomizeEntrancesOption(),
-    );
-  }
-
-  static isRandomCaveEntrances() {
-    return _.includes(
-      [
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-      ],
-      this._randomizeEntrancesOption(),
-    );
-  }
-
-  static isRandomNestedDungeonEntrances() {
-    return _.includes(
-      [
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-      ],
-      this._randomizeEntrancesOption(),
-    );
-  }
-
-  static isRandomNestedCaveEntrances() {
-    return _.includes(
-      [
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_SECRET_CAVES,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-      ],
-      this._randomizeEntrancesOption(),
+    return (
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES)
+      || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES)
+      || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
+      || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES)
+      || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES)
     );
   }
 
   static allRandomEntrances() {
     return _.concat(
       this._allDungeonEntrances(),
-      this._allCaveEntrances(),
+      this.allCaveEntrances(),
     );
+  }
+
+  static allCaveEntrances() {
+    return _.filter(CAVES, (caveName) => {
+      if (this.isInnerCave(caveName)) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES);
+      }
+      return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES);
+    });
   }
 
   static randomEntrancesForExit(zoneName) {
     let possibleEntrances;
-    if (this._isRandomEntrancesTogether()) {
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.MIX_ENTRANCES)
+      === Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER
+    ) {
       possibleEntrances = this.allRandomEntrances();
     } else if (this._isBoss(zoneName) || this._isMiniboss(zoneName) || this.isDungeon(zoneName)) {
       possibleEntrances = this._allDungeonEntrances();
     } else {
-      possibleEntrances = this._allCaveEntrances();
+      possibleEntrances = this.allCaveEntrances();
     }
 
     return _.difference(
@@ -402,12 +383,8 @@ class LogicHelper {
     );
   }
 
-  static isRandomizedChartsSettings() {
-    return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS);
-  }
-
   static isRandomizedChart(item) {
-    return this.isRandomizedChartsSettings() && /(Treasure|Triforce) Chart (\d)+/.test(item);
+    return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) && /(Treasure|Triforce) Chart (\d)+/.test(item);
   }
 
   static filterDetailedLocations(generalLocation, { onlyProgressLocations }) {
@@ -439,7 +416,7 @@ class LogicHelper {
     }
 
     if (
-      this.isRandomNestedDungeonEntrances()
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
       && this.hasRandomizedMiniboss(generalLocation)
     ) {
       const dungeonIndex = _.indexOf(DUNGEONS, generalLocation);
@@ -918,20 +895,6 @@ class LogicHelper {
     return `Entered ${entranceName}`;
   }
 
-  static _randomizeEntrancesOption() {
-    return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_ENTRANCES);
-  }
-
-  static _isRandomEntrancesTogether() {
-    return _.includes(
-      [
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.NESTED_DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-      ],
-      this._randomizeEntrancesOption(),
-    );
-  }
-
   static _isBoss(bossName) {
     return _.includes(BOSSES, bossName);
   }
@@ -941,32 +904,34 @@ class LogicHelper {
   }
 
   static _allDungeonEntrances() {
-    if (!this.isRandomDungeonEntrances()) {
-      return [];
-    }
-    if (!this.isRandomNestedDungeonEntrances()) {
-      return this.MAIN_DUNGEONS;
+    let dungeonEntrances;
+    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES)) {
+      dungeonEntrances = this.MAIN_DUNGEONS;
+    } else {
+      dungeonEntrances = [];
     }
 
-    const minibossEntrances = _.map(
-      this.RANDOM_MINIBOSS_DUNGEONS,
-      (dungeonName) => this.minibossForDungeon(dungeonName),
-    );
-    const bossEntrances = _.map(
-      this.RACE_MODE_DUNGEONS,
-      (dungeonName) => this.bossForDungeon(dungeonName),
-    );
-    return _.concat(this.MAIN_DUNGEONS, minibossEntrances, bossEntrances);
-  }
+    let minibossEntrances;
+    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)) {
+      minibossEntrances = _.map(
+        this.RANDOM_MINIBOSS_DUNGEONS,
+        (dungeonName) => this.minibossForDungeon(dungeonName),
+      );
+    } else {
+      minibossEntrances = [];
+    }
 
-  static _allCaveEntrances() {
-    if (!this.isRandomCaveEntrances()) {
-      return [];
+    let bossEntrances;
+    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES)) {
+      bossEntrances = _.map(
+        this.RACE_MODE_DUNGEONS,
+        (dungeonName) => this.bossForDungeon(dungeonName),
+      );
+    } else {
+      bossEntrances = [];
     }
-    if (!this.isRandomNestedCaveEntrances()) {
-      return _.filter(CAVES, (caveName) => !this.isInnerCave(caveName));
-    }
-    return CAVES;
+
+    return _.concat(dungeonEntrances, minibossEntrances, bossEntrances);
   }
 
   static _indexOfMiniboss(zoneName) {

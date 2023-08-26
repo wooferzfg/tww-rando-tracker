@@ -116,7 +116,7 @@ describe('Settings', () => {
     test('initializes the flags, options, starting gear, and version', () => {
       const flags = [Settings.FLAGS.TINGLE_CHEST];
       const options = {
-        [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true,
+        [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
       };
       const startingGear = {
         'Grappling Hook': 1,
@@ -142,7 +142,7 @@ describe('Settings', () => {
       Settings.initializeRaw({
         flags: [Settings.FLAGS.TINGLE_CHEST],
         options: {
-          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
         },
         startingGear: {
           'Grappling Hook': 1,
@@ -170,7 +170,7 @@ describe('Settings', () => {
     beforeEach(() => {
       expectedFlags = [Settings.FLAGS.TINGLE_CHEST];
       expectedOptions = {
-        [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true,
+        [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
       };
       expectedStartingGear = {
         'Grappling Hook': 1,
