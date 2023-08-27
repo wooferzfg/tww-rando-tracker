@@ -1000,7 +1000,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
       "originalItem": "Heart Container",
       "types": "Dungeon, Boss",
     },
-    "Mini-Boss": {
+    "Miniboss": {
       "need": "Can Access Dragon Roost Cavern & DRC Small Key x4",
       "originalItem": "Grappling Hook",
       "types": "Dungeon",
@@ -1134,7 +1134,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
       "originalItem": "Treasure Chart 12",
       "types": "Dungeon",
     },
-    "Stalfos Mini-Boss Room": {
+    "Stalfos Miniboss Room": {
       "need": "Can Access Earth Temple Miniboss Arena & (Can Defeat Stalfos | Hookshot)",
       "originalItem": "Mirror Shield",
       "types": "Dungeon",
@@ -1313,7 +1313,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
       "originalItem": "Yellow Rupee",
       "types": "Dungeon",
     },
-    "Mothula Mini-Boss Room": {
+    "Mothula Miniboss Room": {
       "need": "Can Access Forbidden Woods Miniboss Arena & Can Defeat Winged Mothulas",
       "originalItem": "Boomerang",
       "types": "Dungeon",
@@ -1323,7 +1323,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
     },
-    "Tall Room Before Mini-Boss": {
+    "Tall Room Before Miniboss": {
       "need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Peahats",
       "originalItem": "Joy Pendant",
       "types": "Dungeon",
@@ -2078,7 +2078,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
       "originalItem": "Dungeon Map",
       "types": "Dungeon",
     },
-    "Darknut Mini-Boss Room": {
+    "Darknut Miniboss Room": {
       "need": "Can Access Tower of the Gods Miniboss Arena & Can Defeat Darknuts",
       "originalItem": "Hero's Bow",
       "types": "Dungeon",
@@ -2251,7 +2251,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
       "originalItem": "Wind Tingle Statue",
       "types": "Tingle Chest, Dungeon",
     },
-    "Wizzrobe Mini-Boss Room": {
+    "Wizzrobe Miniboss Room": {
       "need": "Can Access Wind Temple Miniboss Arena & Can Defeat Darknuts & Can Remove Peahat Armor",
       "originalItem": "Hookshot",
       "types": "Dungeon",

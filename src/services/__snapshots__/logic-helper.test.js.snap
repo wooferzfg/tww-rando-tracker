@@ -850,7 +850,7 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for D
     "generalLocation": "Dragon Roost Cavern",
   },
   {
-    "detailedLocation": "Mini-Boss",
+    "detailedLocation": "Miniboss",
     "generalLocation": "Dragon Roost Cavern",
   },
   {
@@ -907,7 +907,7 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for E
     "generalLocation": "Earth Temple",
   },
   {
-    "detailedLocation": "Stalfos Mini-Boss Room",
+    "detailedLocation": "Stalfos Miniboss Room",
     "generalLocation": "Earth Temple",
   },
   {
@@ -984,11 +984,11 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for F
     "generalLocation": "Forbidden Woods",
   },
   {
-    "detailedLocation": "Tall Room Before Mini-Boss",
+    "detailedLocation": "Tall Room Before Miniboss",
     "generalLocation": "Forbidden Woods",
   },
   {
-    "detailedLocation": "Mothula Mini-Boss Room",
+    "detailedLocation": "Mothula Miniboss Room",
     "generalLocation": "Forbidden Woods",
   },
   {
@@ -1098,7 +1098,7 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for T
     "generalLocation": "Tower of the Gods",
   },
   {
-    "detailedLocation": "Darknut Mini-Boss Room",
+    "detailedLocation": "Darknut Miniboss Room",
     "generalLocation": "Tower of the Gods",
   },
   {
@@ -1163,7 +1163,7 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for W
     "generalLocation": "Wind Temple",
   },
   {
-    "detailedLocation": "Wizzrobe Mini-Boss Room",
+    "detailedLocation": "Wizzrobe Miniboss Room",
     "generalLocation": "Wind Temple",
   },
   {

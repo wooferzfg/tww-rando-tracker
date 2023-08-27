@@ -183,7 +183,7 @@ describe('Spheres', () => {
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'Boarded Up Chest');
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', "Bird's Nest");
         updateForItemAndLocation('Deku Leaf', 'Dragon Roost Cavern', 'Pot Room Chest');
-        updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Mini-Boss');
+        updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Miniboss');
       });
 
       test('includes locations behind small keys in the same sphere', () => {
@@ -309,7 +309,7 @@ describe('Spheres', () => {
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'Boarded Up Chest');
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', "Bird's Nest");
         updateForItemAndLocation('Deku Leaf', 'Dragon Roost Cavern', 'Pot Room Chest');
-        updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Mini-Boss');
+        updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Miniboss');
       });
 
       test('includes locations behind small keys in the same sphere behind the random entrance', () => {
@@ -389,7 +389,7 @@ describe('Spheres', () => {
         ).toEqual(1);
 
         expect(
-          spheres.sphereForLocation('Forbidden Woods', 'Mothula Mini-Boss Room'),
+          spheres.sphereForLocation('Forbidden Woods', 'Mothula Miniboss Room'),
         ).toEqual(1);
 
         expect(
@@ -409,7 +409,7 @@ describe('Spheres', () => {
         ).toEqual(1);
 
         expect(
-          spheres.sphereForLocation('Tower of the Gods', 'Darknut Mini-Boss Room'),
+          spheres.sphereForLocation('Tower of the Gods', 'Darknut Miniboss Room'),
         ).toEqual(1);
 
         expect(
@@ -518,7 +518,7 @@ describe('Spheres', () => {
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'Alcove With Water Jugs');
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'Boarded Up Chest');
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', "Bird's Nest");
-        updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Mini-Boss');
+        updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Miniboss');
 
         trackerState = trackerState.setEntranceForExit('Gohma', 'Gohma');
       });
@@ -610,7 +610,7 @@ describe('Spheres', () => {
         ).toEqual(2);
 
         expect(
-          spheres.sphereForLocation('Forbidden Woods', 'Mothula Mini-Boss Room'),
+          spheres.sphereForLocation('Forbidden Woods', 'Mothula Miniboss Room'),
         ).toEqual(null);
 
         expect(

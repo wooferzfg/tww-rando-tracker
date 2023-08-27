@@ -2,20 +2,20 @@
     null,
     {
         "entranceName": "FW Miniboss",
-        "locationName": "Mothula Mini-Boss Room"
+        "locationName": "Mothula Miniboss Room"
     },
     {
         "entranceName": "TotG Miniboss",
-        "locationName": "Darknut Mini-Boss Room"
+        "locationName": "Darknut Miniboss Room"
     },
     null,
     {
         "entranceName": "ET Miniboss",
-        "locationName": "Stalfos Mini-Boss Room"
+        "locationName": "Stalfos Miniboss Room"
     },
     {
         "entranceName": "WT Miniboss",
-        "locationName": "Wizzrobe Mini-Boss Room"
+        "locationName": "Wizzrobe Miniboss Room"
     },
     null
 ]

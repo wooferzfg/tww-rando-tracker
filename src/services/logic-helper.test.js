@@ -2085,7 +2085,7 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Locations.locations = {
           'Wind Temple': {
-            'Wizzrobe Mini-Boss Room': {
+            'Wizzrobe Miniboss Room': {
               need: 'Can Access Wind Temple',
               types: 'Dungeon',
             },
@@ -2103,7 +2103,7 @@ describe('LogicHelper', () => {
         });
 
         test('returns false', () => {
-          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Wizzrobe Mini-Boss Room');
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Wizzrobe Miniboss Room');
 
           expect(isPotentialKeyLocation).toEqual(false);
         });
@@ -2119,7 +2119,7 @@ describe('LogicHelper', () => {
         });
 
         test('returns true', () => {
-          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Wizzrobe Mini-Boss Room');
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Wizzrobe Miniboss Room');
 
           expect(isPotentialKeyLocation).toEqual(true);
         });

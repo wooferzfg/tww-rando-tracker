@@ -503,7 +503,7 @@
       "M_NewD2/Stage.arc/Chest003"
     ]
   },
-  "Dragon Roost Cavern - Mini-Boss": {
+  "Dragon Roost Cavern - Miniboss": {
     "Need": "Can Access Dragon Roost Cavern & DRC Small Key x4",
     "Original item": "Grappling Hook",
     "Types": "Dungeon",
@@ -635,7 +635,7 @@
       "kindan/Stage.arc/Chest003"
     ]
   },
-  "Forbidden Woods - Tall Room Before Mini-Boss": {
+  "Forbidden Woods - Tall Room Before Miniboss": {
     "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Peahats",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
@@ -643,7 +643,7 @@
       "kindan/Stage.arc/Chest009"
     ]
   },
-  "Forbidden Woods - Mothula Mini-Boss Room": {
+  "Forbidden Woods - Mothula Miniboss Room": {
     "Need": "Can Access Forbidden Woods Miniboss Arena & Can Defeat Winged Mothulas",
     "Original item": "Boomerang",
     "Types": "Dungeon",
@@ -780,7 +780,7 @@
       "Siren/Stage.arc/Event060:hsehi1_tact/Actor003/Action004"
     ]
   },
-  "Tower of the Gods - Darknut Mini-Boss Room": {
+  "Tower of the Gods - Darknut Miniboss Room": {
     "Need": "Can Access Tower of the Gods Miniboss Arena & Can Defeat Darknuts",
     "Original item": "Hero's Bow",
     "Types": "Dungeon",
@@ -1027,7 +1027,7 @@
       "M_Dai/Room8.arc/Actor008"
     ]
   },
-  "Earth Temple - Stalfos Mini-Boss Room": {
+  "Earth Temple - Stalfos Miniboss Room": {
     "Need": "Can Access Earth Temple Miniboss Arena & (Can Defeat Stalfos | Hookshot)",
     "Original item": "Mirror Shield",
     "Types": "Dungeon",
@@ -1180,7 +1180,7 @@
       "kaze/Stage.arc/Chest007"
     ]
   },
-  "Wind Temple - Wizzrobe Mini-Boss Room": {
+  "Wind Temple - Wizzrobe Miniboss Room": {
     "Need": "Can Access Wind Temple Miniboss Arena & Can Defeat Darknuts & Can Remove Peahat Armor",
     "Original item": "Hookshot",
     "Types": "Dungeon",
