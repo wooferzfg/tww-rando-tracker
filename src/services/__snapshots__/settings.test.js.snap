@@ -21,6 +21,7 @@ exports[`Settings FLAGS returns the correct flags 1`] = `
   "PLATFORM": "Platform",
   "PUZZLE_SECRET_CAVE": "Puzzle Secret Cave",
   "RAFT": "Raft",
+  "RANDOMIZABLE_MINIBOSS": "Randomizable Miniboss",
   "SAVAGE_LABYRINTH": "Savage Labyrinth",
   "SHORT_SIDEQUEST": "Short Sidequest",
   "SPOILS_TRADING": "Spoils Trading",

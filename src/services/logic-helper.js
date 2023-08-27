@@ -225,7 +225,7 @@ class LogicHelper {
       return `${shortDungeonName} Boss Door`;
     }
 
-    const minibossIndex = this._indexOfMiniboss(zoneName);
+    const minibossIndex = _.indexOf(MINIBOSSES, zoneName);
     if (minibossIndex >= 0) {
       const shortDungeonName = SHORT_DUNGEON_NAMES[minibossIndex];
       return `${shortDungeonName} Miniboss Door`;
@@ -417,13 +417,9 @@ class LogicHelper {
 
     if (
       Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
-      && this.hasRandomizedMiniboss(generalLocation)
+      && _.includes(locationTypes, Settings.FLAGS.RANDOMIZABLE_MINIBOSS)
     ) {
-      const dungeonIndex = _.indexOf(DUNGEONS, generalLocation);
-      const { locationName } = MINIBOSSES[dungeonIndex];
-      if (locationName === detailedLocation) {
-        return false;
-      }
+      return false;
     }
 
     return !_.includes(locationTypes, Settings.FLAGS.BOSS);
@@ -457,7 +453,7 @@ class LogicHelper {
 
   static minibossForDungeon(dungeonName) {
     const dungeonIndex = _.indexOf(DUNGEONS, dungeonName);
-    return MINIBOSSES[dungeonIndex].entranceName;
+    return MINIBOSSES[dungeonIndex];
   }
 
   static smallKeyName(dungeonName) {
@@ -660,7 +656,7 @@ class LogicHelper {
       return `Can Access Boss Entrance in ${dungeonName}`;
     }
 
-    const minibossIndex = this._indexOfMiniboss(zoneName);
+    const minibossIndex = _.indexOf(MINIBOSSES, zoneName);
     if (minibossIndex >= 0) {
       const dungeonName = DUNGEONS[minibossIndex];
       return `Can Access Miniboss Entrance in ${dungeonName}`;
@@ -900,7 +896,7 @@ class LogicHelper {
   }
 
   static _isMiniboss(minibossName) {
-    return this._indexOfMiniboss(minibossName) >= 0;
+    return _.includes(MINIBOSSES, minibossName);
   }
 
   static _allDungeonEntrances() {
@@ -932,13 +928,6 @@ class LogicHelper {
     }
 
     return _.concat(dungeonEntrances, minibossEntrances, bossEntrances);
-  }
-
-  static _indexOfMiniboss(zoneName) {
-    return _.findIndex(
-      MINIBOSSES,
-      (minibossData) => minibossData?.entranceName === zoneName,
-    );
   }
 }
 

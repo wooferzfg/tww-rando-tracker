@@ -646,7 +646,7 @@
   "Forbidden Woods - Mothula Miniboss Room": {
     "Need": "Can Access Forbidden Woods Miniboss Arena & Can Defeat Winged Mothulas",
     "Original item": "Boomerang",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Randomizable Miniboss",
     "Paths": [
       "kinMB/Stage.arc/Chest000"
     ]
@@ -783,7 +783,7 @@
   "Tower of the Gods - Darknut Miniboss Room": {
     "Need": "Can Access Tower of the Gods Miniboss Arena & Can Defeat Darknuts",
     "Original item": "Hero's Bow",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Randomizable Miniboss",
     "Paths": [
       "SirenMB/Stage.arc/Chest000"
     ]
@@ -1030,7 +1030,7 @@
   "Earth Temple - Stalfos Miniboss Room": {
     "Need": "Can Access Earth Temple Miniboss Arena & (Can Defeat Stalfos | Hookshot)",
     "Original item": "Mirror Shield",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Randomizable Miniboss",
     "Paths": [
       "M_DaiMB/Stage.arc/Chest000"
     ]
@@ -1183,7 +1183,7 @@
   "Wind Temple - Wizzrobe Miniboss Room": {
     "Need": "Can Access Wind Temple Miniboss Arena & Can Defeat Darknuts & Can Remove Peahat Armor",
     "Original item": "Hookshot",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Randomizable Miniboss",
     "Paths": [
       "kazeMB/Stage.arc/Chest000"
     ]

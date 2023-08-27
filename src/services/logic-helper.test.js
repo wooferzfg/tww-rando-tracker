@@ -2087,7 +2087,7 @@ describe('LogicHelper', () => {
           'Wind Temple': {
             'Wizzrobe Miniboss Room': {
               need: 'Can Access Wind Temple',
-              types: 'Dungeon',
+              types: 'Dungeon, Randomizable Miniboss',
             },
           },
         };

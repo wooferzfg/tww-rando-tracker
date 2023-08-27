@@ -31,6 +31,7 @@ describe('Settings', () => {
       test('initializes the flags', () => {
         expect(Settings.flags).toEqual([
           Settings.FLAGS.BOSS,
+          Settings.FLAGS.RANDOMIZABLE_MINIBOSS,
           Settings.FLAGS.DUNGEON,
           Settings.FLAGS.GREAT_FAIRY,
           Settings.FLAGS.PUZZLE_SECRET_CAVE,

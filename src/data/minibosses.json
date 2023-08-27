@@ -1,21 +1,9 @@
 [
-    null,
-    {
-        "entranceName": "FW Miniboss",
-        "locationName": "Mothula Miniboss Room"
-    },
-    {
-        "entranceName": "TotG Miniboss",
-        "locationName": "Darknut Miniboss Room"
-    },
-    null,
-    {
-        "entranceName": "ET Miniboss",
-        "locationName": "Stalfos Miniboss Room"
-    },
-    {
-        "entranceName": "WT Miniboss",
-        "locationName": "Wizzrobe Miniboss Room"
-    },
-    null
+    "",
+    "FW Miniboss",
+    "TotG Miniboss",
+    "",
+    "ET Miniboss",
+    "WT Miniboss",
+    ""
 ]
