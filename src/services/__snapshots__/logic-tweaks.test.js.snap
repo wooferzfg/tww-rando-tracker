@@ -1137,7 +1137,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
     "Stalfos Miniboss Room": {
       "need": "Can Access Earth Temple Miniboss Arena & (Can Defeat Stalfos | Hookshot)",
       "originalItem": "Mirror Shield",
-      "types": "Dungeon, Randomizable Miniboss",
+      "types": "Dungeon, Randomizable Miniboss Room",
     },
     "Tingle Statue Chest": {
       "need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Tingle Tuner Bombs",
@@ -1316,7 +1316,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
     "Mothula Miniboss Room": {
       "need": "Can Access Forbidden Woods Miniboss Arena & Can Defeat Winged Mothulas",
       "originalItem": "Boomerang",
-      "types": "Dungeon, Randomizable Miniboss",
+      "types": "Dungeon, Randomizable Miniboss Room",
     },
     "Past Seeds Hanging by Vines": {
       "need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Door Flowers & Can Destroy Seeds Hanging by Vines",
@@ -2081,7 +2081,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
     "Darknut Miniboss Room": {
       "need": "Can Access Tower of the Gods Miniboss Arena & Can Defeat Darknuts",
       "originalItem": "Hero's Bow",
-      "types": "Dungeon, Randomizable Miniboss",
+      "types": "Dungeon, Randomizable Miniboss Room",
     },
     "First Chest Guarded by Armos Knights": {
       "need": "Can Reach Tower of the Gods Second Floor & Hero's Bow",
@@ -2254,7 +2254,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
     "Wizzrobe Miniboss Room": {
       "need": "Can Access Wind Temple Miniboss Arena & Can Defeat Darknuts & Can Remove Peahat Armor",
       "originalItem": "Hookshot",
-      "types": "Dungeon, Randomizable Miniboss",
+      "types": "Dungeon, Randomizable Miniboss Room",
     },
   },
   "Windfall Island": {

@@ -50,7 +50,7 @@ describe('LogicCalculation', () => {
       },
       flags: [
         Settings.FLAGS.BOSS,
-        Settings.FLAGS.RANDOMIZABLE_MINIBOSS,
+        Settings.FLAGS.RANDOMIZABLE_MINIBOSS_ROOM,
         Settings.FLAGS.DUNGEON,
         Settings.FLAGS.PUZZLE_SECRET_CAVE,
         Settings.FLAGS.GREAT_FAIRY,

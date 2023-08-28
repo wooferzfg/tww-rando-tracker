@@ -417,7 +417,7 @@ class LogicHelper {
 
     if (
       Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
-      && _.includes(locationTypes, Settings.FLAGS.RANDOMIZABLE_MINIBOSS)
+      && _.includes(locationTypes, Settings.FLAGS.RANDOMIZABLE_MINIBOSS_ROOM)
     ) {
       return false;
     }

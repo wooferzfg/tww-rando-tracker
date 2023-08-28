@@ -86,7 +86,7 @@ class Settings {
   static _FLAGS_MAPPING = {
     [Permalink.OPTIONS.PROGRESSION_DUNGEONS]: [
       this.FLAGS.BOSS,
-      this.FLAGS.RANDOMIZABLE_MINIBOSS,
+      this.FLAGS.RANDOMIZABLE_MINIBOSS_ROOM,
       this.FLAGS.DUNGEON,
     ],
     [Permalink.OPTIONS.PROGRESSION_GREAT_FAIRIES]: [this.FLAGS.GREAT_FAIRY],
