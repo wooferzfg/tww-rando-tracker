@@ -422,40 +422,6 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('isInnerCave', () => {
-    describe('when the cave is Ice Ring Isle Inner Cave', () => {
-      test('returns true', () => {
-        const isInnerCave = LogicHelper.isInnerCave('Ice Ring Isle Inner Cave');
-
-        expect(isInnerCave).toEqual(true);
-      });
-    });
-
-    describe('when the cave is Cliff Plateau Isles Inner Cave', () => {
-      test('returns true', () => {
-        const isInnerCave = LogicHelper.isInnerCave('Cliff Plateau Isles Inner Cave');
-
-        expect(isInnerCave).toEqual(true);
-      });
-    });
-
-    describe('when the cave is a different cave', () => {
-      test('returns false', () => {
-        const isInnerCave = LogicHelper.isInnerCave('Overlook Island Secret Cave');
-
-        expect(isInnerCave).toEqual(false);
-      });
-    });
-
-    describe('when the argument is not a cave', () => {
-      test('returns false', () => {
-        const isInnerCave = LogicHelper.isInnerCave('Forbidden Woods');
-
-        expect(isInnerCave).toEqual(false);
-      });
-    });
-  });
-
   describe('entryName', () => {
     test('returns the entry name based on a dungeon name', () => {
       const entryName = LogicHelper.entryName('Dragon Roost Cavern');
@@ -507,6 +473,30 @@ describe('LogicHelper', () => {
       expect(shortEntranceName).toEqual('Diamond Steppe Island Cave');
     });
 
+    test('only mentions the island name for Savage Labyrinth', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Savage Labyrinth');
+
+      expect(shortEntranceName).toEqual('Outset Island Cave');
+    });
+
+    test('only mentions the island name for Cabana Labyrinth', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Cabana Labyrinth');
+
+      expect(shortEntranceName).toEqual('Private Oasis Cave');
+    });
+
+    test('handles the Pawprint Isle main entrance correctly', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Pawprint Isle Chuchu Cave');
+
+      expect(shortEntranceName).toEqual('Pawprint Isle Cave');
+    });
+
+    test('handles the Pawprint Isle Side Isle entrance correctly', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Pawprint Isle Wizzrobe Cave');
+
+      expect(shortEntranceName).toEqual('Pawprint Isle Side Isle Cave');
+    });
+
     test('returns the inner cave name', () => {
       const shortEntranceName = LogicHelper.shortEntranceName('Cliff Plateau Isles Inner Cave');
 
@@ -543,6 +533,30 @@ describe('LogicHelper', () => {
       const shortExitName = LogicHelper.shortExitName('Diamond Steppe Island Warp Maze Cave');
 
       expect(shortExitName).toEqual('Diamond Steppe Island Cave');
+    });
+
+    test('returns Savage Labyrinth unmodified', () => {
+      const shortExitName = LogicHelper.shortExitName('Savage Labyrinth');
+
+      expect(shortExitName).toEqual('Savage Labyrinth');
+    });
+
+    test('returns Cabana Labyrinth unmodified', () => {
+      const shortExitName = LogicHelper.shortExitName('Cabana Labyrinth');
+
+      expect(shortExitName).toEqual('Cabana Labyrinth');
+    });
+
+    test('handles the Pawprint Chuchu Cave correctly', () => {
+      const shortExitName = LogicHelper.shortExitName('Pawprint Isle Chuchu Cave');
+
+      expect(shortExitName).toEqual('Pawprint Isle Chuchu Cave');
+    });
+
+    test('handles the Pawprint Wizzrobe Cave correctly', () => {
+      const shortExitName = LogicHelper.shortExitName('Pawprint Isle Wizzrobe Cave');
+
+      expect(shortExitName).toEqual('Pawprint Isle Wizzrobe Cave');
     });
 
     test('returns the inner cave name', () => {

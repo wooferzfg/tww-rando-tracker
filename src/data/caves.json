@@ -1,24 +1,158 @@
 [
-  "Savage Labyrinth",
-  "Dragon Roost Island Secret Cave",
-  "Fire Mountain Secret Cave",
-  "Ice Ring Isle Secret Cave",
-  "Cabana Labyrinth",
-  "Needle Rock Isle Secret Cave",
-  "Angular Isles Secret Cave",
-  "Boating Course Secret Cave",
-  "Stone Watcher Island Secret Cave",
-  "Overlook Island Secret Cave",
-  "Bird's Peak Rock Secret Cave",
-  "Pawprint Isle Chuchu Cave",
-  "Pawprint Isle Wizzrobe Cave",
-  "Diamond Steppe Island Warp Maze Cave",
-  "Bomb Island Secret Cave",
-  "Rock Spire Isle Secret Cave",
-  "Shark Island Secret Cave",
-  "Cliff Plateau Isles Secret Cave",
-  "Horseshoe Island Secret Cave",
-  "Star Island Secret Cave",
-  "Ice Ring Isle Inner Cave",
-  "Cliff Plateau Isles Inner Cave"
+  {
+    "islandName": "Outset Island",
+    "entranceName": "Outset Island Cave",
+    "exitName": "Savage Labyrinth",
+    "entranceMacroName": "Secret Cave Entrance on Outset Island",
+    "internalName": "Savage Labyrinth"
+  },
+  {
+    "islandName": "Dragon Roost Island",
+    "entranceName": "Dragon Roost Island Cave",
+    "exitName": "Dragon Roost Island Cave",
+    "entranceMacroName": "Secret Cave Entrance on Dragon Roost Island",
+    "internalName": "Dragon Roost Island Secret Cave"
+  },
+  {
+    "islandName": "Fire Mountain",
+    "entranceName": "Fire Mountain Cave",
+    "exitName": "Fire Mountain Cave",
+    "entranceMacroName": "Secret Cave Entrance on Fire Mountain",
+    "internalName": "Fire Mountain Secret Cave"
+  },
+  {
+    "islandName": "Ice Ring Isle",
+    "entranceName": "Ice Ring Isle Cave",
+    "exitName": "Ice Ring Isle Cave",
+    "entranceMacroName": "Secret Cave Entrance on Ice Ring Isle",
+    "internalName": "Ice Ring Isle Secret Cave"
+  },
+  {
+    "islandName": "Private Oasis",
+    "entranceName": "Private Oasis Cave",
+    "exitName": "Cabana Labyrinth",
+    "entranceMacroName": "Secret Cave Entrance on Private Oasis",
+    "internalName": "Cabana Labyrinth"
+  },
+  {
+    "islandName": "Needle Rock Isle",
+    "entranceName": "Needle Rock Isle Cave",
+    "exitName": "Needle Rock Isle Cave",
+    "entranceMacroName": "Secret Cave Entrance on Needle Rock Isle",
+    "internalName": "Needle Rock Isle Secret Cave"
+  },
+  {
+    "islandName": "Angular Isles",
+    "entranceName": "Angular Isles Cave",
+    "exitName": "Angular Isles Cave",
+    "entranceMacroName": "Secret Cave Entrance on Angular Isles",
+    "internalName": "Angular Isles Secret Cave"
+  },
+  {
+    "islandName": "Boating Course",
+    "entranceName": "Boating Course Cave",
+    "exitName": "Boating Course Cave",
+    "entranceMacroName": "Secret Cave Entrance on Boating Course",
+    "internalName": "Boating Course Secret Cave"
+  },
+  {
+    "islandName": "Stone Watcher Island",
+    "entranceName": "Stone Watcher Island Cave",
+    "exitName": "Stone Watcher Island Cave",
+    "entranceMacroName": "Secret Cave Entrance on Stone Watcher Island",
+    "internalName": "Stone Watcher Island Secret Cave"
+  },
+  {
+    "islandName": "Overlook Island",
+    "entranceName": "Overlook Island Cave",
+    "exitName": "Overlook Island Cave",
+    "entranceMacroName": "Secret Cave Entrance on Overlook Island",
+    "internalName": "Overlook Island Secret Cave"
+  },
+  {
+    "islandName": "Bird's Peak Rock",
+    "entranceName": "Bird's Peak Rock Cave",
+    "exitName": "Bird's Peak Rock Cave",
+    "entranceMacroName": "Secret Cave Entrance on Bird's Peak Rock",
+    "internalName": "Bird's Peak Rock Secret Cave"
+  },
+  {
+    "islandName": "Pawprint Isle",
+    "entranceName": "Pawprint Isle Cave",
+    "exitName": "Pawprint Isle Chuchu Cave",
+    "entranceMacroName": "Secret Cave Entrance on Pawprint Isle",
+    "internalName": "Pawprint Isle Chuchu Cave"
+  },
+  {
+    "islandName": "Pawprint Isle",
+    "entranceName": "Pawprint Isle Side Isle Cave",
+    "exitName": "Pawprint Isle Wizzrobe Cave",
+    "entranceMacroName": "Secret Cave Entrance on Pawprint Isle Side Isle",
+    "internalName": "Pawprint Isle Wizzrobe Cave"
+  },
+  {
+    "islandName": "Diamond Steppe Island",
+    "entranceName": "Diamond Steppe Island Cave",
+    "exitName": "Diamond Steppe Island Cave",
+    "entranceMacroName": "Secret Cave Entrance on Diamond Steppe Island",
+    "internalName": "Diamond Steppe Island Warp Maze Cave"
+  },
+  {
+    "islandName": "Bomb Island",
+    "entranceName": "Bomb Island Cave",
+    "exitName": "Bomb Island Cave",
+    "entranceMacroName": "Secret Cave Entrance on Bomb Island",
+    "internalName": "Bomb Island Secret Cave"
+  },
+  {
+    "islandName": "Rock Spire Isle",
+    "entranceName": "Rock Spire Isle Cave",
+    "exitName": "Rock Spire Isle Cave",
+    "entranceMacroName": "Secret Cave Entrance on Rock Spire Isle",
+    "internalName": "Rock Spire Isle Secret Cave"
+  },
+  {
+    "islandName": "Shark Island",
+    "entranceName": "Shark Island Cave",
+    "exitName": "Shark Island Cave",
+    "entranceMacroName": "Secret Cave Entrance on Shark Island",
+    "internalName": "Shark Island Secret Cave"
+  },
+  {
+    "islandName": "Cliff Plateau Isles",
+    "entranceName": "Cliff Plateau Isles Cave",
+    "exitName": "Cliff Plateau Isles Cave",
+    "entranceMacroName": "Secret Cave Entrance on Cliff Plateau Isles",
+    "internalName": "Cliff Plateau Isles Secret Cave"
+  },
+  {
+    "islandName": "Horseshoe Island",
+    "entranceName": "Horseshoe Island Cave",
+    "exitName": "Horseshoe Island Cave",
+    "entranceMacroName": "Secret Cave Entrance on Horseshoe Island",
+    "internalName": "Horseshoe Island Secret Cave"
+  },
+  {
+    "islandName": "Star Island",
+    "entranceName": "Star Island Cave",
+    "exitName": "Star Island Cave",
+    "entranceMacroName": "Secret Cave Entrance on Star Island",
+    "internalName": "Star Island Secret Cave"
+  },
+  {
+    "islandName": "Ice Ring Isle",
+    "entranceName": "Ice Ring Isle Inner Cave",
+    "exitName": "Ice Ring Isle Inner Cave",
+    "isInnerCave": true,
+    "entranceMacroName": "Inner Entrance in Ice Ring Isle Secret Cave",
+    "internalName": "Ice Ring Isle Inner Cave"
+  },
+  {
+    "islandName": "Cliff Plateau Isles",
+    "entranceName": "Cliff Plateau Isles Inner Cave",
+    "exitName": "Cliff Plateau Isles Inner Cave",
+    "isInnerCave": true,
+    "entranceMacroName": "Inner Entrance in Cliff Plateau Isles Secret Cave",
+    "internalName": "Cliff Plateau Isles Inner Cave"
+  }
 ]

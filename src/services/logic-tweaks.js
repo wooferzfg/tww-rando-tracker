@@ -118,17 +118,13 @@ class LogicTweaks {
     });
   }
 
-  static _canAccessMacroName(locationName) {
-    return `Can Access ${locationName}`;
-  }
-
   static _updateDungeonEntranceMacros() {
     if (!Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES)) {
       return;
     }
 
     _.forEach(LogicHelper.MAIN_DUNGEONS, (dungeon) => {
-      const macroName = this._canAccessMacroName(dungeon);
+      const macroName = `Can Access ${dungeon}`;
       const entryName = LogicHelper.entryName(dungeon);
       Macros.setMacro(macroName, entryName);
     });
@@ -136,7 +132,7 @@ class LogicTweaks {
 
   static _updateCaveEntranceMacros() {
     _.forEach(LogicHelper.allCaveEntrances(), (cave) => {
-      const macroName = this._canAccessMacroName(cave);
+      const macroName = `Can Access ${cave}`;
       const entryName = LogicHelper.entryName(cave);
       Macros.setMacro(macroName, entryName);
     });
