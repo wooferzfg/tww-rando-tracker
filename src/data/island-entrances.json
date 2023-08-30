@@ -154,5 +154,53 @@
     "isInnerCave": true,
     "entranceMacroName": "Inner Entrance in Cliff Plateau Isles Secret Cave",
     "internalName": "Cliff Plateau Isles Inner Cave"
+  },
+  {
+    "islandName": "Outset Island",
+    "entranceName": "Outset Fairy Fountain",
+    "exitName": "Outset Fairy Fountain",
+    "isFairyFountain": true,
+    "entranceMacroName": "Fairy Fountain Entrance on Outset Island",
+    "internalName": "Outset Fairy Fountain"
+  },
+  {
+    "islandName": "Thorned Fairy Island",
+    "entranceName": "Thorned Fairy Fountain",
+    "exitName": "Thorned Fairy Fountain",
+    "isFairyFountain": true,
+    "entranceMacroName": "Fairy Fountain Entrance on Thorned Fairy Island",
+    "internalName": "Thorned Fairy Fountain"
+  },
+  {
+    "islandName": "Eastern Fairy Island",
+    "entranceName": "Eastern Fairy Fountain",
+    "exitName": "Eastern Fairy Fountain",
+    "isFairyFountain": true,
+    "entranceMacroName": "Fairy Fountain Entrance on Eastern Fairy Island",
+    "internalName": "Eastern Fairy Fountain"
+  },
+  {
+    "islandName": "Western Fairy Island",
+    "entranceName": "Western Fairy Fountain",
+    "exitName": "Western Fairy Fountain",
+    "isFairyFountain": true,
+    "entranceMacroName": "Fairy Fountain Entrance on Western Fairy Island",
+    "internalName": "Western Fairy Fountain"
+  },
+  {
+    "islandName": "Southern Fairy Island",
+    "entranceName": "Southern Fairy Fountain",
+    "exitName": "Southern Fairy Fountain",
+    "isFairyFountain": true,
+    "entranceMacroName": "Fairy Fountain Entrance on Southern Fairy Island",
+    "internalName": "Southern Fairy Fountain"
+  },
+  {
+    "islandName": "Northern Fairy Island",
+    "entranceName": "Northern Fairy Fountain",
+    "exitName": "Northern Fairy Fountain",
+    "isFairyFountain": true,
+    "entranceMacroName": "Fairy Fountain Entrance on Northern Fairy Island",
+    "internalName": "Northern Fairy Fountain"
   }
 ]

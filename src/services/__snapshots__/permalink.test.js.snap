@@ -11,7 +11,7 @@ exports[`Permalink DEFAULT_PERMALINK returns the default options 1`] = `
   "instant_text_boxes": true,
   "keylunacy": false,
   "korl_hints": false,
-  "mix_entrances": "Keep Separate",
+  "mix_entrances": "Separate Dungeons From Caves and Fountains",
   "num_barren_hints": 0,
   "num_item_hints": 15,
   "num_location_hints": 5,
@@ -47,6 +47,7 @@ exports[`Permalink DEFAULT_PERMALINK returns the default options 1`] = `
   "randomize_dungeon_entrances": false,
   "randomize_enemies": false,
   "randomize_enemy_palettes": false,
+  "randomize_fairy_fountain_entrances": false,
   "randomize_miniboss_entrances": false,
   "randomize_secret_cave_entrances": false,
   "randomize_secret_cave_inner_entrances": false,
@@ -127,8 +128,8 @@ exports[`Permalink DEFAULT_PERMALINK returns the default options 1`] = `
 exports[`Permalink DROPDOWN_OPTIONS returns the correct dropdown options 1`] = `
 {
   "mix_entrances": [
-    "Keep Separate",
-    "Mix Together",
+    "Separate Dungeons From Caves and Fountains",
+    "Mix Dungeons and Caves and Fountains",
   ],
   "num_race_mode_dungeons": [
     1,
@@ -159,8 +160,8 @@ exports[`Permalink DROPDOWN_OPTIONS returns the correct dropdown options 1`] = `
 
 exports[`Permalink MIX_ENTRANCES_OPTIONS returns the correct options 1`] = `
 {
-  "KEEP_SEPARATE": "Keep Separate",
-  "MIX_TOGETHER": "Mix Together",
+  "MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS": "Mix Dungeons and Caves and Fountains",
+  "SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS": "Separate Dungeons From Caves and Fountains",
 }
 `;
 
@@ -213,6 +214,7 @@ exports[`Permalink OPTIONS returns the correct options 1`] = `
   "RANDOMIZE_DUNGEON_ENTRANCES": "randomize_dungeon_entrances",
   "RANDOMIZE_ENEMIES": "randomize_enemies",
   "RANDOMIZE_ENEMY_PALETTES": "randomize_enemy_palettes",
+  "RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES": "randomize_fairy_fountain_entrances",
   "RANDOMIZE_MINIBOSS_ENTRANCES": "randomize_miniboss_entrances",
   "RANDOMIZE_SECRET_CAVE_ENTRANCES": "randomize_secret_cave_entrances",
   "RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES": "randomize_secret_cave_inner_entrances",
@@ -249,7 +251,7 @@ exports[`Permalink decode decodes a permalink 1`] = `
   "instant_text_boxes": true,
   "keylunacy": false,
   "korl_hints": false,
-  "mix_entrances": "Mix Together",
+  "mix_entrances": "Separate Dungeons From Caves and Fountains",
   "num_barren_hints": 0,
   "num_item_hints": 15,
   "num_location_hints": 5,
@@ -285,6 +287,7 @@ exports[`Permalink decode decodes a permalink 1`] = `
   "randomize_dungeon_entrances": false,
   "randomize_enemies": false,
   "randomize_enemy_palettes": false,
+  "randomize_fairy_fountain_entrances": true,
   "randomize_miniboss_entrances": true,
   "randomize_secret_cave_entrances": true,
   "randomize_secret_cave_inner_entrances": true,

@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
 import BOSSES from '../data/bosses.json';
-import CAVES from '../data/caves.json';
 import CHARTS from '../data/charts.json';
 import DUNGEON_ENTRANCES from '../data/dungeon-entrances.json';
 import DUNGEONS from '../data/dungeons.json';
+import ISLAND_ENTRANCES from '../data/island-entrances.json';
 import ISLANDS from '../data/islands.json';
 import ITEMS from '../data/items.json';
 import KEYS from '../data/keys.json';
@@ -26,13 +26,13 @@ import Settings from './settings';
 class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
-      'allCaveEntrances',
+      'allIslandEntrances',
       'allRandomEntrances',
       'bossForDungeon',
       'bossLocation',
-      'cavesForIsland',
       'chartForIsland',
       'entrancesForDungeon',
+      'entrancesForIsland',
       'filterDetailedLocations',
       'islandFromChartForIsland',
       'islandForChart',
@@ -55,13 +55,13 @@ class LogicHelper {
 
   static reset() {
     Memoizer.invalidate([
-      this.allCaveEntrances,
+      this.allIslandEntrances,
       this.allRandomEntrances,
       this.bossForDungeon,
       this.bossLocation,
-      this.cavesForIsland,
       this.chartForIsland,
       this.entrancesForDungeon,
+      this.entrancesForIsland,
       this.filterDetailedLocations,
       this.islandFromChartForIsland,
       this.islandForChart,
@@ -119,7 +119,7 @@ class LogicHelper {
   };
 
   static ALL_ITEMS = _.concat(
-    _.map(CAVES, (caveData) => this.entryName(caveData.internalName)),
+    _.map(ISLAND_ENTRANCES, (entranceData) => this.entryName(entranceData.internalName)),
     CHARTS,
     _.map(ISLANDS, (island) => this.chartForIslandName(island)),
     _.map(this.MAIN_DUNGEONS, (dungeon) => this.entryName(dungeon)),
@@ -199,8 +199,8 @@ class LogicHelper {
     } else if (this.isDungeon(zoneName)) {
       exitName = this._shortDungeonName(zoneName);
     } else {
-      const caveData = this._caveDataForInternalName(zoneName);
-      exitName = caveData.exitName;
+      const entranceData = this._entranceDataForInternalName(zoneName);
+      exitName = entranceData.exitName;
     }
 
     return `Entered ${exitName}`;
@@ -223,9 +223,9 @@ class LogicHelper {
       return zoneName;
     }
 
-    const caveData = this._caveDataForInternalName(zoneName);
-    if (!_.isNil(caveData)) {
-      return caveData.entranceName;
+    const entranceData = this._entranceDataForInternalName(zoneName);
+    if (!_.isNil(entranceData)) {
+      return entranceData.entranceName;
     }
 
     // istanbul ignore next
@@ -237,34 +237,24 @@ class LogicHelper {
       return zoneName;
     }
 
-    const caveData = this._caveDataForInternalName(zoneName);
-    if (!_.isNil(caveData)) {
-      return caveData.exitName;
+    const entranceData = this._entranceDataForInternalName(zoneName);
+    if (!_.isNil(entranceData)) {
+      return entranceData.exitName;
     }
 
     // istanbul ignore next
     throw Error(`Could not get short name for exit: ${zoneName}`);
   }
 
-  static cavesForIsland(islandName) {
+  static entrancesForIsland(islandName) {
     return _.compact(
       _.map(
-        CAVES,
-        (caveData) => {
-          if (caveData.islandName !== islandName) {
-            return null;
-          }
-
-          if (caveData.isInnerCave) {
-            if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES)) {
-              return caveData.internalName;
-            }
-          } else if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES)) {
-            return caveData.internalName;
-          }
-
-          return null;
-        },
+        this._filterIslandEntrances(),
+        (entranceData) => (
+          entranceData.islandName === islandName
+            ? entranceData.internalName
+            : null
+        ),
       ),
     );
   }
@@ -310,38 +300,35 @@ class LogicHelper {
       || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
       || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES)
       || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES)
+      || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES)
     );
   }
 
   static allRandomEntrances() {
     return _.concat(
       this._allDungeonEntrances(),
-      this.allCaveEntrances(),
+      this.allIslandEntrances(),
     );
   }
 
-  static allCaveEntrances() {
-    const filteredCaves = _.filter(CAVES, (caveData) => {
-      if (caveData.isInnerCave) {
-        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES);
-      }
-      return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES);
-    });
-
-    return _.map(filteredCaves, (caveData) => caveData.internalName);
+  static allIslandEntrances() {
+    return _.map(
+      this._filterIslandEntrances(),
+      (entranceData) => entranceData.internalName,
+    );
   }
 
   static randomEntrancesForExit(zoneName) {
     let possibleEntrances;
     if (
       Settings.getOptionValue(Permalink.OPTIONS.MIX_ENTRANCES)
-      === Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER
+      === Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
     ) {
       possibleEntrances = this.allRandomEntrances();
     } else if (this._isBoss(zoneName) || this._isMiniboss(zoneName) || this.isDungeon(zoneName)) {
       possibleEntrances = this._allDungeonEntrances();
     } else {
-      possibleEntrances = this.allCaveEntrances();
+      possibleEntrances = this.allIslandEntrances();
     }
 
     return _.difference(
@@ -668,9 +655,9 @@ class LogicHelper {
       return `Can Access Dungeon Entrance ${dungeonEntranceName}`;
     }
 
-    const caveData = this._caveDataForInternalName(zoneName);
-    if (!_.isNil(caveData)) {
-      return `Can Access ${caveData.entranceMacroName}`;
+    const entranceData = this._entranceDataForInternalName(zoneName);
+    if (!_.isNil(entranceData)) {
+      return `Can Access ${entranceData.entranceMacroName}`;
     }
 
     // istanbul ignore next
@@ -922,10 +909,22 @@ class LogicHelper {
     return _.concat(dungeonEntrances, minibossEntrances, bossEntrances);
   }
 
-  static _caveDataForInternalName(caveName) {
+  static _filterIslandEntrances() {
+    return _.filter(ISLAND_ENTRANCES, (entranceData) => {
+      if (entranceData.isInnerCave) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES);
+      }
+      if (entranceData.isFairyFountain) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES);
+      }
+      return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES);
+    });
+  }
+
+  static _entranceDataForInternalName(entranceName) {
     return _.find(
-      CAVES,
-      (caveData) => caveData.internalName === caveName,
+      ISLAND_ENTRANCES,
+      (entranceData) => entranceData.internalName === entranceName,
     );
   }
 }

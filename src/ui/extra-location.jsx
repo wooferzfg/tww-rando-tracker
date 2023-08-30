@@ -46,8 +46,6 @@ class ExtraLocation extends React.PureComponent {
     const compassName = LogicHelper.compassName(locationName);
     const compassCount = trackerState.getItemValue(compassName);
 
-    const compassImages = _.get(Images.IMAGES, 'COMPASSES');
-
     let locations = [];
     if (trackSpheres) {
       locations = trackerState.getLocationsForItem(compassName);
@@ -58,7 +56,7 @@ class ExtraLocation extends React.PureComponent {
         <Item
           clearSelectedItem={clearSelectedItem}
           decrementItem={decrementItem}
-          images={compassImages}
+          images={Images.IMAGES.COMPASSES}
           incrementItem={incrementItem}
           itemCount={compassCount}
           itemName={compassName}
@@ -85,8 +83,6 @@ class ExtraLocation extends React.PureComponent {
     const dungeonMapName = LogicHelper.dungeonMapName(locationName);
     const dungeonMapCount = trackerState.getItemValue(dungeonMapName);
 
-    const dungeonMapImages = _.get(Images.IMAGES, 'DUNGEON_MAPS');
-
     let locations = [];
     if (trackSpheres) {
       locations = trackerState.getLocationsForItem(dungeonMapName);
@@ -97,7 +93,7 @@ class ExtraLocation extends React.PureComponent {
         <Item
           clearSelectedItem={clearSelectedItem}
           decrementItem={decrementItem}
-          images={dungeonMapImages}
+          images={Images.IMAGES.DUNGEON_MAPS}
           incrementItem={incrementItem}
           itemCount={dungeonMapCount}
           itemName={dungeonMapName}
@@ -124,8 +120,6 @@ class ExtraLocation extends React.PureComponent {
     const smallKeyName = LogicHelper.smallKeyName(locationName);
     const smallKeyCount = trackerState.getItemValue(smallKeyName);
 
-    const smallKeyImages = _.get(Images.IMAGES, 'SMALL_KEYS');
-
     let locations = [];
     if (trackSpheres) {
       locations = trackerState.getLocationsForItem(smallKeyName);
@@ -136,7 +130,7 @@ class ExtraLocation extends React.PureComponent {
         <Item
           clearSelectedItem={clearSelectedItem}
           decrementItem={decrementItem}
-          images={smallKeyImages}
+          images={Images.IMAGES.SMALL_KEYS}
           incrementItem={incrementItem}
           itemCount={smallKeyCount}
           itemName={smallKeyName}
@@ -163,8 +157,6 @@ class ExtraLocation extends React.PureComponent {
     const bigKeyName = LogicHelper.bigKeyName(locationName);
     const bigKeyCount = trackerState.getItemValue(bigKeyName);
 
-    const bigKeyImages = _.get(Images.IMAGES, 'BIG_KEYS');
-
     let locations = [];
     if (trackSpheres) {
       locations = trackerState.getLocationsForItem(bigKeyName);
@@ -175,7 +167,7 @@ class ExtraLocation extends React.PureComponent {
         <Item
           clearSelectedItem={clearSelectedItem}
           decrementItem={decrementItem}
-          images={bigKeyImages}
+          images={Images.IMAGES.BIG_KEYS}
           incrementItem={incrementItem}
           itemCount={bigKeyCount}
           itemName={bigKeyName}
@@ -199,8 +191,6 @@ class ExtraLocation extends React.PureComponent {
     const entryName = LogicHelper.entryName(zoneName);
     const entryCount = trackerState.getItemValue(entryName);
 
-    const entranceImages = _.get(Images.IMAGES, 'DUNGEON_ENTRANCE');
-
     const setSelectedItemFunc = () => setSelectedExit(zoneName);
 
     const incrementItemFunc = () => {
@@ -215,7 +205,7 @@ class ExtraLocation extends React.PureComponent {
       <div className="dungeon-item dungeon-entry">
         <Item
           clearSelectedItem={clearSelectedItem}
-          images={entranceImages}
+          images={Images.IMAGES.DUNGEON_ENTRANCE}
           incrementItem={incrementItemFunc}
           itemCount={entryCount}
           itemName={entryName}

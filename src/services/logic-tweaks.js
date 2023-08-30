@@ -131,7 +131,7 @@ class LogicTweaks {
   }
 
   static _updateCaveEntranceMacros() {
-    _.forEach(LogicHelper.allCaveEntrances(), (cave) => {
+    _.forEach(LogicHelper.allIslandEntrances(), (cave) => {
       const macroName = `Can Access ${cave}`;
       const entryName = LogicHelper.entryName(cave);
       Macros.setMacro(macroName, entryName);

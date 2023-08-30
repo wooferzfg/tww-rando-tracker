@@ -24,6 +24,12 @@ exports[`LogicHelper ALL_ITEMS returns a list of all the items, including entran
   "Entered Star Island Cave",
   "Entered Ice Ring Isle Inner Cave",
   "Entered Cliff Plateau Isles Inner Cave",
+  "Entered Outset Fairy Fountain",
+  "Entered Thorned Fairy Fountain",
+  "Entered Eastern Fairy Fountain",
+  "Entered Western Fairy Fountain",
+  "Entered Southern Fairy Fountain",
+  "Entered Northern Fairy Fountain",
   "Treasure Chart 25",
   "Treasure Chart 7",
   "Treasure Chart 24",
@@ -446,14 +452,25 @@ exports[`LogicHelper RANDOM_MINIBOSS_DUNGEONS returns all dungeons with a random
 ]
 `;
 
-exports[`LogicHelper allCaveEntrances when only inner entrances are randomized returns only the inner caves 1`] = `
+exports[`LogicHelper allIslandEntrances when only fairy fountains are randomized returns only the fairy fountains 1`] = `
+[
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
+]
+`;
+
+exports[`LogicHelper allIslandEntrances when only inner entrances are randomized returns only the inner caves 1`] = `
 [
   "Ice Ring Isle Inner Cave",
   "Cliff Plateau Isles Inner Cave",
 ]
 `;
 
-exports[`LogicHelper allCaveEntrances when only normal cave entrances are randomized returns all the caves without inner caves 1`] = `
+exports[`LogicHelper allIslandEntrances when only normal cave entrances are randomized returns all the caves without inner caves 1`] = `
 [
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
@@ -478,7 +495,7 @@ exports[`LogicHelper allCaveEntrances when only normal cave entrances are random
 ]
 `;
 
-exports[`LogicHelper allCaveEntrances when there are nested cave entrances returns all the caves and inner caves 1`] = `
+exports[`LogicHelper allIslandEntrances when there are nested cave entrances and fairy fountains returns all the caves, inner caves, and fairy fountains 1`] = `
 [
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
@@ -502,6 +519,12 @@ exports[`LogicHelper allCaveEntrances when there are nested cave entrances retur
   "Star Island Secret Cave",
   "Ice Ring Isle Inner Cave",
   "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
 ]
 `;
 
@@ -644,7 +667,7 @@ exports[`LogicHelper allRandomEntrances when there are nested cave entrances ret
 ]
 `;
 
-exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances and caves separately returns all the dungeons, bosses, minibosses, and caves 1`] = `
+exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances and caves separately returns all the dungeons, bosses, minibosses, caves, and fairies 1`] = `
 [
   "Dragon Roost Cavern",
   "Forbidden Woods",
@@ -683,10 +706,16 @@ exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances 
   "Star Island Secret Cave",
   "Ice Ring Isle Inner Cave",
   "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
 ]
 `;
 
-exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances and caves together returns all the dungeons, bosses, minibosses, and caves 1`] = `
+exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances and caves together returns all the dungeons, bosses, minibosses, caves, and fairies 1`] = `
 [
   "Dragon Roost Cavern",
   "Forbidden Woods",
@@ -725,6 +754,12 @@ exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances 
   "Star Island Secret Cave",
   "Ice Ring Isle Inner Cave",
   "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
 ]
 `;
 
@@ -1510,7 +1545,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
 ]
 `;
 
-exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves separately when the exit is a cave returns all the caves 1`] = `
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves separately when the exit is a cave returns all the caves and fairies 1`] = `
 [
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
@@ -1534,10 +1569,16 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Star Island Secret Cave",
   "Ice Ring Isle Inner Cave",
   "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
 ]
 `;
 
-exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves separately when the exit is a cave with an inner cave returns all the caves except its own inner cave 1`] = `
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves separately when the exit is a cave with an inner cave returns all the caves and fairies except its own inner cave 1`] = `
 [
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
@@ -1560,6 +1601,12 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Horseshoe Island Secret Cave",
   "Star Island Secret Cave",
   "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
 ]
 `;
 
@@ -1578,6 +1625,39 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King",
   "Jalhalla",
   "Molgera",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves separately when the exit is a fairy fountain returns all the caves and fairies 1`] = `
+[
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+  "Ice Ring Isle Inner Cave",
+  "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
 ]
 `;
 
@@ -1601,7 +1681,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
 ]
 `;
 
-exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves separately when the exit is an inner cave returns all the caves 1`] = `
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves separately when the exit is an inner cave returns all the caves and fairies 1`] = `
 [
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
@@ -1625,10 +1705,16 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Star Island Secret Cave",
   "Ice Ring Isle Inner Cave",
   "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
 ]
 `;
 
-exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a boss returns all the dungeons, caves, bosses, and minibosses 1`] = `
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a boss returns all the dungeons, caves, fairies, bosses, and minibosses 1`] = `
 [
   "Dragon Roost Cavern",
   "Forbidden Woods",
@@ -1667,10 +1753,16 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Star Island Secret Cave",
   "Ice Ring Isle Inner Cave",
   "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
 ]
 `;
 
-exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a cave returns all the dungeons, caves, bosses, and minibosses 1`] = `
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a cave returns all the dungeons, caves, fairies, bosses, and minibosses 1`] = `
 [
   "Dragon Roost Cavern",
   "Forbidden Woods",
@@ -1709,10 +1801,16 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Star Island Secret Cave",
   "Ice Ring Isle Inner Cave",
   "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
 ]
 `;
 
-exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a cave with an inner cave returns all the dungeons, bosses, minibosses, and caves except its own inner cave 1`] = `
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a cave with an inner cave returns all the dungeons, bosses, minibosses, fairies, and caves except its own inner cave 1`] = `
 [
   "Dragon Roost Cavern",
   "Forbidden Woods",
@@ -1750,10 +1848,16 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Horseshoe Island Secret Cave",
   "Star Island Secret Cave",
   "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
 ]
 `;
 
-exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a dungeon returns all the dungeons, caves, bosses, and minibosses except its own boss door and miniboss 1`] = `
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a dungeon returns all the dungeons, caves, fairies, bosses, and minibosses except its own boss door and miniboss 1`] = `
 [
   "Dragon Roost Cavern",
   "Forbidden Woods",
@@ -1790,52 +1894,16 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Star Island Secret Cave",
   "Ice Ring Isle Inner Cave",
   "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
 ]
 `;
 
-exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a miniboss returns all the dungeons, caves, bosses, and minibosses 1`] = `
-[
-  "Dragon Roost Cavern",
-  "Forbidden Woods",
-  "Tower of the Gods",
-  "Earth Temple",
-  "Wind Temple",
-  "FW Miniboss",
-  "TotG Miniboss",
-  "ET Miniboss",
-  "WT Miniboss",
-  "Gohma",
-  "Kalle Demos",
-  "Gohdan",
-  "Helmaroc King",
-  "Jalhalla",
-  "Molgera",
-  "Savage Labyrinth",
-  "Dragon Roost Island Secret Cave",
-  "Fire Mountain Secret Cave",
-  "Ice Ring Isle Secret Cave",
-  "Cabana Labyrinth",
-  "Needle Rock Isle Secret Cave",
-  "Angular Isles Secret Cave",
-  "Boating Course Secret Cave",
-  "Stone Watcher Island Secret Cave",
-  "Overlook Island Secret Cave",
-  "Bird's Peak Rock Secret Cave",
-  "Pawprint Isle Chuchu Cave",
-  "Pawprint Isle Wizzrobe Cave",
-  "Diamond Steppe Island Warp Maze Cave",
-  "Bomb Island Secret Cave",
-  "Rock Spire Isle Secret Cave",
-  "Shark Island Secret Cave",
-  "Cliff Plateau Isles Secret Cave",
-  "Horseshoe Island Secret Cave",
-  "Star Island Secret Cave",
-  "Ice Ring Isle Inner Cave",
-  "Cliff Plateau Isles Inner Cave",
-]
-`;
-
-exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is an inner cave returns all the dungeons, caves, bosses, and minibosses 1`] = `
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a fairy fountain returns all the dungeons, caves, fairies, bosses, and minibosses 1`] = `
 [
   "Dragon Roost Cavern",
   "Forbidden Woods",
@@ -1874,6 +1942,108 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Star Island Secret Cave",
   "Ice Ring Isle Inner Cave",
   "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is a miniboss returns all the dungeons, caves, fairies, bosses, and minibosses 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "FW Miniboss",
+  "TotG Miniboss",
+  "ET Miniboss",
+  "WT Miniboss",
+  "Gohma",
+  "Kalle Demos",
+  "Gohdan",
+  "Helmaroc King",
+  "Jalhalla",
+  "Molgera",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+  "Ice Ring Isle Inner Cave",
+  "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
+]
+`;
+
+exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entrances with caves together when the exit is an inner cave returns all the dungeons, caves, fairies, bosses, and minibosses 1`] = `
+[
+  "Dragon Roost Cavern",
+  "Forbidden Woods",
+  "Tower of the Gods",
+  "Earth Temple",
+  "Wind Temple",
+  "FW Miniboss",
+  "TotG Miniboss",
+  "ET Miniboss",
+  "WT Miniboss",
+  "Gohma",
+  "Kalle Demos",
+  "Gohdan",
+  "Helmaroc King",
+  "Jalhalla",
+  "Molgera",
+  "Savage Labyrinth",
+  "Dragon Roost Island Secret Cave",
+  "Fire Mountain Secret Cave",
+  "Ice Ring Isle Secret Cave",
+  "Cabana Labyrinth",
+  "Needle Rock Isle Secret Cave",
+  "Angular Isles Secret Cave",
+  "Boating Course Secret Cave",
+  "Stone Watcher Island Secret Cave",
+  "Overlook Island Secret Cave",
+  "Bird's Peak Rock Secret Cave",
+  "Pawprint Isle Chuchu Cave",
+  "Pawprint Isle Wizzrobe Cave",
+  "Diamond Steppe Island Warp Maze Cave",
+  "Bomb Island Secret Cave",
+  "Rock Spire Isle Secret Cave",
+  "Shark Island Secret Cave",
+  "Cliff Plateau Isles Secret Cave",
+  "Horseshoe Island Secret Cave",
+  "Star Island Secret Cave",
+  "Ice Ring Isle Inner Cave",
+  "Cliff Plateau Isles Inner Cave",
+  "Outset Fairy Fountain",
+  "Thorned Fairy Fountain",
+  "Eastern Fairy Fountain",
+  "Western Fairy Fountain",
+  "Southern Fairy Fountain",
+  "Northern Fairy Fountain",
 ]
 `;
 
@@ -1942,6 +2112,31 @@ BooleanExpression {
     "Skull Hammer",
     "ET Small Key x3",
     "ET Big Key",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForEntrance returns simplified requirements for Outset Fairy Fountain 1`] = `
+BooleanExpression {
+  "items": [
+    BooleanExpression {
+      "items": [
+        "Progressive Sword x1",
+        "Boomerang",
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+    "Deku Leaf",
+    "Progressive Magic Meter x1",
+    BooleanExpression {
+      "items": [
+        "Bombs",
+        "Power Bracelets",
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }

@@ -32,6 +32,7 @@
   "randomize_miniboss_entrances",
   "randomize_boss_entrances",
   "randomize_secret_cave_inner_entrances",
+  "randomize_fairy_fountain_entrances",
   "randomize_charts",
   "randomize_starting_island",
   "chest_type_matches_contents",

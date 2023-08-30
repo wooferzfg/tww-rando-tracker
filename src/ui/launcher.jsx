@@ -224,19 +224,11 @@ export default class Launcher extends React.PureComponent {
     return (
       <OptionsTable
         title="Entrance Randomizer Options"
-        numColumns={3}
+        numColumns={2}
         options={[
           this.toggleInput({
             labelText: 'Dungeons',
             optionName: Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES,
-          }),
-          this.toggleInput({
-            labelText: 'Secret Caves',
-            optionName: Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES,
-          }),
-          this.dropdownInput({
-            labelText: 'Mix Entrances',
-            optionName: Permalink.OPTIONS.MIX_ENTRANCES,
           }),
           this.toggleInput({
             labelText: 'Nested Bosses',
@@ -247,8 +239,20 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES,
           }),
           this.toggleInput({
+            labelText: 'Secret Caves',
+            optionName: Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES,
+          }),
+          this.toggleInput({
             labelText: 'Inner Secret Caves',
             optionName: Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES,
+          }),
+          this.toggleInput({
+            labelText: 'Fairy Fountains',
+            optionName: Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES,
+          }),
+          this.dropdownInput({
+            labelText: 'Mixing',
+            optionName: Permalink.OPTIONS.MIX_ENTRANCES,
           }),
         ]}
       />

@@ -24,11 +24,14 @@ describe('Spheres', () => {
           [Permalink.OPTIONS.RACE_MODE]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
           [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
-          [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_SEPARATE,
+          [Permalink.OPTIONS.MIX_ENTRANCES]: (
+            Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+          ),
           [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
           [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
           [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
           [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
         },
@@ -256,11 +259,14 @@ describe('Spheres', () => {
         fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
-            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
             [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
             [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
             [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
 
@@ -293,11 +299,14 @@ describe('Spheres', () => {
         fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
-            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
             [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
             [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
             [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
 
@@ -347,11 +356,14 @@ describe('Spheres', () => {
         fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
-            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
             [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
           },
         });
 
@@ -432,11 +444,14 @@ describe('Spheres', () => {
         fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
-            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
             [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
           },
         });
 
@@ -497,11 +512,14 @@ describe('Spheres', () => {
         fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
-            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
             [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
           },
         });
 
@@ -509,7 +527,7 @@ describe('Spheres', () => {
         updateForItemAndLocation('Bombs', 'Windfall Island', 'Mila - Follow the Thief');
         updateForItemAndLocation('Boomerang', 'Windfall Island', 'Tott - Teach Rhythm');
 
-        trackerState = trackerState.setEntranceForExit('Forbidden Woods', 'Bomb Island Secret Cave');
+        trackerState = trackerState.setEntranceForExit('Forbidden Woods', 'Eastern Fairy Fountain');
 
         updateForItemAndLocation('FW Big Key', 'Forbidden Woods', 'Double Mothula Room');
 
@@ -566,11 +584,14 @@ describe('Spheres', () => {
         fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
-            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.MIX_TOGETHER,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
             [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
             [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
           },
         });
 
@@ -579,7 +600,7 @@ describe('Spheres', () => {
         updateForItemAndLocation('Bombs', 'Windfall Island', 'Mila - Follow the Thief');
         updateForItemAndLocation('Boomerang', 'Windfall Island', 'Tott - Teach Rhythm');
 
-        trackerState = trackerState.setEntranceForExit('Cliff Plateau Isles Secret Cave', 'Bomb Island Secret Cave');
+        trackerState = trackerState.setEntranceForExit('Cliff Plateau Isles Secret Cave', 'Southern Fairy Fountain');
 
         updateForItemAndLocation('Iron Boots', 'Cliff Plateau Isles', 'Cave');
 

@@ -43,7 +43,7 @@ export default class Images {
         0: import('../images/bosskey.png'),
         1: import('../images/bosskey_a.png'),
       },
-      CAVE_ENTRANCE: {
+      ISLAND_ENTRANCE: {
         0: import('../images/cave_noentry.png'),
         1: import('../images/cave_entered.png'),
       },

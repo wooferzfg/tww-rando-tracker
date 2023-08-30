@@ -142,16 +142,16 @@ class Sector extends React.PureComponent {
       trackerState,
     } = this.props;
 
-    const cavesForIsland = LogicHelper.cavesForIsland(island);
+    const entrancesForIsland = LogicHelper.entrancesForIsland(island);
 
-    return _.map(cavesForIsland, (caveName) => {
-      const entryName = LogicHelper.entryName(caveName);
+    return _.map(entrancesForIsland, (entranceName) => {
+      const entryName = LogicHelper.entryName(entranceName);
       const entryCount = trackerState.getItemValue(entryName);
 
       return {
         entryCount,
         entryName,
-        locationName: caveName,
+        locationName: entranceName,
       };
     });
   }
@@ -174,8 +174,6 @@ class Sector extends React.PureComponent {
         locationName,
       } = entrance;
 
-      const entranceImages = _.get(Images.IMAGES, 'CAVE_ENTRANCE');
-
       const setSelectedItemFunc = () => setSelectedExit(locationName);
 
       const incrementItemFunc = () => {
@@ -193,7 +191,7 @@ class Sector extends React.PureComponent {
         <div className="cave-entry" key={entryName}>
           <Item
             clearSelectedItem={clearSelectedItem}
-            images={entranceImages}
+            images={Images.IMAGES.ISLAND_ENTRANCE}
             incrementItem={incrementItemFunc}
             itemCount={entryCount}
             itemName={entryName}
