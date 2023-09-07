@@ -2260,6 +2260,31 @@ BooleanExpression {
 }
 `;
 
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Outset Island - Great Fairy 1`] = `
+BooleanExpression {
+  "items": [
+    BooleanExpression {
+      "items": [
+        "Progressive Sword x1",
+        "Boomerang",
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+    "Deku Leaf",
+    "Progressive Magic Meter x1",
+    BooleanExpression {
+      "items": [
+        "Bombs",
+        "Power Bracelets",
+      ],
+      "type": "or",
+    },
+  ],
+  "type": "and",
+}
+`;
+
 exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30 1`] = `
 BooleanExpression {
   "items": [
@@ -2430,6 +2455,23 @@ BooleanExpression {
         },
         "Skull Hammer",
         "Bombs",
+      ],
+      "type": "or",
+    },
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForLocation when using very hard logic returns simplified requirements for Outset Island - Great Fairy 1`] = `
+BooleanExpression {
+  "items": [
+    "Deku Leaf",
+    "Progressive Magic Meter x1",
+    BooleanExpression {
+      "items": [
+        "Bombs",
+        "Power Bracelets",
       ],
       "type": "or",
     },

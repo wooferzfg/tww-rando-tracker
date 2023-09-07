@@ -11,6 +11,8 @@ exports[`Permalink DEFAULT_PERMALINK returns the default options 1`] = `
   "instant_text_boxes": true,
   "keylunacy": false,
   "korl_hints": false,
+  "logic_obscurity": "None",
+  "logic_precision": "None",
   "mix_entrances": "Separate Dungeons From Caves and Fountains",
   "num_barren_hints": 0,
   "num_item_hints": 15,
@@ -128,6 +130,18 @@ exports[`Permalink DEFAULT_PERMALINK returns the default options 1`] = `
 
 exports[`Permalink DROPDOWN_OPTIONS returns the correct dropdown options 1`] = `
 {
+  "logic_obscurity": [
+    "None",
+    "Normal",
+    "Hard",
+    "Very Hard",
+  ],
+  "logic_precision": [
+    "None",
+    "Normal",
+    "Hard",
+    "Very Hard",
+  ],
   "mix_entrances": [
     "Separate Dungeons From Caves and Fountains",
     "Mix Dungeons and Caves and Fountains",
@@ -179,6 +193,8 @@ exports[`Permalink OPTIONS returns the correct options 1`] = `
   "INVERT_SEA_COMPASS_X_AXIS": "invert_sea_compass_x_axis",
   "KEYLUNACY": "keylunacy",
   "KORL_HINTS": "korl_hints",
+  "LOGIC_OBSCURITY": "logic_obscurity",
+  "LOGIC_PRECISION": "logic_precision",
   "MIX_ENTRANCES": "mix_entrances",
   "NUM_BARREN_HINTS": "num_barren_hints",
   "NUM_ITEM_HINTS": "num_item_hints",
@@ -253,6 +269,8 @@ exports[`Permalink decode decodes a permalink 1`] = `
   "instant_text_boxes": true,
   "keylunacy": false,
   "korl_hints": false,
+  "logic_obscurity": "None",
+  "logic_precision": "None",
   "mix_entrances": "Separate Dungeons From Caves and Fountains",
   "num_barren_hints": 0,
   "num_item_hints": 15,

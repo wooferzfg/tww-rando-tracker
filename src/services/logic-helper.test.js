@@ -2722,6 +2722,8 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
             [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
+            [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+            [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
           },
           startingGear: {},
         });
@@ -2775,6 +2777,12 @@ describe('LogicHelper', () => {
 
         expect(requirements).toMatchSnapshot();
       });
+
+      test('returns simplified requirements for Outset Island - Great Fairy', () => {
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Great Fairy');
+
+        expect(requirements).toMatchSnapshot();
+      });
     });
 
     describe('when swordless', () => {
@@ -2796,6 +2804,8 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
             [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,
+            [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+            [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
           },
           startingGear: {},
         });
@@ -2834,6 +2844,8 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
             [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
+            [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+            [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -2850,6 +2862,48 @@ describe('LogicHelper', () => {
 
       test('returns simplified requirements for Cliff Plateau Isles - Cave', () => {
         const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave');
+
+        expect(requirements).toMatchSnapshot();
+      });
+    });
+
+    describe('when using very hard logic', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.KEYLUNACY]: false,
+            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+            [Permalink.OPTIONS.RACE_MODE]: false,
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+            [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
+            [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.VERY_HARD,
+            [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.VERY_HARD,
+          },
+          startingGear: {
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+          },
+        });
+
+        Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+        Macros.initialize(_.cloneDeep(TEST_MACROS));
+
+        LogicTweaks.applyTweaks();
+
+        LogicHelper.initialize();
+      });
+
+      test('returns simplified requirements for Outset Island - Great Fairy', () => {
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Great Fairy');
 
         expect(requirements).toMatchSnapshot();
       });
@@ -2875,6 +2929,8 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
+          [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+          [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
         },
         startingGear: {},
       });
@@ -3303,6 +3359,8 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
+          [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+          [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
         },
         startingGear: {},
       });

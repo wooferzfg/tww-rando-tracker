@@ -488,7 +488,7 @@
     ]
   },
   "Dragon Roost Cavern - Chest Across Lava Pit": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x2 & (Grappling Hook | Can Fly With Deku Leaf Indoors)",
+    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x2 & ( Grappling Hook | Can Fly With Deku Leaf Indoors | (Hookshot & Obscure 1) )",
     "Original item": "Treasure Chart 11",
     "Types": "Dungeon",
     "Paths": [
@@ -569,7 +569,7 @@
     ]
   },
   "Dragon Roost Cavern - Tingle Statue Chest": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x1 & (DRC Small Key x4 & Can Cut Down Hanging DRC Platform) & Grappling Hook & Tingle Bombs",
+    "Need": "Can Reach Dragon Roost Cavern Gaping Maw & Grappling Hook & Tingle Bombs",
     "Original item": "Dragon Tingle Statue",
     "Types": "Tingle Chest, Dungeon",
     "Paths": [
@@ -577,7 +577,7 @@
     ]
   },
   "Dragon Roost Cavern - Big Key Chest": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x1 & (DRC Small Key x4 & Can Cut Down Hanging DRC Platform) & Grappling Hook & Can Stun Magtails",
+    "Need": "Can Reach Dragon Roost Cavern Gaping Maw & Grappling Hook & Can Stun Magtails",
     "Original item": "Big Key",
     "Types": "Dungeon",
     "Paths": [
@@ -618,7 +618,7 @@
     ]
   },
   "Forest Haven - On Tree Branch": {
-    "Need": "Can Access Forest Haven & Grappling Hook",
+    "Need": "Can Access Forest Haven & ( Grappling Hook | ( Can Fly With Deku Leaf Indoors & Can Fly With Deku Leaf Outdoors & Obscure 1 & ( (Can Cut Grass & Precise 1) | (Magic Meter Upgrade & Precise 2) ) ) )",
     "Original item": "Deku Leaf",
     "Types": "Island Puzzle",
     "Paths": [
@@ -628,7 +628,7 @@
     ]
   },
   "Forest Haven - Small Island Chest": {
-    "Need": "Can Access Forest Haven & Grappling Hook & Can Fly With Deku Leaf Outdoors",
+    "Need": "Can Access Forest Haven & ( Grappling Hook | ( Can Fly With Deku Leaf Indoors & Can Fly With Deku Leaf Outdoors & Obscure 1 & ( (Can Cut Grass & Precise 1) | (Magic Meter Upgrade & Precise 2) ) ) ) & Can Fly With Deku Leaf Outdoors & (Can Cut Grass | Magic Meter Upgrade)",
     "Original item": "Treasure Chart 3",
     "Types": "Island Puzzle",
     "Paths": [
@@ -708,7 +708,7 @@
     ]
   },
   "Forbidden Woods - Tall Room Before Miniboss": {
-    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Peahats",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & ( Can Defeat Peahats | Precise 2 )",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -724,7 +724,7 @@
     ]
   },
   "Forbidden Woods - Past Seeds Hanging by Vines": {
-    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Door Flowers & Can Destroy Seeds Hanging by Vines",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Door Flowers & ( Can Destroy Seeds Hanging by Vines | Precise 1 )",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -877,7 +877,7 @@
     ]
   },
   "Tower of the Gods - Floating Platforms Room": {
-    "Need": "Can Reach Tower of the Gods Second Floor & Hero's Bow",
+    "Need": "Can Reach Tower of the Gods Second Floor & ( Hero's Bow | (Can Fly With Deku Leaf Indoors & Precise 1) | (Hookshot & Obscure 1) )",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
@@ -935,7 +935,7 @@
     ]
   },
   "Forsaken Fortress - Chest Outside Upper Jail Cell": {
-    "Need": "Can Get Inside Forsaken Fortress & (Can Fly With Deku Leaf Indoors | Hookshot)",
+    "Need": "Can Get Inside Forsaken Fortress & ( Can Fly With Deku Leaf Indoors | Hookshot | Obscure 1 )",
     "Original item": "Dungeon Map",
     "Types": "Dungeon",
     "Paths": [
@@ -1598,7 +1598,7 @@
     ]
   },
   "Boating Course - Cave": {
-    "Need": "Can Access Boating Course Secret Cave & Can Hit Diamond Switches at Range & Can Defeat Miniblins Easily",
+    "Need": "Can Access Boating Course Secret Cave & Can Hit Diamond Switches at Range & ( Can Defeat Miniblins Easily | Precise 2 )",
     "Original item": "Submarine Chart",
     "Types": "Puzzle Secret Cave, Combat Secret Cave",
     "Paths": [
@@ -1948,7 +1948,7 @@
     ]
   },
   "Cliff Plateau Isles - Cave": {
-    "Need": "Can Access Cliff Plateau Isles Secret Cave & Can Defeat Boko Babas",
+    "Need": "Can Access Cliff Plateau Isles Secret Cave & ( Can Defeat Boko Babas | (Grappling Hook & Obscure 1 & Precise 1) )",
     "Original item": "Joy Pendant",
     "Types": "Puzzle Secret Cave",
     "Paths": [
@@ -2267,7 +2267,7 @@
     ]
   },
   "Seven-Star Isles - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 6 & Bombs",
+    "Need": "Grappling Hook & Chart for Island 6 & ( Bombs | Precise 1 )",
     "Original item": "Triforce Shard 7",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2289,7 +2289,7 @@
     ]
   },
   "Four-Eye Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 8 & Bombs",
+    "Need": "Grappling Hook & Chart for Island 8 & ( Bombs | Precise 1 )",
     "Original item": "Great Fairy Chart",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2443,7 +2443,7 @@
     ]
   },
   "Three-Eye Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 22 & Bombs",
+    "Need": "Grappling Hook & Chart for Island 22 & ( Bombs | Precise 1 )",
     "Original item": "Piece of Heart",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2465,7 +2465,7 @@
     ]
   },
   "Cyclops Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 24 & Bombs",
+    "Need": "Grappling Hook & Chart for Island 24 & ( Bombs | Precise 1 )",
     "Original item": "Light Ring Chart",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2476,7 +2476,7 @@
     ]
   },
   "Six-Eye Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 25 & Bombs",
+    "Need": "Grappling Hook & Chart for Island 25 & ( Bombs | Precise 1 )",
     "Original item": "Silver Rupee",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2553,7 +2553,7 @@
     ]
   },
   "Southern Triangle Island - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 32 & Can Defeat Seahats",
+    "Need": "Grappling Hook & Chart for Island 32 & ( Can Defeat Seahats | Precise 1 )",
     "Original item": "Triforce Shard 6",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2707,7 +2707,7 @@
     ]
   },
   "Two-Eye Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 46 & Bombs",
+    "Need": "Grappling Hook & Chart for Island 46 & ( Bombs | Precise 1 )",
     "Original item": "Triforce Shard 8",
     "Types": "Sunken Treasure",
     "Paths": [

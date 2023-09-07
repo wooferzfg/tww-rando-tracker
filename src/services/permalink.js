@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+import LOGIC_DIFFICULTY_OPTIONS from '../data/logic-difficulty-options.json';
 import MIX_ENTRANCES_OPTIONS from '../data/mix-entrances-options.json';
 import OPTIONS from '../data/options.json';
 import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items.json';
@@ -10,6 +11,8 @@ import BinaryString from './binary-string';
 import Constants from './constants';
 
 class Permalink {
+  static LOGIC_DIFFICULTY_OPTIONS = Constants.createFromArray(LOGIC_DIFFICULTY_OPTIONS);
+
   static OPTIONS = Constants.createFromArray(OPTIONS);
 
   static MIX_ENTRANCES_OPTIONS = Constants.createFromArray(MIX_ENTRANCES_OPTIONS);
@@ -17,13 +20,15 @@ class Permalink {
   static SWORD_MODE_OPTIONS = Constants.createFromArray(SWORD_MODE_OPTIONS);
 
   static DROPDOWN_OPTIONS = {
+    [this.OPTIONS.LOGIC_OBSCURITY]: LOGIC_DIFFICULTY_OPTIONS,
+    [this.OPTIONS.LOGIC_PRECISION]: LOGIC_DIFFICULTY_OPTIONS,
     [this.OPTIONS.MIX_ENTRANCES]: MIX_ENTRANCES_OPTIONS,
     [this.OPTIONS.NUM_RACE_MODE_DUNGEONS]: _.range(1, 7),
     [this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: _.range(0, 9),
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'MS4xMS4wAEEABwEDAAAGUN8BAGiAAAAAAEAAIAgAAA==';
+  static DEFAULT_PERMALINK = 'MS4xMS4wAEEABwEDAAAGUN8BAGiAAAAAAEAAIAgAAAAA';
 
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);
@@ -108,6 +113,8 @@ class Permalink {
     this._spinBoxConfig(this.OPTIONS.STARTING_HCS, 0, 6),
     this._booleanConfig(this.OPTIONS.REMOVE_MUSIC),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES),
+    this._dropdownConfig(this.OPTIONS.LOGIC_OBSCURITY),
+    this._dropdownConfig(this.OPTIONS.LOGIC_PRECISION),
   ];
 
   static _stringConfig(optionName) {

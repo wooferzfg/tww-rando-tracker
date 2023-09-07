@@ -282,12 +282,31 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS,
           }),
           this.toggleInput({
+            labelText: 'Randomize Charts',
+            optionName: Permalink.OPTIONS.RANDOMIZE_CHARTS,
+          }),
+          this.toggleInput({
             labelText: 'Race Mode',
             optionName: Permalink.OPTIONS.RACE_MODE,
           }),
-          this.toggleInput({
-            labelText: 'Randomize Charts',
-            optionName: Permalink.OPTIONS.RANDOMIZE_CHARTS,
+        ]}
+      />
+    );
+  }
+
+  logicDifficultyTable() {
+    return (
+      <OptionsTable
+        title="Logic Difficulty"
+        numColumns={2}
+        options={[
+          this.dropdownInput({
+            labelText: 'Obscure Tricks Required',
+            optionName: Permalink.OPTIONS.LOGIC_OBSCURITY,
+          }),
+          this.dropdownInput({
+            labelText: 'Precise Tricks Required',
+            optionName: Permalink.OPTIONS.LOGIC_PRECISION,
           }),
         ]}
       />
@@ -378,6 +397,7 @@ export default class Launcher extends React.PureComponent {
             {this.entranceRandomizerOptionsTable()}
             {this.additionalRandomizationOptionsTable()}
             {this.convenienceTweaksTable()}
+            {this.logicDifficultyTable()}
             {this.launchButtonContainer()}
           </div>
           <div className="attribution">

@@ -108,6 +108,8 @@ exports[`Settings initializeFromPermalink default settings initializes the optio
   "instant_text_boxes": true,
   "keylunacy": false,
   "korl_hints": false,
+  "logic_obscurity": "None",
+  "logic_precision": "None",
   "mix_entrances": "Separate Dungeons From Caves and Fountains",
   "num_barren_hints": 0,
   "num_item_hints": 15,
