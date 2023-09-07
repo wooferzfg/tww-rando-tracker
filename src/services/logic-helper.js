@@ -862,7 +862,11 @@ class LogicHelper {
     if (expressionTypeToken === this.TOKENS.OR) {
       return BooleanExpression.or(...itemsForExpression);
     }
-    return BooleanExpression.and(...itemsForExpression);
+    if (expressionTypeToken === this.TOKENS.AND || itemsForExpression.length <= 1) {
+      return BooleanExpression.and(...itemsForExpression);
+    }
+    // istanbul ignore next
+    throw Error(`No expression type for items: ${JSON.stringify(itemsForExpression)}`);
   }
 
   static _booleanExpressionForRequirements(requirements) {
