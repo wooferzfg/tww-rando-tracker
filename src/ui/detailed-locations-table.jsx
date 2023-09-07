@@ -63,7 +63,7 @@ class DetailedLocationsTable extends React.PureComponent {
     );
   }
 
-  detailedLocation(locationInfo, numColumns) {
+  detailedLocation(locationInfo, numColumns, numRows) {
     if (_.isNil(locationInfo)) {
       return null;
     }
@@ -82,10 +82,12 @@ class DetailedLocationsTable extends React.PureComponent {
     } = this.props;
 
     let fontSizeClassName = '';
-    if (numColumns === 3) {
-      fontSizeClassName = 'font-smallest';
+    if (numRows > 13) {
+      fontSizeClassName = 'font-three-columns less-padding';
+    } else if (numColumns === 3) {
+      fontSizeClassName = 'font-three-columns';
     } else if (numColumns === 2) {
-      fontSizeClassName = 'font-small';
+      fontSizeClassName = 'font-two-columns';
     }
 
     const toggleLocationFunc = () => toggleLocationChecked(openedLocation, location);

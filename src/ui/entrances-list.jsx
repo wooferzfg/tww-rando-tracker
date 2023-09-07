@@ -60,9 +60,9 @@ class EntrancesList extends React.PureComponent {
 
     let fontSizeClassName = '';
     if (numColumns === 3) {
-      fontSizeClassName = 'font-smallest';
+      fontSizeClassName = 'font-three-columns';
     } else if (numColumns === 2) {
-      fontSizeClassName = 'font-small';
+      fontSizeClassName = 'font-two-columns';
     }
 
     const entranceElement = (

@@ -543,12 +543,16 @@ button:hover:enabled {
         text-decoration: line-through;
       }
 
-      &.font-small {
+      &.font-two-columns {
         font-size: 13px;
       }
 
-      &.font-smallest {
+      &.font-three-columns {
         font-size: 10px;
+      }
+
+      &.less-padding {
+        padding-bottom: 2px;
       }
     }
   }

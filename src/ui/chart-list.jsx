@@ -55,7 +55,7 @@ class ChartList extends React.PureComponent {
 
     const chartElement = (
       <div
-        className={`detail-span ${notInteractiveClassName} ${color} font-smallest`}
+        className={`detail-span ${notInteractiveClassName} ${color} font-three-columns`}
         onClick={updateChartMappingFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(updateChartMappingFunc)}
         role="button"
@@ -130,7 +130,7 @@ class ChartList extends React.PureComponent {
 
     const chartElement = (
       <div
-        className={`detail-span ${color} font-smallest`}
+        className={`detail-span ${color} font-three-columns`}
         onClick={incrementItemFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(incrementItemFunc)}
         role="button"
