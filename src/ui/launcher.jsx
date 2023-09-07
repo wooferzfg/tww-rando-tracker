@@ -132,14 +132,6 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.PROGRESSION_DUNGEONS,
           }),
           this.toggleInput({
-            labelText: 'Tingle Chests',
-            optionName: Permalink.OPTIONS.PROGRESSION_TINGLE_CHESTS,
-          }),
-          this.toggleInput({
-            labelText: 'Mail',
-            optionName: Permalink.OPTIONS.PROGRESSION_MAIL,
-          }),
-          this.toggleInput({
             labelText: 'Puzzle Secret Caves',
             optionName: Permalink.OPTIONS.PROGRESSION_PUZZLE_SECRET_CAVES,
           }),
@@ -150,6 +142,30 @@ export default class Launcher extends React.PureComponent {
           this.toggleInput({
             labelText: 'Savage Labyrinth',
             optionName: Permalink.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH,
+          }),
+          this.toggleInput({
+            labelText: 'Island Puzzles',
+            optionName: Permalink.OPTIONS.PROGRESSION_ISLAND_PUZZLES,
+          }),
+          this.toggleInput({
+            labelText: 'Dungeon Secrets',
+            optionName: Permalink.OPTIONS.PROGRESSION_DUNGEON_SECRETS,
+          }),
+          this.toggleInput({
+            labelText: 'Tingle Chests',
+            optionName: Permalink.OPTIONS.PROGRESSION_TINGLE_CHESTS,
+          }),
+          this.toggleInput({
+            labelText: 'Great Fairies',
+            optionName: Permalink.OPTIONS.PROGRESSION_GREAT_FAIRIES,
+          }),
+          this.toggleInput({
+            labelText: 'Submarines',
+            optionName: Permalink.OPTIONS.PROGRESSION_SUBMARINES,
+          }),
+          this.toggleInput({
+            labelText: 'Lookout Platforms and Rafts',
+            optionName: Permalink.OPTIONS.PROGRESSION_PLATFORMS_RAFTS,
           }),
           this.toggleInput({
             labelText: 'Short Sidequests',
@@ -164,12 +180,12 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.PROGRESSION_SPOILS_TRADING,
           }),
           this.toggleInput({
-            labelText: 'Great Fairies',
-            optionName: Permalink.OPTIONS.PROGRESSION_GREAT_FAIRIES,
+            labelText: 'Eye Reef Chests',
+            optionName: Permalink.OPTIONS.PROGRESSION_EYE_REEF_CHESTS,
           }),
           this.toggleInput({
-            labelText: 'Free Gifts',
-            optionName: Permalink.OPTIONS.PROGRESSION_FREE_GIFTS,
+            labelText: 'Big Octos and Gunboats',
+            optionName: Permalink.OPTIONS.PROGRESSION_BIG_OCTOS_GUNBOATS,
           }),
           this.toggleInput({
             labelText: 'Miscellaneous',
@@ -184,24 +200,16 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.PROGRESSION_BATTLESQUID,
           }),
           this.toggleInput({
+            labelText: 'Free Gifts',
+            optionName: Permalink.OPTIONS.PROGRESSION_FREE_GIFTS,
+          }),
+          this.toggleInput({
+            labelText: 'Mail',
+            optionName: Permalink.OPTIONS.PROGRESSION_MAIL,
+          }),
+          this.toggleInput({
             labelText: 'Expensive Purchases',
             optionName: Permalink.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES,
-          }),
-          this.toggleInput({
-            labelText: 'Island Puzzles',
-            optionName: Permalink.OPTIONS.PROGRESSION_ISLAND_PUZZLES,
-          }),
-          this.toggleInput({
-            labelText: 'Lookout Platforms and Rafts',
-            optionName: Permalink.OPTIONS.PROGRESSION_PLATFORMS_RAFTS,
-          }),
-          this.toggleInput({
-            labelText: 'Submarines',
-            optionName: Permalink.OPTIONS.PROGRESSION_SUBMARINES,
-          }),
-          this.toggleInput({
-            labelText: 'Big Octos and Gunboats',
-            optionName: Permalink.OPTIONS.PROGRESSION_BIG_OCTOS_GUNBOATS,
           }),
           this.toggleInput({
             labelText: 'Sunken Treasure (From Triforce Charts)',
@@ -210,10 +218,6 @@ export default class Launcher extends React.PureComponent {
           this.toggleInput({
             labelText: 'Sunken Treasure (From Treasure Charts)',
             optionName: Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS,
-          }),
-          this.toggleInput({
-            labelText: 'Eye Reef Chests',
-            optionName: Permalink.OPTIONS.PROGRESSION_EYE_REEF_CHESTS,
           }),
         ]}
       />

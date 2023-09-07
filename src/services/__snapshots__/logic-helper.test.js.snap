@@ -853,6 +853,10 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for D
     "generalLocation": "Dragon Roost Cavern",
   },
   {
+    "detailedLocation": "Water Jug on Upper Shelf",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
     "detailedLocation": "Boarded Up Chest",
     "generalLocation": "Dragon Roost Cavern",
   },
@@ -878,6 +882,10 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for D
   },
   {
     "detailedLocation": "Tingle Chest in Hub Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Pot on Upper Shelf in Pot Room",
     "generalLocation": "Dragon Roost Cavern",
   },
   {
@@ -909,6 +917,10 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for D
     "generalLocation": "Dragon Roost Cavern",
   },
   {
+    "detailedLocation": "Boss Stairs Right Pot",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
     "detailedLocation": "Gohma Heart Container",
     "generalLocation": "Dragon Roost Cavern",
   },
@@ -922,11 +934,15 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for E
     "generalLocation": "Earth Temple",
   },
   {
-    "detailedLocation": "Chest Behind Destructible Walls",
+    "detailedLocation": "Behind Curtain In Warp Pot Room",
     "generalLocation": "Earth Temple",
   },
   {
     "detailedLocation": "Transparent Chest in First Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest Behind Destructible Walls",
     "generalLocation": "Earth Temple",
   },
   {
@@ -955,6 +971,10 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for E
   },
   {
     "detailedLocation": "Kill All Floormasters in Foggy Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Behind Curtain Next to Hammer Button",
     "generalLocation": "Earth Temple",
   },
   {
@@ -1003,6 +1023,10 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for F
     "generalLocation": "Forbidden Woods",
   },
   {
+    "detailedLocation": "Pot High Above Hollow Tree",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
     "detailedLocation": "Hole in Tree",
     "generalLocation": "Forbidden Woods",
   },
@@ -1016,6 +1040,10 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for F
   },
   {
     "detailedLocation": "Vine Maze Right Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Highest Pot in Vine Maze",
     "generalLocation": "Forbidden Woods",
   },
   {
@@ -1105,6 +1133,10 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for T
     "generalLocation": "Tower of the Gods",
   },
   {
+    "detailedLocation": "Pot Behind Bombable Walls",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
     "detailedLocation": "Hop Across Floating Boxes",
     "generalLocation": "Tower of the Gods",
   },
@@ -1149,6 +1181,10 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for T
     "generalLocation": "Tower of the Gods",
   },
   {
+    "detailedLocation": "Eastern Pot in Big Key Chest Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
     "detailedLocation": "Big Key Chest",
     "generalLocation": "Tower of the Gods",
   },
@@ -1163,6 +1199,10 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for W
 [
   {
     "detailedLocation": "Chest Between Two Dirt Patches",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Behind Stone Head in Hidden Upper Room",
     "generalLocation": "Wind Temple",
   },
   {
@@ -1183,6 +1223,10 @@ exports[`LogicHelper raceModeBannedLocations returns the correct locations for W
   },
   {
     "detailedLocation": "Chest In Many Cyclones Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Behind Stone Head in Many Cyclones Room",
     "generalLocation": "Wind Temple",
   },
   {
@@ -2176,8 +2220,8 @@ exports[`LogicHelper requirementsForLocation when starting without a sword retur
 BooleanExpression {
   "items": [
     "DRC Small Key x4",
-    "Grappling Hook",
     "DRC Big Key",
+    "Grappling Hook",
   ],
   "type": "and",
 }

@@ -400,8 +400,8 @@ class LogicHelper {
       Locations.KEYS.TYPES,
     );
     if (
-      _.includes(locationTypes, Settings.FLAGS.TINGLE_CHEST)
-      && !Settings.isFlagActive(Settings.FLAGS.TINGLE_CHEST)
+      Settings.isFlagActive(Settings.FLAGS.DUNGEON)
+      && !this.isProgressLocation(generalLocation, detailedLocation)
     ) {
       return false;
     }

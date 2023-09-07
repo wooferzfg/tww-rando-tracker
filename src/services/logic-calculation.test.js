@@ -138,7 +138,7 @@ describe('LogicCalculation', () => {
           logic = new LogicCalculation(state);
 
           expect(logic.guaranteedKeys).toEqual({
-            'DRC Small Key': 1,
+            'DRC Small Key': 2,
             'DRC Big Key': 0,
             'FW Small Key': 0,
             'FW Big Key': 0,
@@ -154,19 +154,42 @@ describe('LogicCalculation', () => {
         test('shows the unlocked locations as available', () => {
           logic = new LogicCalculation(state);
 
-          const isLocationAvailable = logic.isLocationAvailable('Dragon Roost Cavern', 'Boarded Up Chest');
+          const isLocationAvailable = logic.isLocationAvailable('Dragon Roost Cavern', 'Rat Room Boarded Up Chest');
 
           expect(isLocationAvailable).toEqual(true);
         });
       });
 
-      describe('when setting the DRC Big Key Chest as checked', () => {
+      describe('when setting the DRC Chest Across Lava Pit as checked', () => {
         beforeEach(() => {
           state = TrackerState.default()
-            .toggleLocationChecked('Dragon Roost Cavern', 'Big Key Chest');
+            .toggleLocationChecked('Dragon Roost Cavern', 'Chest Across Lava Pit');
         });
 
-        test('guarantees 2 small keys in DRC', () => {
+        test('guarantees 4 small keys in DRC', () => {
+          logic = new LogicCalculation(state);
+
+          expect(logic.guaranteedKeys).toEqual({
+            'DRC Small Key': 4,
+            'DRC Big Key': 0,
+            'FW Small Key': 0,
+            'FW Big Key': 0,
+            'TotG Small Key': 0,
+            'TotG Big Key': 0,
+            'ET Small Key': 0,
+            'ET Big Key': 0,
+            'WT Small Key': 0,
+            'WT Big Key': 0,
+          });
+        });
+      });
+
+      describe('when only having the Hookshot', () => {
+        beforeEach(() => {
+          state = TrackerState.default().incrementItem('Hookshot');
+        });
+
+        test('does not guarantee additional keys in DRC', () => {
           logic = new LogicCalculation(state);
 
           expect(logic.guaranteedKeys).toEqual({
@@ -184,42 +207,18 @@ describe('LogicCalculation', () => {
         });
       });
 
-      describe('when only having the Grappling Hook', () => {
-        beforeEach(() => {
-          state = TrackerState.default().incrementItem('Grappling Hook');
-        });
-
-        test('does not guarantee additional keys in DRC', () => {
-          logic = new LogicCalculation(state);
-
-          expect(logic.guaranteedKeys).toEqual({
-            'DRC Small Key': 1,
-            'DRC Big Key': 0,
-            'FW Small Key': 0,
-            'FW Big Key': 0,
-            'TotG Small Key': 0,
-            'TotG Big Key': 0,
-            'ET Small Key': 0,
-            'ET Big Key': 0,
-            'WT Small Key': 0,
-            'WT Big Key': 0,
-          });
-        });
-      });
-
-      describe('when having the required items for DRC', () => {
+      describe('when having the required items for all DRC small keys', () => {
         beforeEach(() => {
           state = TrackerState.default()
-            .incrementItem('Grappling Hook')
             .incrementItem('Deku Leaf');
         });
 
-        test('guarantees all the keys for DRC', () => {
+        test('guarantees all the small keys for DRC', () => {
           logic = new LogicCalculation(state);
 
           expect(logic.guaranteedKeys).toEqual({
             'DRC Small Key': 4,
-            'DRC Big Key': 1,
+            'DRC Big Key': 0,
             'FW Small Key': 0,
             'FW Big Key': 0,
             'TotG Small Key': 0,
@@ -486,7 +485,7 @@ describe('LogicCalculation', () => {
       });
 
       expect(locationCounts).toEqual({
-        numAvailable: 3,
+        numAvailable: 5,
         numRemaining: 15,
         color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
       });
@@ -579,7 +578,7 @@ describe('LogicCalculation', () => {
 
         expect(locationCounts).toEqual({
           numAvailable: 17,
-          numRemaining: 38,
+          numRemaining: 42,
           color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
         });
       });
@@ -602,7 +601,7 @@ describe('LogicCalculation', () => {
         });
 
         expect(locationCounts).toEqual({
-          numAvailable: 2,
+          numAvailable: 3,
           numRemaining: 13,
           color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
         });
@@ -719,8 +718,8 @@ describe('LogicCalculation', () => {
           });
 
           expect(locationCounts).toEqual({
-            numAvailable: 38,
-            numRemaining: 38,
+            numAvailable: 42,
+            numRemaining: 42,
             color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           });
         });
@@ -1414,7 +1413,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsAvailable).toEqual(18);
+        expect(totalLocationsAvailable).toEqual(20);
       });
     });
 
@@ -1424,7 +1423,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: false,
         });
 
-        expect(totalLocationsAvailable).toEqual(59);
+        expect(totalLocationsAvailable).toEqual(62);
       });
     });
 
@@ -1440,7 +1439,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsAvailable).toEqual(17);
+        expect(totalLocationsAvailable).toEqual(19);
       });
     });
 
@@ -1499,7 +1498,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: false,
         });
 
-        expect(totalLocationsRemaining).toEqual(305);
+        expect(totalLocationsRemaining).toEqual(320);
       });
     });
 

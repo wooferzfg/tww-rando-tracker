@@ -2242,7 +2242,7 @@ describe('LogicHelper', () => {
       describe('when the tingle chest flag is active', () => {
         beforeEach(() => {
           Settings.initializeRaw({
-            flags: [Settings.FLAGS.TINGLE_CHEST],
+            flags: [Settings.FLAGS.DUNGEON, Settings.FLAGS.TINGLE_CHEST],
           });
         });
 
@@ -2253,15 +2253,78 @@ describe('LogicHelper', () => {
         });
       });
 
-      describe('when the tingle chest flag is not active', () => {
+      describe('when only dungeons are active', () => {
         beforeEach(() => {
-          Settings.initializeRaw({ flags: [] });
+          Settings.initializeRaw({ flags: [Settings.FLAGS.DUNGEON] });
         });
 
         test('returns false', () => {
           const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Tingle Statue Chest');
 
           expect(isPotentialKeyLocation).toEqual(false);
+        });
+      });
+
+      describe('when dungeons are not active', () => {
+        beforeEach(() => {
+          Settings.initializeRaw({ flags: [] });
+        });
+
+        test('returns true', () => {
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Tingle Statue Chest');
+
+          expect(isPotentialKeyLocation).toEqual(true);
+        });
+      });
+    });
+
+    describe('when the location is a dungeon secret', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Forbidden Woods': {
+            'Highest Pot in Vine Maze': {
+              need: 'Can Access Forbidden Woods',
+              types: 'Dungeon, Dungeon Secret',
+            },
+          },
+        };
+      });
+
+      describe('when the dungeon secret flag is active', () => {
+        beforeEach(() => {
+          Settings.initializeRaw({
+            flags: [Settings.FLAGS.DUNGEON, Settings.FLAGS.DUNGEON_SECRET],
+          });
+        });
+
+        test('returns true', () => {
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
+
+          expect(isPotentialKeyLocation).toEqual(true);
+        });
+      });
+
+      describe('when only dungeons are active', () => {
+        beforeEach(() => {
+          Settings.initializeRaw({ flags: [Settings.FLAGS.DUNGEON] });
+        });
+
+        test('returns false', () => {
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
+
+          expect(isPotentialKeyLocation).toEqual(false);
+        });
+      });
+
+      describe('when dungeons are not active', () => {
+        beforeEach(() => {
+          Settings.initializeRaw({ flags: [] });
+        });
+
+        test('returns true', () => {
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
+
+          expect(isPotentialKeyLocation).toEqual(true);
         });
       });
     });

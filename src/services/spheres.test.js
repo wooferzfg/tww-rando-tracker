@@ -162,7 +162,7 @@ describe('Spheres', () => {
 
         expect(
           spheres.sphereForLocation('Dragon Roost Cavern', 'Rat Room'),
-        ).toEqual(1);
+        ).toEqual(0);
 
         expect(
           spheres.sphereForLocation('Dragon Roost Cavern', "Bird's Nest"),
@@ -487,19 +487,19 @@ describe('Spheres', () => {
 
         expect(
           spheres.sphereForLocation('Dragon Roost Cavern', 'Chest Across Lava Pit'),
-        ).toEqual(3);
+        ).toEqual(2);
 
         expect(
           spheres.sphereForLocation('Dragon Roost Cavern', 'Rat Room'),
-        ).toEqual(3);
+        ).toEqual(2);
 
         expect(
           spheres.sphereForLocation('Dragon Roost Cavern', "Bird's Nest"),
-        ).toEqual(3);
+        ).toEqual(2);
 
         expect(
           spheres.sphereForLocation('Dragon Roost Cavern', 'Dark Room'),
-        ).toEqual(3);
+        ).toEqual(2);
 
         expect(
           spheres.sphereForLocation('Dragon Roost Cavern', 'Gohma Heart Container'),
