@@ -202,7 +202,7 @@ class ExtraLocation extends React.PureComponent {
     };
 
     return (
-      <div className="dungeon-item dungeon-entry">
+      <div className="dungeon-item dungeon-entry" key={zoneName}>
         <Item
           clearSelectedItem={clearSelectedItem}
           images={Images.IMAGES.DUNGEON_ENTRANCE}
