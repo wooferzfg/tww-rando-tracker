@@ -263,10 +263,10 @@ export default class Launcher extends React.PureComponent {
     );
   }
 
-  additionalRandomizationOptionsTable() {
+  additionalOptionsTable() {
     return (
       <OptionsTable
-        title="Additional Randomization Options"
+        title="Additional Options"
         numColumns={2}
         options={[
           this.dropdownInput({
@@ -284,6 +284,10 @@ export default class Launcher extends React.PureComponent {
           this.toggleInput({
             labelText: 'Randomize Charts',
             optionName: Permalink.OPTIONS.RANDOMIZE_CHARTS,
+          }),
+          this.toggleInput({
+            labelText: 'Skip Boss Rematches',
+            optionName: Permalink.OPTIONS.SKIP_REMATCH_BOSSES,
           }),
           this.toggleInput({
             labelText: 'Race Mode',
@@ -307,21 +311,6 @@ export default class Launcher extends React.PureComponent {
           this.dropdownInput({
             labelText: 'Precise Tricks Required',
             optionName: Permalink.OPTIONS.LOGIC_PRECISION,
-          }),
-        ]}
-      />
-    );
-  }
-
-  convenienceTweaksTable() {
-    return (
-      <OptionsTable
-        title="Convenience Tweaks"
-        numColumns={2}
-        options={[
-          this.toggleInput({
-            labelText: 'Skip Boss Rematches',
-            optionName: Permalink.OPTIONS.SKIP_REMATCH_BOSSES,
           }),
         ]}
       />
@@ -395,8 +384,7 @@ export default class Launcher extends React.PureComponent {
             {this.permalinkContainer()}
             {this.progressItemLocationsTable()}
             {this.entranceRandomizerOptionsTable()}
-            {this.additionalRandomizationOptionsTable()}
-            {this.convenienceTweaksTable()}
+            {this.additionalOptionsTable()}
             {this.logicDifficultyTable()}
             {this.launchButtonContainer()}
           </div>
