@@ -570,7 +570,29 @@ class BooleanExpression {
       return removeIfIdentical;
     }
 
-    return _.every(
+    const childExpressionIsSubsumed = _.some(this.items, (item) => {
+      if (BooleanExpression._isExpression(item)) {
+        return item._isSubsumedBy({
+          otherExpression,
+          implies,
+          removeIfIdentical: true,
+          expressionType,
+        });
+      }
+
+      return false; // non-expressions are handled by _itemIsSubsumed in the code below
+    });
+    if (childExpressionIsSubsumed) {
+      return true;
+    }
+
+    const iteratorFunc = (
+      [this.type, expressionType].includes(otherExpression.type)
+        ? _.every
+        : _.some
+    );
+
+    return iteratorFunc(
       otherExpression.items,
       (otherItem) => {
         if (BooleanExpression._isExpression(otherItem)) {

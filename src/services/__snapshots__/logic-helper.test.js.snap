@@ -1099,6 +1099,59 @@ BooleanExpression {
 }
 `;
 
+exports[`LogicHelper requirementsForLocation when entrances are randomized and no starting sword returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30 1`] = `
+BooleanExpression {
+  "items": [
+    "Entered Savage Labyrinth",
+    BooleanExpression {
+      "items": [
+        BooleanExpression {
+          "items": [
+            "Boomerang",
+            "Progressive Sword x1",
+          ],
+          "type": "and",
+        },
+        "Progressive Bow x1",
+        "Bombs",
+        BooleanExpression {
+          "items": [
+            "Deku Leaf",
+            "Progressive Sword x1",
+          ],
+          "type": "and",
+        },
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+    BooleanExpression {
+      "items": [
+        "Progressive Sword x1",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+          ],
+          "type": "and",
+        },
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+    BooleanExpression {
+      "items": [
+        "Grappling Hook",
+        "Progressive Sword x1",
+        "Skull Hammer",
+      ],
+      "type": "or",
+    },
+  ],
+  "type": "and",
+}
+`;
+
 exports[`LogicHelper requirementsForLocation when starting with a sword returns simplified requirements for Cliff Plateau Isles - Cave 1`] = `
 BooleanExpression {
   "items": [
@@ -1200,38 +1253,6 @@ BooleanExpression {
     "Power Bracelets",
     BooleanExpression {
       "items": [
-        "Progressive Sword x1",
-        "Skull Hammer",
-        "Bombs",
-        "Progressive Bow x1",
-      ],
-      "type": "or",
-    },
-    BooleanExpression {
-      "items": [
-        "Boomerang",
-        BooleanExpression {
-          "items": [
-            "Hookshot",
-            "Progressive Sword x1",
-          ],
-          "type": "and",
-        },
-        BooleanExpression {
-          "items": [
-            "Deku Leaf",
-            "Progressive Sword x1",
-          ],
-          "type": "and",
-        },
-        "Skull Hammer",
-        "Progressive Bow x1",
-        "Bombs",
-      ],
-      "type": "or",
-    },
-    BooleanExpression {
-      "items": [
         BooleanExpression {
           "items": [
             "Boomerang",
@@ -1297,21 +1318,6 @@ BooleanExpression {
     },
     "Power Bracelets",
     "Progressive Shield x2",
-    BooleanExpression {
-      "items": [
-        BooleanExpression {
-          "items": [
-            "Progressive Bow x2",
-            "Progressive Magic Meter x1",
-          ],
-          "type": "and",
-        },
-        "Bombs",
-        "Deku Leaf",
-        "Hookshot",
-      ],
-      "type": "or",
-    },
     "Skull Hammer",
   ],
   "type": "and",
@@ -1323,15 +1329,6 @@ BooleanExpression {
   "items": [
     "Ghost Ship Chart",
     "Ballad of Gales",
-    BooleanExpression {
-      "items": [
-        "Progressive Bow x1",
-        "Hookshot",
-        "Bombs",
-        "Skull Hammer",
-      ],
-      "type": "or",
-    },
     BooleanExpression {
       "items": [
         BooleanExpression {

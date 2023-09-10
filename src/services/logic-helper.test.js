@@ -1750,6 +1750,38 @@ describe('LogicHelper', () => {
         expect(requirements).toMatchSnapshot();
       });
     });
+
+    describe('when entrances are randomized and no starting sword', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.KEYLUNACY]: false,
+            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+            [Permalink.OPTIONS.RACE_MODE]: false,
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+            [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
+          },
+          startingGear: {
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+          },
+        });
+
+        Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+        Macros.initialize(_.cloneDeep(TEST_MACROS));
+
+        LogicTweaks.applyTweaks();
+
+        LogicHelper.initialize();
+      });
+
+      test('returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30', () => {
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+
+        expect(requirements).toMatchSnapshot();
+      });
+    });
   });
 
   describe('requirementsForEntrance', () => {
