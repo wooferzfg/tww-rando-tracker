@@ -118,7 +118,7 @@ const verifyLogicForLocation = (generalLocation, detailedLocation, trackerState)
 };
 
 const verifyLogicForSettings = async (permalink) => {
-  console.log(`Checking settings: ${permalink}\n\n`); // eslint-disable-line no-console
+  console.log(`\n\nChecking settings: ${permalink}\n\n`); // eslint-disable-line no-console
   TrackerController.reset();
 
   const { trackerState } = await TrackerController.initializeFromPermalink(permalink);
@@ -128,5 +128,9 @@ const verifyLogicForSettings = async (permalink) => {
   ));
 };
 
-verifyLogicForSettings('MS4xMC4wAEEABwEDAAygvgMQ0AAAAAAAAAAAAAAA'); // no starting items
-verifyLogicForSettings('MS4xMC4wAEEABwEDAAygvgMA0AACAAAAAAGAIAAA'); // default settings
+const script = async () => {
+  await verifyLogicForSettings('MS4xMC4wAEEABwEDAAygvgMQ0AAAAAAAAAAAAAAA'); // no starting items
+  await verifyLogicForSettings('MS4xMC4wAEEABwEDAAygvgMA0AACAAAAAAGAIAAA'); // default settings
+};
+
+script();
