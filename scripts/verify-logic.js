@@ -92,7 +92,7 @@ const verifyLogicForLocation = (generalLocation, detailedLocation, trackerState)
 
     combinationsChecked += 1;
 
-    if (combinationsChecked % 500 === 0) {
+    if (combinationsChecked % 2000 === 0) {
       console.log(`Checked ${combinationsChecked} combinations...`); // eslint-disable-line no-console
     }
 
@@ -118,7 +118,7 @@ const verifyLogicForLocation = (generalLocation, detailedLocation, trackerState)
 };
 
 const verifyLogicForSettings = async (permalink) => {
-  console.log(`Checking settings: ${permalink}\n\n`); // eslint-disable-line no-console
+  console.log(`\n\nChecking settings: ${permalink}\n\n`); // eslint-disable-line no-console
   TrackerController.reset();
 
   const { trackerState } = await TrackerController.initializeFromPermalink(permalink);
@@ -128,5 +128,9 @@ const verifyLogicForSettings = async (permalink) => {
   ));
 };
 
-verifyLogicForSettings('MS4xMS4wAEEABwEDAAAGUN8BCGgAAAAAAAAAAAAAAAAA'); // no starting items
-verifyLogicForSettings('MS4xMS4wAEEABwEDAAAGUN8BAGiAAAAAAEAAIAgAAAAA'); // default settings
+const script = async () => {
+  await verifyLogicForSettings('MS4xMS4wAEEABwEDAAAGUN8BCGgAAAAAAAAAAAAAAAAA'); // no starting items
+  await verifyLogicForSettings('MS4xMS4wAEEABwEDAAAGUN8BAGiAAAAAAEAAIAgAAAAA'); // default settings
+};
+
+script();

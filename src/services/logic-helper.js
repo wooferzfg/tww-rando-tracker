@@ -48,6 +48,7 @@ class LogicHelper {
       'shortEntranceName',
       'shortExitName',
       'smallKeysRequiredForLocation',
+      '_rawRequirementsForLocation',
     ]);
 
     this._setStartingAndImpossibleItems();
@@ -77,6 +78,7 @@ class LogicHelper {
       this.shortEntranceName,
       this.shortExitName,
       this.smallKeysRequiredForLocation,
+      this._rawRequirementsForLocation,
     ]);
 
     this.startingItems = null;
