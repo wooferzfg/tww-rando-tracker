@@ -549,7 +549,7 @@ class BooleanExpression {
    * @param {string} options.expressionType The type that the current boolean
    *   expression instance should eventually have once it is flattened. This
    *   will often be different from `this.type` since this function is called
-   *   recursively on a non-flattened boolean expression structure.
+   *   recursively.
    * @returns {boolean} Whether the current boolean expression instance is
    *   subsumed by the given other boolean expression instance. This means that
    *   in all cases, the other boolean expression instance implies the current
@@ -622,18 +622,12 @@ class BooleanExpression {
         otherExpression = BooleanExpression.and(otherItem);
       }
 
-      const isSubsumed = expressionToCheck._isSubsumedBy({
+      return expressionToCheck._isSubsumedBy({
         otherExpression,
         implies,
         removeIfIdentical: otherIndex < index,
         expressionType: this._oppositeType(),
       });
-
-      if (isSubsumed) {
-        return true;
-      }
-
-      return false;
     });
   }
 

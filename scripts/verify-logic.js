@@ -23,7 +23,7 @@ const verifyLogicForItemCounts = (
   zippedItemCounts,
 ) => {
   _.forEach(zippedItemCounts, ([itemName, itemCount]) => {
-    trackerState.items[itemName] = itemCount; // eslint-disable-line no-param-reassign
+    _.set(trackerState.items, itemName, itemCount);
   });
 
   const logic = new LogicCalculation(trackerState);
