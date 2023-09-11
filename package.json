@@ -10,7 +10,8 @@
     "lint": "eslint --max-warnings 0 \"scripts/**/*.js\" \"src/**/*.jsx\" \"src/**/*.js\" \"*.js\"",
     "start": "webpack serve",
     "test": "jest --maxWorkers=5",
-    "update-test-data": "npx babel-node scripts/update-test-data.js"
+    "update-test-data": "npx babel-node scripts/update-test-data.js",
+    "verify-logic": "npx babel-node scripts/verify-logic.js"
   },
   "repository": {
     "type": "git",
