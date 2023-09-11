@@ -92,7 +92,7 @@ const verifyLogicForLocation = (generalLocation, detailedLocation, trackerState)
 
     combinationsChecked += 1;
 
-    if (combinationsChecked % 500 === 0) {
+    if (combinationsChecked % 2000 === 0) {
       console.log(`Checked ${combinationsChecked} combinations...`); // eslint-disable-line no-console
     }
 

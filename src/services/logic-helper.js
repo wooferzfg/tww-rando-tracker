@@ -40,6 +40,7 @@ class LogicHelper {
       'requirementsForLocation',
       'smallKeysRequiredForLocation',
       '_isValidLocation',
+      '_rawRequirementsForLocation',
     ]);
 
     this._setStartingAndImpossibleItems();
@@ -63,6 +64,7 @@ class LogicHelper {
       this.requirementsForLocation,
       this.smallKeysRequiredForLocation,
       this._isValidLocation,
+      this._rawRequirementsForLocation,
     ]);
 
     this.startingItems = null;
