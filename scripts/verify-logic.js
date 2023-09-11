@@ -128,5 +128,5 @@ const verifyLogicForSettings = async (permalink) => {
   ));
 };
 
-verifyLogicForSettings('MS4xMC4wAEEABwEDAAygvgMQ0AAAAAAAAAAAAAAA'); // no starting items
-verifyLogicForSettings('MS4xMC4wAEEABwEDAAygvgMA0AACAAAAAAGAIAAA'); // default settings
+verifyLogicForSettings('MS4xMS4wAEEABwEDAAAGUN8BCGgAAAAAAAAAAAAAAAAA'); // no starting items
+verifyLogicForSettings('MS4xMS4wAEEABwEDAAAGUN8BAGiAAAAAAEAAIAgAAAAA'); // default settings
