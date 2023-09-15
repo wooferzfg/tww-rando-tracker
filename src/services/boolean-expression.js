@@ -565,7 +565,9 @@ class BooleanExpression {
       return removeIfIdentical;
     }
 
-    return _.every(
+    const iteratorFunc = (this.type === otherExpression.type) ? _.every : _.some;
+
+    return iteratorFunc(
       otherExpression.items,
       (otherItem) => {
         if (BooleanExpression._isExpression(otherItem)) {
