@@ -546,10 +546,6 @@ class BooleanExpression {
    * @param {boolean} options.removeIfIdentical Whether to remove the current
    *   boolean expression instance if it is identical to the given other boolean
    *   expression.
-   * @param {string} options.expressionType The type that the current boolean
-   *   expression instance should eventually have once it is flattened. This
-   *   will often be different from `this.type` since this function is called
-   *   recursively.
    * @returns {boolean} Whether the current boolean expression instance is
    *   subsumed by the given other boolean expression instance. This means that
    *   in all cases, the other boolean expression instance implies the current
@@ -561,7 +557,6 @@ class BooleanExpression {
     otherExpression,
     implies,
     removeIfIdentical,
-    expressionType,
   }) {
     if (this._isEqualTo({
       otherExpression,
@@ -578,14 +573,13 @@ class BooleanExpression {
             otherExpression: otherItem,
             implies,
             removeIfIdentical: true,
-            expressionType,
           });
         }
 
         return BooleanExpression._itemIsSubsumed({
           itemsCollection: this.items,
           item: otherItem,
-          expressionType,
+          expressionType: this.type,
           implies,
         });
       },
@@ -619,14 +613,13 @@ class BooleanExpression {
       if (BooleanExpression._isExpression(otherItem)) {
         otherExpression = otherItem;
       } else {
-        otherExpression = BooleanExpression.and(otherItem);
+        otherExpression = new BooleanExpression([otherItem], this._oppositeType());
       }
 
       return expressionToCheck._isSubsumedBy({
         otherExpression,
         implies,
         removeIfIdentical: otherIndex < index,
-        expressionType: this._oppositeType(),
       });
     });
   }
@@ -668,7 +661,7 @@ class BooleanExpression {
       if (BooleanExpression._isExpression(item)) {
         expressionToCheck = item;
       } else {
-        expressionToCheck = BooleanExpression.and(item);
+        expressionToCheck = new BooleanExpression([item], parentExpression._oppositeType());
       }
 
       return !parentExpression._expressionIsSubsumed({
