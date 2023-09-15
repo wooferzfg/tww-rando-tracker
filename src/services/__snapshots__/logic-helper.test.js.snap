@@ -1200,15 +1200,6 @@ BooleanExpression {
     "Power Bracelets",
     BooleanExpression {
       "items": [
-        "Progressive Sword x1",
-        "Skull Hammer",
-        "Bombs",
-        "Progressive Bow x1",
-      ],
-      "type": "or",
-    },
-    BooleanExpression {
-      "items": [
         "Boomerang",
         BooleanExpression {
           "items": [
@@ -1297,21 +1288,6 @@ BooleanExpression {
     },
     "Power Bracelets",
     "Progressive Shield x2",
-    BooleanExpression {
-      "items": [
-        BooleanExpression {
-          "items": [
-            "Progressive Bow x2",
-            "Progressive Magic Meter x1",
-          ],
-          "type": "and",
-        },
-        "Bombs",
-        "Deku Leaf",
-        "Hookshot",
-      ],
-      "type": "or",
-    },
     "Skull Hammer",
   ],
   "type": "and",
@@ -1323,15 +1299,6 @@ BooleanExpression {
   "items": [
     "Ghost Ship Chart",
     "Ballad of Gales",
-    BooleanExpression {
-      "items": [
-        "Progressive Bow x1",
-        "Hookshot",
-        "Bombs",
-        "Skull Hammer",
-      ],
-      "type": "or",
-    },
     BooleanExpression {
       "items": [
         BooleanExpression {
