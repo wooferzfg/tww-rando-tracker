@@ -1298,5 +1298,35 @@ describe('BooleanExpression', () => {
         ),
       ),
     });
+
+    testSimplify('test 69', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or(
+          'Apple',
+          'Coconut',
+          'Durian',
+        ),
+        BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and(
+            'Banana',
+            BooleanExpression.or(
+              'Coconut',
+              'Durian',
+            ),
+          ),
+        ),
+      ),
+      expected: BooleanExpression.or(
+        'Apple',
+        BooleanExpression.and(
+          'Banana',
+          BooleanExpression.or(
+            'Coconut',
+            'Durian',
+          ),
+        ),
+      ),
+    });
   });
 });
