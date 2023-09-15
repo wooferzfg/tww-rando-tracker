@@ -1216,13 +1216,12 @@ describe('BooleanExpression', () => {
       initial: BooleanExpression.and(
         BooleanExpression.or(
           'Apple',
-          '5x Banana',
           '2x Durian',
         ),
         BooleanExpression.or(
           'Apple',
           BooleanExpression.and(
-            '2x Banana',
+            'Banana',
             'Coconut',
             '3x Durian',
           ),
@@ -1231,7 +1230,7 @@ describe('BooleanExpression', () => {
       expected: BooleanExpression.or(
         'Apple',
         BooleanExpression.and(
-          '2x Banana',
+          'Banana',
           'Coconut',
           '3x Durian',
         ),
@@ -1242,13 +1241,12 @@ describe('BooleanExpression', () => {
       initial: BooleanExpression.or(
         BooleanExpression.and(
           'Apple',
-          '2x Banana',
           '3x Durian',
         ),
         BooleanExpression.and(
           'Apple',
           BooleanExpression.or(
-            '5x Banana',
+            'Banana',
             'Coconut',
             '2x Durian',
           ),
@@ -1257,7 +1255,7 @@ describe('BooleanExpression', () => {
       expected: BooleanExpression.and(
         'Apple',
         BooleanExpression.or(
-          '5x Banana',
+          'Banana',
           'Coconut',
           '2x Durian',
         ),
