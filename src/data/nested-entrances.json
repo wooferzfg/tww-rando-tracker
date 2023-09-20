@@ -1,10 +1,10 @@
 {
-    "Dragon Roost Cavern": ["Gohma"],
-    "Forbidden Woods": ["Kalle Demos", "FW Miniboss"],
-    "Tower of the Gods": ["Gohdan", "TotG Miniboss"],
-    "Forsaken Fortress": ["Helmaroc King"],
-    "Earth Temple": ["Jalhalla", "ET Miniboss"],
-    "Wind Temple": ["Molgera", "WT Miniboss"],
+    "Dragon Roost Cavern": ["Gohma Boss Arena"],
+    "Forbidden Woods": ["Kalle Demos Boss Arena", "Forbidden Woods Miniboss Arena"],
+    "Tower of the Gods": ["Gohdan Boss Arena", "Tower of the Gods Miniboss Arena"],
+    "Forsaken Fortress": ["Helmaroc King Boss Arena"],
+    "Earth Temple": ["Jalhalla Boss Arena", "Earth Temple Miniboss Arena"],
+    "Wind Temple": ["Molgera Boss Arena", "Wind Temple Miniboss Arena"],
     "Ice Ring Isle Secret Cave": ["Ice Ring Isle Inner Cave"],
     "Cliff Plateau Isles Secret Cave": ["Cliff Plateau Isles Inner Cave"]
 }

@@ -1,6 +1,5 @@
 import _ from 'lodash';
 
-import BOSSES from '../data/bosses.json';
 import CHARTS from '../data/charts.json';
 import DUNGEON_ENTRANCES from '../data/dungeon-entrances.json';
 import DUNGEONS from '../data/dungeons.json';
@@ -8,7 +7,6 @@ import ISLAND_ENTRANCES from '../data/island-entrances.json';
 import ISLANDS from '../data/islands.json';
 import ITEMS from '../data/items.json';
 import KEYS from '../data/keys.json';
-import MINIBOSSES from '../data/minibosses.json';
 import MISC_LOCATIONS from '../data/misc-locations.json';
 import NESTED_ENTRANCES from '../data/nested-entrances.json';
 import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
@@ -26,9 +24,7 @@ import Settings from './settings';
 class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
-      'allIslandEntrances',
       'allRandomEntrances',
-      'bossForDungeon',
       'bossLocation',
       'chartForIsland',
       'entrancesForDungeon',
@@ -56,9 +52,7 @@ class LogicHelper {
 
   static reset() {
     Memoizer.invalidate([
-      this.allIslandEntrances,
       this.allRandomEntrances,
-      this.bossForDungeon,
       this.bossLocation,
       this.chartForIsland,
       this.entrancesForDungeon,
@@ -95,11 +89,6 @@ class LogicHelper {
 
   static RACE_MODE_DUNGEONS = _.filter(DUNGEONS, (dungeon) => this.isRaceModeDungeon(dungeon));
 
-  static RANDOM_MINIBOSS_DUNGEONS = _.filter(
-    DUNGEONS,
-    (dungeon) => this.hasRandomizedMiniboss(dungeon),
-  );
-
   static ISLANDS = Constants.createFromArray(ISLANDS);
 
   static MISC_LOCATIONS = Constants.createFromArray(MISC_LOCATIONS);
@@ -124,13 +113,7 @@ class LogicHelper {
     _.map(ISLAND_ENTRANCES, (entranceData) => this.entryName(entranceData.internalName)),
     CHARTS,
     _.map(ISLANDS, (island) => this.chartForIslandName(island)),
-    _.map(this.MAIN_DUNGEONS, (dungeon) => this.entryName(dungeon)),
-    _.map(this.RACE_MODE_DUNGEONS, (dungeon) => this.entryName(
-      this.bossForDungeon(dungeon),
-    )),
-    _.map(this.RANDOM_MINIBOSS_DUNGEONS, (dungeon) => this.entryName(
-      this.minibossForDungeon(dungeon),
-    )),
+    _.map(DUNGEON_ENTRANCES, (entranceData) => this.entryName(entranceData.internalName)),
     _.keys(ITEMS),
     _.keys(KEYS),
   );
@@ -183,69 +166,34 @@ class LogicHelper {
     return this.isDungeon(dungeonName);
   }
 
-  static hasRandomizedMiniboss(dungeonName) {
-    if (
-      dungeonName === this.DUNGEONS.DRAGON_ROOST_CAVERN
-      || dungeonName === this.DUNGEONS.FORSAKEN_FORTRESS
-      || dungeonName === this.DUNGEONS.GANONS_TOWER
-    ) {
-      return false;
-    }
-    return this.isDungeon(dungeonName);
-  }
-
   static entryName(zoneName) {
-    let exitName;
-    if (this._isBoss(zoneName) || this._isMiniboss(zoneName)) {
-      exitName = zoneName;
-    } else if (this.isDungeon(zoneName)) {
-      exitName = this._shortDungeonName(zoneName);
-    } else {
-      const entranceData = this._entranceDataForInternalName(zoneName);
-      exitName = entranceData.exitName;
+    const entranceData = this._entranceDataForInternalName(zoneName);
+    if (_.isNil(entranceData)) {
+      // istanbul ignore next
+      throw Error(`Entrance not found: ${zoneName}`);
     }
 
-    return `Entered ${exitName}`;
+    return `Entered ${entranceData.entryName}`;
   }
 
   static shortEntranceName(zoneName) {
-    const bossIndex = _.indexOf(BOSSES, zoneName);
-    if (bossIndex >= 0) {
-      const shortDungeonName = SHORT_DUNGEON_NAMES[bossIndex];
-      return `${shortDungeonName} Boss Door`;
-    }
-
-    const minibossIndex = _.indexOf(MINIBOSSES, zoneName);
-    if (minibossIndex >= 0) {
-      const shortDungeonName = SHORT_DUNGEON_NAMES[minibossIndex];
-      return `${shortDungeonName} Miniboss Door`;
-    }
-
-    if (this.isDungeon(zoneName)) {
-      return zoneName;
-    }
-
     const entranceData = this._entranceDataForInternalName(zoneName);
-    if (!_.isNil(entranceData)) {
-      return entranceData.entranceName;
+    if (_.isNil(entranceData)) {
+      // istanbul ignore next
+      throw Error(`Could not get short name for entrance: ${zoneName}`);
     }
 
-    // istanbul ignore next
-    throw Error(`Could not get short name for entrance: ${zoneName}`);
+    return entranceData.entranceName;
   }
 
   static shortExitName(zoneName) {
-    if (this._isBoss(zoneName) || this._isMiniboss(zoneName) || this.isDungeon(zoneName)) {
-      return zoneName;
-    }
-
     const entranceData = this._entranceDataForInternalName(zoneName);
-    if (!_.isNil(entranceData)) {
-      return entranceData.exitName;
+    if (_.isNil(entranceData)) {
+      // istanbul ignore next
+      throw Error(`Could not get short name for exit: ${zoneName}`);
     }
 
-    // istanbul ignore next
-    throw Error(`Could not get short name for exit: ${zoneName}`);
+    return entranceData.exitName;
   }
 
   static entrancesForIsland(islandName) {
@@ -261,38 +209,17 @@ class LogicHelper {
     );
   }
 
-  static entrancesForDungeon(dungeonName) {
-    let dungeonEntrance;
-    if (
-      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES)
-      && this.isMainDungeon(dungeonName)
-    ) {
-      dungeonEntrance = [dungeonName];
-    } else {
-      dungeonEntrance = [];
-    }
-
-    let minibossEntrance;
-    if (
-      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
-      && this.hasRandomizedMiniboss(dungeonName)
-    ) {
-      minibossEntrance = [this.minibossForDungeon(dungeonName)];
-    } else {
-      minibossEntrance = [];
-    }
-
-    let bossEntrance;
-    if (
-      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES)
-      && this.isRaceModeDungeon(dungeonName)
-    ) {
-      bossEntrance = [this.bossForDungeon(dungeonName)];
-    } else {
-      bossEntrance = [];
-    }
-
-    return _.concat(dungeonEntrance, minibossEntrance, bossEntrance);
+  static entrancesForDungeon(zoneName) {
+    return _.compact(
+      _.map(
+        this._filterDungeonEntrances(),
+        (entranceData) => (
+          entranceData.zoneName === zoneName
+            ? entranceData.internalName
+            : null
+        ),
+      ),
+    );
   }
 
   static isRandomEntrances() {
@@ -309,14 +236,7 @@ class LogicHelper {
   static allRandomEntrances() {
     return _.concat(
       this._allDungeonEntrances(),
-      this.allIslandEntrances(),
-    );
-  }
-
-  static allIslandEntrances() {
-    return _.map(
-      this._filterIslandEntrances(),
-      (entranceData) => entranceData.internalName,
+      this._allIslandEntrances(),
     );
   }
 
@@ -327,10 +247,10 @@ class LogicHelper {
       === Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
     ) {
       possibleEntrances = this.allRandomEntrances();
-    } else if (this._isBoss(zoneName) || this._isMiniboss(zoneName) || this.isDungeon(zoneName)) {
+    } else if (this._isDungeonEntrance(zoneName)) {
       possibleEntrances = this._allDungeonEntrances();
     } else {
-      possibleEntrances = this.allIslandEntrances();
+      possibleEntrances = this._allIslandEntrances();
     }
 
     return _.difference(
@@ -437,16 +357,6 @@ class LogicHelper {
         return _.includes(locationTypes, Settings.FLAGS.BOSS);
       },
     );
-  }
-
-  static bossForDungeon(dungeonName) {
-    const dungeonIndex = _.indexOf(DUNGEONS, dungeonName);
-    return BOSSES[dungeonIndex];
-  }
-
-  static minibossForDungeon(dungeonName) {
-    const dungeonIndex = _.indexOf(DUNGEONS, dungeonName);
-    return MINIBOSSES[dungeonIndex];
   }
 
   static smallKeyName(dungeonName) {
@@ -639,31 +549,13 @@ class LogicHelper {
   }
 
   static _macroNameForEntrance(zoneName) {
-    const bossIndex = _.indexOf(BOSSES, zoneName);
-    if (bossIndex >= 0) {
-      const dungeonName = DUNGEONS[bossIndex];
-      return `Can Access Boss Entrance in ${dungeonName}`;
-    }
-
-    const minibossIndex = _.indexOf(MINIBOSSES, zoneName);
-    if (minibossIndex >= 0) {
-      const dungeonName = DUNGEONS[minibossIndex];
-      return `Can Access Miniboss Entrance in ${dungeonName}`;
-    }
-
-    const dungeonIndex = _.indexOf(DUNGEONS, zoneName);
-    if (dungeonIndex >= 0) {
-      const dungeonEntranceName = _.get(DUNGEON_ENTRANCES, dungeonIndex);
-      return `Can Access Dungeon Entrance ${dungeonEntranceName}`;
-    }
-
     const entranceData = this._entranceDataForInternalName(zoneName);
-    if (!_.isNil(entranceData)) {
-      return `Can Access ${entranceData.entranceMacroName}`;
+    if (_.isNil(entranceData)) {
+      // istanbul ignore next
+      throw Error(`Could not find macro name for entrance: ${zoneName}`);
     }
 
-    // istanbul ignore next
-    throw Error(`Could not find macro name for entrance: ${zoneName}`);
+    return `Can Access ${entranceData.entranceMacroName}`;
   }
 
   static _simplifiedItemRequirements(requirements) {
@@ -876,43 +768,18 @@ class LogicHelper {
     return this._booleanExpressionForTokens(expressionTokens);
   }
 
-  static _isBoss(bossName) {
-    return _.includes(BOSSES, bossName);
-  }
-
-  static _isMiniboss(minibossName) {
-    return _.includes(MINIBOSSES, minibossName);
+  static _allIslandEntrances() {
+    return _.map(
+      this._filterIslandEntrances(),
+      (entranceData) => entranceData.internalName,
+    );
   }
 
   static _allDungeonEntrances() {
-    let dungeonEntrances;
-    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES)) {
-      dungeonEntrances = this.MAIN_DUNGEONS;
-    } else {
-      dungeonEntrances = [];
-    }
-
-    let minibossEntrances;
-    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)) {
-      minibossEntrances = _.map(
-        this.RANDOM_MINIBOSS_DUNGEONS,
-        (dungeonName) => this.minibossForDungeon(dungeonName),
-      );
-    } else {
-      minibossEntrances = [];
-    }
-
-    let bossEntrances;
-    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES)) {
-      bossEntrances = _.map(
-        this.RACE_MODE_DUNGEONS,
-        (dungeonName) => this.bossForDungeon(dungeonName),
-      );
-    } else {
-      bossEntrances = [];
-    }
-
-    return _.concat(dungeonEntrances, minibossEntrances, bossEntrances);
+    return _.map(
+      this._filterDungeonEntrances(),
+      (entranceData) => entranceData.internalName,
+    );
   }
 
   static _filterIslandEntrances() {
@@ -927,9 +794,32 @@ class LogicHelper {
     });
   }
 
+  static _filterDungeonEntrances() {
+    return _.filter(DUNGEON_ENTRANCES, (entranceData) => {
+      if (entranceData.isDungeon) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES);
+      }
+      if (entranceData.isBoss) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES);
+      }
+      if (entranceData.isMiniboss) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES);
+      }
+      // istanbul ignore next
+      throw Error(`Invalid entrance: ${entranceData.internalName}`);
+    });
+  }
+
   static _entranceDataForInternalName(entranceName) {
     return _.find(
-      ISLAND_ENTRANCES,
+      _.concat(DUNGEON_ENTRANCES, ISLAND_ENTRANCES),
+      (entranceData) => entranceData.internalName === entranceName,
+    );
+  }
+
+  static _isDungeonEntrance(entranceName) {
+    return _.some(
+      DUNGEON_ENTRANCES,
       (entranceData) => entranceData.internalName === entranceName,
     );
   }

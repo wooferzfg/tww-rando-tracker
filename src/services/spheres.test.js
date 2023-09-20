@@ -377,11 +377,11 @@ describe('Spheres', () => {
         updateForItemAndLocation('Command Melody', 'Windfall Island', 'House of Wealth Chest');
 
         trackerState = trackerState.setEntranceForExit('Dragon Roost Cavern', 'Bomb Island Secret Cave');
-        trackerState = trackerState.setEntranceForExit('Forbidden Woods', 'Gohma');
-        trackerState = trackerState.setEntranceForExit('FW Miniboss', 'TotG Miniboss');
-        trackerState = trackerState.setEntranceForExit('Tower of the Gods', 'Kalle Demos');
-        trackerState = trackerState.setEntranceForExit('TotG Miniboss', 'FW Miniboss');
-        trackerState = trackerState.setEntranceForExit('Gohdan', 'Gohdan');
+        trackerState = trackerState.setEntranceForExit('Forbidden Woods', 'Gohma Boss Arena');
+        trackerState = trackerState.setEntranceForExit('Forbidden Woods Miniboss Arena', 'Tower of the Gods Miniboss Arena');
+        trackerState = trackerState.setEntranceForExit('Tower of the Gods', 'Kalle Demos Boss Arena');
+        trackerState = trackerState.setEntranceForExit('Tower of the Gods Miniboss Arena', 'Forbidden Woods Miniboss Arena');
+        trackerState = trackerState.setEntranceForExit('Gohdan Boss Arena', 'Gohdan Boss Arena');
       });
 
       test('includes all nested locations in the same sphere', () => {
@@ -465,11 +465,11 @@ describe('Spheres', () => {
 
         updateForItemAndLocation('FW Big Key', 'Forbidden Woods', 'Double Mothula Room');
 
-        trackerState = trackerState.setEntranceForExit('Dragon Roost Cavern', 'Kalle Demos');
+        trackerState = trackerState.setEntranceForExit('Dragon Roost Cavern', 'Kalle Demos Boss Arena');
 
         updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Alcove With Water Jugs');
 
-        trackerState = trackerState.setEntranceForExit('Gohma', 'Gohma');
+        trackerState = trackerState.setEntranceForExit('Gohma Boss Arena', 'Gohma Boss Arena');
       });
 
       test('uses the worst case scenario sphere for the nested dungeon', () => {
@@ -533,7 +533,7 @@ describe('Spheres', () => {
 
         updateForItemAndLocation('FW Big Key', 'Forbidden Woods', 'Double Mothula Room');
 
-        trackerState = trackerState.setEntranceForExit('Dragon Roost Cavern', 'Kalle Demos');
+        trackerState = trackerState.setEntranceForExit('Dragon Roost Cavern', 'Kalle Demos Boss Arena');
 
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'First Room');
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'Alcove With Water Jugs');
@@ -541,7 +541,7 @@ describe('Spheres', () => {
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', "Bird's Nest");
         updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Miniboss');
 
-        trackerState = trackerState.setEntranceForExit('Gohma', 'Gohma');
+        trackerState = trackerState.setEntranceForExit('Gohma Boss Arena', 'Gohma Boss Arena');
       });
 
       test('uses the worst case scenario sphere for the nested dungeon', () => {
@@ -611,11 +611,11 @@ describe('Spheres', () => {
         updateForItemAndLocation('Progressive Bow', 'Ice Ring Isle', 'Cave - Chest');
 
         trackerState = trackerState.setEntranceForExit('Forbidden Woods', 'Ice Ring Isle Inner Cave');
-        trackerState = trackerState.setEntranceForExit('Cliff Plateau Isles Inner Cave', 'Kalle Demos');
+        trackerState = trackerState.setEntranceForExit('Cliff Plateau Isles Inner Cave', 'Kalle Demos Boss Arena');
 
         updateForItemAndLocation('Progressive Bow', 'Cliff Plateau Isles', 'Highest Isle');
 
-        trackerState = trackerState.setEntranceForExit('Ice Ring Isle Inner Cave', 'FW Miniboss');
+        trackerState = trackerState.setEntranceForExit('Ice Ring Isle Inner Cave', 'Forbidden Woods Miniboss Arena');
       });
 
       test('includes all nested locations in the correct spheres', () => {

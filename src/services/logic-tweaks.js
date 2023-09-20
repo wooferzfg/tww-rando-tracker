@@ -34,10 +34,7 @@ class LogicTweaks {
   }
 
   static _updateMacros() {
-    this._updateDungeonEntranceMacros();
-    this._updateCaveEntranceMacros();
-    this._updateBossEntranceMacros();
-    this._updateMinibossEntranceMacros();
+    this._updateRandomEntranceMacros();
     this._updateChartMacros();
     this._updateTriforceMacro();
     this._applyHasAccessedLocationTweaksForMacros();
@@ -118,48 +115,10 @@ class LogicTweaks {
     });
   }
 
-  static _updateDungeonEntranceMacros() {
-    if (!Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES)) {
-      return;
-    }
-
-    _.forEach(LogicHelper.MAIN_DUNGEONS, (dungeon) => {
-      const macroName = `Can Access ${dungeon}`;
-      const entryName = LogicHelper.entryName(dungeon);
-      Macros.setMacro(macroName, entryName);
-    });
-  }
-
-  static _updateCaveEntranceMacros() {
-    _.forEach(LogicHelper.allIslandEntrances(), (cave) => {
-      const macroName = `Can Access ${cave}`;
-      const entryName = LogicHelper.entryName(cave);
-      Macros.setMacro(macroName, entryName);
-    });
-  }
-
-  static _updateBossEntranceMacros() {
-    if (!Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES)) {
-      return;
-    }
-
-    _.forEach(LogicHelper.RACE_MODE_DUNGEONS, (dungeonName) => {
-      const bossName = LogicHelper.bossForDungeon(dungeonName);
-      const macroName = `Can Access ${bossName} Boss Arena`;
-      const entryName = LogicHelper.entryName(bossName);
-      Macros.setMacro(macroName, entryName);
-    });
-  }
-
-  static _updateMinibossEntranceMacros() {
-    if (!Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)) {
-      return;
-    }
-
-    _.forEach(LogicHelper.RANDOM_MINIBOSS_DUNGEONS, (dungeonName) => {
-      const minibossName = LogicHelper.minibossForDungeon(dungeonName);
-      const macroName = `Can Access ${dungeonName} Miniboss Arena`;
-      const entryName = LogicHelper.entryName(minibossName);
+  static _updateRandomEntranceMacros() {
+    _.forEach(LogicHelper.allRandomEntrances(), (exitMacroName) => {
+      const macroName = `Can Access ${exitMacroName}`;
+      const entryName = LogicHelper.entryName(exitMacroName);
       Macros.setMacro(macroName, entryName);
     });
   }

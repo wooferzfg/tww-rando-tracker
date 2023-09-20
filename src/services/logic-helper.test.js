@@ -200,12 +200,6 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('RANDOM_MINIBOSS_DUNGEONS', () => {
-    test('returns all dungeons with a randomized miniboss entrance', () => {
-      expect(LogicHelper.RANDOM_MINIBOSS_DUNGEONS).toMatchSnapshot();
-    });
-  });
-
   describe('startingItemCount', () => {
     beforeEach(() => {
       LogicHelper.startingItems = {
@@ -380,48 +374,6 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('hasRandomizedMiniboss', () => {
-    describe('when the dungeon has a randomized miniboss', () => {
-      test('returns true', () => {
-        const hasRandomizedMiniboss = LogicHelper.hasRandomizedMiniboss('Forbidden Woods');
-
-        expect(hasRandomizedMiniboss).toEqual(true);
-      });
-    });
-
-    describe('when the dungeon is Dragon Roost Cavern', () => {
-      test('returns false', () => {
-        const hasRandomizedMiniboss = LogicHelper.hasRandomizedMiniboss('Dragon Roost Cavern');
-
-        expect(hasRandomizedMiniboss).toEqual(false);
-      });
-    });
-
-    describe('when the dungeon is Forsaken Fortress', () => {
-      test('returns false', () => {
-        const hasRandomizedMiniboss = LogicHelper.hasRandomizedMiniboss('Forsaken Fortress');
-
-        expect(hasRandomizedMiniboss).toEqual(false);
-      });
-    });
-
-    describe("when the dungeon is Ganon's Tower", () => {
-      test('returns false', () => {
-        const hasRandomizedMiniboss = LogicHelper.hasRandomizedMiniboss("Ganon's Tower");
-
-        expect(hasRandomizedMiniboss).toEqual(false);
-      });
-    });
-
-    describe('when the argument is not a dungeon', () => {
-      test('returns false', () => {
-        const hasRandomizedMiniboss = LogicHelper.hasRandomizedMiniboss('Pawprint Isle');
-
-        expect(hasRandomizedMiniboss).toEqual(false);
-      });
-    });
-  });
-
   describe('entryName', () => {
     test('returns the entry name based on a dungeon name', () => {
       const entryName = LogicHelper.entryName('Dragon Roost Cavern');
@@ -436,13 +388,13 @@ describe('LogicHelper', () => {
     });
 
     test('returns the entry name based on a boss name', () => {
-      const entryName = LogicHelper.entryName('Gohma');
+      const entryName = LogicHelper.entryName('Gohma Boss Arena');
 
       expect(entryName).toEqual('Entered Gohma');
     });
 
     test('returns the entry name based on a miniboss name', () => {
-      const entryName = LogicHelper.entryName('FW Miniboss');
+      const entryName = LogicHelper.entryName('Forbidden Woods Miniboss Arena');
 
       expect(entryName).toEqual('Entered FW Miniboss');
     });
@@ -504,13 +456,13 @@ describe('LogicHelper', () => {
     });
 
     test('returns the boss door name', () => {
-      const shortEntranceName = LogicHelper.shortEntranceName('Kalle Demos');
+      const shortEntranceName = LogicHelper.shortEntranceName('Kalle Demos Boss Arena');
 
       expect(shortEntranceName).toEqual('FW Boss Door');
     });
 
     test('returns the miniboss door name', () => {
-      const shortEntranceName = LogicHelper.shortEntranceName('ET Miniboss');
+      const shortEntranceName = LogicHelper.shortEntranceName('Earth Temple Miniboss Arena');
 
       expect(shortEntranceName).toEqual('ET Miniboss Door');
     });
@@ -566,13 +518,13 @@ describe('LogicHelper', () => {
     });
 
     test('returns the boss name', () => {
-      const shortExitName = LogicHelper.shortExitName('Kalle Demos');
+      const shortExitName = LogicHelper.shortExitName('Kalle Demos Boss Arena');
 
       expect(shortExitName).toEqual('Kalle Demos');
     });
 
-    test('returns the unmodified miniboss name', () => {
-      const shortExitName = LogicHelper.shortExitName('WT Miniboss');
+    test('returns the miniboss name', () => {
+      const shortExitName = LogicHelper.shortExitName('Wind Temple Miniboss Arena');
 
       expect(shortExitName).toEqual('WT Miniboss');
     });
@@ -784,19 +736,19 @@ describe('LogicHelper', () => {
       test('returns the dungeon and boss for DRC', () => {
         const entrancesForDungeon = LogicHelper.entrancesForDungeon('Dragon Roost Cavern');
 
-        expect(entrancesForDungeon).toEqual(['Dragon Roost Cavern', 'Gohma']);
+        expect(entrancesForDungeon).toEqual(['Dragon Roost Cavern', 'Gohma Boss Arena']);
       });
 
       test('returns the dungeon, miniboss, and boss for FW', () => {
         const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
 
-        expect(entrancesForDungeon).toEqual(['Forbidden Woods', 'FW Miniboss', 'Kalle Demos']);
+        expect(entrancesForDungeon).toEqual(['Forbidden Woods', 'Forbidden Woods Miniboss Arena', 'Kalle Demos Boss Arena']);
       });
 
       test('returns only the boss for FF', () => {
         const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
 
-        expect(entrancesForDungeon).toEqual(['Helmaroc King']);
+        expect(entrancesForDungeon).toEqual(['Helmaroc King Boss Arena']);
       });
     });
 
@@ -814,19 +766,19 @@ describe('LogicHelper', () => {
       test('returns only the boss for DRC', () => {
         const entrancesForDungeon = LogicHelper.entrancesForDungeon('Dragon Roost Cavern');
 
-        expect(entrancesForDungeon).toEqual(['Gohma']);
+        expect(entrancesForDungeon).toEqual(['Gohma Boss Arena']);
       });
 
       test('returns only the boss for FW', () => {
         const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
 
-        expect(entrancesForDungeon).toEqual(['Kalle Demos']);
+        expect(entrancesForDungeon).toEqual(['Kalle Demos Boss Arena']);
       });
 
       test('returns only the boss for FF', () => {
         const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
 
-        expect(entrancesForDungeon).toEqual(['Helmaroc King']);
+        expect(entrancesForDungeon).toEqual(['Helmaroc King Boss Arena']);
       });
     });
 
@@ -850,7 +802,7 @@ describe('LogicHelper', () => {
       test('returns only the miniboss for FW', () => {
         const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
 
-        expect(entrancesForDungeon).toEqual(['FW Miniboss']);
+        expect(entrancesForDungeon).toEqual(['Forbidden Woods Miniboss Arena']);
       });
 
       test('returns no entrances for FF', () => {
@@ -1247,98 +1199,6 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('allIslandEntrances', () => {
-    describe('when entrances are not randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
-          },
-        });
-      });
-
-      test('returns an empty array', () => {
-        const allIslandEntrances = LogicHelper.allIslandEntrances();
-
-        expect(allIslandEntrances).toEqual([]);
-      });
-    });
-
-    describe('when only normal cave entrances are randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
-          },
-        });
-      });
-
-      test('returns all the caves without inner caves', () => {
-        const allIslandEntrances = LogicHelper.allIslandEntrances();
-
-        expect(allIslandEntrances).toMatchSnapshot();
-      });
-    });
-
-    describe('when there are nested cave entrances and fairy fountains', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
-            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
-          },
-        });
-      });
-
-      test('returns all the caves, inner caves, and fairy fountains', () => {
-        const allIslandEntrances = LogicHelper.allIslandEntrances();
-
-        expect(allIslandEntrances).toMatchSnapshot();
-      });
-    });
-
-    describe('when only inner entrances are randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
-            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
-          },
-        });
-      });
-
-      test('returns only the inner caves', () => {
-        const allIslandEntrances = LogicHelper.allIslandEntrances();
-
-        expect(allIslandEntrances).toMatchSnapshot();
-      });
-    });
-
-    describe('when only fairy fountains are randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
-          },
-        });
-      });
-
-      test('returns only the fairy fountains', () => {
-        const allIslandEntrances = LogicHelper.allIslandEntrances();
-
-        expect(allIslandEntrances).toMatchSnapshot();
-      });
-    });
-  });
-
   describe('randomEntrancesForExit', () => {
     describe('when only dungeon entrances are randomized', () => {
       beforeEach(() => {
@@ -1483,7 +1343,7 @@ describe('LogicHelper', () => {
 
       describe('when the exit is a boss', () => {
         test('returns all the dungeons, bosses, and minibosses', () => {
-          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos');
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos Boss Arena');
 
           expect(randomEntrancesForExit).toMatchSnapshot();
         });
@@ -1491,7 +1351,7 @@ describe('LogicHelper', () => {
 
       describe('when the exit is a miniboss', () => {
         test('returns all the dungeons, bosses, and minibosses', () => {
-          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('ET Miniboss');
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Earth Temple Miniboss Arena');
 
           expect(randomEntrancesForExit).toMatchSnapshot();
         });
@@ -1567,7 +1427,7 @@ describe('LogicHelper', () => {
 
       describe('when the exit is a boss', () => {
         test('returns all the dungeons, bosses, and minibosses', () => {
-          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos');
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos Boss Arena');
 
           expect(randomEntrancesForExit).toMatchSnapshot();
         });
@@ -1575,7 +1435,7 @@ describe('LogicHelper', () => {
 
       describe('when the exit is a miniboss', () => {
         test('returns all the dungeons, bosses, and minibosses', () => {
-          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('ET Miniboss');
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Earth Temple Miniboss Arena');
 
           expect(randomEntrancesForExit).toMatchSnapshot();
         });
@@ -1641,7 +1501,7 @@ describe('LogicHelper', () => {
 
       describe('when the exit is a boss', () => {
         test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
-          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos');
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos Boss Arena');
 
           expect(randomEntrancesForExit).toMatchSnapshot();
         });
@@ -1649,7 +1509,7 @@ describe('LogicHelper', () => {
 
       describe('when the exit is a miniboss', () => {
         test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
-          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('ET Miniboss');
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Earth Temple Miniboss Arena');
 
           expect(randomEntrancesForExit).toMatchSnapshot();
         });
@@ -1707,7 +1567,7 @@ describe('LogicHelper', () => {
 
       describe('when the exit is a boss', () => {
         test('returns all the bosses and minibosses', () => {
-          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos');
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos Boss Arena');
 
           expect(randomEntrancesForExit).toMatchSnapshot();
         });
@@ -1715,7 +1575,7 @@ describe('LogicHelper', () => {
 
       describe('when the exit is a miniboss', () => {
         test('returns all the bosses and minibosses', () => {
-          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('ET Miniboss');
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Earth Temple Miniboss Arena');
 
           expect(randomEntrancesForExit).toMatchSnapshot();
         });
@@ -1787,7 +1647,7 @@ describe('LogicHelper', () => {
         test('returns the boss', () => {
           const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Dragon Roost Cavern');
 
-          expect(nestedEntrancesForExit).toEqual(['Gohma']);
+          expect(nestedEntrancesForExit).toEqual(['Gohma Boss Arena']);
         });
       });
 
@@ -1795,7 +1655,7 @@ describe('LogicHelper', () => {
         test('returns the boss and miniboss', () => {
           const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods');
 
-          expect(nestedEntrancesForExit).toEqual(['Kalle Demos', 'FW Miniboss']);
+          expect(nestedEntrancesForExit).toEqual(['Kalle Demos Boss Arena', 'Forbidden Woods Miniboss Arena']);
         });
       });
 
@@ -1837,7 +1697,7 @@ describe('LogicHelper', () => {
         test('returns the boss and miniboss', () => {
           const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods');
 
-          expect(nestedEntrancesForExit).toEqual(['Kalle Demos', 'FW Miniboss']);
+          expect(nestedEntrancesForExit).toEqual(['Kalle Demos Boss Arena', 'Forbidden Woods Miniboss Arena']);
         });
       });
 
@@ -1903,7 +1763,7 @@ describe('LogicHelper', () => {
 
       describe('when the exit is a dungeon', () => {
         test('returns only the miniboss', () => {
-          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('FW Miniboss');
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods Miniboss Arena');
 
           expect(nestedEntrancesForExit).toEqual([]);
         });
@@ -2436,14 +2296,6 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('bossForDungeon', () => {
-    test('returns the name of the boss for the dungeon', () => {
-      const bossName = LogicHelper.bossForDungeon('Tower of the Gods');
-
-      expect(bossName).toEqual('Gohdan');
-    });
-  });
-
   describe('smallKeyName', () => {
     test('returns the name of the small key for the dungeon', () => {
       const smallKeyName = LogicHelper.smallKeyName('Dragon Roost Cavern');
@@ -2962,13 +2814,13 @@ describe('LogicHelper', () => {
     });
 
     test('returns simplified requirements for Jalhalla', () => {
-      const requirements = LogicHelper.requirementsForEntrance('Jalhalla');
+      const requirements = LogicHelper.requirementsForEntrance('Jalhalla Boss Arena');
 
       expect(requirements).toMatchSnapshot();
     });
 
     test('returns simplified requirements for FW Miniboss', () => {
-      const requirements = LogicHelper.requirementsForEntrance('FW Miniboss');
+      const requirements = LogicHelper.requirementsForEntrance('Forbidden Woods Miniboss Arena');
 
       expect(requirements).toMatchSnapshot();
     });

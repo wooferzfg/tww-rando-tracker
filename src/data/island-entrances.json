@@ -3,6 +3,7 @@
     "islandName": "Outset Island",
     "entranceName": "Outset Island Cave",
     "exitName": "Savage Labyrinth",
+    "entryName": "Savage Labyrinth",
     "entranceMacroName": "Secret Cave Entrance on Outset Island",
     "internalName": "Savage Labyrinth"
   },
@@ -10,6 +11,7 @@
     "islandName": "Dragon Roost Island",
     "entranceName": "Dragon Roost Island Cave",
     "exitName": "Dragon Roost Island Cave",
+    "entryName": "Dragon Roost Island Cave",
     "entranceMacroName": "Secret Cave Entrance on Dragon Roost Island",
     "internalName": "Dragon Roost Island Secret Cave"
   },
@@ -17,6 +19,7 @@
     "islandName": "Fire Mountain",
     "entranceName": "Fire Mountain Cave",
     "exitName": "Fire Mountain Cave",
+    "entryName": "Fire Mountain Cave",
     "entranceMacroName": "Secret Cave Entrance on Fire Mountain",
     "internalName": "Fire Mountain Secret Cave"
   },
@@ -24,6 +27,7 @@
     "islandName": "Ice Ring Isle",
     "entranceName": "Ice Ring Isle Cave",
     "exitName": "Ice Ring Isle Cave",
+    "entryName": "Ice Ring Isle Cave",
     "entranceMacroName": "Secret Cave Entrance on Ice Ring Isle",
     "internalName": "Ice Ring Isle Secret Cave"
   },
@@ -31,6 +35,7 @@
     "islandName": "Private Oasis",
     "entranceName": "Private Oasis Cave",
     "exitName": "Cabana Labyrinth",
+    "entryName": "Cabana Labyrinth",
     "entranceMacroName": "Secret Cave Entrance on Private Oasis",
     "internalName": "Cabana Labyrinth"
   },
@@ -38,6 +43,7 @@
     "islandName": "Needle Rock Isle",
     "entranceName": "Needle Rock Isle Cave",
     "exitName": "Needle Rock Isle Cave",
+    "entryName": "Needle Rock Isle Cave",
     "entranceMacroName": "Secret Cave Entrance on Needle Rock Isle",
     "internalName": "Needle Rock Isle Secret Cave"
   },
@@ -45,6 +51,7 @@
     "islandName": "Angular Isles",
     "entranceName": "Angular Isles Cave",
     "exitName": "Angular Isles Cave",
+    "entryName": "Angular Isles Cave",
     "entranceMacroName": "Secret Cave Entrance on Angular Isles",
     "internalName": "Angular Isles Secret Cave"
   },
@@ -52,6 +59,7 @@
     "islandName": "Boating Course",
     "entranceName": "Boating Course Cave",
     "exitName": "Boating Course Cave",
+    "entryName": "Boating Course Cave",
     "entranceMacroName": "Secret Cave Entrance on Boating Course",
     "internalName": "Boating Course Secret Cave"
   },
@@ -59,6 +67,7 @@
     "islandName": "Stone Watcher Island",
     "entranceName": "Stone Watcher Island Cave",
     "exitName": "Stone Watcher Island Cave",
+    "entryName": "Stone Watcher Island Cave",
     "entranceMacroName": "Secret Cave Entrance on Stone Watcher Island",
     "internalName": "Stone Watcher Island Secret Cave"
   },
@@ -66,6 +75,7 @@
     "islandName": "Overlook Island",
     "entranceName": "Overlook Island Cave",
     "exitName": "Overlook Island Cave",
+    "entryName": "Overlook Island Cave",
     "entranceMacroName": "Secret Cave Entrance on Overlook Island",
     "internalName": "Overlook Island Secret Cave"
   },
@@ -73,6 +83,7 @@
     "islandName": "Bird's Peak Rock",
     "entranceName": "Bird's Peak Rock Cave",
     "exitName": "Bird's Peak Rock Cave",
+    "entryName": "Bird's Peak Rock Cave",
     "entranceMacroName": "Secret Cave Entrance on Bird's Peak Rock",
     "internalName": "Bird's Peak Rock Secret Cave"
   },
@@ -80,6 +91,7 @@
     "islandName": "Pawprint Isle",
     "entranceName": "Pawprint Isle Cave",
     "exitName": "Pawprint Isle Chuchu Cave",
+    "entryName": "Pawprint Isle Chuchu Cave",
     "entranceMacroName": "Secret Cave Entrance on Pawprint Isle",
     "internalName": "Pawprint Isle Chuchu Cave"
   },
@@ -87,6 +99,7 @@
     "islandName": "Pawprint Isle",
     "entranceName": "Pawprint Isle Side Isle Cave",
     "exitName": "Pawprint Isle Wizzrobe Cave",
+    "entryName": "Pawprint Isle Wizzrobe Cave",
     "entranceMacroName": "Secret Cave Entrance on Pawprint Isle Side Isle",
     "internalName": "Pawprint Isle Wizzrobe Cave"
   },
@@ -94,6 +107,7 @@
     "islandName": "Diamond Steppe Island",
     "entranceName": "Diamond Steppe Island Cave",
     "exitName": "Diamond Steppe Island Cave",
+    "entryName": "Diamond Steppe Island Cave",
     "entranceMacroName": "Secret Cave Entrance on Diamond Steppe Island",
     "internalName": "Diamond Steppe Island Warp Maze Cave"
   },
@@ -101,6 +115,7 @@
     "islandName": "Bomb Island",
     "entranceName": "Bomb Island Cave",
     "exitName": "Bomb Island Cave",
+    "entryName": "Bomb Island Cave",
     "entranceMacroName": "Secret Cave Entrance on Bomb Island",
     "internalName": "Bomb Island Secret Cave"
   },
@@ -108,6 +123,7 @@
     "islandName": "Rock Spire Isle",
     "entranceName": "Rock Spire Isle Cave",
     "exitName": "Rock Spire Isle Cave",
+    "entryName": "Rock Spire Isle Cave",
     "entranceMacroName": "Secret Cave Entrance on Rock Spire Isle",
     "internalName": "Rock Spire Isle Secret Cave"
   },
@@ -115,6 +131,7 @@
     "islandName": "Shark Island",
     "entranceName": "Shark Island Cave",
     "exitName": "Shark Island Cave",
+    "entryName": "Shark Island Cave",
     "entranceMacroName": "Secret Cave Entrance on Shark Island",
     "internalName": "Shark Island Secret Cave"
   },
@@ -122,6 +139,7 @@
     "islandName": "Cliff Plateau Isles",
     "entranceName": "Cliff Plateau Isles Cave",
     "exitName": "Cliff Plateau Isles Cave",
+    "entryName": "Cliff Plateau Isles Cave",
     "entranceMacroName": "Secret Cave Entrance on Cliff Plateau Isles",
     "internalName": "Cliff Plateau Isles Secret Cave"
   },
@@ -129,6 +147,7 @@
     "islandName": "Horseshoe Island",
     "entranceName": "Horseshoe Island Cave",
     "exitName": "Horseshoe Island Cave",
+    "entryName": "Horseshoe Island Cave",
     "entranceMacroName": "Secret Cave Entrance on Horseshoe Island",
     "internalName": "Horseshoe Island Secret Cave"
   },
@@ -136,6 +155,7 @@
     "islandName": "Star Island",
     "entranceName": "Star Island Cave",
     "exitName": "Star Island Cave",
+    "entryName": "Star Island Cave",
     "entranceMacroName": "Secret Cave Entrance on Star Island",
     "internalName": "Star Island Secret Cave"
   },
@@ -143,6 +163,7 @@
     "islandName": "Ice Ring Isle",
     "entranceName": "Ice Ring Isle Inner Cave",
     "exitName": "Ice Ring Isle Inner Cave",
+    "entryName": "Ice Ring Isle Inner Cave",
     "isInnerCave": true,
     "entranceMacroName": "Inner Entrance in Ice Ring Isle Secret Cave",
     "internalName": "Ice Ring Isle Inner Cave"
@@ -151,6 +172,7 @@
     "islandName": "Cliff Plateau Isles",
     "entranceName": "Cliff Plateau Isles Inner Cave",
     "exitName": "Cliff Plateau Isles Inner Cave",
+    "entryName": "Cliff Plateau Isles Inner Cave",
     "isInnerCave": true,
     "entranceMacroName": "Inner Entrance in Cliff Plateau Isles Secret Cave",
     "internalName": "Cliff Plateau Isles Inner Cave"
@@ -159,6 +181,7 @@
     "islandName": "Outset Island",
     "entranceName": "Outset Fairy Fountain",
     "exitName": "Outset Fairy Fountain",
+    "entryName": "Outset Fairy Fountain",
     "isFairyFountain": true,
     "entranceMacroName": "Fairy Fountain Entrance on Outset Island",
     "internalName": "Outset Fairy Fountain"
@@ -167,6 +190,7 @@
     "islandName": "Thorned Fairy Island",
     "entranceName": "Thorned Fairy Fountain",
     "exitName": "Thorned Fairy Fountain",
+    "entryName": "Thorned Fairy Fountain",
     "isFairyFountain": true,
     "entranceMacroName": "Fairy Fountain Entrance on Thorned Fairy Island",
     "internalName": "Thorned Fairy Fountain"
@@ -175,6 +199,7 @@
     "islandName": "Eastern Fairy Island",
     "entranceName": "Eastern Fairy Fountain",
     "exitName": "Eastern Fairy Fountain",
+    "entryName": "Eastern Fairy Fountain",
     "isFairyFountain": true,
     "entranceMacroName": "Fairy Fountain Entrance on Eastern Fairy Island",
     "internalName": "Eastern Fairy Fountain"
@@ -183,6 +208,7 @@
     "islandName": "Western Fairy Island",
     "entranceName": "Western Fairy Fountain",
     "exitName": "Western Fairy Fountain",
+    "entryName": "Western Fairy Fountain",
     "isFairyFountain": true,
     "entranceMacroName": "Fairy Fountain Entrance on Western Fairy Island",
     "internalName": "Western Fairy Fountain"
@@ -191,6 +217,7 @@
     "islandName": "Southern Fairy Island",
     "entranceName": "Southern Fairy Fountain",
     "exitName": "Southern Fairy Fountain",
+    "entryName": "Southern Fairy Fountain",
     "isFairyFountain": true,
     "entranceMacroName": "Fairy Fountain Entrance on Southern Fairy Island",
     "internalName": "Southern Fairy Fountain"
@@ -199,6 +226,7 @@
     "islandName": "Northern Fairy Island",
     "entranceName": "Northern Fairy Fountain",
     "exitName": "Northern Fairy Fountain",
+    "entryName": "Northern Fairy Fountain",
     "isFairyFountain": true,
     "entranceMacroName": "Fairy Fountain Entrance on Northern Fairy Island",
     "internalName": "Northern Fairy Fountain"
