@@ -73,7 +73,7 @@ class LocationsTable extends React.PureComponent {
     const {
       chartListOpen,
       clearOpenedMenus,
-      clearRaceModeBannedLocations,
+      clearBannedLocations,
       decrementItem,
       disableLogic,
       entrancesListOpen,
@@ -142,7 +142,7 @@ class LocationsTable extends React.PureComponent {
       chartElement = (
         <DetailedLocationsTable
           clearOpenedMenus={clearOpenedMenus}
-          clearRaceModeBannedLocations={clearRaceModeBannedLocations}
+          clearBannedLocations={clearBannedLocations}
           disableLogic={disableLogic}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
@@ -253,7 +253,7 @@ LocationsTable.propTypes = {
   backgroundColor: PropTypes.string,
   chartListOpen: PropTypes.bool.isRequired,
   clearOpenedMenus: PropTypes.func.isRequired,
-  clearRaceModeBannedLocations: PropTypes.func.isRequired,
+  clearBannedLocations: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   entrancesListOpen: PropTypes.bool.isRequired,

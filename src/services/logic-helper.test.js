@@ -194,9 +194,9 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('RACE_MODE_DUNGEONS', () => {
-    test('returns all dungeons in race mode', () => {
-      expect(LogicHelper.RACE_MODE_DUNGEONS).toMatchSnapshot();
+  describe('REQUIRED_BOSSES_MODE_DUNGEONS', () => {
+    test('returns all dungeons in required bosses mode', () => {
+      expect(LogicHelper.REQUIRED_BOSSES_MODE_DUNGEONS).toMatchSnapshot();
     });
   });
 
@@ -340,36 +340,36 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('isRaceModeDungeon', () => {
-    describe('when the dungeon is a race mode dungeon', () => {
+  describe('isRequiredBossesModeDungeon', () => {
+    describe('when the dungeon is a required bosses mode dungeon', () => {
       test('returns true', () => {
-        const isRaceModeDungeon = LogicHelper.isRaceModeDungeon('Dragon Roost Cavern');
+        const isRequiredBossesModeDungeon = LogicHelper.isRequiredBossesModeDungeon('Dragon Roost Cavern');
 
-        expect(isRaceModeDungeon).toEqual(true);
+        expect(isRequiredBossesModeDungeon).toEqual(true);
       });
     });
 
     describe('when the dungeon is Forsaken Fortress', () => {
       test('returns true', () => {
-        const isRaceModeDungeon = LogicHelper.isRaceModeDungeon('Forsaken Fortress');
+        const isRequiredBossesModeDungeon = LogicHelper.isRequiredBossesModeDungeon('Forsaken Fortress');
 
-        expect(isRaceModeDungeon).toEqual(true);
+        expect(isRequiredBossesModeDungeon).toEqual(true);
       });
     });
 
     describe("when the dungeon is Ganon's Tower", () => {
       test('returns false', () => {
-        const isRaceModeDungeon = LogicHelper.isRaceModeDungeon("Ganon's Tower");
+        const isRequiredBossesModeDungeon = LogicHelper.isRequiredBossesModeDungeon("Ganon's Tower");
 
-        expect(isRaceModeDungeon).toEqual(false);
+        expect(isRequiredBossesModeDungeon).toEqual(false);
       });
     });
 
     describe('when the argument is not a dungeon', () => {
       test('returns false', () => {
-        const isRaceModeDungeon = LogicHelper.isRaceModeDungeon('Pawprint Isle');
+        const isRequiredBossesModeDungeon = LogicHelper.isRequiredBossesModeDungeon('Pawprint Isle');
 
-        expect(isRaceModeDungeon).toEqual(false);
+        expect(isRequiredBossesModeDungeon).toEqual(false);
       });
     });
   });
@@ -2561,7 +2561,7 @@ describe('LogicHelper', () => {
           options: {
             [Permalink.OPTIONS.KEYLUNACY]: false,
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.RACE_MODE]: false,
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
             [Permalink.OPTIONS.MIX_ENTRANCES]: (
@@ -2643,7 +2643,7 @@ describe('LogicHelper', () => {
           options: {
             [Permalink.OPTIONS.KEYLUNACY]: false,
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.RACE_MODE]: false,
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
             [Permalink.OPTIONS.MIX_ENTRANCES]: (
@@ -2683,7 +2683,7 @@ describe('LogicHelper', () => {
           options: {
             [Permalink.OPTIONS.KEYLUNACY]: false,
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.RACE_MODE]: false,
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
             [Permalink.OPTIONS.MIX_ENTRANCES]: (
@@ -2725,7 +2725,7 @@ describe('LogicHelper', () => {
           options: {
             [Permalink.OPTIONS.KEYLUNACY]: false,
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.RACE_MODE]: false,
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
             [Permalink.OPTIONS.MIX_ENTRANCES]: (
@@ -2768,7 +2768,7 @@ describe('LogicHelper', () => {
         options: {
           [Permalink.OPTIONS.KEYLUNACY]: false,
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-          [Permalink.OPTIONS.RACE_MODE]: false,
+          [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
           [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
           [Permalink.OPTIONS.MIX_ENTRANCES]: (
@@ -3192,13 +3192,13 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('raceModeBannedLocations', () => {
+  describe('requiredBossesModeBannedLocations', () => {
     beforeEach(() => {
       Settings.initializeRaw({
         options: {
           [Permalink.OPTIONS.KEYLUNACY]: false,
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-          [Permalink.OPTIONS.RACE_MODE]: false,
+          [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
           [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
           [Permalink.OPTIONS.MIX_ENTRANCES]: (
@@ -3226,39 +3226,39 @@ describe('LogicHelper', () => {
     });
 
     test('returns the correct locations for Dragon Roost Cavern', () => {
-      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Dragon Roost Cavern');
+      const requiredBossesModeBannedLocations = LogicHelper.requiredBossesModeBannedLocations('Dragon Roost Cavern');
 
-      expect(raceModeBannedLocations).toMatchSnapshot();
+      expect(requiredBossesModeBannedLocations).toMatchSnapshot();
     });
 
     test('returns the correct locations for Forbidden Woods', () => {
-      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Forbidden Woods');
+      const requiredBossesModeBannedLocations = LogicHelper.requiredBossesModeBannedLocations('Forbidden Woods');
 
-      expect(raceModeBannedLocations).toMatchSnapshot();
+      expect(requiredBossesModeBannedLocations).toMatchSnapshot();
     });
 
     test('returns the correct locations for Tower of the Gods', () => {
-      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Tower of the Gods');
+      const requiredBossesModeBannedLocations = LogicHelper.requiredBossesModeBannedLocations('Tower of the Gods');
 
-      expect(raceModeBannedLocations).toMatchSnapshot();
+      expect(requiredBossesModeBannedLocations).toMatchSnapshot();
     });
 
     test('returns the correct locations for Forsaken Fortress', () => {
-      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Forsaken Fortress');
+      const requiredBossesModeBannedLocations = LogicHelper.requiredBossesModeBannedLocations('Forsaken Fortress');
 
-      expect(raceModeBannedLocations).toMatchSnapshot();
+      expect(requiredBossesModeBannedLocations).toMatchSnapshot();
     });
 
     test('returns the correct locations for Earth Temple', () => {
-      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Earth Temple');
+      const requiredBossesModeBannedLocations = LogicHelper.requiredBossesModeBannedLocations('Earth Temple');
 
-      expect(raceModeBannedLocations).toMatchSnapshot();
+      expect(requiredBossesModeBannedLocations).toMatchSnapshot();
     });
 
     test('returns the correct locations for Wind Temple', () => {
-      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Wind Temple');
+      const requiredBossesModeBannedLocations = LogicHelper.requiredBossesModeBannedLocations('Wind Temple');
 
-      expect(raceModeBannedLocations).toMatchSnapshot();
+      expect(requiredBossesModeBannedLocations).toMatchSnapshot();
     });
   });
 

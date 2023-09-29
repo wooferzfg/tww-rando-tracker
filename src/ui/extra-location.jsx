@@ -222,7 +222,7 @@ class ExtraLocation extends React.PureComponent {
     const entranceElements = _.map(entrances, (entrance) => this.entrance(entrance));
 
     const isMainDungeon = LogicHelper.isMainDungeon(locationName);
-    const isRaceModeDungeon = LogicHelper.isRaceModeDungeon(locationName);
+    const isRequiredBossesModeDungeon = LogicHelper.isRequiredBossesModeDungeon(locationName);
 
     return (
       <div className="dungeon-items">
@@ -233,7 +233,7 @@ class ExtraLocation extends React.PureComponent {
             {this.bigKeyItem()}
           </>
         )}
-        { isRaceModeDungeon && (
+        { isRequiredBossesModeDungeon && (
           <>
             {this.dungeonMapItem()}
             {this.compassItem()}

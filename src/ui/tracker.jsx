@@ -46,7 +46,7 @@ class Tracker extends React.PureComponent {
     this.initialize();
 
     this.clearOpenedMenus = this.clearOpenedMenus.bind(this);
-    this.clearRaceModeBannedLocations = this.clearRaceModeBannedLocations.bind(this);
+    this.clearBannedLocations = this.clearBannedLocations.bind(this);
     this.decrementItem = this.decrementItem.bind(this);
     this.incrementItem = this.incrementItem.bind(this);
     this.toggleChartList = this.toggleChartList.bind(this);
@@ -178,16 +178,20 @@ class Tracker extends React.PureComponent {
     this.updateTrackerState(newTrackerState);
   }
 
-  clearRaceModeBannedLocations(dungeonName) {
+  clearBannedLocations(dungeonName) {
     let { trackerState: newTrackerState } = this.state;
 
-    const raceModeBannedLocations = LogicHelper.raceModeBannedLocations(dungeonName);
-
-    _.forEach(raceModeBannedLocations, ({ generalLocation, detailedLocation }) => {
-      if (!newTrackerState.isLocationChecked(generalLocation, detailedLocation)) {
-        newTrackerState = newTrackerState.toggleLocationChecked(generalLocation, detailedLocation);
-      }
-    });
+    _.forEach(
+      LogicHelper.requiredBossesModeBannedLocations(dungeonName),
+      ({ generalLocation, detailedLocation }) => {
+        if (!newTrackerState.isLocationChecked(generalLocation, detailedLocation)) {
+          newTrackerState = newTrackerState.toggleLocationChecked(
+            generalLocation,
+            detailedLocation,
+          );
+        }
+      },
+    );
 
     this.updateTrackerState(newTrackerState);
   }
@@ -461,7 +465,7 @@ class Tracker extends React.PureComponent {
               backgroundColor={extraLocationsBackground}
               chartListOpen={chartListOpen}
               clearOpenedMenus={this.clearOpenedMenus}
-              clearRaceModeBannedLocations={this.clearRaceModeBannedLocations}
+              clearBannedLocations={this.clearBannedLocations}
               decrementItem={this.decrementItem}
               disableLogic={disableLogic}
               entrancesListOpen={entrancesListOpen}
