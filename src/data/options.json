@@ -57,8 +57,8 @@
   "skip_rematch_bosses",
   "invert_camera_x_axis",
   "invert_sea_compass_x_axis",
-  "race_mode",
-  "num_race_mode_dungeons",
+  "required_bosses",
+  "num_required_bosses",
   "randomize_enemy_palettes",
 
   "starting_gear",

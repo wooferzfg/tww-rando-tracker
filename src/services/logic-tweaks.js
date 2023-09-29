@@ -38,6 +38,7 @@ class LogicTweaks {
     this._updateChartMacros();
     this._updateTriforceMacro();
     this._applyHasAccessedLocationTweaksForMacros();
+    this._updateRequiredBossesModeMacro();
   }
 
   static _addDefeatGanondorf() {
@@ -79,10 +80,6 @@ class LogicTweaks {
         );
       }
     });
-  }
-
-  static _replaceCanAccessOtherLocation(requirements) {
-    return requirements.replace(/Can Access Item Location/g, 'Has Accessed Other Location');
   }
 
   static _applyHasAccessedLocationTweaksForLocations() {
@@ -139,6 +136,32 @@ class LogicTweaks {
 
   static _updateTriforceMacro() {
     Macros.setMacro('All 8 Triforce Shards', 'Triforce Shard x8');
+  }
+
+  static _updateRequiredBossesModeMacro() {
+    if (!Settings.getOptionValue(Permalink.OPTIONS.REQUIRED_BOSSES)) {
+      return;
+    }
+
+    const bossRequirements = _.map(
+      LogicHelper.REQUIRED_BOSSES_MODE_DUNGEONS,
+      (dungeonName) => (
+        this._hasAccessedOtherLocationMacro(
+          dungeonName,
+          LogicHelper.bossLocation(dungeonName),
+        )
+      ),
+    );
+    const macroValue = _.join(bossRequirements, ` ${LogicHelper.TOKENS.AND} `);
+    Macros.setMacro('Can Defeat All Required Bosses', macroValue);
+  }
+
+  static _replaceCanAccessOtherLocation(requirements) {
+    return requirements.replace(/Can Access Item Location/g, 'Has Accessed Other Location');
+  }
+
+  static _hasAccessedOtherLocationMacro(generalLocation, detailedLocation) {
+    return `(Has Accessed Other Location "${generalLocation} - ${detailedLocation}")`;
   }
 }
 

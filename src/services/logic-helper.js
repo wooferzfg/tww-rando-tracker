@@ -10,7 +10,7 @@ import KEYS from '../data/keys.json';
 import MISC_LOCATIONS from '../data/misc-locations.json';
 import NESTED_ENTRANCES from '../data/nested-entrances.json';
 import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
-import RACE_MODE_BANNED_LOCATIONS from '../data/race-mode-banned-locations.json';
+import REQUIRED_BOSSES_MODE_BANNED_LOCATIONS from '../data/required-bosses-mode-banned-locations.json';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
 
 import BooleanExpression from './boolean-expression';
@@ -87,7 +87,10 @@ class LogicHelper {
 
   static MAIN_DUNGEONS = _.filter(DUNGEONS, (dungeon) => this.isMainDungeon(dungeon));
 
-  static RACE_MODE_DUNGEONS = _.filter(DUNGEONS, (dungeon) => this.isRaceModeDungeon(dungeon));
+  static REQUIRED_BOSSES_MODE_DUNGEONS = _.filter(
+    DUNGEONS,
+    (dungeon) => this.isRequiredBossesModeDungeon(dungeon),
+  );
 
   static ISLANDS = Constants.createFromArray(ISLANDS);
 
@@ -159,7 +162,7 @@ class LogicHelper {
     return _.includes(DUNGEONS, dungeonName);
   }
 
-  static isRaceModeDungeon(dungeonName) {
+  static isRequiredBossesModeDungeon(dungeonName) {
     if (dungeonName === this.DUNGEONS.GANONS_TOWER) {
       return false;
     }
@@ -518,14 +521,14 @@ class LogicHelper {
     return `Chart for ${island}`;
   }
 
-  static raceModeBannedLocations(dungeonName) {
+  static requiredBossesModeBannedLocations(dungeonName) {
     const detailedLocations = Locations.detailedLocationsForGeneralLocation(dungeonName);
     const dungeonLocations = _.map(detailedLocations, (detailedLocation) => ({
       generalLocation: dungeonName,
       detailedLocation,
     }));
 
-    const additionalLocations = _.get(RACE_MODE_BANNED_LOCATIONS, dungeonName, []);
+    const additionalLocations = _.get(REQUIRED_BOSSES_MODE_BANNED_LOCATIONS, dungeonName, []);
 
     return _.concat(dungeonLocations, additionalLocations);
   }

@@ -148,7 +148,7 @@ class DetailedLocationsTable extends React.PureComponent {
   render() {
     const {
       clearOpenedMenus,
-      clearRaceModeBannedLocations,
+      clearBannedLocations,
       disableLogic,
       logic,
       onlyProgressLocations,
@@ -176,18 +176,20 @@ class DetailedLocationsTable extends React.PureComponent {
 
     let clearAllElement;
     if (
-      Settings.getOptionValue(Permalink.OPTIONS.RACE_MODE)
+      Settings.getOptionValue(Permalink.OPTIONS.REQUIRED_BOSSES)
       && openedLocationIsDungeon
-      && LogicHelper.isRaceModeDungeon(openedLocation)
+      && LogicHelper.isRequiredBossesModeDungeon(openedLocation)
     ) {
-      const clearRaceModeBannedLocationsFunc = () => clearRaceModeBannedLocations(openedLocation);
+      const clearBannedLocationsFunc = () => (
+        clearBannedLocations(openedLocation)
+      );
 
       clearAllElement = (
         <td>
           <div
             className="detail-span"
-            onClick={clearRaceModeBannedLocationsFunc}
-            onKeyDown={KeyDownWrapper.onSpaceKey(clearRaceModeBannedLocationsFunc)}
+            onClick={clearBannedLocationsFunc}
+            onKeyDown={KeyDownWrapper.onSpaceKey(clearBannedLocationsFunc)}
             role="button"
             tabIndex="0"
           >
@@ -210,7 +212,7 @@ class DetailedLocationsTable extends React.PureComponent {
 
 DetailedLocationsTable.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
-  clearRaceModeBannedLocations: PropTypes.func.isRequired,
+  clearBannedLocations: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,

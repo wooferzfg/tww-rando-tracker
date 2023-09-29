@@ -290,8 +290,8 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.SKIP_REMATCH_BOSSES,
           }),
           this.toggleInput({
-            labelText: 'Race Mode',
-            optionName: Permalink.OPTIONS.RACE_MODE,
+            labelText: 'Required Bosses Mode',
+            optionName: Permalink.OPTIONS.REQUIRED_BOSSES,
           }),
         ]}
       />

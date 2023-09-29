@@ -21,7 +21,7 @@ describe('Spheres', () => {
         options: {
           [Permalink.OPTIONS.KEYLUNACY]: false,
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-          [Permalink.OPTIONS.RACE_MODE]: false,
+          [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
           [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
           [Permalink.OPTIONS.MIX_ENTRANCES]: (
