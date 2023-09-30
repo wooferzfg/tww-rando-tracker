@@ -787,13 +787,17 @@ class LogicHelper {
 
   static _filterIslandEntrances() {
     return _.filter(ISLAND_ENTRANCES, (entranceData) => {
+      if (entranceData.isCave) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES);
+      }
       if (entranceData.isInnerCave) {
         return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES);
       }
       if (entranceData.isFairyFountain) {
         return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES);
       }
-      return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES);
+      // istanbul ignore next
+      throw Error(`Invalid entrance: ${entranceData.internalName}`);
     });
   }
 
