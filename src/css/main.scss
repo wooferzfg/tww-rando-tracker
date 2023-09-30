@@ -199,7 +199,8 @@ input {
   width: 6%;
 }
 
-button,
+.tracker-container button,
+.launcher-container button,
 .permalink {
   padding: 6px;
   border-radius: 5px;
@@ -209,7 +210,8 @@ button,
   margin-right: 2px;
 }
 
-button,
+.tracker-container button,
+.launcher-container button,
 select {
   background: linear-gradient(#d2d2d2, #c8c8c8);
   font-family: "Fira Sans", sans-serif;
