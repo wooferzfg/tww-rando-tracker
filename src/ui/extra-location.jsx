@@ -179,7 +179,7 @@ class ExtraLocation extends React.PureComponent {
     );
   }
 
-  entrance(zoneName) {
+  dungeonExit(exitName) {
     const {
       clearSelectedItem,
       setSelectedExit,
@@ -188,21 +188,21 @@ class ExtraLocation extends React.PureComponent {
       updateOpenedExit,
     } = this.props;
 
-    const entryName = LogicHelper.entryName(zoneName);
+    const entryName = LogicHelper.entryName(exitName);
     const entryCount = trackerState.getItemValue(entryName);
 
-    const setSelectedItemFunc = () => setSelectedExit(zoneName);
+    const setSelectedItemFunc = () => setSelectedExit(exitName);
 
     const incrementItemFunc = () => {
       if (entryCount > 0) {
-        unsetExit(zoneName);
+        unsetExit(exitName);
       } else {
-        updateOpenedExit(zoneName);
+        updateOpenedExit(exitName);
       }
     };
 
     return (
-      <div className="dungeon-item dungeon-entry" key={zoneName}>
+      <div className="dungeon-item dungeon-entry" key={exitName}>
         <Item
           clearSelectedItem={clearSelectedItem}
           images={Images.IMAGES.DUNGEON_ENTRANCE}
@@ -218,15 +218,15 @@ class ExtraLocation extends React.PureComponent {
   dungeonItems() {
     const { locationName } = this.props;
 
-    const entrances = LogicHelper.entrancesForDungeon(locationName);
-    const entranceElements = _.map(entrances, (entrance) => this.entrance(entrance));
+    const dungeonExits = LogicHelper.exitsForDungeon(locationName);
+    const exitElements = _.map(dungeonExits, (dungeonExit) => this.dungeonExit(dungeonExit));
 
     const isMainDungeon = LogicHelper.isMainDungeon(locationName);
     const isRequiredBossesModeDungeon = LogicHelper.isRequiredBossesModeDungeon(locationName);
 
     return (
       <div className="dungeon-items">
-        {entranceElements}
+        {exitElements}
         { isMainDungeon && (
           <>
             {this.smallKeyItem()}

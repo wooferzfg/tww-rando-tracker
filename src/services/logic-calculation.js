@@ -55,8 +55,8 @@ class LogicCalculation {
     return this._formatRequirements(requirementsForLocation);
   }
 
-  formattedRequirementsForEntrance(dungeonOrCaveName) {
-    const requirementsForEntrance = LogicHelper.requirementsForEntrance(dungeonOrCaveName);
+  formattedRequirementsForEntrance(entranceName) {
+    const requirementsForEntrance = LogicHelper.requirementsForEntrance(entranceName);
 
     return this._formatRequirements(requirementsForEntrance);
   }
@@ -124,9 +124,9 @@ class LogicCalculation {
     );
   }
 
-  entrancesListForExit(dungeonOrCaveName, { disableLogic }) {
+  entrancesListForExit(exitName, { disableLogic }) {
     return this._entrancesListForEntrances(
-      LogicHelper.randomEntrancesForExit(dungeonOrCaveName),
+      LogicHelper.randomEntrancesForExit(exitName),
       { disableLogic },
     );
   }
@@ -213,16 +213,16 @@ class LogicCalculation {
     return this._areRequirementsMet(requirementsForLocation);
   }
 
-  isEntranceAvailable(dungeonOrCaveName) {
-    const requirementsForEntrance = LogicHelper.requirementsForEntrance(dungeonOrCaveName);
+  isEntranceAvailable(entranceName) {
+    const requirementsForEntrance = LogicHelper.requirementsForEntrance(entranceName);
 
     return this._areRequirementsMet(requirementsForEntrance);
   }
 
   _entrancesListForEntrances(entrances, { disableLogic }) {
-    return _.map(entrances, (dungeonOrCaveName) => {
-      const isAvailable = this.isEntranceAvailable(dungeonOrCaveName);
-      const isChecked = this.state.isEntranceChecked(dungeonOrCaveName);
+    return _.map(entrances, (entranceName) => {
+      const isAvailable = this.isEntranceAvailable(entranceName);
+      const isChecked = this.state.isEntranceChecked(entranceName);
 
       const color = LogicCalculation._locationColor(
         disableLogic || isAvailable,
@@ -231,7 +231,7 @@ class LogicCalculation {
       );
 
       return {
-        entrance: dungeonOrCaveName,
+        entrance: entranceName,
         color,
       };
     });

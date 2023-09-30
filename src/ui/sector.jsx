@@ -136,54 +136,33 @@ class Sector extends React.PureComponent {
     );
   }
 
-  entrances() {
-    const {
-      island,
-      trackerState,
-    } = this.props;
-
-    const entrancesForIsland = LogicHelper.entrancesForIsland(island);
-
-    return _.map(entrancesForIsland, (entranceName) => {
-      const entryName = LogicHelper.entryName(entranceName);
-      const entryCount = trackerState.getItemValue(entryName);
-
-      return {
-        entryCount,
-        entryName,
-        locationName: entranceName,
-      };
-    });
-  }
-
   entryItems() {
     const {
       clearSelectedItem,
       clearSelectedLocation,
+      island,
       setSelectedExit,
+      trackerState,
       unsetExit,
       updateOpenedExit,
     } = this.props;
 
-    const entrances = this.entrances();
+    const islandExits = LogicHelper.exitsForIsland(island);
 
-    return _.map(entrances, (entrance) => {
-      const {
-        entryCount,
-        entryName,
-        locationName,
-      } = entrance;
+    return _.map(islandExits, (exitName) => {
+      const entryName = LogicHelper.entryName(exitName);
+      const entryCount = trackerState.getItemValue(entryName);
 
-      const setSelectedItemFunc = () => setSelectedExit(locationName);
+      const setSelectedItemFunc = () => setSelectedExit(exitName);
 
       const incrementItemFunc = () => {
         if (entryCount > 0) {
-          unsetExit(locationName);
+          unsetExit(exitName);
         } else {
           clearSelectedItem();
           clearSelectedLocation();
 
-          updateOpenedExit(locationName);
+          updateOpenedExit(exitName);
         }
       };
 

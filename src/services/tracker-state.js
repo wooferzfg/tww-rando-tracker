@@ -82,12 +82,12 @@ class TrackerState {
     return newState;
   }
 
-  getEntranceForExit(zoneName) {
-    return _.get(this.entrances, zoneName);
+  getEntranceForExit(exitName) {
+    return _.get(this.entrances, exitName);
   }
 
-  getExitForEntrance(zoneName) {
-    return _.findKey(this.entrances, (entranceName) => entranceName === zoneName);
+  getExitForEntrance(entranceName) {
+    return _.findKey(this.entrances, (curEntranceName) => curEntranceName === entranceName);
   }
 
   setEntranceForExit(exitName, entranceName) {
@@ -96,14 +96,14 @@ class TrackerState {
     return newState;
   }
 
-  unsetEntranceForExit(zoneName) {
+  unsetEntranceForExit(exitName) {
     const newState = this._clone({ entrances: true });
-    _.unset(newState.entrances, zoneName);
+    _.unset(newState.entrances, exitName);
     return newState;
   }
 
-  isEntranceChecked(zoneName) {
-    return _.includes(this.entrances, zoneName);
+  isEntranceChecked(entranceName) {
+    return _.includes(this.entrances, entranceName);
   }
 
   isLocationChecked(generalLocation, detailedLocation) {

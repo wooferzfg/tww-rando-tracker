@@ -530,7 +530,7 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('entrancesForIsland', () => {
+  describe('exitsForIsland', () => {
     describe('when there are no random island entrances', () => {
       beforeEach(() => {
         Settings.initializeRaw({
@@ -543,9 +543,9 @@ describe('LogicHelper', () => {
       });
 
       test('returns an empty array', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Cliff Plateau Isles');
+        const islandExits = LogicHelper.exitsForIsland('Cliff Plateau Isles');
 
-        expect(islandEntrances).toEqual([]);
+        expect(islandExits).toEqual([]);
       });
     });
 
@@ -561,42 +561,42 @@ describe('LogicHelper', () => {
       });
 
       test('returns no cave entrances when the island has no entrances', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Windfall Island');
+        const islandExits = LogicHelper.exitsForIsland('Windfall Island');
 
-        expect(islandEntrances).toEqual([]);
+        expect(islandExits).toEqual([]);
       });
 
       test('returns one cave entrance when the island has one entrance', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Dragon Roost Island');
+        const islandExits = LogicHelper.exitsForIsland('Dragon Roost Island');
 
-        expect(islandEntrances).toEqual(['Dragon Roost Island Secret Cave']);
+        expect(islandExits).toEqual(['Dragon Roost Island Secret Cave']);
       });
 
       test('returns the cave entrance when the island does not match the cave name', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Private Oasis');
+        const islandExits = LogicHelper.exitsForIsland('Private Oasis');
 
-        expect(islandEntrances).toEqual(['Cabana Labyrinth']);
+        expect(islandExits).toEqual(['Cabana Labyrinth']);
       });
 
       test('returns multiple cave entrances when the island has multiple entrances', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Pawprint Isle');
+        const islandExits = LogicHelper.exitsForIsland('Pawprint Isle');
 
-        expect(islandEntrances).toEqual([
+        expect(islandExits).toEqual([
           'Pawprint Isle Chuchu Cave',
           'Pawprint Isle Wizzrobe Cave',
         ]);
       });
 
       test('does not include nested caves', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Cliff Plateau Isles');
+        const islandExits = LogicHelper.exitsForIsland('Cliff Plateau Isles');
 
-        expect(islandEntrances).toEqual(['Cliff Plateau Isles Secret Cave']);
+        expect(islandExits).toEqual(['Cliff Plateau Isles Secret Cave']);
       });
 
       test('does not include fairy fountains', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Outset Island');
+        const islandExits = LogicHelper.exitsForIsland('Outset Island');
 
-        expect(islandEntrances).toEqual(['Savage Labyrinth']);
+        expect(islandExits).toEqual(['Savage Labyrinth']);
       });
     });
 
@@ -612,18 +612,18 @@ describe('LogicHelper', () => {
       });
 
       test('includes nested caves', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Cliff Plateau Isles');
+        const islandExits = LogicHelper.exitsForIsland('Cliff Plateau Isles');
 
-        expect(islandEntrances).toEqual([
+        expect(islandExits).toEqual([
           'Cliff Plateau Isles Secret Cave',
           'Cliff Plateau Isles Inner Cave',
         ]);
       });
 
       test('includes fairy fountains', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Outset Island');
+        const islandExits = LogicHelper.exitsForIsland('Outset Island');
 
-        expect(islandEntrances).toEqual([
+        expect(islandExits).toEqual([
           'Savage Labyrinth',
           'Outset Fairy Fountain',
         ]);
@@ -642,15 +642,15 @@ describe('LogicHelper', () => {
       });
 
       test('includes nested caves', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Cliff Plateau Isles');
+        const islandExits = LogicHelper.exitsForIsland('Cliff Plateau Isles');
 
-        expect(islandEntrances).toEqual(['Cliff Plateau Isles Inner Cave']);
+        expect(islandExits).toEqual(['Cliff Plateau Isles Inner Cave']);
       });
 
       test('returns no caves for other islands', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Pawprint Isle');
+        const islandExits = LogicHelper.exitsForIsland('Pawprint Isle');
 
-        expect(islandEntrances).toEqual([]);
+        expect(islandExits).toEqual([]);
       });
     });
 
@@ -666,20 +666,20 @@ describe('LogicHelper', () => {
       });
 
       test('includes fairy fountains', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Eastern Fairy Island');
+        const islandExits = LogicHelper.exitsForIsland('Eastern Fairy Island');
 
-        expect(islandEntrances).toEqual(['Eastern Fairy Fountain']);
+        expect(islandExits).toEqual(['Eastern Fairy Fountain']);
       });
 
       test('returns no caves for other islands', () => {
-        const islandEntrances = LogicHelper.entrancesForIsland('Pawprint Isle');
+        const islandExits = LogicHelper.exitsForIsland('Pawprint Isle');
 
-        expect(islandEntrances).toEqual([]);
+        expect(islandExits).toEqual([]);
       });
     });
   });
 
-  describe('entrancesForDungeon', () => {
+  describe('exitsForDungeon', () => {
     describe('when dungeon entrances are not randomized', () => {
       beforeEach(() => {
         Settings.initializeRaw({
@@ -692,9 +692,9 @@ describe('LogicHelper', () => {
       });
 
       test('returns an empty array', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forbidden Woods');
 
-        expect(entrancesForDungeon).toEqual([]);
+        expect(exitsForDungeon).toEqual([]);
       });
     });
 
@@ -710,21 +710,21 @@ describe('LogicHelper', () => {
       });
 
       test('returns just the dungeon entrance for a dungeon with a random entrance', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forbidden Woods');
 
-        expect(entrancesForDungeon).toEqual(['Forbidden Woods']);
+        expect(exitsForDungeon).toEqual(['Forbidden Woods']);
       });
 
       test('returns no entrances for a dungeon with no random entrance', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forsaken Fortress');
 
-        expect(entrancesForDungeon).toEqual([]);
+        expect(exitsForDungeon).toEqual([]);
       });
 
       test('returns no entrances for Hyrule', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Hyrule');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Hyrule');
 
-        expect(entrancesForDungeon).toEqual([]);
+        expect(exitsForDungeon).toEqual([]);
       });
     });
 
@@ -740,27 +740,27 @@ describe('LogicHelper', () => {
       });
 
       test('returns the dungeon and boss for DRC', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Dragon Roost Cavern');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Dragon Roost Cavern');
 
-        expect(entrancesForDungeon).toEqual(['Dragon Roost Cavern', 'Gohma Boss Arena']);
+        expect(exitsForDungeon).toEqual(['Dragon Roost Cavern', 'Gohma Boss Arena']);
       });
 
       test('returns the dungeon, miniboss, and boss for FW', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forbidden Woods');
 
-        expect(entrancesForDungeon).toEqual(['Forbidden Woods', 'Forbidden Woods Miniboss Arena', 'Kalle Demos Boss Arena']);
+        expect(exitsForDungeon).toEqual(['Forbidden Woods', 'Forbidden Woods Miniboss Arena', 'Kalle Demos Boss Arena']);
       });
 
       test('returns only the boss for FF', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forsaken Fortress');
 
-        expect(entrancesForDungeon).toEqual(['Helmaroc King Boss Arena']);
+        expect(exitsForDungeon).toEqual(['Helmaroc King Boss Arena']);
       });
 
       test('returns the Master Sword Chamber for Hyrule', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Hyrule');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Hyrule');
 
-        expect(entrancesForDungeon).toEqual(['Master Sword Chamber']);
+        expect(exitsForDungeon).toEqual(['Master Sword Chamber']);
       });
     });
 
@@ -776,21 +776,21 @@ describe('LogicHelper', () => {
       });
 
       test('returns only the boss for DRC', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Dragon Roost Cavern');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Dragon Roost Cavern');
 
-        expect(entrancesForDungeon).toEqual(['Gohma Boss Arena']);
+        expect(exitsForDungeon).toEqual(['Gohma Boss Arena']);
       });
 
       test('returns only the boss for FW', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forbidden Woods');
 
-        expect(entrancesForDungeon).toEqual(['Kalle Demos Boss Arena']);
+        expect(exitsForDungeon).toEqual(['Kalle Demos Boss Arena']);
       });
 
       test('returns only the boss for FF', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forsaken Fortress');
 
-        expect(entrancesForDungeon).toEqual(['Helmaroc King Boss Arena']);
+        expect(exitsForDungeon).toEqual(['Helmaroc King Boss Arena']);
       });
     });
 
@@ -806,21 +806,21 @@ describe('LogicHelper', () => {
       });
 
       test('returns no entrances for DRC', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Dragon Roost Cavern');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Dragon Roost Cavern');
 
-        expect(entrancesForDungeon).toEqual([]);
+        expect(exitsForDungeon).toEqual([]);
       });
 
       test('returns only the miniboss for FW', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forbidden Woods');
 
-        expect(entrancesForDungeon).toEqual(['Forbidden Woods Miniboss Arena']);
+        expect(exitsForDungeon).toEqual(['Forbidden Woods Miniboss Arena']);
       });
 
       test('returns no entrances for FF', () => {
-        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forsaken Fortress');
 
-        expect(entrancesForDungeon).toEqual([]);
+        expect(exitsForDungeon).toEqual([]);
       });
     });
   });

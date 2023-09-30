@@ -27,8 +27,8 @@ class LogicHelper {
       'allRandomEntrances',
       'bossLocation',
       'chartForIsland',
-      'entrancesForDungeon',
-      'entrancesForIsland',
+      'exitsForDungeon',
+      'exitsForIsland',
       'filterDetailedLocations',
       'islandFromChartForIsland',
       'islandForChart',
@@ -55,8 +55,8 @@ class LogicHelper {
       this.allRandomEntrances,
       this.bossLocation,
       this.chartForIsland,
-      this.entrancesForDungeon,
-      this.entrancesForIsland,
+      this.exitsForDungeon,
+      this.exitsForIsland,
       this.filterDetailedLocations,
       this.islandFromChartForIsland,
       this.islandForChart,
@@ -169,37 +169,37 @@ class LogicHelper {
     return this.isDungeon(dungeonName);
   }
 
-  static entryName(zoneName) {
-    const entranceData = this._entranceDataForInternalName(zoneName);
+  static entryName(exitName) {
+    const entranceData = this._entranceDataForInternalName(exitName);
     if (_.isNil(entranceData)) {
       // istanbul ignore next
-      throw Error(`Entrance not found: ${zoneName}`);
+      throw Error(`Exit not found: ${exitName}`);
     }
 
     return `Entered ${entranceData.entryName}`;
   }
 
-  static shortEntranceName(zoneName) {
-    const entranceData = this._entranceDataForInternalName(zoneName);
+  static shortEntranceName(entranceName) {
+    const entranceData = this._entranceDataForInternalName(entranceName);
     if (_.isNil(entranceData)) {
       // istanbul ignore next
-      throw Error(`Could not get short name for entrance: ${zoneName}`);
+      throw Error(`Could not get short name for entrance: ${entranceName}`);
     }
 
     return entranceData.entranceName;
   }
 
-  static shortExitName(zoneName) {
-    const entranceData = this._entranceDataForInternalName(zoneName);
+  static shortExitName(exitName) {
+    const entranceData = this._entranceDataForInternalName(exitName);
     if (_.isNil(entranceData)) {
       // istanbul ignore next
-      throw Error(`Could not get short name for exit: ${zoneName}`);
+      throw Error(`Could not get short name for exit: ${exitName}`);
     }
 
     return entranceData.exitName;
   }
 
-  static entrancesForIsland(islandName) {
+  static exitsForIsland(islandName) {
     return _.compact(
       _.map(
         this._filterIslandEntrances(),
@@ -212,7 +212,7 @@ class LogicHelper {
     );
   }
 
-  static entrancesForDungeon(zoneName) {
+  static exitsForDungeon(zoneName) {
     return _.compact(
       _.map(
         this._filterDungeonEntrances(),
@@ -243,14 +243,14 @@ class LogicHelper {
     );
   }
 
-  static randomEntrancesForExit(zoneName) {
+  static randomEntrancesForExit(exitName) {
     let possibleEntrances;
     if (
       Settings.getOptionValue(Permalink.OPTIONS.MIX_ENTRANCES)
       === Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
     ) {
       possibleEntrances = this.allRandomEntrances();
-    } else if (this._isDungeonEntrance(zoneName)) {
+    } else if (this._isDungeonEntrance(exitName)) {
       possibleEntrances = this._allDungeonEntrances();
     } else {
       possibleEntrances = this._allIslandEntrances();
@@ -258,12 +258,12 @@ class LogicHelper {
 
     return _.difference(
       possibleEntrances,
-      this.nestedEntrancesForExit(zoneName),
+      this.nestedEntrancesForExit(exitName),
     );
   }
 
-  static nestedEntrancesForExit(zoneName) {
-    const nestedEntrances = _.get(NESTED_ENTRANCES, zoneName, []);
+  static nestedEntrancesForExit(exitName) {
+    const nestedEntrances = _.get(NESTED_ENTRANCES, exitName, []);
     return _.intersection(nestedEntrances, this.allRandomEntrances());
   }
 
@@ -449,8 +449,8 @@ class LogicHelper {
     return this._simplifiedItemRequirements(rawRequirements);
   }
 
-  static requirementsForEntrance(zoneName) {
-    const macroName = this._macroNameForEntrance(zoneName);
+  static requirementsForEntrance(entranceName) {
+    const macroName = this._macroNameForEntrance(entranceName);
     const rawRequirements = this._booleanExpressionForRequirements(macroName);
     return this._simplifiedItemRequirements(rawRequirements);
   }
@@ -551,11 +551,11 @@ class LogicHelper {
     return SHORT_DUNGEON_NAMES[dungeonIndex];
   }
 
-  static _macroNameForEntrance(zoneName) {
-    const entranceData = this._entranceDataForInternalName(zoneName);
+  static _macroNameForEntrance(entranceName) {
+    const entranceData = this._entranceDataForInternalName(entranceName);
     if (_.isNil(entranceData)) {
       // istanbul ignore next
-      throw Error(`Could not find macro name for entrance: ${zoneName}`);
+      throw Error(`Could not find macro name for entrance: ${entranceName}`);
     }
 
     return `Can Access ${entranceData.entranceMacroName}`;

@@ -53,12 +53,12 @@ class Spheres {
     _.set(this.spheres, [generalLocation, detailedLocation], this.currentSphere);
   }
 
-  _isEntranceAdded(zoneName) {
-    return _.get(this.entrancesAdded, zoneName);
+  _isEntranceAdded(entranceName) {
+    return _.get(this.entrancesAdded, entranceName);
   }
 
-  _setEntranceAdded(zoneName) {
-    _.set(this.entrancesAdded, zoneName, true);
+  _setEntranceAdded(entranceName) {
+    _.set(this.entrancesAdded, entranceName, true);
   }
 
   _updateStateWithItem(itemName) {
@@ -66,12 +66,12 @@ class Spheres {
   }
 
   _transferEntrances() {
-    _.forEach(LogicHelper.allRandomEntrances(), (zoneName) => {
-      const entranceForExit = this.state.getEntranceForExit(zoneName);
+    _.forEach(LogicHelper.allRandomEntrances(), (exitName) => {
+      const entranceForExit = this.state.getEntranceForExit(exitName);
 
       if (!_.isNil(entranceForExit)) {
         this.temporaryState = this.temporaryState.setEntranceForExit(
-          zoneName,
+          exitName,
           entranceForExit,
         );
       }
@@ -84,22 +84,22 @@ class Spheres {
     const entrancesToCheck = _.clone(LogicHelper.allRandomEntrances());
 
     for (let i = 0; i < entrancesToCheck.length; i += 1) {
-      const zoneName = entrancesToCheck[i];
+      const entranceName = entrancesToCheck[i];
 
-      if (this._isEntranceAdded(zoneName)) {
+      if (this._isEntranceAdded(entranceName)) {
         continue;
       }
 
-      const exitForEntrance = this.temporaryState.getExitForEntrance(zoneName);
+      const exitForEntrance = this.temporaryState.getExitForEntrance(entranceName);
       if (_.isNil(exitForEntrance)) {
         continue;
       }
 
-      if (logic.isEntranceAvailable(zoneName)) {
+      if (logic.isEntranceAvailable(entranceName)) {
         const entryName = LogicHelper.entryName(exitForEntrance);
 
         this._updateStateWithItem(entryName);
-        this._setEntranceAdded(zoneName);
+        this._setEntranceAdded(entranceName);
 
         const nestedEntrances = LogicHelper.nestedEntrancesForExit(exitForEntrance);
         if (nestedEntrances.length > 0) {
