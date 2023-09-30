@@ -720,6 +720,12 @@ describe('LogicHelper', () => {
 
         expect(entrancesForDungeon).toEqual([]);
       });
+
+      test('returns no entrances for Hyrule', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Hyrule');
+
+        expect(entrancesForDungeon).toEqual([]);
+      });
     });
 
     describe('when dungeons, bosses, and minibosses are randomized', () => {
@@ -749,6 +755,12 @@ describe('LogicHelper', () => {
         const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
 
         expect(entrancesForDungeon).toEqual(['Helmaroc King Boss Arena']);
+      });
+
+      test('returns the Master Sword Chamber for Hyrule', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Hyrule');
+
+        expect(entrancesForDungeon).toEqual(['Master Sword Chamber']);
       });
     });
 
@@ -2833,6 +2845,12 @@ describe('LogicHelper', () => {
 
     test('returns simplified requirements for Outset Fairy Fountain', () => {
       const requirements = LogicHelper.requirementsForEntrance('Outset Fairy Fountain');
+
+      expect(requirements).toMatchSnapshot();
+    });
+
+    test('returns simplified requirements for Master Sword Chamber', () => {
+      const requirements = LogicHelper.requirementsForEntrance('Master Sword Chamber');
 
       expect(requirements).toMatchSnapshot();
     });

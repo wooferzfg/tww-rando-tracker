@@ -133,5 +133,14 @@
     "entranceMacroName": "Boss Entrance in Wind Temple",
     "internalName": "Molgera Boss Arena",
     "isBoss": true
+  },
+  {
+    "zoneName": "Hyrule",
+    "entranceName": "Master Sword Chamber",
+    "exitName": "Master Sword Chamber",
+    "entryName": "Master Sword Chamber",
+    "entranceMacroName": "Miniboss Entrance in Hyrule Castle",
+    "internalName": "Master Sword Chamber",
+    "isMiniboss": true
   }
 ]

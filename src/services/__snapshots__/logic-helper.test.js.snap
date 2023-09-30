@@ -143,6 +143,7 @@ exports[`LogicHelper ALL_ITEMS returns a list of all the items, including entran
   "Entered Helmaroc King",
   "Entered Jalhalla",
   "Entered Molgera",
+  "Entered Master Sword Chamber",
   "Tingle Tuner",
   "Wind Waker",
   "Spoils Bag",
@@ -550,6 +551,7 @@ exports[`LogicHelper allRandomEntrances when only inner entrances are randomized
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
   "Ice Ring Isle Inner Cave",
   "Cliff Plateau Isles Inner Cave",
 ]
@@ -599,6 +601,7 @@ exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances 
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
   "Fire Mountain Secret Cave",
@@ -647,6 +650,7 @@ exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances 
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
   "Fire Mountain Secret Cave",
@@ -695,6 +699,7 @@ exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances 
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
 ]
 `;
 
@@ -899,6 +904,7 @@ exports[`LogicHelper randomEntrancesForExit when only inner entrances are random
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
 ]
 `;
 
@@ -914,6 +920,7 @@ exports[`LogicHelper randomEntrancesForExit when only inner entrances are random
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
 ]
 `;
 
@@ -1021,6 +1028,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
 ]
 `;
 
@@ -1039,6 +1047,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
 ]
 `;
 
@@ -1059,6 +1068,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
 ]
 `;
 
@@ -1079,6 +1089,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
 ]
 `;
 
@@ -1162,6 +1173,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
 ]
 `;
 
@@ -1215,6 +1227,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
 ]
 `;
 
@@ -1268,6 +1281,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
   "Fire Mountain Secret Cave",
@@ -1316,6 +1330,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
   "Fire Mountain Secret Cave",
@@ -1364,6 +1379,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
   "Fire Mountain Secret Cave",
@@ -1409,6 +1425,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
   "Fire Mountain Secret Cave",
@@ -1457,6 +1474,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
   "Fire Mountain Secret Cave",
@@ -1505,6 +1523,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
   "Fire Mountain Secret Cave",
@@ -1553,6 +1572,7 @@ exports[`LogicHelper randomEntrancesForExit when there are nested dungeon entran
   "Helmaroc King Boss Arena",
   "Jalhalla Boss Arena",
   "Molgera Boss Arena",
+  "Master Sword Chamber",
   "Savage Labyrinth",
   "Dragon Roost Island Secret Cave",
   "Fire Mountain Secret Cave",
@@ -2071,6 +2091,15 @@ BooleanExpression {
     "Skull Hammer",
     "ET Small Key x3",
     "ET Big Key",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForEntrance returns simplified requirements for Master Sword Chamber 1`] = `
+BooleanExpression {
+  "items": [
+    "Triforce Shard x8",
   ],
   "type": "and",
 }
