@@ -14,6 +14,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-toggle/style.css';
 
 export default class Launcher extends React.PureComponent {
+  static notifyAboutUpdate() {
+    toast.warn(
+      'A new version of the tracker is available! Click here to reload.',
+      {
+        autoClose: false,
+        onClick: () => window.location.reload(),
+      },
+    );
+  }
+
   static openTrackerWindow(route) {
     const windowWidth = 1797;
     const windowHeight = 585;
@@ -40,6 +50,22 @@ export default class Launcher extends React.PureComponent {
     this.loadFromFile = this.loadFromFile.bind(this);
     this.loadFromSave = this.loadFromSave.bind(this);
     this.setOptionValue = this.setOptionValue.bind(this);
+  }
+
+  componentDidMount() {
+    const { serviceWorker } = navigator;
+
+    if (serviceWorker) {
+      serviceWorker.addEventListener('controllerchange', Launcher.notifyAboutUpdate);
+    }
+  }
+
+  componentWillUnmount() {
+    const { serviceWorker } = navigator;
+
+    if (serviceWorker) {
+      serviceWorker.removeEventListener('controllerchange', Launcher.notifyAboutUpdate);
+    }
   }
 
   getOptionValue(optionName) {
