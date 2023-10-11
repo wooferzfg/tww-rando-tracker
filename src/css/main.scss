@@ -320,6 +320,12 @@ button:hover:enabled {
     float: left;
   }
 
+  .dins-pearl img,
+  .farores-pearl img {
+    width: 48px;
+    height: 48px;
+  }
+
   .other-items {
     display: flex;
     width: 100%;
@@ -332,9 +338,9 @@ button:hover:enabled {
   }
 
   .pearls {
-    width: 96px;
+    width: 97px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: -1px;
     position: relative;
 
     .item-container {
