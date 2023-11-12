@@ -3,7 +3,7 @@
     "zoneName": "Dragon Roost Cavern",
     "entranceName": "Dragon Roost Cavern",
     "exitName": "Dragon Roost Cavern",
-    "entryName": "DRC",
+    "entryName": "Entered DRC",
     "entranceMacroName": "Dungeon Entrance on Dragon Roost Island",
     "internalName": "Dragon Roost Cavern",
     "isDungeon": true
@@ -12,7 +12,7 @@
     "zoneName": "Forbidden Woods",
     "entranceName": "Forbidden Woods",
     "exitName": "Forbidden Woods",
-    "entryName": "FW",
+    "entryName": "Entered FW",
     "entranceMacroName": "Dungeon Entrance in Forest Haven Sector",
     "internalName": "Forbidden Woods",
     "isDungeon": true
@@ -21,7 +21,7 @@
     "zoneName": "Tower of the Gods",
     "entranceName": "Tower of the Gods",
     "exitName": "Tower of the Gods",
-    "entryName": "TotG",
+    "entryName": "Entered TotG",
     "entranceMacroName": "Dungeon Entrance in Tower of the Gods Sector",
     "internalName": "Tower of the Gods",
     "isDungeon": true
@@ -30,7 +30,7 @@
     "zoneName": "Earth Temple",
     "entranceName": "Earth Temple",
     "exitName": "Earth Temple",
-    "entryName": "ET",
+    "entryName": "Entered ET",
     "entranceMacroName": "Dungeon Entrance on Headstone Island",
     "internalName": "Earth Temple",
     "isDungeon": true
@@ -39,7 +39,7 @@
     "zoneName": "Wind Temple",
     "entranceName": "Wind Temple",
     "exitName": "Wind Temple",
-    "entryName": "WT",
+    "entryName": "Entered WT",
     "entranceMacroName": "Dungeon Entrance on Gale Isle",
     "internalName": "Wind Temple",
     "isDungeon": true
@@ -48,7 +48,7 @@
     "zoneName": "Forbidden Woods",
     "entranceName": "FW Miniboss Door",
     "exitName": "FW Miniboss",
-    "entryName": "FW Miniboss",
+    "entryName": "Entered FW Miniboss",
     "entranceMacroName": "Miniboss Entrance in Forbidden Woods",
     "internalName": "Forbidden Woods Miniboss Arena",
     "isMiniboss": true
@@ -57,7 +57,7 @@
     "zoneName": "Tower of the Gods",
     "entranceName": "TotG Miniboss Door",
     "exitName": "TotG Miniboss",
-    "entryName": "TotG Miniboss",
+    "entryName": "Entered TotG Miniboss",
     "entranceMacroName": "Miniboss Entrance in Tower of the Gods",
     "internalName": "Tower of the Gods Miniboss Arena",
     "isMiniboss": true
@@ -66,7 +66,7 @@
     "zoneName": "Earth Temple",
     "entranceName": "ET Miniboss Door",
     "exitName": "ET Miniboss",
-    "entryName": "ET Miniboss",
+    "entryName": "Entered ET Miniboss",
     "entranceMacroName": "Miniboss Entrance in Earth Temple",
     "internalName": "Earth Temple Miniboss Arena",
     "isMiniboss": true
@@ -75,7 +75,7 @@
     "zoneName": "Wind Temple",
     "entranceName": "WT Miniboss Door",
     "exitName": "WT Miniboss",
-    "entryName": "WT Miniboss",
+    "entryName": "Entered WT Miniboss",
     "entranceMacroName": "Miniboss Entrance in Wind Temple",
     "internalName": "Wind Temple Miniboss Arena",
     "isMiniboss": true
@@ -84,7 +84,7 @@
     "zoneName": "Dragon Roost Cavern",
     "entranceName": "DRC Boss Door",
     "exitName": "Gohma",
-    "entryName": "Gohma",
+    "entryName": "Entered Gohma",
     "entranceMacroName": "Boss Entrance in Dragon Roost Cavern",
     "internalName": "Gohma Boss Arena",
     "isBoss": true
@@ -93,7 +93,7 @@
     "zoneName": "Forbidden Woods",
     "entranceName": "FW Boss Door",
     "exitName": "Kalle Demos",
-    "entryName": "Kalle Demos",
+    "entryName": "Entered Kalle Demos",
     "entranceMacroName": "Boss Entrance in Forbidden Woods",
     "internalName": "Kalle Demos Boss Arena",
     "isBoss": true
@@ -102,7 +102,7 @@
     "zoneName": "Tower of the Gods",
     "entranceName": "TotG Boss Door",
     "exitName": "Gohdan",
-    "entryName": "Gohdan",
+    "entryName": "Entered Gohdan",
     "entranceMacroName": "Boss Entrance in Tower of the Gods",
     "internalName": "Gohdan Boss Arena",
     "isBoss": true
@@ -111,7 +111,7 @@
     "zoneName": "Forsaken Fortress",
     "entranceName": "FF Boss Door",
     "exitName": "Helmaroc King",
-    "entryName": "Helmaroc King",
+    "entryName": "Entered Helmaroc King",
     "entranceMacroName": "Boss Entrance in Forsaken Fortress",
     "internalName": "Helmaroc King Boss Arena",
     "isBoss": true
@@ -120,7 +120,7 @@
     "zoneName": "Earth Temple",
     "entranceName": "ET Boss Door",
     "exitName": "Jalhalla",
-    "entryName": "Jalhalla",
+    "entryName": "Entered Jalhalla",
     "entranceMacroName": "Boss Entrance in Earth Temple",
     "internalName": "Jalhalla Boss Arena",
     "isBoss": true
@@ -129,7 +129,7 @@
     "zoneName": "Wind Temple",
     "entranceName": "WT Boss Door",
     "exitName": "Molgera",
-    "entryName": "Molgera",
+    "entryName": "Entered Molgera",
     "entranceMacroName": "Boss Entrance in Wind Temple",
     "internalName": "Molgera Boss Arena",
     "isBoss": true
@@ -138,7 +138,7 @@
     "zoneName": "Hyrule",
     "entranceName": "Master Sword Chamber",
     "exitName": "Master Sword Chamber",
-    "entryName": "Master Sword Chamber",
+    "entryName": "Entered Master Sword Chamber",
     "entranceMacroName": "Miniboss Entrance in Hyrule Castle",
     "internalName": "Master Sword Chamber",
     "isMiniboss": true

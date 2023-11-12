@@ -176,7 +176,7 @@ class LogicHelper {
       throw Error(`Exit not found: ${exitName}`);
     }
 
-    return `Entered ${entranceData.entryName}`;
+    return entranceData.entryName;
   }
 
   static shortEntranceName(entranceName) {
