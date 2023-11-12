@@ -112,6 +112,10 @@ body {
         &.label-text {
           padding-left: 20px;
           padding-right: 10px;
+
+          &.label-disabled {
+            opacity: 0.7;
+          }
         }
 
         &.option-container {
@@ -133,6 +137,10 @@ body {
               height: 34px;
               font-size: 1em;
               cursor: pointer;
+
+              &.select-disabled {
+                cursor: auto;
+              }
             }
           }
 

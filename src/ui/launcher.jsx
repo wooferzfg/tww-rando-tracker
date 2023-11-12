@@ -115,7 +115,7 @@ export default class Launcher extends React.PureComponent {
     );
   }
 
-  dropdownInput({ labelText, optionName }) {
+  dropdownInput({ labelText, optionName, isDisabled = false }) {
     const optionValue = this.getOptionValue(optionName);
 
     return (
@@ -125,6 +125,7 @@ export default class Launcher extends React.PureComponent {
         optionName={optionName}
         optionValue={optionValue}
         setOptionValue={this.setOptionValue}
+        isDisabled={isDisabled}
       />
     );
   }
@@ -293,7 +294,7 @@ export default class Launcher extends React.PureComponent {
     return (
       <OptionsTable
         title="Additional Options"
-        numColumns={2}
+        numColumns={3}
         options={[
           this.dropdownInput({
             labelText: 'Sword Mode',
@@ -312,12 +313,17 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.RANDOMIZE_CHARTS,
           }),
           this.toggleInput({
-            labelText: 'Skip Boss Rematches',
-            optionName: Permalink.OPTIONS.SKIP_REMATCH_BOSSES,
-          }),
-          this.toggleInput({
             labelText: 'Required Bosses Mode',
             optionName: Permalink.OPTIONS.REQUIRED_BOSSES,
+          }),
+          this.dropdownInput({
+            labelText: 'Number of Required Bosses',
+            optionName: Permalink.OPTIONS.NUM_REQUIRED_BOSSES,
+            isDisabled: !this.getOptionValue(Permalink.OPTIONS.REQUIRED_BOSSES),
+          }),
+          this.toggleInput({
+            labelText: 'Skip Boss Rematches',
+            optionName: Permalink.OPTIONS.SKIP_REMATCH_BOSSES,
           }),
         ]}
       />
