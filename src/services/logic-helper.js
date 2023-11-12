@@ -10,7 +10,7 @@ import KEYS from '../data/keys.json';
 import MISC_LOCATIONS from '../data/misc-locations.json';
 import NESTED_ENTRANCES from '../data/nested-entrances.json';
 import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
-import REQUIRED_BOSSES_MODE_BANNED_LOCATIONS from '../data/required-bosses-mode-banned-locations.json';
+import REQUIRED_BOSSES from '../data/required-bosses.json';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
 
 import BooleanExpression from './boolean-expression';
@@ -87,9 +87,9 @@ class LogicHelper {
 
   static MAIN_DUNGEONS = _.filter(DUNGEONS, (dungeon) => this.isMainDungeon(dungeon));
 
-  static REQUIRED_BOSSES_MODE_DUNGEONS = _.filter(
-    DUNGEONS,
-    (dungeon) => this.isRequiredBossesModeDungeon(dungeon),
+  static REQUIRED_BOSSES_MODE_DUNGEONS = _.map(
+    REQUIRED_BOSSES,
+    (requiredBossData) => requiredBossData.dungeonName,
   );
 
   static ISLANDS = Constants.createFromArray(ISLANDS);
@@ -163,10 +163,8 @@ class LogicHelper {
   }
 
   static isRequiredBossesModeDungeon(dungeonName) {
-    if (dungeonName === this.DUNGEONS.GANONS_TOWER) {
-      return false;
-    }
-    return this.isDungeon(dungeonName);
+    const requiredBossData = this._requiredBossDataForDungeon(dungeonName);
+    return !_.isNil(requiredBossData);
   }
 
   static entryName(exitName) {
@@ -528,9 +526,16 @@ class LogicHelper {
       detailedLocation,
     }));
 
-    const additionalLocations = _.get(REQUIRED_BOSSES_MODE_BANNED_LOCATIONS, dungeonName, []);
+    const requiredBossData = this._requiredBossDataForDungeon(dungeonName);
+    if (_.isNil(requiredBossData)) {
+      // istanbul ignore next
+      throw Error(`Could not find required boss for dungeon: ${dungeonName}`);
+    }
 
-    return _.concat(dungeonLocations, additionalLocations);
+    return _.concat(
+      dungeonLocations,
+      requiredBossData.additionalBannedLocations,
+    );
   }
 
   static _prettyNameOverride(itemName, itemCount = 1) {
@@ -828,6 +833,13 @@ class LogicHelper {
     return _.some(
       DUNGEON_ENTRANCES,
       (entranceData) => entranceData.internalName === entranceName,
+    );
+  }
+
+  static _requiredBossDataForDungeon(dungeonName) {
+    return _.find(
+      REQUIRED_BOSSES,
+      (requiredBossData) => requiredBossData.dungeonName === dungeonName,
     );
   }
 }

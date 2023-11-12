@@ -1,0 +1,51 @@
+[
+  {
+    "dungeonName": "Dragon Roost Cavern",
+    "requirement": "Defeated Gohma",
+    "additionalBannedLocations": []
+  },
+  {
+    "dungeonName": "Forbidden Woods",
+    "requirement": "Defeated Kalle Demos",
+    "additionalBannedLocations": [
+      {
+        "generalLocation": "Mailbox",
+        "detailedLocation": "Letter from Orca"
+      }
+    ]
+  },
+  {
+    "dungeonName": "Tower of the Gods",
+    "requirement": "Defeated Gohdan",
+    "additionalBannedLocations": []
+  },
+  {
+    "dungeonName": "Forsaken Fortress",
+    "requirement": "Defeated Helmaroc King",
+    "additionalBannedLocations": [
+      {
+        "generalLocation": "Mailbox",
+        "detailedLocation": "Letter from Aryll"
+      },
+      {
+        "generalLocation": "Mailbox",
+        "detailedLocation": "Letter from Tingle"
+      }
+    ]
+  },
+  {
+    "dungeonName": "Earth Temple",
+    "requirement": "Defeated Jalhalla",
+    "additionalBannedLocations": [
+      {
+        "generalLocation": "Mailbox",
+        "detailedLocation": "Letter from Baito"
+      }
+    ]
+  },
+  {
+    "dungeonName": "Wind Temple",
+    "requirement": "Defeated Molgera",
+    "additionalBannedLocations": []
+  }
+]
