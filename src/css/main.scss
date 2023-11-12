@@ -570,6 +570,11 @@ button:hover:enabled {
       &.less-padding {
         padding-bottom: 2px;
       }
+
+      &.detail-disabled span {
+        cursor: auto;
+        opacity: 0.7;
+      }
     }
   }
 }

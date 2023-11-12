@@ -189,7 +189,7 @@ class DetailedLocationsTable extends React.PureComponent {
         }
       };
 
-      const className = `detail-span ${isDisabled ? 'detail-not-interactive' : ''}`;
+      const className = `detail-span ${isDisabled ? 'detail-disabled' : ''}`;
 
       clearAllElement = (
         <td>
@@ -207,7 +207,7 @@ class DetailedLocationsTable extends React.PureComponent {
               disabled={isDisabled}
               readOnly
             />
-            Required Boss
+            <span>Required Boss</span>
           </div>
         </td>
       );
