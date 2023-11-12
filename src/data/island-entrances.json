@@ -190,9 +190,9 @@
   },
   {
     "islandName": "Cliff Plateau Isles",
-    "entranceName": "Cliff Plateau Isles Inner Cave",
-    "exitName": "Cliff Plateau Isles Inner Cave",
-    "entryName": "Cliff Plateau Isles Inner Cave",
+    "entranceName": "Cliff Plateau Isles Inner Entrance",
+    "exitName": "Cliff Plateau Highest Isle",
+    "entryName": "Cliff Plateau Highest Isle",
     "entranceMacroName": "Inner Entrance in Cliff Plateau Isles Secret Cave",
     "internalName": "Cliff Plateau Isles Inner Cave",
     "isInnerCave": true

@@ -452,7 +452,7 @@ describe('LogicHelper', () => {
     test('returns the inner cave name', () => {
       const shortEntranceName = LogicHelper.shortEntranceName('Cliff Plateau Isles Inner Cave');
 
-      expect(shortEntranceName).toEqual('Cliff Plateau Isles Inner Cave');
+      expect(shortEntranceName).toEqual('Cliff Plateau Isles Inner Entrance');
     });
 
     test('returns the boss door name', () => {
