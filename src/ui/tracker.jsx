@@ -46,7 +46,6 @@ class Tracker extends React.PureComponent {
     this.initialize();
 
     this.clearOpenedMenus = this.clearOpenedMenus.bind(this);
-    this.clearBannedLocations = this.clearBannedLocations.bind(this);
     this.decrementItem = this.decrementItem.bind(this);
     this.incrementItem = this.incrementItem.bind(this);
     this.toggleChartList = this.toggleChartList.bind(this);
@@ -55,6 +54,7 @@ class Tracker extends React.PureComponent {
     this.toggleEntrancesList = this.toggleEntrancesList.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
+    this.toggleRequiredBoss = this.toggleRequiredBoss.bind(this);
     this.toggleTrackSpheres = this.toggleTrackSpheres.bind(this);
     this.unsetChartMapping = this.unsetChartMapping.bind(this);
     this.unsetExit = this.unsetExit.bind(this);
@@ -178,20 +178,15 @@ class Tracker extends React.PureComponent {
     this.updateTrackerState(newTrackerState);
   }
 
-  clearBannedLocations(dungeonName) {
+  toggleRequiredBoss(dungeonName) {
     let { trackerState: newTrackerState } = this.state;
 
-    _.forEach(
-      LogicHelper.requiredBossesModeBannedLocations(dungeonName),
-      ({ generalLocation, detailedLocation }) => {
-        if (!newTrackerState.isLocationChecked(generalLocation, detailedLocation)) {
-          newTrackerState = newTrackerState.toggleLocationChecked(
-            generalLocation,
-            detailedLocation,
-          );
-        }
-      },
-    );
+    if (LogicHelper.isBossRequired(dungeonName)) {
+      newTrackerState = newTrackerState.clearBannedLocations(dungeonName);
+      LogicHelper.setBossNotRequired(dungeonName);
+    } else {
+      LogicHelper.setBossRequired(dungeonName);
+    }
 
     this.updateTrackerState(newTrackerState);
   }
@@ -465,7 +460,6 @@ class Tracker extends React.PureComponent {
               backgroundColor={extraLocationsBackground}
               chartListOpen={chartListOpen}
               clearOpenedMenus={this.clearOpenedMenus}
-              clearBannedLocations={this.clearBannedLocations}
               decrementItem={this.decrementItem}
               disableLogic={disableLogic}
               entrancesListOpen={entrancesListOpen}
@@ -478,6 +472,7 @@ class Tracker extends React.PureComponent {
               openedLocationIsDungeon={openedLocationIsDungeon}
               spheres={spheres}
               toggleLocationChecked={this.toggleLocationChecked}
+              toggleRequiredBoss={this.toggleRequiredBoss}
               trackerState={trackerState}
               trackSpheres={trackSpheres}
               updateChartMapping={this.updateChartMapping}

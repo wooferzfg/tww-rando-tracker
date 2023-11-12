@@ -26,6 +26,8 @@ class LogicHelper {
     Memoizer.memoize(this, [
       'allRandomEntrances',
       'bossLocation',
+      'bossLocationForRequirement',
+      'bossRequirementForDungeon',
       'chartForIsland',
       'exitsForDungeon',
       'exitsForIsland',
@@ -48,12 +50,15 @@ class LogicHelper {
     ]);
 
     this._setStartingAndImpossibleItems();
+    this.nonRequiredBossDungeons = [];
   }
 
   static reset() {
     Memoizer.invalidate([
       this.allRandomEntrances,
       this.bossLocation,
+      this.bossLocationForRequirement,
+      this.bossRequirementForDungeon,
       this.chartForIsland,
       this.exitsForDungeon,
       this.exitsForIsland,
@@ -77,6 +82,7 @@ class LogicHelper {
 
     this.startingItems = null;
     this.impossibleItems = null;
+    this.nonRequiredBossDungeons = null;
   }
 
   static DEFEAT_GANONDORF_LOCATION = 'Defeat Ganondorf';
@@ -538,6 +544,51 @@ class LogicHelper {
     );
   }
 
+  static bossRequirementForDungeon(dungeonName) {
+    const requiredBossData = this._requiredBossDataForDungeon(dungeonName);
+    if (_.isNil(requiredBossData)) {
+      // istanbul ignore next
+      throw Error(`Could not find required boss for dungeon: ${dungeonName}`);
+    }
+
+    return requiredBossData.requirement;
+  }
+
+  static bossLocationForRequirement(requirement) {
+    const requiredBossData = this._requiredBossDataForRequirement(requirement);
+    if (_.isNil(requiredBossData)) {
+      return null;
+    }
+
+    const { dungeonName } = requiredBossData;
+    return {
+      generalLocation: dungeonName,
+      detailedLocation: this.bossLocation(dungeonName),
+    };
+  }
+
+  static setBossRequired(dungeonName) {
+    this.nonRequiredBossDungeons = _.without(this.nonRequiredBossDungeons, dungeonName);
+    this._invalidateForNonRequiredBosses();
+  }
+
+  static setBossNotRequired(dungeonName) {
+    this.nonRequiredBossDungeons = _.concat(this.nonRequiredBossDungeons, dungeonName);
+    this._invalidateForNonRequiredBosses();
+  }
+
+  static isBossRequired(dungeonName) {
+    return !_.includes(this.nonRequiredBossDungeons, dungeonName);
+  }
+
+  static anyNonRequiredBossesRemaining() {
+    const numRequiredBosses = Settings.getOptionValue(
+      Permalink.OPTIONS.NUM_REQUIRED_BOSSES,
+    );
+    const maxNonRequiredBosses = _.size(REQUIRED_BOSSES) - numRequiredBosses;
+    return _.size(this.nonRequiredBossDungeons) < maxNonRequiredBosses;
+  }
+
   static _prettyNameOverride(itemName, itemCount = 1) {
     return _.get(PRETTY_ITEM_NAMES, [itemName, itemCount]);
   }
@@ -675,7 +726,13 @@ class LogicHelper {
       return true; // continue
     });
 
-    return optionEnabledRequirementValue;
+    if (_.isNil(optionEnabledRequirementValue)) {
+      return null;
+    }
+
+    return optionEnabledRequirementValue
+      ? this.TOKENS.NOTHING
+      : this.TOKENS.IMPOSSIBLE;
   }
 
   static _checkOtherLocationRequirement(requirement) {
@@ -704,17 +761,44 @@ class LogicHelper {
       countRequired = 1;
     }
 
+    if (_.isNil(this.startingItems)) {
+      // istanbul ignore next
+      throw Error('LogicHelper not initialized: startingItems is null');
+    }
+    if (_.isNil(this.impossibleItems)) {
+      // istanbul ignore next
+      throw Error('LogicHelper not initialized: impossibleItems is null');
+    }
+
     const startingItemValue = _.get(this.startingItems, itemName);
     if (!_.isNil(startingItemValue) && startingItemValue >= countRequired) {
-      return true;
+      return this.TOKENS.NOTHING;
     }
 
     const impossibleItemValue = _.get(this.impossibleItems, itemName);
     if (!_.isNil(impossibleItemValue) && impossibleItemValue <= countRequired) {
-      return false;
+      return this.TOKENS.IMPOSSIBLE;
     }
 
     return null;
+  }
+
+  static _checkBossRequirement(requirement) {
+    const requiredBossData = this._requiredBossDataForRequirement(requirement);
+    if (_.isNil(requiredBossData)) {
+      return null;
+    }
+
+    if (_.isNil(this.nonRequiredBossDungeons)) {
+      // istanbul ignore next
+      throw Error('LogicHelper not initialized: nonRequiredBossDungeons is null');
+    }
+
+    const isNonRequiredBoss = _.includes(
+      this.nonRequiredBossDungeons,
+      requiredBossData.dungeonName,
+    );
+    return isNonRequiredBoss ? this.TOKENS.NOTHING : requirement;
   }
 
   static _parseRequirement(requirement) {
@@ -725,7 +809,7 @@ class LogicHelper {
 
     const optionEnabledRequirementValue = this._checkOptionEnabledRequirement(requirement);
     if (!_.isNil(optionEnabledRequirementValue)) {
-      return optionEnabledRequirementValue ? this.TOKENS.NOTHING : this.TOKENS.IMPOSSIBLE;
+      return optionEnabledRequirementValue;
     }
 
     const otherLocationRequirementValue = this._checkOtherLocationRequirement(requirement);
@@ -735,7 +819,12 @@ class LogicHelper {
 
     const predeterminedItemRequirementValue = this._checkPredeterminedItemRequirement(requirement);
     if (!_.isNil(predeterminedItemRequirementValue)) {
-      return predeterminedItemRequirementValue ? this.TOKENS.NOTHING : this.TOKENS.IMPOSSIBLE;
+      return predeterminedItemRequirementValue;
+    }
+
+    const bossRequirementValue = this._checkBossRequirement(requirement);
+    if (!_.isNil(bossRequirementValue)) {
+      return bossRequirementValue;
     }
 
     return requirement;
@@ -841,6 +930,21 @@ class LogicHelper {
       REQUIRED_BOSSES,
       (requiredBossData) => requiredBossData.dungeonName === dungeonName,
     );
+  }
+
+  static _requiredBossDataForRequirement(requirement) {
+    return _.find(
+      REQUIRED_BOSSES,
+      (requiredBossData) => requiredBossData.requirement === requirement,
+    );
+  }
+
+  static _invalidateForNonRequiredBosses() {
+    Memoizer.invalidate([
+      this.requirementsForEntrance,
+      this.requirementsForLocation,
+      this._rawRequirementsForLocation,
+    ]);
   }
 }
 

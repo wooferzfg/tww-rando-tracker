@@ -18,11 +18,13 @@ describe('LogicCalculation', () => {
   const setLocations = (locationsList) => {
     Locations.locations = locationsList;
     LogicHelper.reset();
+    LogicHelper.initialize();
   };
 
   const setMacros = (macrosList) => {
     Macros.macros = macrosList;
     LogicHelper.reset();
+    LogicHelper.initialize();
   };
 
   const fullSetup = (settingsOverrides = {}) => {
@@ -90,6 +92,8 @@ describe('LogicCalculation', () => {
         [Permalink.OPTIONS.KEYLUNACY]: true,
       },
     });
+
+    LogicHelper.initialize();
 
     logic = new LogicCalculation(TrackerState.default());
   });
@@ -381,6 +385,32 @@ describe('LogicCalculation', () => {
 
         expect(formattedRequirements).toEqual([
           [{ text: 'Forsaken Fortress - Helmaroc King Heart Container', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }],
+        ]);
+      });
+    });
+
+    describe('when the location requirements include a required boss', () => {
+      beforeEach(() => {
+        setLocations({
+          "Ganon's Tower": {
+            'Defeat Ganondorf': {
+              need: 'Defeated Gohma',
+            },
+          },
+          'Dragon Roost Cavern': {
+            'Gohma Heart Container': {
+              need: 'Grappling Hook',
+              types: 'Boss',
+            },
+          },
+        });
+      });
+
+      test('shows the boss requirement unmodified', () => {
+        const formattedRequirements = logic.formattedRequirementsForLocation("Ganon's Tower", 'Defeat Ganondorf');
+
+        expect(formattedRequirements).toEqual([
+          [{ text: 'Defeated Gohma', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }],
         ]);
       });
     });
@@ -2016,6 +2046,60 @@ describe('LogicCalculation', () => {
 
           expect(isItemAvailable).toEqual(true);
         });
+      });
+    });
+  });
+
+  describe('when the requirement is a boss', () => {
+    beforeEach(() => {
+      setLocations({
+        "Ganon's Tower": {
+          'Defeat Ganondorf': {
+            need: 'Defeated Kalle Demos',
+          },
+        },
+        'Forbidden Woods': {
+          'Kalle Demos Heart Container': {
+            need: 'Boomerang',
+            types: 'Boss',
+          },
+        },
+      });
+    });
+
+    describe('when the boss location has not been checked', () => {
+      test('returns false', () => {
+        const isItemAvailable = logic._isRequirementMet('Defeated Kalle Demos');
+
+        expect(isItemAvailable).toEqual(false);
+      });
+    });
+
+    describe('when the boss location has been checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state.toggleLocationChecked('Forbidden Woods', 'Kalle Demos Heart Container'),
+        );
+      });
+
+      test('returns true', () => {
+        const isItemAvailable = logic._isRequirementMet('Defeated Kalle Demos');
+
+        expect(isItemAvailable).toEqual(true);
+      });
+    });
+
+    describe('when the requirements for the other location have been met', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state.incrementItem('Boomerang'),
+        );
+      });
+
+      test('returns true', () => {
+        const isItemAvailable = logic._isRequirementMet('Defeated Kalle Demos');
+
+        expect(isItemAvailable).toEqual(true);
       });
     });
   });

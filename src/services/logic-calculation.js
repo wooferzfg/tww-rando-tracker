@@ -368,6 +368,7 @@ class LogicCalculation {
       this._itemCountRequirementRemaining(requirement),
       this._itemRequirementRemaining(requirement),
       this._hasAccessedOtherLocationRequirementRemaining(requirement),
+      this._bossRequirementRemaining(requirement),
     ];
 
     const remainingItems = _.find(remainingItemsForRequirements, (result) => !_.isNil(result));
@@ -439,6 +440,15 @@ class LogicCalculation {
       return this._itemsRemainingForLocation(generalLocation, detailedLocation);
     }
 
+    return null;
+  }
+
+  _bossRequirementRemaining(requirement) {
+    const bossLocation = LogicHelper.bossLocationForRequirement(requirement);
+    if (!_.isNil(bossLocation)) {
+      const { generalLocation, detailedLocation } = bossLocation;
+      return this._itemsRemainingForLocation(generalLocation, detailedLocation);
+    }
     return null;
   }
 

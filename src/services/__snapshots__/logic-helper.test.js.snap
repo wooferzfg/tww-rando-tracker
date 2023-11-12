@@ -703,6 +703,68 @@ exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances 
 ]
 `;
 
+exports[`LogicHelper boss requirements when bosses are marked as non-required and then unmarked includes only required bosses in the requirements for Defeat Ganondorf 1`] = `
+BooleanExpression {
+  "items": [
+    "Triforce Shard x8",
+    "Progressive Sword x4",
+    "Progressive Bow x3",
+    "Progressive Magic Meter x1",
+    "Defeated Gohma",
+    "Defeated Kalle Demos",
+    "Defeated Helmaroc King",
+    "Defeated Jalhalla",
+    "Defeated Molgera",
+    "Boomerang",
+    "Grappling Hook",
+    "Hookshot",
+    "Progressive Shield x1",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper boss requirements when bosses are marked as non-required includes only required bosses in the requirements for Defeat Ganondorf 1`] = `
+BooleanExpression {
+  "items": [
+    "Triforce Shard x8",
+    "Progressive Sword x4",
+    "Progressive Bow x3",
+    "Progressive Magic Meter x1",
+    "Defeated Kalle Demos",
+    "Defeated Helmaroc King",
+    "Defeated Molgera",
+    "Boomerang",
+    "Grappling Hook",
+    "Hookshot",
+    "Progressive Shield x1",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper boss requirements when none of the non-required bosses are marked includes all bosses in the requirements for Defeat Ganondorf 1`] = `
+BooleanExpression {
+  "items": [
+    "Triforce Shard x8",
+    "Progressive Sword x4",
+    "Progressive Bow x3",
+    "Progressive Magic Meter x1",
+    "Defeated Gohma",
+    "Defeated Kalle Demos",
+    "Defeated Gohdan",
+    "Defeated Helmaroc King",
+    "Defeated Jalhalla",
+    "Defeated Molgera",
+    "Boomerang",
+    "Grappling Hook",
+    "Hookshot",
+    "Progressive Shield x1",
+  ],
+  "type": "and",
+}
+`;
+
 exports[`LogicHelper initialize when in swordless mode sets sword to 0 in the starting items and adds impossible items 1`] = `
 {
   "Boat's Sail": 1,

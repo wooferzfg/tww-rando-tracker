@@ -579,4 +579,57 @@ describe('TrackerState', () => {
       expect(newItemForLocation).toEqual(null);
     });
   });
+
+  describe('clearBannedLocations', () => {
+    let state;
+
+    beforeEach(() => {
+      Locations.locations = {
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': {
+            test: 'data',
+          },
+        },
+        'Dragon Roost Cavern': {
+          'First Room': {
+            test: 'data',
+          },
+          'Alcove With Water Jugs': {
+            test: 'data',
+          },
+          "Bird's Nest": {
+            test: 'data',
+          },
+        },
+      };
+
+      state = new TrackerState();
+
+      state.locationsChecked = {
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': false,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": false,
+        },
+      };
+    });
+
+    test('return a new state with the banned locations cleared', () => {
+      const newState = state.clearBannedLocations('Dragon Roost Cavern');
+
+      expect(newState.locationsChecked).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': false,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': true,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": true,
+        },
+      });
+    });
+  });
 });

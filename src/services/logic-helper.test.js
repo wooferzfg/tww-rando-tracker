@@ -12,11 +12,49 @@ import Permalink from './permalink';
 import Settings from './settings';
 
 describe('LogicHelper', () => {
+  const fullSetup = (settingsOverrides = {}) => {
+    const defaultSettings = {
+      options: {
+        [Permalink.OPTIONS.KEYLUNACY]: false,
+        [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+        [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+        [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+        [Permalink.OPTIONS.MIX_ENTRANCES]: (
+          Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+        ),
+        [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+        [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
+        [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
+        [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+        [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+      },
+      startingGear: {
+        [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+      },
+    };
+
+    Settings.initializeRaw(_.merge(defaultSettings, settingsOverrides));
+
+    Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+    Macros.initialize(_.cloneDeep(TEST_MACROS));
+
+    LogicTweaks.applyTweaks();
+
+    LogicHelper.initialize();
+  };
+
   beforeEach(() => {
     Locations.reset();
     LogicHelper.reset();
     Macros.reset();
     Settings.reset();
+
+    LogicHelper.initialize();
   });
 
   describe('initialize', () => {
@@ -1932,7 +1970,7 @@ describe('LogicHelper', () => {
 
   describe('filterDetailedLocations', () => {
     beforeEach(() => {
-      Settings.initializeRaw({
+      fullSetup({
         flags: [
           Settings.FLAGS.PUZZLE_SECRET_CAVE,
           Settings.FLAGS.GREAT_FAIRY,
@@ -1943,13 +1981,6 @@ describe('LogicHelper', () => {
           Settings.FLAGS.SUNKEN_TREASURE,
         ],
       });
-
-      Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-      Macros.initialize(_.cloneDeep(TEST_MACROS));
-
-      LogicTweaks.applyTweaks();
-
-      LogicHelper.initialize();
     });
 
     describe('when onlyProgressLocations is true', () => {
@@ -2569,35 +2600,11 @@ describe('LogicHelper', () => {
   describe('requirementsForLocation', () => {
     describe('when starting without a sword', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
-            [Permalink.OPTIONS.KEYLUNACY]: false,
-            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
-            [Permalink.OPTIONS.MIX_ENTRANCES]: (
-              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
-            ),
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
-            [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
-            [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
-            [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
           },
-          startingGear: {},
         });
-
-        Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-        Macros.initialize(_.cloneDeep(TEST_MACROS));
-
-        LogicTweaks.applyTweaks();
-
-        LogicHelper.initialize();
       });
 
       test('returns no requirements for Dragon Roost Island - Wind Shrine', () => {
@@ -2651,35 +2658,11 @@ describe('LogicHelper', () => {
 
     describe('when swordless', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
-            [Permalink.OPTIONS.KEYLUNACY]: false,
-            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
-            [Permalink.OPTIONS.MIX_ENTRANCES]: (
-              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
-            ),
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
-            [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,
-            [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
-            [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
           },
-          startingGear: {},
         });
-
-        Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-        Macros.initialize(_.cloneDeep(TEST_MACROS));
-
-        LogicTweaks.applyTweaks();
-
-        LogicHelper.initialize();
       });
 
       test('returns simplified requirements for The Great Sea - Ghost Ship', () => {
@@ -2691,37 +2674,11 @@ describe('LogicHelper', () => {
 
     describe('when starting with a sword', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
-            [Permalink.OPTIONS.KEYLUNACY]: false,
-            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
-            [Permalink.OPTIONS.MIX_ENTRANCES]: (
-              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
-            ),
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
-            [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
-            [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
-            [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
-          },
-          startingGear: {
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
           },
         });
-
-        Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-        Macros.initialize(_.cloneDeep(TEST_MACROS));
-
-        LogicTweaks.applyTweaks();
-
-        LogicHelper.initialize();
       });
 
       test('returns simplified requirements for Cliff Plateau Isles - Cave', () => {
@@ -2733,37 +2690,12 @@ describe('LogicHelper', () => {
 
     describe('when using very hard logic', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
-            [Permalink.OPTIONS.KEYLUNACY]: false,
-            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
-            [Permalink.OPTIONS.MIX_ENTRANCES]: (
-              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
-            ),
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
-            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
-            [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
-            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
             [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.VERY_HARD,
             [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.VERY_HARD,
           },
-          startingGear: {
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
-          },
         });
-
-        Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-        Macros.initialize(_.cloneDeep(TEST_MACROS));
-
-        LogicTweaks.applyTweaks();
-
-        LogicHelper.initialize();
       });
 
       test('returns simplified requirements for Outset Island - Great Fairy', () => {
@@ -2776,12 +2708,8 @@ describe('LogicHelper', () => {
 
   describe('requirementsForEntrance', () => {
     beforeEach(() => {
-      Settings.initializeRaw({
+      fullSetup({
         options: {
-          [Permalink.OPTIONS.KEYLUNACY]: false,
-          [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-          [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
-          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
           [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
           [Permalink.OPTIONS.MIX_ENTRANCES]: (
             Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
@@ -2791,20 +2719,9 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
           [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
           [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
-          [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
-          [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
-          [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
         },
-        startingGear: {},
       });
-
-      Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-      Macros.initialize(_.cloneDeep(TEST_MACROS));
-
-      LogicTweaks.applyTweaks();
-
-      LogicHelper.initialize();
     });
 
     test('returns no requirements for Dragon Roost Cavern', () => {
@@ -3466,6 +3383,7 @@ describe('LogicHelper', () => {
             },
           };
 
+          LogicHelper.startingItems = {};
           LogicHelper.impossibleItems = {
             'Wind Waker': 1,
           };
@@ -3490,6 +3408,7 @@ describe('LogicHelper', () => {
             },
           },
         };
+        LogicHelper.startingItems = {};
       });
 
       test('returns the requirements expression', () => {
@@ -3728,6 +3647,155 @@ describe('LogicHelper', () => {
             expectedExpression: BooleanExpression.and('Nothing'),
           });
         });
+      });
+    });
+  });
+
+  describe('bossRequirementForDungeon', () => {
+    test('returns the name of the boss requirement for the dungeon', () => {
+      const bossRequirement = LogicHelper.bossRequirementForDungeon('Tower of the Gods');
+
+      expect(bossRequirement).toEqual('Defeated Gohdan');
+    });
+  });
+
+  describe('bossLocationForRequirement', () => {
+    beforeEach(() => {
+      fullSetup();
+    });
+
+    test('returns the general and detailed location of the boss heart container for the boss requirement', () => {
+      const bossLocation = LogicHelper.bossLocationForRequirement('Defeated Jalhalla');
+
+      expect(bossLocation).toEqual({
+        generalLocation: 'Earth Temple',
+        detailedLocation: 'Jalhalla Heart Container',
+      });
+    });
+  });
+
+  describe('isBossRequired', () => {
+    beforeEach(() => {
+      fullSetup({
+        options: {
+          [Permalink.OPTIONS.REQUIRED_BOSSES]: true,
+          [Permalink.OPTIONS.NUM_REQUIRED_BOSSES]: 3,
+        },
+      });
+
+      LogicHelper.setBossNotRequired('Dragon Roost Cavern');
+      LogicHelper.setBossNotRequired('Tower of the Gods');
+    });
+
+    test('returns true when the boss for the dungeon is required', () => {
+      const isBossRequired = LogicHelper.isBossRequired('Earth Temple');
+
+      expect(isBossRequired).toEqual(true);
+    });
+
+    test('returns false when the boss for the dungeon is not required', () => {
+      const isBossRequired = LogicHelper.isBossRequired('Tower of the Gods');
+
+      expect(isBossRequired).toEqual(false);
+    });
+  });
+
+  describe('anyNonRequiredBossesRemaining', () => {
+    beforeEach(() => {
+      fullSetup({
+        options: {
+          [Permalink.OPTIONS.REQUIRED_BOSSES]: true,
+          [Permalink.OPTIONS.NUM_REQUIRED_BOSSES]: 3,
+        },
+      });
+    });
+
+    describe('when none of the non-required bosses are marked', () => {
+      test('returns true', () => {
+        const anyNonRequiredBossesRemaining = LogicHelper.anyNonRequiredBossesRemaining();
+
+        expect(anyNonRequiredBossesRemaining).toEqual(true);
+      });
+    });
+
+    describe('when only some non-required bosses are marked', () => {
+      beforeEach(() => {
+        LogicHelper.setBossNotRequired('Dragon Roost Cavern');
+        LogicHelper.setBossNotRequired('Tower of the Gods');
+      });
+
+      test('returns true', () => {
+        const anyNonRequiredBossesRemaining = LogicHelper.anyNonRequiredBossesRemaining();
+
+        expect(anyNonRequiredBossesRemaining).toEqual(true);
+      });
+    });
+
+    describe('when all non-required bosses are marked', () => {
+      beforeEach(() => {
+        LogicHelper.setBossNotRequired('Dragon Roost Cavern');
+        LogicHelper.setBossNotRequired('Tower of the Gods');
+        LogicHelper.setBossNotRequired('Earth Temple');
+      });
+
+      test('returns false', () => {
+        const anyNonRequiredBossesRemaining = LogicHelper.anyNonRequiredBossesRemaining();
+
+        expect(anyNonRequiredBossesRemaining).toEqual(false);
+      });
+    });
+  });
+
+  describe('boss requirements', () => {
+    beforeEach(() => {
+      fullSetup({
+        options: {
+          [Permalink.OPTIONS.REQUIRED_BOSSES]: true,
+          [Permalink.OPTIONS.NUM_REQUIRED_BOSSES]: 3,
+        },
+      });
+    });
+
+    describe('when none of the non-required bosses are marked', () => {
+      test('includes all bosses in the requirements for Defeat Ganondorf', () => {
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf');
+
+        expect(requirements).toMatchSnapshot();
+      });
+    });
+
+    describe('when bosses are marked as non-required', () => {
+      beforeEach(() => {
+        LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf'); // Test that the memoization is invalidated
+
+        LogicHelper.setBossNotRequired('Dragon Roost Cavern');
+        LogicHelper.setBossNotRequired('Tower of the Gods');
+        LogicHelper.setBossNotRequired('Earth Temple');
+      });
+
+      test('includes only required bosses in the requirements for Defeat Ganondorf', () => {
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf');
+
+        expect(requirements).toMatchSnapshot();
+      });
+    });
+
+    describe('when bosses are marked as non-required and then unmarked', () => {
+      beforeEach(() => {
+        LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf'); // Test that the memoization is invalidated
+
+        LogicHelper.setBossNotRequired('Dragon Roost Cavern');
+        LogicHelper.setBossNotRequired('Tower of the Gods');
+        LogicHelper.setBossNotRequired('Earth Temple');
+
+        LogicHelper.setBossRequired('Dragon Roost Cavern');
+        LogicHelper.setBossRequired('Earth Temple');
+      });
+
+      test('includes only required bosses in the requirements for Defeat Ganondorf', () => {
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf');
+
+        expect(requirements).toMatchSnapshot();
       });
     });
   });

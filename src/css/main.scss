@@ -739,12 +739,13 @@ button:hover:enabled {
     margin-top: 5px;
     width: 250px;
   }
+}
 
-  .button-checkbox {
-    margin: 0 5px 0 0;
-    vertical-align: middle;
-    pointer-events: none;
-  }
+.detail-span .button-checkbox,
+.buttons .button-checkbox {
+  margin: 0 5px 0 0;
+  vertical-align: middle;
+  pointer-events: none;
 }
 
 .color-picker-window {

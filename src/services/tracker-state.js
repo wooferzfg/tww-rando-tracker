@@ -112,10 +112,7 @@ class TrackerState {
 
   toggleLocationChecked(generalLocation, detailedLocation) {
     const newState = this._clone({ locationsChecked: true });
-
-    const isChecked = this.isLocationChecked(generalLocation, detailedLocation);
-    _.set(newState.locationsChecked, [generalLocation, detailedLocation], !isChecked);
-
+    newState._toggleLocationCheckedUpdate(generalLocation, detailedLocation);
     return newState;
   }
 
@@ -180,6 +177,24 @@ class TrackerState {
     return newState;
   }
 
+  clearBannedLocations(dungeonName) {
+    const newState = this._clone({ locationsChecked: true });
+
+    _.forEach(
+      LogicHelper.requiredBossesModeBannedLocations(dungeonName),
+      ({ generalLocation, detailedLocation }) => {
+        if (!newState.isLocationChecked(generalLocation, detailedLocation)) {
+          newState._toggleLocationCheckedUpdate(
+            generalLocation,
+            detailedLocation,
+          );
+        }
+      },
+    );
+
+    return newState;
+  }
+
   _clone({
     entrances: cloneEntrances,
     islandsForCharts: cloneIslandsForCharts,
@@ -206,6 +221,11 @@ class TrackerState {
       : this.itemsForLocations;
 
     return newState;
+  }
+
+  _toggleLocationCheckedUpdate(generalLocation, detailedLocation) {
+    const isChecked = this.isLocationChecked(generalLocation, detailedLocation);
+    _.set(this.locationsChecked, [generalLocation, detailedLocation], !isChecked);
   }
 }
 

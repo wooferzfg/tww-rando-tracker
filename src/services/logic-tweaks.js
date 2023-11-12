@@ -145,12 +145,7 @@ class LogicTweaks {
 
     const bossRequirements = _.map(
       LogicHelper.REQUIRED_BOSSES_MODE_DUNGEONS,
-      (dungeonName) => (
-        this._hasAccessedOtherLocationMacro(
-          dungeonName,
-          LogicHelper.bossLocation(dungeonName),
-        )
-      ),
+      (dungeonName) => LogicHelper.bossRequirementForDungeon(dungeonName),
     );
     const macroValue = _.join(bossRequirements, ` ${LogicHelper.TOKENS.AND} `);
     Macros.setMacro('Can Defeat All Required Bosses', macroValue);
@@ -158,10 +153,6 @@ class LogicTweaks {
 
   static _replaceCanAccessOtherLocation(requirements) {
     return requirements.replace(/Can Access Item Location/g, 'Has Accessed Other Location');
-  }
-
-  static _hasAccessedOtherLocationMacro(generalLocation, detailedLocation) {
-    return `(Has Accessed Other Location "${generalLocation} - ${detailedLocation}")`;
   }
 }
 

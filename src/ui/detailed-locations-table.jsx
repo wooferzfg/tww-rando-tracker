@@ -148,7 +148,7 @@ class DetailedLocationsTable extends React.PureComponent {
   render() {
     const {
       clearOpenedMenus,
-      clearBannedLocations,
+      toggleRequiredBoss,
       disableLogic,
       logic,
       onlyProgressLocations,
@@ -180,20 +180,34 @@ class DetailedLocationsTable extends React.PureComponent {
       && openedLocationIsDungeon
       && LogicHelper.isRequiredBossesModeDungeon(openedLocation)
     ) {
-      const clearBannedLocationsFunc = () => (
-        clearBannedLocations(openedLocation)
-      );
+      const isBossRequired = LogicHelper.isBossRequired(openedLocation);
+      const isDisabled = isBossRequired && !LogicHelper.anyNonRequiredBossesRemaining();
+
+      const toggleRequiredBossFunc = () => {
+        if (!isDisabled) {
+          toggleRequiredBoss(openedLocation);
+        }
+      };
+
+      const className = `detail-span ${isDisabled ? 'detail-not-interactive' : ''}`;
 
       clearAllElement = (
         <td>
           <div
-            className="detail-span"
-            onClick={clearBannedLocationsFunc}
-            onKeyDown={KeyDownWrapper.onSpaceKey(clearBannedLocationsFunc)}
+            className={className}
+            onClick={toggleRequiredBossFunc}
+            onKeyDown={KeyDownWrapper.onSpaceKey(toggleRequiredBossFunc)}
             role="button"
             tabIndex="0"
           >
-            ✓ Clear All
+            <input
+              type="checkbox"
+              className="button-checkbox"
+              checked={isBossRequired}
+              disabled={isDisabled}
+              readOnly
+            />
+            Required Boss
           </div>
         </td>
       );
@@ -212,13 +226,13 @@ class DetailedLocationsTable extends React.PureComponent {
 
 DetailedLocationsTable.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
-  clearBannedLocations: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   openedLocation: PropTypes.string.isRequired,
   openedLocationIsDungeon: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
+  toggleRequiredBoss: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,

@@ -2950,7 +2950,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the macros 1`] 
 }
 `;
 
-exports[`LogicTweaks applyTweaks when required bosses mode is enabled updates the required bosses macro 1`] = `"(Has Accessed Other Location "Dragon Roost Cavern - Gohma Heart Container") & (Has Accessed Other Location "Forbidden Woods - Kalle Demos Heart Container") & (Has Accessed Other Location "Tower of the Gods - Gohdan Heart Container") & (Has Accessed Other Location "Forsaken Fortress - Helmaroc King Heart Container") & (Has Accessed Other Location "Earth Temple - Jalhalla Heart Container") & (Has Accessed Other Location "Wind Temple - Molgera Heart Container")"`;
+exports[`LogicTweaks applyTweaks when required bosses mode is enabled updates the required bosses macro 1`] = `"Defeated Gohma & Defeated Kalle Demos & Defeated Gohdan & Defeated Helmaroc King & Defeated Jalhalla & Defeated Molgera"`;
 
 exports[`LogicTweaks applyTweaks when there are nested cave entrances updates the macros 1`] = `
 {

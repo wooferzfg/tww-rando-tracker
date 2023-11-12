@@ -73,7 +73,7 @@ class LocationsTable extends React.PureComponent {
     const {
       chartListOpen,
       clearOpenedMenus,
-      clearBannedLocations,
+      toggleRequiredBoss,
       decrementItem,
       disableLogic,
       entrancesListOpen,
@@ -142,13 +142,13 @@ class LocationsTable extends React.PureComponent {
       chartElement = (
         <DetailedLocationsTable
           clearOpenedMenus={clearOpenedMenus}
-          clearBannedLocations={clearBannedLocations}
           disableLogic={disableLogic}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
           openedLocation={openedLocation}
           openedLocationIsDungeon={openedLocationIsDungeon}
           spheres={spheres}
+          toggleRequiredBoss={toggleRequiredBoss}
           trackerState={trackerState}
           trackSpheres={trackSpheres}
           toggleLocationChecked={toggleLocationChecked}
@@ -253,7 +253,6 @@ LocationsTable.propTypes = {
   backgroundColor: PropTypes.string,
   chartListOpen: PropTypes.bool.isRequired,
   clearOpenedMenus: PropTypes.func.isRequired,
-  clearBannedLocations: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   entrancesListOpen: PropTypes.bool.isRequired,
@@ -266,6 +265,7 @@ LocationsTable.propTypes = {
   openedLocationIsDungeon: PropTypes.bool,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
+  toggleRequiredBoss: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetExit: PropTypes.func.isRequired,
