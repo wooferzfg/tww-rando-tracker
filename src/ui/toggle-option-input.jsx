@@ -20,6 +20,7 @@ class ToggleOptionInput extends React.PureComponent {
               checked={optionValue}
               icons={false}
               onChange={(event) => setOptionValue(optionName, event.target.checked)}
+              aria-label={labelText}
             />
           </div>
         </td>
