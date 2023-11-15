@@ -50,6 +50,7 @@ class LogicCalculation {
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
       detailedLocation,
+      false,
     );
 
     return this._formatRequirements(requirementsForLocation);
@@ -208,6 +209,7 @@ class LogicCalculation {
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
       detailedLocation,
+      false,
     );
 
     return this._areRequirementsMet(requirementsForLocation);
@@ -268,6 +270,7 @@ class LogicCalculation {
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
       detailedLocation,
+      true,
     );
 
     return this._itemsRemainingForRequirements(requirementsForLocation);
@@ -424,9 +427,7 @@ class LogicCalculation {
   }
 
   static _parseHasAccessedOtherLocation(requirement) {
-    const otherLocationMatch = requirement.match(/Has Accessed Other Location "([^"]+)"/);
-
-    return _.get(otherLocationMatch, 1);
+    return _.get(requirement.match(LogicHelper.HAS_ACCESSED_OTHER_LOCATION_REGEX), 1);
   }
 
   _hasAccessedOtherLocationRequirementRemaining(requirement) {

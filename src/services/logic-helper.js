@@ -131,6 +131,10 @@ class LogicHelper {
 
   static ALL_TRIFORCE_CHARTS = _.range(1, this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Triforce Chart ${number}`);
 
+  static CAN_ACCESS_ITEM_LOCATION_REGEX = /Can Access Item Location "([^"]+)"/;
+
+  static HAS_ACCESSED_OTHER_LOCATION_REGEX = /Has Accessed Other Location "([^"]+)"/;
+
   static startingItemCount(item) {
     return _.get(this.startingItems, item, 0);
   }
@@ -424,6 +428,7 @@ class LogicHelper {
     const requirementsForLocation = this.requirementsForLocation(
       generalLocation,
       detailedLocation,
+      false,
     );
 
     const smallKeyName = this.smallKeyName(generalLocation);
@@ -448,14 +453,18 @@ class LogicHelper {
     });
   }
 
-  static requirementsForLocation(generalLocation, detailedLocation) {
-    const rawRequirements = this._rawRequirementsForLocation(generalLocation, detailedLocation);
+  static requirementsForLocation(generalLocation, detailedLocation, isFlattened) {
+    const rawRequirements = this._rawRequirementsForLocation(
+      generalLocation,
+      detailedLocation,
+      isFlattened,
+    );
     return this._simplifiedItemRequirements(rawRequirements);
   }
 
   static requirementsForEntrance(entranceName) {
     const macroName = this._macroNameForEntrance(entranceName);
-    const rawRequirements = this._booleanExpressionForRequirements(macroName);
+    const rawRequirements = this._booleanExpressionForRequirements(macroName, false);
     return this._simplifiedItemRequirements(rawRequirements);
   }
 
@@ -593,13 +602,13 @@ class LogicHelper {
     return _.get(PRETTY_ITEM_NAMES, [itemName, itemCount]);
   }
 
-  static _rawRequirementsForLocation(generalLocation, detailedLocation) {
+  static _rawRequirementsForLocation(generalLocation, detailedLocation, isFlattened) {
     const requirements = Locations.getLocation(
       generalLocation,
       detailedLocation,
       Locations.KEYS.NEED,
     );
-    return this._booleanExpressionForRequirements(requirements);
+    return this._booleanExpressionForRequirements(requirements, isFlattened);
   }
 
   static _shortDungeonName(dungeonName) {
@@ -735,15 +744,20 @@ class LogicHelper {
       : this.TOKENS.IMPOSSIBLE;
   }
 
-  static _checkOtherLocationRequirement(requirement) {
-    const otherLocationMatch = requirement.match(/Can Access Item Location "([^"]+)"/);
+  static _checkOtherLocationRequirement(requirement, isFlattened) {
+    let otherLocationMatch = _.get(requirement.match(this.CAN_ACCESS_ITEM_LOCATION_REGEX), 1);
+
+    if (_.isNil(otherLocationMatch) && isFlattened) {
+      otherLocationMatch = _.get(requirement.match(this.HAS_ACCESSED_OTHER_LOCATION_REGEX), 1);
+    }
+
     if (otherLocationMatch) {
       const {
         generalLocation,
         detailedLocation,
-      } = Locations.splitLocationName(otherLocationMatch[1]);
+      } = Locations.splitLocationName(otherLocationMatch);
 
-      return this._rawRequirementsForLocation(generalLocation, detailedLocation);
+      return this._rawRequirementsForLocation(generalLocation, detailedLocation, isFlattened);
     }
 
     return null;
@@ -783,7 +797,7 @@ class LogicHelper {
     return null;
   }
 
-  static _checkBossRequirement(requirement) {
+  static _checkBossRequirement(requirement, isFlattened) {
     const requiredBossData = this._requiredBossDataForRequirement(requirement);
     if (_.isNil(requiredBossData)) {
       return null;
@@ -794,17 +808,23 @@ class LogicHelper {
       throw Error('LogicHelper not initialized: nonRequiredBossDungeons is null');
     }
 
-    const isNonRequiredBoss = _.includes(
-      this.nonRequiredBossDungeons,
-      requiredBossData.dungeonName,
-    );
-    return isNonRequiredBoss ? this.TOKENS.NOTHING : requirement;
+    const { dungeonName } = requiredBossData;
+    if (_.includes(this.nonRequiredBossDungeons, dungeonName)) {
+      return this.TOKENS.NOTHING;
+    }
+
+    if (isFlattened) {
+      const bossLocation = this.bossLocation(dungeonName);
+      return this._rawRequirementsForLocation(dungeonName, bossLocation, true);
+    }
+
+    return requirement;
   }
 
-  static _parseRequirement(requirement) {
+  static _parseRequirement(requirement, isFlattened) {
     const macroValue = Macros.getMacro(requirement);
     if (macroValue) {
-      return this._booleanExpressionForRequirements(macroValue);
+      return this._booleanExpressionForRequirements(macroValue, isFlattened);
     }
 
     const optionEnabledRequirementValue = this._checkOptionEnabledRequirement(requirement);
@@ -812,7 +832,10 @@ class LogicHelper {
       return optionEnabledRequirementValue;
     }
 
-    const otherLocationRequirementValue = this._checkOtherLocationRequirement(requirement);
+    const otherLocationRequirementValue = this._checkOtherLocationRequirement(
+      requirement,
+      isFlattened,
+    );
     if (!_.isNil(otherLocationRequirementValue)) {
       return otherLocationRequirementValue;
     }
@@ -822,7 +845,7 @@ class LogicHelper {
       return predeterminedItemRequirementValue;
     }
 
-    const bossRequirementValue = this._checkBossRequirement(requirement);
+    const bossRequirementValue = this._checkBossRequirement(requirement, isFlattened);
     if (!_.isNil(bossRequirementValue)) {
       return bossRequirementValue;
     }
@@ -830,7 +853,7 @@ class LogicHelper {
     return requirement;
   }
 
-  static _booleanExpressionForTokens(expressionTokens) {
+  static _booleanExpressionForTokens(expressionTokens, isFlattened) {
     const itemsForExpression = [];
     let expressionTypeToken;
 
@@ -840,12 +863,12 @@ class LogicHelper {
       if (currentToken === this.TOKENS.AND || currentToken === this.TOKENS.OR) {
         expressionTypeToken = currentToken;
       } else if (currentToken === this.TOKENS.OPENING_PAREN) {
-        const childExpression = this._booleanExpressionForTokens(expressionTokens);
+        const childExpression = this._booleanExpressionForTokens(expressionTokens, isFlattened);
         itemsForExpression.push(childExpression);
       } else if (currentToken === this.TOKENS.CLOSING_PAREN) {
         break;
       } else {
-        const parsedRequirement = this._parseRequirement(currentToken);
+        const parsedRequirement = this._parseRequirement(currentToken, isFlattened);
         itemsForExpression.push(parsedRequirement);
       }
     }
@@ -860,9 +883,9 @@ class LogicHelper {
     throw Error(`No expression type for items: ${JSON.stringify(itemsForExpression)}`);
   }
 
-  static _booleanExpressionForRequirements(requirements) {
+  static _booleanExpressionForRequirements(requirements, isFlattened) {
     const expressionTokens = this._splitExpression(requirements);
-    return this._booleanExpressionForTokens(expressionTokens);
+    return this._booleanExpressionForTokens(expressionTokens, isFlattened);
   }
 
   static _allIslandEntrances() {

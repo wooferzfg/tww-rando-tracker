@@ -31,10 +31,12 @@ const verifyLogicForItemCounts = (
   const simplifiedRequirements = LogicHelper.requirementsForLocation(
     generalLocation,
     detailedLocation,
+    false,
   );
   const rawRequirements = LogicHelper._rawRequirementsForLocation(
     generalLocation,
     detailedLocation,
+    false,
   );
 
   const simplifiedRequirementsMet = logic._areRequirementsMet(simplifiedRequirements);
@@ -57,6 +59,7 @@ const verifyLogicForLocation = (generalLocation, detailedLocation, trackerState)
   const rawRequirements = LogicHelper._rawRequirementsForLocation(
     generalLocation,
     detailedLocation,
+    false,
   );
   const rawItemsRequired = new Set();
 

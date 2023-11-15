@@ -1445,7 +1445,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsAvailable).toEqual(20);
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('20');
       });
     });
 
@@ -1455,7 +1455,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: false,
         });
 
-        expect(totalLocationsAvailable).toEqual(62);
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('62');
       });
     });
 
@@ -1471,7 +1471,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsAvailable).toEqual(19);
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('19');
       });
     });
 
@@ -1504,7 +1504,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsAvailable).toEqual(40);
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('40');
       });
     });
   });
@@ -1520,7 +1520,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsRemaining).toEqual(120);
+        expect(totalLocationsRemaining).toMatchInlineSnapshot('120');
       });
     });
 
@@ -1530,7 +1530,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: false,
         });
 
-        expect(totalLocationsRemaining).toEqual(320);
+        expect(totalLocationsRemaining).toMatchInlineSnapshot('320');
       });
     });
 
@@ -1546,85 +1546,153 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsRemaining).toEqual(119);
+        expect(totalLocationsRemaining).toMatchInlineSnapshot('119');
       });
     });
   });
 
   describe('itemsNeededToFinishGame', () => {
-    beforeEach(() => {
-      fullSetup();
-    });
-
-    test('returns the correct total', () => {
-      const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
-
-      expect(itemsNeededToFinishGame).toEqual(17);
-    });
-
-    describe('when some required items are obtained', () => {
+    describe('when Required Bosses Mode is off', () => {
       beforeEach(() => {
-        logic = new LogicCalculation(
-          logic.state
-            .incrementItem('Deku Leaf') // not required to finish game
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard') // Triforce Shard x4
-            .incrementItem('Progressive Sword') // Progressive Sword x2
-            .incrementItem('Progressive Bow'),
-        );
+        fullSetup();
       });
 
       test('returns the correct total', () => {
         const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
 
-        expect(itemsNeededToFinishGame).toEqual(11);
+        expect(itemsNeededToFinishGame).toMatchInlineSnapshot('17');
+      });
+
+      describe('when some required items are obtained', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state
+              .incrementItem('Deku Leaf') // not required to finish game
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard') // Triforce Shard x4
+              .incrementItem('Progressive Sword') // Progressive Sword x2
+              .incrementItem('Progressive Bow'),
+          );
+        });
+
+        test('returns the correct total', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toMatchInlineSnapshot('11');
+        });
+      });
+
+      describe('when Defeat Ganondorf is checked', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+          );
+        });
+
+        test('returns 0', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toEqual(0);
+        });
+      });
+
+      describe('when all required items are obtained', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard') // Triforce Shard x8
+              .incrementItem('Progressive Sword')
+              .incrementItem('Progressive Sword')
+              .incrementItem('Progressive Sword') // Progressive Sword x4
+              .incrementItem('Progressive Bow')
+              .incrementItem('Progressive Bow')
+              .incrementItem('Progressive Bow') // Progressive Bow x3
+              .incrementItem('Boomerang')
+              .incrementItem('Grappling Hook')
+              .incrementItem('Hookshot'),
+          );
+        });
+
+        test('returns 0', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toEqual(0);
+        });
       });
     });
 
-    describe('when Defeat Ganondorf is checked', () => {
+    describe('when required bosses mode is on', () => {
       beforeEach(() => {
-        logic = new LogicCalculation(
-          logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
-        );
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: true,
+            [Permalink.OPTIONS.NUM_REQUIRED_BOSSES]: 3,
+          },
+        });
       });
 
-      test('returns 0', () => {
+      test('returns the correct total', () => {
         const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
 
-        expect(itemsNeededToFinishGame).toEqual(0);
-      });
-    });
-
-    describe('when all required items are obtained', () => {
-      beforeEach(() => {
-        logic = new LogicCalculation(
-          logic.state
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard') // Triforce Shard x8
-            .incrementItem('Progressive Sword')
-            .incrementItem('Progressive Sword')
-            .incrementItem('Progressive Sword') // Progressive Sword x4
-            .incrementItem('Progressive Bow')
-            .incrementItem('Progressive Bow')
-            .incrementItem('Progressive Bow') // Progressive Bow x3
-            .incrementItem('Boomerang')
-            .incrementItem('Grappling Hook')
-            .incrementItem('Hookshot'),
-        );
+        expect(itemsNeededToFinishGame).toMatchInlineSnapshot('43');
       });
 
-      test('returns 0', () => {
-        const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+      describe('when bosses are marked as not required', () => {
+        beforeEach(() => {
+          LogicHelper.setBossNotRequired('Dragon Roost Cavern');
+          LogicHelper.setBossNotRequired('Tower of the Gods');
+          LogicHelper.setBossNotRequired('Earth Temple');
+        });
 
-        expect(itemsNeededToFinishGame).toEqual(0);
+        test('returns the correct total', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toMatchInlineSnapshot('27');
+        });
+      });
+
+      describe('when some required items are obtained', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state
+              .incrementItem('Deku Leaf')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard') // Triforce Shard x4
+              .incrementItem('Progressive Sword') // Progressive Sword x2
+              .incrementItem('Progressive Bow'),
+          );
+        });
+
+        test('returns the correct total', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toMatchInlineSnapshot('34');
+        });
+      });
+
+      describe('when Defeat Ganondorf is checked', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+          );
+        });
+
+        test('returns 0', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toEqual(0);
+        });
       });
     });
   });
@@ -1637,7 +1705,7 @@ describe('LogicCalculation', () => {
     test('returns the correct total', () => {
       const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-      expect(estimatedLocationsLeftToCheck).toEqual(114);
+      expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('114');
     });
 
     describe('when some locations are checked', () => {
@@ -1652,7 +1720,7 @@ describe('LogicCalculation', () => {
       test('returns the correct total', () => {
         const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        expect(estimatedLocationsLeftToCheck).toEqual(112);
+        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('112');
       });
     });
 
@@ -1673,7 +1741,7 @@ describe('LogicCalculation', () => {
       test('returns the correct total', () => {
         const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        expect(estimatedLocationsLeftToCheck).toEqual(111);
+        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('111');
       });
     });
 

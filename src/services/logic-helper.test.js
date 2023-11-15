@@ -2608,51 +2608,66 @@ describe('LogicHelper', () => {
       });
 
       test('returns no requirements for Dragon Roost Island - Wind Shrine', () => {
-        const requirements = LogicHelper.requirementsForLocation('Dragon Roost Island', 'Wind Shrine');
+        const requirements = LogicHelper.requirementsForLocation('Dragon Roost Island', 'Wind Shrine', false);
 
         expect(requirements).toEqual(BooleanExpression.and('Nothing'));
       });
 
       test('returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30', () => {
-        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(requirements).toMatchSnapshot();
       });
 
       test('returns simplified requirements for Outset Island - Savage Labyrinth - Floor 50', () => {
-        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 50');
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 50', false);
 
         expect(requirements).toMatchSnapshot();
       });
 
       test('returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container', () => {
-        const requirements = LogicHelper.requirementsForLocation('Dragon Roost Cavern', 'Gohma Heart Container');
+        const requirements = LogicHelper.requirementsForLocation('Dragon Roost Cavern', 'Gohma Heart Container', false);
 
         expect(requirements).toMatchSnapshot();
       });
 
       test('returns simplified requirements for Earth Temple - Jalhalla Heart Container', () => {
-        const requirements = LogicHelper.requirementsForLocation('Earth Temple', 'Jalhalla Heart Container');
+        const requirements = LogicHelper.requirementsForLocation('Earth Temple', 'Jalhalla Heart Container', false);
 
         expect(requirements).toMatchSnapshot();
       });
 
       test("returns simplified requirements for Mailbox - Beedle's Silver Membership Reward", () => {
-        const requirements = LogicHelper.requirementsForLocation('Mailbox', "Beedle's Silver Membership Reward");
+        const requirements = LogicHelper.requirementsForLocation('Mailbox', "Beedle's Silver Membership Reward", false);
 
         expect(requirements).toMatchSnapshot();
       });
 
       test('returns simplified requirements for Cliff Plateau Isles - Cave', () => {
-        const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave');
+        const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave', false);
 
         expect(requirements).toMatchSnapshot();
       });
 
       test('returns simplified requirements for Outset Island - Great Fairy', () => {
-        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Great Fairy');
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Great Fairy', false);
 
         expect(requirements).toMatchSnapshot();
+      });
+
+      test('returns simplified requirements for Ganondorf', () => {
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
+
+        expect(requirements).toMatchSnapshot();
+      });
+
+      test('returns the same simplified requirements for Ganondorf when flattened is true', () => {
+        // When Required Bosses Mode is off, the flattened requirements should be the same as the
+        // non-flattened requirements
+        const unflattenedRequirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
+        const flattenedRequirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', true);
+
+        expect(unflattenedRequirements).toEqual(flattenedRequirements);
       });
     });
 
@@ -2666,7 +2681,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns simplified requirements for The Great Sea - Ghost Ship', () => {
-        const requirements = LogicHelper.requirementsForLocation('The Great Sea', 'Ghost Ship');
+        const requirements = LogicHelper.requirementsForLocation('The Great Sea', 'Ghost Ship', false);
 
         expect(requirements).toMatchSnapshot();
       });
@@ -2682,7 +2697,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns simplified requirements for Cliff Plateau Isles - Cave', () => {
-        const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave');
+        const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave', false);
 
         expect(requirements).toMatchSnapshot();
       });
@@ -2699,7 +2714,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns simplified requirements for Outset Island - Great Fairy', () => {
-        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Great Fairy');
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Great Fairy', false);
 
         expect(requirements).toMatchSnapshot();
       });
@@ -3210,7 +3225,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.and('Nothing'),
@@ -3230,7 +3245,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.or('Grappling Hook', "Hero's Sword", 'Skull Hammer'),
@@ -3258,7 +3273,7 @@ describe('LogicHelper', () => {
           });
 
           test('replaces the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Nothing'),
@@ -3274,7 +3289,7 @@ describe('LogicHelper', () => {
           });
 
           test('does not replace the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Progressive Sword x2'),
@@ -3302,7 +3317,7 @@ describe('LogicHelper', () => {
           });
 
           test('replaces the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Nothing'),
@@ -3318,7 +3333,7 @@ describe('LogicHelper', () => {
           });
 
           test('does not replace the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Wind Waker'),
@@ -3348,7 +3363,7 @@ describe('LogicHelper', () => {
           });
 
           test('replaces the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Impossible'),
@@ -3364,7 +3379,7 @@ describe('LogicHelper', () => {
           });
 
           test('does not replace the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Progressive Sword x2'),
@@ -3390,7 +3405,7 @@ describe('LogicHelper', () => {
         });
 
         test('replaces the item in the requirements expression', () => {
-          const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+          const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
           expect(expression).toEqual(
             BooleanExpression.and('Impossible'),
@@ -3412,7 +3427,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.or(
@@ -3443,7 +3458,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.or(
@@ -3458,7 +3473,7 @@ describe('LogicHelper', () => {
       });
     });
 
-    describe('when the location requires another location', () => {
+    describe('when the location requires another location with Can Access macro', () => {
       beforeEach(() => {
         Locations.locations = {
           'Outset Island': {
@@ -3472,8 +3487,41 @@ describe('LogicHelper', () => {
         };
       });
 
-      test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+      test('returns the requirements for the other location', () => {
+        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+
+        expect(expression).toEqual(
+          BooleanExpression.and(
+            BooleanExpression.or('Grappling Hook', "Hero's Bow"),
+          ),
+        );
+      });
+    });
+
+    describe('when the location requires another location with Has Accessed macro', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 50"',
+            },
+            'Savage Labyrinth - Floor 50': {
+              need: "Grappling Hook | Hero's Bow",
+            },
+          },
+        };
+      });
+
+      test('returns the unmodified requirements when flattened is false', () => {
+        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+
+        expect(expression).toEqual(
+          BooleanExpression.and('Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 50"'),
+        );
+      });
+
+      test('returns the requirements for the other location when flattened is true', () => {
+        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', true);
 
         expect(expression).toEqual(
           BooleanExpression.and(
@@ -3502,7 +3550,7 @@ describe('LogicHelper', () => {
         });
 
         test('returns the requirements expression', () => {
-          const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+          const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
           expect(expression).toEqual(expectedExpression);
         });
@@ -3758,7 +3806,13 @@ describe('LogicHelper', () => {
 
     describe('when none of the non-required bosses are marked', () => {
       test('includes all bosses in the requirements for Defeat Ganondorf', () => {
-        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf');
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
+
+        expect(requirements).toMatchSnapshot();
+      });
+
+      test('flattens the boss requirements when flattened is true', () => {
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', true);
 
         expect(requirements).toMatchSnapshot();
       });
@@ -3766,7 +3820,7 @@ describe('LogicHelper', () => {
 
     describe('when bosses are marked as non-required', () => {
       beforeEach(() => {
-        LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf'); // Test that the memoization is invalidated
+        LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false); // Test that the memoization is invalidated
 
         LogicHelper.setBossNotRequired('Dragon Roost Cavern');
         LogicHelper.setBossNotRequired('Tower of the Gods');
@@ -3774,7 +3828,13 @@ describe('LogicHelper', () => {
       });
 
       test('includes only required bosses in the requirements for Defeat Ganondorf', () => {
-        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf');
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
+
+        expect(requirements).toMatchSnapshot();
+      });
+
+      test('flattens the boss requirements of only the required bosses when flattened is true', () => {
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', true);
 
         expect(requirements).toMatchSnapshot();
       });
@@ -3782,7 +3842,7 @@ describe('LogicHelper', () => {
 
     describe('when bosses are marked as non-required and then unmarked', () => {
       beforeEach(() => {
-        LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf'); // Test that the memoization is invalidated
+        LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false); // Test that the memoization is invalidated
 
         LogicHelper.setBossNotRequired('Dragon Roost Cavern');
         LogicHelper.setBossNotRequired('Tower of the Gods');
@@ -3793,7 +3853,7 @@ describe('LogicHelper', () => {
       });
 
       test('includes only required bosses in the requirements for Defeat Ganondorf', () => {
-        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf');
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
 
         expect(requirements).toMatchSnapshot();
       });

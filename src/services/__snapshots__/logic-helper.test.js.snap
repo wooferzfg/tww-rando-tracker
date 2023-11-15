@@ -724,6 +724,31 @@ BooleanExpression {
 }
 `;
 
+exports[`LogicHelper boss requirements when bosses are marked as non-required flattens the boss requirements of only the required bosses when flattened is true 1`] = `
+BooleanExpression {
+  "items": [
+    "Triforce Shard x8",
+    "Progressive Sword x4",
+    "Progressive Bow x3",
+    "Progressive Magic Meter x1",
+    "Deku Leaf",
+    "FW Big Key",
+    "Boomerang",
+    "Bombs",
+    "Skull Hammer",
+    "Iron Boots",
+    "Command Melody",
+    "WT Small Key x2",
+    "Wind God's Aria",
+    "WT Big Key",
+    "Grappling Hook",
+    "Hookshot",
+    "Progressive Shield x1",
+  ],
+  "type": "and",
+}
+`;
+
 exports[`LogicHelper boss requirements when bosses are marked as non-required includes only required bosses in the requirements for Defeat Ganondorf 1`] = `
 BooleanExpression {
   "items": [
@@ -738,6 +763,42 @@ BooleanExpression {
     "Grappling Hook",
     "Hookshot",
     "Progressive Shield x1",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper boss requirements when none of the non-required bosses are marked flattens the boss requirements when flattened is true 1`] = `
+BooleanExpression {
+  "items": [
+    "Triforce Shard x8",
+    "Progressive Sword x4",
+    "Progressive Bow x3",
+    "Progressive Magic Meter x1",
+    "DRC Small Key x4",
+    "DRC Big Key",
+    "Deku Leaf",
+    "FW Big Key",
+    "Boomerang",
+    "Din's Pearl",
+    "Farore's Pearl",
+    "Nayru's Pearl",
+    "Bombs",
+    "Command Melody",
+    "TotG Small Key x2",
+    "TotG Big Key",
+    "Skull Hammer",
+    "Power Bracelets",
+    "Progressive Shield x2",
+    "Earth God's Lyric",
+    "ET Small Key x3",
+    "ET Big Key",
+    "Iron Boots",
+    "WT Small Key x2",
+    "Wind God's Aria",
+    "WT Big Key",
+    "Grappling Hook",
+    "Hookshot",
   ],
   "type": "and",
 }
@@ -2243,6 +2304,22 @@ BooleanExpression {
     "Skull Hammer",
     "ET Small Key x3",
     "ET Big Key",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Ganondorf 1`] = `
+BooleanExpression {
+  "items": [
+    "Triforce Shard x8",
+    "Progressive Sword x4",
+    "Progressive Bow x3",
+    "Progressive Magic Meter x1",
+    "Boomerang",
+    "Grappling Hook",
+    "Hookshot",
+    "Progressive Shield x1",
   ],
   "type": "and",
 }
