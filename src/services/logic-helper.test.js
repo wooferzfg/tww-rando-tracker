@@ -2661,13 +2661,27 @@ describe('LogicHelper', () => {
         expect(requirements).toMatchSnapshot();
       });
 
-      test('returns the same simplified requirements for Ganondorf when flattened is true', () => {
-        // When Required Bosses Mode is off, the flattened requirements should be the same as the
-        // non-flattened requirements
-        const unflattenedRequirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
-        const flattenedRequirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', true);
+      test('returns simplified requirements for Letter from Baito', () => {
+        const requirements = LogicHelper.requirementsForLocation('Mailbox', 'Letter from Baito', false);
 
-        expect(unflattenedRequirements).toEqual(flattenedRequirements);
+        expect(requirements).toMatchSnapshot();
+      });
+
+      describe('when flattened is true', () => {
+        test('returns the same simplified requirements for Ganondorf', () => {
+          // When Required Bosses Mode is off, the flattened requirements for Defeat Ganondorf
+          // should be the same as the non-flattened requirements
+          const unflattenedRequirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
+          const flattenedRequirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', true);
+
+          expect(unflattenedRequirements).toEqual(flattenedRequirements);
+        });
+
+        test('returns flattened requirements for Letter from Baito', () => {
+          const requirements = LogicHelper.requirementsForLocation('Mailbox', 'Letter from Baito', true);
+
+          expect(requirements).toMatchSnapshot();
+        });
       });
     });
 

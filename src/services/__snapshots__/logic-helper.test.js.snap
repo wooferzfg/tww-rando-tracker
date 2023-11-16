@@ -2325,6 +2325,17 @@ BooleanExpression {
 }
 `;
 
+exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Letter from Baito 1`] = `
+BooleanExpression {
+  "items": [
+    "Delivery Bag",
+    "Note to Mom",
+    "Has Accessed Other Location "Earth Temple - Jalhalla Heart Container"",
+  ],
+  "type": "and",
+}
+`;
+
 exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Mailbox - Beedle's Silver Membership Reward 1`] = `
 BooleanExpression {
   "items": [
@@ -2484,6 +2495,23 @@ BooleanExpression {
     "Power Bracelets",
     "Progressive Shield x2",
     "Skull Hammer",
+  ],
+  "type": "and",
+}
+`;
+
+exports[`LogicHelper requirementsForLocation when starting without a sword when flattened is true returns flattened requirements for Letter from Baito 1`] = `
+BooleanExpression {
+  "items": [
+    "Delivery Bag",
+    "Note to Mom",
+    "Power Bracelets",
+    "Command Melody",
+    "Progressive Shield x2",
+    "Earth God's Lyric",
+    "Skull Hammer",
+    "ET Small Key x3",
+    "ET Big Key",
   ],
   "type": "and",
 }
