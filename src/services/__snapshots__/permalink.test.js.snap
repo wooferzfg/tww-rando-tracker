@@ -124,6 +124,7 @@ exports[`Permalink DEFAULT_PERMALINK returns the default options 1`] = `
   "starting_pohs": 0,
   "swift_sail": true,
   "sword_mode": "Start with Hero's Sword",
+  "trap_chests": false,
   "version": "1.11.0",
 }
 `;
@@ -246,6 +247,7 @@ exports[`Permalink OPTIONS returns the correct options 1`] = `
   "STARTING_POHS": "starting_pohs",
   "SWIFT_SAIL": "swift_sail",
   "SWORD_MODE": "sword_mode",
+  "TRAP_CHESTS": "trap_chests",
   "VERSION": "version",
 }
 `;
@@ -382,6 +384,7 @@ exports[`Permalink decode decodes a permalink 1`] = `
   "starting_pohs": 9,
   "swift_sail": true,
   "sword_mode": "No Starting Sword",
+  "trap_chests": false,
   "version": "1.11.0",
 }
 `;

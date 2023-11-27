@@ -68,5 +68,7 @@
   "randomize_enemies",
 
   "logic_obscurity",
-  "logic_precision"
+  "logic_precision",
+
+  "trap_chests"
 ]

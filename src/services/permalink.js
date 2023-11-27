@@ -115,6 +115,7 @@ class Permalink {
     this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES),
     this._dropdownConfig(this.OPTIONS.LOGIC_OBSCURITY),
     this._dropdownConfig(this.OPTIONS.LOGIC_PRECISION),
+    this._booleanConfig(this.OPTIONS.TRAP_CHESTS),
   ];
 
   static _stringConfig(optionName) {
