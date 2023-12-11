@@ -35,7 +35,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 4px 0 0 0;
+    padding: 4px 20px 0 20px;
   }
 
   .permalink-label {
@@ -45,11 +45,13 @@ body {
   .permalink-input {
     margin-left: 5px;
     margin-right: 5px;
+    flex-grow: 1;
+    max-width: 750px;
 
     .permalink {
       font-size: 1em;
       margin-left: 4px;
-      width: 750px;
+      width: 100%;
     }
   }
 
@@ -132,6 +134,7 @@ body {
             display: flex;
             align-items: center;
             padding: inherit;
+            max-width: 100%;
 
             select {
               height: 34px;
