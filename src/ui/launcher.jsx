@@ -294,7 +294,7 @@ export default class Launcher extends React.PureComponent {
     return (
       <OptionsTable
         title="Additional Options"
-        numColumns={3}
+        numColumns={2}
         options={[
           this.dropdownInput({
             labelText: 'Sword Mode',
