@@ -18,6 +18,7 @@ module.exports = (env, argv) => {
   const faviconsWebpackPluginSettings = {
     logo: path.resolve('src/images/icon.png'),
     inject: true,
+    manifest: './src/manifest.webmanifest',
   };
 
   if (isProduction) {
