@@ -1330,7 +1330,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
     "Cave - Chest": {
       "need": "Can Access Fire Mountain Secret Cave & Can Defeat Magtails",
       "originalItem": "Power Bracelets",
-      "types": "Puzzle Secret Cave",
+      "types": "Puzzle Secret Cave, Combat Secret Cave",
     },
     "Lookout Platform - Destroy the Cannons": {
       "need": "Can Destroy Cannons",

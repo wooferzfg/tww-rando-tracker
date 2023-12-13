@@ -1504,7 +1504,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsAvailable).toMatchInlineSnapshot('40');
+        expect(totalLocationsAvailable).toMatchInlineSnapshot(`39`);
       });
     });
   });
@@ -1520,7 +1520,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsRemaining).toMatchInlineSnapshot('120');
+        expect(totalLocationsRemaining).toMatchInlineSnapshot(`119`);
       });
     });
 
@@ -1546,7 +1546,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsRemaining).toMatchInlineSnapshot('119');
+        expect(totalLocationsRemaining).toMatchInlineSnapshot(`118`);
       });
     });
   });
@@ -1705,7 +1705,7 @@ describe('LogicCalculation', () => {
     test('returns the correct total', () => {
       const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-      expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('114');
+      expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot(`113`);
     });
 
     describe('when some locations are checked', () => {
@@ -1720,7 +1720,7 @@ describe('LogicCalculation', () => {
       test('returns the correct total', () => {
         const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('112');
+        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot(`111`);
       });
     });
 
@@ -1741,7 +1741,7 @@ describe('LogicCalculation', () => {
       test('returns the correct total', () => {
         const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('111');
+        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot(`110`);
       });
     });
 

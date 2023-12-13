@@ -997,7 +997,7 @@
   "Fire Mountain - Cave - Chest": {
     "Need": "Can Access Fire Mountain Secret Cave & Can Defeat Magtails",
     "Original item": "Power Bracelets",
-    "Types": "Puzzle Secret Cave",
+    "Types": "Puzzle Secret Cave, Combat Secret Cave",
     "Paths": [
       "MiniKaz/Stage.arc/Chest000"
     ]

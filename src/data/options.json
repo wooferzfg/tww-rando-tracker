@@ -64,6 +64,7 @@
   "starting_gear",
   "starting_pohs",
   "starting_hcs",
+  "num_random_starting_items",
   "remove_music",
   "randomize_enemies",
 
