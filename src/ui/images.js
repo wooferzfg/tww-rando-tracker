@@ -44,8 +44,8 @@ export default class Images {
         1: import('../images/bosskey_a.png'),
       },
       ISLAND_ENTRANCE: {
-        0: import('../images/cave_noentry.png'),
-        1: import('../images/cave_entered.png'),
+        0: import('../images/cave_gray_x.png'),
+        1: import('../images/cave_green_check.png'),
       },
       CHARTS: {
         [LogicHelper.CHART_TYPES.TREASURE]: {
@@ -71,8 +71,8 @@ export default class Images {
         [LogicHelper.DUNGEONS.GANONS_TOWER]: import('../images/dungeon_mapfull6.png'),
       },
       DUNGEON_ENTRANCE: {
-        0: import('../images/dungeon_noentry.png'),
-        1: import('../images/dungeon_entered.png'),
+        0: import('../images/dungeon_gray_x.png'),
+        1: import('../images/dungeon_green_check.png'),
       },
       DUNGEON_MAPS: {
         0: import('../images/map.png'),
