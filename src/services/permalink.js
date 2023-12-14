@@ -111,7 +111,7 @@ class Permalink {
     this._startingGearConfig(),
     this._spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
     this._spinBoxConfig(this.OPTIONS.STARTING_HCS, 0, 6),
-    this._spinBoxConfig(this.OPTIONS.NUM_RANDOM_STARTING_ITEMS, 0, 3),
+    this._spinBoxConfig(this.OPTIONS.NUM_EXTRA_STARTING_ITEMS, 0, 3),
     this._booleanConfig(this.OPTIONS.REMOVE_MUSIC),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES),
     this._dropdownConfig(this.OPTIONS.LOGIC_OBSCURITY),
