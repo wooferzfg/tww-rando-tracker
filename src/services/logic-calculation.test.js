@@ -1195,6 +1195,117 @@ describe('LogicCalculation', () => {
     });
   });
 
+  describe('entrancesListForIsland', () => {
+    beforeEach(() => {
+      fullSetup({
+        options: {
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+          [Permalink.OPTIONS.MIX_ENTRANCES]: (
+            Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+          ),
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+        },
+      });
+    });
+
+    test('returns the entrances for Dragon Roost Island', () => {
+      const entrancesListForIsland = logic.entrancesListForIsland(
+        'Dragon Roost Island',
+        { disableLogic: false },
+      );
+
+      expect(entrancesListForIsland).toEqual([
+        {
+          entrance: 'Dragon Roost Cavern',
+          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+        },
+        {
+          entrance: 'Dragon Roost Island Secret Cave',
+          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+        },
+      ]);
+    });
+  });
+
+  describe('entrancesListForDungeon', () => {
+    beforeEach(() => {
+      fullSetup({
+        options: {
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+          [Permalink.OPTIONS.MIX_ENTRANCES]: (
+            Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+          ),
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+        },
+      });
+    });
+
+    test('returns the entrances for Forbidden Woods', () => {
+      const entrancesListForDungeon = logic.entrancesListForDungeon(
+        'Forbidden Woods',
+        { disableLogic: true },
+      );
+
+      expect(entrancesListForDungeon).toEqual([
+        {
+          entrance: 'Forbidden Woods Miniboss Arena',
+          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+        },
+        {
+          entrance: 'Kalle Demos Boss Arena',
+          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+        },
+      ]);
+    });
+  });
+
+  describe('exitsListForEntrance', () => {
+    beforeEach(() => {
+      fullSetup({
+        options: {
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+          [Permalink.OPTIONS.MIX_ENTRANCES]: (
+            Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+          ),
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+        },
+      });
+
+      logic = new LogicCalculation(
+        logic.state
+          .setEntranceForExit('Dragon Roost Cavern', 'Bomb Island Secret Cave')
+          .incrementItem('Entered DRC')
+          .setEntranceForExit('Forbidden Woods', 'Gohma Boss Arena')
+          .incrementItem('Entered FW')
+          .setEntranceForExit('Forbidden Woods Miniboss Arena', 'Tower of the Gods Miniboss Arena')
+          .incrementItem('Entered FW Miniboss')
+          .setEntranceForExit('Tower of the Gods', 'Kalle Demos Boss Arena')
+          .incrementItem('Entered TotG')
+          .setEntranceForExit('Tower of the Gods Miniboss Arena', 'Forbidden Woods Miniboss Arena')
+          .incrementItem('Entered TotG Miniboss')
+          .setEntranceForExit('Gohdan Boss Arena', 'Gohdan Boss Arena'),
+      );
+    });
+
+    test('returns all exits that are possible for an entrance and indicates which exits are checked, except its own dungeon', () => {
+      const exitsListForEntrance = logic.exitsListForEntrance('Earth Temple Miniboss Arena');
+
+      expect(exitsListForEntrance).toMatchSnapshot();
+    });
+  });
+
   describe('totalLocationsChecked', () => {
     beforeEach(() => {
       fullSetup();

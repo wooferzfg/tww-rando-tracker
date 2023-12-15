@@ -144,14 +144,14 @@ class LogicCalculation {
   }
 
   entrancesListForIsland(islandName, { disableLogic }) {
-    this._entrancesListForEntrances(
+    return this._entrancesListForEntrances(
       LogicHelper.entrancesForIsland(islandName),
       { disableLogic },
     );
   }
 
   entrancesListForDungeon(zoneName, { disableLogic }) {
-    this._entrancesListForEntrances(
+    return this._entrancesListForEntrances(
       LogicHelper.entrancesForDungeon(zoneName),
       { disableLogic },
     );
