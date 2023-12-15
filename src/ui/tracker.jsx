@@ -32,7 +32,6 @@ class Tracker extends React.PureComponent {
         statisticsBackground: null,
       },
       disableLogic: false,
-      entrancesListOpen: false,
       isLoading: true,
       lastLocation: null,
       onlyProgressLocations: true,
@@ -51,7 +50,6 @@ class Tracker extends React.PureComponent {
     this.toggleChartList = this.toggleChartList.bind(this);
     this.toggleColorPicker = this.toggleColorPicker.bind(this);
     this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
-    this.toggleEntrancesList = this.toggleEntrancesList.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleRequiredBoss = this.toggleRequiredBoss.bind(this);
@@ -217,7 +215,6 @@ class Tracker extends React.PureComponent {
   clearOpenedMenus() {
     this.setState({
       chartListOpen: false,
-      entrancesListOpen: false,
       openedChartForIsland: null,
       openedExit: null,
       openedLocation: null,
@@ -228,7 +225,6 @@ class Tracker extends React.PureComponent {
   updateOpenedExit(exitName) {
     this.setState({
       chartListOpen: false,
-      entrancesListOpen: false,
       openedChartForIsland: null,
       openedExit: exitName,
       openedLocation: null,
@@ -262,7 +258,6 @@ class Tracker extends React.PureComponent {
   updateOpenedLocation({ locationName, isDungeon }) {
     this.setState({
       chartListOpen: false,
-      entrancesListOpen: false,
       openedChartForIsland: null,
       openedExit: null,
       openedLocation: locationName,
@@ -325,7 +320,6 @@ class Tracker extends React.PureComponent {
   updateOpenedChartForIsland(openedChartForIsland) {
     this.setState({
       chartListOpen: false,
-      entrancesListOpen: false,
       openedChartForIsland,
       openedExit: null,
       openedLocation: null,
@@ -338,20 +332,6 @@ class Tracker extends React.PureComponent {
 
     this.setState({
       chartListOpen: !chartListOpen,
-      entrancesListOpen: false,
-      openedChartForIsland: null,
-      openedExit: null,
-      openedLocation: null,
-      openedLocationIsDungeon: null,
-    });
-  }
-
-  toggleEntrancesList() {
-    const { entrancesListOpen } = this.state;
-
-    this.setState({
-      chartListOpen: false,
-      entrancesListOpen: !entrancesListOpen,
       openedChartForIsland: null,
       openedExit: null,
       openedLocation: null,
@@ -414,7 +394,6 @@ class Tracker extends React.PureComponent {
       colorPickerOpen,
       colors,
       disableLogic,
-      entrancesListOpen,
       isLoading,
       lastLocation,
       logic,
@@ -462,7 +441,6 @@ class Tracker extends React.PureComponent {
               clearOpenedMenus={this.clearOpenedMenus}
               decrementItem={this.decrementItem}
               disableLogic={disableLogic}
-              entrancesListOpen={entrancesListOpen}
               incrementItem={this.incrementItem}
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
@@ -512,14 +490,12 @@ class Tracker extends React.PureComponent {
             colorPickerOpen={colorPickerOpen}
             disableLogic={disableLogic}
             chartListOpen={chartListOpen}
-            entrancesListOpen={entrancesListOpen}
             onlyProgressLocations={onlyProgressLocations}
             saveData={saveData}
             trackSpheres={trackSpheres}
             toggleChartList={this.toggleChartList}
             toggleColorPicker={this.toggleColorPicker}
             toggleDisableLogic={this.toggleDisableLogic}
-            toggleEntrancesList={this.toggleEntrancesList}
             toggleOnlyProgressLocations={this.toggleOnlyProgressLocations}
             toggleTrackSpheres={this.toggleTrackSpheres}
           />

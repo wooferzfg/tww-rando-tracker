@@ -118,13 +118,6 @@ class LogicCalculation {
     });
   }
 
-  entrancesList({ disableLogic }) {
-    return this._entrancesListForEntrances(
-      LogicHelper.allRandomEntrances(),
-      { disableLogic },
-    );
-  }
-
   entrancesListForExit(exitName, { disableLogic }) {
     return this._entrancesListForEntrances(
       LogicHelper.randomEntrancesForExit(exitName),

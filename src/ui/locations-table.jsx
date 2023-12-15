@@ -9,7 +9,6 @@ import TrackerState from '../services/tracker-state';
 import ChartList from './chart-list';
 import DetailedLocationsTable from './detailed-locations-table';
 import EntranceSelection from './entrance-selection';
-import EntrancesList from './entrances-list';
 import ExtraLocationsTable from './extra-locations-table';
 import MapInfo from './map-info';
 import SeaChart from './sea-chart';
@@ -76,7 +75,6 @@ class LocationsTable extends React.PureComponent {
       toggleRequiredBoss,
       decrementItem,
       disableLogic,
-      entrancesListOpen,
       incrementItem,
       logic,
       onlyProgressLocations,
@@ -116,15 +114,6 @@ class LocationsTable extends React.PureComponent {
           trackSpheres={trackSpheres}
           updateChartMapping={updateChartMapping}
           unsetChartMapping={unsetChartMapping}
-        />
-      );
-    } else if (entrancesListOpen) {
-      chartElement = (
-        <EntrancesList
-          clearOpenedMenus={clearOpenedMenus}
-          disableLogic={disableLogic}
-          logic={logic}
-          trackerState={trackerState}
         />
       );
     } else if (!_.isNil(openedExit)) {
@@ -255,7 +244,6 @@ LocationsTable.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
-  entrancesListOpen: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
