@@ -30,8 +30,6 @@ class Spheres {
     this.anyItemsAdded = true;
     this.currentSphere = 0;
 
-    this._transferEntrances();
-
     while (this.anyItemsAdded) {
       this.anyItemsAdded = false;
 
@@ -65,19 +63,6 @@ class Spheres {
     this.temporaryState = this.temporaryState.incrementItem(itemName);
   }
 
-  _transferEntrances() {
-    _.forEach(LogicHelper.allRandomEntrances(), (exitName) => {
-      const entranceForExit = this.state.getEntranceForExit(exitName);
-
-      if (!_.isNil(entranceForExit)) {
-        this.temporaryState = this.temporaryState.setEntranceForExit(
-          exitName,
-          entranceForExit,
-        );
-      }
-    });
-  }
-
   _updateEntranceItems() {
     let logic = new LogicCalculation(this.temporaryState);
 
@@ -90,7 +75,7 @@ class Spheres {
         continue;
       }
 
-      const exitForEntrance = this.temporaryState.getExitForEntrance(entranceName);
+      const exitForEntrance = this.state.getExitForEntrance(entranceName);
       if (_.isNil(exitForEntrance)) {
         continue;
       }
