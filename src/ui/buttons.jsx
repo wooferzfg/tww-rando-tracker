@@ -37,9 +37,6 @@ class Buttons extends React.PureComponent {
     const colorPickerText = colorPickerOpen
       ? 'Close Color Picker'
       : 'Open Color Picker';
-    const entrancesText = viewingEntrances
-      ? 'View Exits'
-      : 'View Entrances';
     const chartListText = chartListOpen
       ? 'Close Chart List'
       : 'View Charts';
@@ -60,16 +57,17 @@ class Buttons extends React.PureComponent {
           <input type="checkbox" className="button-checkbox" checked={!onlyProgressLocations} readOnly />
           Show Non-Progress Locations
         </button>
-        {
-          isRandomEntrances && (
-            <button
-              onClick={toggleEntrances}
-              type="button"
-            >
-              {entrancesText}
-            </button>
-          )
-        }
+        {isRandomEntrances && (
+          <button
+            onClick={toggleEntrances}
+            type="button"
+          >
+            <input type="radio" className="button-radio" checked={viewingEntrances} readOnly />
+            View Entrances
+            <input type="radio" className="button-radio second-button-radio" checked={!viewingEntrances} readOnly />
+            View Exits
+          </button>
+        )}
         <button onClick={toggleChartList} type="button">
           {chartListText}
         </button>

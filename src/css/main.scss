@@ -758,10 +758,15 @@ button:hover:enabled {
 }
 
 .detail-span .button-checkbox,
-.buttons .button-checkbox {
+.buttons .button-checkbox,
+.buttons .button-radio {
   margin: 0 5px 0 0;
   vertical-align: middle;
   pointer-events: none;
+}
+
+.buttons .second-button-radio {
+  margin-left: 20px;
 }
 
 .color-picker-window {
