@@ -13,7 +13,10 @@ class LogicCalculation {
     this.state = state;
 
     Memoizer.memoize(this, [
+      'entrancesListForDungeon',
+      'entrancesListForIsland',
       'estimatedLocationsLeftToCheck',
+      'exitsListForEntrance',
       'formattedRequirementsForEntrance',
       'formattedRequirementsForLocation',
       'isBossDefeated',
