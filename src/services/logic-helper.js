@@ -307,7 +307,7 @@ class LogicHelper {
       (nestedEntrances) => _.includes(nestedEntrances, entranceName),
     );
     if (!_.isNil(parentExit)) {
-      return _.difference(possibleExits, parentExit);
+      return _.without(possibleExits, parentExit);
     }
 
     return possibleExits;

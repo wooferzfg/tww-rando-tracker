@@ -717,6 +717,104 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('entrancesForIsland', () => {
+    describe('when cave entrances are not randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('does not include caves', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Cliff Plateau Isles');
+
+        expect(islandEntrances).toEqual([]);
+      });
+
+      test('does not include fairy fountains', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Outset Island');
+
+        expect(islandEntrances).toEqual([]);
+      });
+
+      test('includes dungeon entrances', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Dragon Roost Island');
+
+        expect(islandEntrances).toEqual(['Dragon Roost Cavern']);
+      });
+    });
+
+    describe('when dungeon entrances are not randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('does not include dungeon entrances', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Dragon Roost Island');
+
+        expect(islandEntrances).toEqual(['Dragon Roost Island Secret Cave']);
+      });
+    });
+
+    describe('when all entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('includes nested caves', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Cliff Plateau Isles');
+
+        expect(islandEntrances).toEqual([
+          'Cliff Plateau Isles Secret Cave',
+          'Cliff Plateau Isles Inner Cave',
+        ]);
+      });
+
+      test('includes fairy fountains', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Outset Island');
+
+        expect(islandEntrances).toEqual([
+          'Savage Labyrinth',
+          'Outset Fairy Fountain',
+        ]);
+      });
+
+      test('includes dungeon entrances', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Dragon Roost Island');
+
+        expect(islandEntrances).toEqual([
+          'Dragon Roost Cavern',
+          'Dragon Roost Island Secret Cave',
+        ]);
+      });
+    });
+  });
+
   describe('exitsForDungeon', () => {
     describe('when dungeon entrances are not randomized', () => {
       beforeEach(() => {
@@ -859,6 +957,74 @@ describe('LogicHelper', () => {
         const exitsForDungeon = LogicHelper.exitsForDungeon('Forsaken Fortress');
 
         expect(exitsForDungeon).toEqual([]);
+      });
+    });
+  });
+
+  describe('entrancesForDungeon', () => {
+    describe('when there are no nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns no entrances for a dungeon with a random entrance', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+
+        expect(entrancesForDungeon).toEqual([]);
+      });
+
+      test('returns no entrances for a dungeon with no random entrance', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
+
+        expect(entrancesForDungeon).toEqual([]);
+      });
+
+      test('returns no entrances for Hyrule', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Hyrule');
+
+        expect(entrancesForDungeon).toEqual([]);
+      });
+    });
+
+    describe('when dungeons, bosses, and minibosses are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('returns only the boss for DRC', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Dragon Roost Cavern');
+
+        expect(entrancesForDungeon).toEqual(['Gohma Boss Arena']);
+      });
+
+      test('returns the miniboss and boss for FW', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+
+        expect(entrancesForDungeon).toEqual(['Forbidden Woods Miniboss Arena', 'Kalle Demos Boss Arena']);
+      });
+
+      test('returns only the boss for FF', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
+
+        expect(entrancesForDungeon).toEqual(['Helmaroc King Boss Arena']);
+      });
+
+      test('returns the Master Sword Chamber for Hyrule', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Hyrule');
+
+        expect(entrancesForDungeon).toEqual(['Master Sword Chamber']);
       });
     });
   });
@@ -1636,6 +1802,108 @@ describe('LogicHelper', () => {
           const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Cliff Plateau Isles Inner Cave');
 
           expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
+  });
+
+  describe('randomExitsForEntrance', () => {
+    describe('when dungeon and cave entrances are randomized separately', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      describe('when the entrance is a dungeon', () => {
+        test('returns all the dungeons', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Dragon Roost Cavern');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+
+      describe('when the entrance is a cave', () => {
+        test('returns all the caves', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Savage Labyrinth');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when there are nested dungeon entrances with caves together', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+      });
+
+      describe('when the entrance is a dungeon', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Tower of the Gods');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+
+      describe('when the entrance is a boss', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses except its own dungeon (FW)', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Kalle Demos Boss Arena');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+
+      describe('when the entrance is a miniboss', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses except its own dungeon (ET)', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Earth Temple Miniboss Arena');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+
+      describe('when the entrance is a cave', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Cliff Plateau Isles');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+
+      describe('when the entrance is an inner cave', () => {
+        test('returns all the dungeons, bosses, minibosses, fairies, and caves except the cave that contains the entrance', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Ice Ring Isle Inner Cave');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+
+      describe('when the entrance is a fairy fountain', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Outset Fairy Fountain');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
         });
       });
     });
