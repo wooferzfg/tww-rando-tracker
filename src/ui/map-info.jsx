@@ -7,6 +7,12 @@ import LogicHelper from '../services/logic-helper';
 import TrackerState from '../services/tracker-state';
 
 class MapInfo extends React.PureComponent {
+  static entranceExitItemInfo(entrance, exit) {
+    const shortEntranceName = LogicHelper.shortEntranceName(entrance);
+    const shortExitName = LogicHelper.shortExitName(exit);
+    return `${shortEntranceName} → ${shortExitName}`;
+  }
+
   mapInfo() {
     const {
       disableLogic,
@@ -43,6 +49,7 @@ class MapInfo extends React.PureComponent {
   mapItemInfo() {
     const {
       selectedChartForIsland,
+      selectedEntrance,
       selectedExit,
       selectedItem,
       trackerState,
@@ -50,13 +57,21 @@ class MapInfo extends React.PureComponent {
 
     let itemInfoText;
 
+    if (!_.isNil(selectedEntrance)) {
+      const exitForEntrance = trackerState.getExitForEntrance(selectedEntrance);
+
+      if (!_.isNil(exitForEntrance)) {
+        itemInfoText = MapInfo.entranceExitItemInfo(selectedEntrance, exitForEntrance);
+      } else {
+        itemInfoText = LogicHelper.shortEntranceName(selectedEntrance);
+      }
+    }
+
     if (!_.isNil(selectedExit)) {
       const entranceForExit = trackerState.getEntranceForExit(selectedExit);
 
       if (!_.isNil(entranceForExit)) {
-        const shortEntranceName = LogicHelper.shortEntranceName(entranceForExit);
-        const shortExitName = LogicHelper.shortExitName(selectedExit);
-        itemInfoText = `${shortEntranceName} → ${shortExitName}`;
+        itemInfoText = MapInfo.entranceExitItemInfo(entranceForExit, selectedExit);
       } else {
         itemInfoText = LogicHelper.entryName(selectedExit);
       }
@@ -100,6 +115,7 @@ class MapInfo extends React.PureComponent {
 
 MapInfo.defaultProps = {
   selectedChartForIsland: null,
+  selectedEntrance: null,
   selectedExit: null,
   selectedItem: null,
   selectedLocation: null,
@@ -110,6 +126,7 @@ MapInfo.propTypes = {
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   selectedChartForIsland: PropTypes.string,
+  selectedEntrance: PropTypes.string,
   selectedExit: PropTypes.string,
   selectedItem: PropTypes.string,
   selectedLocation: PropTypes.string,

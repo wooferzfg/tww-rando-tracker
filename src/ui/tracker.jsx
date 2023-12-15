@@ -36,10 +36,12 @@ class Tracker extends React.PureComponent {
       lastLocation: null,
       onlyProgressLocations: true,
       openedChartForIsland: null,
+      openedEntrance: null,
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
       trackSpheres: false,
+      viewingEntrances: false,
     };
 
     this.initialize();
@@ -50,6 +52,7 @@ class Tracker extends React.PureComponent {
     this.toggleChartList = this.toggleChartList.bind(this);
     this.toggleColorPicker = this.toggleColorPicker.bind(this);
     this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
+    this.toggleEntrances = this.toggleEntrances.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleRequiredBoss = this.toggleRequiredBoss.bind(this);
@@ -61,6 +64,7 @@ class Tracker extends React.PureComponent {
     this.updateColors = this.updateColors.bind(this);
     this.updateEntranceForExit = this.updateEntranceForExit.bind(this);
     this.updateOpenedChartForIsland = this.updateOpenedChartForIsland.bind(this);
+    this.updateOpenedEntrance = this.updateOpenedEntrance.bind(this);
     this.updateOpenedExit = this.updateOpenedExit.bind(this);
     this.updateOpenedLocation = this.updateOpenedLocation.bind(this);
   }
@@ -216,6 +220,18 @@ class Tracker extends React.PureComponent {
     this.setState({
       chartListOpen: false,
       openedChartForIsland: null,
+      openedEntrance: null,
+      openedExit: null,
+      openedLocation: null,
+      openedLocationIsDungeon: null,
+    });
+  }
+
+  updateOpenedEntrance(entranceName) {
+    this.setState({
+      chartListOpen: false,
+      openedChartForIsland: null,
+      openedEntrance: entranceName,
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
@@ -226,6 +242,7 @@ class Tracker extends React.PureComponent {
     this.setState({
       chartListOpen: false,
       openedChartForIsland: null,
+      openedEntrance: null,
       openedExit: exitName,
       openedLocation: null,
       openedLocationIsDungeon: null,
@@ -259,6 +276,7 @@ class Tracker extends React.PureComponent {
     this.setState({
       chartListOpen: false,
       openedChartForIsland: null,
+      openedEntrance: null,
       openedExit: null,
       openedLocation: locationName,
       openedLocationIsDungeon: isDungeon,
@@ -321,6 +339,7 @@ class Tracker extends React.PureComponent {
     this.setState({
       chartListOpen: false,
       openedChartForIsland,
+      openedEntrance: null,
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
@@ -333,6 +352,7 @@ class Tracker extends React.PureComponent {
     this.setState({
       chartListOpen: !chartListOpen,
       openedChartForIsland: null,
+      openedEntrance: null,
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
@@ -351,6 +371,12 @@ class Tracker extends React.PureComponent {
     this.setState({
       colorPickerOpen: !colorPickerOpen,
     });
+  }
+
+  toggleEntrances() {
+    const { viewingEntrances } = this.state;
+
+    this.updatePreferences({ viewingEntrances: !viewingEntrances });
   }
 
   toggleTrackSpheres() {
@@ -373,6 +399,7 @@ class Tracker extends React.PureComponent {
       disableLogic,
       onlyProgressLocations,
       trackSpheres,
+      viewingEntrances,
     } = this.state;
 
     const existingPreferences = {
@@ -380,6 +407,7 @@ class Tracker extends React.PureComponent {
       disableLogic,
       onlyProgressLocations,
       trackSpheres,
+      viewingEntrances,
     };
 
     const newPreferences = _.merge({}, existingPreferences, preferenceChanges);
@@ -399,6 +427,7 @@ class Tracker extends React.PureComponent {
       logic,
       onlyProgressLocations,
       openedChartForIsland,
+      openedEntrance,
       openedExit,
       openedLocation,
       openedLocationIsDungeon,
@@ -406,6 +435,7 @@ class Tracker extends React.PureComponent {
       spheres,
       trackSpheres,
       trackerState,
+      viewingEntrances,
     } = this.state;
 
     const {
@@ -445,6 +475,7 @@ class Tracker extends React.PureComponent {
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
               openedChartForIsland={openedChartForIsland}
+              openedEntrance={openedEntrance}
               openedExit={openedExit}
               openedLocation={openedLocation}
               openedLocationIsDungeon={openedLocationIsDungeon}
@@ -458,8 +489,10 @@ class Tracker extends React.PureComponent {
               unsetChartMapping={this.unsetChartMapping}
               unsetExit={this.unsetExit}
               updateEntranceForExit={this.updateEntranceForExit}
+              updateOpenedEntrance={this.updateOpenedEntrance}
               updateOpenedExit={this.updateOpenedExit}
               updateOpenedLocation={this.updateOpenedLocation}
+              viewingEntrances={viewingEntrances}
             />
             <Statistics
               backgroundColor={statisticsBackground}
@@ -496,8 +529,10 @@ class Tracker extends React.PureComponent {
             toggleChartList={this.toggleChartList}
             toggleColorPicker={this.toggleColorPicker}
             toggleDisableLogic={this.toggleDisableLogic}
+            toggleEntrances={this.toggleEntrances}
             toggleOnlyProgressLocations={this.toggleOnlyProgressLocations}
             toggleTrackSpheres={this.toggleTrackSpheres}
+            viewingEntrances={viewingEntrances}
           />
         </div>
       );

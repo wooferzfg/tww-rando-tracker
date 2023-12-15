@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import LogicHelper from '../services/logic-helper';
+
 import Storage from './storage';
 
 class Buttons extends React.PureComponent {
@@ -26,16 +28,22 @@ class Buttons extends React.PureComponent {
       toggleChartList,
       toggleColorPicker,
       toggleDisableLogic,
+      toggleEntrances,
       toggleOnlyProgressLocations,
       toggleTrackSpheres,
+      viewingEntrances,
     } = this.props;
 
     const colorPickerText = colorPickerOpen
       ? 'Close Color Picker'
       : 'Open Color Picker';
+    const entrancesText = viewingEntrances
+      ? 'View Exits'
+      : 'View Entrances';
     const chartListText = chartListOpen
       ? 'Close Chart List'
       : 'View Charts';
+    const isRandomEntrances = LogicHelper.isRandomEntrances();
 
     return (
       <div className="buttons">
@@ -52,6 +60,16 @@ class Buttons extends React.PureComponent {
           <input type="checkbox" className="button-checkbox" checked={!onlyProgressLocations} readOnly />
           Show Non-Progress Locations
         </button>
+        {
+          isRandomEntrances && (
+            <button
+              onClick={toggleEntrances}
+              type="button"
+            >
+              {entrancesText}
+            </button>
+          )
+        }
         <button onClick={toggleChartList} type="button">
           {chartListText}
         </button>
@@ -91,8 +109,10 @@ Buttons.propTypes = {
   toggleChartList: PropTypes.func.isRequired,
   toggleColorPicker: PropTypes.func.isRequired,
   toggleDisableLogic: PropTypes.func.isRequired,
+  toggleEntrances: PropTypes.func.isRequired,
   toggleOnlyProgressLocations: PropTypes.func.isRequired,
   toggleTrackSpheres: PropTypes.func.isRequired,
+  viewingEntrances: PropTypes.bool.isRequired,
 };
 
 export default Buttons;
