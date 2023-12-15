@@ -1,6 +1,7 @@
 [
   {
-    "zoneName": "Dragon Roost Cavern",
+    "entranceZoneName": "Dragon Roost Island",
+    "exitZoneName": "Dragon Roost Cavern",
     "entranceName": "Dragon Roost Cavern",
     "exitName": "Dragon Roost Cavern",
     "entryName": "Entered DRC",
@@ -9,7 +10,8 @@
     "isDungeon": true
   },
   {
-    "zoneName": "Forbidden Woods",
+    "entranceZoneName": "Forest Haven",
+    "exitZoneName": "Forbidden Woods",
     "entranceName": "Forbidden Woods",
     "exitName": "Forbidden Woods",
     "entryName": "Entered FW",
@@ -18,7 +20,8 @@
     "isDungeon": true
   },
   {
-    "zoneName": "Tower of the Gods",
+    "entranceZoneName": "Tower of the Gods Sector",
+    "exitZoneName": "Tower of the Gods",
     "entranceName": "Tower of the Gods",
     "exitName": "Tower of the Gods",
     "entryName": "Entered TotG",
@@ -27,7 +30,8 @@
     "isDungeon": true
   },
   {
-    "zoneName": "Earth Temple",
+    "entranceZoneName": "Headstone Island",
+    "exitZoneName": "Earth Temple",
     "entranceName": "Earth Temple",
     "exitName": "Earth Temple",
     "entryName": "Entered ET",
@@ -36,7 +40,8 @@
     "isDungeon": true
   },
   {
-    "zoneName": "Wind Temple",
+    "entranceZoneName": "Gale Isle",
+    "exitZoneName": "Wind Temple",
     "entranceName": "Wind Temple",
     "exitName": "Wind Temple",
     "entryName": "Entered WT",
@@ -45,7 +50,8 @@
     "isDungeon": true
   },
   {
-    "zoneName": "Forbidden Woods",
+    "entranceZoneName": "Forbidden Woods",
+    "exitZoneName": "Forbidden Woods",
     "entranceName": "FW Miniboss Door",
     "exitName": "FW Miniboss",
     "entryName": "Entered FW Miniboss",
@@ -54,7 +60,8 @@
     "isMiniboss": true
   },
   {
-    "zoneName": "Tower of the Gods",
+    "entranceZoneName": "Tower of the Gods",
+    "exitZoneName": "Tower of the Gods",
     "entranceName": "TotG Miniboss Door",
     "exitName": "TotG Miniboss",
     "entryName": "Entered TotG Miniboss",
@@ -63,7 +70,8 @@
     "isMiniboss": true
   },
   {
-    "zoneName": "Earth Temple",
+    "entranceZoneName": "Earth Temple",
+    "exitZoneName": "Earth Temple",
     "entranceName": "ET Miniboss Door",
     "exitName": "ET Miniboss",
     "entryName": "Entered ET Miniboss",
@@ -72,7 +80,8 @@
     "isMiniboss": true
   },
   {
-    "zoneName": "Wind Temple",
+    "entranceZoneName": "Wind Temple",
+    "exitZoneName": "Wind Temple",
     "entranceName": "WT Miniboss Door",
     "exitName": "WT Miniboss",
     "entryName": "Entered WT Miniboss",
@@ -81,7 +90,8 @@
     "isMiniboss": true
   },
   {
-    "zoneName": "Dragon Roost Cavern",
+    "entranceZoneName": "Dragon Roost Cavern",
+    "exitZoneName": "Dragon Roost Cavern",
     "entranceName": "DRC Boss Door",
     "exitName": "Gohma",
     "entryName": "Entered Gohma",
@@ -90,7 +100,8 @@
     "isBoss": true
   },
   {
-    "zoneName": "Forbidden Woods",
+    "entranceZoneName": "Forbidden Woods",
+    "exitZoneName": "Forbidden Woods",
     "entranceName": "FW Boss Door",
     "exitName": "Kalle Demos",
     "entryName": "Entered Kalle Demos",
@@ -99,7 +110,8 @@
     "isBoss": true
   },
   {
-    "zoneName": "Tower of the Gods",
+    "entranceZoneName": "Tower of the Gods",
+    "exitZoneName": "Tower of the Gods",
     "entranceName": "TotG Boss Door",
     "exitName": "Gohdan",
     "entryName": "Entered Gohdan",
@@ -108,7 +120,8 @@
     "isBoss": true
   },
   {
-    "zoneName": "Forsaken Fortress",
+    "entranceZoneName": "Forsaken Fortress",
+    "exitZoneName": "Forsaken Fortress",
     "entranceName": "FF Boss Door",
     "exitName": "Helmaroc King",
     "entryName": "Entered Helmaroc King",
@@ -117,7 +130,8 @@
     "isBoss": true
   },
   {
-    "zoneName": "Earth Temple",
+    "entranceZoneName": "Earth Temple",
+    "exitZoneName": "Earth Temple",
     "entranceName": "ET Boss Door",
     "exitName": "Jalhalla",
     "entryName": "Entered Jalhalla",
@@ -126,7 +140,8 @@
     "isBoss": true
   },
   {
-    "zoneName": "Wind Temple",
+    "entranceZoneName": "Wind Temple",
+    "exitZoneName": "Wind Temple",
     "entranceName": "WT Boss Door",
     "exitName": "Molgera",
     "entryName": "Entered Molgera",
@@ -135,7 +150,8 @@
     "isBoss": true
   },
   {
-    "zoneName": "Hyrule",
+    "entranceZoneName": "Hyrule",
+    "exitZoneName": "Hyrule",
     "entranceName": "Master Sword Chamber",
     "exitName": "Master Sword Chamber",
     "entryName": "Entered Master Sword Chamber",

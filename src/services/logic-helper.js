@@ -207,12 +207,41 @@ class LogicHelper {
     return entranceData.exitName;
   }
 
+  static entrancesForIsland(islandName) {
+    return _.compact(
+      _.map(
+        _.concat(
+          this._filterDungeonEntrances(),
+          this._filterIslandEntrances(),
+        ),
+        (entranceData) => (
+          entranceData.entranceZoneName === islandName
+            ? entranceData.internalName
+            : null
+        ),
+      ),
+    );
+  }
+
   static exitsForIsland(islandName) {
     return _.compact(
       _.map(
         this._filterIslandEntrances(),
         (entranceData) => (
-          entranceData.islandName === islandName
+          entranceData.exitZoneName === islandName
+            ? entranceData.internalName
+            : null
+        ),
+      ),
+    );
+  }
+
+  static entrancesForDungeon(zoneName) {
+    return _.compact(
+      _.map(
+        this._filterDungeonEntrances(),
+        (entranceData) => (
+          entranceData.entranceZoneName === zoneName
             ? entranceData.internalName
             : null
         ),
@@ -225,7 +254,7 @@ class LogicHelper {
       _.map(
         this._filterDungeonEntrances(),
         (entranceData) => (
-          entranceData.zoneName === zoneName
+          entranceData.exitZoneName === zoneName
             ? entranceData.internalName
             : null
         ),
@@ -252,22 +281,26 @@ class LogicHelper {
   }
 
   static randomEntrancesForExit(exitName) {
-    let possibleEntrances;
-    if (
-      Settings.getOptionValue(Permalink.OPTIONS.MIX_ENTRANCES)
-      === Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
-    ) {
-      possibleEntrances = this.allRandomEntrances();
-    } else if (this._isDungeonEntrance(exitName)) {
-      possibleEntrances = this._allDungeonEntrances();
-    } else {
-      possibleEntrances = this._allIslandEntrances();
-    }
+    const possibleEntrances = this._possibleEntrancesOrExits(exitName);
 
     return _.difference(
       possibleEntrances,
       this.nestedEntrancesForExit(exitName),
     );
+  }
+
+  static randomExitsForEntrance(entranceName) {
+    const possibleExits = this._possibleEntrancesOrExits(entranceName);
+
+    const parentExit = _.findKey(
+      NESTED_ENTRANCES,
+      (nestedEntrances) => _.includes(nestedEntrances, entranceName),
+    );
+    if (!_.isNil(parentExit)) {
+      return _.difference(possibleExits, parentExit);
+    }
+
+    return possibleExits;
   }
 
   static nestedEntrancesForExit(exitName) {
@@ -941,10 +974,10 @@ class LogicHelper {
     );
   }
 
-  static _isDungeonEntrance(entranceName) {
+  static _isDungeonEntranceOrExit(entranceOrExit) {
     return _.some(
       DUNGEON_ENTRANCES,
-      (entranceData) => entranceData.internalName === entranceName,
+      (entranceData) => entranceData.internalName === entranceOrExit,
     );
   }
 
@@ -968,6 +1001,19 @@ class LogicHelper {
       this.requirementsForLocation,
       this._rawRequirementsForLocation,
     ]);
+  }
+
+  static _possibleEntrancesOrExits(entranceOrExit) {
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.MIX_ENTRANCES)
+      === Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+    ) {
+      return this.allRandomEntrances();
+    }
+    if (this._isDungeonEntranceOrExit(entranceOrExit)) {
+      return this._allDungeonEntrances();
+    }
+    return this._allIslandEntrances();
   }
 }
 
