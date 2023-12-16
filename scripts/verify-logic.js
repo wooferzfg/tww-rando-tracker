@@ -132,8 +132,8 @@ const verifyLogicForSettings = async (permalink) => {
 };
 
 const script = async () => {
-  await verifyLogicForSettings('MS4xMS4wAEEABwEDAAAGUN8BCGgAAAAAAAAAAAAAAAAA'); // no starting items
-  await verifyLogicForSettings('MS4xMS4wAEEABwEDAAAGUN8BAGiAAAAAAEAAIAgAAAAA'); // default settings
+  await verifyLogicForSettings('MS4xMS4wAEEABwEDAAAGUN+BgAYAAAAAAAAAAAAAAAA='); // no starting items
+  await verifyLogicForSettings('MS4xMS4wAEEABwEDAAAGUN8BgEYAAAAAIAAQBAAAAAA='); // default settings
 };
 
 script();

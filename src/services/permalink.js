@@ -28,7 +28,7 @@ class Permalink {
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'MS4xMS4wAEEABwEDAAAGUN8BAGiAAAAAAEAAIAgAAAAA';
+  static DEFAULT_PERMALINK = 'MS4xMS4wAEEABwEDAAAGUN8BgEYAAAAAIAAQBAAAAAA=';
 
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);
@@ -100,13 +100,13 @@ class Permalink {
     this._booleanConfig(this.OPTIONS.SWIFT_SAIL),
     this._booleanConfig(this.OPTIONS.INSTANT_TEXT_BOXES),
     this._booleanConfig(this.OPTIONS.REVEAL_FULL_SEA_CHART),
-    this._dropdownConfig(this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS),
+    this._spinBoxConfig(this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS, 0, 8),
     this._booleanConfig(this.OPTIONS.ADD_SHORTCUT_WARPS_BETWEEN_DUNGEONS),
     this._booleanConfig(this.OPTIONS.DO_NOT_GENERATE_SPOILER_LOG),
     this._dropdownConfig(this.OPTIONS.SWORD_MODE),
     this._booleanConfig(this.OPTIONS.SKIP_REMATCH_BOSSES),
     this._booleanConfig(this.OPTIONS.REQUIRED_BOSSES),
-    this._dropdownConfig(this.OPTIONS.NUM_REQUIRED_BOSSES),
+    this._spinBoxConfig(this.OPTIONS.NUM_REQUIRED_BOSSES, 1, 6),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
     this._startingGearConfig(),
     this._spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
@@ -251,6 +251,18 @@ class Permalink {
     if (_.isNil(optionName)) {
       // istanbul ignore next
       throw Error('Invalid spin box option config');
+    }
+
+    const dropdownOptions = _.get(this.DROPDOWN_OPTIONS, optionName);
+    if (!_.isNil(dropdownOptions)) {
+      if (_.head(dropdownOptions) !== minValue) {
+        // istanbul ignore next
+        throw Error('minValue does not match first dropdown option');
+      }
+      if (_.last(dropdownOptions) !== maxValue) {
+        // istanbul ignore next
+        throw Error('maxValue does not match last dropdown option');
+      }
     }
 
     const numBits = (maxValue - minValue).toString(2).length;
