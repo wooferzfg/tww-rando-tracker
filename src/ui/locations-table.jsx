@@ -9,6 +9,7 @@ import TrackerState from '../services/tracker-state';
 import ChartList from './chart-list';
 import DetailedLocationsTable from './detailed-locations-table';
 import EntranceSelection from './entrance-selection';
+import ExitSelection from './exit-selection';
 import ExtraLocationsTable from './extra-locations-table';
 import MapInfo from './map-info';
 import SeaChart from './sea-chart';
@@ -128,7 +129,15 @@ class LocationsTable extends React.PureComponent {
         />
       );
     } else if (!_.isNil(openedEntrance)) {
-      chartElement = null;
+      chartElement = (
+        <ExitSelection
+          clearOpenedMenus={clearOpenedMenus}
+          logic={logic}
+          openedEntrance={openedEntrance}
+          trackerState={trackerState}
+          updateEntranceForExit={updateEntranceForExit}
+        />
+      );
     } else if (!_.isNil(openedExit)) {
       chartElement = (
         <EntranceSelection
