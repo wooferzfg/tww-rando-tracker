@@ -26,6 +26,7 @@ class ExtraLocationsTable extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
+      setSelectedEntrance,
       setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
@@ -33,8 +34,10 @@ class ExtraLocationsTable extends React.PureComponent {
       trackerState,
       trackSpheres,
       unsetExit,
+      updateOpenedEntrance,
       updateOpenedExit,
       updateOpenedLocation,
+      viewingEntrances,
     } = this.props;
 
     const isDungeon = LogicHelper.isDungeon(locationName);
@@ -51,6 +54,7 @@ class ExtraLocationsTable extends React.PureComponent {
         locationName={locationName}
         logic={logic}
         onlyProgressLocations={onlyProgressLocations}
+        setSelectedEntrance={setSelectedEntrance}
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
@@ -58,8 +62,10 @@ class ExtraLocationsTable extends React.PureComponent {
         trackerState={trackerState}
         trackSpheres={trackSpheres}
         unsetExit={unsetExit}
+        updateOpenedEntrance={updateOpenedEntrance}
         updateOpenedExit={updateOpenedExit}
         updateOpenedLocation={updateOpenedLocation}
+        viewingEntrances={viewingEntrances}
       />
     );
   }
@@ -100,6 +106,7 @@ ExtraLocationsTable.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
@@ -107,8 +114,10 @@ ExtraLocationsTable.propTypes = {
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetExit: PropTypes.func.isRequired,
+  updateOpenedEntrance: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
+  viewingEntrances: PropTypes.bool.isRequired,
 };
 
 export default ExtraLocationsTable;

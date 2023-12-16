@@ -23,23 +23,20 @@ class Buttons extends React.PureComponent {
       chartListOpen,
       colorPickerOpen,
       disableLogic,
-      entrancesListOpen,
       onlyProgressLocations,
       trackSpheres,
       toggleChartList,
       toggleColorPicker,
       toggleDisableLogic,
-      toggleEntrancesList,
+      toggleEntrances,
       toggleOnlyProgressLocations,
       toggleTrackSpheres,
+      viewingEntrances,
     } = this.props;
 
     const colorPickerText = colorPickerOpen
       ? 'Close Color Picker'
       : 'Open Color Picker';
-    const entrancesListText = entrancesListOpen
-      ? 'Close Entrances'
-      : 'View Entrances';
     const chartListText = chartListOpen
       ? 'Close Chart List'
       : 'View Charts';
@@ -60,16 +57,17 @@ class Buttons extends React.PureComponent {
           <input type="checkbox" className="button-checkbox" checked={!onlyProgressLocations} readOnly />
           Show Non-Progress Locations
         </button>
-        {
-          isRandomEntrances && (
-            <button
-              onClick={toggleEntrancesList}
-              type="button"
-            >
-              {entrancesListText}
-            </button>
-          )
-        }
+        {isRandomEntrances && (
+          <button
+            onClick={toggleEntrances}
+            type="button"
+          >
+            <input type="radio" className="button-radio" checked={viewingEntrances} readOnly />
+            View Entrances
+            <input type="radio" className="button-radio second-button-radio" checked={!viewingEntrances} readOnly />
+            View Exits
+          </button>
+        )}
         <button onClick={toggleChartList} type="button">
           {chartListText}
         </button>
@@ -103,16 +101,16 @@ Buttons.propTypes = {
   chartListOpen: PropTypes.bool.isRequired,
   colorPickerOpen: PropTypes.bool.isRequired,
   disableLogic: PropTypes.bool.isRequired,
-  entrancesListOpen: PropTypes.bool.isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   saveData: PropTypes.string.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   toggleChartList: PropTypes.func.isRequired,
   toggleColorPicker: PropTypes.func.isRequired,
   toggleDisableLogic: PropTypes.func.isRequired,
-  toggleEntrancesList: PropTypes.func.isRequired,
+  toggleEntrances: PropTypes.func.isRequired,
   toggleOnlyProgressLocations: PropTypes.func.isRequired,
   toggleTrackSpheres: PropTypes.func.isRequired,
+  viewingEntrances: PropTypes.bool.isRequired,
 };
 
 export default Buttons;

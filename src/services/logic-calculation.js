@@ -13,7 +13,10 @@ class LogicCalculation {
     this.state = state;
 
     Memoizer.memoize(this, [
+      'entrancesListForDungeon',
+      'entrancesListForIsland',
       'estimatedLocationsLeftToCheck',
+      'exitsListForEntrance',
       'formattedRequirementsForEntrance',
       'formattedRequirementsForLocation',
       'isBossDefeated',
@@ -118,16 +121,38 @@ class LogicCalculation {
     });
   }
 
-  entrancesList({ disableLogic }) {
+  entrancesListForExit(exitName, { disableLogic }) {
     return this._entrancesListForEntrances(
-      LogicHelper.allRandomEntrances(),
+      LogicHelper.randomEntrancesForExit(exitName),
       { disableLogic },
     );
   }
 
-  entrancesListForExit(exitName, { disableLogic }) {
+  exitsListForEntrance(entranceName) {
+    const exits = LogicHelper.randomExitsForEntrance(entranceName);
+
+    return _.map(exits, (exitName) => {
+      const entryName = LogicHelper.entryName(exitName);
+      const isChecked = this.state.getItemValue(entryName) > 0;
+      const color = LogicCalculation._locationColor(true, isChecked, true);
+
+      return {
+        exit: exitName,
+        color,
+      };
+    });
+  }
+
+  entrancesListForIsland(islandName, { disableLogic }) {
     return this._entrancesListForEntrances(
-      LogicHelper.randomEntrancesForExit(exitName),
+      LogicHelper.entrancesForIsland(islandName),
+      { disableLogic },
+    );
+  }
+
+  entrancesListForDungeon(zoneName, { disableLogic }) {
+    return this._entrancesListForEntrances(
+      LogicHelper.entrancesForDungeon(zoneName),
       { disableLogic },
     );
   }
