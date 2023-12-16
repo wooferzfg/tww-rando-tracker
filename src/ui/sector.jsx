@@ -151,6 +151,7 @@ class Sector extends React.PureComponent {
 
     const {
       clearSelectedItem,
+      clearSelectedLocation,
       disableLogic,
       logic,
       setSelectedEntrance,
@@ -170,6 +171,9 @@ class Sector extends React.PureComponent {
       if (!_.isNil(exitForEntrance)) {
         unsetExit(exitForEntrance);
       } else {
+        clearSelectedItem();
+        clearSelectedLocation();
+
         updateOpenedEntrance(entrance);
       }
     };
