@@ -111,7 +111,7 @@ class TrackerState {
 
     if (exitName !== LogicHelper.NOTHING_EXIT) {
       const entryName = LogicHelper.entryName(exitName);
-      newState = newState.incrementItem(entryName);
+      newState = newState.decrementItem(entryName);
     }
 
     return newState;
@@ -124,7 +124,7 @@ class TrackerState {
     _.unset(newState.entrances, entranceName);
 
     const entryName = LogicHelper.entryName(exitName);
-    newState = newState.incrementItem(entryName);
+    newState = newState.decrementItem(entryName);
 
     return newState;
   }
