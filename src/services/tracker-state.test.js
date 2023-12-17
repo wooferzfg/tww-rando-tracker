@@ -274,43 +274,73 @@ describe('TrackerState', () => {
     let state;
 
     beforeEach(() => {
-      const initialEntrances = {
+      state = new TrackerState();
+      state.entrances = {
         'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
         'Ice Ring Isle Secret Cave': 'Forbidden Woods',
       };
-
-      state = new TrackerState();
-      state.entrances = _.clone(initialEntrances);
+      state.items = {
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+        'Entered Ice Ring Isle Cave': 0,
+      };
     });
 
-    test('returns a new state with the entrance value modified', () => {
-      const newState = state.setExitForEntrance('Dragon Roost Cavern', 'Ice Ring Isle Secret Cave');
+    test('returns a new state with the entrance value and entry item modified', () => {
+      const newState = state.setExitForEntrance('Forbidden Woods', 'Ice Ring Isle Secret Cave');
 
       expect(newState.entrances).toEqual({
-        'Dragon Roost Cavern': 'Ice Ring Isle Secret Cave',
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
         'Ice Ring Isle Secret Cave': 'Forbidden Woods',
+        'Forbidden Woods': 'Ice Ring Isle Secret Cave',
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+        'Entered Ice Ring Isle Cave': 1,
+      });
+    });
+
+    test('when marking an entrance that leads to nothing, does not modify items', () => {
+      const newState = state.setExitForEntrance('Forbidden Woods', LogicHelper.NOTHING_EXIT);
+
+      expect(newState.entrances).toEqual({
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Ice Ring Isle Secret Cave': 'Forbidden Woods',
+        'Forbidden Woods': LogicHelper.NOTHING_EXIT,
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+        'Entered Ice Ring Isle Cave': 0,
       });
     });
   });
 
-  describe('unsetEntranceForExit', () => {
+  describe('unsetExit', () => {
     let state;
 
     beforeEach(() => {
-      const initialEntrances = {
+      state = new TrackerState();
+      state.entrances = {
         'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
         'Tower of the Gods': 'Forbidden Woods',
       };
-
-      state = new TrackerState();
-      state.entrances = _.clone(initialEntrances);
+      state.items = {
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+      };
     });
 
-    test('returns a new state with the entrance value unset', () => {
-      const newState = state.unsetEntranceForExit('Needle Rock Isle Secret Cave');
+    test('returns a new state with the entrance value and entry item unset', () => {
+      const newState = state.unsetExit('Needle Rock Isle Secret Cave');
 
       expect(newState.entrances).toEqual({
         'Tower of the Gods': 'Forbidden Woods',
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 0,
+        'Entered FW': 1,
       });
     });
   });
@@ -319,20 +349,41 @@ describe('TrackerState', () => {
     let state;
 
     beforeEach(() => {
-      const initialEntrances = {
+      state = new TrackerState();
+      state.entrances = {
         'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
         'Tower of the Gods': 'Forbidden Woods',
+        'Cliff Plateau Isles Secret Cave': LogicHelper.NOTHING_EXIT,
       };
-
-      state = new TrackerState();
-      state.entrances = _.clone(initialEntrances);
+      state.items = {
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+      };
     });
 
-    test('returns a new state with the entrance value unset', () => {
+    test('returns a new state with the entrance value and entry item unset', () => {
       const newState = state.unsetEntrance('Dragon Roost Cavern');
 
       expect(newState.entrances).toEqual({
         'Tower of the Gods': 'Forbidden Woods',
+        'Cliff Plateau Isles Secret Cave': LogicHelper.NOTHING_EXIT,
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 0,
+        'Entered FW': 1,
+      });
+    });
+
+    test('when unsetting an entrance that leads to nothing, does not modify items', () => {
+      const newState = state.unsetEntrance('Cliff Plateau Isles Secret Cave');
+
+      expect(newState.entrances).toEqual({
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Tower of the Gods': 'Forbidden Woods',
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
       });
     });
   });

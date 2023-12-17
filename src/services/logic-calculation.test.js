@@ -1286,15 +1286,10 @@ describe('LogicCalculation', () => {
       logic = new LogicCalculation(
         logic.state
           .setExitForEntrance('Bomb Island Secret Cave', 'Dragon Roost Cavern')
-          .incrementItem('Entered DRC')
           .setExitForEntrance('Gohma Boss Arena', 'Forbidden Woods')
-          .incrementItem('Entered FW')
           .setExitForEntrance('Tower of the Gods Miniboss Arena', 'Forbidden Woods Miniboss Arena')
-          .incrementItem('Entered FW Miniboss')
           .setExitForEntrance('Kalle Demos Boss Arena', 'Tower of the Gods')
-          .incrementItem('Entered TotG')
           .setExitForEntrance('Forbidden Woods Miniboss Arena', 'Tower of the Gods Miniboss Arena')
-          .incrementItem('Entered TotG Miniboss')
           .setExitForEntrance('Gohdan Boss Arena', 'Gohdan Boss Arena')
           .setExitForEntrance('Cliff Plateau Isles Secret Cave', LogicHelper.NOTHING_EXIT),
       );

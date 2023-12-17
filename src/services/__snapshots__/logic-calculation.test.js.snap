@@ -43,7 +43,7 @@ exports[`LogicCalculation exitsListForEntrance returns all exits that are possib
     "exit": "Kalle Demos Boss Arena",
   },
   {
-    "color": "available-location",
+    "color": "checked-location",
     "exit": "Gohdan Boss Arena",
   },
   {

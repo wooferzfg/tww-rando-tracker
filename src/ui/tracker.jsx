@@ -63,7 +63,7 @@ class Tracker extends React.PureComponent {
     this.unsetLastLocation = this.unsetLastLocation.bind(this);
     this.updateChartMapping = this.updateChartMapping.bind(this);
     this.updateColors = this.updateColors.bind(this);
-    this.updateEntranceForExit = this.updateEntranceForExit.bind(this);
+    this.updateExitForEntrance = this.updateExitForEntrance.bind(this);
     this.updateOpenedChartForIsland = this.updateOpenedChartForIsland.bind(this);
     this.updateOpenedEntrance = this.updateOpenedEntrance.bind(this);
     this.updateOpenedExit = this.updateOpenedExit.bind(this);
@@ -253,13 +253,7 @@ class Tracker extends React.PureComponent {
   unsetEntrance(entranceName) {
     const { trackerState } = this.state;
 
-    const exitName = trackerState.getExitForEntrance(entranceName);
-
-    let newTrackerState = trackerState.unsetEntrance(entranceName);
-    if (exitName !== LogicHelper.NOTHING_EXIT) {
-      const entryName = LogicHelper.entryName(exitName);
-      newTrackerState = newTrackerState.incrementItem(entryName);
-    }
+    const newTrackerState = trackerState.unsetEntrance(entranceName);
 
     this.updateTrackerState(newTrackerState);
   }
@@ -267,23 +261,15 @@ class Tracker extends React.PureComponent {
   unsetExit(exitName) {
     const { trackerState } = this.state;
 
-    const entryName = LogicHelper.entryName(exitName);
-    const newTrackerState = trackerState
-      .incrementItem(entryName)
-      .unsetEntranceForExit(exitName);
+    const newTrackerState = trackerState.unsetExit(exitName);
 
     this.updateTrackerState(newTrackerState);
   }
 
-  updateEntranceForExit(exitName, entranceName) {
+  updateExitForEntrance(entranceName, exitName) {
     const { trackerState } = this.state;
 
-    let newTrackerState = trackerState.setExitForEntrance(entranceName, exitName);
-
-    if (exitName !== LogicHelper.NOTHING_EXIT) {
-      const entryName = LogicHelper.entryName(exitName);
-      newTrackerState = newTrackerState.incrementItem(entryName);
-    }
+    const newTrackerState = trackerState.setExitForEntrance(entranceName, exitName);
 
     this.updateTrackerState(newTrackerState);
     this.clearOpenedMenus();
@@ -506,7 +492,7 @@ class Tracker extends React.PureComponent {
               unsetChartMapping={this.unsetChartMapping}
               unsetEntrance={this.unsetEntrance}
               unsetExit={this.unsetExit}
-              updateEntranceForExit={this.updateEntranceForExit}
+              updateExitForEntrance={this.updateExitForEntrance}
               updateOpenedEntrance={this.updateOpenedEntrance}
               updateOpenedExit={this.updateOpenedExit}
               updateOpenedLocation={this.updateOpenedLocation}

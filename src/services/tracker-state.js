@@ -91,21 +91,41 @@ class TrackerState {
   }
 
   setExitForEntrance(entranceName, exitName) {
-    const newState = this._clone({ entrances: true });
+    let newState = this._clone({ entrances: true });
+
     _.set(newState.entrances, entranceName, exitName);
+
+    if (exitName !== LogicHelper.NOTHING_EXIT) {
+      const entryName = LogicHelper.entryName(exitName);
+      newState = newState.incrementItem(entryName);
+    }
+
     return newState;
   }
 
   unsetEntrance(entranceName) {
-    const newState = this._clone({ entrances: true });
+    let newState = this._clone({ entrances: true });
+
+    const exitName = newState.getExitForEntrance(entranceName);
     _.unset(newState.entrances, entranceName);
+
+    if (exitName !== LogicHelper.NOTHING_EXIT) {
+      const entryName = LogicHelper.entryName(exitName);
+      newState = newState.incrementItem(entryName);
+    }
+
     return newState;
   }
 
-  unsetEntranceForExit(exitName) {
-    const newState = this._clone({ entrances: true });
+  unsetExit(exitName) {
+    let newState = this._clone({ entrances: true });
+
     const entranceName = newState.getEntranceForExit(exitName);
     _.unset(newState.entrances, entranceName);
+
+    const entryName = LogicHelper.entryName(exitName);
+    newState = newState.incrementItem(entryName);
+
     return newState;
   }
 

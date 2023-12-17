@@ -58,7 +58,7 @@ class EntranceSelection extends React.PureComponent {
     const {
       disableLogic,
       openedExit,
-      updateEntranceForExit,
+      updateExitForEntrance,
     } = this.props;
 
     const shortEntranceName = LogicHelper.shortEntranceName(entrance);
@@ -76,7 +76,7 @@ class EntranceSelection extends React.PureComponent {
 
     const updateEntranceFunc = () => {
       if (!isEntranceChecked) {
-        updateEntranceForExit(openedExit, entrance);
+        updateExitForEntrance(entrance, openedExit);
       }
     };
 
@@ -159,7 +159,7 @@ EntranceSelection.propTypes = {
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   openedExit: PropTypes.string.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
-  updateEntranceForExit: PropTypes.func.isRequired,
+  updateExitForEntrance: PropTypes.func.isRequired,
 };
 
 export default EntranceSelection;

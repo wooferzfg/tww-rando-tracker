@@ -568,7 +568,7 @@ describe('LogicHelper', () => {
     });
 
     test('returns the nothing exit unmodified', () => {
-      const shortExitName = LogicHelper.shortExitName('Nothing');
+      const shortExitName = LogicHelper.shortExitName(LogicHelper.NOTHING_EXIT);
 
       expect(shortExitName).toEqual('Nothing');
     });

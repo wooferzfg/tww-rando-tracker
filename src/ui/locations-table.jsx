@@ -99,7 +99,7 @@ class LocationsTable extends React.PureComponent {
       unsetEntrance,
       unsetExit,
       updateChartMapping,
-      updateEntranceForExit,
+      updateExitForEntrance,
       updateOpenedChartForIsland,
       updateOpenedEntrance,
       updateOpenedExit,
@@ -136,7 +136,7 @@ class LocationsTable extends React.PureComponent {
           logic={logic}
           openedEntrance={openedEntrance}
           trackerState={trackerState}
-          updateEntranceForExit={updateEntranceForExit}
+          updateExitForEntrance={updateExitForEntrance}
         />
       );
     } else if (!_.isNil(openedExit)) {
@@ -147,7 +147,7 @@ class LocationsTable extends React.PureComponent {
           logic={logic}
           openedExit={openedExit}
           trackerState={trackerState}
-          updateEntranceForExit={updateEntranceForExit}
+          updateExitForEntrance={updateExitForEntrance}
         />
       );
     } else if (!_.isNil(openedLocation)) {
@@ -298,7 +298,7 @@ LocationsTable.propTypes = {
   unsetChartMapping: PropTypes.func.isRequired,
   updateChartMapping: PropTypes.func.isRequired,
   updateOpenedChartForIsland: PropTypes.func.isRequired,
-  updateEntranceForExit: PropTypes.func.isRequired,
+  updateExitForEntrance: PropTypes.func.isRequired,
   updateOpenedEntrance: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,

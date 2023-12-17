@@ -46,7 +46,7 @@ class ExitSelection extends React.PureComponent {
 
     const {
       openedEntrance,
-      updateEntranceForExit,
+      updateExitForEntrance,
     } = this.props;
 
     const shortExitName = LogicHelper.shortExitName(exit);
@@ -64,7 +64,7 @@ class ExitSelection extends React.PureComponent {
 
     const updateExitFunc = () => {
       if (!isExitChecked) {
-        updateEntranceForExit(exit, openedEntrance);
+        updateExitForEntrance(openedEntrance, exit);
       }
     };
 
@@ -137,7 +137,7 @@ ExitSelection.propTypes = {
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   openedEntrance: PropTypes.string.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
-  updateEntranceForExit: PropTypes.func.isRequired,
+  updateExitForEntrance: PropTypes.func.isRequired,
 };
 
 export default ExitSelection;
