@@ -28,7 +28,7 @@ class Permalink {
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'MS4xMS4wAEEABwEDAAAGUN8BgEYAAAAAIAAQBAAAAAA=';
+  static DEFAULT_PERMALINK = 'MS4xMS4wAEEASRBQGACAfQF0CQAAAAAEAIIAAAA=';
 
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);
@@ -55,13 +55,17 @@ class Permalink {
     this._stringConfig(this.OPTIONS.VERSION),
     this._stringConfig(this.OPTIONS.SEED_NAME),
     this._booleanConfig(this.OPTIONS.PROGRESSION_DUNGEONS),
-    this._booleanConfig(this.OPTIONS.PROGRESSION_GREAT_FAIRIES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_TINGLE_CHESTS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_DUNGEON_SECRETS),
     this._booleanConfig(this.OPTIONS.PROGRESSION_PUZZLE_SECRET_CAVES),
     this._booleanConfig(this.OPTIONS.PROGRESSION_COMBAT_SECRET_CAVES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_GREAT_FAIRIES),
     this._booleanConfig(this.OPTIONS.PROGRESSION_SHORT_SIDEQUESTS),
     this._booleanConfig(this.OPTIONS.PROGRESSION_LONG_SIDEQUESTS),
     this._booleanConfig(this.OPTIONS.PROGRESSION_SPOILS_TRADING),
     this._booleanConfig(this.OPTIONS.PROGRESSION_MINIGAMES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_BATTLESQUID),
     this._booleanConfig(this.OPTIONS.PROGRESSION_FREE_GIFTS),
     this._booleanConfig(this.OPTIONS.PROGRESSION_MAIL),
     this._booleanConfig(this.OPTIONS.PROGRESSION_PLATFORMS_RAFTS),
@@ -71,52 +75,48 @@ class Permalink {
     this._booleanConfig(this.OPTIONS.PROGRESSION_TRIFORCE_CHARTS),
     this._booleanConfig(this.OPTIONS.PROGRESSION_TREASURE_CHARTS),
     this._booleanConfig(this.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES),
-    this._booleanConfig(this.OPTIONS.PROGRESSION_MISC),
-    this._booleanConfig(this.OPTIONS.PROGRESSION_TINGLE_CHESTS),
-    this._booleanConfig(this.OPTIONS.PROGRESSION_BATTLESQUID),
-    this._booleanConfig(this.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH),
     this._booleanConfig(this.OPTIONS.PROGRESSION_ISLAND_PUZZLES),
-    this._booleanConfig(this.OPTIONS.PROGRESSION_DUNGEON_SECRETS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_MISC),
     this._booleanConfig(this.OPTIONS.KEYLUNACY),
+    this._dropdownConfig(this.OPTIONS.SWORD_MODE),
+    this._booleanConfig(this.OPTIONS.REQUIRED_BOSSES),
+    this._spinBoxConfig(this.OPTIONS.NUM_REQUIRED_BOSSES, 1, 6),
+    this._booleanConfig(this.OPTIONS.CHEST_TYPE_MATCHES_CONTENTS),
+    this._booleanConfig(this.OPTIONS.TRAP_CHESTS),
+    this._dropdownConfig(this.OPTIONS.LOGIC_OBSCURITY),
+    this._dropdownConfig(this.OPTIONS.LOGIC_PRECISION),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES),
-    this._dropdownConfig(this.OPTIONS.MIX_ENTRANCES),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_BOSS_ENTRANCES),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES),
-    this._booleanConfig(this.OPTIONS.RANDOMIZE_CHARTS),
+    this._dropdownConfig(this.OPTIONS.MIX_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_STARTING_ISLAND),
-    this._booleanConfig(this.OPTIONS.CHEST_TYPE_MATCHES_CONTENTS),
-    this._booleanConfig(this.OPTIONS.FISHMEN_HINTS),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_CHARTS),
     this._booleanConfig(this.OPTIONS.HOHO_HINTS),
+    this._booleanConfig(this.OPTIONS.FISHMEN_HINTS),
     this._booleanConfig(this.OPTIONS.KORL_HINTS),
-    this._spinBoxConfig(this.OPTIONS.NUM_PATH_HINTS, 0, 15),
-    this._spinBoxConfig(this.OPTIONS.NUM_BARREN_HINTS, 0, 15),
-    this._spinBoxConfig(this.OPTIONS.NUM_LOCATION_HINTS, 0, 15),
     this._spinBoxConfig(this.OPTIONS.NUM_ITEM_HINTS, 0, 15),
+    this._spinBoxConfig(this.OPTIONS.NUM_LOCATION_HINTS, 0, 15),
+    this._spinBoxConfig(this.OPTIONS.NUM_BARREN_HINTS, 0, 15),
+    this._spinBoxConfig(this.OPTIONS.NUM_PATH_HINTS, 0, 15),
     this._booleanConfig(this.OPTIONS.CRYPTIC_HINTS),
     this._booleanConfig(this.OPTIONS.PRIORITIZE_REMOTE_HINTS),
     this._booleanConfig(this.OPTIONS.SWIFT_SAIL),
     this._booleanConfig(this.OPTIONS.INSTANT_TEXT_BOXES),
     this._booleanConfig(this.OPTIONS.REVEAL_FULL_SEA_CHART),
-    this._spinBoxConfig(this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS, 0, 8),
     this._booleanConfig(this.OPTIONS.ADD_SHORTCUT_WARPS_BETWEEN_DUNGEONS),
-    this._booleanConfig(this.OPTIONS.DO_NOT_GENERATE_SPOILER_LOG),
-    this._dropdownConfig(this.OPTIONS.SWORD_MODE),
     this._booleanConfig(this.OPTIONS.SKIP_REMATCH_BOSSES),
-    this._booleanConfig(this.OPTIONS.REQUIRED_BOSSES),
-    this._spinBoxConfig(this.OPTIONS.NUM_REQUIRED_BOSSES, 1, 6),
-    this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
+    this._booleanConfig(this.OPTIONS.REMOVE_MUSIC),
     this._startingGearConfig(),
+    this._spinBoxConfig(this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS, 0, 8),
     this._spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
     this._spinBoxConfig(this.OPTIONS.STARTING_HCS, 0, 6),
     this._spinBoxConfig(this.OPTIONS.NUM_EXTRA_STARTING_ITEMS, 0, 3),
-    this._booleanConfig(this.OPTIONS.REMOVE_MUSIC),
-    this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES),
-    this._dropdownConfig(this.OPTIONS.LOGIC_OBSCURITY),
-    this._dropdownConfig(this.OPTIONS.LOGIC_PRECISION),
-    this._booleanConfig(this.OPTIONS.TRAP_CHESTS),
+    this._booleanConfig(this.OPTIONS.DO_NOT_GENERATE_SPOILER_LOG),
   ];
 
   static _stringConfig(optionName) {
@@ -180,9 +180,11 @@ class Permalink {
       throw Error(`Invalid dropdown options for option: ${optionName}`);
     }
 
+    const numBits = (_.size(dropdownOptions) - 1).toString(2).length;
+
     return {
       decode: (binaryString, options) => {
-        const dropdownIndex = binaryString.popNumber(BinaryString.BYTE_SIZE);
+        const dropdownIndex = binaryString.popNumber(numBits);
         const dropdownValue = _.get(dropdownOptions, dropdownIndex);
 
         if (_.isNil(dropdownValue)) {
@@ -201,7 +203,7 @@ class Permalink {
           throw Error(`Invalid dropdown value: ${dropdownValue} for option: ${optionName}`);
         }
 
-        binaryString.addNumber(dropdownIndex, BinaryString.BYTE_SIZE);
+        binaryString.addNumber(dropdownIndex, numBits);
       },
     };
   }

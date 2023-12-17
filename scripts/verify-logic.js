@@ -7,6 +7,7 @@ import LogicCalculation from '../src/services/logic-calculation';
 import LogicHelper from '../src/services/logic-helper';
 import LogicLoader from '../src/services/logic-loader';
 import LogicTweaks from '../src/services/logic-tweaks';
+import Permalink from '../src/services/permalink';
 import TrackerController from '../src/services/tracker-controller';
 
 LogicLoader.loadLogicFiles = async () => ({
@@ -132,8 +133,8 @@ const verifyLogicForSettings = async (permalink) => {
 };
 
 const script = async () => {
-  await verifyLogicForSettings('MS4xMS4wAEEABwEDAAAGUN+BgAYAAAAAAAAAAAAAAAA='); // no starting items
-  await verifyLogicForSettings('MS4xMS4wAEEABwEDAAAGUN8BgEYAAAAAIAAQBAAAAAA='); // default settings
+  await verifyLogicForSettings('MS4xMS4wAEEASRBQGQCAfQF0AQAAAAAAAAAAAAA='); // no starting items
+  await verifyLogicForSettings(Permalink.DEFAULT_PERMALINK);
 };
 
 script();
