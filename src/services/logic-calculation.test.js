@@ -1295,11 +1295,12 @@ describe('LogicCalculation', () => {
           .incrementItem('Entered TotG')
           .setEntranceForExit('Tower of the Gods Miniboss Arena', 'Forbidden Woods Miniboss Arena')
           .incrementItem('Entered TotG Miniboss')
-          .setEntranceForExit('Gohdan Boss Arena', 'Gohdan Boss Arena'),
+          .setEntranceForExit('Gohdan Boss Arena', 'Gohdan Boss Arena')
+          .setEntranceForExit(LogicHelper.NOTHING_EXIT, 'Cliff Plateau Isles Secret Cave'),
       );
     });
 
-    test('returns all exits that are possible for an entrance and indicates which exits are checked, except its own dungeon', () => {
+    test('returns all exits that are possible for an entrance and indicates which exits are checked, except its own dungeon, and includes the nothing exit', () => {
       const exitsListForEntrance = logic.exitsListForEntrance('Earth Temple Miniboss Arena');
 
       expect(exitsListForEntrance).toMatchSnapshot();

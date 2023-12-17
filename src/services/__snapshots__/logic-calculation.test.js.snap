@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LogicCalculation exitsListForEntrance returns all exits that are possible for an entrance and indicates which exits are checked, except its own dungeon 1`] = `
+exports[`LogicCalculation exitsListForEntrance returns all exits that are possible for an entrance and indicates which exits are checked, except its own dungeon, and includes the nothing exit 1`] = `
 [
   {
     "color": "checked-location",
@@ -61,6 +61,10 @@ exports[`LogicCalculation exitsListForEntrance returns all exits that are possib
   {
     "color": "available-location",
     "exit": "Master Sword Chamber",
+  },
+  {
+    "color": "available-location",
+    "exit": "Nothing",
   },
 ]
 `;

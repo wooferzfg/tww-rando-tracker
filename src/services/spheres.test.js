@@ -278,7 +278,8 @@ describe('Spheres', () => {
           .setEntranceForExit('Pawprint Isle Chuchu Cave', 'Bomb Island Secret Cave')
           .incrementItem('Entered Pawprint Isle Chuchu Cave')
           .setEntranceForExit('Dragon Roost Cavern', 'Savage Labyrinth')
-          .incrementItem('Entered DRC');
+          .incrementItem('Entered DRC')
+          .setEntranceForExit(LogicHelper.NOTHING_EXIT, 'Cliff Plateau Isles Secret Cave');
       });
 
       test('sets spheres correctly through the entrances', () => {

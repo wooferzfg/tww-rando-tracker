@@ -566,6 +566,12 @@ describe('LogicHelper', () => {
 
       expect(shortExitName).toEqual('WT Miniboss');
     });
+
+    test('returns the nothing exit unmodified', () => {
+      const shortExitName = LogicHelper.shortExitName('Nothing');
+
+      expect(shortExitName).toEqual('Nothing');
+    });
   });
 
   describe('exitsForIsland', () => {

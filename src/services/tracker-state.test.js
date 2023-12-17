@@ -242,7 +242,7 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.entrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
       };
     });
 
@@ -259,7 +259,7 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.entrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
       };
     });
 
@@ -275,7 +275,8 @@ describe('TrackerState', () => {
 
     beforeEach(() => {
       const initialEntrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Ice Ring Isle Secret Cave': 'Forbidden Woods',
       };
 
       state = new TrackerState();
@@ -283,9 +284,12 @@ describe('TrackerState', () => {
     });
 
     test('returns a new state with the entrance value modified', () => {
-      const newState = state.setEntranceForExit('Needle Rock Isle Secret Cave', 'Forbidden Woods');
+      const newState = state.setEntranceForExit('Ice Ring Isle Secret Cave', 'Dragon Roost Cavern');
 
-      expect(newState.entrances['Needle Rock Isle Secret Cave']).toEqual('Forbidden Woods');
+      expect(newState.entrances).toEqual({
+        'Dragon Roost Cavern': 'Ice Ring Isle Secret Cave',
+        'Ice Ring Isle Secret Cave': 'Forbidden Woods',
+      });
     });
   });
 
@@ -294,8 +298,8 @@ describe('TrackerState', () => {
 
     beforeEach(() => {
       const initialEntrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
-        'Forbidden Woods': 'Tower of the Gods',
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Tower of the Gods': 'Forbidden Woods',
       };
 
       state = new TrackerState();
@@ -306,7 +310,29 @@ describe('TrackerState', () => {
       const newState = state.unsetEntranceForExit('Needle Rock Isle Secret Cave');
 
       expect(newState.entrances).toEqual({
-        'Forbidden Woods': 'Tower of the Gods',
+        'Tower of the Gods': 'Forbidden Woods',
+      });
+    });
+  });
+
+  describe('unsetEntrance', () => {
+    let state;
+
+    beforeEach(() => {
+      const initialEntrances = {
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Tower of the Gods': 'Forbidden Woods',
+      };
+
+      state = new TrackerState();
+      state.entrances = _.clone(initialEntrances);
+    });
+
+    test('returns a new state with the entrance value unset', () => {
+      const newState = state.unsetEntrance('Dragon Roost Cavern');
+
+      expect(newState.entrances).toEqual({
+        'Tower of the Gods': 'Forbidden Woods',
       });
     });
   });
@@ -317,8 +343,8 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.entrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
-        'Forbidden Woods': 'Tower of the Gods',
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Tower of the Gods': 'Forbidden Woods',
       };
     });
 
