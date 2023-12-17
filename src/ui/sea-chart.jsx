@@ -30,6 +30,7 @@ class SeaChart extends React.PureComponent {
       trackerState,
       trackSpheres,
       unsetChartMapping,
+      unsetEntrance,
       unsetExit,
       updateOpenedChartForIsland,
       updateOpenedEntrance,
@@ -59,6 +60,7 @@ class SeaChart extends React.PureComponent {
         trackerState={trackerState}
         trackSpheres={trackSpheres}
         unsetChartMapping={unsetChartMapping}
+        unsetEntrance={unsetEntrance}
         unsetExit={unsetExit}
         updateOpenedChartForIsland={updateOpenedChartForIsland}
         updateOpenedEntrance={updateOpenedEntrance}
@@ -103,6 +105,7 @@ SeaChart.propTypes = {
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
+  unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedChartForIsland: PropTypes.func.isRequired,
   updateOpenedEntrance: PropTypes.func.isRequired,

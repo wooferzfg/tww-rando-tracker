@@ -80,6 +80,10 @@ class Spheres {
         continue;
       }
 
+      if (exitForEntrance === LogicHelper.NOTHING_EXIT) {
+        continue;
+      }
+
       if (logic.isEntranceAvailable(entranceName)) {
         const entryName = LogicHelper.entryName(exitForEntrance);
 

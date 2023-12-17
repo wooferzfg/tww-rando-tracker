@@ -199,7 +199,7 @@ class ExtraLocation extends React.PureComponent {
       logic,
       setSelectedEntrance,
       trackerState,
-      unsetExit,
+      unsetEntrance,
       updateOpenedEntrance,
     } = this.props;
 
@@ -209,10 +209,10 @@ class ExtraLocation extends React.PureComponent {
     const setSelectedItemFunc = () => setSelectedEntrance(entrance);
 
     const incrementItemFunc = () => {
-      const exitForEntrance = trackerState.getExitForEntrance(entrance);
+      const isEntranceChecked = trackerState.isEntranceChecked(entrance);
 
-      if (!_.isNil(exitForEntrance)) {
-        unsetExit(exitForEntrance);
+      if (isEntranceChecked) {
+        unsetEntrance(entrance);
       } else {
         updateOpenedEntrance(entrance);
       }
@@ -430,6 +430,7 @@ ExtraLocation.propTypes = {
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedEntrance: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,

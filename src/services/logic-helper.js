@@ -97,6 +97,8 @@ class LogicHelper {
 
   static DEFEAT_GANONDORF_LOCATION = 'Defeat Ganondorf';
 
+  static NOTHING_EXIT = 'Nothing';
+
   static NUM_TRIFORCE_CHARTS = 8;
 
   static DUNGEONS = Constants.createFromArray(DUNGEONS);
@@ -208,6 +210,10 @@ class LogicHelper {
   }
 
   static shortExitName(exitName) {
+    if (exitName === this.NOTHING_EXIT) {
+      return exitName;
+    }
+
     const entranceData = this._entranceDataForInternalName(exitName);
     if (_.isNil(entranceData)) {
       // istanbul ignore next

@@ -83,27 +83,34 @@ class TrackerState {
   }
 
   getEntranceForExit(exitName) {
-    return _.get(this.entrances, exitName);
+    return _.findKey(this.entrances, (curExitName) => curExitName === exitName);
   }
 
   getExitForEntrance(entranceName) {
-    return _.findKey(this.entrances, (curEntranceName) => curEntranceName === entranceName);
+    return _.get(this.entrances, entranceName);
   }
 
   setEntranceForExit(exitName, entranceName) {
     const newState = this._clone({ entrances: true });
-    _.set(newState.entrances, exitName, entranceName);
+    _.set(newState.entrances, entranceName, exitName);
+    return newState;
+  }
+
+  unsetEntrance(entranceName) {
+    const newState = this._clone({ entrances: true });
+    _.unset(newState.entrances, entranceName);
     return newState;
   }
 
   unsetEntranceForExit(exitName) {
     const newState = this._clone({ entrances: true });
-    _.unset(newState.entrances, exitName);
+    const entranceName = newState.getEntranceForExit(exitName);
+    _.unset(newState.entrances, entranceName);
     return newState;
   }
 
   isEntranceChecked(entranceName) {
-    return _.includes(this.entrances, entranceName);
+    return _.has(this.entrances, entranceName);
   }
 
   isLocationChecked(generalLocation, detailedLocation) {

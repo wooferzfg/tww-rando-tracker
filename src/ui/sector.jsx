@@ -156,7 +156,7 @@ class Sector extends React.PureComponent {
       logic,
       setSelectedEntrance,
       trackerState,
-      unsetExit,
+      unsetEntrance,
       updateOpenedEntrance,
     } = this.props;
 
@@ -166,10 +166,10 @@ class Sector extends React.PureComponent {
     const setSelectedItemFunc = () => setSelectedEntrance(entrance);
 
     const incrementItemFunc = () => {
-      const exitForEntrance = trackerState.getExitForEntrance(entrance);
+      const isEntranceChecked = trackerState.isEntranceChecked(entrance);
 
-      if (!_.isNil(exitForEntrance)) {
-        unsetExit(exitForEntrance);
+      if (isEntranceChecked) {
+        unsetEntrance(entrance);
       } else {
         clearSelectedItem();
         clearSelectedLocation();
@@ -327,6 +327,7 @@ Sector.propTypes = {
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
+  unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedChartForIsland: PropTypes.func.isRequired,
   updateOpenedEntrance: PropTypes.func.isRequired,

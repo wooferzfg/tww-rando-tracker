@@ -58,6 +58,7 @@ class Tracker extends React.PureComponent {
     this.toggleRequiredBoss = this.toggleRequiredBoss.bind(this);
     this.toggleTrackSpheres = this.toggleTrackSpheres.bind(this);
     this.unsetChartMapping = this.unsetChartMapping.bind(this);
+    this.unsetEntrance = this.unsetEntrance.bind(this);
     this.unsetExit = this.unsetExit.bind(this);
     this.unsetLastLocation = this.unsetLastLocation.bind(this);
     this.updateChartMapping = this.updateChartMapping.bind(this);
@@ -249,6 +250,20 @@ class Tracker extends React.PureComponent {
     });
   }
 
+  unsetEntrance(entranceName) {
+    const { trackerState } = this.state;
+
+    const exitName = trackerState.getExitForEntrance(entranceName);
+
+    let newTrackerState = trackerState.unsetEntrance(entranceName);
+    if (exitName !== LogicHelper.NOTHING_EXIT) {
+      const entryName = LogicHelper.entryName(exitName);
+      newTrackerState = newTrackerState.incrementItem(entryName);
+    }
+
+    this.updateTrackerState(newTrackerState);
+  }
+
   unsetExit(exitName) {
     const { trackerState } = this.state;
 
@@ -263,10 +278,12 @@ class Tracker extends React.PureComponent {
   updateEntranceForExit(exitName, entranceName) {
     const { trackerState } = this.state;
 
-    const entryName = LogicHelper.entryName(exitName);
-    const newTrackerState = trackerState
-      .incrementItem(entryName)
-      .setEntranceForExit(exitName, entranceName);
+    let newTrackerState = trackerState.setEntranceForExit(exitName, entranceName);
+
+    if (exitName !== LogicHelper.NOTHING_EXIT) {
+      const entryName = LogicHelper.entryName(exitName);
+      newTrackerState = newTrackerState.incrementItem(entryName);
+    }
 
     this.updateTrackerState(newTrackerState);
     this.clearOpenedMenus();
@@ -487,6 +504,7 @@ class Tracker extends React.PureComponent {
               updateChartMapping={this.updateChartMapping}
               updateOpenedChartForIsland={this.updateOpenedChartForIsland}
               unsetChartMapping={this.unsetChartMapping}
+              unsetEntrance={this.unsetEntrance}
               unsetExit={this.unsetExit}
               updateEntranceForExit={this.updateEntranceForExit}
               updateOpenedEntrance={this.updateOpenedEntrance}

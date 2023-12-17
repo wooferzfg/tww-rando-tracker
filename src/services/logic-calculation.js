@@ -131,7 +131,7 @@ class LogicCalculation {
   exitsListForEntrance(entranceName) {
     const exits = LogicHelper.randomExitsForEntrance(entranceName);
 
-    return _.map(exits, (exitName) => {
+    const exitsWithColors = _.map(exits, (exitName) => {
       const entryName = LogicHelper.entryName(exitName);
       const isChecked = this.state.getItemValue(entryName) > 0;
       const color = LogicCalculation._locationColor(true, isChecked, true);
@@ -140,6 +140,11 @@ class LogicCalculation {
         exit: exitName,
         color,
       };
+    });
+
+    return _.concat(exitsWithColors, {
+      exit: LogicHelper.NOTHING_EXIT,
+      color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
     });
   }
 

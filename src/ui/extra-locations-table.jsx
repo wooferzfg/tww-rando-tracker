@@ -33,6 +33,7 @@ class ExtraLocationsTable extends React.PureComponent {
       spheres,
       trackerState,
       trackSpheres,
+      unsetEntrance,
       unsetExit,
       updateOpenedEntrance,
       updateOpenedExit,
@@ -61,6 +62,7 @@ class ExtraLocationsTable extends React.PureComponent {
         spheres={spheres}
         trackerState={trackerState}
         trackSpheres={trackSpheres}
+        unsetEntrance={unsetEntrance}
         unsetExit={unsetExit}
         updateOpenedEntrance={updateOpenedEntrance}
         updateOpenedExit={updateOpenedExit}
@@ -113,6 +115,7 @@ ExtraLocationsTable.propTypes = {
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedEntrance: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
