@@ -270,7 +270,7 @@ describe('TrackerState', () => {
     });
   });
 
-  describe('setEntranceForExit', () => {
+  describe('setExitForEntrance', () => {
     let state;
 
     beforeEach(() => {
@@ -284,7 +284,7 @@ describe('TrackerState', () => {
     });
 
     test('returns a new state with the entrance value modified', () => {
-      const newState = state.setEntranceForExit('Ice Ring Isle Secret Cave', 'Dragon Roost Cavern');
+      const newState = state.setExitForEntrance('Dragon Roost Cavern', 'Ice Ring Isle Secret Cave');
 
       expect(newState.entrances).toEqual({
         'Dragon Roost Cavern': 'Ice Ring Isle Secret Cave',

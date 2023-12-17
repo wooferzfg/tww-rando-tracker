@@ -1285,18 +1285,18 @@ describe('LogicCalculation', () => {
 
       logic = new LogicCalculation(
         logic.state
-          .setEntranceForExit('Dragon Roost Cavern', 'Bomb Island Secret Cave')
+          .setExitForEntrance('Bomb Island Secret Cave', 'Dragon Roost Cavern')
           .incrementItem('Entered DRC')
-          .setEntranceForExit('Forbidden Woods', 'Gohma Boss Arena')
+          .setExitForEntrance('Gohma Boss Arena', 'Forbidden Woods')
           .incrementItem('Entered FW')
-          .setEntranceForExit('Forbidden Woods Miniboss Arena', 'Tower of the Gods Miniboss Arena')
+          .setExitForEntrance('Tower of the Gods Miniboss Arena', 'Forbidden Woods Miniboss Arena')
           .incrementItem('Entered FW Miniboss')
-          .setEntranceForExit('Tower of the Gods', 'Kalle Demos Boss Arena')
+          .setExitForEntrance('Kalle Demos Boss Arena', 'Tower of the Gods')
           .incrementItem('Entered TotG')
-          .setEntranceForExit('Tower of the Gods Miniboss Arena', 'Forbidden Woods Miniboss Arena')
+          .setExitForEntrance('Forbidden Woods Miniboss Arena', 'Tower of the Gods Miniboss Arena')
           .incrementItem('Entered TotG Miniboss')
-          .setEntranceForExit('Gohdan Boss Arena', 'Gohdan Boss Arena')
-          .setEntranceForExit(LogicHelper.NOTHING_EXIT, 'Cliff Plateau Isles Secret Cave'),
+          .setExitForEntrance('Gohdan Boss Arena', 'Gohdan Boss Arena')
+          .setExitForEntrance('Cliff Plateau Isles Secret Cave', LogicHelper.NOTHING_EXIT),
       );
     });
 

@@ -90,7 +90,7 @@ class TrackerState {
     return _.get(this.entrances, entranceName);
   }
 
-  setEntranceForExit(exitName, entranceName) {
+  setExitForEntrance(entranceName, exitName) {
     const newState = this._clone({ entrances: true });
     _.set(newState.entrances, entranceName, exitName);
     return newState;

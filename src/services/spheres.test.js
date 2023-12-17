@@ -275,11 +275,11 @@ describe('Spheres', () => {
         updateForItemAndLocation('Power Bracelets', 'Windfall Island', 'Tott - Teach Rhythm');
 
         trackerState = trackerState
-          .setEntranceForExit('Pawprint Isle Chuchu Cave', 'Bomb Island Secret Cave')
+          .setExitForEntrance('Bomb Island Secret Cave', 'Pawprint Isle Chuchu Cave')
           .incrementItem('Entered Pawprint Isle Chuchu Cave')
-          .setEntranceForExit('Dragon Roost Cavern', 'Savage Labyrinth')
+          .setExitForEntrance('Savage Labyrinth', 'Dragon Roost Cavern')
           .incrementItem('Entered DRC')
-          .setEntranceForExit(LogicHelper.NOTHING_EXIT, 'Cliff Plateau Isles Secret Cave');
+          .setExitForEntrance('Cliff Plateau Isles Secret Cave', LogicHelper.NOTHING_EXIT);
       });
 
       test('sets spheres correctly through the entrances', () => {
@@ -318,7 +318,7 @@ describe('Spheres', () => {
         updateForItemAndLocation('Power Bracelets', 'Windfall Island', 'Tott - Teach Rhythm');
 
         trackerState = trackerState
-          .setEntranceForExit('Dragon Roost Cavern', 'Bomb Island Secret Cave')
+          .setExitForEntrance('Bomb Island Secret Cave', 'Dragon Roost Cavern')
           .incrementItem('Entered DRC');
 
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'First Room');
@@ -382,17 +382,18 @@ describe('Spheres', () => {
         updateForItemAndLocation('Command Melody', 'Windfall Island', 'House of Wealth Chest');
 
         trackerState = trackerState
-          .setEntranceForExit('Dragon Roost Cavern', 'Bomb Island Secret Cave')
+          .setExitForEntrance('Bomb Island Secret Cave', 'Dragon Roost Cavern')
           .incrementItem('Entered DRC')
-          .setEntranceForExit('Forbidden Woods', 'Gohma Boss Arena')
+          .setExitForEntrance('Gohma Boss Arena', 'Forbidden Woods')
           .incrementItem('Entered FW')
-          .setEntranceForExit('Forbidden Woods Miniboss Arena', 'Tower of the Gods Miniboss Arena')
+          .setExitForEntrance('Tower of the Gods Miniboss Arena', 'Forbidden Woods Miniboss Arena')
           .incrementItem('Entered FW Miniboss')
-          .setEntranceForExit('Tower of the Gods', 'Kalle Demos Boss Arena')
+          .setExitForEntrance('Kalle Demos Boss Arena', 'Tower of the Gods')
           .incrementItem('Entered TotG')
-          .setEntranceForExit('Tower of the Gods Miniboss Arena', 'Forbidden Woods Miniboss Arena')
+          .setExitForEntrance('Forbidden Woods Miniboss Arena', 'Tower of the Gods Miniboss Arena')
           .incrementItem('Entered TotG Miniboss')
-          .setEntranceForExit('Gohdan Boss Arena', 'Gohdan Boss Arena');
+          .setExitForEntrance('Gohdan Boss Arena', 'Gohdan Boss Arena')
+          .incrementItem('Entered Gohdan');
       });
 
       test('includes all nested locations in the same sphere', () => {
@@ -473,19 +474,19 @@ describe('Spheres', () => {
         updateForItemAndLocation('Boomerang', 'Windfall Island', 'Tott - Teach Rhythm');
 
         trackerState = trackerState
-          .setEntranceForExit('Forbidden Woods', 'Bomb Island Secret Cave')
+          .setExitForEntrance('Bomb Island Secret Cave', 'Forbidden Woods')
           .incrementItem('Entered FW');
 
         updateForItemAndLocation('FW Big Key', 'Forbidden Woods', 'Double Mothula Room');
 
         trackerState = trackerState
-          .setEntranceForExit('Dragon Roost Cavern', 'Kalle Demos Boss Arena')
+          .setExitForEntrance('Kalle Demos Boss Arena', 'Dragon Roost Cavern')
           .incrementItem('Entered DRC');
 
         updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Alcove With Water Jugs');
 
         trackerState = trackerState
-          .setEntranceForExit('Gohma Boss Arena', 'Gohma Boss Arena')
+          .setExitForEntrance('Gohma Boss Arena', 'Gohma Boss Arena')
           .incrementItem('Entered Gohma');
       });
 
@@ -547,13 +548,13 @@ describe('Spheres', () => {
         updateForItemAndLocation('Boomerang', 'Windfall Island', 'Tott - Teach Rhythm');
 
         trackerState = trackerState
-          .setEntranceForExit('Forbidden Woods', 'Eastern Fairy Fountain')
+          .setExitForEntrance('Eastern Fairy Fountain', 'Forbidden Woods')
           .incrementItem('Entered FW');
 
         updateForItemAndLocation('FW Big Key', 'Forbidden Woods', 'Double Mothula Room');
 
         trackerState = trackerState
-          .setEntranceForExit('Dragon Roost Cavern', 'Kalle Demos Boss Arena')
+          .setExitForEntrance('Kalle Demos Boss Arena', 'Dragon Roost Cavern')
           .incrementItem('Entered DRC');
 
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'First Room');
@@ -563,7 +564,7 @@ describe('Spheres', () => {
         updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Miniboss');
 
         trackerState = trackerState
-          .setEntranceForExit('Gohma Boss Arena', 'Gohma Boss Arena')
+          .setExitForEntrance('Gohma Boss Arena', 'Gohma Boss Arena')
           .incrementItem('Entered Gohma');
       });
 
@@ -626,27 +627,27 @@ describe('Spheres', () => {
         updateForItemAndLocation('Boomerang', 'Windfall Island', 'Tott - Teach Rhythm');
 
         trackerState = trackerState
-          .setEntranceForExit('Cliff Plateau Isles Secret Cave', 'Southern Fairy Fountain')
+          .setExitForEntrance('Southern Fairy Fountain', 'Cliff Plateau Isles Secret Cave')
           .incrementItem('Entered Cliff Plateau Isles Cave');
 
         updateForItemAndLocation('Iron Boots', 'Cliff Plateau Isles', 'Cave');
 
         trackerState = trackerState
-          .setEntranceForExit('Ice Ring Isle Secret Cave', 'Cliff Plateau Isles Inner Cave')
-          .incrementItem('Ice Ring Isle Cave');
+          .setExitForEntrance('Cliff Plateau Isles Inner Cave', 'Ice Ring Isle Secret Cave')
+          .incrementItem('Entered Ice Ring Isle Cave');
 
         updateForItemAndLocation('Progressive Bow', 'Ice Ring Isle', 'Cave - Chest');
 
         trackerState = trackerState
-          .setEntranceForExit('Forbidden Woods', 'Ice Ring Isle Inner Cave')
+          .setExitForEntrance('Ice Ring Isle Inner Cave', 'Forbidden Woods')
           .incrementItem('Entered FW')
-          .setEntranceForExit('Cliff Plateau Isles Inner Cave', 'Kalle Demos Boss Arena')
+          .setExitForEntrance('Kalle Demos Boss Arena', 'Cliff Plateau Isles Inner Cave')
           .incrementItem('Entered Cliff Plateau Highest Isle');
 
         updateForItemAndLocation('Progressive Bow', 'Cliff Plateau Isles', 'Highest Isle');
 
         trackerState = trackerState
-          .setEntranceForExit('Ice Ring Isle Inner Cave', 'Forbidden Woods Miniboss Arena')
+          .setExitForEntrance('Forbidden Woods Miniboss Arena', 'Ice Ring Isle Inner Cave')
           .incrementItem('Entered Ice Ring Isle Inner Cave');
       });
 

@@ -278,7 +278,7 @@ class Tracker extends React.PureComponent {
   updateEntranceForExit(exitName, entranceName) {
     const { trackerState } = this.state;
 
-    let newTrackerState = trackerState.setEntranceForExit(exitName, entranceName);
+    let newTrackerState = trackerState.setExitForEntrance(entranceName, exitName);
 
     if (exitName !== LogicHelper.NOTHING_EXIT) {
       const entryName = LogicHelper.entryName(exitName);
