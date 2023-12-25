@@ -39,6 +39,9 @@ module.exports = (env, argv) => {
     },
     resolve: {
       extensions: ['.webpack.js', '.js', '.jsx', '.json', '.png'],
+      fallback: {
+        buffer: require.resolve('buffer'),
+      },
     },
     output: {
       clean: true,
