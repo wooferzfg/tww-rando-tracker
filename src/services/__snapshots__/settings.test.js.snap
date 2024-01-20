@@ -104,6 +104,7 @@ exports[`Settings initializeFromPermalink default settings initializes the optio
   "cryptic_hints": true,
   "do_not_generate_spoiler_log": false,
   "fishmen_hints": true,
+  "hero_mode": false,
   "hoho_hints": true,
   "instant_text_boxes": true,
   "keylunacy": false,

@@ -28,7 +28,7 @@ class Permalink {
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'MS4xMS4wAEEASRBQGACAfQF0CQAAAAAEAIIAAAA=';
+  static DEFAULT_PERMALINK = 'MS4xMS4wAEEASRBQGAAA+wLoEgAAAAAIAAQBAAA=';
 
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);
@@ -83,6 +83,7 @@ class Permalink {
     this._dropdownConfig(this.OPTIONS.NUM_REQUIRED_BOSSES),
     this._booleanConfig(this.OPTIONS.CHEST_TYPE_MATCHES_CONTENTS),
     this._booleanConfig(this.OPTIONS.TRAP_CHESTS),
+    this._booleanConfig(this.OPTIONS.HERO_MODE),
     this._dropdownConfig(this.OPTIONS.LOGIC_OBSCURITY),
     this._dropdownConfig(this.OPTIONS.LOGIC_PRECISION),
     this._booleanConfig(this.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES),

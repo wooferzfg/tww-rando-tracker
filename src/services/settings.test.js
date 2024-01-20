@@ -46,7 +46,7 @@ describe('Settings', () => {
     describe('when using a development build', () => {
       beforeEach(() => {
         // version = 1.11.0_be1d4e2
-        Settings.initializeFromPermalink('MS4xMS4wX2JlMWQ0ZTIAQQBJEFAYAIB9AXQJAAAAAAQAggAAAA==');
+        Settings.initializeFromPermalink('MS4xMS4wX2JlMWQ0ZTIAeWVldABJEFAYAAD7AugSAAAAAAgABAEAAA==');
       });
 
       test('sets the version to be the commit hash', () => {
@@ -57,7 +57,7 @@ describe('Settings', () => {
     describe('when using a beta build', () => {
       beforeEach(() => {
         // version = 1.11.0-BETA_2022-11-28
-        Settings.initializeFromPermalink('MS4xMS4wLUJFVEFfMjAyMi0xMS0yOABBAEkQUBgAgH0BdAkAAAAABACCAAAA');
+        Settings.initializeFromPermalink('MS4xMS4wLUJFVEFfMjAyMi0xMS0yOAB5ZWV0AEkQUBgAAPsC6BIAAAAACAAEAQAA');
       });
 
       test('sets the version to master', () => {
@@ -67,7 +67,7 @@ describe('Settings', () => {
 
     describe('all flags set', () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink('MS4xMS4wAEEA//9/GACAfQF0CQAAAAAEAIIAAAA=');
+        Settings.initializeFromPermalink('MS4xMS4wAHllZXQA//9/GAAA+wLoEgAAAAAIAAQBAAA=');
       });
 
       test('initializes all the flags', () => {
@@ -78,7 +78,7 @@ describe('Settings', () => {
 
     describe('all starting gear set', () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink('MS4xMS4wAEEASRBQGACAfQF0/f//////31UXAAA=');
+        Settings.initializeFromPermalink('MS4xMS4wAHllZXQASRBQGAAA+wLo+v//////v6suAAA=');
       });
 
       test('initializes the starting gear', () => {
@@ -89,7 +89,7 @@ describe('Settings', () => {
     describe('only sunken triforce enabled', () => {
       describe('when charts are not randomized', () => {
         beforeEach(() => {
-          Settings.initializeFromPermalink('MS4xMS4wAEEAAAAEGACAfQF0CQAAAAAEAIIAAAA=');
+          Settings.initializeFromPermalink('MS4xMS4wAHllZXQAAAAEGAAA+wLoEgAAAAAIAAQBAAA=');
         });
 
         test('initializes the flags', () => {
@@ -101,7 +101,7 @@ describe('Settings', () => {
 
       describe('when charts are randomized', () => {
         beforeEach(() => {
-          Settings.initializeFromPermalink('MS4xMS4wAEEAAAAEGADAfQF0CQAAAAAEAIIAAAA=');
+          Settings.initializeFromPermalink('MS4xMS4wAHllZXQAAAAEGACA+wLoEgAAAAAIAAQBAAA=');
         });
 
         test('initializes the flags', () => {

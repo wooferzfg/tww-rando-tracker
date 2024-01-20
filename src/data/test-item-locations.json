@@ -1196,7 +1196,7 @@
     ]
   },
   "Earth Temple - Big Key Chest": {
-    "Need": "Can Reach Earth Temple Many Mirrors Room & Power Bracelets & Can Play Command Melody & Can Aim Mirror Shield & Can Defeat Blue Bubbles & Can Defeat Darknuts",
+    "Need": "Can Reach Earth Temple Many Mirrors Room & Power Bracelets & Can Play Command Melody & Can Aim Mirror Shield & ( Can Defeat Blue Bubbles | (Hero's Bow & Obscure 1) | ( ( Hero's Sword | Any Master Sword | Skull Hammer ) & Obscure 1 & Precise 1 ) ) & Can Defeat Darknuts",
     "Original item": "Big Key",
     "Types": "Dungeon",
     "Paths": [
@@ -1229,7 +1229,7 @@
     ]
   },
   "Wind Temple - Tingle Statue Chest": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Tingle Bombs",
+    "Need": "Can Reach Wind Temple Kidnapping Room & Tingle Bombs",
     "Original item": "Wind Tingle Statue",
     "Types": "Tingle Chest, Dungeon",
     "Paths": [
@@ -1237,7 +1237,7 @@
     ]
   },
   "Wind Temple - Chest Behind Stone Head": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Hookshot",
+    "Need": "Can Reach Wind Temple Kidnapping Room & Iron Boots & Hookshot",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -1245,7 +1245,7 @@
     ]
   },
   "Wind Temple - Chest in Left Alcove": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors",
+    "Need": "Can Reach Wind Temple Kidnapping Room & Iron Boots & Can Fan With Deku Leaf",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -1253,7 +1253,7 @@
     ]
   },
   "Wind Temple - Big Key Chest": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Can Play Wind God's Aria & Can Defeat Darknuts",
+    "Need": "Can Reach Wind Temple Kidnapping Room & Iron Boots & Can Fan With Deku Leaf & Can Play Wind God's Aria & Can Defeat Darknuts",
     "Original item": "Big Key",
     "Types": "Dungeon",
     "Paths": [
@@ -1261,7 +1261,7 @@
     ]
   },
   "Wind Temple - Chest In Many Cyclones Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( (Can Cut Grass | Magic Meter Upgrade) | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Reach Wind Temple Kidnapping Room & ( ( & Iron Boots & Can Fan With Deku Leaf & Can Fly With Deku Leaf Indoors & (Can Cut Grass | Magic Meter Upgrade) ) | ( Hookshot & Can Defeat Blue Bubbles & Can Fly With Deku Leaf Indoors ) | ( Hookshot & Can Fly With Deku Leaf Indoors & Obscure 1 & Precise 2 ) )",
     "Original item": "Dungeon Map",
     "Types": "Dungeon",
     "Paths": [
@@ -1269,7 +1269,7 @@
     ]
   },
   "Wind Temple - Behind Stone Head in Many Cyclones Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) ) & Hookshot",
+    "Need": "Can Reach End of Wind Temple Many Cyclones Room & Hookshot",
     "Original item": "Joy Pendant",
     "Types": "Dungeon, Dungeon Secret",
     "Paths": [
@@ -1277,7 +1277,7 @@
     ]
   },
   "Wind Temple - Chest In Middle Of Hub Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Open Wind Temple Upper Giant Grate",
     "Original item": "Compass",
     "Types": "Dungeon",
     "Paths": [
@@ -1285,7 +1285,7 @@
     ]
   },
   "Wind Temple - Spike Wall Room - First Chest": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Open Wind Temple Upper Giant Grate & Iron Boots",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
@@ -1293,7 +1293,7 @@
     ]
   },
   "Wind Temple - Spike Wall Room - Destroy All Cracked Floors": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Open Wind Temple Upper Giant Grate & Iron Boots",
     "Original item": "Treasure Chart 35",
     "Types": "Dungeon",
     "Paths": [
@@ -1309,7 +1309,7 @@
     ]
   },
   "Wind Temple - Chest at Top of Hub Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Activate Wind Temple Giant Fan",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -1317,7 +1317,7 @@
     ]
   },
   "Wind Temple - Chest Behind Seven Armos": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) ) & Can Defeat Armos",
+    "Need": "Can Activate Wind Temple Giant Fan & Can Defeat Armos",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
@@ -1325,7 +1325,7 @@
     ]
   },
   "Wind Temple - Kill All Enemies in Tall Basement Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Hookshot & Can Defeat Blue Bubbles & WT Small Key x2 & Can Defeat Stalfos & Can Defeat Wizzrobes & Can Defeat Morths",
+    "Need": "Can Reach Wind Temple Tall Basement Room & Can Defeat Stalfos & Can Defeat Wizzrobes & Can Defeat Morths",
     "Original item": "Treasure Chart 5",
     "Types": "Dungeon",
     "Paths": [
@@ -2289,7 +2289,7 @@
     ]
   },
   "Four-Eye Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 8 & ( Bombs | Precise 1 )",
+    "Need": "Grappling Hook & Chart for Island 8 & ( Bombs | Precise 1 | (Can Use Magic Armor & Obscure 1) )",
     "Original item": "Great Fairy Chart",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2443,7 +2443,7 @@
     ]
   },
   "Three-Eye Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 22 & ( Bombs | Precise 1 )",
+    "Need": "Grappling Hook & Chart for Island 22 & ( Bombs | Precise 1 | (Can Use Magic Armor & Obscure 1) )",
     "Original item": "Piece of Heart",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2465,7 +2465,7 @@
     ]
   },
   "Cyclops Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 24 & ( Bombs | Precise 1 )",
+    "Need": "Grappling Hook & Chart for Island 24 & ( Bombs | Precise 1 | (Can Use Magic Armor & Obscure 1) )",
     "Original item": "Light Ring Chart",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2476,7 +2476,7 @@
     ]
   },
   "Six-Eye Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 25 & ( Bombs | Precise 1 )",
+    "Need": "Grappling Hook & Chart for Island 25 & ( Bombs | Precise 1 | (Can Use Magic Armor & Obscure 1) )",
     "Original item": "Silver Rupee",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2707,7 +2707,7 @@
     ]
   },
   "Two-Eye Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 46 & ( Bombs | Precise 1 )",
+    "Need": "Grappling Hook & Chart for Island 46 & ( Bombs | Precise 1 | (Can Use Magic Armor & Obscure 1) )",
     "Original item": "Triforce Shard 8",
     "Types": "Sunken Treasure",
     "Paths": [
