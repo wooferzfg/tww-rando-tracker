@@ -56,7 +56,7 @@
     "jsdoc": "^4.0.2",
     "moment": "^2.30.1",
     "sass": "^1.70.0",
-    "sass-loader": "^13.3.2",
+    "sass-loader": "^14.1.0",
     "source-map-loader": "^5.0.0",
     "style-loader": "^3.3.3",
     "webpack": "^5.89.0",
