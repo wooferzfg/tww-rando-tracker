@@ -63,7 +63,7 @@ class DetailedLocationsTable extends React.PureComponent {
     );
   }
 
-  detailedLocation(locationInfo, numColumns) {
+  detailedLocation(locationInfo, numColumns, numRows) {
     if (_.isNil(locationInfo)) {
       return null;
     }
@@ -82,10 +82,12 @@ class DetailedLocationsTable extends React.PureComponent {
     } = this.props;
 
     let fontSizeClassName = '';
-    if (numColumns === 3) {
-      fontSizeClassName = 'font-smallest';
+    if (numRows > 13) {
+      fontSizeClassName = 'font-three-columns less-padding';
+    } else if (numColumns === 3) {
+      fontSizeClassName = 'font-three-columns';
     } else if (numColumns === 2) {
-      fontSizeClassName = 'font-small';
+      fontSizeClassName = 'font-two-columns';
     }
 
     const toggleLocationFunc = () => toggleLocationChecked(openedLocation, location);
@@ -146,7 +148,7 @@ class DetailedLocationsTable extends React.PureComponent {
   render() {
     const {
       clearOpenedMenus,
-      clearRaceModeBannedLocations,
+      toggleRequiredBoss,
       disableLogic,
       logic,
       onlyProgressLocations,
@@ -163,7 +165,6 @@ class DetailedLocationsTable extends React.PureComponent {
       openedLocation,
       {
         disableLogic,
-        isDungeon: openedLocationIsDungeon,
         onlyProgressLocations,
       },
     );
@@ -175,22 +176,38 @@ class DetailedLocationsTable extends React.PureComponent {
 
     let clearAllElement;
     if (
-      Settings.getOptionValue(Permalink.OPTIONS.RACE_MODE)
+      Settings.getOptionValue(Permalink.OPTIONS.REQUIRED_BOSSES)
       && openedLocationIsDungeon
-      && LogicHelper.isRaceModeDungeon(openedLocation)
+      && LogicHelper.isRequiredBossesModeDungeon(openedLocation)
     ) {
-      const clearRaceModeBannedLocationsFunc = () => clearRaceModeBannedLocations(openedLocation);
+      const isBossRequired = LogicHelper.isBossRequired(openedLocation);
+      const isDisabled = isBossRequired && !LogicHelper.anyNonRequiredBossesRemaining();
+
+      const toggleRequiredBossFunc = () => {
+        if (!isDisabled) {
+          toggleRequiredBoss(openedLocation);
+        }
+      };
+
+      const className = `detail-span ${isDisabled ? 'detail-disabled' : ''}`;
 
       clearAllElement = (
         <td>
           <div
-            className="detail-span"
-            onClick={clearRaceModeBannedLocationsFunc}
-            onKeyDown={KeyDownWrapper.onSpaceKey(clearRaceModeBannedLocationsFunc)}
+            className={className}
+            onClick={toggleRequiredBossFunc}
+            onKeyDown={KeyDownWrapper.onSpaceKey(toggleRequiredBossFunc)}
             role="button"
             tabIndex="0"
           >
-            ✓ Clear All
+            <input
+              type="checkbox"
+              className="button-checkbox"
+              checked={isBossRequired}
+              disabled={isDisabled}
+              readOnly
+            />
+            <span>Required Boss</span>
           </div>
         </td>
       );
@@ -209,13 +226,13 @@ class DetailedLocationsTable extends React.PureComponent {
 
 DetailedLocationsTable.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
-  clearRaceModeBannedLocations: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   openedLocation: PropTypes.string.isRequired,
   openedLocationIsDungeon: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
+  toggleRequiredBoss: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,

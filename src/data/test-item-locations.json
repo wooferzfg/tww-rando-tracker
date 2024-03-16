@@ -33,7 +33,7 @@
     ]
   },
   "Outset Island - Great Fairy": {
-    "Need": "Can Cut Down Outset Trees & Can Fly With Deku Leaf Outdoors & Can Move Boulders",
+    "Need": "Can Access Outset Fairy Fountain",
     "Original item": "5000 Rupee Wallet",
     "Types": "Great Fairy",
     "Paths": [
@@ -66,7 +66,7 @@
     ]
   },
   "Outset Island - Savage Labyrinth - Floor 50": {
-    "Need": "Can Access Other Location \"Outset Island - Savage Labyrinth - Floor 30\" & Can Aim Mirror Shield & Can Defeat ReDeads & Can Defeat Blue Bubbles & Can Defeat Dark ChuChus & Can Defeat Poes & Can Defeat Stalfos & Skull Hammer",
+    "Need": "Can Access Item Location \"Outset Island - Savage Labyrinth - Floor 30\" & Can Aim Mirror Shield & Can Defeat ReDeads & Can Defeat Blue Bubbles & Can Defeat Dark ChuChus & Can Defeat Poes & Can Defeat Stalfos & Skull Hammer",
     "Original item": "Piece of Heart",
     "Types": "Savage Labyrinth",
     "Paths": [
@@ -311,6 +311,38 @@
       "rels/d_a_npc_people.rel@C54B"
     ]
   },
+  "Windfall Island - Kane - Place Shop Guru Statue on Gate": {
+    "Need": "Rescued Aryll & Delivery Bag",
+    "Original item": "Purple Rupee",
+    "Types": "Consumables only",
+    "Paths": [
+      "rels/d_a_npc_people.rel@C21B"
+    ]
+  },
+  "Windfall Island - Kane - Place Postman Statue on Gate": {
+    "Need": "Rescued Aryll & Delivery Bag",
+    "Original item": "Purple Rupee",
+    "Types": "Consumables only",
+    "Paths": [
+      "rels/d_a_npc_people.rel@C21F"
+    ]
+  },
+  "Windfall Island - Kane - Place Six Flags on Gate": {
+    "Need": "Rescued Aryll & Delivery Bag",
+    "Original item": "Red Rupee",
+    "Types": "Consumables only",
+    "Paths": [
+      "rels/d_a_npc_people.rel@C223"
+    ]
+  },
+  "Windfall Island - Kane - Place Six Idols on Gate": {
+    "Need": "Rescued Aryll & Delivery Bag",
+    "Original item": "Red Rupee",
+    "Types": "Consumables only",
+    "Paths": [
+      "rels/d_a_npc_people.rel@C227"
+    ]
+  },
   "Windfall Island - Mila - Follow the Thief": {
     "Need": "Rescued Aryll",
     "Original item": "Empty Bottle",
@@ -407,7 +439,7 @@
       "sea/Room13.arc/Chest001"
     ]
   },
-  "Dragon Roost Island - Rito Aerie - Baito": {
+  "Dragon Roost Island - Rito Aerie - Mail Sorting": {
     "Need": "Nothing",
     "Original item": "Note to Mom",
     "Types": "Minigame",
@@ -439,6 +471,14 @@
       "M_NewD2/Stage.arc/Chest008"
     ]
   },
+  "Dragon Roost Cavern - Water Jug on Upper Shelf": {
+    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x1",
+    "Original item": "Joy Pendant",
+    "Types": "Dungeon, Dungeon Secret",
+    "Paths": [
+      "M_NewD2/Room13.arc/Actor005"
+    ]
+  },
   "Dragon Roost Cavern - Boarded Up Chest": {
     "Need": "Can Access Dragon Roost Cavern & DRC Small Key x1",
     "Original item": "Small Key",
@@ -448,7 +488,7 @@
     ]
   },
   "Dragon Roost Cavern - Chest Across Lava Pit": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x2 & (Grappling Hook | Can Fly With Deku Leaf Indoors)",
+    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x2 & ( Grappling Hook | Can Fly With Deku Leaf Indoors | (Hookshot & Obscure 1) )",
     "Original item": "Treasure Chart 11",
     "Types": "Dungeon",
     "Paths": [
@@ -488,11 +528,19 @@
     ]
   },
   "Dragon Roost Cavern - Tingle Chest in Hub Room": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & Tingle Tuner Bombs",
+    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & Tingle Bombs",
     "Original item": "Yellow Rupee",
     "Types": "Tingle Chest, Dungeon",
     "Paths": [
       "M_NewD2/Stage.arc/Chest00D"
+    ]
+  },
+  "Dragon Roost Cavern - Pot on Upper Shelf in Pot Room": {
+    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x4",
+    "Original item": "Joy Pendant",
+    "Types": "Dungeon, Dungeon Secret",
+    "Paths": [
+      "M_NewD2/Room6.arc/Actor023"
     ]
   },
   "Dragon Roost Cavern - Pot Room Chest": {
@@ -503,7 +551,7 @@
       "M_NewD2/Stage.arc/Chest003"
     ]
   },
-  "Dragon Roost Cavern - Mini-Boss": {
+  "Dragon Roost Cavern - Miniboss": {
     "Need": "Can Access Dragon Roost Cavern & DRC Small Key x4",
     "Original item": "Grappling Hook",
     "Types": "Dungeon",
@@ -521,7 +569,7 @@
     ]
   },
   "Dragon Roost Cavern - Tingle Statue Chest": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x1 & ( (DRC Small Key x4 & Can Cut Down Hanging DRC Platform) | Can Fly With Deku Leaf Indoors | Ice Arrows ) & Grappling Hook & Tingle Tuner Bombs",
+    "Need": "Can Reach Dragon Roost Cavern Gaping Maw & Grappling Hook & Tingle Bombs",
     "Original item": "Dragon Tingle Statue",
     "Types": "Tingle Chest, Dungeon",
     "Paths": [
@@ -529,7 +577,7 @@
     ]
   },
   "Dragon Roost Cavern - Big Key Chest": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x1 & ( (DRC Small Key x4 & Can Cut Down Hanging DRC Platform) | Can Fly With Deku Leaf Indoors | Ice Arrows ) & Grappling Hook",
+    "Need": "Can Reach Dragon Roost Cavern Gaping Maw & Grappling Hook & Can Stun Magtails",
     "Original item": "Big Key",
     "Types": "Dungeon",
     "Paths": [
@@ -537,7 +585,7 @@
     ]
   },
   "Dragon Roost Cavern - Boss Stairs Right Chest": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & (Grappling Hook | Can Fly With Deku Leaf Indoors | Hookshot | Ice Arrows)",
+    "Need": "Can Reach Dragon Roost Cavern Boss Stairs",
     "Original item": "Knight's Crest",
     "Types": "Dungeon",
     "Paths": [
@@ -545,24 +593,32 @@
     ]
   },
   "Dragon Roost Cavern - Boss Stairs Left Chest": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & (Grappling Hook | Can Fly With Deku Leaf Indoors | Hookshot | Ice Arrows)",
+    "Need": "Can Reach Dragon Roost Cavern Boss Stairs",
     "Original item": "Yellow Rupee",
     "Types": "Dungeon",
     "Paths": [
       "M_NewD2/Stage.arc/Chest002"
     ]
   },
+  "Dragon Roost Cavern - Boss Stairs Right Pot": {
+    "Need": "Can Reach Dragon Roost Cavern Boss Stairs",
+    "Original item": "Joy Pendant",
+    "Types": "Dungeon, Dungeon Secret",
+    "Paths": [
+      "M_NewD2/Room10.arc/Actor002"
+    ]
+  },
   "Dragon Roost Cavern - Gohma Heart Container": {
-    "Need": "Can Access Dragon Roost Cavern & DRC Small Key x4 & Grappling Hook & DRC Big Key & Can Defeat Gohma",
+    "Need": "Can Access Gohma Boss Arena & Can Defeat Gohma",
     "Original item": "Heart Container",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Boss",
     "Paths": [
       "rels/d_a_btd.rel@36FE",
       "M_DragB/Room0.arc/Actor015"
     ]
   },
   "Forest Haven - On Tree Branch": {
-    "Need": "Can Access Forest Haven & Grappling Hook",
+    "Need": "Can Access Forest Haven & ( Grappling Hook | ( Can Fly With Deku Leaf Indoors & Can Fly With Deku Leaf Outdoors & Obscure 1 & ( (Can Cut Grass & Precise 1) | (Magic Meter Upgrade & Precise 2) ) ) )",
     "Original item": "Deku Leaf",
     "Types": "Island Puzzle",
     "Paths": [
@@ -572,7 +628,7 @@
     ]
   },
   "Forest Haven - Small Island Chest": {
-    "Need": "Can Access Forest Haven & Grappling Hook & Can Fly With Deku Leaf Outdoors",
+    "Need": "Can Access Forest Haven & ( Grappling Hook | ( Can Fly With Deku Leaf Indoors & Can Fly With Deku Leaf Outdoors & Obscure 1 & ( (Can Cut Grass & Precise 1) | (Magic Meter Upgrade & Precise 2) ) ) ) & Can Fly With Deku Leaf Outdoors & (Can Cut Grass | Magic Meter Upgrade)",
     "Original item": "Treasure Chart 3",
     "Types": "Island Puzzle",
     "Paths": [
@@ -601,6 +657,14 @@
     "Types": "Dungeon",
     "Paths": [
       "kindan/Stage.arc/Chest000"
+    ]
+  },
+  "Forbidden Woods - Pot High Above Hollow Tree": {
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors",
+    "Original item": "Joy Pendant",
+    "Types": "Dungeon, Dungeon Secret",
+    "Paths": [
+      "kindan/Room1.arc/Actor06B"
     ]
   },
   "Forbidden Woods - Hole in Tree": {
@@ -635,24 +699,32 @@
       "kindan/Stage.arc/Chest003"
     ]
   },
-  "Forbidden Woods - Tall Room Before Mini-Boss": {
-    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Peahats",
+  "Forbidden Woods - Highest Pot in Vine Maze": {
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook",
+    "Original item": "Joy Pendant",
+    "Types": "Dungeon, Dungeon Secret",
+    "Paths": [
+      "kindan/Room7.arc/Actor0E0"
+    ]
+  },
+  "Forbidden Woods - Tall Room Before Miniboss": {
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & ( Can Defeat Peahats | Precise 2 )",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
       "kindan/Stage.arc/Chest009"
     ]
   },
-  "Forbidden Woods - Mothula Mini-Boss Room": {
-    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Winged Mothulas",
+  "Forbidden Woods - Mothula Miniboss Room": {
+    "Need": "Can Access Forbidden Woods Miniboss Arena & Can Defeat Winged Mothulas",
     "Original item": "Boomerang",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Randomizable Miniboss Room",
     "Paths": [
       "kinMB/Stage.arc/Chest000"
     ]
   },
   "Forbidden Woods - Past Seeds Hanging by Vines": {
-    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Door Flowers & Can Destroy Seeds Hanging by Vines",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & Grappling Hook & FW Small Key x1 & Can Defeat Door Flowers & ( Can Destroy Seeds Hanging by Vines | Precise 1 )",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -668,7 +740,7 @@
     ]
   },
   "Forbidden Woods - Tingle Statue Chest": {
-    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Grappling Hook & Boomerang & Tingle Tuner Bombs",
+    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Grappling Hook & Boomerang & ( Tingle Bombs | Can Activate Tingle Bomb Triggers Without Tingle Tuner )",
     "Original item": "Forbidden Tingle Statue",
     "Types": "Tingle Chest, Dungeon",
     "Paths": [
@@ -700,9 +772,9 @@
     ]
   },
   "Forbidden Woods - Kalle Demos Heart Container": {
-    "Need": "Can Access Forbidden Woods & Can Fly With Deku Leaf Indoors & Can Defeat Boko Babas & (Can Defeat Door Flowers | Grappling Hook) & Can Defeat Mothulas & FW Big Key & Can Defeat Kalle Demos",
+    "Need": "Can Access Kalle Demos Boss Arena & Can Defeat Kalle Demos",
     "Original item": "Heart Container",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Boss",
     "Paths": [
       "rels/d_a_bmd.rel@2B2E",
       "kinBOSS/Room0.arc/Actor002"
@@ -722,6 +794,14 @@
     "Types": "Dungeon",
     "Paths": [
       "Siren/Stage.arc/Chest001"
+    ]
+  },
+  "Tower of the Gods - Pot Behind Bombable Walls": {
+    "Need": "Can Access Tower of the Gods & Bombs",
+    "Original item": "Joy Pendant",
+    "Types": "Dungeon, Dungeon Secret",
+    "Paths": [
+      "Siren/Room3.arc/Actor004"
     ]
   },
   "Tower of the Gods - Hop Across Floating Boxes": {
@@ -757,7 +837,7 @@
     ]
   },
   "Tower of the Gods - Tingle Statue Chest": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Tingle Tuner Bombs",
+    "Need": "Can Reach Tower of the Gods Second Floor & Tingle Bombs",
     "Original item": "Goddess Tingle Statue",
     "Types": "Tingle Chest, Dungeon",
     "Paths": [
@@ -765,7 +845,7 @@
     ]
   },
   "Tower of the Gods - First Chest Guarded by Armos Knights": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Hero's Bow",
+    "Need": "Can Reach Tower of the Gods Second Floor & Hero's Bow",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -773,23 +853,23 @@
     ]
   },
   "Tower of the Gods - Stone Tablet": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker",
+    "Need": "Can Reach Tower of the Gods Second Floor & ( Can Bring East Servant of the Tower | Can Bring West Servant of the Tower | Can Bring North Servant of the Tower ) & Wind Waker",
     "Original item": "Command Melody",
     "Types": "Dungeon",
     "Paths": [
       "Siren/Stage.arc/Event060:hsehi1_tact/Actor003/Action004"
     ]
   },
-  "Tower of the Gods - Darknut Mini-Boss Room": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & (Can Play Command Melody | Hero's Bow) & Can Defeat Darknuts",
+  "Tower of the Gods - Darknut Miniboss Room": {
+    "Need": "Can Access Tower of the Gods Miniboss Arena & Can Defeat Darknuts",
     "Original item": "Hero's Bow",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Randomizable Miniboss Room",
     "Paths": [
       "SirenMB/Stage.arc/Chest000"
     ]
   },
   "Tower of the Gods - Second Chest Guarded by Armos Knights": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow & Can Play Wind's Requiem",
+    "Need": "Can Reach Tower of the Gods Second Floor & Bombs & Can Play Wind's Requiem",
     "Original item": "Treasure Chart 30",
     "Types": "Dungeon",
     "Paths": [
@@ -797,7 +877,7 @@
     ]
   },
   "Tower of the Gods - Floating Platforms Room": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow",
+    "Need": "Can Reach Tower of the Gods Second Floor & ( Hero's Bow | (Can Fly With Deku Leaf Indoors & Precise 1) | (Hookshot & Obscure 1) )",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
@@ -805,15 +885,23 @@
     ]
   },
   "Tower of the Gods - Top of Floating Platforms Room": {
-    "Need": "Can Access Tower of the Gods & Bombs & TotG Small Key x1 & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow",
+    "Need": "Can Reach Tower of the Gods Second Floor & Hero's Bow",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
       "Siren/Stage.arc/Chest009"
     ]
   },
+  "Tower of the Gods - Eastern Pot in Big Key Chest Room": {
+    "Need": "Can Reach Tower of the Gods Third Floor",
+    "Original item": "Joy Pendant",
+    "Types": "Dungeon, Dungeon Secret",
+    "Paths": [
+      "Siren/Room17.arc/Actor006"
+    ]
+  },
   "Tower of the Gods - Big Key Chest": {
-    "Need": "Can Access Tower of the Gods & Bombs & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow & TotG Small Key x2 & Can Fly With Deku Leaf Indoors",
+    "Need": "Can Reach Tower of the Gods Third Floor",
     "Original item": "Big Key",
     "Types": "Dungeon",
     "Paths": [
@@ -821,16 +909,16 @@
     ]
   },
   "Tower of the Gods - Gohdan Heart Container": {
-    "Need": "Can Access Tower of the Gods & Bombs & Can Defeat Yellow ChuChus & Wind Waker & (Grappling Hook | Can Fly With Deku Leaf Indoors) & Can Play Command Melody & Hero's Bow & TotG Small Key x2 & Can Fly With Deku Leaf Indoors & Can Defeat Armos & TotG Big Key & Can Defeat Gohdan",
+    "Need": "Can Access Gohdan Boss Arena & Can Defeat Gohdan",
     "Original item": "Heart Container",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Boss",
     "Paths": [
       "rels/d_a_bst.rel@9D43",
       "SirenB/Room0.arc/Actor003"
     ]
   },
   "Hyrule - Master Sword Chamber": {
-    "Need": "Can Access Hyrule & Can Defeat Mighty Darknuts",
+    "Need": "Can Access Master Sword Chamber & Can Defeat Mighty Darknuts",
     "Original item": "Master Sword (Powerless)",
     "Types": "Dungeon",
     "Paths": [
@@ -847,7 +935,7 @@
     ]
   },
   "Forsaken Fortress - Chest Outside Upper Jail Cell": {
-    "Need": "Can Get Inside Forsaken Fortress & (Can Fly With Deku Leaf Indoors | Hookshot)",
+    "Need": "Can Get Inside Forsaken Fortress & ( Can Fly With Deku Leaf Indoors | Hookshot | Obscure 1 )",
     "Original item": "Dungeon Map",
     "Types": "Dungeon",
     "Paths": [
@@ -887,9 +975,9 @@
     ]
   },
   "Forsaken Fortress - Helmaroc King Heart Container": {
-    "Need": "Can Get Inside Forsaken Fortress & Skull Hammer & (Can Fly With Deku Leaf Indoors | Hookshot) & Can Defeat Helmaroc King",
+    "Need": "Can Access Helmaroc King Boss Arena & Can Defeat Helmaroc King",
     "Original item": "Heart Container",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Boss",
     "Paths": [
       "rels/d_a_bdk.rel@5CCE",
       "M2tower/Room0.arc/Layer3/Actor01B",
@@ -909,7 +997,7 @@
   "Fire Mountain - Cave - Chest": {
     "Need": "Can Access Fire Mountain Secret Cave & Can Defeat Magtails",
     "Original item": "Power Bracelets",
-    "Types": "Puzzle Secret Cave",
+    "Types": "Puzzle Secret Cave, Combat Secret Cave",
     "Paths": [
       "MiniKaz/Stage.arc/Chest000"
     ]
@@ -955,7 +1043,7 @@
     ]
   },
   "Ice Ring Isle - Inner Cave - Chest": {
-    "Need": "Can Access Ice Ring Isle Secret Cave & Iron Boots & Fire Arrows",
+    "Need": "Can Access Ice Ring Isle Inner Cave & Fire Arrows",
     "Original item": "Orange Rupee",
     "Types": "Puzzle Secret Cave, Combat Secret Cave",
     "Paths": [
@@ -987,24 +1075,32 @@
       "M_Dai/Stage.arc/Chest000"
     ]
   },
-  "Earth Temple - Chest Behind Destructible Walls": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & Can Defeat Red ChuChus & Can Defeat Green ChuChus & Can Defeat Dark ChuChus & Skull Hammer & Mirror Shield",
+  "Earth Temple - Behind Curtain In Warp Pot Room": {
+    "Need": "Can Access Earth Temple & Can Play Command Melody & Fire Arrows & (Boomerang | Hookshot)",
     "Original item": "Joy Pendant",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Dungeon Secret",
     "Paths": [
-      "M_Dai/Stage.arc/Chest00A"
+      "M_Dai/Room2.arc/Actor010"
     ]
   },
   "Earth Temple - Transparent Chest in First Crypt": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & Skull Hammer & Power Bracelets",
+    "Need": "Can Reach Earth Temple Right Path & Power Bracelets & ( Can Play Command Melody | Mirror Shield )",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
       "M_Dai/Stage.arc/Chest001"
     ]
   },
+  "Earth Temple - Chest Behind Destructible Walls": {
+    "Need": "Can Reach Earth Temple Right Path & Mirror Shield",
+    "Original item": "Joy Pendant",
+    "Types": "Dungeon",
+    "Paths": [
+      "M_Dai/Stage.arc/Chest00A"
+    ]
+  },
   "Earth Temple - Chest In Three Blocks Room": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & ET Small Key x2 & Fire Arrows & Power Bracelets & Can Defeat Floormasters",
+    "Need": "Can Reach Earth Temple Left Path & Fire Arrows & Power Bracelets & Can Defeat Floormasters & ( Can Play Command Melody | Can Aim Mirror Shield )",
     "Original item": "Compass",
     "Types": "Dungeon",
     "Paths": [
@@ -1012,7 +1108,7 @@
     ]
   },
   "Earth Temple - Chest Behind Statues": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & ET Small Key x2 & Fire Arrows & Power Bracelets & Can Defeat Floormasters",
+    "Need": "Can Reach Earth Temple Moblins and Poes Room & ( Can Play Command Melody | Can Aim Mirror Shield )",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -1020,23 +1116,23 @@
     ]
   },
   "Earth Temple - Casket in Second Crypt": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & ET Small Key x2 & Fire Arrows & Power Bracelets & Can Defeat Floormasters",
+    "Need": "Can Reach Earth Temple Moblins and Poes Room",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
       "M_Dai/Room8.arc/Actor008"
     ]
   },
-  "Earth Temple - Stalfos Mini-Boss Room": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & ET Small Key x3 & Fire Arrows & Power Bracelets & Can Defeat Floormasters & (Can Defeat Stalfos | Hookshot)",
+  "Earth Temple - Stalfos Miniboss Room": {
+    "Need": "Can Access Earth Temple Miniboss Arena & (Can Defeat Stalfos | Hookshot)",
     "Original item": "Mirror Shield",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Randomizable Miniboss Room",
     "Paths": [
       "M_DaiMB/Stage.arc/Chest000"
     ]
   },
   "Earth Temple - Tingle Statue Chest": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Tingle Tuner Bombs",
+    "Need": "Can Reach Earth Temple Basement & Tingle Bombs",
     "Original item": "Earth Tingle Statue",
     "Types": "Tingle Chest, Dungeon",
     "Paths": [
@@ -1044,7 +1140,7 @@
     ]
   },
   "Earth Temple - End of Foggy Room With Floormasters": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric",
+    "Need": "Can Reach Earth Temple ReDead Hub Room & ( Can Play Command Melody | Can Aim Mirror Shield )",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
@@ -1052,15 +1148,23 @@
     ]
   },
   "Earth Temple - Kill All Floormasters in Foggy Room": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Can Defeat Floormasters",
+    "Need": "Can Reach Earth Temple ReDead Hub Room & ( Can Play Command Melody | Can Aim Mirror Shield ) & Can Defeat Floormasters",
     "Original item": "Treasure Chart 20",
     "Types": "Dungeon",
     "Paths": [
       "M_Dai/Stage.arc/Chest009"
     ]
   },
+  "Earth Temple - Behind Curtain Next to Hammer Button": {
+    "Need": "Can Reach Earth Temple ReDead Hub Room & ( Can Play Command Melody | Can Aim Mirror Shield ) & Fire Arrows & (Boomerang | Hookshot)",
+    "Original item": "Joy Pendant",
+    "Types": "Dungeon, Dungeon Secret",
+    "Paths": [
+      "M_Dai/Room13.arc/Actor01A"
+    ]
+  },
   "Earth Temple - Chest in Third Crypt": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Power Bracelets & Skull Hammer & ET Small Key x3 & Can Defeat Red Bubbles",
+    "Need": "Can Reach Earth Temple Third Crypt",
     "Original item": "Red Rupee",
     "Types": "Dungeon",
     "Paths": [
@@ -1068,7 +1172,7 @@
     ]
   },
   "Earth Temple - Many Mirrors Room Right Chest": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Power Bracelets & Skull Hammer & ET Small Key x3 & Can Defeat Red Bubbles",
+    "Need": "Can Reach Earth Temple Many Mirrors Room & Can Play Command Melody",
     "Original item": "Purple Rupee",
     "Types": "Dungeon",
     "Paths": [
@@ -1076,7 +1180,7 @@
     ]
   },
   "Earth Temple - Many Mirrors Room Left Chest": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Power Bracelets & Skull Hammer & ET Small Key x3 & Can Defeat Red Bubbles",
+    "Need": "Can Reach Earth Temple Many Mirrors Room & Power Bracelets & Can Play Command Melody & Can Aim Mirror Shield",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -1084,7 +1188,7 @@
     ]
   },
   "Earth Temple - Stalfos Crypt Room": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Power Bracelets & Skull Hammer & ET Small Key x3 & Can Defeat Red Bubbles & Can Defeat Stalfos",
+    "Need": "Can Reach Earth Temple Many Mirrors Room & Can Defeat Stalfos",
     "Original item": "Treasure Chart 12",
     "Types": "Dungeon",
     "Paths": [
@@ -1092,7 +1196,7 @@
     ]
   },
   "Earth Temple - Big Key Chest": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Power Bracelets & Skull Hammer & ET Small Key x3 & Can Defeat Red Bubbles & Can Defeat Blue Bubbles & Can Defeat Darknuts",
+    "Need": "Can Reach Earth Temple Many Mirrors Room & Power Bracelets & Can Play Command Melody & Can Aim Mirror Shield & ( Can Defeat Blue Bubbles | (Hero's Bow & Obscure 1) | ( ( Hero's Sword | Any Master Sword | Skull Hammer ) & Obscure 1 & Precise 1 ) ) & Can Defeat Darknuts",
     "Original item": "Big Key",
     "Types": "Dungeon",
     "Paths": [
@@ -1100,9 +1204,9 @@
     ]
   },
   "Earth Temple - Jalhalla Heart Container": {
-    "Need": "Can Access Earth Temple & Can Play Command Melody & Can Aim Mirror Shield & Can Play Earth God's Lyric & Power Bracelets & Skull Hammer & ET Small Key x3 & Can Defeat Red Bubbles & ET Big Key & Can Defeat Jalhalla",
+    "Need": "Can Access Jalhalla Boss Arena & Can Defeat Jalhalla",
     "Original item": "Heart Container",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Boss",
     "Paths": [
       "rels/d_a_bpw.rel@877E",
       "M_DaiB/Room0.arc/Actor001"
@@ -1116,8 +1220,16 @@
       "kaze/Stage.arc/Chest005"
     ]
   },
+  "Wind Temple - Behind Stone Head in Hidden Upper Room": {
+    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Hookshot",
+    "Original item": "Joy Pendant",
+    "Types": "Dungeon, Dungeon Secret",
+    "Paths": [
+      "kaze/Room1.arc/Actor010"
+    ]
+  },
   "Wind Temple - Tingle Statue Chest": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Tingle Tuner Bombs",
+    "Need": "Can Reach Wind Temple Kidnapping Room & Tingle Bombs",
     "Original item": "Wind Tingle Statue",
     "Types": "Tingle Chest, Dungeon",
     "Paths": [
@@ -1125,7 +1237,7 @@
     ]
   },
   "Wind Temple - Chest Behind Stone Head": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Hookshot",
+    "Need": "Can Reach Wind Temple Kidnapping Room & Iron Boots & Hookshot",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -1133,7 +1245,7 @@
     ]
   },
   "Wind Temple - Chest in Left Alcove": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors",
+    "Need": "Can Reach Wind Temple Kidnapping Room & Iron Boots & Can Fan With Deku Leaf",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -1141,7 +1253,7 @@
     ]
   },
   "Wind Temple - Big Key Chest": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Can Play Wind God's Aria & Can Defeat Darknuts",
+    "Need": "Can Reach Wind Temple Kidnapping Room & Iron Boots & Can Fan With Deku Leaf & Can Play Wind God's Aria & Can Defeat Darknuts",
     "Original item": "Big Key",
     "Types": "Dungeon",
     "Paths": [
@@ -1149,15 +1261,23 @@
     ]
   },
   "Wind Temple - Chest In Many Cyclones Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( (Can Cut Grass | Magic Meter Upgrade) | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Reach Wind Temple Kidnapping Room & ( ( & Iron Boots & Can Fan With Deku Leaf & Can Fly With Deku Leaf Indoors & (Can Cut Grass | Magic Meter Upgrade) ) | ( Hookshot & Can Defeat Blue Bubbles & Can Fly With Deku Leaf Indoors ) | ( Hookshot & Can Fly With Deku Leaf Indoors & Obscure 1 & Precise 2 ) )",
     "Original item": "Dungeon Map",
     "Types": "Dungeon",
     "Paths": [
       "kaze/Stage.arc/Chest008"
     ]
   },
+  "Wind Temple - Behind Stone Head in Many Cyclones Room": {
+    "Need": "Can Reach End of Wind Temple Many Cyclones Room & Hookshot",
+    "Original item": "Joy Pendant",
+    "Types": "Dungeon, Dungeon Secret",
+    "Paths": [
+      "kaze/Room7.arc/Actor02E"
+    ]
+  },
   "Wind Temple - Chest In Middle Of Hub Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Open Wind Temple Upper Giant Grate",
     "Original item": "Compass",
     "Types": "Dungeon",
     "Paths": [
@@ -1165,7 +1285,7 @@
     ]
   },
   "Wind Temple - Spike Wall Room - First Chest": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Open Wind Temple Upper Giant Grate & Iron Boots",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
@@ -1173,23 +1293,23 @@
     ]
   },
   "Wind Temple - Spike Wall Room - Destroy All Cracked Floors": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Open Wind Temple Upper Giant Grate & Iron Boots",
     "Original item": "Treasure Chart 35",
     "Types": "Dungeon",
     "Paths": [
       "kaze/Stage.arc/Chest007"
     ]
   },
-  "Wind Temple - Wizzrobe Mini-Boss Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) ) & WT Small Key x2 & Can Defeat Darknuts & Can Remove Peahat Armor",
+  "Wind Temple - Wizzrobe Miniboss Room": {
+    "Need": "Can Access Wind Temple Miniboss Arena & Can Defeat Darknuts & Can Remove Peahat Armor",
     "Original item": "Hookshot",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Randomizable Miniboss Room",
     "Paths": [
       "kazeMB/Stage.arc/Chest000"
     ]
   },
   "Wind Temple - Chest at Top of Hub Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) )",
+    "Need": "Can Activate Wind Temple Giant Fan",
     "Original item": "Joy Pendant",
     "Types": "Dungeon",
     "Paths": [
@@ -1197,7 +1317,7 @@
     ]
   },
   "Wind Temple - Chest Behind Seven Armos": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & ( Can Cut Grass | (Hookshot & Can Defeat Blue Bubbles) ) & Can Defeat Armos",
+    "Need": "Can Activate Wind Temple Giant Fan & Can Defeat Armos",
     "Original item": "Small Key",
     "Types": "Dungeon",
     "Paths": [
@@ -1205,7 +1325,7 @@
     ]
   },
   "Wind Temple - Kill All Enemies in Tall Basement Room": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Hookshot & Can Defeat Blue Bubbles & WT Small Key x2 & Can Defeat Stalfos & Can Defeat Wizzrobes & Can Defeat Morths",
+    "Need": "Can Reach Wind Temple Tall Basement Room & Can Defeat Stalfos & Can Defeat Wizzrobes & Can Defeat Morths",
     "Original item": "Treasure Chart 5",
     "Types": "Dungeon",
     "Paths": [
@@ -1213,9 +1333,9 @@
     ]
   },
   "Wind Temple - Molgera Heart Container": {
-    "Need": "Can Access Wind Temple & Can Play Command Melody & Iron Boots & Can Fly With Deku Leaf Indoors & Hookshot & Can Defeat Blue Bubbles & WT Small Key x2 & Can Play Wind God's Aria & WT Big Key & Can Defeat Molgera",
+    "Need": "Can Access Molgera Boss Arena & Can Defeat Molgera",
     "Original item": "Heart Container",
-    "Types": "Dungeon",
+    "Types": "Dungeon, Boss",
     "Paths": [
       "rels/d_a_bwd.rel@6D83",
       "kazeB/Room0.arc/Actor001"
@@ -1247,7 +1367,7 @@
     ]
   },
   "Mailbox - Letter from Baito": {
-    "Need": "Delivery Bag & Note to Mom & Can Access Other Location \"Earth Temple - Jalhalla Heart Container\"",
+    "Need": "Delivery Bag & Note to Mom & Can Access Item Location \"Earth Temple - Jalhalla Heart Container\"",
     "Original item": "Red Rupee",
     "Types": "Mail, Dungeon",
     "Paths": [
@@ -1295,7 +1415,7 @@
     ]
   },
   "Mailbox - Letter from Orca": {
-    "Need": "Can Access Other Location \"Forbidden Woods - Kalle Demos Heart Container\"",
+    "Need": "Can Access Item Location \"Forbidden Woods - Kalle Demos Heart Container\"",
     "Original item": "Red Rupee",
     "Types": "Mail, Dungeon",
     "Paths": [
@@ -1311,7 +1431,7 @@
     ]
   },
   "Mailbox - Letter from Aryll": {
-    "Need": "Can Access Other Location \"Forsaken Fortress - Helmaroc King Heart Container\" & Song of Passing",
+    "Need": "Can Access Item Location \"Forsaken Fortress - Helmaroc King Heart Container\" & Song of Passing",
     "Original item": "Red Rupee",
     "Types": "Mail, Dungeon",
     "Paths": [
@@ -1319,7 +1439,7 @@
     ]
   },
   "Mailbox - Letter from Tingle": {
-    "Need": "Rescued Tingle & Any Wallet Upgrade & Can Access Other Location \"Forsaken Fortress - Helmaroc King Heart Container\" & Song of Passing",
+    "Need": "Rescued Tingle & Any Wallet Upgrade & Can Access Item Location \"Forsaken Fortress - Helmaroc King Heart Container\" & Song of Passing",
     "Original item": "IN-credible Chart",
     "Types": "Mail, Dungeon, Expensive Purchase",
     "Paths": [
@@ -1361,7 +1481,7 @@
     ]
   },
   "The Great Sea - Withered Trees": {
-    "Need": "Can Access Forest Haven & Empty Bottle & Can Play Ballad of Gales & Can Access Other Location \"Cliff Plateau Isles - Highest Isle\"",
+    "Need": "Can Access Forest Haven & Empty Bottle & Can Play Ballad of Gales & Can Access Item Location \"Cliff Plateau Isles - Highest Isle\"",
     "Original item": "Piece of Heart",
     "Types": "Long Sidequest",
     "Paths": [
@@ -1478,7 +1598,7 @@
     ]
   },
   "Boating Course - Cave": {
-    "Need": "Can Access Boating Course Secret Cave & Can Hit Diamond Switches at Range & Can Defeat Miniblins Easily",
+    "Need": "Can Access Boating Course Secret Cave & Can Hit Diamond Switches at Range & ( Can Defeat Miniblins Easily | Precise 2 )",
     "Original item": "Submarine Chart",
     "Types": "Puzzle Secret Cave, Combat Secret Cave",
     "Paths": [
@@ -1590,7 +1710,7 @@
     ]
   },
   "Thorned Fairy Island - Great Fairy": {
-    "Need": "Skull Hammer",
+    "Need": "Can Access Thorned Fairy Fountain",
     "Original item": "99 Arrow Quiver",
     "Types": "Great Fairy",
     "Paths": [
@@ -1614,7 +1734,7 @@
     ]
   },
   "Eastern Fairy Island - Great Fairy": {
-    "Need": "Can Move Boulders",
+    "Need": "Can Access Eastern Fairy Fountain",
     "Original item": "60 Bomb Bomb Bag",
     "Types": "Great Fairy",
     "Paths": [
@@ -1630,7 +1750,7 @@
     ]
   },
   "Western Fairy Island - Great Fairy": {
-    "Need": "Skull Hammer",
+    "Need": "Can Access Western Fairy Fountain",
     "Original item": "60 Arrow Quiver",
     "Types": "Great Fairy",
     "Paths": [
@@ -1646,7 +1766,7 @@
     ]
   },
   "Southern Fairy Island - Great Fairy": {
-    "Need": "Bombs | Fire Arrows",
+    "Need": "Can Access Southern Fairy Fountain",
     "Original item": "99 Bomb Bomb Bag",
     "Types": "Great Fairy",
     "Paths": [
@@ -1670,7 +1790,7 @@
     ]
   },
   "Northern Fairy Island - Great Fairy": {
-    "Need": "Nothing",
+    "Need": "Can Access Northern Fairy Fountain",
     "Original item": "1000 Rupee Wallet",
     "Types": "Great Fairy",
     "Paths": [
@@ -1828,7 +1948,7 @@
     ]
   },
   "Cliff Plateau Isles - Cave": {
-    "Need": "Can Access Cliff Plateau Isles Secret Cave & Can Defeat Boko Babas",
+    "Need": "Can Access Cliff Plateau Isles Secret Cave & ( Can Defeat Boko Babas | (Grappling Hook & Obscure 1 & Precise 1) )",
     "Original item": "Joy Pendant",
     "Types": "Puzzle Secret Cave",
     "Paths": [
@@ -1836,7 +1956,7 @@
     ]
   },
   "Cliff Plateau Isles - Highest Isle": {
-    "Need": "Can Access Cliff Plateau Isles Secret Cave & Can Defeat Boko Babas & Can Fly With Deku Leaf Indoors",
+    "Need": "Can Access Cliff Plateau Isles Inner Cave",
     "Original item": "Treasure Chart 25",
     "Types": "Puzzle Secret Cave",
     "Paths": [
@@ -2091,7 +2211,7 @@
       "Abship/Room1.arc/Chest000"
     ]
   },
-  "Forsaken Fortress - Sunken Treasure": {
+  "Forsaken Fortress Sector - Sunken Treasure": {
     "Need": "Grappling Hook & Chart for Island 1",
     "Original item": "Silver Rupee",
     "Types": "Sunken Treasure",
@@ -2147,7 +2267,7 @@
     ]
   },
   "Seven-Star Isles - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 6 & Bombs",
+    "Need": "Grappling Hook & Chart for Island 6 & ( Bombs | Precise 1 )",
     "Original item": "Triforce Shard 7",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2169,7 +2289,7 @@
     ]
   },
   "Four-Eye Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 8 & Bombs",
+    "Need": "Grappling Hook & Chart for Island 8 & ( Bombs | Precise 1 | (Can Use Magic Armor & Obscure 1) )",
     "Original item": "Great Fairy Chart",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2323,7 +2443,7 @@
     ]
   },
   "Three-Eye Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 22 & Bombs",
+    "Need": "Grappling Hook & Chart for Island 22 & ( Bombs | Precise 1 | (Can Use Magic Armor & Obscure 1) )",
     "Original item": "Piece of Heart",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2345,7 +2465,7 @@
     ]
   },
   "Cyclops Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 24 & Bombs",
+    "Need": "Grappling Hook & Chart for Island 24 & ( Bombs | Precise 1 | (Can Use Magic Armor & Obscure 1) )",
     "Original item": "Light Ring Chart",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2356,7 +2476,7 @@
     ]
   },
   "Six-Eye Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 25 & Bombs",
+    "Need": "Grappling Hook & Chart for Island 25 & ( Bombs | Precise 1 | (Can Use Magic Armor & Obscure 1) )",
     "Original item": "Silver Rupee",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2366,7 +2486,7 @@
       "sea/Room25.arc/ScalableObject00A"
     ]
   },
-  "Tower of the Gods - Sunken Treasure": {
+  "Tower of the Gods Sector - Sunken Treasure": {
     "Need": "Grappling Hook & Chart for Island 26",
     "Original item": "Silver Rupee",
     "Types": "Sunken Treasure",
@@ -2433,7 +2553,7 @@
     ]
   },
   "Southern Triangle Island - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 32 & Can Defeat Seahats",
+    "Need": "Grappling Hook & Chart for Island 32 & ( Can Defeat Seahats | Precise 1 )",
     "Original item": "Triforce Shard 6",
     "Types": "Sunken Treasure",
     "Paths": [
@@ -2587,7 +2707,7 @@
     ]
   },
   "Two-Eye Reef - Sunken Treasure": {
-    "Need": "Grappling Hook & Chart for Island 46 & Bombs",
+    "Need": "Grappling Hook & Chart for Island 46 & ( Bombs | Precise 1 | (Can Use Magic Armor & Obscure 1) )",
     "Original item": "Triforce Shard 8",
     "Types": "Sunken Treasure",
     "Paths": [

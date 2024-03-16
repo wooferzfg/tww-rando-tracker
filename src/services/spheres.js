@@ -30,8 +30,6 @@ class Spheres {
     this.anyItemsAdded = true;
     this.currentSphere = 0;
 
-    this._transferEntrances();
-
     while (this.anyItemsAdded) {
       this.anyItemsAdded = false;
 
@@ -53,61 +51,57 @@ class Spheres {
     _.set(this.spheres, [generalLocation, detailedLocation], this.currentSphere);
   }
 
-  _isEntranceAdded(dungeonOrCaveName) {
-    return _.get(this.entrancesAdded, dungeonOrCaveName);
+  _isEntranceAdded(entranceName) {
+    return _.get(this.entrancesAdded, entranceName);
   }
 
-  _setEntranceAdded(dungeonOrCaveName) {
-    _.set(this.entrancesAdded, dungeonOrCaveName, true);
+  _setEntranceAdded(entranceName) {
+    _.set(this.entrancesAdded, entranceName, true);
   }
 
   _updateStateWithItem(itemName) {
     this.temporaryState = this.temporaryState.incrementItem(itemName);
   }
 
-  _transferEntrances() {
-    _.forEach(LogicHelper.allRandomEntrances(), (dungeonOrCaveName) => {
-      const entranceForExit = this.state.getEntranceForExit(dungeonOrCaveName);
-
-      if (!_.isNil(entranceForExit)) {
-        this.temporaryState = this.temporaryState.setEntranceForExit(
-          dungeonOrCaveName,
-          entranceForExit,
-        );
-      }
-    });
-  }
-
   _updateEntranceItems() {
-    const logic = new LogicCalculation(this.temporaryState);
+    let logic = new LogicCalculation(this.temporaryState);
 
-    _.forEach(LogicHelper.allRandomEntrances(), (dungeonOrCaveName) => {
-      if (this._isEntranceAdded(dungeonOrCaveName)) {
-        return true; // continue
+    const entrancesToCheck = _.clone(LogicHelper.allRandomEntrances());
+
+    for (let i = 0; i < entrancesToCheck.length; i += 1) {
+      const entranceName = entrancesToCheck[i];
+
+      if (this._isEntranceAdded(entranceName)) {
+        continue;
       }
 
-      const exitForEntrance = this.temporaryState.getExitForEntrance(dungeonOrCaveName);
+      const exitForEntrance = this.state.getExitForEntrance(entranceName);
       if (_.isNil(exitForEntrance)) {
-        return true; // continue
+        continue;
       }
 
-      if (logic.isEntranceAvailable(dungeonOrCaveName)) {
+      if (exitForEntrance === LogicHelper.NOTHING_EXIT) {
+        continue;
+      }
+
+      if (logic.isEntranceAvailable(entranceName)) {
         const entryName = LogicHelper.entryName(exitForEntrance);
 
         this._updateStateWithItem(entryName);
-        this._setEntranceAdded(dungeonOrCaveName);
-      }
+        this._setEntranceAdded(entranceName);
 
-      return true; // continue
-    });
+        const nestedEntrances = LogicHelper.nestedEntrancesForExit(exitForEntrance);
+        if (nestedEntrances.length > 0) {
+          entrancesToCheck.push(...nestedEntrances);
+          logic = new LogicCalculation(this.temporaryState);
+        }
+      }
+    }
   }
 
   _updateSmallKeys() {
-    _.forEach(LogicHelper.mainDungeons(), (dungeonName) => {
-      const locations = LogicHelper.filterDetailedLocations(
-        dungeonName,
-        { isDungeon: true },
-      );
+    _.forEach(LogicHelper.MAIN_DUNGEONS, (dungeonName) => {
+      const locations = Locations.detailedLocationsForGeneralLocation(dungeonName);
       const smallKeyName = LogicHelper.smallKeyName(dungeonName);
 
       let anySmallKeysAdded = true;

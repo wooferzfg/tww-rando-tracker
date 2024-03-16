@@ -9,7 +9,7 @@ import TrackerState from '../services/tracker-state';
 import ChartList from './chart-list';
 import DetailedLocationsTable from './detailed-locations-table';
 import EntranceSelection from './entrance-selection';
-import EntrancesList from './entrances-list';
+import ExitSelection from './exit-selection';
 import ExtraLocationsTable from './extra-locations-table';
 import MapInfo from './map-info';
 import SeaChart from './sea-chart';
@@ -20,14 +20,15 @@ class LocationsTable extends React.PureComponent {
 
     this.state = {
       selectedChartForIsland: null,
+      selectedEntrance: null,
       selectedExit: null,
       selectedItem: null,
       selectedLocation: null,
-      selectedLocationIsDungeon: null,
     };
 
     this.setSelectedChartForIsland = this.setSelectedChartForIsland.bind(this);
     this.clearSelectedChartForIsland = this.clearSelectedChartForIsland.bind(this);
+    this.setSelectedEntrance = this.setSelectedEntrance.bind(this);
     this.setSelectedExit = this.setSelectedExit.bind(this);
     this.setSelectedItem = this.setSelectedItem.bind(this);
     this.clearSelectedItem = this.clearSelectedItem.bind(this);
@@ -39,6 +40,10 @@ class LocationsTable extends React.PureComponent {
     this.setState({ selectedChartForIsland: chartForIsland });
   }
 
+  setSelectedEntrance(entranceName) {
+    this.setState({ selectedEntrance: entranceName });
+  }
+
   setSelectedExit(exitName) {
     this.setState({ selectedExit: exitName });
   }
@@ -47,10 +52,9 @@ class LocationsTable extends React.PureComponent {
     this.setState({ selectedItem: itemName });
   }
 
-  setSelectedLocation({ locationName, isDungeon }) {
+  setSelectedLocation({ locationName }) {
     this.setState({
       selectedLocation: locationName,
-      selectedLocationIsDungeon: isDungeon,
     });
   }
 
@@ -62,6 +66,7 @@ class LocationsTable extends React.PureComponent {
 
   clearSelectedItem() {
     this.setState({
+      selectedEntrance: null,
       selectedExit: null,
       selectedItem: null,
     });
@@ -75,14 +80,14 @@ class LocationsTable extends React.PureComponent {
     const {
       chartListOpen,
       clearOpenedMenus,
-      clearRaceModeBannedLocations,
+      toggleRequiredBoss,
       decrementItem,
       disableLogic,
-      entrancesListOpen,
       incrementItem,
       logic,
       onlyProgressLocations,
       openedChartForIsland,
+      openedEntrance,
       openedExit,
       openedLocation,
       openedLocationIsDungeon,
@@ -91,20 +96,23 @@ class LocationsTable extends React.PureComponent {
       trackerState,
       trackSpheres,
       unsetChartMapping,
+      unsetEntrance,
       unsetExit,
       updateChartMapping,
-      updateEntranceForExit,
+      updateExitForEntrance,
       updateOpenedChartForIsland,
+      updateOpenedEntrance,
       updateOpenedExit,
       updateOpenedLocation,
+      viewingEntrances,
     } = this.props;
 
     const {
       selectedChartForIsland,
+      selectedEntrance,
       selectedExit,
       selectedItem,
       selectedLocation,
-      selectedLocationIsDungeon,
     } = this.state;
 
     let chartElement;
@@ -121,13 +129,14 @@ class LocationsTable extends React.PureComponent {
           unsetChartMapping={unsetChartMapping}
         />
       );
-    } else if (entrancesListOpen) {
+    } else if (!_.isNil(openedEntrance)) {
       chartElement = (
-        <EntrancesList
+        <ExitSelection
           clearOpenedMenus={clearOpenedMenus}
-          disableLogic={disableLogic}
           logic={logic}
+          openedEntrance={openedEntrance}
           trackerState={trackerState}
+          updateExitForEntrance={updateExitForEntrance}
         />
       );
     } else if (!_.isNil(openedExit)) {
@@ -138,20 +147,20 @@ class LocationsTable extends React.PureComponent {
           logic={logic}
           openedExit={openedExit}
           trackerState={trackerState}
-          updateEntranceForExit={updateEntranceForExit}
+          updateExitForEntrance={updateExitForEntrance}
         />
       );
     } else if (!_.isNil(openedLocation)) {
       chartElement = (
         <DetailedLocationsTable
           clearOpenedMenus={clearOpenedMenus}
-          clearRaceModeBannedLocations={clearRaceModeBannedLocations}
           disableLogic={disableLogic}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
           openedLocation={openedLocation}
           openedLocationIsDungeon={openedLocationIsDungeon}
           spheres={spheres}
+          toggleRequiredBoss={toggleRequiredBoss}
           trackerState={trackerState}
           trackSpheres={trackSpheres}
           toggleLocationChecked={toggleLocationChecked}
@@ -169,6 +178,7 @@ class LocationsTable extends React.PureComponent {
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
           setSelectedChartForIsland={this.setSelectedChartForIsland}
+          setSelectedEntrance={this.setSelectedEntrance}
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
@@ -176,10 +186,13 @@ class LocationsTable extends React.PureComponent {
           trackerState={trackerState}
           trackSpheres={trackSpheres}
           unsetChartMapping={unsetChartMapping}
+          unsetEntrance={unsetEntrance}
           unsetExit={unsetExit}
           updateOpenedChartForIsland={updateOpenedChartForIsland}
+          updateOpenedEntrance={updateOpenedEntrance}
           updateOpenedExit={updateOpenedExit}
           updateOpenedLocation={updateOpenedLocation}
+          viewingEntrances={viewingEntrances}
         />
       );
     }
@@ -192,10 +205,10 @@ class LocationsTable extends React.PureComponent {
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
           selectedChartForIsland={selectedChartForIsland}
+          selectedEntrance={selectedEntrance}
           selectedExit={selectedExit}
           selectedItem={selectedItem}
           selectedLocation={selectedLocation}
-          selectedLocationIsDungeon={selectedLocationIsDungeon}
           trackerState={trackerState}
         />
       </div>
@@ -213,9 +226,12 @@ class LocationsTable extends React.PureComponent {
       spheres,
       trackerState,
       trackSpheres,
+      unsetEntrance,
       unsetExit,
+      updateOpenedEntrance,
       updateOpenedExit,
       updateOpenedLocation,
+      viewingEntrances,
     } = this.props;
 
     return (
@@ -230,15 +246,19 @@ class LocationsTable extends React.PureComponent {
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
+          setSelectedEntrance={this.setSelectedEntrance}
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
           spheres={spheres}
           trackerState={trackerState}
           trackSpheres={trackSpheres}
+          unsetEntrance={unsetEntrance}
           unsetExit={unsetExit}
+          updateOpenedEntrance={updateOpenedEntrance}
           updateOpenedExit={updateOpenedExit}
           updateOpenedLocation={updateOpenedLocation}
+          viewingEntrances={viewingEntrances}
         />
       </>
     );
@@ -248,6 +268,7 @@ class LocationsTable extends React.PureComponent {
 LocationsTable.defaultProps = {
   backgroundColor: null,
   openedChartForIsland: null,
+  openedEntrance: null,
   openedExit: null,
   openedLocation: null,
   openedLocationIsDungeon: null,
@@ -257,28 +278,31 @@ LocationsTable.propTypes = {
   backgroundColor: PropTypes.string,
   chartListOpen: PropTypes.bool.isRequired,
   clearOpenedMenus: PropTypes.func.isRequired,
-  clearRaceModeBannedLocations: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
-  entrancesListOpen: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   openedChartForIsland: PropTypes.string,
+  openedEntrance: PropTypes.string,
   openedExit: PropTypes.string,
   openedLocation: PropTypes.string,
   openedLocationIsDungeon: PropTypes.bool,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
+  toggleRequiredBoss: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
   updateChartMapping: PropTypes.func.isRequired,
   updateOpenedChartForIsland: PropTypes.func.isRequired,
-  updateEntranceForExit: PropTypes.func.isRequired,
+  updateExitForEntrance: PropTypes.func.isRequired,
+  updateOpenedEntrance: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
+  viewingEntrances: PropTypes.bool.isRequired,
 };
 
 export default LocationsTable;

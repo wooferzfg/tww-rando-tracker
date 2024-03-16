@@ -7,6 +7,7 @@ import LogicCalculation from '../src/services/logic-calculation';
 import LogicHelper from '../src/services/logic-helper';
 import LogicLoader from '../src/services/logic-loader';
 import LogicTweaks from '../src/services/logic-tweaks';
+import Permalink from '../src/services/permalink';
 import TrackerController from '../src/services/tracker-controller';
 
 LogicLoader.loadLogicFiles = async () => ({
@@ -31,10 +32,12 @@ const verifyLogicForItemCounts = (
   const simplifiedRequirements = LogicHelper.requirementsForLocation(
     generalLocation,
     detailedLocation,
+    false,
   );
   const rawRequirements = LogicHelper._rawRequirementsForLocation(
     generalLocation,
     detailedLocation,
+    false,
   );
 
   const simplifiedRequirementsMet = logic._areRequirementsMet(simplifiedRequirements);
@@ -57,6 +60,7 @@ const verifyLogicForLocation = (generalLocation, detailedLocation, trackerState)
   const rawRequirements = LogicHelper._rawRequirementsForLocation(
     generalLocation,
     detailedLocation,
+    false,
   );
   const rawItemsRequired = new Set();
 
@@ -129,8 +133,8 @@ const verifyLogicForSettings = async (permalink) => {
 };
 
 const script = async () => {
-  await verifyLogicForSettings('MS4xMC4wAEEABwEDAAygvgMQ0AAAAAAAAAAAAAAA'); // no starting items
-  await verifyLogicForSettings('MS4xMC4wAEEABwEDAAygvgMA0AACAAAAAAGAIAAA'); // default settings
+  await verifyLogicForSettings('MS4xMS4wAEEASRBQGQAA+wLoAgAAAAAAAAAAAAA='); // no starting items
+  await verifyLogicForSettings(Permalink.DEFAULT_PERMALINK);
 };
 
 script();

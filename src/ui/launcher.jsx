@@ -25,7 +25,7 @@ export default class Launcher extends React.PureComponent {
   }
 
   static openTrackerWindow(route) {
-    const windowWidth = 1507;
+    const windowWidth = 1797;
     const windowHeight = 585;
 
     window.open(
@@ -115,7 +115,7 @@ export default class Launcher extends React.PureComponent {
     );
   }
 
-  dropdownInput({ labelText, optionName }) {
+  dropdownInput({ labelText, optionName, isDisabled = false }) {
     const optionValue = this.getOptionValue(optionName);
 
     return (
@@ -125,6 +125,7 @@ export default class Launcher extends React.PureComponent {
         optionName={optionName}
         optionValue={optionValue}
         setOptionValue={this.setOptionValue}
+        isDisabled={isDisabled}
       />
     );
   }
@@ -158,14 +159,6 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.PROGRESSION_DUNGEONS,
           }),
           this.toggleInput({
-            labelText: 'Tingle Chests',
-            optionName: Permalink.OPTIONS.PROGRESSION_TINGLE_CHESTS,
-          }),
-          this.toggleInput({
-            labelText: 'Mail',
-            optionName: Permalink.OPTIONS.PROGRESSION_MAIL,
-          }),
-          this.toggleInput({
             labelText: 'Puzzle Secret Caves',
             optionName: Permalink.OPTIONS.PROGRESSION_PUZZLE_SECRET_CAVES,
           }),
@@ -176,6 +169,30 @@ export default class Launcher extends React.PureComponent {
           this.toggleInput({
             labelText: 'Savage Labyrinth',
             optionName: Permalink.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH,
+          }),
+          this.toggleInput({
+            labelText: 'Island Puzzles',
+            optionName: Permalink.OPTIONS.PROGRESSION_ISLAND_PUZZLES,
+          }),
+          this.toggleInput({
+            labelText: 'Dungeon Secrets',
+            optionName: Permalink.OPTIONS.PROGRESSION_DUNGEON_SECRETS,
+          }),
+          this.toggleInput({
+            labelText: 'Tingle Chests',
+            optionName: Permalink.OPTIONS.PROGRESSION_TINGLE_CHESTS,
+          }),
+          this.toggleInput({
+            labelText: 'Great Fairies',
+            optionName: Permalink.OPTIONS.PROGRESSION_GREAT_FAIRIES,
+          }),
+          this.toggleInput({
+            labelText: 'Submarines',
+            optionName: Permalink.OPTIONS.PROGRESSION_SUBMARINES,
+          }),
+          this.toggleInput({
+            labelText: 'Lookout Platforms and Rafts',
+            optionName: Permalink.OPTIONS.PROGRESSION_PLATFORMS_RAFTS,
           }),
           this.toggleInput({
             labelText: 'Short Sidequests',
@@ -190,12 +207,12 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.PROGRESSION_SPOILS_TRADING,
           }),
           this.toggleInput({
-            labelText: 'Great Fairies',
-            optionName: Permalink.OPTIONS.PROGRESSION_GREAT_FAIRIES,
+            labelText: 'Eye Reef Chests',
+            optionName: Permalink.OPTIONS.PROGRESSION_EYE_REEF_CHESTS,
           }),
           this.toggleInput({
-            labelText: 'Free Gifts',
-            optionName: Permalink.OPTIONS.PROGRESSION_FREE_GIFTS,
+            labelText: 'Big Octos and Gunboats',
+            optionName: Permalink.OPTIONS.PROGRESSION_BIG_OCTOS_GUNBOATS,
           }),
           this.toggleInput({
             labelText: 'Miscellaneous',
@@ -210,24 +227,16 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.PROGRESSION_BATTLESQUID,
           }),
           this.toggleInput({
+            labelText: 'Free Gifts',
+            optionName: Permalink.OPTIONS.PROGRESSION_FREE_GIFTS,
+          }),
+          this.toggleInput({
+            labelText: 'Mail',
+            optionName: Permalink.OPTIONS.PROGRESSION_MAIL,
+          }),
+          this.toggleInput({
             labelText: 'Expensive Purchases',
             optionName: Permalink.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES,
-          }),
-          this.toggleInput({
-            labelText: 'Island Puzzles',
-            optionName: Permalink.OPTIONS.PROGRESSION_ISLAND_PUZZLES,
-          }),
-          this.toggleInput({
-            labelText: 'Lookout Platforms and Rafts',
-            optionName: Permalink.OPTIONS.PROGRESSION_PLATFORMS_RAFTS,
-          }),
-          this.toggleInput({
-            labelText: 'Submarines',
-            optionName: Permalink.OPTIONS.PROGRESSION_SUBMARINES,
-          }),
-          this.toggleInput({
-            labelText: 'Big Octos and Gunboats',
-            optionName: Permalink.OPTIONS.PROGRESSION_BIG_OCTOS_GUNBOATS,
           }),
           this.toggleInput({
             labelText: 'Sunken Treasure (From Triforce Charts)',
@@ -237,19 +246,54 @@ export default class Launcher extends React.PureComponent {
             labelText: 'Sunken Treasure (From Treasure Charts)',
             optionName: Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS,
           }),
+        ]}
+      />
+    );
+  }
+
+  entranceRandomizerOptionsTable() {
+    return (
+      <OptionsTable
+        title="Entrance Randomizer Options"
+        numColumns={2}
+        options={[
           this.toggleInput({
-            labelText: 'Eye Reef Chests',
-            optionName: Permalink.OPTIONS.PROGRESSION_EYE_REEF_CHESTS,
+            labelText: 'Dungeons',
+            optionName: Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES,
+          }),
+          this.toggleInput({
+            labelText: 'Nested Bosses',
+            optionName: Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES,
+          }),
+          this.toggleInput({
+            labelText: 'Nested Minibosses',
+            optionName: Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES,
+          }),
+          this.toggleInput({
+            labelText: 'Secret Caves',
+            optionName: Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES,
+          }),
+          this.toggleInput({
+            labelText: 'Inner Secret Caves',
+            optionName: Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES,
+          }),
+          this.toggleInput({
+            labelText: 'Fairy Fountains',
+            optionName: Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES,
+          }),
+          this.dropdownInput({
+            labelText: 'Mixing',
+            optionName: Permalink.OPTIONS.MIX_ENTRANCES,
           }),
         ]}
       />
     );
   }
 
-  additionalRandomizationOptionsTable() {
+  additionalOptionsTable() {
     return (
       <OptionsTable
-        title="Additional Randomization Options"
+        title="Additional Options"
         numColumns={2}
         options={[
           this.dropdownInput({
@@ -265,31 +309,40 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS,
           }),
           this.toggleInput({
-            labelText: 'Race Mode',
-            optionName: Permalink.OPTIONS.RACE_MODE,
-          }),
-          this.dropdownInput({
-            labelText: 'Randomize Entrances',
-            optionName: Permalink.OPTIONS.RANDOMIZE_ENTRANCES,
-          }),
-          this.toggleInput({
             labelText: 'Randomize Charts',
             optionName: Permalink.OPTIONS.RANDOMIZE_CHARTS,
+          }),
+          this.toggleInput({
+            labelText: 'Required Bosses Mode',
+            optionName: Permalink.OPTIONS.REQUIRED_BOSSES,
+          }),
+          this.dropdownInput({
+            labelText: 'Number of Required Bosses',
+            optionName: Permalink.OPTIONS.NUM_REQUIRED_BOSSES,
+            isDisabled: !this.getOptionValue(Permalink.OPTIONS.REQUIRED_BOSSES),
+          }),
+          this.toggleInput({
+            labelText: 'Skip Boss Rematches',
+            optionName: Permalink.OPTIONS.SKIP_REMATCH_BOSSES,
           }),
         ]}
       />
     );
   }
 
-  convenienceTweaksTable() {
+  logicDifficultyTable() {
     return (
       <OptionsTable
-        title="Convenience Tweaks"
+        title="Logic Difficulty"
         numColumns={2}
         options={[
-          this.toggleInput({
-            labelText: 'Skip Boss Rematches',
-            optionName: Permalink.OPTIONS.SKIP_REMATCH_BOSSES,
+          this.dropdownInput({
+            labelText: 'Obscure Tricks Required',
+            optionName: Permalink.OPTIONS.LOGIC_OBSCURITY,
+          }),
+          this.dropdownInput({
+            labelText: 'Precise Tricks Required',
+            optionName: Permalink.OPTIONS.LOGIC_PRECISION,
           }),
         ]}
       />
@@ -362,8 +415,9 @@ export default class Launcher extends React.PureComponent {
           <div className="settings">
             {this.permalinkContainer()}
             {this.progressItemLocationsTable()}
-            {this.additionalRandomizationOptionsTable()}
-            {this.convenienceTweaksTable()}
+            {this.entranceRandomizerOptionsTable()}
+            {this.additionalOptionsTable()}
+            {this.logicDifficultyTable()}
             {this.launchButtonContainer()}
           </div>
           <div className="attribution">

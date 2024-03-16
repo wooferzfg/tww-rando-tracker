@@ -1,16 +1,16 @@
 import _ from 'lodash';
 
-import CAVE_ENTRANCES from '../data/cave-entrances.json';
-import CAVES from '../data/caves.json';
 import CHARTS from '../data/charts.json';
 import DUNGEON_ENTRANCES from '../data/dungeon-entrances.json';
 import DUNGEONS from '../data/dungeons.json';
+import ISLAND_ENTRANCES from '../data/island-entrances.json';
 import ISLANDS from '../data/islands.json';
 import ITEMS from '../data/items.json';
 import KEYS from '../data/keys.json';
 import MISC_LOCATIONS from '../data/misc-locations.json';
+import NESTED_ENTRANCES from '../data/nested-entrances.json';
 import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
-import RACE_MODE_BANNED_LOCATIONS from '../data/race-mode-banned-locations.json';
+import REQUIRED_BOSSES from '../data/required-bosses.json';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
 
 import BooleanExpression from './boolean-expression';
@@ -24,58 +24,91 @@ import Settings from './settings';
 class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
+      'allRandomEntrances',
       'bossLocation',
+      'bossLocationForRequirement',
+      'bossRequirementForDungeon',
       'chartForIsland',
+      'entrancesForDungeon',
+      'entrancesForIsland',
+      'entryName',
+      'exitsForDungeon',
+      'exitsForIsland',
       'filterDetailedLocations',
       'islandFromChartForIsland',
       'islandForChart',
       'isPotentialKeyLocation',
       'isProgressLocation',
-      'mainDungeons',
       'maxItemCount',
+      'nestedEntrancesForExit',
       'parseItemCountRequirement',
       'prettyNameForItem',
       'prettyNameForItemRequirement',
+      'randomEntrancesForExit',
+      'randomExitsForEntrance',
       'requirementsForEntrance',
       'requirementsForLocation',
+      'shortEntranceName',
+      'shortExitName',
       'smallKeysRequiredForLocation',
-      '_isValidLocation',
       '_rawRequirementsForLocation',
     ]);
 
     this._setStartingAndImpossibleItems();
+    this.nonRequiredBossDungeons = [];
   }
 
   static reset() {
     Memoizer.invalidate([
+      this.allRandomEntrances,
       this.bossLocation,
+      this.bossLocationForRequirement,
+      this.bossRequirementForDungeon,
       this.chartForIsland,
+      this.entrancesForDungeon,
+      this.entrancesForIsland,
+      this.entryName,
+      this.exitsForDungeon,
+      this.exitsForIsland,
       this.filterDetailedLocations,
       this.islandFromChartForIsland,
       this.islandForChart,
       this.isPotentialKeyLocation,
       this.isProgressLocation,
-      this.mainDungeons,
       this.maxItemCount,
+      this.nestedEntrancesForExit,
       this.parseItemCountRequirement,
       this.prettyNameForItem,
       this.prettyNameForItemRequirement,
+      this.randomEntrancesForExit,
+      this.randomExitsForEntrance,
       this.requirementsForEntrance,
       this.requirementsForLocation,
+      this.shortEntranceName,
+      this.shortExitName,
       this.smallKeysRequiredForLocation,
-      this._isValidLocation,
       this._rawRequirementsForLocation,
     ]);
 
     this.startingItems = null;
     this.impossibleItems = null;
+    this.nonRequiredBossDungeons = null;
   }
 
   static DEFEAT_GANONDORF_LOCATION = 'Defeat Ganondorf';
 
+  static NOTHING_EXIT = 'Nothing';
+
   static NUM_TRIFORCE_CHARTS = 8;
 
   static DUNGEONS = Constants.createFromArray(DUNGEONS);
+
+  static MAIN_DUNGEONS = _.filter(DUNGEONS, (dungeon) => this.isMainDungeon(dungeon));
+
+  static REQUIRED_BOSSES_MODE_DUNGEONS = _.map(
+    REQUIRED_BOSSES,
+    (requiredBossData) => requiredBossData.dungeonName,
+  );
 
   static ISLANDS = Constants.createFromArray(ISLANDS);
 
@@ -98,10 +131,10 @@ class LogicHelper {
   };
 
   static ALL_ITEMS = _.concat(
-    _.map(CAVES, (cave) => this.entryName(cave)),
+    _.map(ISLAND_ENTRANCES, (entranceData) => this.entryName(entranceData.internalName)),
     CHARTS,
     _.map(ISLANDS, (island) => this.chartForIslandName(island)),
-    _.map(DUNGEONS, (dungeon) => this.entryName(dungeon)),
+    _.map(DUNGEON_ENTRANCES, (entranceData) => this.entryName(entranceData.internalName)),
     _.keys(ITEMS),
     _.keys(KEYS),
   );
@@ -109,6 +142,10 @@ class LogicHelper {
   static ALL_TREASURE_CHARTS = _.range(1, CHARTS.length - this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Treasure Chart ${number}`);
 
   static ALL_TRIFORCE_CHARTS = _.range(1, this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Triforce Chart ${number}`);
+
+  static CAN_ACCESS_ITEM_LOCATION_REGEX = /Can Access Item Location "([^"]+)"/;
+
+  static HAS_ACCESSED_OTHER_LOCATION_REGEX = /Has Accessed Other Location "([^"]+)"/;
 
   static startingItemCount(item) {
     return _.get(this.startingItems, item, 0);
@@ -143,98 +180,148 @@ class LogicHelper {
     return this.isDungeon(dungeonName);
   }
 
-  static mainDungeons() {
-    return _.filter(DUNGEONS, (dungeon) => this.isMainDungeon(dungeon));
-  }
-
   static isDungeon(dungeonName) {
     return _.includes(DUNGEONS, dungeonName);
   }
 
-  static isRaceModeDungeon(dungeonName) {
-    if (dungeonName === this.DUNGEONS.GANONS_TOWER) {
-      return false;
+  static isRequiredBossesModeDungeon(dungeonName) {
+    const requiredBossData = this._requiredBossDataForDungeon(dungeonName);
+    return !_.isNil(requiredBossData);
+  }
+
+  static entryName(exitName) {
+    const entranceData = this._entranceDataForInternalName(exitName);
+    if (_.isNil(entranceData)) {
+      // istanbul ignore next
+      throw Error(`Exit not found: ${exitName}`);
     }
-    return this.isDungeon(dungeonName);
+
+    return entranceData.entryName;
   }
 
-  static entryName(dungeonOrCaveName) {
-    const entranceName = this.isDungeon(dungeonOrCaveName)
-      ? this._shortDungeonName(dungeonOrCaveName)
-      : this._shortCaveName(dungeonOrCaveName);
+  static shortEntranceName(entranceName) {
+    const entranceData = this._entranceDataForInternalName(entranceName);
+    if (_.isNil(entranceData)) {
+      // istanbul ignore next
+      throw Error(`Could not get short name for entrance: ${entranceName}`);
+    }
 
-    return this._entryNameForEntranceName(entranceName);
+    return entranceData.entranceName;
   }
 
-  static shortEntranceName(dungeonOrCaveName) {
-    return this.isDungeon(dungeonOrCaveName)
-      ? dungeonOrCaveName
-      : this._shortCaveName(dungeonOrCaveName);
+  static shortExitName(exitName) {
+    if (exitName === this.NOTHING_EXIT) {
+      return exitName;
+    }
+
+    const entranceData = this._entranceDataForInternalName(exitName);
+    if (_.isNil(entranceData)) {
+      // istanbul ignore next
+      throw Error(`Could not get short name for exit: ${exitName}`);
+    }
+
+    return entranceData.exitName;
   }
 
-  static cavesForIsland(islandName) {
+  static entrancesForIsland(islandName) {
     return _.compact(
       _.map(
-        CAVE_ENTRANCES,
-        (caveEntrance, caveIndex) => (
-          _.startsWith(caveEntrance, islandName) ? _.get(CAVES, caveIndex) : null
+        _.concat(
+          this._filterDungeonEntrances(),
+          this._filterIslandEntrances(),
+        ),
+        (entranceData) => (
+          entranceData.entranceZoneName === islandName
+            ? entranceData.internalName
+            : null
+        ),
+      ),
+    );
+  }
+
+  static exitsForIsland(islandName) {
+    return _.compact(
+      _.map(
+        this._filterIslandEntrances(),
+        (entranceData) => (
+          entranceData.exitZoneName === islandName
+            ? entranceData.internalName
+            : null
+        ),
+      ),
+    );
+  }
+
+  static entrancesForDungeon(zoneName) {
+    return _.compact(
+      _.map(
+        this._filterDungeonEntrances(),
+        (entranceData) => (
+          entranceData.entranceZoneName === zoneName
+            ? entranceData.internalName
+            : null
+        ),
+      ),
+    );
+  }
+
+  static exitsForDungeon(zoneName) {
+    return _.compact(
+      _.map(
+        this._filterDungeonEntrances(),
+        (entranceData) => (
+          entranceData.exitZoneName === zoneName
+            ? entranceData.internalName
+            : null
         ),
       ),
     );
   }
 
   static isRandomEntrances() {
-    return _.includes(
-      [
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-      ],
-      this._randomizeEntrancesOption(),
-    );
-  }
-
-  static isRandomDungeonEntrances() {
-    return _.includes(
-      [
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-      ],
-      this._randomizeEntrancesOption(),
-    );
-  }
-
-  static isRandomCaveEntrances() {
-    return _.includes(
-      [
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-        Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
-      ],
-      this._randomizeEntrancesOption(),
+    return (
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES)
+      || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES)
+      || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
+      || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES)
+      || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES)
+      || Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES)
     );
   }
 
   static allRandomEntrances() {
     return _.concat(
-      this.isRandomDungeonEntrances() ? this.mainDungeons() : [],
-      this.isRandomCaveEntrances() ? CAVES : [],
+      this._allDungeonEntrances(),
+      this._allIslandEntrances(),
     );
   }
 
-  static randomEntrancesForExit(dungeonOrCaveName) {
-    if (
-      this._randomizeEntrancesOption()
-      === Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER
-    ) {
-      return this.allRandomEntrances();
+  static randomEntrancesForExit(exitName) {
+    const possibleEntrances = this._possibleEntrancesOrExits(exitName);
+
+    return _.difference(
+      possibleEntrances,
+      this.nestedEntrancesForExit(exitName),
+    );
+  }
+
+  static randomExitsForEntrance(entranceName) {
+    const possibleExits = this._possibleEntrancesOrExits(entranceName);
+
+    const parentExit = _.findKey(
+      NESTED_ENTRANCES,
+      (nestedEntrances) => _.includes(nestedEntrances, entranceName),
+    );
+    if (!_.isNil(parentExit)) {
+      return _.without(possibleExits, parentExit);
     }
 
-    return this.isDungeon(dungeonOrCaveName)
-      ? this.mainDungeons()
-      : CAVES;
+    return possibleExits;
+  }
+
+  static nestedEntrancesForExit(exitName) {
+    const nestedEntrances = _.get(NESTED_ENTRANCES, exitName, []);
+    return _.intersection(nestedEntrances, this.allRandomEntrances());
   }
 
   static parseItemCountRequirement(requirement) {
@@ -269,38 +356,22 @@ class LogicHelper {
     );
   }
 
-  static isRandomizedChartsSettings() {
-    return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS);
-  }
-
   static isRandomizedChart(item) {
-    return this.isRandomizedChartsSettings() && /(Treasure|Triforce) Chart (\d)+/.test(item);
+    return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) && /(Treasure|Triforce) Chart (\d)+/.test(item);
   }
 
-  static filterDetailedLocations(generalLocation, { isDungeon, onlyProgressLocations }) {
+  static filterDetailedLocations(generalLocation, { onlyProgressLocations }) {
     const detailedLocations = Locations.detailedLocationsForGeneralLocation(generalLocation);
 
-    return _.filter(detailedLocations, (detailedLocation) => {
-      if (
-        !_.isNil(isDungeon)
-        && !this._isValidLocation(generalLocation, detailedLocation, { isDungeon })
-      ) {
-        return false;
-      }
-
-      if (onlyProgressLocations) {
-        return this.isProgressLocation(generalLocation, detailedLocation);
-      }
-
-      return true;
-    });
+    if (onlyProgressLocations) {
+      return _.filter(detailedLocations, (detailedLocation) => (
+        this.isProgressLocation(generalLocation, detailedLocation)
+      ));
+    }
+    return detailedLocations;
   }
 
   static isPotentialKeyLocation(generalLocation, detailedLocation) {
-    if (!this._isValidLocation(generalLocation, detailedLocation, { isDungeon: true })) {
-      return false;
-    }
-
     if (!this.isMainDungeon(generalLocation)) {
       return false;
     }
@@ -311,22 +382,20 @@ class LogicHelper {
       Locations.KEYS.TYPES,
     );
     if (
-      _.includes(locationTypes, Settings.FLAGS.TINGLE_CHEST)
-      && !Settings.isFlagActive(Settings.FLAGS.TINGLE_CHEST)
+      Settings.isFlagActive(Settings.FLAGS.DUNGEON)
+      && !this.isProgressLocation(generalLocation, detailedLocation)
     ) {
       return false;
     }
 
-    const locationRequirements = Locations.getLocation(
-      generalLocation,
-      detailedLocation,
-      Locations.KEYS.NEED,
-    );
-    if (_.includes(locationRequirements, 'Big Key')) {
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
+      && _.includes(locationTypes, Settings.FLAGS.RANDOMIZABLE_MINIBOSS_ROOM)
+    ) {
       return false;
     }
 
-    return true;
+    return !_.includes(locationTypes, Settings.FLAGS.BOSS);
   }
 
   static bossLocation(dungeonName) {
@@ -339,13 +408,13 @@ class LogicHelper {
     return _.find(
       detailedLocations,
       (detailedLocation) => {
-        const originalItem = Locations.getLocation(
+        const locationTypes = Locations.getLocation(
           dungeonName,
           detailedLocation,
-          Locations.KEYS.ORIGINAL_ITEM,
+          Locations.KEYS.TYPES,
         );
 
-        return originalItem === 'Heart Container';
+        return _.includes(locationTypes, Settings.FLAGS.BOSS);
       },
     );
   }
@@ -408,6 +477,7 @@ class LogicHelper {
     const requirementsForLocation = this.requirementsForLocation(
       generalLocation,
       detailedLocation,
+      false,
     );
 
     const smallKeyName = this.smallKeyName(generalLocation);
@@ -432,14 +502,18 @@ class LogicHelper {
     });
   }
 
-  static requirementsForLocation(generalLocation, detailedLocation) {
-    const rawRequirements = this._rawRequirementsForLocation(generalLocation, detailedLocation);
+  static requirementsForLocation(generalLocation, detailedLocation, isFlattened) {
+    const rawRequirements = this._rawRequirementsForLocation(
+      generalLocation,
+      detailedLocation,
+      isFlattened,
+    );
     return this._simplifiedItemRequirements(rawRequirements);
   }
 
-  static requirementsForEntrance(dungeonOrCaveName) {
-    const macroName = this._macroNameForEntrance(dungeonOrCaveName);
-    const rawRequirements = this._booleanExpressionForRequirements(macroName);
+  static requirementsForEntrance(entranceName) {
+    const macroName = this._macroNameForEntrance(entranceName);
+    const rawRequirements = this._booleanExpressionForRequirements(macroName, false);
     return this._simplifiedItemRequirements(rawRequirements);
   }
 
@@ -509,36 +583,81 @@ class LogicHelper {
     return `Chart for ${island}`;
   }
 
-  static raceModeBannedLocations(dungeonName) {
-    const detailedLocations = this.filterDetailedLocations(dungeonName, {
-      isDungeon: true,
-      onlyProgressLocations: false,
-    });
+  static requiredBossesModeBannedLocations(dungeonName) {
+    const detailedLocations = Locations.detailedLocationsForGeneralLocation(dungeonName);
     const dungeonLocations = _.map(detailedLocations, (detailedLocation) => ({
       generalLocation: dungeonName,
       detailedLocation,
     }));
 
-    const additionalLocations = _.get(RACE_MODE_BANNED_LOCATIONS, dungeonName, []);
+    const requiredBossData = this._requiredBossDataForDungeon(dungeonName);
+    if (_.isNil(requiredBossData)) {
+      // istanbul ignore next
+      throw Error(`Could not find required boss for dungeon: ${dungeonName}`);
+    }
 
-    return _.concat(dungeonLocations, additionalLocations);
+    return _.concat(
+      dungeonLocations,
+      requiredBossData.additionalBannedLocations,
+    );
+  }
+
+  static bossRequirementForDungeon(dungeonName) {
+    const requiredBossData = this._requiredBossDataForDungeon(dungeonName);
+    if (_.isNil(requiredBossData)) {
+      // istanbul ignore next
+      throw Error(`Could not find required boss for dungeon: ${dungeonName}`);
+    }
+
+    return requiredBossData.requirement;
+  }
+
+  static bossLocationForRequirement(requirement) {
+    const requiredBossData = this._requiredBossDataForRequirement(requirement);
+    if (_.isNil(requiredBossData)) {
+      return null;
+    }
+
+    const { dungeonName } = requiredBossData;
+    return {
+      generalLocation: dungeonName,
+      detailedLocation: this.bossLocation(dungeonName),
+    };
+  }
+
+  static setBossRequired(dungeonName) {
+    this.nonRequiredBossDungeons = _.without(this.nonRequiredBossDungeons, dungeonName);
+    this._invalidateForNonRequiredBosses();
+  }
+
+  static setBossNotRequired(dungeonName) {
+    this.nonRequiredBossDungeons = _.concat(this.nonRequiredBossDungeons, dungeonName);
+    this._invalidateForNonRequiredBosses();
+  }
+
+  static isBossRequired(dungeonName) {
+    return !_.includes(this.nonRequiredBossDungeons, dungeonName);
+  }
+
+  static anyNonRequiredBossesRemaining() {
+    const numRequiredBosses = Settings.getOptionValue(
+      Permalink.OPTIONS.NUM_REQUIRED_BOSSES,
+    );
+    const maxNonRequiredBosses = _.size(REQUIRED_BOSSES) - numRequiredBosses;
+    return _.size(this.nonRequiredBossDungeons) < maxNonRequiredBosses;
   }
 
   static _prettyNameOverride(itemName, itemCount = 1) {
     return _.get(PRETTY_ITEM_NAMES, [itemName, itemCount]);
   }
 
-  static _rawRequirementsForLocation(generalLocation, detailedLocation) {
+  static _rawRequirementsForLocation(generalLocation, detailedLocation, isFlattened) {
     const requirements = Locations.getLocation(
       generalLocation,
       detailedLocation,
       Locations.KEYS.NEED,
     );
-    return this._booleanExpressionForRequirements(requirements);
-  }
-
-  static _shortCaveName(caveName) {
-    return _.replace(caveName, /Secret |Warp Maze /g, '');
+    return this._booleanExpressionForRequirements(requirements, isFlattened);
   }
 
   static _shortDungeonName(dungeonName) {
@@ -546,21 +665,14 @@ class LogicHelper {
     return SHORT_DUNGEON_NAMES[dungeonIndex];
   }
 
-  static _macroNameForEntrance(dungeonOrCaveName) {
-    const dungeonIndex = _.indexOf(DUNGEONS, dungeonOrCaveName);
-    if (dungeonIndex >= 0) {
-      const dungeonEntranceName = _.get(DUNGEON_ENTRANCES, dungeonIndex);
-      return `Can Access Dungeon Entrance ${dungeonEntranceName}`;
+  static _macroNameForEntrance(entranceName) {
+    const entranceData = this._entranceDataForInternalName(entranceName);
+    if (_.isNil(entranceData)) {
+      // istanbul ignore next
+      throw Error(`Could not find macro name for entrance: ${entranceName}`);
     }
 
-    const caveIndex = _.indexOf(CAVES, dungeonOrCaveName);
-    if (caveIndex >= 0) {
-      const caveEntranceName = _.get(CAVE_ENTRANCES, caveIndex);
-      return `Can Access Secret Cave Entrance on ${caveEntranceName}`;
-    }
-
-    // istanbul ignore next
-    throw Error(`Could not find macro name for entrance: ${dungeonOrCaveName}`);
+    return `Can Access ${entranceData.entranceMacroName}`;
   }
 
   static _simplifiedItemRequirements(requirements) {
@@ -672,18 +784,29 @@ class LogicHelper {
       return true; // continue
     });
 
-    return optionEnabledRequirementValue;
+    if (_.isNil(optionEnabledRequirementValue)) {
+      return null;
+    }
+
+    return optionEnabledRequirementValue
+      ? this.TOKENS.NOTHING
+      : this.TOKENS.IMPOSSIBLE;
   }
 
-  static _checkOtherLocationRequirement(requirement) {
-    const otherLocationMatch = requirement.match(/Can Access Other Location "([^"]+)"/);
+  static _checkOtherLocationRequirement(requirement, isFlattened) {
+    let otherLocationMatch = _.get(requirement.match(this.CAN_ACCESS_ITEM_LOCATION_REGEX), 1);
+
+    if (_.isNil(otherLocationMatch) && isFlattened) {
+      otherLocationMatch = _.get(requirement.match(this.HAS_ACCESSED_OTHER_LOCATION_REGEX), 1);
+    }
+
     if (otherLocationMatch) {
       const {
         generalLocation,
         detailedLocation,
-      } = Locations.splitLocationName(otherLocationMatch[1]);
+      } = Locations.splitLocationName(otherLocationMatch);
 
-      return this._rawRequirementsForLocation(generalLocation, detailedLocation);
+      return this._rawRequirementsForLocation(generalLocation, detailedLocation, isFlattened);
     }
 
     return null;
@@ -701,44 +824,85 @@ class LogicHelper {
       countRequired = 1;
     }
 
+    if (_.isNil(this.startingItems)) {
+      // istanbul ignore next
+      throw Error('LogicHelper not initialized: startingItems is null');
+    }
+    if (_.isNil(this.impossibleItems)) {
+      // istanbul ignore next
+      throw Error('LogicHelper not initialized: impossibleItems is null');
+    }
+
     const startingItemValue = _.get(this.startingItems, itemName);
     if (!_.isNil(startingItemValue) && startingItemValue >= countRequired) {
-      return true;
+      return this.TOKENS.NOTHING;
     }
 
     const impossibleItemValue = _.get(this.impossibleItems, itemName);
     if (!_.isNil(impossibleItemValue) && impossibleItemValue <= countRequired) {
-      return false;
+      return this.TOKENS.IMPOSSIBLE;
     }
 
     return null;
   }
 
-  static _parseRequirement(requirement) {
+  static _checkBossRequirement(requirement, isFlattened) {
+    const requiredBossData = this._requiredBossDataForRequirement(requirement);
+    if (_.isNil(requiredBossData)) {
+      return null;
+    }
+
+    if (_.isNil(this.nonRequiredBossDungeons)) {
+      // istanbul ignore next
+      throw Error('LogicHelper not initialized: nonRequiredBossDungeons is null');
+    }
+
+    const { dungeonName } = requiredBossData;
+    if (_.includes(this.nonRequiredBossDungeons, dungeonName)) {
+      return this.TOKENS.NOTHING;
+    }
+
+    if (isFlattened) {
+      const bossLocation = this.bossLocation(dungeonName);
+      return this._rawRequirementsForLocation(dungeonName, bossLocation, true);
+    }
+
+    return requirement;
+  }
+
+  static _parseRequirement(requirement, isFlattened) {
     const macroValue = Macros.getMacro(requirement);
     if (macroValue) {
-      return this._booleanExpressionForRequirements(macroValue);
+      return this._booleanExpressionForRequirements(macroValue, isFlattened);
     }
 
     const optionEnabledRequirementValue = this._checkOptionEnabledRequirement(requirement);
     if (!_.isNil(optionEnabledRequirementValue)) {
-      return optionEnabledRequirementValue ? this.TOKENS.NOTHING : this.TOKENS.IMPOSSIBLE;
+      return optionEnabledRequirementValue;
     }
 
-    const otherLocationRequirementValue = this._checkOtherLocationRequirement(requirement);
+    const otherLocationRequirementValue = this._checkOtherLocationRequirement(
+      requirement,
+      isFlattened,
+    );
     if (!_.isNil(otherLocationRequirementValue)) {
       return otherLocationRequirementValue;
     }
 
     const predeterminedItemRequirementValue = this._checkPredeterminedItemRequirement(requirement);
     if (!_.isNil(predeterminedItemRequirementValue)) {
-      return predeterminedItemRequirementValue ? this.TOKENS.NOTHING : this.TOKENS.IMPOSSIBLE;
+      return predeterminedItemRequirementValue;
+    }
+
+    const bossRequirementValue = this._checkBossRequirement(requirement, isFlattened);
+    if (!_.isNil(bossRequirementValue)) {
+      return bossRequirementValue;
     }
 
     return requirement;
   }
 
-  static _booleanExpressionForTokens(expressionTokens) {
+  static _booleanExpressionForTokens(expressionTokens, isFlattened) {
     const itemsForExpression = [];
     let expressionTypeToken;
 
@@ -748,12 +912,12 @@ class LogicHelper {
       if (currentToken === this.TOKENS.AND || currentToken === this.TOKENS.OR) {
         expressionTypeToken = currentToken;
       } else if (currentToken === this.TOKENS.OPENING_PAREN) {
-        const childExpression = this._booleanExpressionForTokens(expressionTokens);
+        const childExpression = this._booleanExpressionForTokens(expressionTokens, isFlattened);
         itemsForExpression.push(childExpression);
       } else if (currentToken === this.TOKENS.CLOSING_PAREN) {
         break;
       } else {
-        const parsedRequirement = this._parseRequirement(currentToken);
+        const parsedRequirement = this._parseRequirement(currentToken, isFlattened);
         itemsForExpression.push(parsedRequirement);
       }
     }
@@ -761,46 +925,111 @@ class LogicHelper {
     if (expressionTypeToken === this.TOKENS.OR) {
       return BooleanExpression.or(...itemsForExpression);
     }
-    return BooleanExpression.and(...itemsForExpression);
+    if (expressionTypeToken === this.TOKENS.AND || itemsForExpression.length <= 1) {
+      return BooleanExpression.and(...itemsForExpression);
+    }
+    // istanbul ignore next
+    throw Error(`No expression type for items: ${JSON.stringify(itemsForExpression)}`);
   }
 
-  static _booleanExpressionForRequirements(requirements) {
+  static _booleanExpressionForRequirements(requirements, isFlattened) {
     const expressionTokens = this._splitExpression(requirements);
-    return this._booleanExpressionForTokens(expressionTokens);
+    return this._booleanExpressionForTokens(expressionTokens, isFlattened);
   }
 
-  static _entryNameForEntranceName(entranceName) {
-    return `Entered ${entranceName}`;
+  static _allIslandEntrances() {
+    return _.map(
+      this._filterIslandEntrances(),
+      (entranceData) => entranceData.internalName,
+    );
   }
 
-  static _randomizeEntrancesOption() {
-    return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_ENTRANCES);
+  static _allDungeonEntrances() {
+    return _.map(
+      this._filterDungeonEntrances(),
+      (entranceData) => entranceData.internalName,
+    );
   }
 
-  static _isValidLocation(generalLocation, detailedLocation, { isDungeon }) {
-    const isValidDungeon = this.isDungeon(generalLocation);
-    const isValidIsland = _.includes(ISLANDS, generalLocation);
-    const isValidMiscLocation = _.includes(MISC_LOCATIONS, generalLocation);
+  static _filterIslandEntrances() {
+    return _.filter(ISLAND_ENTRANCES, (entranceData) => {
+      if (entranceData.isCave) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES);
+      }
+      if (entranceData.isInnerCave) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES);
+      }
+      if (entranceData.isFairyFountain) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES);
+      }
+      // istanbul ignore next
+      throw Error(`Invalid entrance: ${entranceData.internalName}`);
+    });
+  }
 
-    if (isDungeon && !isValidDungeon) {
-      return false;
+  static _filterDungeonEntrances() {
+    return _.filter(DUNGEON_ENTRANCES, (entranceData) => {
+      if (entranceData.isDungeon) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES);
+      }
+      if (entranceData.isBoss) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES);
+      }
+      if (entranceData.isMiniboss) {
+        return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES);
+      }
+      // istanbul ignore next
+      throw Error(`Invalid entrance: ${entranceData.internalName}`);
+    });
+  }
+
+  static _entranceDataForInternalName(entranceName) {
+    return _.find(
+      _.concat(DUNGEON_ENTRANCES, ISLAND_ENTRANCES),
+      (entranceData) => entranceData.internalName === entranceName,
+    );
+  }
+
+  static _isDungeonEntranceOrExit(entranceOrExit) {
+    return _.some(
+      DUNGEON_ENTRANCES,
+      (entranceData) => entranceData.internalName === entranceOrExit,
+    );
+  }
+
+  static _requiredBossDataForDungeon(dungeonName) {
+    return _.find(
+      REQUIRED_BOSSES,
+      (requiredBossData) => requiredBossData.dungeonName === dungeonName,
+    );
+  }
+
+  static _requiredBossDataForRequirement(requirement) {
+    return _.find(
+      REQUIRED_BOSSES,
+      (requiredBossData) => requiredBossData.requirement === requirement,
+    );
+  }
+
+  static _invalidateForNonRequiredBosses() {
+    Memoizer.invalidate([
+      this.requirementsForEntrance,
+      this.requirementsForLocation,
+      this._rawRequirementsForLocation,
+    ]);
+  }
+
+  static _possibleEntrancesOrExits(entranceOrExit) {
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.MIX_ENTRANCES)
+      === Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+    ) {
+      return this.allRandomEntrances();
     }
-    if (!isDungeon && !isValidIsland && !isValidMiscLocation) {
-      return false;
+    if (this._isDungeonEntranceOrExit(entranceOrExit)) {
+      return this._allDungeonEntrances();
     }
-
-    if (isValidDungeon && isValidIsland) {
-      const locationTypes = Locations.getLocation(
-        generalLocation,
-        detailedLocation,
-        Locations.KEYS.TYPES,
-      );
-      const hasDungeonType = _.includes(locationTypes, Settings.FLAGS.DUNGEON);
-
-      return hasDungeonType === isDungeon;
-    }
-
-    return true;
+    return this._allIslandEntrances();
   }
 }
 

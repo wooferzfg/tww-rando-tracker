@@ -1,8 +1,9 @@
 import _ from 'lodash';
 
+import LOGIC_DIFFICULTY_OPTIONS from '../data/logic-difficulty-options.json';
+import MIX_ENTRANCES_OPTIONS from '../data/mix-entrances-options.json';
 import OPTIONS from '../data/options.json';
 import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items.json';
-import RANDOMIZE_ENTRANCES_OPTIONS from '../data/randomize-entrances-options.json';
 import REGULAR_STARTING_ITEMS from '../data/regular-starting-items.json';
 import SWORD_MODE_OPTIONS from '../data/sword-mode-options.json';
 
@@ -10,20 +11,24 @@ import BinaryString from './binary-string';
 import Constants from './constants';
 
 class Permalink {
+  static LOGIC_DIFFICULTY_OPTIONS = Constants.createFromArray(LOGIC_DIFFICULTY_OPTIONS);
+
   static OPTIONS = Constants.createFromArray(OPTIONS);
 
-  static RANDOMIZE_ENTRANCES_OPTIONS = Constants.createFromArray(RANDOMIZE_ENTRANCES_OPTIONS);
+  static MIX_ENTRANCES_OPTIONS = Constants.createFromArray(MIX_ENTRANCES_OPTIONS);
 
   static SWORD_MODE_OPTIONS = Constants.createFromArray(SWORD_MODE_OPTIONS);
 
   static DROPDOWN_OPTIONS = {
-    [this.OPTIONS.RANDOMIZE_ENTRANCES]: RANDOMIZE_ENTRANCES_OPTIONS,
-    [this.OPTIONS.NUM_RACE_MODE_DUNGEONS]: _.range(1, 7),
+    [this.OPTIONS.LOGIC_OBSCURITY]: LOGIC_DIFFICULTY_OPTIONS,
+    [this.OPTIONS.LOGIC_PRECISION]: LOGIC_DIFFICULTY_OPTIONS,
+    [this.OPTIONS.MIX_ENTRANCES]: MIX_ENTRANCES_OPTIONS,
+    [this.OPTIONS.NUM_REQUIRED_BOSSES]: _.range(1, 7),
     [this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: _.range(0, 9),
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'MS4xMC4wAEEABwEDAAygvgMA0AACAAAAAAGAIAAA';
+  static DEFAULT_PERMALINK = 'MS4xMS4wAEEASRBQGAAA+wLoEgAAAAAIAAQBAAA=';
 
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);
@@ -50,13 +55,17 @@ class Permalink {
     this._stringConfig(this.OPTIONS.VERSION),
     this._stringConfig(this.OPTIONS.SEED_NAME),
     this._booleanConfig(this.OPTIONS.PROGRESSION_DUNGEONS),
-    this._booleanConfig(this.OPTIONS.PROGRESSION_GREAT_FAIRIES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_TINGLE_CHESTS),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_DUNGEON_SECRETS),
     this._booleanConfig(this.OPTIONS.PROGRESSION_PUZZLE_SECRET_CAVES),
     this._booleanConfig(this.OPTIONS.PROGRESSION_COMBAT_SECRET_CAVES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_GREAT_FAIRIES),
     this._booleanConfig(this.OPTIONS.PROGRESSION_SHORT_SIDEQUESTS),
     this._booleanConfig(this.OPTIONS.PROGRESSION_LONG_SIDEQUESTS),
     this._booleanConfig(this.OPTIONS.PROGRESSION_SPOILS_TRADING),
     this._booleanConfig(this.OPTIONS.PROGRESSION_MINIGAMES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_BATTLESQUID),
     this._booleanConfig(this.OPTIONS.PROGRESSION_FREE_GIFTS),
     this._booleanConfig(this.OPTIONS.PROGRESSION_MAIL),
     this._booleanConfig(this.OPTIONS.PROGRESSION_PLATFORMS_RAFTS),
@@ -66,42 +75,49 @@ class Permalink {
     this._booleanConfig(this.OPTIONS.PROGRESSION_TRIFORCE_CHARTS),
     this._booleanConfig(this.OPTIONS.PROGRESSION_TREASURE_CHARTS),
     this._booleanConfig(this.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES),
-    this._booleanConfig(this.OPTIONS.PROGRESSION_MISC),
-    this._booleanConfig(this.OPTIONS.PROGRESSION_TINGLE_CHESTS),
-    this._booleanConfig(this.OPTIONS.PROGRESSION_BATTLESQUID),
-    this._booleanConfig(this.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH),
     this._booleanConfig(this.OPTIONS.PROGRESSION_ISLAND_PUZZLES),
+    this._booleanConfig(this.OPTIONS.PROGRESSION_MISC),
     this._booleanConfig(this.OPTIONS.KEYLUNACY),
-    this._dropdownConfig(this.OPTIONS.RANDOMIZE_ENTRANCES),
-    this._booleanConfig(this.OPTIONS.RANDOMIZE_CHARTS),
-    this._booleanConfig(this.OPTIONS.RANDOMIZE_STARTING_ISLAND),
+    this._dropdownConfig(this.OPTIONS.SWORD_MODE),
+    this._booleanConfig(this.OPTIONS.REQUIRED_BOSSES),
+    this._dropdownConfig(this.OPTIONS.NUM_REQUIRED_BOSSES),
     this._booleanConfig(this.OPTIONS.CHEST_TYPE_MATCHES_CONTENTS),
-    this._booleanConfig(this.OPTIONS.FISHMEN_HINTS),
+    this._booleanConfig(this.OPTIONS.TRAP_CHESTS),
+    this._booleanConfig(this.OPTIONS.HERO_MODE),
+    this._dropdownConfig(this.OPTIONS.LOGIC_OBSCURITY),
+    this._dropdownConfig(this.OPTIONS.LOGIC_PRECISION),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_BOSS_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES),
+    this._dropdownConfig(this.OPTIONS.MIX_ENTRANCES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_STARTING_ISLAND),
+    this._booleanConfig(this.OPTIONS.RANDOMIZE_CHARTS),
     this._booleanConfig(this.OPTIONS.HOHO_HINTS),
+    this._booleanConfig(this.OPTIONS.FISHMEN_HINTS),
     this._booleanConfig(this.OPTIONS.KORL_HINTS),
-    this._spinBoxConfig(this.OPTIONS.NUM_PATH_HINTS, 0, 15),
-    this._spinBoxConfig(this.OPTIONS.NUM_BARREN_HINTS, 0, 15),
-    this._spinBoxConfig(this.OPTIONS.NUM_LOCATION_HINTS, 0, 15),
     this._spinBoxConfig(this.OPTIONS.NUM_ITEM_HINTS, 0, 15),
+    this._spinBoxConfig(this.OPTIONS.NUM_LOCATION_HINTS, 0, 15),
+    this._spinBoxConfig(this.OPTIONS.NUM_BARREN_HINTS, 0, 15),
+    this._spinBoxConfig(this.OPTIONS.NUM_PATH_HINTS, 0, 15),
     this._booleanConfig(this.OPTIONS.CRYPTIC_HINTS),
     this._booleanConfig(this.OPTIONS.PRIORITIZE_REMOTE_HINTS),
     this._booleanConfig(this.OPTIONS.SWIFT_SAIL),
     this._booleanConfig(this.OPTIONS.INSTANT_TEXT_BOXES),
     this._booleanConfig(this.OPTIONS.REVEAL_FULL_SEA_CHART),
-    this._dropdownConfig(this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS),
     this._booleanConfig(this.OPTIONS.ADD_SHORTCUT_WARPS_BETWEEN_DUNGEONS),
-    this._booleanConfig(this.OPTIONS.DO_NOT_GENERATE_SPOILER_LOG),
-    this._dropdownConfig(this.OPTIONS.SWORD_MODE),
     this._booleanConfig(this.OPTIONS.SKIP_REMATCH_BOSSES),
-    this._booleanConfig(this.OPTIONS.RACE_MODE),
-    this._dropdownConfig(this.OPTIONS.NUM_RACE_MODE_DUNGEONS),
-    this._booleanConfig(this.OPTIONS.RANDOMIZE_MUSIC),
-    this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
+    this._booleanConfig(this.OPTIONS.REMOVE_MUSIC),
     this._startingGearConfig(),
+    this._dropdownConfig(this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS),
     this._spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
     this._spinBoxConfig(this.OPTIONS.STARTING_HCS, 0, 6),
-    this._booleanConfig(this.OPTIONS.REMOVE_MUSIC),
-    this._booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES),
+    this._spinBoxConfig(this.OPTIONS.NUM_EXTRA_STARTING_ITEMS, 0, 3),
+    this._booleanConfig(this.OPTIONS.DO_NOT_GENERATE_SPOILER_LOG),
   ];
 
   static _stringConfig(optionName) {
@@ -165,9 +181,11 @@ class Permalink {
       throw Error(`Invalid dropdown options for option: ${optionName}`);
     }
 
+    const numBits = (_.size(dropdownOptions) - 1).toString(2).length;
+
     return {
       decode: (binaryString, options) => {
-        const dropdownIndex = binaryString.popNumber(BinaryString.BYTE_SIZE);
+        const dropdownIndex = binaryString.popNumber(numBits);
         const dropdownValue = _.get(dropdownOptions, dropdownIndex);
 
         if (_.isNil(dropdownValue)) {
@@ -186,7 +204,7 @@ class Permalink {
           throw Error(`Invalid dropdown value: ${dropdownValue} for option: ${optionName}`);
         }
 
-        binaryString.addNumber(dropdownIndex, BinaryString.BYTE_SIZE);
+        binaryString.addNumber(dropdownIndex, numBits);
       },
     };
   }

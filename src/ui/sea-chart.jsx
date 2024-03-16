@@ -22,6 +22,7 @@ class SeaChart extends React.PureComponent {
       logic,
       onlyProgressLocations,
       setSelectedChartForIsland,
+      setSelectedEntrance,
       setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
@@ -29,10 +30,13 @@ class SeaChart extends React.PureComponent {
       trackerState,
       trackSpheres,
       unsetChartMapping,
+      unsetEntrance,
       unsetExit,
       updateOpenedChartForIsland,
+      updateOpenedEntrance,
       updateOpenedExit,
       updateOpenedLocation,
+      viewingEntrances,
     } = this.props;
 
     return (
@@ -48,6 +52,7 @@ class SeaChart extends React.PureComponent {
         logic={logic}
         onlyProgressLocations={onlyProgressLocations}
         setSelectedChartForIsland={setSelectedChartForIsland}
+        setSelectedEntrance={setSelectedEntrance}
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
@@ -55,10 +60,13 @@ class SeaChart extends React.PureComponent {
         trackerState={trackerState}
         trackSpheres={trackSpheres}
         unsetChartMapping={unsetChartMapping}
+        unsetEntrance={unsetEntrance}
         unsetExit={unsetExit}
         updateOpenedChartForIsland={updateOpenedChartForIsland}
+        updateOpenedEntrance={updateOpenedEntrance}
         updateOpenedExit={updateOpenedExit}
         updateOpenedLocation={updateOpenedLocation}
+        viewingEntrances={viewingEntrances}
       />
     );
   }
@@ -89,6 +97,7 @@ SeaChart.propTypes = {
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   setSelectedChartForIsland: PropTypes.func.isRequired,
+  setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
@@ -96,10 +105,13 @@ SeaChart.propTypes = {
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
+  unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedChartForIsland: PropTypes.func.isRequired,
+  updateOpenedEntrance: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
+  viewingEntrances: PropTypes.bool.isRequired,
 };
 
 export default SeaChart;

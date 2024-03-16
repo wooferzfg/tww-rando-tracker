@@ -1,6 +1,5 @@
 import _ from 'lodash';
 
-import CAVES from '../data/caves.json';
 import CHARTS from '../data/charts.json';
 import HAS_ACCESSED_LOCATION_TWEAKS from '../data/has-accessed-location-tweaks.json';
 import ISLANDS from '../data/islands.json';
@@ -35,11 +34,11 @@ class LogicTweaks {
   }
 
   static _updateMacros() {
-    this._updateDungeonEntranceMacros();
-    this._updateCaveEntranceMacros();
+    this._updateRandomEntranceMacros();
     this._updateChartMacros();
     this._updateTriforceMacro();
     this._applyHasAccessedLocationTweaksForMacros();
+    this._updateRequiredBossesModeMacro();
   }
 
   static _addDefeatGanondorf() {
@@ -83,10 +82,6 @@ class LogicTweaks {
     });
   }
 
-  static _replaceCanAccessOtherLocation(requirements) {
-    return requirements.replace(/Can Access Other Location/g, 'Has Accessed Other Location');
-  }
-
   static _applyHasAccessedLocationTweaksForLocations() {
     const itemLocationTweaks = HAS_ACCESSED_LOCATION_TWEAKS.itemLocations;
     _.forEach(itemLocationTweaks, (generalLocationInfo, generalLocation) => {
@@ -117,30 +112,10 @@ class LogicTweaks {
     });
   }
 
-  static _canAccessMacroName(locationName) {
-    return `Can Access ${locationName}`;
-  }
-
-  static _updateDungeonEntranceMacros() {
-    if (!LogicHelper.isRandomDungeonEntrances()) {
-      return;
-    }
-
-    _.forEach(LogicHelper.mainDungeons(), (dungeon) => {
-      const macroName = this._canAccessMacroName(dungeon);
-      const entryName = LogicHelper.entryName(dungeon);
-      Macros.setMacro(macroName, entryName);
-    });
-  }
-
-  static _updateCaveEntranceMacros() {
-    if (!LogicHelper.isRandomCaveEntrances()) {
-      return;
-    }
-
-    _.forEach(CAVES, (cave) => {
-      const macroName = this._canAccessMacroName(cave);
-      const entryName = LogicHelper.entryName(cave);
+  static _updateRandomEntranceMacros() {
+    _.forEach(LogicHelper.allRandomEntrances(), (exitMacroName) => {
+      const macroName = `Can Access ${exitMacroName}`;
+      const entryName = LogicHelper.entryName(exitMacroName);
       Macros.setMacro(macroName, entryName);
     });
   }
@@ -161,6 +136,23 @@ class LogicTweaks {
 
   static _updateTriforceMacro() {
     Macros.setMacro('All 8 Triforce Shards', 'Triforce Shard x8');
+  }
+
+  static _updateRequiredBossesModeMacro() {
+    if (!Settings.getOptionValue(Permalink.OPTIONS.REQUIRED_BOSSES)) {
+      return;
+    }
+
+    const bossRequirements = _.map(
+      LogicHelper.REQUIRED_BOSSES_MODE_DUNGEONS,
+      (dungeonName) => LogicHelper.bossRequirementForDungeon(dungeonName),
+    );
+    const macroValue = _.join(bossRequirements, ` ${LogicHelper.TOKENS.AND} `);
+    Macros.setMacro('Can Defeat All Required Bosses', macroValue);
+  }
+
+  static _replaceCanAccessOtherLocation(requirements) {
+    return requirements.replace(/Can Access Item Location/g, 'Has Accessed Other Location');
   }
 }
 

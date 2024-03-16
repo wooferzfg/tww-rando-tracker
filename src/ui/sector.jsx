@@ -4,14 +4,24 @@ import React from 'react';
 
 import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
+import Permalink from '../services/permalink';
+import Settings from '../services/settings';
 import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
 import Images from './images';
 import Item from './item';
 import KeyDownWrapper from './key-down-wrapper';
+import RequirementsTooltip from './requirements-tooltip';
+import Tooltip from './tooltip';
 
 class Sector extends React.PureComponent {
+  static _COLOR_TO_COUNT_MAPPING = {
+    [LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION]: 0,
+    [LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION]: 1,
+    [LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION]: 2,
+  };
+
   chestsCounter() {
     const {
       disableLogic,
@@ -25,7 +35,6 @@ class Sector extends React.PureComponent {
       numAvailable,
       numRemaining,
     } = logic.locationCounts(island, {
-      isDungeon: false,
       onlyProgressLocations,
       disableLogic,
     });
@@ -134,76 +143,126 @@ class Sector extends React.PureComponent {
     );
   }
 
-  entrances() {
-    if (!LogicHelper.isRandomCaveEntrances()) {
-      return [];
-    }
+  islandEntrance(entranceInfo) {
+    const {
+      entrance,
+      color,
+    } = entranceInfo;
 
     const {
-      island,
+      clearSelectedItem,
+      clearSelectedLocation,
+      disableLogic,
+      logic,
+      setSelectedEntrance,
       trackerState,
+      unsetEntrance,
+      updateOpenedEntrance,
     } = this.props;
 
-    const cavesForIsland = LogicHelper.cavesForIsland(island);
+    const itemCount = Sector._COLOR_TO_COUNT_MAPPING[color];
+    const shortEntranceName = LogicHelper.shortEntranceName(entrance);
 
-    return _.map(cavesForIsland, (caveName) => {
-      const entryName = LogicHelper.entryName(caveName);
-      const entryCount = trackerState.getItemValue(entryName);
+    const setSelectedItemFunc = () => setSelectedEntrance(entrance);
 
-      return {
-        entryCount,
-        entryName,
-        locationName: caveName,
-      };
-    });
+    const incrementItemFunc = () => {
+      const isEntranceChecked = trackerState.isEntranceChecked(entrance);
+
+      if (isEntranceChecked) {
+        unsetEntrance(entrance);
+      } else {
+        clearSelectedItem();
+        clearSelectedLocation();
+
+        updateOpenedEntrance(entrance);
+      }
+    };
+
+    let entranceElement = (
+      <Item
+        clearSelectedItem={clearSelectedItem}
+        images={Images.IMAGES.ISLAND_ENTRANCE}
+        incrementItem={incrementItemFunc}
+        itemCount={itemCount}
+        itemName={shortEntranceName}
+        setSelectedItem={setSelectedItemFunc}
+      />
+    );
+
+    if (!disableLogic && color !== LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION) {
+      const requirements = logic.formattedRequirementsForEntrance(entrance);
+      const requirementsTooltip = (
+        <RequirementsTooltip requirements={requirements} />
+      );
+      entranceElement = (
+        <Tooltip tooltipContent={requirementsTooltip}>
+          {entranceElement}
+        </Tooltip>
+      );
+    }
+
+    return (
+      <div className="cave-entry" key={entrance}>
+        {entranceElement}
+      </div>
+    );
   }
 
-  entryItems() {
+  islandExit(exitName) {
     const {
       clearSelectedItem,
       clearSelectedLocation,
       setSelectedExit,
+      trackerState,
       unsetExit,
       updateOpenedExit,
     } = this.props;
 
-    const entrances = this.entrances();
+    const entryName = LogicHelper.entryName(exitName);
+    const entryCount = trackerState.getItemValue(entryName);
 
-    return _.map(entrances, (entrance) => {
-      const {
-        entryCount,
-        entryName,
-        locationName,
-      } = entrance;
+    const setSelectedItemFunc = () => setSelectedExit(exitName);
 
-      const entranceImages = _.get(Images.IMAGES, 'CAVE_ENTRANCE');
+    const incrementItemFunc = () => {
+      if (entryCount > 0) {
+        unsetExit(exitName);
+      } else {
+        clearSelectedItem();
+        clearSelectedLocation();
 
-      const setSelectedItemFunc = () => setSelectedExit(locationName);
+        updateOpenedExit(exitName);
+      }
+    };
 
-      const incrementItemFunc = () => {
-        if (entryCount > 0) {
-          unsetExit(locationName);
-        } else {
-          clearSelectedItem();
-          clearSelectedLocation();
+    return (
+      <div className="cave-entry" key={entryName}>
+        <Item
+          clearSelectedItem={clearSelectedItem}
+          images={Images.IMAGES.ISLAND_EXIT}
+          incrementItem={incrementItemFunc}
+          itemCount={entryCount}
+          itemName={entryName}
+          setSelectedItem={setSelectedItemFunc}
+        />
+      </div>
+    );
+  }
 
-          updateOpenedExit(locationName);
-        }
-      };
+  entranceExitItems() {
+    const {
+      disableLogic,
+      island,
+      logic,
+      viewingEntrances,
+    } = this.props;
 
-      return (
-        <div className="cave-entry" key={entryName}>
-          <Item
-            clearSelectedItem={clearSelectedItem}
-            images={entranceImages}
-            incrementItem={incrementItemFunc}
-            itemCount={entryCount}
-            itemName={entryName}
-            setSelectedItem={setSelectedItemFunc}
-          />
-        </div>
-      );
-    });
+    if (viewingEntrances) {
+      const islandEntrances = logic.entrancesListForIsland(island, { disableLogic });
+      return _.map(islandEntrances, (islandEntrance) => this.islandEntrance(islandEntrance));
+    }
+
+    const islandExits = LogicHelper.exitsForIsland(island);
+    return _.map(islandExits, (exitName) => this.islandExit(exitName));
   }
 
   render() {
@@ -223,10 +282,7 @@ class Sector extends React.PureComponent {
       });
     };
 
-    const setSelectedLocationFunc = () => setSelectedLocation({
-      isDungeon: false,
-      locationName: island,
-    });
+    const setSelectedLocationFunc = () => setSelectedLocation({ locationName: island });
 
     return (
       <div
@@ -240,8 +296,12 @@ class Sector extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        {LogicHelper.isRandomizedChartsSettings() ? this.chartIsland() : this.chartItem()}
-        {this.entryItems()}
+        {
+          Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)
+            ? this.chartIsland()
+            : this.chartItem()
+        }
+        {this.entranceExitItems()}
         {this.chestsCounter()}
       </div>
     );
@@ -259,6 +319,7 @@ Sector.propTypes = {
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   setSelectedChartForIsland: PropTypes.func.isRequired,
+  setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
@@ -266,10 +327,13 @@ Sector.propTypes = {
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
+  unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedChartForIsland: PropTypes.func.isRequired,
+  updateOpenedEntrance: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
+  viewingEntrances: PropTypes.bool.isRequired,
 };
 
 export default Sector;

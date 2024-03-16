@@ -13,7 +13,10 @@ class LogicCalculation {
     this.state = state;
 
     Memoizer.memoize(this, [
+      'entrancesListForDungeon',
+      'entrancesListForIsland',
       'estimatedLocationsLeftToCheck',
+      'exitsListForEntrance',
       'formattedRequirementsForEntrance',
       'formattedRequirementsForLocation',
       'isBossDefeated',
@@ -50,21 +53,22 @@ class LogicCalculation {
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
       detailedLocation,
+      false,
     );
 
     return this._formatRequirements(requirementsForLocation);
   }
 
-  formattedRequirementsForEntrance(dungeonOrCaveName) {
-    const requirementsForEntrance = LogicHelper.requirementsForEntrance(dungeonOrCaveName);
+  formattedRequirementsForEntrance(entranceName) {
+    const requirementsForEntrance = LogicHelper.requirementsForEntrance(entranceName);
 
     return this._formatRequirements(requirementsForEntrance);
   }
 
-  locationCounts(generalLocation, { isDungeon, onlyProgressLocations, disableLogic }) {
+  locationCounts(generalLocation, { onlyProgressLocations, disableLogic }) {
     const detailedLocations = LogicHelper.filterDetailedLocations(
       generalLocation,
-      { isDungeon, onlyProgressLocations },
+      { onlyProgressLocations },
     );
 
     let anyProgress = false;
@@ -93,10 +97,10 @@ class LogicCalculation {
     };
   }
 
-  locationsList(generalLocation, { isDungeon, onlyProgressLocations, disableLogic }) {
+  locationsList(generalLocation, { onlyProgressLocations, disableLogic }) {
     const detailedLocations = LogicHelper.filterDetailedLocations(
       generalLocation,
-      { isDungeon, onlyProgressLocations },
+      { onlyProgressLocations },
     );
 
     return _.map(detailedLocations, (detailedLocation) => {
@@ -117,16 +121,43 @@ class LogicCalculation {
     });
   }
 
-  entrancesList({ disableLogic }) {
+  entrancesListForExit(exitName, { disableLogic }) {
     return this._entrancesListForEntrances(
-      LogicHelper.allRandomEntrances(),
+      LogicHelper.randomEntrancesForExit(exitName),
       { disableLogic },
     );
   }
 
-  entrancesListForExit(dungeonOrCaveName, { disableLogic }) {
+  exitsListForEntrance(entranceName) {
+    const exits = LogicHelper.randomExitsForEntrance(entranceName);
+
+    const exitsWithColors = _.map(exits, (exitName) => {
+      const entryName = LogicHelper.entryName(exitName);
+      const isChecked = this.state.getItemValue(entryName) > 0;
+      const color = LogicCalculation._locationColor(true, isChecked, true);
+
+      return {
+        exit: exitName,
+        color,
+      };
+    });
+
+    return _.concat(exitsWithColors, {
+      exit: LogicHelper.NOTHING_EXIT,
+      color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+    });
+  }
+
+  entrancesListForIsland(islandName, { disableLogic }) {
     return this._entrancesListForEntrances(
-      LogicHelper.randomEntrancesForExit(dungeonOrCaveName),
+      LogicHelper.entrancesForIsland(islandName),
+      { disableLogic },
+    );
+  }
+
+  entrancesListForDungeon(zoneName, { disableLogic }) {
+    return this._entrancesListForEntrances(
+      LogicHelper.entrancesForDungeon(zoneName),
       { disableLogic },
     );
   }
@@ -208,21 +239,22 @@ class LogicCalculation {
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
       detailedLocation,
+      false,
     );
 
     return this._areRequirementsMet(requirementsForLocation);
   }
 
-  isEntranceAvailable(dungeonOrCaveName) {
-    const requirementsForEntrance = LogicHelper.requirementsForEntrance(dungeonOrCaveName);
+  isEntranceAvailable(entranceName) {
+    const requirementsForEntrance = LogicHelper.requirementsForEntrance(entranceName);
 
     return this._areRequirementsMet(requirementsForEntrance);
   }
 
   _entrancesListForEntrances(entrances, { disableLogic }) {
-    return _.map(entrances, (dungeonOrCaveName) => {
-      const isAvailable = this.isEntranceAvailable(dungeonOrCaveName);
-      const isChecked = this.state.isEntranceChecked(dungeonOrCaveName);
+    return _.map(entrances, (entranceName) => {
+      const isAvailable = this.isEntranceAvailable(entranceName);
+      const isChecked = this.state.isEntranceChecked(entranceName);
 
       const color = LogicCalculation._locationColor(
         disableLogic || isAvailable,
@@ -231,7 +263,7 @@ class LogicCalculation {
       );
 
       return {
-        entrance: dungeonOrCaveName,
+        entrance: entranceName,
         color,
       };
     });
@@ -268,6 +300,7 @@ class LogicCalculation {
     const requirementsForLocation = LogicHelper.requirementsForLocation(
       generalLocation,
       detailedLocation,
+      true,
     );
 
     return this._itemsRemainingForRequirements(requirementsForLocation);
@@ -281,7 +314,7 @@ class LogicCalculation {
     );
 
     if (!Settings.getOptionValue(Permalink.OPTIONS.KEYLUNACY)) {
-      _.forEach(LogicHelper.mainDungeons(), (dungeonName) => {
+      _.forEach(LogicHelper.MAIN_DUNGEONS, (dungeonName) => {
         const {
           guaranteedSmallKeys,
           guaranteedBigKeys,
@@ -368,6 +401,7 @@ class LogicCalculation {
       this._itemCountRequirementRemaining(requirement),
       this._itemRequirementRemaining(requirement),
       this._hasAccessedOtherLocationRequirementRemaining(requirement),
+      this._bossRequirementRemaining(requirement),
     ];
 
     const remainingItems = _.find(remainingItemsForRequirements, (result) => !_.isNil(result));
@@ -423,9 +457,7 @@ class LogicCalculation {
   }
 
   static _parseHasAccessedOtherLocation(requirement) {
-    const otherLocationMatch = requirement.match(/Has Accessed Other Location "([^"]+)"/);
-
-    return _.get(otherLocationMatch, 1);
+    return _.get(requirement.match(LogicHelper.HAS_ACCESSED_OTHER_LOCATION_REGEX), 1);
   }
 
   _hasAccessedOtherLocationRequirementRemaining(requirement) {
@@ -439,6 +471,15 @@ class LogicCalculation {
       return this._itemsRemainingForLocation(generalLocation, detailedLocation);
     }
 
+    return null;
+  }
+
+  _bossRequirementRemaining(requirement) {
+    const bossLocation = LogicHelper.bossLocationForRequirement(requirement);
+    if (!_.isNil(bossLocation)) {
+      const { generalLocation, detailedLocation } = bossLocation;
+      return this._itemsRemainingForLocation(generalLocation, detailedLocation);
+    }
     return null;
   }
 

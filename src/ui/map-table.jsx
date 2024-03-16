@@ -20,7 +20,7 @@ class MapTable extends React.PureComponent {
 
     return _.map(arrangedItems, (tableRow, index) => (
       <tr key={index}>
-        {_.map(tableRow, (item) => mappingFunc(item, numColumns))}
+        {_.map(tableRow, (item) => mappingFunc(item, numColumns, updatedNumRows))}
       </tr>
     ));
   }

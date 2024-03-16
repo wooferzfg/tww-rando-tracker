@@ -4,6 +4,8 @@ import React from 'react';
 
 import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
+import Permalink from '../services/permalink';
+import Settings from '../services/settings';
 import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
@@ -53,7 +55,7 @@ class ChartList extends React.PureComponent {
 
     const chartElement = (
       <div
-        className={`detail-span ${notInteractiveClassName} ${color} font-smallest`}
+        className={`detail-span ${notInteractiveClassName} ${color} font-three-columns`}
         onClick={updateChartMappingFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(updateChartMappingFunc)}
         role="button"
@@ -99,7 +101,7 @@ class ChartList extends React.PureComponent {
 
     const itemCount = trackerState.getItemValue(chartName);
     const mappedIslandForChart = (
-      LogicHelper.isRandomizedChartsSettings()
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)
         ? trackerState.getIslandFromChartMapping(chartName)
         : LogicHelper.islandForChart(chartName)
     );
@@ -119,7 +121,7 @@ class ChartList extends React.PureComponent {
 
       incrementItem(chartName);
 
-      if (LogicHelper.isRandomizedChartsSettings()) {
+      if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
         if (isChartMapped) {
           unsetChartMapping(LogicHelper.chartForIslandName(mappedIslandForChart), true);
         }
@@ -128,7 +130,7 @@ class ChartList extends React.PureComponent {
 
     const chartElement = (
       <div
-        className={`detail-span ${color} font-smallest`}
+        className={`detail-span ${color} font-three-columns`}
         onClick={incrementItemFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(incrementItemFunc)}
         role="button"
