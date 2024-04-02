@@ -769,12 +769,13 @@ button:hover:enabled {
   margin-left: 20px;
 }
 
-.color-picker-window {
+.settings-window {
   position: fixed;
   background-color: white;
   padding: 10px;
   width: 400px;
   user-select: none;
+  z-index: 10;
 
   .close-color-picker {
     position: fixed;
@@ -789,27 +790,27 @@ button:hover:enabled {
     z-index: 10;
   }
 
-  .color-picker-top-row {
+  .settings-window-top-row {
     display: flex;
   }
 
-  .color-picker-title {
+  .settings-window-title {
     font-size: 20px;
   }
 
-  .color-picker-row {
+  .settings-window-row {
     display: flex;
     height: 35px;
     align-items: center;
   }
 
-  .color-picker-label {
+  .settings-window-label {
     cursor: pointer;
     width: 360px;
     margin-left: 5px;
   }
 
-  .color-picker-checkbox {
+  .settings-window-checkbox {
     cursor: pointer;
   }
 

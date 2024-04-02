@@ -8,10 +8,10 @@ import LogicHelper from '../services/logic-helper';
 import TrackerController from '../services/tracker-controller';
 
 import Buttons from './buttons';
-import ColorPickerWindow from './color-picker-window';
 import Images from './images';
 import ItemsTable from './items-table';
 import LocationsTable from './locations-table';
+import SettingsWindow from './settings-window';
 import SphereTracking from './sphere-tracking';
 import Statistics from './statistics';
 import Storage from './storage';
@@ -24,7 +24,7 @@ class Tracker extends React.PureComponent {
 
     this.state = {
       chartListOpen: false,
-      colorPickerOpen: false,
+      settingsWindowOpen: false,
       colors: {
         extraLocationsBackground: null,
         itemsTableBackground: null,
@@ -50,24 +50,22 @@ class Tracker extends React.PureComponent {
     this.decrementItem = this.decrementItem.bind(this);
     this.incrementItem = this.incrementItem.bind(this);
     this.toggleChartList = this.toggleChartList.bind(this);
-    this.toggleColorPicker = this.toggleColorPicker.bind(this);
-    this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
+    this.toggleSettingsWindow = this.toggleSettingsWindow.bind(this);
     this.toggleEntrances = this.toggleEntrances.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleRequiredBoss = this.toggleRequiredBoss.bind(this);
-    this.toggleTrackSpheres = this.toggleTrackSpheres.bind(this);
     this.unsetChartMapping = this.unsetChartMapping.bind(this);
     this.unsetEntrance = this.unsetEntrance.bind(this);
     this.unsetExit = this.unsetExit.bind(this);
     this.unsetLastLocation = this.unsetLastLocation.bind(this);
     this.updateChartMapping = this.updateChartMapping.bind(this);
-    this.updateColors = this.updateColors.bind(this);
     this.updateExitForEntrance = this.updateExitForEntrance.bind(this);
     this.updateOpenedChartForIsland = this.updateOpenedChartForIsland.bind(this);
     this.updateOpenedEntrance = this.updateOpenedEntrance.bind(this);
     this.updateOpenedExit = this.updateOpenedExit.bind(this);
     this.updateOpenedLocation = this.updateOpenedLocation.bind(this);
+    this.updatePreferences = this.updatePreferences.bind(this);
   }
 
   async initialize() {
@@ -209,12 +207,6 @@ class Tracker extends React.PureComponent {
       spheres,
       trackerState,
     });
-  }
-
-  toggleDisableLogic() {
-    const { disableLogic } = this.state;
-
-    this.updatePreferences({ disableLogic: !disableLogic });
   }
 
   clearOpenedMenus() {
@@ -368,11 +360,11 @@ class Tracker extends React.PureComponent {
     this.updatePreferences({ onlyProgressLocations: !onlyProgressLocations });
   }
 
-  toggleColorPicker() {
-    const { colorPickerOpen } = this.state;
+  toggleSettingsWindow() {
+    const { settingsWindowOpen } = this.state;
 
     this.setState({
-      colorPickerOpen: !colorPickerOpen,
+      settingsWindowOpen: !settingsWindowOpen,
     });
   }
 
@@ -382,25 +374,15 @@ class Tracker extends React.PureComponent {
     this.updatePreferences({ viewingEntrances: !viewingEntrances });
   }
 
-  toggleTrackSpheres() {
-    const { trackSpheres } = this.state;
-
-    this.updatePreferences({ trackSpheres: !trackSpheres });
-  }
-
   unsetLastLocation() {
     this.setState({ lastLocation: null });
   }
 
-  updateColors(colorChanges) {
-    this.updatePreferences({ colors: colorChanges });
-  }
-
   updatePreferences(preferenceChanges) {
     const {
-      colors,
       disableLogic,
       onlyProgressLocations,
+      colors,
       trackSpheres,
       viewingEntrances,
     } = this.state;
@@ -422,7 +404,6 @@ class Tracker extends React.PureComponent {
   render() {
     const {
       chartListOpen,
-      colorPickerOpen,
       colors,
       disableLogic,
       isLoading,
@@ -435,6 +416,7 @@ class Tracker extends React.PureComponent {
       openedLocation,
       openedLocationIsDungeon,
       saveData,
+      settingsWindowOpen,
       spheres,
       trackSpheres,
       trackerState,
@@ -513,29 +495,28 @@ class Tracker extends React.PureComponent {
               unsetLastLocation={this.unsetLastLocation}
             />
           )}
-          {colorPickerOpen && (
-            <ColorPickerWindow
+          {settingsWindowOpen && (
+            <SettingsWindow
+              disableLogic={disableLogic}
               extraLocationsBackground={extraLocationsBackground}
               itemsTableBackground={itemsTableBackground}
               sphereTrackingBackground={sphereTrackingBackground}
               statisticsBackground={statisticsBackground}
-              toggleColorPicker={this.toggleColorPicker}
-              updateColors={this.updateColors}
+              toggleSettingsWindow={this.toggleSettingsWindow}
+              trackSpheres={trackSpheres}
+              updatePreferences={this.updatePreferences}
             />
           )}
           <Buttons
-            colorPickerOpen={colorPickerOpen}
-            disableLogic={disableLogic}
+            settingsWindowOpen={settingsWindowOpen}
             chartListOpen={chartListOpen}
             onlyProgressLocations={onlyProgressLocations}
             saveData={saveData}
             trackSpheres={trackSpheres}
             toggleChartList={this.toggleChartList}
-            toggleColorPicker={this.toggleColorPicker}
-            toggleDisableLogic={this.toggleDisableLogic}
+            toggleSettingsWindow={this.toggleSettingsWindow}
             toggleEntrances={this.toggleEntrances}
             toggleOnlyProgressLocations={this.toggleOnlyProgressLocations}
-            toggleTrackSpheres={this.toggleTrackSpheres}
             viewingEntrances={viewingEntrances}
           />
         </div>

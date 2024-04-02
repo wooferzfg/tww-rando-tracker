@@ -5,7 +5,7 @@ import React from 'react';
 import ColorPicker from './color-picker';
 import KeyDownWrapper from './key-down-wrapper';
 
-class ColorPickerWindow extends React.PureComponent {
+class SettingsWindow extends React.PureComponent {
   static _DEFAULT_EXTRA_LOCATIONS_BACKGROUND = '#a0a0a0';
 
   static _DEFAULT_ITEMS_TABLE_BACKGROUND = '#69891c';
@@ -20,9 +20,13 @@ class ColorPickerWindow extends React.PureComponent {
     const checkboxId = `${key}-checkbox`;
 
     const updateFunc = (color) => {
-      const { updateColors } = this.props;
+      const { updatePreferences } = this.props;
 
-      updateColors({ [key]: color });
+      updatePreferences({
+        colors: {
+          [key]: color,
+        },
+      });
     };
 
     const toggleFunc = () => {
@@ -32,16 +36,16 @@ class ColorPickerWindow extends React.PureComponent {
     };
 
     return (
-      <div className="color-picker-row">
+      <div className="settings-window-row">
         <input
-          className="color-picker-checkbox"
+          className="settings-window-checkbox"
           checked={isColorSet}
           id={checkboxId}
           onChange={() => toggleFunc()}
           type="checkbox"
         />
         <label
-          className="color-picker-label"
+          className="settings-window-label"
           htmlFor={checkboxId}
         >
           {labelText}
@@ -56,23 +60,53 @@ class ColorPickerWindow extends React.PureComponent {
     );
   }
 
+  checkboxRow(labelText, pickedValue, key) {
+    const checkboxId = `${key}-checkbox`;
+
+    const toggleFunc = () => {
+      const { updatePreferences } = this.props;
+
+      updatePreferences({ [key]: !pickedValue });
+    };
+
+    return (
+      <div className="settings-window-row">
+        <input
+          className="settings-window-checkbox"
+          checked={pickedValue}
+          id={checkboxId}
+          onChange={() => toggleFunc()}
+          type="checkbox"
+        />
+        <label
+          className="settings-window-label"
+          htmlFor={checkboxId}
+        >
+          {labelText}
+        </label>
+      </div>
+    );
+  }
+
   render() {
     const {
+      disableLogic,
       extraLocationsBackground,
       itemsTableBackground,
       sphereTrackingBackground,
       statisticsBackground,
-      toggleColorPicker,
+      toggleSettingsWindow,
+      trackSpheres,
     } = this.props;
 
     return (
-      <div className="color-picker-window">
-        <div className="color-picker-top-row">
-          <div className="color-picker-title">Color Picker</div>
+      <div className="settings-window">
+        <div className="settings-window-top-row">
+          <div className="settings-window-title">Settings</div>
           <div
             className="close-button"
-            onClick={toggleColorPicker}
-            onKeyDown={KeyDownWrapper.onSpaceKey(toggleColorPicker)}
+            onClick={toggleSettingsWindow}
+            onKeyDown={KeyDownWrapper.onSpaceKey(toggleSettingsWindow)}
             role="button"
             tabIndex="0"
           >
@@ -83,45 +117,57 @@ class ColorPickerWindow extends React.PureComponent {
           'Locations',
           extraLocationsBackground,
           'extraLocationsBackground',
-          ColorPickerWindow._DEFAULT_EXTRA_LOCATIONS_BACKGROUND,
+          SettingsWindow._DEFAULT_EXTRA_LOCATIONS_BACKGROUND,
         )}
         {this.colorPickerRow(
           'Items',
           itemsTableBackground,
           'itemsTableBackground',
-          ColorPickerWindow._DEFAULT_ITEMS_TABLE_BACKGROUND,
+          SettingsWindow._DEFAULT_ITEMS_TABLE_BACKGROUND,
         )}
         {this.colorPickerRow(
           'Statistics',
           statisticsBackground,
           'statisticsBackground',
-          ColorPickerWindow._DEFAULT_STATISTICS_BACKGROUND,
+          SettingsWindow._DEFAULT_STATISTICS_BACKGROUND,
         )}
         {this.colorPickerRow(
           'Sphere Tracking',
           sphereTrackingBackground,
           'sphereTrackingBackground',
-          ColorPickerWindow._DEFAULT_SPHERE_TRACKING_BACKGROUND,
+          SettingsWindow._DEFAULT_SPHERE_TRACKING_BACKGROUND,
+        )}
+        {this.checkboxRow(
+          'Show Location Logic',
+          disableLogic,
+          'disableLogic',
+        )}
+        {this.checkboxRow(
+          'Track Spheres',
+          trackSpheres,
+          'trackSpheres',
         )}
       </div>
     );
   }
 }
 
-ColorPickerWindow.defaultProps = {
+SettingsWindow.defaultProps = {
   extraLocationsBackground: null,
   itemsTableBackground: null,
   sphereTrackingBackground: null,
   statisticsBackground: null,
 };
 
-ColorPickerWindow.propTypes = {
+SettingsWindow.propTypes = {
+  disableLogic: PropTypes.bool.isRequired,
   extraLocationsBackground: PropTypes.string,
   itemsTableBackground: PropTypes.string,
   sphereTrackingBackground: PropTypes.string,
   statisticsBackground: PropTypes.string,
-  toggleColorPicker: PropTypes.func.isRequired,
-  updateColors: PropTypes.func.isRequired,
+  toggleSettingsWindow: PropTypes.func.isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
+  updatePreferences: PropTypes.func.isRequired,
 };
 
-export default ColorPickerWindow;
+export default SettingsWindow;
