@@ -512,7 +512,6 @@ class Tracker extends React.PureComponent {
             chartListOpen={chartListOpen}
             onlyProgressLocations={onlyProgressLocations}
             saveData={saveData}
-            trackSpheres={trackSpheres}
             toggleChartList={this.toggleChartList}
             toggleSettingsWindow={this.toggleSettingsWindow}
             toggleEntrances={this.toggleEntrances}
