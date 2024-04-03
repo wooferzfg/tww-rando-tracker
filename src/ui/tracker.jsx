@@ -503,6 +503,7 @@ class Tracker extends React.PureComponent {
       content = (
         <div className="tracker-container">
           <div className="tracker">
+            {startingItemSelection && <div className="darken-background" />}
             <ItemsTable
               backgroundColor={itemsTableBackground}
               changedStartingItems={changedStartingItems}

@@ -51,7 +51,7 @@ class Buttons extends React.PureComponent {
     const isRandomEntrances = LogicHelper.isRandomEntrances();
 
     return (
-      <div className="buttons">
+      <div className={`buttons ${startingItemSelection ? 'darken-background-z-index' : ''}`}>
         <button
           onClick={this.exportProgress}
           type="button"
