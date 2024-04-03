@@ -37,6 +37,7 @@ jobs:
   combined_deploy:
     runs-on: ubuntu-latest
     needs: build_branch
+    concurrency: combined_deploy
 
     steps:
       - name: Deploy branches
