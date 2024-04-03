@@ -60,7 +60,7 @@ class SettingsWindow extends React.PureComponent {
     );
   }
 
-  checkboxRow(labelText, pickedValue, key) {
+  checkboxRow(labelText, pickedValue, key, getCheckedValue = (value) => value) {
     const checkboxId = `${key}-checkbox`;
 
     const toggleFunc = () => {
@@ -73,7 +73,7 @@ class SettingsWindow extends React.PureComponent {
       <div className="settings-window-row">
         <input
           className="settings-window-checkbox"
-          checked={pickedValue}
+          checked={getCheckedValue(pickedValue)}
           id={checkboxId}
           onChange={() => toggleFunc()}
           type="checkbox"
@@ -142,6 +142,7 @@ class SettingsWindow extends React.PureComponent {
           'Show Location Logic',
           disableLogic,
           'disableLogic',
+          (value) => !value,
         )}
         {this.checkboxRow(
           'Track Spheres',
