@@ -2,7 +2,6 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useId } from 'react';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
-import 'react-tooltip/dist/react-tooltip.css';
 
 function Tooltip({ children, tooltipContent }) {
   if (_.isNil(tooltipContent)) {
@@ -14,14 +13,13 @@ function Tooltip({ children, tooltipContent }) {
   return (
     <div
       className="tooltip-wrapper"
-      data-tooltip-content
-      id={tooltipId}
+      data-tooltip-id={tooltipId}
       data-tooltip-place="bottom"
       data-tooltip-variant="light"
     >
       {children}
       <ReactTooltip
-        anchorId={tooltipId}
+        id={tooltipId}
         className="tooltip-element"
       >
         {tooltipContent}

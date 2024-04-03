@@ -9,12 +9,12 @@ jobs:
 
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Node
-        uses: actions/setup-node@v3.8.1
+        uses: actions/setup-node@v4.0.2
         with:
-          node-version: '18.x'
+          node-version: '20.x'
 
       - name: Install npm packages
         run: |
@@ -37,6 +37,7 @@ jobs:
   combined_deploy:
     runs-on: ubuntu-latest
     needs: build_branch
+    concurrency: combined_deploy
 
     steps:
       - name: Deploy branches

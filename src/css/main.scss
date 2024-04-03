@@ -35,7 +35,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 4px 0 0 0;
+    padding: 4px 20px 0 20px;
   }
 
   .permalink-label {
@@ -45,11 +45,13 @@ body {
   .permalink-input {
     margin-left: 5px;
     margin-right: 5px;
+    flex-grow: 1;
+    max-width: 750px;
 
     .permalink {
       font-size: 1em;
       margin-left: 4px;
-      width: 450px;
+      width: 100%;
     }
   }
 
@@ -128,6 +130,7 @@ body {
             display: flex;
             align-items: center;
             padding: inherit;
+            max-width: 100%;
 
             select {
               height: 34px;
@@ -199,7 +202,8 @@ input {
   width: 6%;
 }
 
-button,
+.tracker-container button,
+.launcher-container button,
 .permalink {
   padding: 6px;
   border-radius: 5px;
@@ -209,7 +213,8 @@ button,
   margin-right: 2px;
 }
 
-button,
+.tracker-container button,
+.launcher-container button,
 select {
   background: linear-gradient(#d2d2d2, #c8c8c8);
   font-family: "Fira Sans", sans-serif;
@@ -318,6 +323,12 @@ button:hover:enabled {
     float: left;
   }
 
+  .dins-pearl img,
+  .farores-pearl img {
+    width: 48px;
+    height: 48px;
+  }
+
   .other-items {
     display: flex;
     width: 100%;
@@ -330,9 +341,9 @@ button:hover:enabled {
   }
 
   .pearls {
-    width: 96px;
+    width: 97px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: -1px;
     position: relative;
 
     .item-container {

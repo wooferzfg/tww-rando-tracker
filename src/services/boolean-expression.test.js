@@ -1151,5 +1151,180 @@ describe('BooleanExpression', () => {
         ),
       ),
     });
+
+    testSimplify('test 64', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or(
+          '2x Apple',
+          '2x Banana',
+          'Durian',
+        ),
+        BooleanExpression.or(
+          '3x Apple',
+          BooleanExpression.and(
+            '3x Banana',
+            BooleanExpression.or(
+              'Coconut',
+              'Eclair',
+            ),
+          ),
+        ),
+      ),
+      expected: BooleanExpression.or(
+        '3x Apple',
+        BooleanExpression.and(
+          '3x Banana',
+          BooleanExpression.or(
+            'Coconut',
+            'Eclair',
+          ),
+        ),
+      ),
+    });
+
+    testSimplify('test 65', {
+      initial: BooleanExpression.or(
+        BooleanExpression.and(
+          '3x Apple',
+          '3x Banana',
+          'Durian',
+        ),
+        BooleanExpression.and(
+          '2x Apple',
+          BooleanExpression.or(
+            '2x Banana',
+            BooleanExpression.and(
+              'Coconut',
+              'Eclair',
+            ),
+          ),
+        ),
+      ),
+      expected: BooleanExpression.and(
+        '2x Apple',
+        BooleanExpression.or(
+          '2x Banana',
+          BooleanExpression.and(
+            'Coconut',
+            'Eclair',
+          ),
+        ),
+      ),
+    });
+
+    testSimplify('test 66', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or(
+          'Apple',
+          '2x Durian',
+        ),
+        BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and(
+            'Banana',
+            'Coconut',
+            '3x Durian',
+          ),
+        ),
+      ),
+      expected: BooleanExpression.or(
+        'Apple',
+        BooleanExpression.and(
+          'Banana',
+          'Coconut',
+          '3x Durian',
+        ),
+      ),
+    });
+
+    testSimplify('test 67', {
+      initial: BooleanExpression.or(
+        BooleanExpression.and(
+          'Apple',
+          '3x Durian',
+        ),
+        BooleanExpression.and(
+          'Apple',
+          BooleanExpression.or(
+            'Banana',
+            'Coconut',
+            '2x Durian',
+          ),
+        ),
+      ),
+      expected: BooleanExpression.and(
+        'Apple',
+        BooleanExpression.or(
+          'Banana',
+          'Coconut',
+          '2x Durian',
+        ),
+      ),
+    });
+
+    testSimplify('test 68', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or(
+          'Apple',
+          'Durian',
+        ),
+        BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and(
+            'Banana',
+            BooleanExpression.or(
+              'Coconut',
+              'Durian',
+            ),
+          ),
+        ),
+      ),
+      expected: BooleanExpression.and(
+        BooleanExpression.or(
+          'Apple',
+          'Durian',
+        ),
+        BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and(
+            'Banana',
+            BooleanExpression.or(
+              'Coconut',
+              'Durian',
+            ),
+          ),
+        ),
+      ),
+    });
+
+    testSimplify('test 69', {
+      initial: BooleanExpression.and(
+        BooleanExpression.or(
+          'Apple',
+          'Coconut',
+          'Durian',
+        ),
+        BooleanExpression.or(
+          'Apple',
+          BooleanExpression.and(
+            'Banana',
+            BooleanExpression.or(
+              'Coconut',
+              'Durian',
+            ),
+          ),
+        ),
+      ),
+      expected: BooleanExpression.or(
+        'Apple',
+        BooleanExpression.and(
+          'Banana',
+          BooleanExpression.or(
+            'Coconut',
+            'Durian',
+          ),
+        ),
+      ),
+    });
   });
 });

@@ -33,8 +33,12 @@ class MapInfo extends React.PureComponent {
       <div className="map-info-container">
         <div className="map-info">{selectedLocation}</div>
         <div className="chest-counts">
-          <span className="chests-available">{numAvailable}</span>
-          <span> Accessible, </span>
+          {!disableLogic && (
+            <>
+              <span className="chests-available">{numAvailable}</span>
+              <span> Accessible, </span>
+            </>
+          )}
           <span className="chests-total">{numRemaining}</span>
           <span> Remaining</span>
         </div>
