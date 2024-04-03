@@ -2,6 +2,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import ChangedStartingItems from '../services/changed-starting-items';
 import LogicHelper from '../services/logic-helper';
 import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
@@ -9,6 +10,7 @@ import TrackerState from '../services/tracker-state';
 import Images from './images';
 import Item from './item';
 import SongNotes from './song-notes';
+import StartingItem from './starting-item';
 import Table from './table';
 
 class ItemsTable extends React.PureComponent {
@@ -31,13 +33,23 @@ class ItemsTable extends React.PureComponent {
 
   itemInfo() {
     const { selectedItem } = this.state;
-    const { trackerState } = this.props;
+    const {
+      changedStartingItems,
+      startingItemSelection,
+      trackerState,
+    } = this.props;
 
     if (_.isNil(selectedItem)) {
       return null;
     }
 
-    const itemCount = trackerState.getItemValue(selectedItem);
+    let itemCount;
+    if (startingItemSelection) {
+      itemCount = changedStartingItems.getItemCount(selectedItem);
+    } else {
+      itemCount = trackerState.getItemValue(selectedItem);
+    }
+
     const itemInfoText = LogicHelper.prettyNameForItem(selectedItem, itemCount);
 
     return (
@@ -52,9 +64,14 @@ class ItemsTable extends React.PureComponent {
       decrementItem,
       incrementItem,
       spheres,
+      startingItemSelection,
       trackerState,
       trackSpheres,
     } = this.props;
+
+    if (startingItemSelection) {
+      return this.startingItem(itemName);
+    }
 
     const itemCount = trackerState.getItemValue(itemName);
     const itemImages = _.get(Images.IMAGES, ['ITEMS', itemName]);
@@ -75,6 +92,29 @@ class ItemsTable extends React.PureComponent {
         locations={locations}
         setSelectedItem={this.setSelectedItem}
         spheres={spheres}
+      />
+    );
+  }
+
+  startingItem(itemName) {
+    const {
+      decrementStartingItem,
+      incrementStartingItem,
+      changedStartingItems,
+    } = this.props;
+
+    const itemCount = changedStartingItems.getItemCount(itemName);
+    const itemImages = _.get(Images.IMAGES, ['ITEMS', itemName]);
+
+    return (
+      <StartingItem
+        clearSelectedItem={this.clearSelectedItem}
+        decrementStartingItem={decrementStartingItem}
+        images={itemImages}
+        incrementStartingItem={incrementStartingItem}
+        itemCount={itemCount}
+        itemName={itemName}
+        setSelectedItem={this.setSelectedItem}
       />
     );
   }
@@ -206,9 +246,13 @@ ItemsTable.defaultProps = {
 
 ItemsTable.propTypes = {
   backgroundColor: PropTypes.string,
+  changedStartingItems: PropTypes.instanceOf(ChangedStartingItems).isRequired,
   decrementItem: PropTypes.func.isRequired,
+  decrementStartingItem: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
+  incrementStartingItem: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
+  startingItemSelection: PropTypes.bool.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
 };

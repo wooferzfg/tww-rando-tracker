@@ -64,6 +64,10 @@ class Settings {
     return _.includes(this.flags, flag);
   }
 
+  static getOptions() {
+    return this.options;
+  }
+
   static getOptionValue(optionName) {
     const optionValue = _.get(this.options, optionName);
 
@@ -75,8 +79,22 @@ class Settings {
     return optionValue;
   }
 
+  static setOptionValue(optionName, optionValue) {
+    _.set(this.options, optionName, optionValue);
+  }
+
   static getStartingGear() {
     return this.startingGear;
+  }
+
+  static updateStartingGear(newStartingGear) {
+    this.startingGear = newStartingGear;
+    this.setOptionValue(Permalink.OPTIONS.STARTING_GEAR, newStartingGear);
+  }
+
+  static updateOptions(newOptions) {
+    this.options = newOptions;
+    this.startingGear = this.getOptionValue(Permalink.OPTIONS.STARTING_GEAR);
   }
 
   static getVersion() {

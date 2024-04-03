@@ -4,8 +4,12 @@ import React from 'react';
 import { Oval } from 'react-loader-spinner';
 import { ToastContainer, toast } from 'react-toastify';
 
+import ChangedStartingItems from '../services/changed-starting-items';
 import LogicHelper from '../services/logic-helper';
+import Settings from '../services/settings';
+import Spheres from '../services/spheres';
 import TrackerController from '../services/tracker-controller';
+import TrackerState from '../services/tracker-state';
 
 import Buttons from './buttons';
 import ColorPickerWindow from './color-picker-window';
@@ -24,6 +28,7 @@ class Tracker extends React.PureComponent {
 
     this.state = {
       chartListOpen: false,
+      changedStartingItems: ChangedStartingItems.initialize(),
       colorPickerOpen: false,
       colors: {
         extraLocationsBackground: null,
@@ -40,6 +45,7 @@ class Tracker extends React.PureComponent {
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
+      startingItemSelection: false,
       trackSpheres: false,
     };
 
@@ -48,13 +54,16 @@ class Tracker extends React.PureComponent {
     this.clearOpenedMenus = this.clearOpenedMenus.bind(this);
     this.clearRaceModeBannedLocations = this.clearRaceModeBannedLocations.bind(this);
     this.decrementItem = this.decrementItem.bind(this);
+    this.decrementStartingItem = this.decrementStartingItem.bind(this);
     this.incrementItem = this.incrementItem.bind(this);
+    this.incrementStartingItem = this.incrementStartingItem.bind(this);
     this.toggleChartList = this.toggleChartList.bind(this);
     this.toggleColorPicker = this.toggleColorPicker.bind(this);
     this.toggleDisableLogic = this.toggleDisableLogic.bind(this);
     this.toggleEntrancesList = this.toggleEntrancesList.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
+    this.toggleStartingItemSelection = this.toggleStartingItemSelection.bind(this);
     this.toggleTrackSpheres = this.toggleTrackSpheres.bind(this);
     this.unsetChartMapping = this.unsetChartMapping.bind(this);
     this.unsetExit = this.unsetExit.bind(this);
@@ -123,6 +132,24 @@ class Tracker extends React.PureComponent {
       spheres,
       trackerState,
     });
+  }
+
+  incrementStartingItem(itemName) {
+    const { changedStartingItems } = this.state;
+
+    const newChangedStartingItems = changedStartingItems
+      .incrementStartingItem(itemName);
+
+    this.setState({ changedStartingItems: newChangedStartingItems });
+  }
+
+  decrementStartingItem(itemName) {
+    const { changedStartingItems } = this.state;
+
+    const newChangedStartingItems = changedStartingItems
+      .decrementStartingItem(itemName);
+
+    this.setState({ changedStartingItems: newChangedStartingItems });
   }
 
   incrementItem(itemName) {
@@ -374,6 +401,31 @@ class Tracker extends React.PureComponent {
     });
   }
 
+  toggleStartingItemSelection() {
+    const { changedStartingItems, startingItemSelection, trackerState } = this.state;
+
+    const {
+      newChangedStartingItems,
+      newOptions,
+      newTrackerState,
+    } = changedStartingItems.applyChangedStartingItems(trackerState);
+
+    Settings.updateOptions(newOptions);
+    const { logic: newLogic } = TrackerController.refreshState(
+      TrackerState.createStateRaw(newTrackerState),
+    );
+
+    TrackerController.refreshLogic();
+
+    this.setState({
+      changedStartingItems: newChangedStartingItems,
+      startingItemSelection: !startingItemSelection,
+      trackerState: newTrackerState,
+      logic: newLogic,
+      spheres: new Spheres(trackerState),
+    });
+  }
+
   toggleTrackSpheres() {
     const { trackSpheres } = this.state;
 
@@ -412,6 +464,7 @@ class Tracker extends React.PureComponent {
   render() {
     const {
       chartListOpen,
+      changedStartingItems,
       colorPickerOpen,
       colors,
       disableLogic,
@@ -426,6 +479,7 @@ class Tracker extends React.PureComponent {
       openedLocationIsDungeon,
       saveData,
       spheres,
+      startingItemSelection,
       trackSpheres,
       trackerState,
     } = this.state;
@@ -451,9 +505,13 @@ class Tracker extends React.PureComponent {
           <div className="tracker">
             <ItemsTable
               backgroundColor={itemsTableBackground}
+              changedStartingItems={changedStartingItems}
               decrementItem={this.decrementItem}
+              decrementStartingItem={this.decrementStartingItem}
               incrementItem={this.incrementItem}
+              incrementStartingItem={this.incrementStartingItem}
               spheres={spheres}
+              startingItemSelection={startingItemSelection}
               trackerState={trackerState}
               trackSpheres={trackSpheres}
             />
@@ -516,12 +574,14 @@ class Tracker extends React.PureComponent {
             entrancesListOpen={entrancesListOpen}
             onlyProgressLocations={onlyProgressLocations}
             saveData={saveData}
+            startingItemSelection={startingItemSelection}
             trackSpheres={trackSpheres}
             toggleChartList={this.toggleChartList}
             toggleColorPicker={this.toggleColorPicker}
             toggleDisableLogic={this.toggleDisableLogic}
             toggleEntrancesList={this.toggleEntrancesList}
             toggleOnlyProgressLocations={this.toggleOnlyProgressLocations}
+            toggleStartingItemSelection={this.toggleStartingItemSelection}
             toggleTrackSpheres={this.toggleTrackSpheres}
           />
         </div>
