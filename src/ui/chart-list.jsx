@@ -18,95 +18,23 @@ import Tooltip from './tooltip';
 class ChartList extends React.PureComponent {
   static NUM_ROWS = 20;
 
-  mapChart(chart, numColumns) {
+  chart(chartName, numColumns, isMapping) {
     const {
+      incrementItem,
       openedChartForIsland,
+      spheres,
+      trackSpheres,
       trackerState,
+      unsetChartMapping,
       updateChartMapping,
     } = this.props;
 
-    if (_.isNil(chart)) {
-      return null;
-    }
-
-    const itemCount = trackerState.getItemValue(chart);
-
-    const mappedIslandForChart = trackerState.getIslandFromChartMapping(chart);
-    const isChartMapped = !_.isNil(mappedIslandForChart);
-
-    const notInteractiveClassName = isChartMapped ? 'detail-not-interactive' : '';
-
-    let color;
-    if (isChartMapped) {
-      color = LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
-    } else if (itemCount === 1) {
-      color = LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION;
-    } else {
-      color = LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION;
-    }
-
-    let fontSizeClassName = '';
-    if (numColumns === 3) {
-      fontSizeClassName = 'font-three-columns';
-    } else if (numColumns === 2) {
-      fontSizeClassName = 'font-two-columns';
-    }
-
-    const updateChartMappingFunc = (event) => {
-      event.stopPropagation();
-
-      if (!isChartMapped) {
-        updateChartMapping(chart, openedChartForIsland);
-      }
-    };
-
-    const chartElement = (
-      <div
-        className={`detail-span ${notInteractiveClassName} ${color} ${fontSizeClassName}`}
-        onClick={updateChartMappingFunc}
-        onKeyDown={KeyDownWrapper.onSpaceKey(updateChartMappingFunc)}
-        role="button"
-        tabIndex="0"
-      >
-        {chart}
-      </div>
-    );
-
-    let chartContent;
-    if (isChartMapped) {
-      const tooltip = (
-        <div className="tooltip">
-          <div className="tooltip-title">Chart Leads To</div>
-          <div>{mappedIslandForChart}</div>
-        </div>
-      );
-
-      chartContent = (
-        <Tooltip tooltipContent={tooltip}>
-          {chartElement}
-        </Tooltip>
-      );
-    } else {
-      chartContent = chartElement;
-    }
-
-    return <td key={chart}>{chartContent}</td>;
-  }
-
-  chart(chartName, numColumns) {
     if (_.isNil(chartName)) {
       return null;
     }
 
-    const {
-      incrementItem,
-      spheres,
-      trackerState,
-      trackSpheres,
-      unsetChartMapping,
-    } = this.props;
-
     const itemCount = trackerState.getItemValue(chartName);
+
     const mappedIslandForChart = (
       Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)
         ? trackerState.getIslandFromChartMapping(chartName)
@@ -114,12 +42,19 @@ class ChartList extends React.PureComponent {
     );
     const isChartMapped = !_.isNil(mappedIslandForChart);
 
-    const color = itemCount === 1
-      ? LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION
-      : LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION;
+    const notInteractiveClassName = (isChartMapped && isMapping) ? 'detail-not-interactive' : '';
+
+    let color;
+    if ((isMapping && isChartMapped) || (!isMapping && itemCount === 1)) {
+      color = LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
+    } else if ((isMapping && itemCount === 1) || (!isMapping)) {
+      color = LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION;
+    } else {
+      color = LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION;
+    }
 
     let locations = [];
-    if (trackSpheres) {
+    if (trackSpheres && isMapping) {
       locations = trackerState.getLocationsForItem(chartName);
     }
 
@@ -130,23 +65,29 @@ class ChartList extends React.PureComponent {
       fontSizeClassName = 'font-two-columns';
     }
 
-    const incrementItemFunc = (event) => {
+    const updateChartFunc = (event) => {
       event.stopPropagation();
 
-      incrementItem(chartName);
+      if (isMapping) {
+        if (!isChartMapped) {
+          updateChartMapping(chartName, openedChartForIsland);
+        }
+      } else {
+        incrementItem(chartName);
 
-      if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
-        if (isChartMapped) {
-          unsetChartMapping(LogicHelper.randomizedChartForIsland(mappedIslandForChart), true);
+        if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
+          if (isChartMapped) {
+            unsetChartMapping(LogicHelper.randomizedChartForIsland(mappedIslandForChart), true);
+          }
         }
       }
     };
 
     const chartElement = (
       <div
-        className={`detail-span ${color} ${fontSizeClassName}`}
-        onClick={incrementItemFunc}
-        onKeyDown={KeyDownWrapper.onSpaceKey(incrementItemFunc)}
+        className={`detail-span ${notInteractiveClassName} ${color} ${fontSizeClassName}`}
+        onClick={updateChartFunc}
+        onKeyDown={KeyDownWrapper.onSpaceKey(updateChartFunc)}
         role="button"
         tabIndex="0"
       >
@@ -200,9 +141,7 @@ class ChartList extends React.PureComponent {
     } = this.props;
 
     const chartItemFunc = (chart, numColumns) => (
-      openedChartForIsland
-        ? this.mapChart(chart, numColumns)
-        : this.chart(chart, numColumns)
+      this.chart(chart, numColumns, openedChartForIsland)
     );
 
     const chartRows = MapTable.groupIntoChunks(
