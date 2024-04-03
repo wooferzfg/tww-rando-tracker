@@ -40,6 +40,7 @@ class Tracker extends React.PureComponent {
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
+      trackNonProgressCharts: false,
       trackSpheres: false,
       viewingEntrances: false,
     };
@@ -383,6 +384,7 @@ class Tracker extends React.PureComponent {
       disableLogic,
       onlyProgressLocations,
       colors,
+      trackNonProgressCharts,
       trackSpheres,
       viewingEntrances,
     } = this.state;
@@ -391,6 +393,7 @@ class Tracker extends React.PureComponent {
       colors,
       disableLogic,
       onlyProgressLocations,
+      trackNonProgressCharts,
       trackSpheres,
       viewingEntrances,
     };
@@ -418,6 +421,7 @@ class Tracker extends React.PureComponent {
       saveData,
       settingsWindowOpen,
       spheres,
+      trackNonProgressCharts,
       trackSpheres,
       trackerState,
       viewingEntrances,
@@ -468,6 +472,7 @@ class Tracker extends React.PureComponent {
               toggleLocationChecked={this.toggleLocationChecked}
               toggleRequiredBoss={this.toggleRequiredBoss}
               trackerState={trackerState}
+              trackNonProgressCharts={trackNonProgressCharts}
               trackSpheres={trackSpheres}
               updateChartMapping={this.updateChartMapping}
               updateOpenedChartForIsland={this.updateOpenedChartForIsland}
@@ -503,6 +508,7 @@ class Tracker extends React.PureComponent {
               sphereTrackingBackground={sphereTrackingBackground}
               statisticsBackground={statisticsBackground}
               toggleSettingsWindow={this.toggleSettingsWindow}
+              trackNonProgressCharts={trackNonProgressCharts}
               trackSpheres={trackSpheres}
               updatePreferences={this.updatePreferences}
             />
@@ -516,6 +522,7 @@ class Tracker extends React.PureComponent {
             toggleSettingsWindow={this.toggleSettingsWindow}
             toggleEntrances={this.toggleEntrances}
             toggleOnlyProgressLocations={this.toggleOnlyProgressLocations}
+            trackNonProgressCharts={trackNonProgressCharts}
             viewingEntrances={viewingEntrances}
           />
         </div>

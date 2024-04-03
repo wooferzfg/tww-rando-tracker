@@ -8,7 +8,7 @@ import KeyDownWrapper from './key-down-wrapper';
 class MapTable extends React.PureComponent {
   static MAX_COLUMNS = 3;
 
-  static groupIntoChunks(tableItems, mappingFunc, numRows = 13) {
+  static groupIntoChunks(tableItems, mappingFunc, numRows) {
     const numItems = _.size(tableItems);
     const numColumns = Math.min(
       Math.ceil(numItems / numRows),

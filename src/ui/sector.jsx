@@ -50,6 +50,18 @@ class Sector extends React.PureComponent {
   }
 
   chartItem() {
+    const { island, trackNonProgressCharts } = this.props;
+
+    if (!trackNonProgressCharts && !LogicHelper.islandHasProgressItemChart(island)) {
+      return null;
+    }
+    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
+      return this.chartItemRandomizedCharts();
+    }
+    return this.chartItemVanilla();
+  }
+
+  chartItemVanilla() {
     const {
       clearSelectedItem,
       decrementItem,
@@ -64,7 +76,7 @@ class Sector extends React.PureComponent {
     const {
       chartName,
       chartType,
-    } = LogicHelper.chartForIsland(island);
+    } = LogicHelper.vanillaChartForIsland(island);
 
     const chartCount = trackerState.getItemValue(chartName);
 
@@ -92,7 +104,7 @@ class Sector extends React.PureComponent {
     );
   }
 
-  chartIsland() {
+  chartItemRandomizedCharts() {
     const {
       clearSelectedChartForIsland,
       clearSelectedLocation,
@@ -105,25 +117,25 @@ class Sector extends React.PureComponent {
       unsetChartMapping,
     } = this.props;
 
-    const chartForIsland = LogicHelper.chartForIslandName(island);
+    const randomizedChartName = LogicHelper.randomizedChartForIsland(island);
 
-    const chartCount = trackerState.getItemValue(chartForIsland);
+    const chartCount = trackerState.getItemValue(randomizedChartName);
 
     const chartImages = _.get(Images.IMAGES, ['CHARTS', 'Treasure']);
 
     let locations = [];
     if (trackSpheres) {
-      locations = trackerState.getLocationsForItem(chartForIsland);
+      locations = trackerState.getLocationsForItem(randomizedChartName);
     }
 
     const updateOpenedChartForIslandFunc = () => {
       if (chartCount > 0) {
-        unsetChartMapping(chartForIsland, false);
+        unsetChartMapping(randomizedChartName, false);
       } else {
         clearSelectedChartForIsland();
         clearSelectedLocation();
 
-        updateOpenedChartForIsland(chartForIsland);
+        updateOpenedChartForIsland(randomizedChartName);
       }
     };
 
@@ -134,7 +146,7 @@ class Sector extends React.PureComponent {
           images={chartImages}
           incrementItem={updateOpenedChartForIslandFunc}
           itemCount={chartCount}
-          itemName={chartForIsland}
+          itemName={randomizedChartName}
           locations={locations}
           setSelectedItem={setSelectedChartForIsland}
           spheres={spheres}
@@ -296,11 +308,7 @@ class Sector extends React.PureComponent {
         role="button"
         tabIndex="0"
       >
-        {
-          Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)
-            ? this.chartIsland()
-            : this.chartItem()
-        }
+        {this.chartItem()}
         {this.entranceExitItems()}
         {this.chestsCounter()}
       </div>
@@ -325,6 +333,7 @@ Sector.propTypes = {
   setSelectedLocation: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackNonProgressCharts: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
   unsetEntrance: PropTypes.func.isRequired,

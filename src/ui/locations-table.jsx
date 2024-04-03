@@ -94,6 +94,7 @@ class LocationsTable extends React.PureComponent {
       spheres,
       toggleLocationChecked,
       trackerState,
+      trackNonProgressCharts,
       trackSpheres,
       unsetChartMapping,
       unsetEntrance,
@@ -124,6 +125,7 @@ class LocationsTable extends React.PureComponent {
           openedChartForIsland={openedChartForIsland}
           spheres={spheres}
           trackerState={trackerState}
+          trackNonProgressCharts={trackNonProgressCharts}
           trackSpheres={trackSpheres}
           updateChartMapping={updateChartMapping}
           unsetChartMapping={unsetChartMapping}
@@ -184,6 +186,7 @@ class LocationsTable extends React.PureComponent {
           setSelectedLocation={this.setSelectedLocation}
           spheres={spheres}
           trackerState={trackerState}
+          trackNonProgressCharts={trackNonProgressCharts}
           trackSpheres={trackSpheres}
           unsetChartMapping={unsetChartMapping}
           unsetEntrance={unsetEntrance}
@@ -292,6 +295,7 @@ LocationsTable.propTypes = {
   toggleLocationChecked: PropTypes.func.isRequired,
   toggleRequiredBoss: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackNonProgressCharts: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,

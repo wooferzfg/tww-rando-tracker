@@ -130,7 +130,7 @@ class LogicTweaks {
       // wallet upgrades
       const island = LogicHelper.islandForChart(chart);
       const macroName = `Chart for Island ${index + 1}`;
-      Macros.setMacro(macroName, LogicHelper.chartForIslandName(island));
+      Macros.setMacro(macroName, LogicHelper.randomizedChartForIsland(island));
     });
   }
 

@@ -18,7 +18,7 @@ import Tooltip from './tooltip';
 class ChartList extends React.PureComponent {
   static NUM_ROWS = 20;
 
-  mapChart(chart) {
+  mapChart(chart, numColumns) {
     const {
       openedChartForIsland,
       trackerState,
@@ -45,6 +45,13 @@ class ChartList extends React.PureComponent {
       color = LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION;
     }
 
+    let fontSizeClassName = '';
+    if (numColumns === 3) {
+      fontSizeClassName = 'font-three-columns';
+    } else if (numColumns === 2) {
+      fontSizeClassName = 'font-two-columns';
+    }
+
     const updateChartMappingFunc = (event) => {
       event.stopPropagation();
 
@@ -55,7 +62,7 @@ class ChartList extends React.PureComponent {
 
     const chartElement = (
       <div
-        className={`detail-span ${notInteractiveClassName} ${color} font-three-columns`}
+        className={`detail-span ${notInteractiveClassName} ${color} ${fontSizeClassName}`}
         onClick={updateChartMappingFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(updateChartMappingFunc)}
         role="button"
@@ -86,7 +93,7 @@ class ChartList extends React.PureComponent {
     return <td key={chart}>{chartContent}</td>;
   }
 
-  chart(chartName, showLocationTooltip = true) {
+  chart(chartName, numColumns) {
     if (_.isNil(chartName)) {
       return null;
     }
@@ -112,8 +119,15 @@ class ChartList extends React.PureComponent {
       : LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION;
 
     let locations = [];
-    if (showLocationTooltip && trackSpheres) {
+    if (trackSpheres) {
       locations = trackerState.getLocationsForItem(chartName);
+    }
+
+    let fontSizeClassName = '';
+    if (numColumns === 3) {
+      fontSizeClassName = 'font-three-columns';
+    } else if (numColumns === 2) {
+      fontSizeClassName = 'font-two-columns';
     }
 
     const incrementItemFunc = (event) => {
@@ -123,14 +137,14 @@ class ChartList extends React.PureComponent {
 
       if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
         if (isChartMapped) {
-          unsetChartMapping(LogicHelper.chartForIslandName(mappedIslandForChart), true);
+          unsetChartMapping(LogicHelper.randomizedChartForIsland(mappedIslandForChart), true);
         }
       }
     };
 
     const chartElement = (
       <div
-        className={`detail-span ${color} font-three-columns`}
+        className={`detail-span ${color} ${fontSizeClassName}`}
         onClick={incrementItemFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(incrementItemFunc)}
         role="button"
@@ -179,19 +193,20 @@ class ChartList extends React.PureComponent {
   }
 
   render() {
-    const { clearOpenedMenus, openedChartForIsland } = this.props;
+    const {
+      clearOpenedMenus,
+      openedChartForIsland,
+      trackNonProgressCharts,
+    } = this.props;
 
-    const chartItemFunc = (chart) => (
+    const chartItemFunc = (chart, numColumns) => (
       openedChartForIsland
-        ? this.mapChart(chart)
-        : this.chart(chart)
+        ? this.mapChart(chart, numColumns)
+        : this.chart(chart, numColumns)
     );
 
     const chartRows = MapTable.groupIntoChunks(
-      [
-        ...LogicHelper.ALL_TREASURE_CHARTS,
-        ...LogicHelper.ALL_TRIFORCE_CHARTS,
-      ],
+      LogicHelper.allCharts({ includeNonProgressCharts: trackNonProgressCharts }),
       chartItemFunc,
       ChartList.NUM_ROWS,
     );
@@ -223,6 +238,7 @@ ChartList.propTypes = {
   openedChartForIsland: PropTypes.string,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackNonProgressCharts: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   updateChartMapping: PropTypes.func.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,

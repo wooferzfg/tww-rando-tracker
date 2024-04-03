@@ -96,6 +96,7 @@ class SettingsWindow extends React.PureComponent {
       sphereTrackingBackground,
       statisticsBackground,
       toggleSettingsWindow,
+      trackNonProgressCharts,
       trackSpheres,
     } = this.props;
 
@@ -147,6 +148,11 @@ class SettingsWindow extends React.PureComponent {
           trackSpheres,
           'trackSpheres',
         )}
+        {this.checkboxRow(
+          'Track Non-Progress Charts',
+          trackNonProgressCharts,
+          'trackNonProgressCharts',
+        )}
       </div>
     );
   }
@@ -165,6 +171,7 @@ SettingsWindow.propTypes = {
   itemsTableBackground: PropTypes.string,
   sphereTrackingBackground: PropTypes.string,
   statisticsBackground: PropTypes.string,
+  trackNonProgressCharts: PropTypes.bool.isRequired,
   toggleSettingsWindow: PropTypes.func.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   updatePreferences: PropTypes.func.isRequired,

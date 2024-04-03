@@ -16,6 +16,8 @@ import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
 class DetailedLocationsTable extends React.PureComponent {
+  static NUM_ROWS = 13;
+
   constructor(props) {
     super(props);
 
@@ -172,6 +174,7 @@ class DetailedLocationsTable extends React.PureComponent {
     const locationRows = MapTable.groupIntoChunks(
       detailedLocations,
       this.detailedLocation,
+      DetailedLocationsTable.NUM_ROWS,
     );
 
     let clearAllElement;

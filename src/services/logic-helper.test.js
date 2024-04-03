@@ -2196,9 +2196,151 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('chartForIslandName', () => {
-    test('returns chart for island name', () => {
-      expect(LogicHelper.chartForIslandName('Outset Island')).toBe('Chart for Outset Island');
+  describe('randomizedChartForIsland', () => {
+    test('returns randomized chart for island name', () => {
+      expect(LogicHelper.randomizedChartForIsland('Outset Island')).toBe('Chart for Outset Island');
+    });
+  });
+
+  describe('islandHasProgressItemChart', () => {
+    describe('when randomized charts is on, and only triforce charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns true for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Outset Island')).toEqual(true);
+      });
+
+      test('returns true for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Crescent Moon Island')).toEqual(true);
+      });
+    });
+
+    describe('when randomized charts is on, and all charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns true for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Greatfish Isle')).toEqual(true);
+      });
+
+      test('returns true for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Dragon Roost Island')).toEqual(true);
+      });
+    });
+
+    describe('when randomized charts is on, and no charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns false for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Southern Triangle Island')).toEqual(false);
+      });
+
+      test('returns false for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Bomb Island')).toEqual(false);
+      });
+    });
+
+    describe('when randomized charts is off, and only treasure charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns false for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Stone Watcher Island')).toEqual(false);
+      });
+
+      test('returns true for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Five-Eye Reef')).toEqual(true);
+      });
+    });
+
+    describe('when randomized charts is off, and only triforce charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns true for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Gale Isle')).toEqual(true);
+      });
+
+      test('returns false for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Tingle Island')).toEqual(false);
+      });
+    });
+
+    describe('when randomized charts is off, and all charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns true for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Two-Eye Reef')).toEqual(true);
+      });
+
+      test('returns true for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Forsaken Fortress')).toEqual(true);
+      });
+    });
+
+    describe('when randomized charts is off, and no charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns false for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Headstone Island')).toEqual(false);
+      });
+
+      test('returns false for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Angular Isles')).toEqual(false);
+      });
     });
   });
 
@@ -2230,10 +2372,10 @@ describe('LogicHelper', () => {
           },
         });
       });
-      test('returns true when treasure chart', () => {
+      test('returns false when treasure chart', () => {
         expect(LogicHelper.isRandomizedChart('Treasure Chart 25')).toBe(false);
       });
-      test('returns true when triforce chart', () => {
+      test('returns false when triforce chart', () => {
         expect(LogicHelper.isRandomizedChart('Triforce Chart 25')).toBe(false);
       });
       test('returns false when item', () => {
@@ -3372,60 +3514,22 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('chartForIsland', () => {
-    describe('when charts are randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
-          },
-        });
-      });
+  describe('vanillaChartForIsland', () => {
+    test('returns a Triforce Chart when an island has one', () => {
+      const chartInfo = LogicHelper.vanillaChartForIsland('Seven-Star Isles');
 
-      test('returns a Treasure Chart when the island has a Triforce Chart', () => {
-        const chartInfo = LogicHelper.chartForIsland('Seven-Star Isles');
-
-        expect(chartInfo).toEqual({
-          chartName: 'Triforce Chart 7',
-          chartType: LogicHelper.CHART_TYPES.TREASURE,
-        });
-      });
-
-      test('returns a Treasure Chart when the island has a Treasure Chart', () => {
-        const chartInfo = LogicHelper.chartForIsland('Forsaken Fortress Sector');
-
-        expect(chartInfo).toEqual({
-          chartName: 'Treasure Chart 25',
-          chartType: LogicHelper.CHART_TYPES.TREASURE,
-        });
+      expect(chartInfo).toEqual({
+        chartName: 'Triforce Chart 7',
+        chartType: LogicHelper.CHART_TYPES.TRIFORCE,
       });
     });
 
-    describe('when charts are not randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-          },
-        });
-      });
+    test('returns a Treasure Chart when an island has one', () => {
+      const chartInfo = LogicHelper.vanillaChartForIsland('Forsaken Fortress Sector');
 
-      test('returns a Triforce Chart when an island has one', () => {
-        const chartInfo = LogicHelper.chartForIsland('Seven-Star Isles');
-
-        expect(chartInfo).toEqual({
-          chartName: 'Triforce Chart 7',
-          chartType: LogicHelper.CHART_TYPES.TRIFORCE,
-        });
-      });
-
-      test('returns a Treasure Chart when an island has one', () => {
-        const chartInfo = LogicHelper.chartForIsland('Forsaken Fortress Sector');
-
-        expect(chartInfo).toEqual({
-          chartName: 'Treasure Chart 25',
-          chartType: LogicHelper.CHART_TYPES.TREASURE,
-        });
+      expect(chartInfo).toEqual({
+        chartName: 'Treasure Chart 25',
+        chartType: LogicHelper.CHART_TYPES.TREASURE,
       });
     });
   });
@@ -4144,6 +4248,172 @@ describe('LogicHelper', () => {
         const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
 
         expect(requirements).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('anyProgressItemCharts', () => {
+    describe('when there are only treasure progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        expect(LogicHelper.anyProgressItemCharts()).toEqual(true);
+      });
+    });
+
+    describe('when there are only triforce progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        expect(LogicHelper.anyProgressItemCharts()).toEqual(true);
+      });
+    });
+
+    describe('when there are treasure and triforce progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        expect(LogicHelper.anyProgressItemCharts()).toEqual(true);
+      });
+    });
+
+    describe('when there are no progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns false', () => {
+        expect(LogicHelper.anyProgressItemCharts()).toEqual(false);
+      });
+    });
+  });
+
+  describe('allCharts', () => {
+    describe('when there are only treasure progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns all treasure charts for includeNonProgressCharts = false', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: false });
+
+        expect(allCharts).toEqual(LogicHelper.ALL_TREASURE_CHARTS);
+      });
+
+      test('returns all charts for includeNonProgressCharts = true', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: true });
+
+        expect(allCharts).toEqual(
+          _.concat(LogicHelper.ALL_TREASURE_CHARTS, LogicHelper.ALL_TRIFORCE_CHARTS),
+        );
+      });
+    });
+
+    describe('when there are only triforce progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns all triforce charts for includeNonProgressCharts = false', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: false });
+
+        expect(allCharts).toEqual(LogicHelper.ALL_TRIFORCE_CHARTS);
+      });
+
+      test('returns all charts for includeNonProgressCharts = true', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: true });
+
+        expect(allCharts).toEqual(
+          _.concat(LogicHelper.ALL_TREASURE_CHARTS, LogicHelper.ALL_TRIFORCE_CHARTS),
+        );
+      });
+    });
+
+    describe('when there are treasure and triforce progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns all charts for includeNonProgressCharts = false', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: false });
+
+        expect(allCharts).toEqual(
+          _.concat(LogicHelper.ALL_TREASURE_CHARTS, LogicHelper.ALL_TRIFORCE_CHARTS),
+        );
+      });
+
+      test('returns all charts for includeNonProgressCharts = true', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: true });
+
+        expect(allCharts).toEqual(
+          _.concat(LogicHelper.ALL_TREASURE_CHARTS, LogicHelper.ALL_TRIFORCE_CHARTS),
+        );
+      });
+    });
+
+    describe('when there are no progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns no charts for includeNonProgressCharts = false', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: false });
+
+        expect(allCharts).toEqual([]);
+      });
+
+      test('returns all charts for includeNonProgressCharts = true', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: true });
+
+        expect(allCharts).toEqual(
+          _.concat(LogicHelper.ALL_TREASURE_CHARTS, LogicHelper.ALL_TRIFORCE_CHARTS),
+        );
       });
     });
   });

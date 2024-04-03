@@ -24,11 +24,12 @@ import Settings from './settings';
 class LogicHelper {
   static initialize() {
     Memoizer.memoize(this, [
+      'allCharts',
       'allRandomEntrances',
+      'anyProgressItemCharts',
       'bossLocation',
       'bossLocationForRequirement',
       'bossRequirementForDungeon',
-      'chartForIsland',
       'entrancesForDungeon',
       'entrancesForIsland',
       'entryName',
@@ -37,6 +38,7 @@ class LogicHelper {
       'filterDetailedLocations',
       'islandFromChartForIsland',
       'islandForChart',
+      'islandHasProgressItemChart',
       'isPotentialKeyLocation',
       'isProgressLocation',
       'maxItemCount',
@@ -51,6 +53,7 @@ class LogicHelper {
       'shortEntranceName',
       'shortExitName',
       'smallKeysRequiredForLocation',
+      'vanillaChartForIsland',
       '_rawRequirementsForLocation',
     ]);
 
@@ -60,11 +63,12 @@ class LogicHelper {
 
   static reset() {
     Memoizer.invalidate([
+      this.allCharts,
       this.allRandomEntrances,
+      this.anyProgressItemCharts,
       this.bossLocation,
       this.bossLocationForRequirement,
       this.bossRequirementForDungeon,
-      this.chartForIsland,
       this.entrancesForDungeon,
       this.entrancesForIsland,
       this.entryName,
@@ -73,6 +77,7 @@ class LogicHelper {
       this.filterDetailedLocations,
       this.islandFromChartForIsland,
       this.islandForChart,
+      this.islandHasProgressItemChart,
       this.isPotentialKeyLocation,
       this.isProgressLocation,
       this.maxItemCount,
@@ -87,6 +92,7 @@ class LogicHelper {
       this.shortEntranceName,
       this.shortExitName,
       this.smallKeysRequiredForLocation,
+      this.vanillaChartForIsland,
       this._rawRequirementsForLocation,
     ]);
 
@@ -133,7 +139,7 @@ class LogicHelper {
   static ALL_ITEMS = _.concat(
     _.map(ISLAND_ENTRANCES, (entranceData) => this.entryName(entranceData.internalName)),
     CHARTS,
-    _.map(ISLANDS, (island) => this.chartForIslandName(island)),
+    _.map(ISLANDS, (island) => this.randomizedChartForIsland(island)),
     _.map(DUNGEON_ENTRANCES, (entranceData) => this.entryName(entranceData.internalName)),
     _.keys(ITEMS),
     _.keys(KEYS),
@@ -562,12 +568,12 @@ class LogicHelper {
     return island;
   }
 
-  static chartForIsland(islandName) {
+  static vanillaChartForIsland(islandName) {
     const islandIndex = _.indexOf(ISLANDS, islandName);
     const chartName = _.get(CHARTS, islandIndex);
 
     let chartType;
-    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS) || _.includes(chartName, 'Treasure')) {
+    if (_.includes(chartName, 'Treasure')) {
       chartType = this.CHART_TYPES.TREASURE;
     } else {
       chartType = this.CHART_TYPES.TRIFORCE;
@@ -579,8 +585,19 @@ class LogicHelper {
     };
   }
 
-  static chartForIslandName(island) {
-    return `Chart for ${island}`;
+  static randomizedChartForIsland(islandName) {
+    return `Chart for ${islandName}`;
+  }
+
+  static islandHasProgressItemChart(islandName) {
+    if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
+      return this.anyProgressItemCharts();
+    }
+    const { chartType } = this.vanillaChartForIsland(islandName);
+    if (chartType === this.CHART_TYPES.TREASURE) {
+      return Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS);
+    }
+    return Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS);
   }
 
   static requiredBossesModeBannedLocations(dungeonName) {
@@ -645,6 +662,28 @@ class LogicHelper {
     );
     const maxNonRequiredBosses = _.size(REQUIRED_BOSSES) - numRequiredBosses;
     return _.size(this.nonRequiredBossDungeons) < maxNonRequiredBosses;
+  }
+
+  static anyProgressItemCharts() {
+    return (
+      Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS)
+      || Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS)
+    );
+  }
+
+  static allCharts({ includeNonProgressCharts }) {
+    const includeTreasureCharts = (
+      includeNonProgressCharts
+      || Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS)
+    );
+    const includeTriforceCharts = (
+      includeNonProgressCharts
+      || Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS)
+    );
+    return _.concat(
+      includeTreasureCharts ? this.ALL_TREASURE_CHARTS : [],
+      includeTriforceCharts ? this.ALL_TRIFORCE_CHARTS : [],
+    );
   }
 
   static _prettyNameOverride(itemName, itemCount = 1) {

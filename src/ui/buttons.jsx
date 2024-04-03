@@ -27,6 +27,7 @@ class Buttons extends React.PureComponent {
       toggleSettingsWindow,
       toggleEntrances,
       toggleOnlyProgressLocations,
+      trackNonProgressCharts,
       viewingEntrances,
     } = this.props;
 
@@ -37,6 +38,10 @@ class Buttons extends React.PureComponent {
       ? 'Close Chart List'
       : 'View Charts';
     const isRandomEntrances = LogicHelper.isRandomEntrances();
+    const showChartsButton = (
+      trackNonProgressCharts
+      || LogicHelper.anyProgressItemCharts()
+    );
 
     return (
       <div className="buttons">
@@ -64,9 +69,11 @@ class Buttons extends React.PureComponent {
             View Exits
           </button>
         )}
-        <button onClick={toggleChartList} type="button">
-          {chartListText}
-        </button>
+        {showChartsButton && (
+          <button onClick={toggleChartList} type="button">
+            {chartListText}
+          </button>
+        )}
         <br />
         <button
           onClick={toggleSettingsWindow}
@@ -88,6 +95,7 @@ Buttons.propTypes = {
   toggleEntrances: PropTypes.func.isRequired,
   toggleOnlyProgressLocations: PropTypes.func.isRequired,
   toggleSettingsWindow: PropTypes.func.isRequired,
+  trackNonProgressCharts: PropTypes.bool.isRequired,
   viewingEntrances: PropTypes.bool.isRequired,
 };
 

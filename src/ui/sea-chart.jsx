@@ -28,6 +28,7 @@ class SeaChart extends React.PureComponent {
       setSelectedLocation,
       spheres,
       trackerState,
+      trackNonProgressCharts,
       trackSpheres,
       unsetChartMapping,
       unsetEntrance,
@@ -58,6 +59,7 @@ class SeaChart extends React.PureComponent {
         setSelectedLocation={setSelectedLocation}
         spheres={spheres}
         trackerState={trackerState}
+        trackNonProgressCharts={trackNonProgressCharts}
         trackSpheres={trackSpheres}
         unsetChartMapping={unsetChartMapping}
         unsetEntrance={unsetEntrance}
@@ -103,6 +105,7 @@ SeaChart.propTypes = {
   setSelectedLocation: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackNonProgressCharts: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
   unsetEntrance: PropTypes.func.isRequired,
