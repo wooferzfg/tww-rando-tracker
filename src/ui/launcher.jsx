@@ -284,6 +284,15 @@ export default class Launcher extends React.PureComponent {
           this.dropdownInput({
             labelText: 'Mixing',
             optionName: Permalink.OPTIONS.MIX_ENTRANCES,
+            isDisabled: (
+              !this.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES)
+              && !this.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES)
+              && !this.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
+            ) || (
+              !this.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES)
+              && !this.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES)
+              && !this.getOptionValue(Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES)
+            ),
           }),
         ]}
       />
