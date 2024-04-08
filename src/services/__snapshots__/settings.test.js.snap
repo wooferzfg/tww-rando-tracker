@@ -219,7 +219,7 @@ exports[`Settings initializeFromPermalink default settings initializes the optio
     "WT Dungeon Map": 0,
     "Wind God's Aria": 0,
   },
-  "starting_hcs": 0,
+  "starting_hcs": 3,
   "starting_pohs": 0,
   "swift_sail": true,
   "sword_mode": "Start with Hero's Sword",

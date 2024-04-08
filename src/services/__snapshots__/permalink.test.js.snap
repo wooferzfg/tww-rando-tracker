@@ -122,7 +122,7 @@ exports[`Permalink DEFAULT_PERMALINK returns the default options 1`] = `
     "WT Dungeon Map": 0,
     "Wind God's Aria": 0,
   },
-  "starting_hcs": 0,
+  "starting_hcs": 3,
   "starting_pohs": 0,
   "swift_sail": true,
   "sword_mode": "Start with Hero's Sword",

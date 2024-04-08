@@ -28,7 +28,7 @@ class Permalink {
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'MS4xMS4wAEEASRBQGAAA+wLoEgAAAAAIAAQBAAA=';
+  static DEFAULT_PERMALINK = 'MS4xMS4wAEEASRBQGAAA+wLoEgAAAAAIAAQBAAI=';
 
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);
@@ -115,7 +115,7 @@ class Permalink {
     this._startingGearConfig(),
     this._dropdownConfig(this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS),
     this._spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
-    this._spinBoxConfig(this.OPTIONS.STARTING_HCS, 0, 6),
+    this._spinBoxConfig(this.OPTIONS.STARTING_HCS, 1, 9),
     this._spinBoxConfig(this.OPTIONS.NUM_EXTRA_STARTING_ITEMS, 0, 3),
     this._booleanConfig(this.OPTIONS.DO_NOT_GENERATE_SPOILER_LOG),
   ];

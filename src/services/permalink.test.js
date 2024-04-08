@@ -35,7 +35,7 @@ describe('Permalink', () => {
 
   describe('decode', () => {
     test('decodes a permalink', () => {
-      const options = Permalink.decode('MS4xMS4wAHllZXQASRBQHcBG+wLoggEAAAAAAALAJAM=');
+      const options = Permalink.decode('MS4xMS4wAHllZXQASRBQHcBG+wLoggEAAAAAAALAJAI=');
 
       expect(options).toMatchSnapshot();
     });
@@ -59,7 +59,7 @@ describe('Permalink', () => {
     let permalink;
 
     beforeEach(() => {
-      permalink = 'MS4xMS4wAHllZXQASRBQHcBG+wLoggEAAAAAAALAJAM=';
+      permalink = 'MS4xMS4wAHllZXQASRBQHcBG+wLoggEAAAAAAALAJAI=';
       options = Permalink.decode(permalink);
     });
 
