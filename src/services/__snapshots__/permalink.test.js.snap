@@ -127,7 +127,7 @@ exports[`Permalink DEFAULT_PERMALINK returns the default options 1`] = `
   "swift_sail": true,
   "sword_mode": "Start with Hero's Sword",
   "trap_chests": false,
-  "version": "1.11.0",
+  "version": "master",
 }
 `;
 
@@ -323,7 +323,7 @@ exports[`Permalink decode decodes a permalink 1`] = `
   "remove_music": false,
   "required_bosses": true,
   "reveal_full_sea_chart": true,
-  "seed_name": "yeet",
+  "seed_name": "seed",
   "skip_rematch_bosses": true,
   "starting_gear": {
     "Bait Bag": 0,
@@ -391,6 +391,6 @@ exports[`Permalink decode decodes a permalink 1`] = `
   "swift_sail": true,
   "sword_mode": "No Starting Sword",
   "trap_chests": false,
-  "version": "1.11.0",
+  "version": "master",
 }
 `;

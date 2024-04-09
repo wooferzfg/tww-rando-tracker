@@ -28,7 +28,7 @@ class Permalink {
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'MS4xMS4wAEEASRBQGAAA+wLoEgAAAAAIAAQBAAI=';
+  static DEFAULT_PERMALINK = 'bWFzdGVyAEEASRBQGAAA+wLoEgAAAAAIAAQBAAI=';
 
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);

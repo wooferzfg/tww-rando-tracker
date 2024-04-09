@@ -224,7 +224,7 @@ exports[`Settings initializeFromPermalink default settings initializes the optio
   "swift_sail": true,
   "sword_mode": "Start with Hero's Sword",
   "trap_chests": false,
-  "version": "1.11.0",
+  "version": "master",
 }
 `;
 

@@ -17,7 +17,7 @@ describe('Settings', () => {
       });
 
       test('initializes the version', () => {
-        expect(Settings.version).toEqual('1.11.0');
+        expect(Settings.version).toEqual('master'); // TODO: change to 1.11.0
       });
 
       test('initializes the starting gear', () => {
@@ -67,7 +67,7 @@ describe('Settings', () => {
 
     describe('all flags set', () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink('MS4xMS4wAHllZXQA//9/GAAA+wLoEgAAAAAIAAQBAAI=');
+        Settings.initializeFromPermalink('bWFzdGVyAHNlZWQA//9/GAAA+wLoEgAAAAAIAAQBAAI=');
       });
 
       test('initializes all the flags', () => {
@@ -78,7 +78,7 @@ describe('Settings', () => {
 
     describe('all starting gear set', () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink('MS4xMS4wAHllZXQASRBQGAAA+wLo+v//////v6suAAI=');
+        Settings.initializeFromPermalink('bWFzdGVyAHNlZWQASRBQGAAA+wLo+v//////v6suAAI=');
       });
 
       test('initializes the starting gear', () => {
@@ -89,7 +89,7 @@ describe('Settings', () => {
     describe('only sunken triforce enabled', () => {
       describe('when charts are not randomized', () => {
         beforeEach(() => {
-          Settings.initializeFromPermalink('MS4xMS4wAHllZXQAAAAEGAAA+wLoEgAAAAAIAAQBAAI=');
+          Settings.initializeFromPermalink('bWFzdGVyAHNlZWQAAAAEGAAA+wLoEgAAAAAIAAQBAAI=');
         });
 
         test('initializes the flags', () => {
@@ -101,7 +101,7 @@ describe('Settings', () => {
 
       describe('when charts are randomized', () => {
         beforeEach(() => {
-          Settings.initializeFromPermalink('MS4xMS4wAHllZXQAAAAEGACA+wLoEgAAAAAIAAQBAAI=');
+          Settings.initializeFromPermalink('bWFzdGVyAHNlZWQAAAAEGACA+wLoEgAAAAAIAAQBAAI=');
         });
 
         test('initializes the flags', () => {
