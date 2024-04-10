@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+import ADDITONAL_BANNED_LOCATIONS from '../data/additional-banned-locations.json';
 import CHARTS from '../data/charts.json';
 import DUNGEON_ENTRANCES from '../data/dungeon-entrances.json';
 import DUNGEONS from '../data/dungeons.json';
@@ -600,22 +601,17 @@ class LogicHelper {
     return Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS);
   }
 
-  static requiredBossesModeBannedLocations(dungeonName) {
-    const detailedLocations = Locations.detailedLocationsForGeneralLocation(dungeonName);
+  static bannedLocationsForZone(zoneName) {
+    const detailedLocations = Locations.detailedLocationsForGeneralLocation(zoneName);
     const dungeonLocations = _.map(detailedLocations, (detailedLocation) => ({
-      generalLocation: dungeonName,
+      generalLocation: zoneName,
       detailedLocation,
     }));
-
-    const requiredBossData = this._requiredBossDataForDungeon(dungeonName);
-    if (_.isNil(requiredBossData)) {
-      // istanbul ignore next
-      throw Error(`Could not find required boss for dungeon: ${dungeonName}`);
-    }
+    const additionalBannedLocations = _.get(ADDITONAL_BANNED_LOCATIONS, zoneName, []);
 
     return _.concat(
       dungeonLocations,
-      requiredBossData.additionalBannedLocations,
+      additionalBannedLocations,
     );
   }
 

@@ -666,6 +666,12 @@ describe('TrackerState', () => {
           'Savage Labyrinth - Floor 30': {
             test: 'data',
           },
+          'Savage Labyrinth - Floor 50': {
+            test: 'data',
+          },
+          'Sunken Treasure': {
+            test: 'data',
+          },
         },
         'Dragon Roost Cavern': {
           'First Room': {
@@ -685,6 +691,8 @@ describe('TrackerState', () => {
       state.locationsChecked = {
         'Outset Island': {
           'Savage Labyrinth - Floor 30': false,
+          'Savage Labyrinth - Floor 50': false,
+          'Sunken Treasure': false,
         },
         'Dragon Roost Cavern': {
           'First Room': false,
@@ -694,17 +702,36 @@ describe('TrackerState', () => {
       };
     });
 
-    test('return a new state with the banned locations cleared', () => {
+    test('return a new state with the banned locations cleared for DRC', () => {
       const newState = state.clearBannedLocations('Dragon Roost Cavern');
 
       expect(newState.locationsChecked).toEqual({
         'Outset Island': {
           'Savage Labyrinth - Floor 30': false,
+          'Savage Labyrinth - Floor 50': false,
+          'Sunken Treasure': false,
         },
         'Dragon Roost Cavern': {
           'First Room': true,
           'Alcove With Water Jugs': true,
           "Bird's Nest": true,
+        },
+      });
+    });
+
+    test('return a new state with the banned locations cleared for Outset', () => {
+      const newState = state.clearBannedLocations('Outset Island');
+
+      expect(newState.locationsChecked).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': true,
+          'Savage Labyrinth - Floor 50': true,
+          'Sunken Treasure': true,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": false,
         },
       });
     });

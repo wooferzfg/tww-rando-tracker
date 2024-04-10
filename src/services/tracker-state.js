@@ -204,11 +204,11 @@ class TrackerState {
     return newState;
   }
 
-  clearBannedLocations(dungeonName) {
+  clearBannedLocations(zoneName) {
     const newState = this._clone({ locationsChecked: true });
 
     _.forEach(
-      LogicHelper.requiredBossesModeBannedLocations(dungeonName),
+      LogicHelper.bannedLocationsForZone(zoneName),
       ({ generalLocation, detailedLocation }) => {
         if (!newState.isLocationChecked(generalLocation, detailedLocation)) {
           newState._toggleLocationCheckedUpdate(

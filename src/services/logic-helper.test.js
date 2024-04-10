@@ -3534,7 +3534,7 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('requiredBossesModeBannedLocations', () => {
+  describe('bannedLocationsForZone', () => {
     beforeEach(() => {
       Settings.initializeRaw({
         options: {
@@ -3568,39 +3568,45 @@ describe('LogicHelper', () => {
     });
 
     test('returns the correct locations for Dragon Roost Cavern', () => {
-      const requiredBossesModeBannedLocations = LogicHelper.requiredBossesModeBannedLocations('Dragon Roost Cavern');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Dragon Roost Cavern');
 
-      expect(requiredBossesModeBannedLocations).toMatchSnapshot();
+      expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
     test('returns the correct locations for Forbidden Woods', () => {
-      const requiredBossesModeBannedLocations = LogicHelper.requiredBossesModeBannedLocations('Forbidden Woods');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Forbidden Woods');
 
-      expect(requiredBossesModeBannedLocations).toMatchSnapshot();
+      expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
     test('returns the correct locations for Tower of the Gods', () => {
-      const requiredBossesModeBannedLocations = LogicHelper.requiredBossesModeBannedLocations('Tower of the Gods');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Tower of the Gods');
 
-      expect(requiredBossesModeBannedLocations).toMatchSnapshot();
+      expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
     test('returns the correct locations for Forsaken Fortress', () => {
-      const requiredBossesModeBannedLocations = LogicHelper.requiredBossesModeBannedLocations('Forsaken Fortress');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Forsaken Fortress');
 
-      expect(requiredBossesModeBannedLocations).toMatchSnapshot();
+      expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
     test('returns the correct locations for Earth Temple', () => {
-      const requiredBossesModeBannedLocations = LogicHelper.requiredBossesModeBannedLocations('Earth Temple');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Earth Temple');
 
-      expect(requiredBossesModeBannedLocations).toMatchSnapshot();
+      expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
     test('returns the correct locations for Wind Temple', () => {
-      const requiredBossesModeBannedLocations = LogicHelper.requiredBossesModeBannedLocations('Wind Temple');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Wind Temple');
 
-      expect(requiredBossesModeBannedLocations).toMatchSnapshot();
+      expect(bannedLocationsForZone).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Outset Island', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Outset Island');
+
+      expect(bannedLocationsForZone).toMatchSnapshot();
     });
   });
 

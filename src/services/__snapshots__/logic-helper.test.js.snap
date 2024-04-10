@@ -703,6 +703,473 @@ exports[`LogicHelper allRandomEntrances when there are nested dungeon entrances 
 ]
 `;
 
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Dragon Roost Cavern 1`] = `
+[
+  {
+    "detailedLocation": "First Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Alcove With Water Jugs",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Water Jug on Upper Shelf",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Boarded Up Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Chest Across Lava Pit",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Rat Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Rat Room Boarded Up Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Bird's Nest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Dark Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Tingle Chest in Hub Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Pot on Upper Shelf in Pot Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Pot Room Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Miniboss",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Under Rope Bridge",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Boss Stairs Right Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Boss Stairs Left Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Boss Stairs Right Pot",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Gohma Heart Container",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+]
+`;
+
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Earth Temple 1`] = `
+[
+  {
+    "detailedLocation": "Transparent Chest In Warp Pot Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Behind Curtain In Warp Pot Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Transparent Chest in First Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest Behind Destructible Walls",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest In Three Blocks Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest Behind Statues",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Casket in Second Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Stalfos Miniboss Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "End of Foggy Room With Floormasters",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Kill All Floormasters in Foggy Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Behind Curtain Next to Hammer Button",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest in Third Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Many Mirrors Room Right Chest",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Many Mirrors Room Left Chest",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Stalfos Crypt Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Jalhalla Heart Container",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Letter from Baito",
+    "generalLocation": "Mailbox",
+  },
+]
+`;
+
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Forbidden Woods 1`] = `
+[
+  {
+    "detailedLocation": "First Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Inside Hollow Tree's Mouth",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Climb to Top Using Boko Baba Bulbs",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Pot High Above Hollow Tree",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Hole in Tree",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Morth Pit",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Vine Maze Left Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Vine Maze Right Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Highest Pot in Vine Maze",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Tall Room Before Miniboss",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Mothula Miniboss Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Past Seeds Hanging by Vines",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Chest Across Red Hanging Flower",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Chest in Locked Tree Trunk",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Double Mothula Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Kalle Demos Heart Container",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Letter from Orca",
+    "generalLocation": "Mailbox",
+  },
+]
+`;
+
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Forsaken Fortress 1`] = `
+[
+  {
+    "detailedLocation": "Phantom Ganon",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Chest Outside Upper Jail Cell",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Chest Inside Lower Jail Cell",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Chest Guarded By Bokoblin",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Chest on Bed",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Helmaroc King Heart Container",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Letter from Aryll",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Letter from Tingle",
+    "generalLocation": "Mailbox",
+  },
+]
+`;
+
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Outset Island 1`] = `
+[
+  {
+    "detailedLocation": "Underneath Link's House",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Mesa the Grasscutter's House",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Orca - Give 10 Knight's Crests",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Orca - Hit 500 Times",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Great Fairy",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Jabun's Cave",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Dig up Black Soil",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Savage Labyrinth - Floor 30",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Savage Labyrinth - Floor 50",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Outset Island",
+  },
+]
+`;
+
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Tower of the Gods 1`] = `
+[
+  {
+    "detailedLocation": "Chest Behind Bombable Walls",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Pot Behind Bombable Walls",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Hop Across Floating Boxes",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Light Two Torches",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Skulls Room Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Shoot Eye Above Skulls Room Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "First Chest Guarded by Armos Knights",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Stone Tablet",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Darknut Miniboss Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Second Chest Guarded by Armos Knights",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Floating Platforms Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Top of Floating Platforms Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Eastern Pot in Big Key Chest Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Gohdan Heart Container",
+    "generalLocation": "Tower of the Gods",
+  },
+]
+`;
+
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Wind Temple 1`] = `
+[
+  {
+    "detailedLocation": "Chest Between Two Dirt Patches",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Behind Stone Head in Hidden Upper Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Chest Behind Stone Head",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Chest in Left Alcove",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Chest In Many Cyclones Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Behind Stone Head in Many Cyclones Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Chest In Middle Of Hub Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Spike Wall Room - First Chest",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Spike Wall Room - Destroy All Cracked Floors",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Wizzrobe Miniboss Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Chest at Top of Hub Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Chest Behind Seven Armos",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Kill All Enemies in Tall Basement Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Molgera Heart Container",
+    "generalLocation": "Wind Temple",
+  },
+]
+`;
+
 exports[`LogicHelper boss requirements when bosses are marked as non-required and then unmarked includes only required bosses in the requirements for Defeat Ganondorf 1`] = `
 BooleanExpression {
   "items": [
@@ -2050,428 +2517,6 @@ exports[`LogicHelper randomExitsForEntrance when there are nested dungeon entran
   "Western Fairy Fountain",
   "Southern Fairy Fountain",
   "Northern Fairy Fountain",
-]
-`;
-
-exports[`LogicHelper requiredBossesModeBannedLocations returns the correct locations for Dragon Roost Cavern 1`] = `
-[
-  {
-    "detailedLocation": "First Room",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Alcove With Water Jugs",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Water Jug on Upper Shelf",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Boarded Up Chest",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Chest Across Lava Pit",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Rat Room",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Rat Room Boarded Up Chest",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Bird's Nest",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Dark Room",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Tingle Chest in Hub Room",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Pot on Upper Shelf in Pot Room",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Pot Room Chest",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Miniboss",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Under Rope Bridge",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Tingle Statue Chest",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Big Key Chest",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Boss Stairs Right Chest",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Boss Stairs Left Chest",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Boss Stairs Right Pot",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-  {
-    "detailedLocation": "Gohma Heart Container",
-    "generalLocation": "Dragon Roost Cavern",
-  },
-]
-`;
-
-exports[`LogicHelper requiredBossesModeBannedLocations returns the correct locations for Earth Temple 1`] = `
-[
-  {
-    "detailedLocation": "Transparent Chest In Warp Pot Room",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Behind Curtain In Warp Pot Room",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Transparent Chest in First Crypt",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Chest Behind Destructible Walls",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Chest In Three Blocks Room",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Chest Behind Statues",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Casket in Second Crypt",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Stalfos Miniboss Room",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Tingle Statue Chest",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "End of Foggy Room With Floormasters",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Kill All Floormasters in Foggy Room",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Behind Curtain Next to Hammer Button",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Chest in Third Crypt",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Many Mirrors Room Right Chest",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Many Mirrors Room Left Chest",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Stalfos Crypt Room",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Big Key Chest",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Jalhalla Heart Container",
-    "generalLocation": "Earth Temple",
-  },
-  {
-    "detailedLocation": "Letter from Baito",
-    "generalLocation": "Mailbox",
-  },
-]
-`;
-
-exports[`LogicHelper requiredBossesModeBannedLocations returns the correct locations for Forbidden Woods 1`] = `
-[
-  {
-    "detailedLocation": "First Room",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Inside Hollow Tree's Mouth",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Climb to Top Using Boko Baba Bulbs",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Pot High Above Hollow Tree",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Hole in Tree",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Morth Pit",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Vine Maze Left Chest",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Vine Maze Right Chest",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Highest Pot in Vine Maze",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Tall Room Before Miniboss",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Mothula Miniboss Room",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Past Seeds Hanging by Vines",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Chest Across Red Hanging Flower",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Tingle Statue Chest",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Chest in Locked Tree Trunk",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Big Key Chest",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Double Mothula Room",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Kalle Demos Heart Container",
-    "generalLocation": "Forbidden Woods",
-  },
-  {
-    "detailedLocation": "Letter from Orca",
-    "generalLocation": "Mailbox",
-  },
-]
-`;
-
-exports[`LogicHelper requiredBossesModeBannedLocations returns the correct locations for Forsaken Fortress 1`] = `
-[
-  {
-    "detailedLocation": "Phantom Ganon",
-    "generalLocation": "Forsaken Fortress",
-  },
-  {
-    "detailedLocation": "Chest Outside Upper Jail Cell",
-    "generalLocation": "Forsaken Fortress",
-  },
-  {
-    "detailedLocation": "Chest Inside Lower Jail Cell",
-    "generalLocation": "Forsaken Fortress",
-  },
-  {
-    "detailedLocation": "Chest Guarded By Bokoblin",
-    "generalLocation": "Forsaken Fortress",
-  },
-  {
-    "detailedLocation": "Chest on Bed",
-    "generalLocation": "Forsaken Fortress",
-  },
-  {
-    "detailedLocation": "Helmaroc King Heart Container",
-    "generalLocation": "Forsaken Fortress",
-  },
-  {
-    "detailedLocation": "Letter from Aryll",
-    "generalLocation": "Mailbox",
-  },
-  {
-    "detailedLocation": "Letter from Tingle",
-    "generalLocation": "Mailbox",
-  },
-]
-`;
-
-exports[`LogicHelper requiredBossesModeBannedLocations returns the correct locations for Tower of the Gods 1`] = `
-[
-  {
-    "detailedLocation": "Chest Behind Bombable Walls",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Pot Behind Bombable Walls",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Hop Across Floating Boxes",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Light Two Torches",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Skulls Room Chest",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Shoot Eye Above Skulls Room Chest",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Tingle Statue Chest",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "First Chest Guarded by Armos Knights",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Stone Tablet",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Darknut Miniboss Room",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Second Chest Guarded by Armos Knights",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Floating Platforms Room",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Top of Floating Platforms Room",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Eastern Pot in Big Key Chest Room",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Big Key Chest",
-    "generalLocation": "Tower of the Gods",
-  },
-  {
-    "detailedLocation": "Gohdan Heart Container",
-    "generalLocation": "Tower of the Gods",
-  },
-]
-`;
-
-exports[`LogicHelper requiredBossesModeBannedLocations returns the correct locations for Wind Temple 1`] = `
-[
-  {
-    "detailedLocation": "Chest Between Two Dirt Patches",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Behind Stone Head in Hidden Upper Room",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Tingle Statue Chest",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Chest Behind Stone Head",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Chest in Left Alcove",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Big Key Chest",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Chest In Many Cyclones Room",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Behind Stone Head in Many Cyclones Room",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Chest In Middle Of Hub Room",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Spike Wall Room - First Chest",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Spike Wall Room - Destroy All Cracked Floors",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Wizzrobe Miniboss Room",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Chest at Top of Hub Room",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Chest Behind Seven Armos",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Kill All Enemies in Tall Basement Room",
-    "generalLocation": "Wind Temple",
-  },
-  {
-    "detailedLocation": "Molgera Heart Container",
-    "generalLocation": "Wind Temple",
-  },
 ]
 `;
 
