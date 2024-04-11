@@ -79,6 +79,7 @@ class LocationsTable extends React.PureComponent {
   chartContainer() {
     const {
       chartListOpen,
+      clearAllLocations,
       clearOpenedMenus,
       toggleRequiredBoss,
       decrementItem,
@@ -155,6 +156,7 @@ class LocationsTable extends React.PureComponent {
     } else if (!_.isNil(openedLocation)) {
       chartElement = (
         <DetailedLocationsTable
+          clearAllLocations={clearAllLocations}
           clearOpenedMenus={clearOpenedMenus}
           disableLogic={disableLogic}
           logic={logic}
@@ -280,6 +282,7 @@ LocationsTable.defaultProps = {
 LocationsTable.propTypes = {
   backgroundColor: PropTypes.string,
   chartListOpen: PropTypes.bool.isRequired,
+  clearAllLocations: PropTypes.func.isRequired,
   clearOpenedMenus: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,

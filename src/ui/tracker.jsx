@@ -47,6 +47,7 @@ class Tracker extends React.PureComponent {
 
     this.initialize();
 
+    this.clearAllLocations = this.clearAllLocations.bind(this);
     this.clearOpenedMenus = this.clearOpenedMenus.bind(this);
     this.decrementItem = this.decrementItem.bind(this);
     this.incrementItem = this.incrementItem.bind(this);
@@ -176,6 +177,14 @@ class Tracker extends React.PureComponent {
 
       newTrackerState = newTrackerState.unsetItemForLocation(generalLocation, detailedLocation);
     }
+
+    this.updateTrackerState(newTrackerState);
+  }
+
+  clearAllLocations(zoneName) {
+    const { trackerState } = this.state;
+
+    const newTrackerState = trackerState.clearBannedLocations(zoneName);
 
     this.updateTrackerState(newTrackerState);
   }
@@ -457,6 +466,7 @@ class Tracker extends React.PureComponent {
             <LocationsTable
               backgroundColor={extraLocationsBackground}
               chartListOpen={chartListOpen}
+              clearAllLocations={this.clearAllLocations}
               clearOpenedMenus={this.clearOpenedMenus}
               decrementItem={this.decrementItem}
               disableLogic={disableLogic}

@@ -149,6 +149,7 @@ class DetailedLocationsTable extends React.PureComponent {
 
   render() {
     const {
+      clearAllLocations,
       clearOpenedMenus,
       toggleRequiredBoss,
       disableLogic,
@@ -177,7 +178,23 @@ class DetailedLocationsTable extends React.PureComponent {
       DetailedLocationsTable.NUM_ROWS,
     );
 
-    let clearAllElement;
+    const clearAllLocationsFunc = () => clearAllLocations(openedLocation);
+
+    const clearAllElement = (
+      <td>
+        <div
+          className="detail-span"
+          onClick={clearAllLocationsFunc}
+          onKeyDown={KeyDownWrapper.onSpaceKey(clearAllLocationsFunc)}
+          role="button"
+          tabIndex="0"
+        >
+          ✓ Clear All
+        </div>
+      </td>
+    );
+
+    let requiredBossElement = null;
     if (
       Settings.getOptionValue(Permalink.OPTIONS.REQUIRED_BOSSES)
       && openedLocationIsDungeon
@@ -194,8 +211,8 @@ class DetailedLocationsTable extends React.PureComponent {
 
       const className = `detail-span ${isDisabled ? 'detail-disabled' : ''}`;
 
-      clearAllElement = (
-        <td>
+      requiredBossElement = (
+        <td className="extra-width-header">
           <div
             className={className}
             onClick={toggleRequiredBossFunc}
@@ -220,7 +237,9 @@ class DetailedLocationsTable extends React.PureComponent {
       <MapTable
         backgroundImage={backgroundImage}
         closeFunc={clearOpenedMenus}
-        headerCellsAfterClose={clearAllElement}
+        headerCellsAfterClose={
+          _.concat(clearAllElement, requiredBossElement)
+        }
         tableRows={locationRows}
       />
     );
@@ -228,6 +247,7 @@ class DetailedLocationsTable extends React.PureComponent {
 }
 
 DetailedLocationsTable.propTypes = {
+  clearAllLocations: PropTypes.func.isRequired,
   clearOpenedMenus: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
