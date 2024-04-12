@@ -19,6 +19,7 @@ export default class Launcher extends React.PureComponent {
       'A new version of the tracker is available! Click here to reload.',
       {
         autoClose: false,
+        closeOnClick: true,
         onClick: () => window.location.reload(),
       },
     );
