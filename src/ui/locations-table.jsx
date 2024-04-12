@@ -173,6 +173,7 @@ class LocationsTable extends React.PureComponent {
     } else {
       chartElement = (
         <SeaChart
+          clearAllLocations={clearAllLocations}
           clearSelectedChartForIsland={this.clearSelectedChartForIsland}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}

@@ -13,6 +13,7 @@ import Sector from './sector';
 class SeaChart extends React.PureComponent {
   sector(island) {
     const {
+      clearAllLocations,
       clearSelectedChartForIsland,
       clearSelectedItem,
       clearSelectedLocation,
@@ -42,6 +43,7 @@ class SeaChart extends React.PureComponent {
 
     return (
       <Sector
+        clearAllLocations={clearAllLocations}
         clearSelectedChartForIsland={clearSelectedChartForIsland}
         clearSelectedItem={clearSelectedItem}
         clearSelectedLocation={clearSelectedLocation}
@@ -90,6 +92,7 @@ class SeaChart extends React.PureComponent {
 }
 
 SeaChart.propTypes = {
+  clearAllLocations: PropTypes.func.isRequired,
   clearSelectedChartForIsland: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
