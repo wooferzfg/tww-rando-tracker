@@ -9,6 +9,7 @@ import Settings from '../services/settings';
 import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
+import ContextMenuWrapper from './context-menu-wrapper';
 import Images from './images';
 import Item from './item';
 import KeyDownWrapper from './key-down-wrapper';
@@ -279,6 +280,7 @@ class Sector extends React.PureComponent {
 
   render() {
     const {
+      clearAllLocations,
       clearSelectedLocation,
       island,
       setSelectedLocation,
@@ -296,11 +298,18 @@ class Sector extends React.PureComponent {
 
     const setSelectedLocationFunc = () => setSelectedLocation({ locationName: island });
 
+    const clearAllLocationsFunc = (event) => {
+      event.preventDefault();
+
+      clearAllLocations(island);
+    };
+
     return (
       <div
         className="sea-sector"
         onBlur={clearSelectedLocation}
         onClick={updateOpenedLocationFunc}
+        onContextMenu={ContextMenuWrapper.onRightClick(clearAllLocationsFunc)}
         onFocus={setSelectedLocationFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(updateOpenedLocationFunc)}
         onMouseOver={setSelectedLocationFunc}
@@ -317,6 +326,7 @@ class Sector extends React.PureComponent {
 }
 
 Sector.propTypes = {
+  clearAllLocations: PropTypes.func.isRequired,
   clearSelectedChartForIsland: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,

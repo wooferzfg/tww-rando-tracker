@@ -173,6 +173,7 @@ class LocationsTable extends React.PureComponent {
     } else {
       chartElement = (
         <SeaChart
+          clearAllLocations={clearAllLocations}
           clearSelectedChartForIsland={this.clearSelectedChartForIsland}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
@@ -223,6 +224,7 @@ class LocationsTable extends React.PureComponent {
   render() {
     const {
       backgroundColor,
+      clearAllLocations,
       decrementItem,
       disableLogic,
       incrementItem,
@@ -244,6 +246,7 @@ class LocationsTable extends React.PureComponent {
         {this.chartContainer()}
         <ExtraLocationsTable
           backgroundColor={backgroundColor}
+          clearAllLocations={clearAllLocations}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
           decrementItem={decrementItem}
