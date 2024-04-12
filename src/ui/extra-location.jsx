@@ -9,6 +9,7 @@ import Settings from '../services/settings';
 import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
+import ContextMenuWrapper from './context-menu-wrapper';
 import Images from './images';
 import Item from './item';
 import KeyDownWrapper from './key-down-wrapper';
@@ -378,6 +379,7 @@ class ExtraLocation extends React.PureComponent {
 
   render() {
     const {
+      clearAllLocations,
       clearSelectedLocation,
       isDungeon,
       locationName,
@@ -392,11 +394,18 @@ class ExtraLocation extends React.PureComponent {
 
     const setSelectedLocationFunc = () => setSelectedLocation({ locationName });
 
+    const clearAllLocationsFunc = (event) => {
+      event.preventDefault();
+
+      clearAllLocations(locationName);
+    };
+
     return (
       <div
         className="extra-location"
         onBlur={clearSelectedLocation}
         onClick={updateOpenedLocationFunc}
+        onContextMenu={ContextMenuWrapper.onRightClick(clearAllLocationsFunc)}
         onFocus={setSelectedLocationFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(updateOpenedLocationFunc)}
         onMouseOver={setSelectedLocationFunc}
@@ -414,6 +423,7 @@ class ExtraLocation extends React.PureComponent {
 }
 
 ExtraLocation.propTypes = {
+  clearAllLocations: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
