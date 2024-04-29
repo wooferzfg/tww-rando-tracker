@@ -46,12 +46,6 @@ class Buttons extends React.PureComponent {
     return (
       <div className="buttons">
         <button
-          onClick={this.exportProgress}
-          type="button"
-        >
-          Export Progress
-        </button>
-        <button
           onClick={toggleOnlyProgressLocations}
           type="button"
         >
@@ -75,6 +69,12 @@ class Buttons extends React.PureComponent {
           </button>
         )}
         <br />
+        <button
+          onClick={this.exportProgress}
+          type="button"
+        >
+          Export Progress
+        </button>
         <button
           onClick={toggleSettingsWindow}
           type="button"
