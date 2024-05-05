@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useId } from 'react';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 
-function Tooltip({ children, tooltipContent }) {
+function Tooltip({ children, tooltipContent = null }) {
   if (_.isNil(tooltipContent)) {
     return children;
   }
@@ -27,10 +27,6 @@ function Tooltip({ children, tooltipContent }) {
     </div>
   );
 }
-
-Tooltip.defaultProps = {
-  tooltipContent: null,
-};
 
 Tooltip.propTypes = {
   children: PropTypes.element.isRequired,
