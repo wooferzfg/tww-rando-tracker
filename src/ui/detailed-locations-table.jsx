@@ -237,9 +237,12 @@ class DetailedLocationsTable extends React.PureComponent {
       <MapTable
         backgroundImage={backgroundImage}
         closeFunc={clearOpenedMenus}
-        headerCellsAfterClose={
-          _.concat(clearAllElement, requiredBossElement)
-        }
+        headerCellsAfterClose={(
+          <>
+            {clearAllElement}
+            {requiredBossElement}
+          </>
+        )}
         tableRows={locationRows}
       />
     );
