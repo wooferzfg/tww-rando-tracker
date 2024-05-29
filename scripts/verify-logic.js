@@ -15,7 +15,7 @@ LogicLoader.loadLogicFiles = async () => ({
   macrosFile: TEST_MACROS,
 });
 
-LogicTweaks._applyHasAccessedLocationTweaksForLocations = () => { };
+LogicTweaks.applyHasAccessedLocationTweaksForLocations = () => { };
 
 const verifyLogicForItemCounts = (
   generalLocation,
@@ -34,14 +34,14 @@ const verifyLogicForItemCounts = (
     detailedLocation,
     false,
   );
-  const rawRequirements = LogicHelper._rawRequirementsForLocation(
+  const rawRequirements = LogicHelper.rawRequirementsForLocation(
     generalLocation,
     detailedLocation,
     false,
   );
 
-  const simplifiedRequirementsMet = logic._areRequirementsMet(simplifiedRequirements);
-  const rawRequirementsMet = logic._areRequirementsMet(rawRequirements);
+  const simplifiedRequirementsMet = logic.areRequirementsMet(simplifiedRequirements);
+  const rawRequirementsMet = logic.areRequirementsMet(rawRequirements);
 
   if (simplifiedRequirementsMet !== rawRequirementsMet) {
     throw Error(
@@ -57,7 +57,7 @@ const verifyLogicForItemCounts = (
 
 const verifyLogicForLocation = (generalLocation, detailedLocation, trackerState) => {
   console.log(`\nChecking location "${generalLocation} - ${detailedLocation}":`); // eslint-disable-line no-console
-  const rawRequirements = LogicHelper._rawRequirementsForLocation(
+  const rawRequirements = LogicHelper.rawRequirementsForLocation(
     generalLocation,
     detailedLocation,
     false,

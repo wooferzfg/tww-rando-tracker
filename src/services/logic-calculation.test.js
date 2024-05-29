@@ -1899,10 +1899,10 @@ describe('LogicCalculation', () => {
     });
   });
 
-  describe('_isRequirementMet', () => {
+  describe('isRequirementMet', () => {
     describe('when the requirement is nothing', () => {
       test('returns true', () => {
-        const isItemAvailable = logic._isRequirementMet('Nothing');
+        const isItemAvailable = logic.isRequirementMet('Nothing');
 
         expect(isItemAvailable).toEqual(true);
       });
@@ -1910,7 +1910,7 @@ describe('LogicCalculation', () => {
 
     describe('when the requirement is nothing', () => {
       test('returns false', () => {
-        const isItemAvailable = logic._isRequirementMet('Impossible');
+        const isItemAvailable = logic.isRequirementMet('Impossible');
 
         expect(isItemAvailable).toEqual(false);
       });
@@ -1925,7 +1925,7 @@ describe('LogicCalculation', () => {
         });
 
         test('returns true', () => {
-          const isItemAvailable = logic._isRequirementMet('Deku Leaf');
+          const isItemAvailable = logic.isRequirementMet('Deku Leaf');
 
           expect(isItemAvailable).toEqual(true);
         });
@@ -1933,7 +1933,7 @@ describe('LogicCalculation', () => {
 
       describe('when the item is not available', () => {
         test('returns false', () => {
-          const isItemAvailable = logic._isRequirementMet('Deku Leaf');
+          const isItemAvailable = logic.isRequirementMet('Deku Leaf');
 
           expect(isItemAvailable).toEqual(false);
         });
@@ -1952,7 +1952,7 @@ describe('LogicCalculation', () => {
         });
 
         test('returns true', () => {
-          const isItemAvailable = logic._isRequirementMet('Progressive Sword x3');
+          const isItemAvailable = logic.isRequirementMet('Progressive Sword x3');
 
           expect(isItemAvailable).toEqual(true);
         });
@@ -1970,7 +1970,7 @@ describe('LogicCalculation', () => {
         });
 
         test('returns false', () => {
-          const isItemAvailable = logic._isRequirementMet('Triforce Shard x5');
+          const isItemAvailable = logic.isRequirementMet('Triforce Shard x5');
 
           expect(isItemAvailable).toEqual(false);
         });
@@ -1984,7 +1984,7 @@ describe('LogicCalculation', () => {
         });
 
         test('returns true', () => {
-          const isItemAvailable = logic._isRequirementMet('DRC Small Key x2');
+          const isItemAvailable = logic.isRequirementMet('DRC Small Key x2');
 
           expect(isItemAvailable).toEqual(true);
         });
@@ -1996,7 +1996,7 @@ describe('LogicCalculation', () => {
         });
 
         test('returns false', () => {
-          const isItemAvailable = logic._isRequirementMet('DRC Small Key x2');
+          const isItemAvailable = logic.isRequirementMet('DRC Small Key x2');
 
           expect(isItemAvailable).toEqual(false);
         });
@@ -2016,7 +2016,7 @@ describe('LogicCalculation', () => {
 
       describe('when the other location has not been checked', () => {
         test('returns false', () => {
-          const isItemAvailable = logic._isRequirementMet(
+          const isItemAvailable = logic.isRequirementMet(
             'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"',
           );
 
@@ -2032,7 +2032,7 @@ describe('LogicCalculation', () => {
         });
 
         test('returns true', () => {
-          const isItemAvailable = logic._isRequirementMet(
+          const isItemAvailable = logic.isRequirementMet(
             'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"',
           );
 
@@ -2048,7 +2048,7 @@ describe('LogicCalculation', () => {
         });
 
         test('returns true', () => {
-          const isItemAvailable = logic._isRequirementMet(
+          const isItemAvailable = logic.isRequirementMet(
             'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"',
           );
 
@@ -2077,7 +2077,7 @@ describe('LogicCalculation', () => {
 
     describe('when the boss location has not been checked', () => {
       test('returns false', () => {
-        const isItemAvailable = logic._isRequirementMet('Defeated Kalle Demos');
+        const isItemAvailable = logic.isRequirementMet('Defeated Kalle Demos');
 
         expect(isItemAvailable).toEqual(false);
       });
@@ -2091,7 +2091,7 @@ describe('LogicCalculation', () => {
       });
 
       test('returns true', () => {
-        const isItemAvailable = logic._isRequirementMet('Defeated Kalle Demos');
+        const isItemAvailable = logic.isRequirementMet('Defeated Kalle Demos');
 
         expect(isItemAvailable).toEqual(true);
       });
@@ -2105,7 +2105,7 @@ describe('LogicCalculation', () => {
       });
 
       test('returns true', () => {
-        const isItemAvailable = logic._isRequirementMet('Defeated Kalle Demos');
+        const isItemAvailable = logic.isRequirementMet('Defeated Kalle Demos');
 
         expect(isItemAvailable).toEqual(true);
       });

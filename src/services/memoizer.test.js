@@ -10,7 +10,15 @@ describe('Memoizer', () => {
       }
 
       static mockStaticMethod(mockParam) {
-        return this._privateStaticMethod(mockParam);
+        return this.mockStaticMethodHelper(mockParam);
+      }
+
+      static mockStaticMethodHelper(mockParam) {
+        if (!this.previousValue) {
+          this.previousValue = mockParam;
+          return `First! param:${mockParam}`;
+        }
+        return `Repeated! param:${mockParam} previousValue:${this.previousValue}`;
       }
 
       mockInstanceMethod(mockParam) {
@@ -20,19 +28,11 @@ describe('Memoizer', () => {
         }
         return `Repeated! param:${mockParam} previousValue:${this.previousValue} initialValue:${this.mockInitialValue}`;
       }
-
-      static _privateStaticMethod(mockParam) {
-        if (!this.previousValue) {
-          this.previousValue = mockParam;
-          return `First! param:${mockParam}`;
-        }
-        return `Repeated! param:${mockParam} previousValue:${this.previousValue}`;
-      }
     };
 
     // this simulates functions in minified production code, which do not have a name attribute
     MockClass.mockStaticMethod2 = (mockParam) => (
-      `Method 2! ${MockClass._privateStaticMethod(mockParam)}`
+      `Method 2! ${MockClass.mockStaticMethodHelper(mockParam)}`
     );
   });
 
