@@ -426,7 +426,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state.incrementItem('Grappling Hook'),
+          logic.state().incrementItem('Grappling Hook'),
         );
       });
 
@@ -457,7 +457,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Deku Leaf')
             .incrementItem('Boomerang'),
         );
@@ -492,7 +492,7 @@ describe('LogicCalculation', () => {
       });
 
       logic = new LogicCalculation(
-        logic.state.incrementItem('Power Bracelets'),
+        logic.state().incrementItem('Power Bracelets'),
       );
     });
 
@@ -619,7 +619,7 @@ describe('LogicCalculation', () => {
     describe('when locations are checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
             .toggleLocationChecked('Dragon Roost Cavern', 'Rat Room')
             .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
@@ -656,7 +656,7 @@ describe('LogicCalculation', () => {
     describe('when more locations are available', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Grappling Hook')
             .incrementItem('Deku Leaf'),
         );
@@ -760,7 +760,7 @@ describe('LogicCalculation', () => {
       describe('when locations are checked', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state
+            logic.state()
               .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
               .toggleLocationChecked('Dragon Roost Cavern', 'Rat Room'),
           );
@@ -912,7 +912,7 @@ describe('LogicCalculation', () => {
     describe('when locations are checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .toggleLocationChecked('Cliff Plateau Isles', 'Cave')
             .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
         );
@@ -954,7 +954,7 @@ describe('LogicCalculation', () => {
     describe('when more locations are available', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Bombs')
             .incrementItem('Skull Hammer'),
         );
@@ -1120,7 +1120,7 @@ describe('LogicCalculation', () => {
       describe('when locations are checked', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+            logic.state().toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
           );
         });
 
@@ -1284,7 +1284,7 @@ describe('LogicCalculation', () => {
       });
 
       logic = new LogicCalculation(
-        logic.state
+        logic.state()
           .setExitForEntrance('Bomb Island Secret Cave', 'Dragon Roost Cavern')
           .setExitForEntrance('Gohma Boss Arena', 'Forbidden Woods')
           .setExitForEntrance('Tower of the Gods Miniboss Arena', 'Forbidden Woods Miniboss Arena')
@@ -1320,7 +1320,7 @@ describe('LogicCalculation', () => {
     describe('when some locations are checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
             .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle')
             .toggleLocationChecked('Windfall Island', 'Transparent Chest'),
@@ -1339,7 +1339,7 @@ describe('LogicCalculation', () => {
     describe('when showing non-progress locations', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
             .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle')
             .toggleLocationChecked('Windfall Island', 'Transparent Chest'),
@@ -1358,7 +1358,7 @@ describe('LogicCalculation', () => {
     describe('when Defeat Ganondorf is checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
             .toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
         );
@@ -1402,7 +1402,7 @@ describe('LogicCalculation', () => {
     describe('when a location is checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state.toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
+          logic.state().toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
         );
       });
 
@@ -1418,7 +1418,7 @@ describe('LogicCalculation', () => {
     describe('when Defeat Ganondorf is available', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Triforce Shard')
             .incrementItem('Triforce Shard')
             .incrementItem('Triforce Shard')
@@ -1477,7 +1477,7 @@ describe('LogicCalculation', () => {
     describe('when a location is checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state.toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
+          logic.state().toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
         );
       });
 
@@ -1506,7 +1506,7 @@ describe('LogicCalculation', () => {
       describe('when some required items are obtained', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state
+            logic.state()
               .incrementItem('Deku Leaf') // not required to finish game
               .incrementItem('Triforce Shard')
               .incrementItem('Triforce Shard')
@@ -1527,7 +1527,7 @@ describe('LogicCalculation', () => {
       describe('when Defeat Ganondorf is checked', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+            logic.state().toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
           );
         });
 
@@ -1541,7 +1541,7 @@ describe('LogicCalculation', () => {
       describe('when all required items are obtained', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state
+            logic.state()
               .incrementItem('Triforce Shard')
               .incrementItem('Triforce Shard')
               .incrementItem('Triforce Shard')
@@ -1603,7 +1603,7 @@ describe('LogicCalculation', () => {
       describe('when some required items are obtained', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state
+            logic.state()
               .incrementItem('Deku Leaf')
               .incrementItem('Triforce Shard')
               .incrementItem('Triforce Shard')
@@ -1624,7 +1624,7 @@ describe('LogicCalculation', () => {
       describe('when Defeat Ganondorf is checked', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+            logic.state().toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
           );
         });
 
@@ -1651,7 +1651,7 @@ describe('LogicCalculation', () => {
     describe('when some locations are checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
             .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
         );
@@ -1667,7 +1667,7 @@ describe('LogicCalculation', () => {
     describe('when some required items are obtained', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Deku Leaf') // not required to finish game
             .incrementItem('Triforce Shard')
             .incrementItem('Triforce Shard')
@@ -1688,7 +1688,7 @@ describe('LogicCalculation', () => {
     describe('when all required items are obtained', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Triforce Shard')
             .incrementItem('Triforce Shard')
             .incrementItem('Triforce Shard')
@@ -1719,7 +1719,7 @@ describe('LogicCalculation', () => {
     describe('when Defeat Ganondorf is checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+          logic.state().toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
         );
       });
 
@@ -1732,7 +1732,7 @@ describe('LogicCalculation', () => {
 
     describe('when all locations are checked', () => {
       beforeEach(() => {
-        let { state } = logic;
+        let state = logic.state();
 
         _.forEach(Locations.locations, (detailedLocations, generalLocation) => {
           _.forEach(detailedLocations, (locationData, detailedLocation) => {
@@ -1806,7 +1806,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state.toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
+          logic.state().toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
         );
       });
 
@@ -1828,7 +1828,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Grappling Hook')
             .incrementItem('Deku Leaf'),
         );
@@ -1852,7 +1852,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Deku Leaf'),
         );
       });
@@ -1873,7 +1873,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state.incrementItem('Power Bracelets'),
+          logic.state().incrementItem('Power Bracelets'),
         );
       });
 
@@ -1920,7 +1920,7 @@ describe('LogicCalculation', () => {
       describe('when the item is available', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.incrementItem('Deku Leaf'),
+            logic.state().incrementItem('Deku Leaf'),
           );
         });
 
@@ -1944,7 +1944,7 @@ describe('LogicCalculation', () => {
       describe('when the item count meets the requirement', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state
+            logic.state()
               .incrementItem('Progressive Sword')
               .incrementItem('Progressive Sword')
               .incrementItem('Progressive Sword'),
@@ -1961,7 +1961,7 @@ describe('LogicCalculation', () => {
       describe('when the item count does not meet the requirement', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state
+            logic.state()
               .incrementItem('Triforce Shard')
               .incrementItem('Triforce Shard')
               .incrementItem('Triforce Shard')
@@ -2027,7 +2027,7 @@ describe('LogicCalculation', () => {
       describe('when the other location has been checked', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
+            logic.state().toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
           );
         });
 
@@ -2043,7 +2043,7 @@ describe('LogicCalculation', () => {
       describe('when the requirements for the other location have been met', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.incrementItem('Grappling Hook'),
+            logic.state().incrementItem('Grappling Hook'),
           );
         });
 
@@ -2086,7 +2086,7 @@ describe('LogicCalculation', () => {
     describe('when the boss location has been checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state.toggleLocationChecked('Forbidden Woods', 'Kalle Demos Heart Container'),
+          logic.state().toggleLocationChecked('Forbidden Woods', 'Kalle Demos Heart Container'),
         );
       });
 
@@ -2100,7 +2100,7 @@ describe('LogicCalculation', () => {
     describe('when the requirements for the other location have been met', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state.incrementItem('Boomerang'),
+          logic.state().incrementItem('Boomerang'),
         );
       });
 
