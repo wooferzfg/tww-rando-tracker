@@ -10,7 +10,7 @@ import Settings from './settings';
 
 class LogicCalculation {
   constructor(state) {
-    this.state = state;
+    this.#state = state;
 
     Memoizer.memoize(this, [
       'entrancesListForDungeon',
@@ -76,7 +76,7 @@ class LogicCalculation {
     let numRemaining = 0;
 
     _.forEach(detailedLocations, (detailedLocation) => {
-      if (!this.state.isLocationChecked(generalLocation, detailedLocation)) {
+      if (!this.#state.isLocationChecked(generalLocation, detailedLocation)) {
         if (disableLogic || this.isLocationAvailable(generalLocation, detailedLocation)) {
           numAvailable += 1;
 
@@ -105,7 +105,7 @@ class LogicCalculation {
 
     return _.map(detailedLocations, (detailedLocation) => {
       const isAvailable = this.isLocationAvailable(generalLocation, detailedLocation);
-      const isChecked = this.state.isLocationChecked(generalLocation, detailedLocation);
+      const isChecked = this.#state.isLocationChecked(generalLocation, detailedLocation);
       const isProgress = LogicHelper.isProgressLocation(generalLocation, detailedLocation);
 
       const color = LogicCalculation.#locationColor(
@@ -133,7 +133,7 @@ class LogicCalculation {
 
     const exitsWithColors = _.map(exits, (exitName) => {
       const entryName = LogicHelper.entryName(exitName);
-      const isChecked = this.state.getItemValue(entryName) > 0;
+      const isChecked = this.#state.getItemValue(entryName) > 0;
       const color = LogicCalculation.#locationColor(true, isChecked, true);
 
       return {
@@ -165,7 +165,7 @@ class LogicCalculation {
   totalLocationsChecked({ onlyProgressLocations }) {
     return LogicCalculation.#countLocationsBy(
       (generalLocation, detailedLocation) => {
-        const isLocationChecked = this.state.isLocationChecked(generalLocation, detailedLocation);
+        const isLocationChecked = this.#state.isLocationChecked(generalLocation, detailedLocation);
 
         return isLocationChecked ? 1 : 0;
       },
@@ -176,7 +176,7 @@ class LogicCalculation {
   totalLocationsAvailable({ onlyProgressLocations }) {
     return LogicCalculation.#countLocationsBy(
       (generalLocation, detailedLocation) => {
-        if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
+        if (this.#state.isLocationChecked(generalLocation, detailedLocation)) {
           return 0;
         }
 
@@ -194,7 +194,7 @@ class LogicCalculation {
   totalLocationsRemaining({ onlyProgressLocations }) {
     return LogicCalculation.#countLocationsBy(
       (generalLocation, detailedLocation) => {
-        const isLocationChecked = this.state.isLocationChecked(generalLocation, detailedLocation);
+        const isLocationChecked = this.#state.isLocationChecked(generalLocation, detailedLocation);
 
         return isLocationChecked ? 0 : 1;
       },
@@ -228,11 +228,11 @@ class LogicCalculation {
   isBossDefeated(dungeonName) {
     const bossLocation = LogicHelper.bossLocation(dungeonName);
 
-    return this.state.isLocationChecked(dungeonName, bossLocation);
+    return this.#state.isLocationChecked(dungeonName, bossLocation);
   }
 
   isLocationAvailable(generalLocation, detailedLocation) {
-    if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
+    if (this.#state.isLocationChecked(generalLocation, detailedLocation)) {
       return true;
     }
 
@@ -263,7 +263,7 @@ class LogicCalculation {
   }
 
   itemsRemainingForLocation(generalLocation, detailedLocation) {
-    if (this.state.isLocationChecked(generalLocation, detailedLocation)) {
+    if (this.#state.isLocationChecked(generalLocation, detailedLocation)) {
       return 0;
     }
 
@@ -312,10 +312,16 @@ class LogicCalculation {
     throw Error(`Could not parse requirement: ${requirement}`);
   }
 
+  state() {
+    return this.#state;
+  }
+
+  #state;
+
   #entrancesListForEntrances(entrances, { disableLogic }) {
     return _.map(entrances, (entranceName) => {
       const isAvailable = this.isEntranceAvailable(entranceName);
-      const isChecked = this.state.isEntranceChecked(entranceName);
+      const isChecked = this.#state.isEntranceChecked(entranceName);
 
       const color = LogicCalculation.#locationColor(
         disableLogic || isAvailable,
@@ -333,7 +339,7 @@ class LogicCalculation {
   #setGuaranteedKeys() {
     this.guaranteedKeys = _.reduce(
       _.keys(KEYS),
-      (accumulator, keyName) => _.set(accumulator, keyName, this.state.getItemValue(keyName)),
+      (accumulator, keyName) => _.set(accumulator, keyName, this.#state.getItemValue(keyName)),
       {},
     );
 
@@ -691,7 +697,7 @@ class LogicCalculation {
       return guaranteedKeyCount;
     }
 
-    return this.state.getItemValue(itemName);
+    return this.#state.getItemValue(itemName);
   }
 }
 
