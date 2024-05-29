@@ -25,7 +25,7 @@ class ExtraLocation extends React.PureComponent {
 
   static MIN_WIDTH = 120;
 
-  static _COLOR_TO_COUNT_MAPPING = {
+  static #COLOR_TO_COUNT_MAPPING = {
     [LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION]: 0,
     [LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION]: 1,
     [LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION]: 2,
@@ -204,7 +204,7 @@ class ExtraLocation extends React.PureComponent {
       updateOpenedEntrance,
     } = this.props;
 
-    const itemCount = ExtraLocation._COLOR_TO_COUNT_MAPPING[color];
+    const itemCount = ExtraLocation.#COLOR_TO_COUNT_MAPPING[color];
     const shortEntranceName = LogicHelper.shortEntranceName(entrance);
 
     const setSelectedItemFunc = () => setSelectedEntrance(entrance);

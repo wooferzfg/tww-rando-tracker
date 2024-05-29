@@ -3610,7 +3610,7 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('_rawRequirementsForLocation', () => {
+  describe('rawRequirementsForLocation', () => {
     describe('when the location has no requirements', () => {
       beforeEach(() => {
         Locations.locations = {
@@ -3623,7 +3623,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.and('Nothing'),
@@ -3643,7 +3643,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.or('Grappling Hook', "Hero's Sword", 'Skull Hammer'),
@@ -3671,7 +3671,7 @@ describe('LogicHelper', () => {
           });
 
           test('replaces the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+            const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Nothing'),
@@ -3687,7 +3687,7 @@ describe('LogicHelper', () => {
           });
 
           test('does not replace the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+            const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Progressive Sword x2'),
@@ -3715,7 +3715,7 @@ describe('LogicHelper', () => {
           });
 
           test('replaces the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+            const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Nothing'),
@@ -3731,7 +3731,7 @@ describe('LogicHelper', () => {
           });
 
           test('does not replace the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+            const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Wind Waker'),
@@ -3761,7 +3761,7 @@ describe('LogicHelper', () => {
           });
 
           test('replaces the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+            const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Impossible'),
@@ -3777,7 +3777,7 @@ describe('LogicHelper', () => {
           });
 
           test('does not replace the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+            const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Progressive Sword x2'),
@@ -3803,7 +3803,7 @@ describe('LogicHelper', () => {
         });
 
         test('replaces the item in the requirements expression', () => {
-          const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+          const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
           expect(expression).toEqual(
             BooleanExpression.and('Impossible'),
@@ -3825,7 +3825,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.or(
@@ -3856,7 +3856,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.or(
@@ -3886,7 +3886,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements for the other location', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.and(
@@ -3911,7 +3911,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the unmodified requirements when flattened is false', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.and('Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 50"'),
@@ -3919,7 +3919,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements for the other location when flattened is true', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', true);
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', true);
 
         expect(expression).toEqual(
           BooleanExpression.and(
@@ -3948,7 +3948,7 @@ describe('LogicHelper', () => {
         });
 
         test('returns the requirements expression', () => {
-          const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+          const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
           expect(expression).toEqual(expectedExpression);
         });
@@ -4424,93 +4424,93 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('_macroNameForEntrance', () => {
+  describe('macroNameForEntrance', () => {
     test('returns the correct macro name for a dungeon', () => {
-      const macroName = LogicHelper._macroNameForEntrance('Forbidden Woods');
+      const macroName = LogicHelper.macroNameForEntrance('Forbidden Woods');
 
       expect(macroName).toEqual('Can Access Dungeon Entrance in Forest Haven Sector');
     });
 
     test('returns the correct macro name for a cave', () => {
-      const macroName = LogicHelper._macroNameForEntrance('Pawprint Isle Wizzrobe Cave');
+      const macroName = LogicHelper.macroNameForEntrance('Pawprint Isle Wizzrobe Cave');
 
       expect(macroName).toEqual('Can Access Secret Cave Entrance on Pawprint Isle Side Isle');
     });
   });
 
-  describe('_requirementImplies', () => {
+  describe('requirementImplies', () => {
     test('returns true when the second requirement is nothing', () => {
-      const implies = LogicHelper._requirementImplies('Grappling Hook', 'Nothing');
+      const implies = LogicHelper.requirementImplies('Grappling Hook', 'Nothing');
 
       expect(implies).toEqual(true);
     });
 
     test('returns false when the first requirement is nothing', () => {
-      const implies = LogicHelper._requirementImplies('Nothing', 'Grappling Hook');
+      const implies = LogicHelper.requirementImplies('Nothing', 'Grappling Hook');
 
       expect(implies).toEqual(false);
     });
 
     test('returns true when the first requirement is impossible', () => {
-      const implies = LogicHelper._requirementImplies('Impossible', 'Grappling Hook');
+      const implies = LogicHelper.requirementImplies('Impossible', 'Grappling Hook');
 
       expect(implies).toEqual(true);
     });
 
     test('returns false when the second requirement is impossible', () => {
-      const implies = LogicHelper._requirementImplies('Grappling Hook', 'Impossible');
+      const implies = LogicHelper.requirementImplies('Grappling Hook', 'Impossible');
 
       expect(implies).toEqual(false);
     });
 
     test('returns true when both requirements are the same standard item', () => {
-      const implies = LogicHelper._requirementImplies('Grappling Hook', 'Grappling Hook');
+      const implies = LogicHelper.requirementImplies('Grappling Hook', 'Grappling Hook');
 
       expect(implies).toEqual(true);
     });
 
     test('returns false when the requirements are different standard items', () => {
-      const implies = LogicHelper._requirementImplies('Deku Leaf', 'Grappling Hook');
+      const implies = LogicHelper.requirementImplies('Deku Leaf', 'Grappling Hook');
 
       expect(implies).toEqual(false);
     });
 
     test('returns false when the one item is standard and the other is progressive', () => {
-      const implies = LogicHelper._requirementImplies('Deku Leaf', 'Progressive Sword x2');
+      const implies = LogicHelper.requirementImplies('Deku Leaf', 'Progressive Sword x2');
 
       expect(implies).toEqual(false);
     });
 
     test('returns true when both requirements are the same progressive item', () => {
-      const implies = LogicHelper._requirementImplies('Progressive Sword x2', 'Progressive Sword x2');
+      const implies = LogicHelper.requirementImplies('Progressive Sword x2', 'Progressive Sword x2');
 
       expect(implies).toEqual(true);
     });
 
     test('returns false when both requirements are different progressive items with the same count', () => {
-      const implies = LogicHelper._requirementImplies('Progressive Bow x2', 'Progressive Sword x2');
+      const implies = LogicHelper.requirementImplies('Progressive Bow x2', 'Progressive Sword x2');
 
       expect(implies).toEqual(false);
     });
 
     test('returns true when the first requirement is the same progressive item with a higher count', () => {
-      const implies = LogicHelper._requirementImplies('Progressive Sword x3', 'Progressive Sword x2');
+      const implies = LogicHelper.requirementImplies('Progressive Sword x3', 'Progressive Sword x2');
 
       expect(implies).toEqual(true);
     });
 
     test('returns false when the first requirement is the same progressive item with a lower count', () => {
-      const implies = LogicHelper._requirementImplies('Progressive Sword x3', 'Progressive Sword x4');
+      const implies = LogicHelper.requirementImplies('Progressive Sword x3', 'Progressive Sword x4');
 
       expect(implies).toEqual(false);
     });
   });
 
-  describe('_splitExpression', () => {
+  describe('splitExpression', () => {
     test('splits and trims an expression', () => {
       const input = "Can Defeat Darknuts & Can Play Wind's Requiem & (Grappling Hook | Hero's Sword | Skull Hammer)";
 
-      const splitExpression = LogicHelper._splitExpression(input);
+      const splitExpression = LogicHelper.splitExpression(input);
 
       expect(splitExpression).toEqual([
         'Can Defeat Darknuts',

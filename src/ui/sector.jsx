@@ -17,7 +17,7 @@ import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
 class Sector extends React.PureComponent {
-  static _COLOR_TO_COUNT_MAPPING = {
+  static #COLOR_TO_COUNT_MAPPING = {
     [LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION]: 0,
     [LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION]: 1,
     [LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION]: 2,
@@ -173,7 +173,7 @@ class Sector extends React.PureComponent {
       updateOpenedEntrance,
     } = this.props;
 
-    const itemCount = Sector._COLOR_TO_COUNT_MAPPING[color];
+    const itemCount = Sector.#COLOR_TO_COUNT_MAPPING[color];
     const shortEntranceName = LogicHelper.shortEntranceName(entrance);
 
     const setSelectedItemFunc = () => setSelectedEntrance(entrance);

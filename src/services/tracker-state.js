@@ -57,7 +57,7 @@ class TrackerState {
   }
 
   incrementItem(itemName) {
-    const newState = this._clone({ items: true });
+    const newState = this.#clone({ items: true });
 
     let newItemCount = 1 + this.getItemValue(itemName);
     const maxItemCount = LogicHelper.maxItemCount(itemName);
@@ -70,7 +70,7 @@ class TrackerState {
   }
 
   decrementItem(itemName) {
-    const newState = this._clone({ items: true });
+    const newState = this.#clone({ items: true });
 
     let newItemCount = this.getItemValue(itemName) - 1;
     const minItemCount = LogicHelper.startingItemCount(itemName);
@@ -91,7 +91,7 @@ class TrackerState {
   }
 
   setExitForEntrance(entranceName, exitName) {
-    let newState = this._clone({ entrances: true });
+    let newState = this.#clone({ entrances: true });
 
     _.set(newState.entrances, entranceName, exitName);
 
@@ -104,7 +104,7 @@ class TrackerState {
   }
 
   unsetEntrance(entranceName) {
-    let newState = this._clone({ entrances: true });
+    let newState = this.#clone({ entrances: true });
 
     const exitName = newState.getExitForEntrance(entranceName);
     _.unset(newState.entrances, entranceName);
@@ -118,7 +118,7 @@ class TrackerState {
   }
 
   unsetExit(exitName) {
-    let newState = this._clone({ entrances: true });
+    let newState = this.#clone({ entrances: true });
 
     const entranceName = newState.getEntranceForExit(exitName);
     _.unset(newState.entrances, entranceName);
@@ -138,8 +138,8 @@ class TrackerState {
   }
 
   toggleLocationChecked(generalLocation, detailedLocation) {
-    const newState = this._clone({ locationsChecked: true });
-    newState._toggleLocationCheckedUpdate(generalLocation, detailedLocation);
+    const newState = this.#clone({ locationsChecked: true });
+    newState.#toggleLocationCheckedUpdate(generalLocation, detailedLocation);
     return newState;
   }
 
@@ -165,7 +165,7 @@ class TrackerState {
   }
 
   setItemForLocation(itemName, generalLocation, detailedLocation) {
-    const newState = this._clone({ itemsForLocations: true });
+    const newState = this.#clone({ itemsForLocations: true });
     _.set(newState.itemsForLocations, [generalLocation, detailedLocation], itemName);
     return newState;
   }
@@ -179,7 +179,7 @@ class TrackerState {
   }
 
   setChartMapping(chart, chartForIsland) {
-    const newState = this._clone({ islandsForCharts: true });
+    const newState = this.#clone({ islandsForCharts: true });
     const island = LogicHelper.islandFromChartForIsland(chartForIsland);
 
     _.set(newState.islandsForCharts, chart, island);
@@ -188,7 +188,7 @@ class TrackerState {
   }
 
   unsetChartMapping(chartForIsland) {
-    const newState = this._clone({ islandsForCharts: true });
+    const newState = this.#clone({ islandsForCharts: true });
 
     const island = LogicHelper.islandFromChartForIsland(chartForIsland);
     const chart = this.getChartFromChartMapping(island);
@@ -199,19 +199,19 @@ class TrackerState {
   }
 
   unsetItemForLocation(generalLocation, detailedLocation) {
-    const newState = this._clone({ itemsForLocations: true });
+    const newState = this.#clone({ itemsForLocations: true });
     _.set(newState.itemsForLocations, [generalLocation, detailedLocation], null);
     return newState;
   }
 
   clearBannedLocations(zoneName) {
-    const newState = this._clone({ locationsChecked: true });
+    const newState = this.#clone({ locationsChecked: true });
 
     _.forEach(
       LogicHelper.bannedLocationsForZone(zoneName),
       ({ generalLocation, detailedLocation }) => {
         if (!newState.isLocationChecked(generalLocation, detailedLocation)) {
-          newState._toggleLocationCheckedUpdate(
+          newState.#toggleLocationCheckedUpdate(
             generalLocation,
             detailedLocation,
           );
@@ -222,7 +222,7 @@ class TrackerState {
     return newState;
   }
 
-  _clone({
+  #clone({
     entrances: cloneEntrances,
     islandsForCharts: cloneIslandsForCharts,
     items: cloneItems,
@@ -250,7 +250,7 @@ class TrackerState {
     return newState;
   }
 
-  _toggleLocationCheckedUpdate(generalLocation, detailedLocation) {
+  #toggleLocationCheckedUpdate(generalLocation, detailedLocation) {
     const isChecked = this.isLocationChecked(generalLocation, detailedLocation);
     _.set(this.locationsChecked, [generalLocation, detailedLocation], !isChecked);
   }

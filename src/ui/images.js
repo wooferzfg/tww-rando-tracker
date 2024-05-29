@@ -10,34 +10,34 @@ export default class Images {
   static async importImages() {
     this.images = {};
 
-    await this._resolveImports(this._IMAGE_IMPORTS);
+    await this.#resolveImports(this.#IMAGE_IMPORTS);
   }
 
-  static async _resolveImports(imageImports, keys = []) {
+  static async #resolveImports(imageImports, keys = []) {
     await Promise.all(
       _.map(
         imageImports,
-        (importValue, importKey) => this._resolveImportValue(importValue, keys, importKey),
+        (importValue, importKey) => this.#resolveImportValue(importValue, keys, importKey),
       ),
     );
   }
 
-  static async _resolveImportValue(value, keys, newKey) {
+  static async #resolveImportValue(value, keys, newKey) {
     const updatedKeys = _.concat(keys, newKey);
 
     if (_.isPlainObject(value)) {
-      await this._resolveImports(value, updatedKeys);
+      await this.#resolveImports(value, updatedKeys);
     } else {
-      await this._loadImage(value, updatedKeys);
+      await this.#loadImage(value, updatedKeys);
     }
   }
 
-  static async _loadImage(importPromise, imageKeys) {
+  static async #loadImage(importPromise, imageKeys) {
     const imageImport = await importPromise;
     _.set(this.images, imageKeys, imageImport.default);
   }
 
-  static get _IMAGE_IMPORTS() {
+  static get #IMAGE_IMPORTS() {
     return {
       BIG_KEYS: {
         0: import('../images/bosskey.png'),

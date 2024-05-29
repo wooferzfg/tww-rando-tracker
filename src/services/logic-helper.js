@@ -49,16 +49,16 @@ class LogicHelper {
       'prettyNameForItemRequirement',
       'randomEntrancesForExit',
       'randomExitsForEntrance',
+      'rawRequirementsForLocation',
       'requirementsForEntrance',
       'requirementsForLocation',
       'shortEntranceName',
       'shortExitName',
       'smallKeysRequiredForLocation',
       'vanillaChartForIsland',
-      '_rawRequirementsForLocation',
     ]);
 
-    this._setStartingAndImpossibleItems();
+    this.#setStartingAndImpossibleItems();
     this.nonRequiredBossDungeons = [];
   }
 
@@ -88,13 +88,13 @@ class LogicHelper {
       this.prettyNameForItemRequirement,
       this.randomEntrancesForExit,
       this.randomExitsForEntrance,
+      this.rawRequirementsForLocation,
       this.requirementsForEntrance,
       this.requirementsForLocation,
       this.shortEntranceName,
       this.shortExitName,
       this.smallKeysRequiredForLocation,
       this.vanillaChartForIsland,
-      this._rawRequirementsForLocation,
     ]);
 
     this.startingItems = null;
@@ -192,12 +192,12 @@ class LogicHelper {
   }
 
   static isRequiredBossesModeDungeon(dungeonName) {
-    const requiredBossData = this._requiredBossDataForDungeon(dungeonName);
+    const requiredBossData = this.#requiredBossDataForDungeon(dungeonName);
     return !_.isNil(requiredBossData);
   }
 
   static entryName(exitName) {
-    const entranceData = this._entranceDataForInternalName(exitName);
+    const entranceData = this.#entranceDataForInternalName(exitName);
     if (_.isNil(entranceData)) {
       // istanbul ignore next
       throw Error(`Exit not found: ${exitName}`);
@@ -207,7 +207,7 @@ class LogicHelper {
   }
 
   static shortEntranceName(entranceName) {
-    const entranceData = this._entranceDataForInternalName(entranceName);
+    const entranceData = this.#entranceDataForInternalName(entranceName);
     if (_.isNil(entranceData)) {
       // istanbul ignore next
       throw Error(`Could not get short name for entrance: ${entranceName}`);
@@ -221,7 +221,7 @@ class LogicHelper {
       return exitName;
     }
 
-    const entranceData = this._entranceDataForInternalName(exitName);
+    const entranceData = this.#entranceDataForInternalName(exitName);
     if (_.isNil(entranceData)) {
       // istanbul ignore next
       throw Error(`Could not get short name for exit: ${exitName}`);
@@ -234,8 +234,8 @@ class LogicHelper {
     return _.compact(
       _.map(
         _.concat(
-          this._filterDungeonEntrances(),
-          this._filterIslandEntrances(),
+          this.#filterDungeonEntrances(),
+          this.#filterIslandEntrances(),
         ),
         (entranceData) => (
           entranceData.entranceZoneName === islandName
@@ -249,7 +249,7 @@ class LogicHelper {
   static exitsForIsland(islandName) {
     return _.compact(
       _.map(
-        this._filterIslandEntrances(),
+        this.#filterIslandEntrances(),
         (entranceData) => (
           entranceData.exitZoneName === islandName
             ? entranceData.internalName
@@ -262,7 +262,7 @@ class LogicHelper {
   static entrancesForDungeon(zoneName) {
     return _.compact(
       _.map(
-        this._filterDungeonEntrances(),
+        this.#filterDungeonEntrances(),
         (entranceData) => (
           entranceData.entranceZoneName === zoneName
             ? entranceData.internalName
@@ -275,7 +275,7 @@ class LogicHelper {
   static exitsForDungeon(zoneName) {
     return _.compact(
       _.map(
-        this._filterDungeonEntrances(),
+        this.#filterDungeonEntrances(),
         (entranceData) => (
           entranceData.exitZoneName === zoneName
             ? entranceData.internalName
@@ -298,13 +298,13 @@ class LogicHelper {
 
   static allRandomEntrances() {
     return _.concat(
-      this._allDungeonEntrances(),
-      this._allIslandEntrances(),
+      this.#allDungeonEntrances(),
+      this.#allIslandEntrances(),
     );
   }
 
   static randomEntrancesForExit(exitName) {
-    const possibleEntrances = this._possibleEntrancesOrExits(exitName);
+    const possibleEntrances = this.#possibleEntrancesOrExits(exitName);
 
     return _.difference(
       possibleEntrances,
@@ -313,7 +313,7 @@ class LogicHelper {
   }
 
   static randomExitsForEntrance(entranceName) {
-    const possibleExits = this._possibleEntrancesOrExits(entranceName);
+    const possibleExits = this.#possibleEntrancesOrExits(entranceName);
 
     const parentExit = _.findKey(
       NESTED_ENTRANCES,
@@ -427,22 +427,22 @@ class LogicHelper {
   }
 
   static smallKeyName(dungeonName) {
-    const shortDungeonName = this._shortDungeonName(dungeonName);
+    const shortDungeonName = this.#shortDungeonName(dungeonName);
     return `${shortDungeonName} Small Key`;
   }
 
   static bigKeyName(dungeonName) {
-    const shortDungeonName = this._shortDungeonName(dungeonName);
+    const shortDungeonName = this.#shortDungeonName(dungeonName);
     return `${shortDungeonName} Big Key`;
   }
 
   static dungeonMapName(dungeonName) {
-    const shortDungeonName = this._shortDungeonName(dungeonName);
+    const shortDungeonName = this.#shortDungeonName(dungeonName);
     return `${shortDungeonName} Dungeon Map`;
   }
 
   static compassName(dungeonName) {
-    const shortDungeonName = this._shortDungeonName(dungeonName);
+    const shortDungeonName = this.#shortDungeonName(dungeonName);
     return `${shortDungeonName} Compass`;
   }
 
@@ -510,18 +510,18 @@ class LogicHelper {
   }
 
   static requirementsForLocation(generalLocation, detailedLocation, isFlattened) {
-    const rawRequirements = this._rawRequirementsForLocation(
+    const rawRequirements = this.rawRequirementsForLocation(
       generalLocation,
       detailedLocation,
       isFlattened,
     );
-    return this._simplifiedItemRequirements(rawRequirements);
+    return this.#simplifiedItemRequirements(rawRequirements);
   }
 
   static requirementsForEntrance(entranceName) {
-    const macroName = this._macroNameForEntrance(entranceName);
-    const rawRequirements = this._booleanExpressionForRequirements(macroName, false);
-    return this._simplifiedItemRequirements(rawRequirements);
+    const macroName = this.macroNameForEntrance(entranceName);
+    const rawRequirements = this.#booleanExpressionForRequirements(macroName, false);
+    return this.#simplifiedItemRequirements(rawRequirements);
   }
 
   static prettyNameForItemRequirement(itemRequirement) {
@@ -533,14 +533,14 @@ class LogicHelper {
         countRequired,
       } = itemCountRequirement;
 
-      return this._prettyNameOverride(itemName, countRequired) || itemRequirement;
+      return this.#prettyNameOverride(itemName, countRequired) || itemRequirement;
     }
 
-    return this._prettyNameOverride(itemRequirement) || itemRequirement;
+    return this.#prettyNameOverride(itemRequirement) || itemRequirement;
   }
 
   static prettyNameForItem(itemName, itemCount) {
-    const prettyNameOverride = this._prettyNameOverride(itemName, itemCount);
+    const prettyNameOverride = this.#prettyNameOverride(itemName, itemCount);
 
     if (!_.isNil(prettyNameOverride)) {
       return prettyNameOverride;
@@ -616,7 +616,7 @@ class LogicHelper {
   }
 
   static bossRequirementForDungeon(dungeonName) {
-    const requiredBossData = this._requiredBossDataForDungeon(dungeonName);
+    const requiredBossData = this.#requiredBossDataForDungeon(dungeonName);
     if (_.isNil(requiredBossData)) {
       // istanbul ignore next
       throw Error(`Could not find required boss for dungeon: ${dungeonName}`);
@@ -626,7 +626,7 @@ class LogicHelper {
   }
 
   static bossLocationForRequirement(requirement) {
-    const requiredBossData = this._requiredBossDataForRequirement(requirement);
+    const requiredBossData = this.#requiredBossDataForRequirement(requirement);
     if (_.isNil(requiredBossData)) {
       return null;
     }
@@ -640,12 +640,12 @@ class LogicHelper {
 
   static setBossRequired(dungeonName) {
     this.nonRequiredBossDungeons = _.without(this.nonRequiredBossDungeons, dungeonName);
-    this._invalidateForNonRequiredBosses();
+    this.#invalidateForNonRequiredBosses();
   }
 
   static setBossNotRequired(dungeonName) {
     this.nonRequiredBossDungeons = _.concat(this.nonRequiredBossDungeons, dungeonName);
-    this._invalidateForNonRequiredBosses();
+    this.#invalidateForNonRequiredBosses();
   }
 
   static isBossRequired(dungeonName) {
@@ -682,44 +682,13 @@ class LogicHelper {
     );
   }
 
-  static _prettyNameOverride(itemName, itemCount = 1) {
-    return _.get(PRETTY_ITEM_NAMES, [itemName, itemCount]);
-  }
-
-  static _rawRequirementsForLocation(generalLocation, detailedLocation, isFlattened) {
-    const requirements = Locations.getLocation(
-      generalLocation,
-      detailedLocation,
-      Locations.KEYS.NEED,
+  static splitExpression(expression) {
+    return _.compact(
+      _.map(expression.split(/\s*([(&|)])\s*/g), _.trim),
     );
-    return this._booleanExpressionForRequirements(requirements, isFlattened);
   }
 
-  static _shortDungeonName(dungeonName) {
-    const dungeonIndex = _.indexOf(DUNGEONS, dungeonName);
-    return SHORT_DUNGEON_NAMES[dungeonIndex];
-  }
-
-  static _macroNameForEntrance(entranceName) {
-    const entranceData = this._entranceDataForInternalName(entranceName);
-    if (_.isNil(entranceData)) {
-      // istanbul ignore next
-      throw Error(`Could not find macro name for entrance: ${entranceName}`);
-    }
-
-    return `Can Access ${entranceData.entranceMacroName}`;
-  }
-
-  static _simplifiedItemRequirements(requirements) {
-    return requirements.simplify({
-      implies: (
-        firstRequirement,
-        secondRequirement,
-      ) => this._requirementImplies(firstRequirement, secondRequirement),
-    });
-  }
-
-  static _requirementImplies(firstRequirement, secondRequirement) {
+  static requirementImplies(firstRequirement, secondRequirement) {
     if (firstRequirement === secondRequirement) {
       return true;
     }
@@ -744,7 +713,44 @@ class LogicHelper {
     return false;
   }
 
-  static _setStartingAndImpossibleItems() {
+  static macroNameForEntrance(entranceName) {
+    const entranceData = this.#entranceDataForInternalName(entranceName);
+    if (_.isNil(entranceData)) {
+      // istanbul ignore next
+      throw Error(`Could not find macro name for entrance: ${entranceName}`);
+    }
+
+    return `Can Access ${entranceData.entranceMacroName}`;
+  }
+
+  static rawRequirementsForLocation(generalLocation, detailedLocation, isFlattened) {
+    const requirements = Locations.getLocation(
+      generalLocation,
+      detailedLocation,
+      Locations.KEYS.NEED,
+    );
+    return this.#booleanExpressionForRequirements(requirements, isFlattened);
+  }
+
+  static #prettyNameOverride(itemName, itemCount = 1) {
+    return _.get(PRETTY_ITEM_NAMES, [itemName, itemCount]);
+  }
+
+  static #shortDungeonName(dungeonName) {
+    const dungeonIndex = _.indexOf(DUNGEONS, dungeonName);
+    return SHORT_DUNGEON_NAMES[dungeonIndex];
+  }
+
+  static #simplifiedItemRequirements(requirements) {
+    return requirements.simplify({
+      implies: (
+        firstRequirement,
+        secondRequirement,
+      ) => this.requirementImplies(firstRequirement, secondRequirement),
+    });
+  }
+
+  static #setStartingAndImpossibleItems() {
     this.startingItems = {
       [this.ITEMS.WIND_WAKER]: 1,
       [this.ITEMS.BOATS_SAIL]: 1,
@@ -769,13 +775,7 @@ class LogicHelper {
     }
   }
 
-  static _splitExpression(expression) {
-    return _.compact(
-      _.map(expression.split(/\s*([(&|)])\s*/g), _.trim),
-    );
-  }
-
-  static _checkOptionEnabledRequirement(requirement) {
+  static #checkOptionEnabledRequirement(requirement) {
     const matchers = [
       {
         regex: /^Option "([^"]+)" Enabled$/,
@@ -828,7 +828,7 @@ class LogicHelper {
       : this.TOKENS.IMPOSSIBLE;
   }
 
-  static _checkOtherLocationRequirement(requirement, isFlattened) {
+  static #checkOtherLocationRequirement(requirement, isFlattened) {
     let otherLocationMatch = _.get(requirement.match(this.CAN_ACCESS_ITEM_LOCATION_REGEX), 1);
 
     if (_.isNil(otherLocationMatch) && isFlattened) {
@@ -841,13 +841,13 @@ class LogicHelper {
         detailedLocation,
       } = Locations.splitLocationName(otherLocationMatch);
 
-      return this._rawRequirementsForLocation(generalLocation, detailedLocation, isFlattened);
+      return this.rawRequirementsForLocation(generalLocation, detailedLocation, isFlattened);
     }
 
     return null;
   }
 
-  static _checkPredeterminedItemRequirement(requirement) {
+  static #checkPredeterminedItemRequirement(requirement) {
     let itemName;
     let countRequired;
 
@@ -881,8 +881,8 @@ class LogicHelper {
     return null;
   }
 
-  static _checkBossRequirement(requirement, isFlattened) {
-    const requiredBossData = this._requiredBossDataForRequirement(requirement);
+  static #checkBossRequirement(requirement, isFlattened) {
+    const requiredBossData = this.#requiredBossDataForRequirement(requirement);
     if (_.isNil(requiredBossData)) {
       return null;
     }
@@ -899,24 +899,24 @@ class LogicHelper {
 
     if (isFlattened) {
       const bossLocation = this.bossLocation(dungeonName);
-      return this._rawRequirementsForLocation(dungeonName, bossLocation, true);
+      return this.rawRequirementsForLocation(dungeonName, bossLocation, true);
     }
 
     return requirement;
   }
 
-  static _parseRequirement(requirement, isFlattened) {
+  static #parseRequirement(requirement, isFlattened) {
     const macroValue = Macros.getMacro(requirement);
     if (macroValue) {
-      return this._booleanExpressionForRequirements(macroValue, isFlattened);
+      return this.#booleanExpressionForRequirements(macroValue, isFlattened);
     }
 
-    const optionEnabledRequirementValue = this._checkOptionEnabledRequirement(requirement);
+    const optionEnabledRequirementValue = this.#checkOptionEnabledRequirement(requirement);
     if (!_.isNil(optionEnabledRequirementValue)) {
       return optionEnabledRequirementValue;
     }
 
-    const otherLocationRequirementValue = this._checkOtherLocationRequirement(
+    const otherLocationRequirementValue = this.#checkOtherLocationRequirement(
       requirement,
       isFlattened,
     );
@@ -924,12 +924,12 @@ class LogicHelper {
       return otherLocationRequirementValue;
     }
 
-    const predeterminedItemRequirementValue = this._checkPredeterminedItemRequirement(requirement);
+    const predeterminedItemRequirementValue = this.#checkPredeterminedItemRequirement(requirement);
     if (!_.isNil(predeterminedItemRequirementValue)) {
       return predeterminedItemRequirementValue;
     }
 
-    const bossRequirementValue = this._checkBossRequirement(requirement, isFlattened);
+    const bossRequirementValue = this.#checkBossRequirement(requirement, isFlattened);
     if (!_.isNil(bossRequirementValue)) {
       return bossRequirementValue;
     }
@@ -937,7 +937,7 @@ class LogicHelper {
     return requirement;
   }
 
-  static _booleanExpressionForTokens(expressionTokens, isFlattened) {
+  static #booleanExpressionForTokens(expressionTokens, isFlattened) {
     const itemsForExpression = [];
     let expressionTypeToken;
 
@@ -947,12 +947,12 @@ class LogicHelper {
       if (currentToken === this.TOKENS.AND || currentToken === this.TOKENS.OR) {
         expressionTypeToken = currentToken;
       } else if (currentToken === this.TOKENS.OPENING_PAREN) {
-        const childExpression = this._booleanExpressionForTokens(expressionTokens, isFlattened);
+        const childExpression = this.#booleanExpressionForTokens(expressionTokens, isFlattened);
         itemsForExpression.push(childExpression);
       } else if (currentToken === this.TOKENS.CLOSING_PAREN) {
         break;
       } else {
-        const parsedRequirement = this._parseRequirement(currentToken, isFlattened);
+        const parsedRequirement = this.#parseRequirement(currentToken, isFlattened);
         itemsForExpression.push(parsedRequirement);
       }
     }
@@ -967,26 +967,26 @@ class LogicHelper {
     throw Error(`No expression type for items: ${JSON.stringify(itemsForExpression)}`);
   }
 
-  static _booleanExpressionForRequirements(requirements, isFlattened) {
-    const expressionTokens = this._splitExpression(requirements);
-    return this._booleanExpressionForTokens(expressionTokens, isFlattened);
+  static #booleanExpressionForRequirements(requirements, isFlattened) {
+    const expressionTokens = this.splitExpression(requirements);
+    return this.#booleanExpressionForTokens(expressionTokens, isFlattened);
   }
 
-  static _allIslandEntrances() {
+  static #allIslandEntrances() {
     return _.map(
-      this._filterIslandEntrances(),
+      this.#filterIslandEntrances(),
       (entranceData) => entranceData.internalName,
     );
   }
 
-  static _allDungeonEntrances() {
+  static #allDungeonEntrances() {
     return _.map(
-      this._filterDungeonEntrances(),
+      this.#filterDungeonEntrances(),
       (entranceData) => entranceData.internalName,
     );
   }
 
-  static _filterIslandEntrances() {
+  static #filterIslandEntrances() {
     return _.filter(ISLAND_ENTRANCES, (entranceData) => {
       if (entranceData.isCave) {
         return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES);
@@ -1002,7 +1002,7 @@ class LogicHelper {
     });
   }
 
-  static _filterDungeonEntrances() {
+  static #filterDungeonEntrances() {
     return _.filter(DUNGEON_ENTRANCES, (entranceData) => {
       if (entranceData.isDungeon) {
         return Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES);
@@ -1018,53 +1018,53 @@ class LogicHelper {
     });
   }
 
-  static _entranceDataForInternalName(entranceName) {
+  static #entranceDataForInternalName(entranceName) {
     return _.find(
       _.concat(DUNGEON_ENTRANCES, ISLAND_ENTRANCES),
       (entranceData) => entranceData.internalName === entranceName,
     );
   }
 
-  static _isDungeonEntranceOrExit(entranceOrExit) {
+  static #isDungeonEntranceOrExit(entranceOrExit) {
     return _.some(
       DUNGEON_ENTRANCES,
       (entranceData) => entranceData.internalName === entranceOrExit,
     );
   }
 
-  static _requiredBossDataForDungeon(dungeonName) {
+  static #requiredBossDataForDungeon(dungeonName) {
     return _.find(
       REQUIRED_BOSSES,
       (requiredBossData) => requiredBossData.dungeonName === dungeonName,
     );
   }
 
-  static _requiredBossDataForRequirement(requirement) {
+  static #requiredBossDataForRequirement(requirement) {
     return _.find(
       REQUIRED_BOSSES,
       (requiredBossData) => requiredBossData.requirement === requirement,
     );
   }
 
-  static _invalidateForNonRequiredBosses() {
+  static #invalidateForNonRequiredBosses() {
     Memoizer.invalidate([
       this.requirementsForEntrance,
       this.requirementsForLocation,
-      this._rawRequirementsForLocation,
+      this.rawRequirementsForLocation,
     ]);
   }
 
-  static _possibleEntrancesOrExits(entranceOrExit) {
+  static #possibleEntrancesOrExits(entranceOrExit) {
     if (
       Settings.getOptionValue(Permalink.OPTIONS.MIX_ENTRANCES)
       === Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
     ) {
       return this.allRandomEntrances();
     }
-    if (this._isDungeonEntranceOrExit(entranceOrExit)) {
-      return this._allDungeonEntrances();
+    if (this.#isDungeonEntranceOrExit(entranceOrExit)) {
+      return this.#allDungeonEntrances();
     }
-    return this._allIslandEntrances();
+    return this.#allIslandEntrances();
   }
 }
 

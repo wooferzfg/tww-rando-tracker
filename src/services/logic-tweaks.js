@@ -22,26 +22,47 @@ class LogicTweaks {
    * `Macros` for the tracker to function correctly.
    */
   static applyTweaks() {
-    this._updateLocations();
-    this._updateMacros();
+    this.#updateLocations();
+    this.#updateMacros();
   }
 
-  static _updateLocations() {
-    this._addDefeatGanondorf();
-    this._updateTingleStatueReward();
-    this._updateSunkenTriforceTypes();
-    this._applyHasAccessedLocationTweaksForLocations();
+  static applyHasAccessedLocationTweaksForLocations() {
+    const itemLocationTweaks = HAS_ACCESSED_LOCATION_TWEAKS.itemLocations;
+    _.forEach(itemLocationTweaks, (generalLocationInfo, generalLocation) => {
+      _.forEach(generalLocationInfo, (detailedLocation) => {
+        const requirements = Locations.getLocation(
+          generalLocation,
+          detailedLocation,
+          Locations.KEYS.NEED,
+        );
+        const newNeeds = this.#replaceCanAccessOtherLocation(requirements);
+
+        Locations.setLocation(
+          generalLocation,
+          detailedLocation,
+          Locations.KEYS.NEED,
+          newNeeds,
+        );
+      });
+    });
   }
 
-  static _updateMacros() {
-    this._updateRandomEntranceMacros();
-    this._updateChartMacros();
-    this._updateTriforceMacro();
-    this._applyHasAccessedLocationTweaksForMacros();
-    this._updateRequiredBossesModeMacro();
+  static #updateLocations() {
+    this.#addDefeatGanondorf();
+    this.#updateTingleStatueReward();
+    this.#updateSunkenTriforceTypes();
+    this.applyHasAccessedLocationTweaksForLocations();
   }
 
-  static _addDefeatGanondorf() {
+  static #updateMacros() {
+    this.#updateRandomEntranceMacros();
+    this.#updateChartMacros();
+    this.#updateTriforceMacro();
+    this.#applyHasAccessedLocationTweaksForMacros();
+    this.#updateRequiredBossesModeMacro();
+  }
+
+  static #addDefeatGanondorf() {
     Locations.setLocation(
       LogicHelper.DUNGEONS.GANONS_TOWER,
       LogicHelper.DEFEAT_GANONDORF_LOCATION,
@@ -50,7 +71,7 @@ class LogicTweaks {
     );
   }
 
-  static _updateTingleStatueReward() {
+  static #updateTingleStatueReward() {
     Locations.setLocation(
       LogicHelper.ISLANDS.TINGLE_ISLAND,
       'Ankle - Reward for All Tingle Statues',
@@ -59,7 +80,7 @@ class LogicTweaks {
     );
   }
 
-  static _updateSunkenTriforceTypes() {
+  static #updateSunkenTriforceTypes() {
     if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
       return;
     }
@@ -82,37 +103,16 @@ class LogicTweaks {
     });
   }
 
-  static _applyHasAccessedLocationTweaksForLocations() {
-    const itemLocationTweaks = HAS_ACCESSED_LOCATION_TWEAKS.itemLocations;
-    _.forEach(itemLocationTweaks, (generalLocationInfo, generalLocation) => {
-      _.forEach(generalLocationInfo, (detailedLocation) => {
-        const requirements = Locations.getLocation(
-          generalLocation,
-          detailedLocation,
-          Locations.KEYS.NEED,
-        );
-        const newNeeds = this._replaceCanAccessOtherLocation(requirements);
-
-        Locations.setLocation(
-          generalLocation,
-          detailedLocation,
-          Locations.KEYS.NEED,
-          newNeeds,
-        );
-      });
-    });
-  }
-
-  static _applyHasAccessedLocationTweaksForMacros() {
+  static #applyHasAccessedLocationTweaksForMacros() {
     const macrosTweaks = HAS_ACCESSED_LOCATION_TWEAKS.macros;
     _.forEach(macrosTweaks, (macroName) => {
       const macroValue = Macros.getMacro(macroName);
-      const newMacro = this._replaceCanAccessOtherLocation(macroValue);
+      const newMacro = this.#replaceCanAccessOtherLocation(macroValue);
       Macros.setMacro(macroName, newMacro);
     });
   }
 
-  static _updateRandomEntranceMacros() {
+  static #updateRandomEntranceMacros() {
     _.forEach(LogicHelper.allRandomEntrances(), (exitMacroName) => {
       const macroName = `Can Access ${exitMacroName}`;
       const entryName = LogicHelper.entryName(exitMacroName);
@@ -120,7 +120,7 @@ class LogicTweaks {
     });
   }
 
-  static _updateChartMacros() {
+  static #updateChartMacros() {
     if (!Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
       return;
     }
@@ -134,11 +134,11 @@ class LogicTweaks {
     });
   }
 
-  static _updateTriforceMacro() {
+  static #updateTriforceMacro() {
     Macros.setMacro('All 8 Triforce Shards', 'Triforce Shard x8');
   }
 
-  static _updateRequiredBossesModeMacro() {
+  static #updateRequiredBossesModeMacro() {
     if (!Settings.getOptionValue(Permalink.OPTIONS.REQUIRED_BOSSES)) {
       return;
     }
@@ -151,7 +151,7 @@ class LogicTweaks {
     Macros.setMacro('Can Defeat All Required Bosses', macroValue);
   }
 
-  static _replaceCanAccessOtherLocation(requirements) {
+  static #replaceCanAccessOtherLocation(requirements) {
     return requirements.replace(/Can Access Item Location/g, 'Has Accessed Other Location');
   }
 }

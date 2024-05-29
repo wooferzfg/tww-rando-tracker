@@ -6,13 +6,13 @@ import ColorPicker from './color-picker';
 import KeyDownWrapper from './key-down-wrapper';
 
 class SettingsWindow extends React.PureComponent {
-  static _DEFAULT_EXTRA_LOCATIONS_BACKGROUND = '#a0a0a0';
+  static #DEFAULT_EXTRA_LOCATIONS_BACKGROUND = '#a0a0a0';
 
-  static _DEFAULT_ITEMS_TABLE_BACKGROUND = '#69891c';
+  static #DEFAULT_ITEMS_TABLE_BACKGROUND = '#69891c';
 
-  static _DEFAULT_STATISTICS_BACKGROUND = '#4f4f4f';
+  static #DEFAULT_STATISTICS_BACKGROUND = '#4f4f4f';
 
-  static _DEFAULT_SPHERE_TRACKING_BACKGROUND = '#dcdcdc';
+  static #DEFAULT_SPHERE_TRACKING_BACKGROUND = '#dcdcdc';
 
   colorPickerRow(label, pickedColor, key, defaultValue) {
     const isColorSet = !_.isNil(pickedColor);
@@ -118,25 +118,25 @@ class SettingsWindow extends React.PureComponent {
           'Locations',
           extraLocationsBackground,
           'extraLocationsBackground',
-          SettingsWindow._DEFAULT_EXTRA_LOCATIONS_BACKGROUND,
+          SettingsWindow.#DEFAULT_EXTRA_LOCATIONS_BACKGROUND,
         )}
         {this.colorPickerRow(
           'Items',
           itemsTableBackground,
           'itemsTableBackground',
-          SettingsWindow._DEFAULT_ITEMS_TABLE_BACKGROUND,
+          SettingsWindow.#DEFAULT_ITEMS_TABLE_BACKGROUND,
         )}
         {this.colorPickerRow(
           'Statistics',
           statisticsBackground,
           'statisticsBackground',
-          SettingsWindow._DEFAULT_STATISTICS_BACKGROUND,
+          SettingsWindow.#DEFAULT_STATISTICS_BACKGROUND,
         )}
         {this.colorPickerRow(
           'Sphere Tracking',
           sphereTrackingBackground,
           'sphereTrackingBackground',
-          SettingsWindow._DEFAULT_SPHERE_TRACKING_BACKGROUND,
+          SettingsWindow.#DEFAULT_SPHERE_TRACKING_BACKGROUND,
         )}
         {this.checkboxRow(
           'Show Location Logic',

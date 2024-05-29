@@ -13,13 +13,13 @@ class Spheres {
 
   sphereForLocation(generalLocation, detailedLocation) {
     if (_.isNil(this.spheres)) {
-      this._calculate();
+      this.#calculate();
     }
 
     return _.get(this.spheres, [generalLocation, detailedLocation]);
   }
 
-  _calculate() {
+  #calculate() {
     this.temporaryState = TrackerState.default();
     this.spheres = Locations.mapLocations(() => null);
     this.entrancesAdded = _.reduce(
@@ -33,9 +33,9 @@ class Spheres {
     while (this.anyItemsAdded) {
       this.anyItemsAdded = false;
 
-      this._updateEntranceItems();
-      this._updateSmallKeys();
-      this._updateItems();
+      this.#updateEntranceItems();
+      this.#updateSmallKeys();
+      this.#updateItems();
 
       this.currentSphere += 1;
     }
@@ -43,27 +43,27 @@ class Spheres {
     return this.spheres;
   }
 
-  _sphereForLocation(generalLocation, detailedLocation) {
+  #sphereForLocation(generalLocation, detailedLocation) {
     return _.get(this.spheres, [generalLocation, detailedLocation]);
   }
 
-  _updateSphereForLocation(generalLocation, detailedLocation) {
+  #updateSphereForLocation(generalLocation, detailedLocation) {
     _.set(this.spheres, [generalLocation, detailedLocation], this.currentSphere);
   }
 
-  _isEntranceAdded(entranceName) {
+  #isEntranceAdded(entranceName) {
     return _.get(this.entrancesAdded, entranceName);
   }
 
-  _setEntranceAdded(entranceName) {
+  #setEntranceAdded(entranceName) {
     _.set(this.entrancesAdded, entranceName, true);
   }
 
-  _updateStateWithItem(itemName) {
+  #updateStateWithItem(itemName) {
     this.temporaryState = this.temporaryState.incrementItem(itemName);
   }
 
-  _updateEntranceItems() {
+  #updateEntranceItems() {
     let logic = new LogicCalculation(this.temporaryState);
 
     const entrancesToCheck = _.clone(LogicHelper.allRandomEntrances());
@@ -71,7 +71,7 @@ class Spheres {
     for (let i = 0; i < entrancesToCheck.length; i += 1) {
       const entranceName = entrancesToCheck[i];
 
-      if (this._isEntranceAdded(entranceName)) {
+      if (this.#isEntranceAdded(entranceName)) {
         continue;
       }
 
@@ -87,8 +87,8 @@ class Spheres {
       if (logic.isEntranceAvailable(entranceName)) {
         const entryName = LogicHelper.entryName(exitForEntrance);
 
-        this._updateStateWithItem(entryName);
-        this._setEntranceAdded(entranceName);
+        this.#updateStateWithItem(entryName);
+        this.#setEntranceAdded(entranceName);
 
         const nestedEntrances = LogicHelper.nestedEntrancesForExit(exitForEntrance);
         if (nestedEntrances.length > 0) {
@@ -99,7 +99,7 @@ class Spheres {
     }
   }
 
-  _updateSmallKeys() {
+  #updateSmallKeys() {
     _.forEach(LogicHelper.MAIN_DUNGEONS, (dungeonName) => {
       const locations = Locations.detailedLocationsForGeneralLocation(dungeonName);
       const smallKeyName = LogicHelper.smallKeyName(dungeonName);
@@ -107,17 +107,17 @@ class Spheres {
       let anySmallKeysAdded = true;
 
       while (anySmallKeysAdded) {
-        anySmallKeysAdded = this._updateSmallKeysForDungeon(dungeonName, locations, smallKeyName);
+        anySmallKeysAdded = this.#updateSmallKeysForDungeon(dungeonName, locations, smallKeyName);
       }
     });
   }
 
-  _updateSmallKeysForDungeon(dungeonName, locations, smallKeyName) {
+  #updateSmallKeysForDungeon(dungeonName, locations, smallKeyName) {
     let anySmallKeysAdded = false;
     const logic = new LogicCalculation(this.temporaryState);
 
     _.forEach(locations, (detailedLocation) => {
-      const sphere = this._sphereForLocation(dungeonName, detailedLocation);
+      const sphere = this.#sphereForLocation(dungeonName, detailedLocation);
       if (!_.isNil(sphere)) {
         return true; // continue
       }
@@ -131,8 +131,8 @@ class Spheres {
       }
 
       if (logic.isLocationAvailable(dungeonName, detailedLocation)) {
-        this._updateStateWithItem(itemAtLocation);
-        this._updateSphereForLocation(dungeonName, detailedLocation);
+        this.#updateStateWithItem(itemAtLocation);
+        this.#updateSphereForLocation(dungeonName, detailedLocation);
         anySmallKeysAdded = true;
       }
 
@@ -142,20 +142,20 @@ class Spheres {
     return anySmallKeysAdded;
   }
 
-  _updateItems() {
+  #updateItems() {
     const logic = new LogicCalculation(this.temporaryState);
 
     _.forEach(Locations.allGeneralLocations(), (generalLocation) => {
       const detailedLocations = Locations.detailedLocationsForGeneralLocation(generalLocation);
 
       _.forEach(detailedLocations, (detailedLocation) => {
-        this._updateItemsForLocation(generalLocation, detailedLocation, logic);
+        this.#updateItemsForLocation(generalLocation, detailedLocation, logic);
       });
     });
   }
 
-  _updateItemsForLocation(generalLocation, detailedLocation, logic) {
-    const sphere = this._sphereForLocation(generalLocation, detailedLocation);
+  #updateItemsForLocation(generalLocation, detailedLocation, logic) {
+    const sphere = this.#sphereForLocation(generalLocation, detailedLocation);
     if (!_.isNil(sphere)) {
       return;
     }
@@ -165,7 +165,7 @@ class Spheres {
       return;
     }
 
-    this._updateSphereForLocation(generalLocation, detailedLocation);
+    this.#updateSphereForLocation(generalLocation, detailedLocation);
 
     const itemAtLocation = this.state.getItemForLocation(
       generalLocation,
@@ -182,9 +182,9 @@ class Spheres {
     }
 
     if (!_.isNil(itemAtLocation)) {
-      this._updateStateWithItem(itemAtLocation);
+      this.#updateStateWithItem(itemAtLocation);
       if (!_.isNil(chartForIsland)) {
-        this._updateStateWithItem(chartForIsland);
+        this.#updateStateWithItem(chartForIsland);
       }
       this.anyItemsAdded = true;
     }
