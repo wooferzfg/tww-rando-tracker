@@ -2,8 +2,8 @@ import _ from 'lodash';
 
 class BinaryString {
   constructor(binaryData = [], bitOffset = 0) {
-    this.binaryData = binaryData;
-    this.bitOffset = bitOffset;
+    this.#binaryData = binaryData;
+    this.#bitOffset = bitOffset;
   }
 
   static fromBase64(base64String) {
@@ -12,7 +12,7 @@ class BinaryString {
   }
 
   toBase64() {
-    return BinaryString.#binaryToBase64(this.binaryData, this.bitOffset);
+    return BinaryString.#binaryToBase64(this.#binaryData, this.#bitOffset);
   }
 
   popString() {
@@ -31,7 +31,7 @@ class BinaryString {
   }
 
   popBoolean() {
-    const firstByte = _.first(this.binaryData);
+    const firstByte = _.first(this.#binaryData);
 
     if (_.isNil(firstByte)) {
       throw Error('Tried to pop when the binary data was empty');
@@ -39,12 +39,12 @@ class BinaryString {
 
     const poppedBoolean = firstByte % 2 === 1;
 
-    if (this.bitOffset < BinaryString.#BYTE_SIZE - 1) {
-      _.set(this.binaryData, 0, _.floor(firstByte / 2));
-      this.bitOffset += 1;
+    if (this.#bitOffset < BinaryString.#BYTE_SIZE - 1) {
+      _.set(this.#binaryData, 0, _.floor(firstByte / 2));
+      this.#bitOffset += 1;
     } else {
-      this.binaryData = _.slice(this.binaryData, 1);
-      this.bitOffset = 0;
+      this.#binaryData = _.slice(this.#binaryData, 1);
+      this.#bitOffset = 0;
     }
 
     return poppedBoolean;
@@ -77,19 +77,19 @@ class BinaryString {
   }
 
   addBoolean(booleanValue) {
-    if (this.bitOffset > 0) {
-      this.bitOffset -= 1;
+    if (this.#bitOffset > 0) {
+      this.#bitOffset -= 1;
 
       if (booleanValue) {
-        const lastByte = _.last(this.binaryData);
-        const lastIndex = this.binaryData.length - 1;
-        const newValue = 2 ** (BinaryString.#BYTE_SIZE - this.bitOffset - 1);
+        const lastByte = _.last(this.#binaryData);
+        const lastIndex = this.#binaryData.length - 1;
+        const newValue = 2 ** (BinaryString.#BYTE_SIZE - this.#bitOffset - 1);
 
-        _.set(this.binaryData, lastIndex, lastByte + newValue);
+        _.set(this.#binaryData, lastIndex, lastByte + newValue);
       }
     } else {
-      this.binaryData.push(booleanValue ? 1 : 0);
-      this.bitOffset = BinaryString.#BYTE_SIZE - 1;
+      this.#binaryData.push(booleanValue ? 1 : 0);
+      this.#bitOffset = BinaryString.#BYTE_SIZE - 1;
     }
   }
 
@@ -103,6 +103,18 @@ class BinaryString {
       remainingValue = _.floor(remainingValue / 2);
     }
   }
+
+  binaryData() {
+    return this.#binaryData;
+  }
+
+  bitOffset() {
+    return this.#bitOffset;
+  }
+
+  #binaryData;
+
+  #bitOffset;
 
   static #BYTE_SIZE = 8;
 
