@@ -45,22 +45,6 @@ class Launcher extends React.PureComponent {
     this.checkForUpdate();
   }
 
-  componentDidMount() {
-    const { serviceWorker } = navigator;
-
-    if (serviceWorker) {
-      serviceWorker.addEventListener('controllerchange', Launcher.notifyAboutUpdate);
-    }
-  }
-
-  componentWillUnmount() {
-    const { serviceWorker } = navigator;
-
-    if (serviceWorker) {
-      serviceWorker.removeEventListener('controllerchange', Launcher.notifyAboutUpdate);
-    }
-  }
-
   getOptionValue(optionName) {
     const { options } = this.state;
 
