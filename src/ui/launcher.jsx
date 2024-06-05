@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -13,18 +14,7 @@ import ToggleOptionInput from './toggle-option-input';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toggle/style.css';
 
-export default class Launcher extends React.PureComponent {
-  static notifyAboutUpdate() {
-    toast.warn(
-      'A new version of the tracker is available! Click here to reload.',
-      {
-        autoClose: false,
-        closeOnClick: true,
-        onClick: () => window.location.reload(),
-      },
-    );
-  }
-
+class Launcher extends React.PureComponent {
   static openTrackerWindow(route) {
     const windowWidth = 1507;
     const windowHeight = 585;
@@ -36,8 +26,8 @@ export default class Launcher extends React.PureComponent {
     );
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     const permalink = Permalink.DEFAULT_PERMALINK;
     const options = Permalink.decode(permalink);
@@ -51,6 +41,8 @@ export default class Launcher extends React.PureComponent {
     this.loadFromFile = this.loadFromFile.bind(this);
     this.loadFromSave = this.loadFromSave.bind(this);
     this.setOptionValue = this.setOptionValue.bind(this);
+
+    this.checkForUpdate();
   }
 
   componentDidMount() {
@@ -81,6 +73,21 @@ export default class Launcher extends React.PureComponent {
     _.set(options, optionName, newValue);
 
     this.updateOptions(options);
+  }
+
+  async checkForUpdate() {
+    const { hasUpdatePromise } = this.props;
+    const hasUpdate = await hasUpdatePromise;
+    if (hasUpdate) {
+      toast.warn(
+        'A new version of the tracker is available! Click here to reload.',
+        {
+          autoClose: false,
+          closeOnClick: true,
+          onClick: () => window.location.reload(),
+        },
+      );
+    }
   }
 
   loadPermalink(permalinkInput) {
@@ -385,3 +392,9 @@ export default class Launcher extends React.PureComponent {
     );
   }
 }
+
+Launcher.propTypes = {
+  hasUpdatePromise: PropTypes.instanceOf(Promise).isRequired,
+};
+
+export default Launcher;

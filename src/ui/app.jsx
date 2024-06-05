@@ -24,14 +24,14 @@ RenderTracker.propTypes = {
   loadProgress: PropTypes.bool.isRequired,
 };
 
-export default function App() {
+function App({ hasUpdatePromise }) {
   return (
     <HashRouter>
       <Routes>
         <Route
           exact
           path="/"
-          element={<Launcher />}
+          element={<Launcher hasUpdatePromise={hasUpdatePromise} />}
         />
         <Route
           exact
@@ -47,3 +47,9 @@ export default function App() {
     </HashRouter>
   );
 }
+
+App.propTypes = {
+  hasUpdatePromise: PropTypes.instanceOf(Promise).isRequired,
+};
+
+export default App;
