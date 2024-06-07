@@ -15,6 +15,12 @@ import 'react-toggle/style.css';
 
 export default class Launcher extends React.PureComponent {
   static notifyAboutUpdate() {
+    const { serviceWorker } = navigator;
+    if (_.isNil(serviceWorker) || _.isNil(serviceWorker.controller)) {
+      // Don't prompt for update when service worker gets removed
+      return;
+    }
+
     toast.warn(
       'A new version of the tracker is available! Click here to reload.',
       {
@@ -56,7 +62,8 @@ export default class Launcher extends React.PureComponent {
   componentDidMount() {
     const { serviceWorker } = navigator;
 
-    if (serviceWorker) {
+    if (!_.isNil(serviceWorker) && !_.isNil(serviceWorker.controller)) {
+      // Don't prompt for update when there was no service worker previously installed
       serviceWorker.addEventListener('controllerchange', Launcher.notifyAboutUpdate);
     }
   }
@@ -64,7 +71,7 @@ export default class Launcher extends React.PureComponent {
   componentWillUnmount() {
     const { serviceWorker } = navigator;
 
-    if (serviceWorker) {
+    if (!_.isNil(serviceWorker)) {
       serviceWorker.removeEventListener('controllerchange', Launcher.notifyAboutUpdate);
     }
   }
