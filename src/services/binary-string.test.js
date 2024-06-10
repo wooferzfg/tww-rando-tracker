@@ -9,7 +9,7 @@ describe('BinaryString', () => {
 
   describe('fromBase64', () => {
     test('sets the binary data and bit offset', () => {
-      binaryString = BinaryString.fromBase64('MS44LjAAeWVl');
+      binaryString = BinaryString.fromBase64('eJwz1LPQM2CoTE0FAAlYAjk=');
 
       expect(binaryString.binaryData()).toEqual([49, 46, 56, 46, 48, 0, 121, 101, 101]);
       expect(binaryString.bitOffset()).toEqual(0);
@@ -25,7 +25,7 @@ describe('BinaryString', () => {
       test('returns the correct base64 string without extra padding', () => {
         const base64Output = binaryString.toBase64();
 
-        expect(base64Output).toEqual('MS44LjAAeWVl');
+        expect(base64Output).toEqual('eJwz1LPQM2CoTE0FAAlYAjk=');
       });
     });
 
@@ -45,14 +45,14 @@ describe('BinaryString', () => {
       test('returns the correct base64 string with a zero byte at the end', () => {
         const base64Output = binaryString.toBase64();
 
-        expect(base64Output).toEqual('MS4xMC4wAHllZXQABwEDAW1+gIAHwAAAAAAAASgZAA==');
+        expect(base64Output).toEqual('eJwz1DM00DNgqExNLWFgZ2RmzK1raGA/wAACjBqSDABpsgXW');
       });
     });
   });
 
   describe('popString', () => {
     beforeEach(() => {
-      binaryString = BinaryString.fromBase64('MS44LjAAeWVl'); // 1.8.0 yee
+      binaryString = BinaryString.fromBase64('eJwz1LPQM2CoTE0FAAlYAjk='); // 1.8.0 yee
     });
 
     test('returns the first string in the bit string', () => {
