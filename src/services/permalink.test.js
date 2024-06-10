@@ -1,6 +1,15 @@
+import _ from 'lodash';
+
+import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
+
+import Locations from './locations';
 import Permalink from './permalink';
 
 describe('Permalink', () => {
+  beforeEach(() => {
+    Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+  });
+
   describe('OPTIONS', () => {
     test('returns the correct options', () => {
       expect(Permalink.OPTIONS).toMatchSnapshot();
@@ -35,7 +44,7 @@ describe('Permalink', () => {
 
   describe('decode', () => {
     test('decodes a permalink', () => {
-      const options = Permalink.decode('bWFzdGVyAHNlZWQASRBQHcBG+wLoggEAAAAAAALAJAI=');
+      const options = Permalink.decode('eJzLTSwuSS1iKE5NTWHwFAhgQAAFFgjdAGIzoAHZA26/mV40MYI5TAdUmACQWQoO');
 
       expect(options).toMatchSnapshot();
     });
@@ -45,7 +54,7 @@ describe('Permalink', () => {
       expect(() => Permalink.decode('H')).toThrow();
       expect(() => Permalink.decode('AAAA')).toThrow();
       expect(() => Permalink.decode('BBBBBBBBBBBBBBBBBBBBBBB')).toThrow();
-      expect(() => Permalink.decode('MS4xMC4wAHllZXQfwijoi1+gIAHEAAAABAAgiAZAA==')).toThrow();
+      expect(() => Permalink.decode('eJzLTSwuSS1icGTwFAhgIBJIMDD8ZnohBGAwMjABAPuRBZU=')).toThrow();
       expect(() => Permalink.decode('VIOEWJAFOEIWAJVEOWAIVJN')).toThrow();
       expect(() => Permalink.decode('vdsccccccccccccccccccccccccccccccccc')).toThrow();
       expect(() => Permalink.decode('AAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHH')).toThrow();
@@ -59,7 +68,7 @@ describe('Permalink', () => {
     let permalink;
 
     beforeEach(() => {
-      permalink = 'bWFzdGVyAHNlZWQASRBQHcBG+wLoggEAAAAAAALAJAI=';
+      permalink = 'eJzLTSwuSS1iKE5NTWHwFAhgQAAFFgjdAGIzoAHZA26/mV40MYI5TAdUmACQWQoO';
       options = Permalink.decode(permalink);
     });
 

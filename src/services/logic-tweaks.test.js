@@ -46,6 +46,12 @@ describe('LogicTweaks', () => {
         expect(Locations.locations).toMatchSnapshot();
       });
 
+      test('updates the locations list', () => {
+        LogicTweaks.applyTweaks();
+
+        expect(Locations.locationsList).toMatchSnapshot();
+      });
+
       test('updates the macros', () => {
         LogicTweaks.applyTweaks();
 

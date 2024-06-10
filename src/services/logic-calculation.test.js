@@ -15,8 +15,32 @@ import TrackerState from './tracker-state';
 describe('LogicCalculation', () => {
   let logic;
 
-  const setLocations = (locationsList) => {
-    Locations.locations = locationsList;
+  const setLocations = (testLocations) => {
+    const locationsList = [];
+    const itemLocations = {};
+
+    _.forEach(testLocations, ({
+      generalLocation, detailedLocation, needValue, originalItemValue, typesValue,
+    }) => {
+      locationsList.push({ generalLocation, detailedLocation });
+      _.set(
+        itemLocations,
+        [generalLocation, detailedLocation, Locations.KEYS.NEED],
+        needValue,
+      );
+      _.set(
+        itemLocations,
+        [generalLocation, detailedLocation, Locations.KEYS.ORIGINAL_ITEM],
+        originalItemValue,
+      );
+      _.set(
+        itemLocations,
+        [generalLocation, detailedLocation, Locations.KEYS.TYPES],
+        typesValue,
+      );
+    });
+
+    Locations.initializeRaw(itemLocations, locationsList);
     LogicHelper.reset();
     LogicHelper.initialize();
   };
@@ -322,13 +346,13 @@ describe('LogicCalculation', () => {
   describe('formattedRequirementsForLocation', () => {
     describe('when the location requirements are a single "or" expression', () => {
       beforeEach(() => {
-        setLocations({
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Empty Bottle | Grappling Hook',
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: 'Empty Bottle | Grappling Hook',
           },
-        });
+        ]);
       });
 
       test('returns the formatted requirements', () => {
@@ -346,13 +370,13 @@ describe('LogicCalculation', () => {
 
     describe('when the location requirements include a progressive item', () => {
       beforeEach(() => {
-        setLocations({
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Progressive Sword x2',
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: 'Progressive Sword x2',
           },
-        });
+        ]);
       });
 
       test('uses the pretty name for the item', () => {
@@ -366,18 +390,18 @@ describe('LogicCalculation', () => {
 
     describe('when the location requirements include a has accessed other location requirement', () => {
       beforeEach(() => {
-        setLocations({
-          'Forsaken Fortress': {
-            'Helmaroc King Heart Container': {
-              need: 'Grappling Hook & Deku Leaf',
-            },
+        setLocations([
+          {
+            generalLocation: 'Forsaken Fortress',
+            detailedLocation: 'Helmaroc King Heart Container',
+            needValue: 'Grappling Hook & Deku Leaf',
           },
-          Mailbox: {
-            'Letter from Aryll': {
-              need: 'Has Accessed Other Location "Forsaken Fortress - Helmaroc King Heart Container"',
-            },
+          {
+            generalLocation: 'Mailbox',
+            detailedLocation: 'Letter from Aryll',
+            needValue: 'Has Accessed Other Location "Forsaken Fortress - Helmaroc King Heart Container"',
           },
-        });
+        ]);
       });
 
       test('uses only the name of the location', () => {
@@ -391,19 +415,19 @@ describe('LogicCalculation', () => {
 
     describe('when the location requirements include a required boss', () => {
       beforeEach(() => {
-        setLocations({
-          "Ganon's Tower": {
-            'Defeat Ganondorf': {
-              need: 'Defeated Gohma',
-            },
+        setLocations([
+          {
+            generalLocation: "Ganon's Tower",
+            detailedLocation: 'Defeat Ganondorf',
+            needValue: 'Defeated Gohma',
           },
-          'Dragon Roost Cavern': {
-            'Gohma Heart Container': {
-              need: 'Grappling Hook',
-              types: 'Boss',
-            },
+          {
+            generalLocation: 'Dragon Roost Cavern',
+            detailedLocation: 'Gohma Heart Container',
+            needValue: 'Grappling Hook',
+            typesValue: 'Boss',
           },
-        });
+        ]);
       });
 
       test('shows the boss requirement unmodified', () => {
@@ -417,13 +441,13 @@ describe('LogicCalculation', () => {
 
     describe('when the location requirements are partially met', () => {
       beforeEach(() => {
-        setLocations({
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: '(Empty Bottle | Grappling Hook) & Deku Leaf',
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: '(Empty Bottle | Grappling Hook) & Deku Leaf',
           },
-        });
+        ]);
 
         logic = new LogicCalculation(
           logic.state().incrementItem('Grappling Hook'),
@@ -448,13 +472,13 @@ describe('LogicCalculation', () => {
 
     describe('when the location requirements are a complex expression that requires parentheses', () => {
       beforeEach(() => {
-        setLocations({
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Deku Leaf | (Grappling Hook & (Bombs | Boomerang))',
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: 'Deku Leaf | (Grappling Hook & (Bombs | Boomerang))',
           },
-        });
+        ]);
 
         logic = new LogicCalculation(
           logic.state()
@@ -1755,15 +1779,15 @@ describe('LogicCalculation', () => {
 
   describe('isBossDefeated', () => {
     beforeEach(() => {
-      setLocations({
-        'Dragon Roost Cavern': {
-          'Gohma Heart Container': {
-            need: 'DRC Big Key',
-            originalItem: 'Heart Container',
-            types: 'Dungeon, Boss',
-          },
+      setLocations([
+        {
+          generalLocation: 'Dragon Roost Cavern',
+          detailedLocation: 'Gohma Heart Container',
+          originalItemValue: 'Heart Container',
+          needValue: 'Deku Leaf | (Grappling Hook & (Bombs | Boomerang))',
+          typesValue: 'Dungeon, Boss',
         },
-      });
+      ]);
     });
 
     describe('when the boss location is not checked', () => {
@@ -1797,13 +1821,13 @@ describe('LogicCalculation', () => {
   describe('isLocationAvailable', () => {
     describe('when the location is checked', () => {
       beforeEach(() => {
-        setLocations({
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Deku Leaf & Grappling Hook',
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: 'Deku Leaf & Grappling Hook',
           },
-        });
+        ]);
 
         logic = new LogicCalculation(
           logic.state().toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
@@ -1819,13 +1843,13 @@ describe('LogicCalculation', () => {
 
     describe('when the location requirements are met', () => {
       beforeEach(() => {
-        setLocations({
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Deku Leaf & Grappling Hook',
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: 'Deku Leaf & Grappling Hook',
           },
-        });
+        ]);
 
         logic = new LogicCalculation(
           logic.state()
@@ -1843,13 +1867,13 @@ describe('LogicCalculation', () => {
 
     describe('when the location requirements are not met', () => {
       beforeEach(() => {
-        setLocations({
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Deku Leaf & Grappling Hook',
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: 'Deku Leaf & Grappling Hook',
           },
-        });
+        ]);
 
         logic = new LogicCalculation(
           logic.state()
@@ -2005,13 +2029,13 @@ describe('LogicCalculation', () => {
 
     describe('when the requirement is having accessed another location', () => {
       beforeEach(() => {
-        setLocations({
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Grappling Hook | Bombs',
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: 'Grappling Hook | Bombs',
           },
-        });
+        ]);
       });
 
       describe('when the other location has not been checked', () => {
@@ -2060,19 +2084,19 @@ describe('LogicCalculation', () => {
 
   describe('when the requirement is a boss', () => {
     beforeEach(() => {
-      setLocations({
-        "Ganon's Tower": {
-          'Defeat Ganondorf': {
-            need: 'Defeated Kalle Demos',
-          },
+      setLocations([
+        {
+          generalLocation: "Ganon's Tower",
+          detailedLocation: 'Defeat Ganondorf',
+          needValue: 'Defeated Kalle Demos',
         },
-        'Forbidden Woods': {
-          'Kalle Demos Heart Container': {
-            need: 'Boomerang',
-            types: 'Boss',
-          },
+        {
+          generalLocation: 'Forbidden Woods',
+          detailedLocation: 'Kalle Demos Heart Container',
+          needValue: 'Boomerang',
+          typesValue: 'Boss',
         },
-      });
+      ]);
     });
 
     describe('when the boss location has not been checked', () => {

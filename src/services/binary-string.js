@@ -116,6 +116,10 @@ class BinaryString {
     return this.#bitOffset;
   }
 
+  clone() {
+    return new BinaryString(_.clone(this.#binaryData), _.clone(this.#bitOffset));
+  }
+
   #binaryData;
 
   #bitOffset;

@@ -12,6 +12,34 @@ import Permalink from './permalink';
 import Settings from './settings';
 
 describe('LogicHelper', () => {
+  const setLocations = (testLocations) => {
+    const locationsList = [];
+    const itemLocations = {};
+
+    _.forEach(testLocations, ({
+      generalLocation, detailedLocation, needValue, originalItemValue, typesValue,
+    }) => {
+      locationsList.push({ generalLocation, detailedLocation });
+      _.set(
+        itemLocations,
+        [generalLocation, detailedLocation, Locations.KEYS.NEED],
+        needValue,
+      );
+      _.set(
+        itemLocations,
+        [generalLocation, detailedLocation, Locations.KEYS.ORIGINAL_ITEM],
+        originalItemValue,
+      );
+      _.set(
+        itemLocations,
+        [generalLocation, detailedLocation, Locations.KEYS.TYPES],
+        typesValue,
+      );
+    });
+
+    Locations.initializeRaw(itemLocations, locationsList);
+  };
+
   const fullSetup = (settingsOverrides = {}) => {
     const defaultSettings = {
       options: {
@@ -2126,14 +2154,14 @@ describe('LogicHelper', () => {
   describe('isProgressLocation', () => {
     describe('when the location has a type that is not in the flags', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Wind Temple': {
-            'Big Key Chest': {
-              need: 'Can Access Wind Temple',
-              types: 'Dungeon, Tingle Chest, Island Puzzle',
-            },
+        setLocations([
+          {
+            generalLocation: 'Wind Temple',
+            detailedLocation: 'Big Key Chest',
+            needValue: 'Can Access Wind Temple',
+            typesValue: 'Dungeon, Tingle Chest, Island Puzzle',
           },
-        };
+        ]);
 
         Settings.initializeRaw({
           flags: [
@@ -2152,14 +2180,14 @@ describe('LogicHelper', () => {
 
     describe('when the location only has types that are in the flags', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Wind Temple': {
-            'Big Key Chest': {
-              need: 'Can Access Wind Temple',
-              types: 'Dungeon, Tingle Chest, Island Puzzle',
-            },
+        setLocations([
+          {
+            generalLocation: 'Wind Temple',
+            detailedLocation: 'Big Key Chest',
+            needValue: 'Can Access Wind Temple',
+            typesValue: 'Dungeon, Tingle Chest, Island Puzzle',
           },
-        };
+        ]);
 
         Settings.initializeRaw({
           flags: [
@@ -2179,13 +2207,13 @@ describe('LogicHelper', () => {
 
     describe('when the location has no types', () => {
       beforeEach(() => {
-        Locations.locations = {
-          "Ganon's Tower": {
-            'Defeat Ganondorf': {
-              need: 'Can Reach and Defeat Ganondorf',
-            },
+        setLocations([
+          {
+            generalLocation: "Ganon's Tower",
+            detailedLocation: 'Defeat Ganondorf',
+            needValue: 'Can Reach and Defeat Ganondorf',
           },
-        };
+        ]);
       });
 
       test('returns true', () => {
@@ -2493,14 +2521,14 @@ describe('LogicHelper', () => {
   describe('isPotentialKeyLocation', () => {
     describe('when the location is a valid big key location', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Wind Temple': {
-            'Big Key Chest': {
-              need: 'Can Access Wind Temple',
-              types: 'Dungeon',
-            },
+        setLocations([
+          {
+            generalLocation: 'Wind Temple',
+            detailedLocation: 'Big Key Chest',
+            needValue: 'Can Access Wind Temple',
+            typesValue: 'Dungeon',
           },
-        };
+        ]);
       });
 
       test('returns true', () => {
@@ -2512,13 +2540,13 @@ describe('LogicHelper', () => {
 
     describe('when the location is not in a main dungeon', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Forsaken Fortress': {
-            'Phantom Ganon': {
-              types: 'Dungeon',
-            },
+        setLocations([
+          {
+            generalLocation: 'Forsaken Fortress',
+            detailedLocation: 'Phantom Ganon',
+            typesValue: 'Dungeon',
           },
-        };
+        ]);
       });
 
       test('returns false', () => {
@@ -2530,13 +2558,13 @@ describe('LogicHelper', () => {
 
     describe('when the location is on an island that is also a dungeon', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Tower of the Gods Sector': {
-            'Sunken Treasure': {
-              types: 'Sunken Treasure',
-            },
+        setLocations([
+          {
+            generalLocation: 'Tower of the Gods Sector',
+            detailedLocation: 'Sunken Treasure',
+            typesValue: 'Sunken Treasure',
           },
-        };
+        ]);
       });
 
       test('returns false', () => {
@@ -2548,14 +2576,14 @@ describe('LogicHelper', () => {
 
     describe('when the location is a tingle chest', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Wind Temple': {
-            'Tingle Statue Chest': {
-              need: 'Can Access Wind Temple',
-              types: 'Tingle Chest, Dungeon',
-            },
+        setLocations([
+          {
+            generalLocation: 'Wind Temple',
+            detailedLocation: 'Tingle Statue Chest',
+            needValue: 'Can Access Wind Temple',
+            typesValue: 'Tingle Chest, Dungeon',
           },
-        };
+        ]);
       });
 
       describe('when the tingle chest flag is active', () => {
@@ -2599,14 +2627,14 @@ describe('LogicHelper', () => {
 
     describe('when the location is a dungeon secret', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Forbidden Woods': {
-            'Highest Pot in Vine Maze': {
-              need: 'Can Access Forbidden Woods',
-              types: 'Dungeon, Dungeon Secret',
-            },
+        setLocations([
+          {
+            generalLocation: 'Forbidden Woods',
+            detailedLocation: 'Highest Pot in Vine Maze',
+            needValue: 'Can Access Forbidden Woods',
+            typesValue: 'Dungeon, Dungeon Secret',
           },
-        };
+        ]);
       });
 
       describe('when the dungeon secret flag is active', () => {
@@ -2650,14 +2678,14 @@ describe('LogicHelper', () => {
 
     describe('when the location is a boss item drop', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Dragon Roost Cavern': {
-            'Gohma Heart Container': {
-              need: 'Entered Gohma & Grappling Hook',
-              types: 'Dungeon, Boss',
-            },
+        setLocations([
+          {
+            generalLocation: 'Dragon Roost Cavern',
+            detailedLocation: 'Gohma Heart Container',
+            needValue: 'Entered Gohma & Grappling Hook',
+            typesValue: 'Dungeon, Boss',
           },
-        };
+        ]);
       });
 
       test('returns false', () => {
@@ -2669,14 +2697,14 @@ describe('LogicHelper', () => {
 
     describe('when the location is a miniboss', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Wind Temple': {
-            'Wizzrobe Miniboss Room': {
-              need: 'Can Access Wind Temple',
-              types: 'Dungeon, Randomizable Miniboss Room',
-            },
+        setLocations([
+          {
+            generalLocation: 'Wind Temple',
+            detailedLocation: 'Wizzrobe Miniboss Room',
+            needValue: 'Can Access Wind Temple',
+            typesValue: 'Dungeon, Randomizable Miniboss Room',
           },
-        };
+        ]);
       });
 
       describe('when minibosses are randomized', () => {
@@ -2715,25 +2743,25 @@ describe('LogicHelper', () => {
 
   describe('bossLocation', () => {
     beforeEach(() => {
-      Locations.locations = {
-        'Dragon Roost Cavern': {
-          'Gohma Heart Container': {
-            originalItem: 'Heart Container',
-            types: 'Dungeon, Boss',
-          },
+      setLocations([
+        {
+          generalLocation: 'Dragon Roost Cavern',
+          detailedLocation: 'Gohma Heart Container',
+          originalItemValue: 'Heart Container',
+          typesValue: 'Dungeon, Boss',
         },
-        'Tower of the Gods': {
-          'Gohdan Heart Container': {
-            originalItem: 'Heart Container',
-            types: 'Dungeon, Boss',
-          },
+        {
+          generalLocation: 'Tower of the Gods',
+          detailedLocation: 'Gohdan Heart Container',
+          originalItemValue: 'Heart Container',
+          typesValue: 'Dungeon, Boss',
         },
-        "Ganon's Tower": {
-          'Defeat Ganondorf': {
-            need: 'Can Reach and Defeat Ganondorf',
-          },
+        {
+          generalLocation: "Ganon's Tower",
+          detailedLocation: 'Defeat Ganondorf',
+          needValue: 'Can Reach and Defeat Ganondorf',
         },
-      };
+      ]);
     });
 
     test('returns the boss location for Dragon Roost Cavern', () => {
@@ -2822,13 +2850,13 @@ describe('LogicHelper', () => {
   describe('smallKeysRequiredForLocation', () => {
     describe('when the location has no requirements', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Dragon Roost Cavern': {
-            'First Room': {
-              need: 'Nothing',
-            },
+        setLocations([
+          {
+            generalLocation: 'Dragon Roost Cavern',
+            detailedLocation: 'First Room',
+            needValue: 'Nothing',
           },
-        };
+        ]);
       });
 
       test('returns 0', () => {
@@ -2840,13 +2868,13 @@ describe('LogicHelper', () => {
 
     describe('when the location only has non-key requirements', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Dragon Roost Cavern': {
-            'First Room': {
-              need: 'Grappling Hook',
-            },
+        setLocations([
+          {
+            generalLocation: 'Dragon Roost Cavern',
+            detailedLocation: 'First Room',
+            needValue: 'Grappling Hook',
           },
-        };
+        ]);
       });
 
       test('returns 0', () => {
@@ -2858,13 +2886,13 @@ describe('LogicHelper', () => {
 
     describe('when the location only requires a small key', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Dragon Roost Cavern': {
-            'First Room': {
-              need: 'DRC Small Key x1',
-            },
+        setLocations([
+          {
+            generalLocation: 'Dragon Roost Cavern',
+            detailedLocation: 'First Room',
+            needValue: 'DRC Small Key x1',
           },
-        };
+        ]);
       });
 
       test('returns the 1 small key', () => {
@@ -2876,13 +2904,13 @@ describe('LogicHelper', () => {
 
     describe('when the location requires some keys and some other items', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Dragon Roost Cavern': {
-            'First Room': {
-              need: 'Grappling Hook & Deku Leaf & DRC Small Key x2 & DRC Big Key',
-            },
+        setLocations([
+          {
+            generalLocation: 'Dragon Roost Cavern',
+            detailedLocation: 'First Room',
+            needValue: 'Grappling Hook & Deku Leaf & DRC Small Key x2 & DRC Big Key',
           },
-        };
+        ]);
       });
 
       test('returns the number of small keys', () => {
@@ -2894,13 +2922,13 @@ describe('LogicHelper', () => {
 
     describe('when the location has nested key requirements', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Dragon Roost Cavern': {
-            'Big Key Chest': {
-              need: 'DRC Small Key x1 & Grappling Hook & (DRC Small Key x4 | Deku Leaf | Progressive Bow x2)',
-            },
+        setLocations([
+          {
+            generalLocation: 'Dragon Roost Cavern',
+            detailedLocation: 'Big Key Chest',
+            needValue: 'DRC Small Key x1 & Grappling Hook & (DRC Small Key x4 | Deku Leaf | Progressive Bow x2)',
           },
-        };
+        ]);
       });
 
       test('returns the number of small keys that are strictly required', () => {
@@ -2914,13 +2942,13 @@ describe('LogicHelper', () => {
   describe('isLocationAvailableWithSmallKeys', () => {
     describe('when the location requires small keys that are below the given count', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Dragon Roost Cavern': {
-            'First Room': {
-              need: 'DRC Small Key x2',
-            },
+        setLocations([
+          {
+            generalLocation: 'Dragon Roost Cavern',
+            detailedLocation: 'First Room',
+            needValue: 'DRC Small Key x2',
           },
-        };
+        ]);
       });
 
       test('returns true', () => {
@@ -2939,13 +2967,13 @@ describe('LogicHelper', () => {
 
     describe('when the location requires small keys that are above the given count', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Dragon Roost Cavern': {
-            'First Room': {
-              need: 'DRC Small Key x4',
-            },
+        setLocations([
+          {
+            generalLocation: 'Dragon Roost Cavern',
+            detailedLocation: 'First Room',
+            needValue: 'DRC Small Key x4',
           },
-        };
+        ]);
       });
 
       test('returns false', () => {
@@ -2964,13 +2992,13 @@ describe('LogicHelper', () => {
 
     describe('when the non key requirements are evaluated as not met', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Dragon Roost Cavern': {
-            'First Room': {
-              need: 'Grappling Hook',
-            },
+        setLocations([
+          {
+            generalLocation: 'Dragon Roost Cavern',
+            detailedLocation: 'First Room',
+            needValue: 'Grappling Hook',
           },
-        };
+        ]);
       });
 
       test('returns false', () => {
@@ -2989,13 +3017,13 @@ describe('LogicHelper', () => {
 
     describe('when the non key requirements are evaluated as met', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Dragon Roost Cavern': {
-            'First Room': {
-              need: 'Grappling Hook',
-            },
+        setLocations([
+          {
+            generalLocation: 'Dragon Roost Cavern',
+            detailedLocation: 'First Room',
+            needValue: 'Grappling Hook',
           },
-        };
+        ]);
       });
 
       test('returns true', () => {
@@ -3613,13 +3641,13 @@ describe('LogicHelper', () => {
   describe('rawRequirementsForLocation', () => {
     describe('when the location has no requirements', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Nothing',
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: 'Nothing',
           },
-        };
+        ]);
       });
 
       test('returns the requirements expression', () => {
@@ -3633,13 +3661,13 @@ describe('LogicHelper', () => {
 
     describe('when the location requirements only contain items', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: "Grappling Hook | Hero's Sword | Skull Hammer",
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: "Grappling Hook | Hero's Sword | Skull Hammer",
           },
-        };
+        ]);
       });
 
       test('returns the requirements expression', () => {
@@ -3654,13 +3682,13 @@ describe('LogicHelper', () => {
     describe('when the location requirements contain a starting item', () => {
       describe('when the starting item is progressive', () => {
         beforeEach(() => {
-          Locations.locations = {
-            'Outset Island': {
-              'Savage Labyrinth - Floor 30': {
-                need: 'Progressive Sword x2',
-              },
+          setLocations([
+            {
+              generalLocation: 'Outset Island',
+              detailedLocation: 'Savage Labyrinth - Floor 30',
+              needValue: 'Progressive Sword x2',
             },
-          };
+          ]);
         });
 
         describe('when the starting item meets the requirement', () => {
@@ -3698,13 +3726,13 @@ describe('LogicHelper', () => {
 
       describe('when the starting item is a normal item', () => {
         beforeEach(() => {
-          Locations.locations = {
-            'Outset Island': {
-              'Savage Labyrinth - Floor 30': {
-                need: 'Wind Waker',
-              },
+          setLocations([
+            {
+              generalLocation: 'Outset Island',
+              detailedLocation: 'Savage Labyrinth - Floor 30',
+              needValue: 'Wind Waker',
             },
-          };
+          ]);
         });
 
         describe('when the starting item meets the requirement', () => {
@@ -3744,13 +3772,13 @@ describe('LogicHelper', () => {
     describe('when the location requirements contain an impossible item', () => {
       describe('when the impossible item is progressive', () => {
         beforeEach(() => {
-          Locations.locations = {
-            'Outset Island': {
-              'Savage Labyrinth - Floor 30': {
-                need: 'Progressive Sword x2',
-              },
+          setLocations([
+            {
+              generalLocation: 'Outset Island',
+              detailedLocation: 'Savage Labyrinth - Floor 30',
+              needValue: 'Progressive Sword x2',
             },
-          };
+          ]);
         });
 
         describe('when the impossible item meets the requirement', () => {
@@ -3788,13 +3816,13 @@ describe('LogicHelper', () => {
 
       describe('when the impossible item is a normal item', () => {
         beforeEach(() => {
-          Locations.locations = {
-            'Outset Island': {
-              'Savage Labyrinth - Floor 30': {
-                need: 'Wind Waker',
-              },
+          setLocations([
+            {
+              generalLocation: 'Outset Island',
+              detailedLocation: 'Savage Labyrinth - Floor 30',
+              needValue: 'Wind Waker',
             },
-          };
+          ]);
 
           LogicHelper.startingItems = {};
           LogicHelper.impossibleItems = {
@@ -3814,13 +3842,13 @@ describe('LogicHelper', () => {
 
     describe('when the location requirements have parentheses', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: "Wind Waker | ((Grappling Hook & Hero's Bow) & Hero's Sword) | Skull Hammer",
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: "Wind Waker | ((Grappling Hook & Hero's Bow) & Hero's Sword) | Skull Hammer",
           },
-        };
+        ]);
         LogicHelper.startingItems = {};
       });
 
@@ -3842,13 +3870,13 @@ describe('LogicHelper', () => {
 
     describe('when the location requirements contain a macro', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Grappling Hook | My Fake Macro | Skull Hammer',
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: 'Grappling Hook | My Fake Macro | Skull Hammer',
           },
-        };
+        ]);
 
         Macros.macros = {
           'My Fake Macro': "Grappling Hook | Hero's Sword",
@@ -3873,16 +3901,18 @@ describe('LogicHelper', () => {
 
     describe('when the location requires another location with Can Access macro', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Can Access Item Location "Outset Island - Savage Labyrinth - Floor 50"',
-            },
-            'Savage Labyrinth - Floor 50': {
-              need: "Grappling Hook | Hero's Bow",
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: 'Can Access Item Location "Outset Island - Savage Labyrinth - Floor 50"',
           },
-        };
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 50',
+            needValue: "Grappling Hook | Hero's Bow",
+          },
+        ]);
       });
 
       test('returns the requirements for the other location', () => {
@@ -3898,16 +3928,18 @@ describe('LogicHelper', () => {
 
     describe('when the location requires another location with Has Accessed macro', () => {
       beforeEach(() => {
-        Locations.locations = {
-          'Outset Island': {
-            'Savage Labyrinth - Floor 30': {
-              need: 'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 50"',
-            },
-            'Savage Labyrinth - Floor 50': {
-              need: "Grappling Hook | Hero's Bow",
-            },
+        setLocations([
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+            needValue: 'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 50"',
           },
-        };
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 50',
+            needValue: "Grappling Hook | Hero's Bow",
+          },
+        ]);
       });
 
       test('returns the unmodified requirements when flattened is false', () => {
@@ -3936,13 +3968,13 @@ describe('LogicHelper', () => {
         expectedExpression,
       }) => {
         beforeEach(() => {
-          Locations.locations = {
-            'Outset Island': {
-              'Savage Labyrinth - Floor 30': {
-                need: requirements,
-              },
+          setLocations([
+            {
+              generalLocation: 'Outset Island',
+              detailedLocation: 'Savage Labyrinth - Floor 30',
+              needValue: requirements,
             },
-          };
+          ]);
 
           Settings.initializeRaw({ options });
         });

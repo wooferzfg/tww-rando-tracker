@@ -63,6 +63,10 @@ class LogicTweaks {
   }
 
   static #addDefeatGanondorf() {
+    Locations.addLocation(
+      LogicHelper.DUNGEONS.GANONS_TOWER,
+      LogicHelper.DEFEAT_GANONDORF_LOCATION,
+    );
     Locations.setLocation(
       LogicHelper.DUNGEONS.GANONS_TOWER,
       LogicHelper.DEFEAT_GANONDORF_LOCATION,

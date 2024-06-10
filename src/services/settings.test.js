@@ -1,7 +1,10 @@
 import _ from 'lodash';
 
 import FLAGS from '../data/flags.json';
+import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
 
+import BinaryString from './binary-string';
+import Locations from './locations';
 import Permalink from './permalink';
 import Settings from './settings';
 
@@ -10,14 +13,48 @@ describe('Settings', () => {
     Settings.reset();
   });
 
+  describe('initializeVersionFromPermalink', () => {
+    test('initializes the version for the default settings', () => {
+      Settings.initializeVersionFromPermalink(
+        BinaryString.fromBase64(Permalink.DEFAULT_PERMALINK),
+      );
+
+      expect(Settings.version).toEqual('master'); // TODO: change to 1.11.0
+    });
+
+    test('initializes the version for a development build', () => {
+      // version = 1.11.0_be1d4e2
+      Settings.initializeVersionFromPermalink(
+        BinaryString.fromBase64('eJwz1DM01DOIT0o1TDFJNWJwZPAUCGAgEkgwMPxmeiEEYnIwsDAyMAEAUQAGrg=='),
+      );
+
+      expect(Settings.version).toEqual('be1d4e2');
+    });
+
+    test('initializes the version for a beta build', () => {
+      // version = 1.11.0-BETA_2022-11-28
+      Settings.initializeVersionFromPermalink(
+        BinaryString.fromBase64('eJwz1DM01DPQdXINcYw3MjAy0jU01DWyYHBk8BQIYCASSDAw/GZ6IQRicjCwMDIwAQCwpge8'),
+      );
+
+      expect(Settings.version).toEqual('master');
+    });
+  });
+
   describe('initializeFromPermalink', () => {
+    beforeEach(() => {
+      Settings.initializeVersionFromPermalink(
+        BinaryString.fromBase64(Permalink.DEFAULT_PERMALINK),
+      );
+
+      Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+    });
+
     describe('default settings', () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink(Permalink.DEFAULT_PERMALINK);
-      });
-
-      test('initializes the version', () => {
-        expect(Settings.version).toEqual('master'); // TODO: change to 1.11.0
+        Settings.initializeFromPermalink(
+          BinaryString.fromBase64(Permalink.DEFAULT_PERMALINK),
+        );
       });
 
       test('initializes the starting gear', () => {
@@ -43,31 +80,11 @@ describe('Settings', () => {
       });
     });
 
-    describe('when using a development build', () => {
-      beforeEach(() => {
-        // version = 1.11.0_be1d4e2
-        Settings.initializeFromPermalink('MS4xMS4wX2JlMWQ0ZTIAc2VlZABJEFAYAAD7AugSAAAAAAgABAEAAg==');
-      });
-
-      test('sets the version to be the commit hash', () => {
-        expect(Settings.version).toEqual('be1d4e2');
-      });
-    });
-
-    describe('when using a beta build', () => {
-      beforeEach(() => {
-        // version = 1.11.0-BETA_2022-11-28
-        Settings.initializeFromPermalink('MS4xMS4wLUJFVEFfMjAyMi0xMS0yOABzZWVkAEkQUBgAAPsC6BIAAAAACAAEAQAC');
-      });
-
-      test('sets the version to master', () => {
-        expect(Settings.version).toEqual('master');
-      });
-    });
-
     describe('all flags set', () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink('bWFzdGVyAHNlZWQA//9/GAAA+wLoEgAAAAAIAAQBAAI=');
+        Settings.initializeFromPermalink(
+          BinaryString.fromBase64('eJzLTSwuSS1icGT4/7+egUggwcDwm+mFEIjJwcDCyMAEAGgDB2k='),
+        );
       });
 
       test('initializes all the flags', () => {
@@ -78,7 +95,9 @@ describe('Settings', () => {
 
     describe('all starting gear set', () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink('bWFzdGVyAHNlZWQASRBQGAAA+wLo+v//////v6suAAI=');
+        Settings.initializeFromPermalink(
+          BinaryString.fromBase64('eJzLTSwuSS1icGTwFAhgIBJIMDD8Znrx6z8I7F+tx8AEADQeDQM='),
+        );
       });
 
       test('initializes the starting gear', () => {
@@ -89,7 +108,9 @@ describe('Settings', () => {
     describe('only sunken triforce enabled', () => {
       describe('when charts are not randomized', () => {
         beforeEach(() => {
-          Settings.initializeFromPermalink('bWFzdGVyAHNlZWQAAAAEGAAA+wLoEgAAAAAIAAQBAAI=');
+          Settings.initializeFromPermalink(
+            BinaryString.fromBase64('eJzLTSwuSS1icGRgYGBhIBJIMDD8ZnohBGJyMLAwMjABANWNBPA='),
+          );
         });
 
         test('initializes the flags', () => {
@@ -101,7 +122,9 @@ describe('Settings', () => {
 
       describe('when charts are randomized', () => {
         beforeEach(() => {
-          Settings.initializeFromPermalink('bWFzdGVyAHNlZWQAAAAEGACA+wLoEgAAAAAIAAQBAAI=');
+          Settings.initializeFromPermalink(
+            BinaryString.fromBase64('eJzLTSwuSS1icGRgYGBhIBJIMDT8ZnohBGJyMLAwMjABAN0NBXA='),
+          );
         });
 
         test('initializes the flags', () => {
@@ -109,6 +132,26 @@ describe('Settings', () => {
             Settings.FLAGS.SUNKEN_TREASURE,
           ]);
         });
+      });
+    });
+
+    describe('when some locations are excluded', () => {
+      beforeEach(() => {
+        Settings.initializeFromPermalink(
+          BinaryString.fromBase64('eJzLTSwuSS1icGTwFAhgQAAFJDYjAxMDCpBgYPjN9EIIxORgYAFKAwABwgW4'),
+        );
+      });
+
+      test('sets the excluded locations', () => {
+        // These 3 locations are excluded, so they are set to true
+        expect(Settings.excludedLocations["Bird's Peak Rock"].Cave).toEqual(true);
+        expect(Settings.excludedLocations['Forbidden Woods']['Double Mothula Room']).toEqual(true);
+        expect(Settings.excludedLocations['Private Oasis']['Cabana Labyrinth - Upper Floor Chest']).toEqual(true);
+
+        // All other locations should be set to false
+        expect(Settings.excludedLocations['Outset Island']['Savage Labyrinth - Floor 30']).toEqual(false);
+        expect(Settings.excludedLocations['Private Oasis']['Cabana Labyrinth - Lower Floor Chest']).toEqual(false);
+        expect(Settings.excludedLocations['Dragon Roost Cavern']['First Room']).toEqual(false);
       });
     });
   });

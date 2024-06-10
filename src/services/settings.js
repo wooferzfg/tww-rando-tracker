@@ -6,14 +6,18 @@ import Constants from './constants';
 import Permalink from './permalink';
 
 class Settings {
-  static initializeFromPermalink(permalinkString) {
-    this.options = Permalink.decode(permalinkString);
+  static initializeVersionFromPermalink(permalinkBinaryString) {
+    this.version = this.#parseVersion(
+      Permalink.getVersion(permalinkBinaryString),
+    );
+  }
+
+  static initializeFromPermalink(permalinkBinaryString) {
+    this.options = Permalink.decodeBinaryString(permalinkBinaryString);
 
     this.flags = [];
     this.startingGear = this.getOptionValue(Permalink.OPTIONS.STARTING_GEAR);
-    this.version = this.#parseVersion(
-      this.getOptionValue(Permalink.OPTIONS.VERSION),
-    );
+    this.excludedLocations = this.getOptionValue(Permalink.OPTIONS.EXCLUDED_LOCATIONS);
 
     _.forEach(this.#FLAGS_MAPPING, (flagsForOption, optionName) => {
       if (this.getOptionValue(optionName)) {
@@ -34,6 +38,7 @@ class Settings {
     this.flags = settings.flags;
     this.options = settings.options;
     this.startingGear = settings.startingGear;
+    this.excludedLocations = settings.excludedLocations;
     this.version = settings.version;
   }
 
@@ -41,6 +46,7 @@ class Settings {
     this.flags = null;
     this.options = null;
     this.startingGear = null;
+    this.excludedLocations = null;
     this.version = null;
   }
 

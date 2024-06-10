@@ -402,4 +402,19 @@ describe('BinaryString', () => {
       });
     });
   });
+
+  describe('clone', () => {
+    beforeEach(() => {
+      binaryString = new BinaryString([49, 46, 56, 46, 48, 0, 121, 101, 101], 1);
+    });
+
+    test('returns a cloned string', () => {
+      const clonedString = binaryString.clone();
+
+      binaryString.popBoolean(); // should not affect clonedString
+
+      expect(clonedString.binaryData()).toEqual([49, 46, 56, 46, 48, 0, 121, 101, 101]);
+      expect(clonedString.bitOffset()).toEqual(1);
+    });
+  });
 });
