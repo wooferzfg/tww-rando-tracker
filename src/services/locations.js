@@ -49,6 +49,10 @@ class Locations {
     return _.keys(this.locations);
   }
 
+  static locationsLoaded() {
+    return !_.isNil(this.locations);
+  }
+
   static mapLocations(locationIteratee) {
     const newLocations = {};
 

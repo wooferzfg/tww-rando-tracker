@@ -191,6 +191,45 @@ describe('Locations', () => {
     });
   });
 
+  describe('locationsLoaded', () => {
+    describe('when locations are loaded', () => {
+      beforeEach(() => {
+        const itemLocations = {
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              test: 'data',
+            },
+          },
+        };
+        const locationsList = [
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+          },
+        ];
+        Locations.initializeRaw(itemLocations, locationsList);
+      });
+
+      test('returns true', () => {
+        const locationsLoaded = Locations.locationsLoaded();
+
+        expect(locationsLoaded).toEqual(true);
+      });
+    });
+
+    describe('when locations are not loaded', () => {
+      beforeEach(() => {
+        Locations.reset();
+      });
+
+      test('returns false', () => {
+        const locationsLoaded = Locations.locationsLoaded();
+
+        expect(locationsLoaded).toEqual(false);
+      });
+    });
+  });
+
   describe('mapLocations', () => {
     beforeEach(() => {
       Locations.locations = {

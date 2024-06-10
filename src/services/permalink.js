@@ -266,6 +266,11 @@ class Permalink {
 
     return {
       decode: (binaryString, options) => {
+        if (!Locations.locationsLoaded()) {
+          // istanbul ignore next
+          throw Error('Cannot decode excluded locations. Locations are not loaded yet');
+        }
+
         const excludedLocationsOption = Locations.mapLocations(() => {
           const isLocationExcluded = binaryString.popBoolean();
           return isLocationExcluded;
@@ -273,6 +278,11 @@ class Permalink {
         _.set(options, optionName, excludedLocationsOption);
       },
       encode: (binaryString, options) => {
+        if (!Locations.locationsLoaded()) {
+          // istanbul ignore next
+          throw Error('Cannot encode excluded locations. Locations are not loaded yet');
+        }
+
         _.forEach(Locations.readLocationsList(), ({ generalLocation, detailedLocation }) => {
           const isLocationExcluded = _.get(
             options,
