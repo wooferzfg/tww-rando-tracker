@@ -2227,15 +2227,27 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('sunkenTreasureLocationForIsland', () => {
+    test('returns the location of the sunken treasure for the island', () => {
+      expect(LogicHelper.sunkenTreasureLocationForIsland('Outset Island')).toEqual({
+        generalLocation: 'Outset Island',
+        detailedLocation: 'Sunken Treasure',
+      });
+    });
+  });
+
   describe('islandHasProgressItemChart', () => {
     describe('when randomized charts is on, and only triforce charts are progress items', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
             [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
             [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
           },
+          flags: [
+            Settings.FLAGS.SUNKEN_TRIFORCE,
+          ],
         });
       });
 
@@ -2250,11 +2262,20 @@ describe('LogicHelper', () => {
 
     describe('when randomized charts is on, and all charts are progress items', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
             [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
             [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+          flags: [
+            Settings.FLAGS.SUNKEN_TREASURE,
+            Settings.FLAGS.SUNKEN_TRIFORCE,
+          ],
+          excludedLocations: {
+            'Cliff Plateau Isles': {
+              'Sunken Treasure': true,
+            },
           },
         });
       });
@@ -2266,16 +2287,21 @@ describe('LogicHelper', () => {
       test('returns true for an island that normally has a treasure chart', () => {
         expect(LogicHelper.islandHasProgressItemChart('Dragon Roost Island')).toEqual(true);
       });
+
+      test('returns true when the vanilla chart corresponds to an excluded location', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Cliff Plateau Isles')).toEqual(true);
+      });
     });
 
     describe('when randomized charts is on, and no charts are progress items', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
             [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
             [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
           },
+          flags: [],
         });
       });
 
@@ -2290,12 +2316,15 @@ describe('LogicHelper', () => {
 
     describe('when randomized charts is off, and only treasure charts are progress items', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
             [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
           },
+          flags: [
+            Settings.FLAGS.SUNKEN_TREASURE,
+          ],
         });
       });
 
@@ -2310,12 +2339,15 @@ describe('LogicHelper', () => {
 
     describe('when randomized charts is off, and only triforce charts are progress items', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
             [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
           },
+          flags: [
+            Settings.FLAGS.SUNKEN_TRIFORCE,
+          ],
         });
       });
 
@@ -2330,11 +2362,20 @@ describe('LogicHelper', () => {
 
     describe('when randomized charts is off, and all charts are progress items', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
             [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+          flags: [
+            Settings.FLAGS.SUNKEN_TREASURE,
+            Settings.FLAGS.SUNKEN_TRIFORCE,
+          ],
+          excludedLocations: {
+            'Cliff Plateau Isles': {
+              'Sunken Treasure': true,
+            },
           },
         });
       });
@@ -2344,18 +2385,23 @@ describe('LogicHelper', () => {
       });
 
       test('returns true for an island that normally has a treasure chart', () => {
-        expect(LogicHelper.islandHasProgressItemChart('Forsaken Fortress')).toEqual(true);
+        expect(LogicHelper.islandHasProgressItemChart('Forsaken Fortress Sector')).toEqual(true);
+      });
+
+      test('returns false for a chart that corresponds to an excluded sunken treasure location', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Cliff Plateau Isles')).toEqual(false);
       });
     });
 
     describe('when randomized charts is off, and no charts are progress items', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
             [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
             [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
           },
+          flags: [],
         });
       });
 
