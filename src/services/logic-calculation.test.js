@@ -52,6 +52,9 @@ describe('LogicCalculation', () => {
   };
 
   const fullSetup = (settingsOverrides = {}) => {
+    Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+    Macros.initialize(_.cloneDeep(TEST_MACROS));
+
     const defaultSettings = {
       options: {
         [Permalink.OPTIONS.KEYLUNACY]: false,
@@ -90,12 +93,10 @@ describe('LogicCalculation', () => {
         Settings.FLAGS.OTHER_CHEST,
         Settings.FLAGS.EXPENSIVE_PURCHASE,
       ],
+      excludedLocations: Locations.mapLocations(() => false),
     };
 
     Settings.initializeRaw(_.merge(defaultSettings, settingsOverrides));
-
-    Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-    Macros.initialize(_.cloneDeep(TEST_MACROS));
 
     LogicTweaks.applyTweaks();
 

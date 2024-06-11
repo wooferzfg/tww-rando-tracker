@@ -16,8 +16,12 @@ class Settings {
     this.options = Permalink.decodeBinaryString(permalinkBinaryString);
 
     this.flags = [];
+
     this.startingGear = this.getOptionValue(Permalink.OPTIONS.STARTING_GEAR);
+    _.unset(this.options, Permalink.OPTIONS.STARTING_GEAR);
+
     this.excludedLocations = this.getOptionValue(Permalink.OPTIONS.EXCLUDED_LOCATIONS);
+    _.unset(this.options, Permalink.OPTIONS.EXCLUDED_LOCATIONS);
 
     _.forEach(this.#FLAGS_MAPPING, (flagsForOption, optionName) => {
       if (this.getOptionValue(optionName)) {
@@ -57,6 +61,7 @@ class Settings {
       flags: this.flags,
       options: this.options,
       startingGear: this.startingGear,
+      excludedLocations: this.excludedLocations,
       version: this.version,
     };
   }
@@ -87,6 +92,17 @@ class Settings {
 
   static getVersion() {
     return this.version;
+  }
+
+  static isLocationExcluded(generalLocation, detailedLocation) {
+    const isLocationExcluded = _.get(this.excludedLocations, [generalLocation, detailedLocation]);
+
+    if (_.isNil(isLocationExcluded)) {
+      // istanbul ignore next
+      throw Error(`Location not found in excluded locations: ${generalLocation} - ${detailedLocation}`);
+    }
+
+    return isLocationExcluded;
   }
 
   static #FLAGS_MAPPING = {

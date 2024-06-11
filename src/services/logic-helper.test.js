@@ -41,6 +41,9 @@ describe('LogicHelper', () => {
   };
 
   const fullSetup = (settingsOverrides = {}) => {
+    Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+    Macros.initialize(_.cloneDeep(TEST_MACROS));
+
     const defaultSettings = {
       options: {
         [Permalink.OPTIONS.KEYLUNACY]: false,
@@ -64,12 +67,10 @@ describe('LogicHelper', () => {
       startingGear: {
         [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
       },
+      excludedLocations: Locations.mapLocations(() => false),
     };
 
     Settings.initializeRaw(_.merge(defaultSettings, settingsOverrides));
-
-    Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-    Macros.initialize(_.cloneDeep(TEST_MACROS));
 
     LogicTweaks.applyTweaks();
 
@@ -2154,25 +2155,13 @@ describe('LogicHelper', () => {
   describe('isProgressLocation', () => {
     describe('when the location has a type that is not in the flags', () => {
       beforeEach(() => {
-        setLocations([
-          {
-            generalLocation: 'Wind Temple',
-            detailedLocation: 'Big Key Chest',
-            needValue: 'Can Access Wind Temple',
-            typesValue: 'Dungeon, Tingle Chest, Island Puzzle',
-          },
-        ]);
-
-        Settings.initializeRaw({
-          flags: [
-            Settings.FLAGS.DUNGEON,
-            Settings.FLAGS.ISLAND_PUZZLE,
-          ],
+        fullSetup({
+          flags: [Settings.FLAGS.DUNGEON, Settings.FLAGS.PUZZLE_SECRET_CAVE],
         });
       });
 
       test('returns false', () => {
-        const isProgressLocation = LogicHelper.isProgressLocation('Wind Temple', 'Big Key Chest');
+        const isProgressLocation = LogicHelper.isProgressLocation('Boating Course', 'Cave');
 
         expect(isProgressLocation).toEqual(false);
       });
@@ -2180,40 +2169,48 @@ describe('LogicHelper', () => {
 
     describe('when the location only has types that are in the flags', () => {
       beforeEach(() => {
-        setLocations([
-          {
-            generalLocation: 'Wind Temple',
-            detailedLocation: 'Big Key Chest',
-            needValue: 'Can Access Wind Temple',
-            typesValue: 'Dungeon, Tingle Chest, Island Puzzle',
-          },
-        ]);
-
-        Settings.initializeRaw({
+        fullSetup({
           flags: [
             Settings.FLAGS.DUNGEON,
-            Settings.FLAGS.ISLAND_PUZZLE,
-            Settings.FLAGS.TINGLE_CHEST,
+            Settings.FLAGS.PUZZLE_SECRET_CAVE,
+            Settings.FLAGS.COMBAT_SECRET_CAVE,
           ],
         });
       });
 
       test('returns true', () => {
-        const isProgressLocation = LogicHelper.isProgressLocation('Wind Temple', 'Big Key Chest');
+        const isProgressLocation = LogicHelper.isProgressLocation('Boating Course', 'Cave');
 
         expect(isProgressLocation).toEqual(true);
       });
     });
 
+    describe('when the location is excluded', () => {
+      beforeEach(() => {
+        fullSetup({
+          flags: [
+            Settings.FLAGS.DUNGEON,
+            Settings.FLAGS.PUZZLE_SECRET_CAVE,
+            Settings.FLAGS.COMBAT_SECRET_CAVE,
+          ],
+          excludedLocations: {
+            'Boating Course': {
+              Cave: true,
+            },
+          },
+        });
+      });
+
+      test('returns false', () => {
+        const isProgressLocation = LogicHelper.isProgressLocation('Boating Course', 'Cave');
+
+        expect(isProgressLocation).toEqual(false);
+      });
+    });
+
     describe('when the location has no types', () => {
       beforeEach(() => {
-        setLocations([
-          {
-            generalLocation: "Ganon's Tower",
-            detailedLocation: 'Defeat Ganondorf',
-            needValue: 'Can Reach and Defeat Ganondorf',
-          },
-        ]);
+        fullSetup();
       });
 
       test('returns true', () => {
@@ -2521,14 +2518,7 @@ describe('LogicHelper', () => {
   describe('isPotentialKeyLocation', () => {
     describe('when the location is a valid big key location', () => {
       beforeEach(() => {
-        setLocations([
-          {
-            generalLocation: 'Wind Temple',
-            detailedLocation: 'Big Key Chest',
-            needValue: 'Can Access Wind Temple',
-            typesValue: 'Dungeon',
-          },
-        ]);
+        fullSetup();
       });
 
       test('returns true', () => {
@@ -2540,13 +2530,7 @@ describe('LogicHelper', () => {
 
     describe('when the location is not in a main dungeon', () => {
       beforeEach(() => {
-        setLocations([
-          {
-            generalLocation: 'Forsaken Fortress',
-            detailedLocation: 'Phantom Ganon',
-            typesValue: 'Dungeon',
-          },
-        ]);
+        fullSetup();
       });
 
       test('returns false', () => {
@@ -2558,13 +2542,7 @@ describe('LogicHelper', () => {
 
     describe('when the location is on an island that is also a dungeon', () => {
       beforeEach(() => {
-        setLocations([
-          {
-            generalLocation: 'Tower of the Gods Sector',
-            detailedLocation: 'Sunken Treasure',
-            typesValue: 'Sunken Treasure',
-          },
-        ]);
+        fullSetup();
       });
 
       test('returns false', () => {
@@ -2575,20 +2553,9 @@ describe('LogicHelper', () => {
     });
 
     describe('when the location is a tingle chest', () => {
-      beforeEach(() => {
-        setLocations([
-          {
-            generalLocation: 'Wind Temple',
-            detailedLocation: 'Tingle Statue Chest',
-            needValue: 'Can Access Wind Temple',
-            typesValue: 'Tingle Chest, Dungeon',
-          },
-        ]);
-      });
-
       describe('when the tingle chest flag is active', () => {
         beforeEach(() => {
-          Settings.initializeRaw({
+          fullSetup({
             flags: [Settings.FLAGS.DUNGEON, Settings.FLAGS.TINGLE_CHEST],
           });
         });
@@ -2602,7 +2569,9 @@ describe('LogicHelper', () => {
 
       describe('when only dungeons are active', () => {
         beforeEach(() => {
-          Settings.initializeRaw({ flags: [Settings.FLAGS.DUNGEON] });
+          fullSetup({
+            flags: [Settings.FLAGS.DUNGEON],
+          });
         });
 
         test('returns false', () => {
@@ -2614,7 +2583,9 @@ describe('LogicHelper', () => {
 
       describe('when dungeons are not active', () => {
         beforeEach(() => {
-          Settings.initializeRaw({ flags: [] });
+          fullSetup({
+            flags: [],
+          });
         });
 
         test('returns true', () => {
@@ -2626,20 +2597,9 @@ describe('LogicHelper', () => {
     });
 
     describe('when the location is a dungeon secret', () => {
-      beforeEach(() => {
-        setLocations([
-          {
-            generalLocation: 'Forbidden Woods',
-            detailedLocation: 'Highest Pot in Vine Maze',
-            needValue: 'Can Access Forbidden Woods',
-            typesValue: 'Dungeon, Dungeon Secret',
-          },
-        ]);
-      });
-
       describe('when the dungeon secret flag is active', () => {
         beforeEach(() => {
-          Settings.initializeRaw({
+          fullSetup({
             flags: [Settings.FLAGS.DUNGEON, Settings.FLAGS.DUNGEON_SECRET],
           });
         });
@@ -2653,7 +2613,9 @@ describe('LogicHelper', () => {
 
       describe('when only dungeons are active', () => {
         beforeEach(() => {
-          Settings.initializeRaw({ flags: [Settings.FLAGS.DUNGEON] });
+          fullSetup({
+            flags: [Settings.FLAGS.DUNGEON],
+          });
         });
 
         test('returns false', () => {
@@ -2665,7 +2627,9 @@ describe('LogicHelper', () => {
 
       describe('when dungeons are not active', () => {
         beforeEach(() => {
-          Settings.initializeRaw({ flags: [] });
+          fullSetup({
+            flags: [],
+          });
         });
 
         test('returns true', () => {
@@ -2678,14 +2642,7 @@ describe('LogicHelper', () => {
 
     describe('when the location is a boss item drop', () => {
       beforeEach(() => {
-        setLocations([
-          {
-            generalLocation: 'Dragon Roost Cavern',
-            detailedLocation: 'Gohma Heart Container',
-            needValue: 'Entered Gohma & Grappling Hook',
-            typesValue: 'Dungeon, Boss',
-          },
-        ]);
+        fullSetup();
       });
 
       test('returns false', () => {
@@ -2696,20 +2653,9 @@ describe('LogicHelper', () => {
     });
 
     describe('when the location is a miniboss', () => {
-      beforeEach(() => {
-        setLocations([
-          {
-            generalLocation: 'Wind Temple',
-            detailedLocation: 'Wizzrobe Miniboss Room',
-            needValue: 'Can Access Wind Temple',
-            typesValue: 'Dungeon, Randomizable Miniboss Room',
-          },
-        ]);
-      });
-
       describe('when minibosses are randomized', () => {
         beforeEach(() => {
-          Settings.initializeRaw({
+          fullSetup({
             options: {
               [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
             },
@@ -2725,7 +2671,7 @@ describe('LogicHelper', () => {
 
       describe('when minibosses are not randomized', () => {
         beforeEach(() => {
-          Settings.initializeRaw({
+          fullSetup({
             options: {
               [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
             },

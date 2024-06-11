@@ -263,10 +263,40 @@ describe('Settings', () => {
     });
 
     describe('when the flag is not in the list of flags', () => {
-      test('returns true', () => {
+      test('returns false', () => {
         const isFlagActive = Settings.isFlagActive(Settings.FLAGS.DUNGEON);
 
         expect(isFlagActive).toEqual(false);
+      });
+    });
+  });
+
+  describe('isLocationExcluded', () => {
+    beforeEach(() => {
+      Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+
+      Settings.initializeRaw({
+        excludedLocations: Locations.mapLocations(
+          (generalLocation, detailedLocation) => (
+            generalLocation === 'Outset Island' && detailedLocation === 'Sunken Treasure'
+          ),
+        ),
+      });
+    });
+
+    describe('when the location is excluded', () => {
+      test('returns true', () => {
+        const isLocationExcluded = Settings.isLocationExcluded('Outset Island', 'Sunken Treasure');
+
+        expect(isLocationExcluded).toEqual(true);
+      });
+    });
+
+    describe('when the location is not excluded', () => {
+      test('returns false', () => {
+        const isLocationExcluded = Settings.isLocationExcluded('Dragon Roost Cavern', 'First Room');
+
+        expect(isLocationExcluded).toEqual(false);
       });
     });
   });

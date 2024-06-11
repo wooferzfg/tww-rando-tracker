@@ -356,6 +356,10 @@ class LogicHelper {
       return true;
     }
 
+    if (Settings.isLocationExcluded(generalLocation, detailedLocation)) {
+      return false;
+    }
+
     const locationTypesList = _.split(locationTypes, ', ');
     return _.every(
       locationTypesList,
