@@ -1,0 +1,26 @@
+[
+  {
+    "dungeonName": "Dragon Roost Cavern",
+    "requirement": "Defeated Gohma"
+  },
+  {
+    "dungeonName": "Forbidden Woods",
+    "requirement": "Defeated Kalle Demos"
+  },
+  {
+    "dungeonName": "Tower of the Gods",
+    "requirement": "Defeated Gohdan"
+  },
+  {
+    "dungeonName": "Forsaken Fortress",
+    "requirement": "Defeated Helmaroc King"
+  },
+  {
+    "dungeonName": "Earth Temple",
+    "requirement": "Defeated Jalhalla"
+  },
+  {
+    "dungeonName": "Wind Temple",
+    "requirement": "Defeated Molgera"
+  }
+]
