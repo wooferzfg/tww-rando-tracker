@@ -1297,6 +1297,7 @@ exports[`LogicHelper initialize when in swordless mode sets sword to 0 in the st
 {
   "Boat's Sail": 1,
   "Progressive Sword": 0,
+  "Tingle Statue": 0,
   "Triforce Shard": 0,
   "Wind Waker": 1,
   "Wind's Requiem": 1,
@@ -1314,6 +1315,7 @@ exports[`LogicHelper initialize when starting without a sword sets sword to 0 in
 {
   "Boat's Sail": 1,
   "Progressive Sword": 0,
+  "Tingle Statue": 0,
   "Triforce Shard": 0,
   "Wind Waker": 1,
   "Wind's Requiem": 1,
@@ -1324,6 +1326,7 @@ exports[`LogicHelper initialize with no starting shards, no starting gear, and s
 {
   "Boat's Sail": 1,
   "Progressive Sword": 1,
+  "Tingle Statue": 0,
   "Triforce Shard": 0,
   "Wind Waker": 1,
   "Wind's Requiem": 1,
@@ -1336,6 +1339,7 @@ exports[`LogicHelper initialize with starting gear sets the starting items based
   "Bombs": 1,
   "Deku Leaf": 1,
   "Progressive Sword": 3,
+  "Tingle Statue": 5,
   "Triforce Shard": 0,
   "Wind Waker": 1,
   "Wind's Requiem": 1,
@@ -1346,6 +1350,7 @@ exports[`LogicHelper initialize with starting shards sets the number of starting
 {
   "Boat's Sail": 1,
   "Progressive Sword": 1,
+  "Tingle Statue": 0,
   "Triforce Shard": 7,
   "Wind Waker": 1,
   "Wind's Requiem": 1,
