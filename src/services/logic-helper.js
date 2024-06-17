@@ -13,6 +13,7 @@ import NESTED_ENTRANCES from '../data/nested-entrances.json';
 import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
 import REQUIRED_BOSSES from '../data/required-bosses.json';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
+import TINGLE_STATUES from '../data/tingle-statues.json';
 
 import BooleanExpression from './boolean-expression';
 import Constants from './constants';
@@ -763,6 +764,14 @@ class LogicHelper {
   }
 
   static #setStartingAndImpossibleItems() {
+    const startingGear = Settings.getStartingGear();
+
+    const startingTingleStatues = _.sumBy(TINGLE_STATUES, (tingleStatue) => {
+      const tingleStatueCount = _.get(startingGear, tingleStatue, 0);
+      _.unset(startingGear, tingleStatue);
+      return tingleStatueCount;
+    });
+
     this.startingItems = {
       [this.ITEMS.WIND_WAKER]: 1,
       [this.ITEMS.BOATS_SAIL]: 1,
@@ -770,10 +779,10 @@ class LogicHelper {
       [this.ITEMS.TRIFORCE_SHARD]: Settings.getOptionValue(
         Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS,
       ),
+      [this.ITEMS.TINGLE_STATUE]: startingTingleStatues,
     };
     this.impossibleItems = {};
 
-    const startingGear = Settings.getStartingGear();
     _.merge(this.startingItems, startingGear);
 
     const swordMode = Settings.getOptionValue(Permalink.OPTIONS.SWORD_MODE);

@@ -140,6 +140,11 @@ describe('LogicHelper', () => {
             [LogicHelper.ITEMS.BOMBS]: 1,
             [LogicHelper.ITEMS.DEKU_LEAF]: 1,
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 2,
+            'Dragon Tingle Statue': 1,
+            'Earth Tingle Statue': 1,
+            'Forbidden Tingle Statue': 1,
+            'Goddess Tingle Statue': 1,
+            'Wind Tingle Statue': 1,
           },
         });
       });

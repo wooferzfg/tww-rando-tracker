@@ -47,9 +47,11 @@ exports[`Settings initializeFromPermalink all starting gear set initializes the 
   "Deku Leaf": 1,
   "Delivery Bag": 1,
   "Din's Pearl": 1,
+  "Dragon Tingle Statue": 1,
   "ET Compass": 1,
   "ET Dungeon Map": 1,
   "Earth God's Lyric": 1,
+  "Earth Tingle Statue": 1,
   "Empty Bottle": 1,
   "FF Compass": 1,
   "FF Dungeon Map": 1,
@@ -57,7 +59,9 @@ exports[`Settings initializeFromPermalink all starting gear set initializes the 
   "FW Dungeon Map": 1,
   "Farore's Pearl": 1,
   "Fill-Up Coupon": 1,
+  "Forbidden Tingle Statue": 1,
   "Ghost Ship Chart": 1,
+  "Goddess Tingle Statue": 1,
   "Grappling Hook": 1,
   "Great Fairy Chart": 1,
   "Hero's Charm": 1,
@@ -94,6 +98,7 @@ exports[`Settings initializeFromPermalink all starting gear set initializes the 
   "WT Compass": 1,
   "WT Dungeon Map": 1,
   "Wind God's Aria": 1,
+  "Wind Tingle Statue": 1,
 }
 `;
 
@@ -181,9 +186,11 @@ exports[`Settings initializeFromPermalink default settings initializes the start
   "Deku Leaf": 0,
   "Delivery Bag": 0,
   "Din's Pearl": 0,
+  "Dragon Tingle Statue": 0,
   "ET Compass": 0,
   "ET Dungeon Map": 0,
   "Earth God's Lyric": 0,
+  "Earth Tingle Statue": 0,
   "Empty Bottle": 0,
   "FF Compass": 0,
   "FF Dungeon Map": 0,
@@ -191,7 +198,9 @@ exports[`Settings initializeFromPermalink default settings initializes the start
   "FW Dungeon Map": 0,
   "Farore's Pearl": 0,
   "Fill-Up Coupon": 0,
+  "Forbidden Tingle Statue": 0,
   "Ghost Ship Chart": 0,
+  "Goddess Tingle Statue": 0,
   "Grappling Hook": 0,
   "Great Fairy Chart": 0,
   "Hero's Charm": 0,
@@ -228,5 +237,6 @@ exports[`Settings initializeFromPermalink default settings initializes the start
   "WT Compass": 0,
   "WT Dungeon Map": 0,
   "Wind God's Aria": 0,
+  "Wind Tingle Statue": 0,
 }
 `;
