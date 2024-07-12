@@ -695,6 +695,19 @@ describe('TrackerState', () => {
             test: 'data',
           },
         },
+        'Forsaken Fortress': {
+          'Phantom Ganon': {
+            test: 'data',
+          },
+        },
+        Mailbox: {
+          'Letter from Aryll': {
+            test: 'data',
+          },
+          'Letter from Tingle': {
+            test: 'data',
+          },
+        },
       };
       const locationsList = [
         {
@@ -737,11 +750,18 @@ describe('TrackerState', () => {
           'Alcove With Water Jugs': true,
           "Bird's Nest": false,
         },
+        'Forsaken Fortress': {
+          'Phantom Ganon': false,
+        },
+        Mailbox: {
+          'Letter from Aryll': false,
+          'Letter from Tingle': false,
+        },
       };
     });
 
     test('return a new state with the banned locations cleared for DRC', () => {
-      const newState = state.clearBannedLocations('Dragon Roost Cavern');
+      const newState = state.clearBannedLocations('Dragon Roost Cavern', { includeAdditionalLocations: true });
 
       expect(newState.locationsChecked).toEqual({
         'Outset Island': {
@@ -754,11 +774,18 @@ describe('TrackerState', () => {
           'Alcove With Water Jugs': true,
           "Bird's Nest": true,
         },
+        'Forsaken Fortress': {
+          'Phantom Ganon': false,
+        },
+        Mailbox: {
+          'Letter from Aryll': false,
+          'Letter from Tingle': false,
+        },
       });
     });
 
     test('return a new state with the banned locations cleared for Outset', () => {
-      const newState = state.clearBannedLocations('Outset Island');
+      const newState = state.clearBannedLocations('Outset Island', { includeAdditionalLocations: true });
 
       expect(newState.locationsChecked).toEqual({
         'Outset Island': {
@@ -770,6 +797,61 @@ describe('TrackerState', () => {
           'First Room': false,
           'Alcove With Water Jugs': true,
           "Bird's Nest": false,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': false,
+        },
+        Mailbox: {
+          'Letter from Aryll': false,
+          'Letter from Tingle': false,
+        },
+      });
+    });
+
+    test('return a new state with the banned locations and mail cleared for FF when includeAdditionalLocations is true', () => {
+      const newState = state.clearBannedLocations('Forsaken Fortress', { includeAdditionalLocations: true });
+
+      expect(newState.locationsChecked).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': false,
+          'Savage Labyrinth - Floor 50': false,
+          'Sunken Treasure': false,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": false,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': true,
+        },
+        Mailbox: {
+          'Letter from Aryll': true,
+          'Letter from Tingle': true,
+        },
+      });
+    });
+
+    test('return a new state with the banned locations but mail not cleared for FF when includeAdditionalLocations is false', () => {
+      const newState = state.clearBannedLocations('Forsaken Fortress', { includeAdditionalLocations: false });
+
+      expect(newState.locationsChecked).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': false,
+          'Savage Labyrinth - Floor 50': false,
+          'Sunken Treasure': false,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": false,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': true,
+        },
+        Mailbox: {
+          'Letter from Aryll': false,
+          'Letter from Tingle': false,
         },
       });
     });

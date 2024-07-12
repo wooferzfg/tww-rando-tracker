@@ -614,16 +614,20 @@ class LogicHelper {
     return this.isProgressLocation(generalLocation, detailedLocation);
   }
 
-  static bannedLocationsForZone(zoneName) {
+  static bannedLocationsForZone(zoneName, { includeAdditionalLocations }) {
     const detailedLocations = Locations.detailedLocationsForGeneralLocation(zoneName);
-    const dungeonLocations = _.map(detailedLocations, (detailedLocation) => ({
+    const zoneLocations = _.map(detailedLocations, (detailedLocation) => ({
       generalLocation: zoneName,
       detailedLocation,
     }));
+    if (!includeAdditionalLocations) {
+      return zoneLocations;
+    }
+
     const additionalBannedLocations = _.get(ADDITONAL_BANNED_LOCATIONS, zoneName, []);
 
     return _.concat(
-      dungeonLocations,
+      zoneLocations,
       additionalBannedLocations,
     );
   }

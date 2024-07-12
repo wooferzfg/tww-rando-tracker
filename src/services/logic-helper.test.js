@@ -3593,43 +3593,61 @@ describe('LogicHelper', () => {
     });
 
     test('returns the correct locations for Dragon Roost Cavern', () => {
-      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Dragon Roost Cavern');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Dragon Roost Cavern', { includeAdditionalLocations: true });
 
       expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
-    test('returns the correct locations for Forbidden Woods', () => {
-      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Forbidden Woods');
+    test('returns the correct locations for Forbidden Woods when includeAdditionalLocations is true', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Forbidden Woods', { includeAdditionalLocations: true });
+
+      expect(bannedLocationsForZone).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Forbidden Woods when includeAdditionalLocations is false', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Forbidden Woods', { includeAdditionalLocations: false });
 
       expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
     test('returns the correct locations for Tower of the Gods', () => {
-      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Tower of the Gods');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Tower of the Gods', { includeAdditionalLocations: true });
 
       expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
-    test('returns the correct locations for Forsaken Fortress', () => {
-      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Forsaken Fortress');
+    test('returns the correct locations for Forsaken Fortress when includeAdditionalLocations is true', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Forsaken Fortress', { includeAdditionalLocations: true });
 
       expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
-    test('returns the correct locations for Earth Temple', () => {
-      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Earth Temple');
+    test('returns the correct locations for Forsaken Fortress when includeAdditionalLocations is false', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Forsaken Fortress', { includeAdditionalLocations: false });
+
+      expect(bannedLocationsForZone).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Earth Temple when includeAdditionalLocations is true', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Earth Temple', { includeAdditionalLocations: true });
+
+      expect(bannedLocationsForZone).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Earth Temple when includeAdditionalLocations is false', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Earth Temple', { includeAdditionalLocations: false });
 
       expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
     test('returns the correct locations for Wind Temple', () => {
-      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Wind Temple');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Wind Temple', { includeAdditionalLocations: true });
 
       expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
     test('returns the correct locations for Outset Island', () => {
-      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Outset Island');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Outset Island', { includeAdditionalLocations: false });
 
       expect(bannedLocationsForZone).toMatchSnapshot();
     });

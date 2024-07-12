@@ -24,6 +24,7 @@ class Tracker extends React.PureComponent {
 
     this.state = {
       chartListOpen: false,
+      clearAllIncludesMail: true,
       settingsWindowOpen: false,
       colors: {
         extraLocationsBackground: null,
@@ -40,6 +41,7 @@ class Tracker extends React.PureComponent {
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
+      rightClickToClearAll: true,
       trackNonProgressCharts: false,
       trackSpheres: false,
       viewingEntrances: false,
@@ -182,9 +184,15 @@ class Tracker extends React.PureComponent {
   }
 
   clearAllLocations(zoneName) {
-    const { trackerState } = this.state;
+    const {
+      clearAllIncludesMail,
+      trackerState,
+    } = this.state;
 
-    const newTrackerState = trackerState.clearBannedLocations(zoneName);
+    const newTrackerState = trackerState.clearBannedLocations(
+      zoneName,
+      { includeAdditionalLocations: clearAllIncludesMail },
+    );
 
     this.updateTrackerState(newTrackerState);
   }
@@ -193,7 +201,10 @@ class Tracker extends React.PureComponent {
     let { trackerState: newTrackerState } = this.state;
 
     if (LogicHelper.isBossRequired(dungeonName)) {
-      newTrackerState = newTrackerState.clearBannedLocations(dungeonName);
+      newTrackerState = newTrackerState.clearBannedLocations(
+        dungeonName,
+        { includeAdditionalLocations: true },
+      );
       LogicHelper.setBossNotRequired(dungeonName);
     } else {
       LogicHelper.setBossRequired(dungeonName);
@@ -390,18 +401,22 @@ class Tracker extends React.PureComponent {
 
   updatePreferences(preferenceChanges) {
     const {
+      clearAllIncludesMail,
       disableLogic,
       onlyProgressLocations,
       colors,
+      rightClickToClearAll,
       trackNonProgressCharts,
       trackSpheres,
       viewingEntrances,
     } = this.state;
 
     const existingPreferences = {
+      clearAllIncludesMail,
       colors,
       disableLogic,
       onlyProgressLocations,
+      rightClickToClearAll,
       trackNonProgressCharts,
       trackSpheres,
       viewingEntrances,
@@ -416,6 +431,7 @@ class Tracker extends React.PureComponent {
   render() {
     const {
       chartListOpen,
+      clearAllIncludesMail,
       colors,
       disableLogic,
       isLoading,
@@ -427,6 +443,7 @@ class Tracker extends React.PureComponent {
       openedExit,
       openedLocation,
       openedLocationIsDungeon,
+      rightClickToClearAll,
       saveData,
       settingsWindowOpen,
       spheres,
@@ -478,6 +495,7 @@ class Tracker extends React.PureComponent {
               openedExit={openedExit}
               openedLocation={openedLocation}
               openedLocationIsDungeon={openedLocationIsDungeon}
+              rightClickToClearAll={rightClickToClearAll}
               spheres={spheres}
               toggleLocationChecked={this.toggleLocationChecked}
               toggleRequiredBoss={this.toggleRequiredBoss}
@@ -512,9 +530,11 @@ class Tracker extends React.PureComponent {
           )}
           {settingsWindowOpen && (
             <SettingsWindow
+              clearAllIncludesMail={clearAllIncludesMail}
               disableLogic={disableLogic}
               extraLocationsBackground={extraLocationsBackground}
               itemsTableBackground={itemsTableBackground}
+              rightClickToClearAll={rightClickToClearAll}
               sphereTrackingBackground={sphereTrackingBackground}
               statisticsBackground={statisticsBackground}
               toggleSettingsWindow={this.toggleSettingsWindow}

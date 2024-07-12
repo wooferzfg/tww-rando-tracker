@@ -90,9 +90,11 @@ class SettingsWindow extends React.PureComponent {
 
   render() {
     const {
+      clearAllIncludesMail,
       disableLogic,
       extraLocationsBackground,
       itemsTableBackground,
+      rightClickToClearAll,
       sphereTrackingBackground,
       statisticsBackground,
       toggleSettingsWindow,
@@ -154,6 +156,16 @@ class SettingsWindow extends React.PureComponent {
           trackNonProgressCharts,
           'trackNonProgressCharts',
         )}
+        {this.checkboxRow(
+          'Right Click to Clear All',
+          rightClickToClearAll,
+          'rightClickToClearAll',
+        )}
+        {this.checkboxRow(
+          'Clear All Includes Dungeon Mail',
+          clearAllIncludesMail,
+          'clearAllIncludesMail',
+        )}
       </div>
     );
   }
@@ -167,9 +179,11 @@ SettingsWindow.defaultProps = {
 };
 
 SettingsWindow.propTypes = {
+  clearAllIncludesMail: PropTypes.bool.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   extraLocationsBackground: PropTypes.string,
   itemsTableBackground: PropTypes.string,
+  rightClickToClearAll: PropTypes.bool.isRequired,
   sphereTrackingBackground: PropTypes.string,
   statisticsBackground: PropTypes.string,
   trackNonProgressCharts: PropTypes.bool.isRequired,

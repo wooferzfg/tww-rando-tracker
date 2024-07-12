@@ -788,7 +788,84 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Dr
 ]
 `;
 
-exports[`LogicHelper bannedLocationsForZone returns the correct locations for Earth Temple 1`] = `
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Earth Temple when includeAdditionalLocations is false 1`] = `
+[
+  {
+    "detailedLocation": "Transparent Chest In Warp Pot Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Behind Curtain In Warp Pot Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Transparent Chest in First Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest Behind Destructible Walls",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest In Three Blocks Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest Behind Statues",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Casket in Second Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Stalfos Miniboss Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "End of Foggy Room With Floormasters",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Kill All Floormasters in Foggy Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Behind Curtain Next to Hammer Button",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest in Third Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Many Mirrors Room Right Chest",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Many Mirrors Room Left Chest",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Stalfos Crypt Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Jalhalla Heart Container",
+    "generalLocation": "Earth Temple",
+  },
+]
+`;
+
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Earth Temple when includeAdditionalLocations is true 1`] = `
 [
   {
     "detailedLocation": "Transparent Chest In Warp Pot Room",
@@ -869,7 +946,84 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Ea
 ]
 `;
 
-exports[`LogicHelper bannedLocationsForZone returns the correct locations for Forbidden Woods 1`] = `
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Forbidden Woods when includeAdditionalLocations is false 1`] = `
+[
+  {
+    "detailedLocation": "First Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Inside Hollow Tree's Mouth",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Climb to Top Using Boko Baba Bulbs",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Pot High Above Hollow Tree",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Hole in Tree",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Morth Pit",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Vine Maze Left Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Vine Maze Right Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Highest Pot in Vine Maze",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Tall Room Before Miniboss",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Mothula Miniboss Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Past Seeds Hanging by Vines",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Chest Across Red Hanging Flower",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Chest in Locked Tree Trunk",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Double Mothula Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Kalle Demos Heart Container",
+    "generalLocation": "Forbidden Woods",
+  },
+]
+`;
+
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Forbidden Woods when includeAdditionalLocations is true 1`] = `
 [
   {
     "detailedLocation": "First Room",
@@ -950,7 +1104,36 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Fo
 ]
 `;
 
-exports[`LogicHelper bannedLocationsForZone returns the correct locations for Forsaken Fortress 1`] = `
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Forsaken Fortress when includeAdditionalLocations is false 1`] = `
+[
+  {
+    "detailedLocation": "Phantom Ganon",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Chest Outside Upper Jail Cell",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Chest Inside Lower Jail Cell",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Chest Guarded By Bokoblin",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Chest on Bed",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Helmaroc King Heart Container",
+    "generalLocation": "Forsaken Fortress",
+  },
+]
+`;
+
+exports[`LogicHelper bannedLocationsForZone returns the correct locations for Forsaken Fortress when includeAdditionalLocations is true 1`] = `
 [
   {
     "detailedLocation": "Phantom Ganon",
