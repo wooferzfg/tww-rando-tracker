@@ -204,11 +204,11 @@ class TrackerState {
     return newState;
   }
 
-  clearBannedLocations(zoneName) {
+  clearBannedLocations(zoneName, { includeAdditionalLocations }) {
     const newState = this.#clone({ locationsChecked: true });
 
     _.forEach(
-      LogicHelper.bannedLocationsForZone(zoneName),
+      LogicHelper.bannedLocationsForZone(zoneName, { includeAdditionalLocations }),
       ({ generalLocation, detailedLocation }) => {
         if (!newState.isLocationChecked(generalLocation, detailedLocation)) {
           newState.#toggleLocationCheckedUpdate(

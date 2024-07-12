@@ -283,6 +283,7 @@ class Sector extends React.PureComponent {
       clearAllLocations,
       clearSelectedLocation,
       island,
+      rightClickToClearAll,
       setSelectedLocation,
       updateOpenedLocation,
     } = this.props;
@@ -301,7 +302,9 @@ class Sector extends React.PureComponent {
     const clearAllLocationsFunc = (event) => {
       event.preventDefault();
 
-      clearAllLocations(island);
+      if (rightClickToClearAll) {
+        clearAllLocations(island);
+      }
     };
 
     return (
@@ -336,6 +339,7 @@ Sector.propTypes = {
   island: PropTypes.string.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  rightClickToClearAll: PropTypes.bool.isRequired,
   setSelectedChartForIsland: PropTypes.func.isRequired,
   setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,

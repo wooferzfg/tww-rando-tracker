@@ -383,6 +383,7 @@ class ExtraLocation extends React.PureComponent {
       clearSelectedLocation,
       isDungeon,
       locationName,
+      rightClickToClearAll,
       setSelectedLocation,
       updateOpenedLocation,
     } = this.props;
@@ -397,7 +398,9 @@ class ExtraLocation extends React.PureComponent {
     const clearAllLocationsFunc = (event) => {
       event.preventDefault();
 
-      clearAllLocations(locationName);
+      if (rightClickToClearAll) {
+        clearAllLocations(locationName);
+      }
     };
 
     return (
@@ -433,6 +436,7 @@ ExtraLocation.propTypes = {
   locationName: PropTypes.string.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  rightClickToClearAll: PropTypes.bool.isRequired,
   setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,

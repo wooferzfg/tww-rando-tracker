@@ -27,6 +27,7 @@ class ExtraLocationsTable extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
+      rightClickToClearAll,
       setSelectedEntrance,
       setSelectedExit,
       setSelectedItem,
@@ -57,6 +58,7 @@ class ExtraLocationsTable extends React.PureComponent {
         locationName={locationName}
         logic={logic}
         onlyProgressLocations={onlyProgressLocations}
+        rightClickToClearAll={rightClickToClearAll}
         setSelectedEntrance={setSelectedEntrance}
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
@@ -111,6 +113,7 @@ ExtraLocationsTable.propTypes = {
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
+  rightClickToClearAll: PropTypes.bool.isRequired,
   setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,

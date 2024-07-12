@@ -92,6 +92,7 @@ class LocationsTable extends React.PureComponent {
       openedExit,
       openedLocation,
       openedLocationIsDungeon,
+      rightClickToClearAll,
       spheres,
       toggleLocationChecked,
       trackerState,
@@ -182,6 +183,7 @@ class LocationsTable extends React.PureComponent {
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
+          rightClickToClearAll={rightClickToClearAll}
           setSelectedChartForIsland={this.setSelectedChartForIsland}
           setSelectedEntrance={this.setSelectedEntrance}
           setSelectedExit={this.setSelectedExit}
@@ -230,6 +232,7 @@ class LocationsTable extends React.PureComponent {
       incrementItem,
       logic,
       onlyProgressLocations,
+      rightClickToClearAll,
       spheres,
       trackerState,
       trackSpheres,
@@ -254,6 +257,7 @@ class LocationsTable extends React.PureComponent {
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
+          rightClickToClearAll={rightClickToClearAll}
           setSelectedEntrance={this.setSelectedEntrance}
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
@@ -297,6 +301,7 @@ LocationsTable.propTypes = {
   openedExit: PropTypes.string,
   openedLocation: PropTypes.string,
   openedLocationIsDungeon: PropTypes.bool,
+  rightClickToClearAll: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
   toggleRequiredBoss: PropTypes.func.isRequired,
