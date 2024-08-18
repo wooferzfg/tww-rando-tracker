@@ -2662,6 +2662,1295 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
 }
 `;
 
+exports[`LogicTweaks applyTweaks when no options are set updates the locations list 1`] = `
+[
+  {
+    "detailedLocation": "Underneath Link's House",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Mesa the Grasscutter's House",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Orca - Give 10 Knight's Crests",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Orca - Hit 500 Times",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Great Fairy",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Jabun's Cave",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Dig up Black Soil",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Savage Labyrinth - Floor 30",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Savage Labyrinth - Floor 50",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Jail - Tingle - First Gift",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Jail - Tingle - Second Gift",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Jail - Maze Chest",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Chu Jelly Juice Shop - Give 15 Green Chu Jelly",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Chu Jelly Juice Shop - Give 15 Blue Chu Jelly",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Ivan - Catch Killer Bees",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Mrs. Marie - Catch Killer Bees",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Mrs. Marie - Give 1 Joy Pendant",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Mrs. Marie - Give 21 Joy Pendants",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Mrs. Marie - Give 40 Joy Pendants",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Lenzo's House - Left Chest",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Lenzo's House - Right Chest",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Lenzo's House - Become Lenzo's Assistant",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Lenzo's House - Bring Forest Firefly",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "House of Wealth Chest",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Maggie's Father - Give 20 Skull Necklaces",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Maggie - Free Item",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Maggie - Delivery Reward",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Cafe Bar - Postman",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Kreeb - Light Up Lighthouse",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Transparent Chest",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Tott - Teach Rhythm",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Pirate Ship",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "5 Rupee Auction",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "40 Rupee Auction",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "60 Rupee Auction",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "80 Rupee Auction",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Zunari - Stock Exotic Flower in Zunari's Shop",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Sam - Decorate the Town",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Kane - Place Shop Guru Statue on Gate",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Kane - Place Postman Statue on Gate",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Kane - Place Six Flags on Gate",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Kane - Place Six Idols on Gate",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Mila - Follow the Thief",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Battlesquid - First Prize",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Battlesquid - Second Prize",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Battlesquid - Under 20 Shots Prize",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Pompie and Vera - Secret Meeting Photo",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Kamo - Full Moon Photo",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Minenco - Miss Windfall Photo",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Linda and Anton",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Wind Shrine",
+    "generalLocation": "Dragon Roost Island",
+  },
+  {
+    "detailedLocation": "Rito Aerie - Give Hoskit 20 Golden Feathers",
+    "generalLocation": "Dragon Roost Island",
+  },
+  {
+    "detailedLocation": "Chest on Top of Boulder",
+    "generalLocation": "Dragon Roost Island",
+  },
+  {
+    "detailedLocation": "Fly Across Platforms Around Island",
+    "generalLocation": "Dragon Roost Island",
+  },
+  {
+    "detailedLocation": "Rito Aerie - Mail Sorting",
+    "generalLocation": "Dragon Roost Island",
+  },
+  {
+    "detailedLocation": "Secret Cave",
+    "generalLocation": "Dragon Roost Island",
+  },
+  {
+    "detailedLocation": "First Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Alcove With Water Jugs",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Water Jug on Upper Shelf",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Boarded Up Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Chest Across Lava Pit",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Rat Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Rat Room Boarded Up Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Bird's Nest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Dark Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Tingle Chest in Hub Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Pot on Upper Shelf in Pot Room",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Pot Room Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Miniboss",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Under Rope Bridge",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Boss Stairs Right Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Boss Stairs Left Chest",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Boss Stairs Right Pot",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Gohma Heart Container",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "On Tree Branch",
+    "generalLocation": "Forest Haven",
+  },
+  {
+    "detailedLocation": "Small Island Chest",
+    "generalLocation": "Forest Haven",
+  },
+  {
+    "detailedLocation": "First Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Inside Hollow Tree's Mouth",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Climb to Top Using Boko Baba Bulbs",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Pot High Above Hollow Tree",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Hole in Tree",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Morth Pit",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Vine Maze Left Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Vine Maze Right Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Highest Pot in Vine Maze",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Tall Room Before Miniboss",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Mothula Miniboss Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Past Seeds Hanging by Vines",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Chest Across Red Hanging Flower",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Chest in Locked Tree Trunk",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Double Mothula Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Kalle Demos Heart Container",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Hidden Chest",
+    "generalLocation": "Greatfish Isle",
+  },
+  {
+    "detailedLocation": "Chest Behind Bombable Walls",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Pot Behind Bombable Walls",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Hop Across Floating Boxes",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Light Two Torches",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Skulls Room Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Shoot Eye Above Skulls Room Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "First Chest Guarded by Armos Knights",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Stone Tablet",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Darknut Miniboss Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Second Chest Guarded by Armos Knights",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Floating Platforms Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Top of Floating Platforms Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Eastern Pot in Big Key Chest Room",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Gohdan Heart Container",
+    "generalLocation": "Tower of the Gods",
+  },
+  {
+    "detailedLocation": "Master Sword Chamber",
+    "generalLocation": "Hyrule",
+  },
+  {
+    "detailedLocation": "Phantom Ganon",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Chest Outside Upper Jail Cell",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Chest Inside Lower Jail Cell",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Chest Guarded By Bokoblin",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Chest on Bed",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Helmaroc King Heart Container",
+    "generalLocation": "Forsaken Fortress",
+  },
+  {
+    "detailedLocation": "Inside Mother Isle",
+    "generalLocation": "Mother and Child Isles",
+  },
+  {
+    "detailedLocation": "Cave - Chest",
+    "generalLocation": "Fire Mountain",
+  },
+  {
+    "detailedLocation": "Lookout Platform Chest",
+    "generalLocation": "Fire Mountain",
+  },
+  {
+    "detailedLocation": "Lookout Platform - Destroy the Cannons",
+    "generalLocation": "Fire Mountain",
+  },
+  {
+    "detailedLocation": "Big Octo",
+    "generalLocation": "Fire Mountain",
+  },
+  {
+    "detailedLocation": "Frozen Chest",
+    "generalLocation": "Ice Ring Isle",
+  },
+  {
+    "detailedLocation": "Cave - Chest",
+    "generalLocation": "Ice Ring Isle",
+  },
+  {
+    "detailedLocation": "Inner Cave - Chest",
+    "generalLocation": "Ice Ring Isle",
+  },
+  {
+    "detailedLocation": "Top of the Island",
+    "generalLocation": "Headstone Island",
+  },
+  {
+    "detailedLocation": "Submarine",
+    "generalLocation": "Headstone Island",
+  },
+  {
+    "detailedLocation": "Transparent Chest In Warp Pot Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Behind Curtain In Warp Pot Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Transparent Chest in First Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest Behind Destructible Walls",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest In Three Blocks Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest Behind Statues",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Casket in Second Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Stalfos Miniboss Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "End of Foggy Room With Floormasters",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Kill All Floormasters in Foggy Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Behind Curtain Next to Hammer Button",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest in Third Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Many Mirrors Room Right Chest",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Many Mirrors Room Left Chest",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Stalfos Crypt Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Jalhalla Heart Container",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Chest Between Two Dirt Patches",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Behind Stone Head in Hidden Upper Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Tingle Statue Chest",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Chest Behind Stone Head",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Chest in Left Alcove",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Big Key Chest",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Chest In Many Cyclones Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Behind Stone Head in Many Cyclones Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Chest In Middle Of Hub Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Spike Wall Room - First Chest",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Spike Wall Room - Destroy All Cracked Floors",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Wizzrobe Miniboss Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Chest at Top of Hub Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Chest Behind Seven Armos",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Kill All Enemies in Tall Basement Room",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Molgera Heart Container",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Maze Chest",
+    "generalLocation": "Ganon's Tower",
+  },
+  {
+    "detailedLocation": "Letter from Hoskit's Girlfriend",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Letter from Baito's Mother",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Letter from Baito",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Letter from Komali's Father",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Letter Advertising Bombs in Beedle's Shop",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Letter Advertising Rock Spire Shop Ship",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Beedle's Silver Membership Reward",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Beedle's Gold Membership Reward",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Letter from Orca",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Letter from Grandma",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Letter from Aryll",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Letter from Tingle",
+    "generalLocation": "Mailbox",
+  },
+  {
+    "detailedLocation": "Beedle's Shop Ship - 20 Rupee Item",
+    "generalLocation": "The Great Sea",
+  },
+  {
+    "detailedLocation": "Salvage Corp Gift",
+    "generalLocation": "The Great Sea",
+  },
+  {
+    "detailedLocation": "Cyclos",
+    "generalLocation": "The Great Sea",
+  },
+  {
+    "detailedLocation": "Goron Trading Reward",
+    "generalLocation": "The Great Sea",
+  },
+  {
+    "detailedLocation": "Withered Trees",
+    "generalLocation": "The Great Sea",
+  },
+  {
+    "detailedLocation": "Ghost Ship",
+    "generalLocation": "The Great Sea",
+  },
+  {
+    "detailedLocation": "Chest at Top of Waterfall",
+    "generalLocation": "Private Oasis",
+  },
+  {
+    "detailedLocation": "Cabana Labyrinth - Lower Floor Chest",
+    "generalLocation": "Private Oasis",
+  },
+  {
+    "detailedLocation": "Cabana Labyrinth - Upper Floor Chest",
+    "generalLocation": "Private Oasis",
+  },
+  {
+    "detailedLocation": "Big Octo",
+    "generalLocation": "Private Oasis",
+  },
+  {
+    "detailedLocation": "Barrel Shooting - First Prize",
+    "generalLocation": "Spectacle Island",
+  },
+  {
+    "detailedLocation": "Barrel Shooting - Second Prize",
+    "generalLocation": "Spectacle Island",
+  },
+  {
+    "detailedLocation": "Chest",
+    "generalLocation": "Needle Rock Isle",
+  },
+  {
+    "detailedLocation": "Cave",
+    "generalLocation": "Needle Rock Isle",
+  },
+  {
+    "detailedLocation": "Golden Gunboat",
+    "generalLocation": "Needle Rock Isle",
+  },
+  {
+    "detailedLocation": "Peak",
+    "generalLocation": "Angular Isles",
+  },
+  {
+    "detailedLocation": "Cave",
+    "generalLocation": "Angular Isles",
+  },
+  {
+    "detailedLocation": "Raft",
+    "generalLocation": "Boating Course",
+  },
+  {
+    "detailedLocation": "Cave",
+    "generalLocation": "Boating Course",
+  },
+  {
+    "detailedLocation": "Cave",
+    "generalLocation": "Stone Watcher Island",
+  },
+  {
+    "detailedLocation": "Lookout Platform Chest",
+    "generalLocation": "Stone Watcher Island",
+  },
+  {
+    "detailedLocation": "Lookout Platform - Destroy the Cannons",
+    "generalLocation": "Stone Watcher Island",
+  },
+  {
+    "detailedLocation": "Interior",
+    "generalLocation": "Islet of Steel",
+  },
+  {
+    "detailedLocation": "Lookout Platform - Defeat the Enemies",
+    "generalLocation": "Islet of Steel",
+  },
+  {
+    "detailedLocation": "Cave",
+    "generalLocation": "Overlook Island",
+  },
+  {
+    "detailedLocation": "Cave",
+    "generalLocation": "Bird's Peak Rock",
+  },
+  {
+    "detailedLocation": "Chuchu Cave - Chest",
+    "generalLocation": "Pawprint Isle",
+  },
+  {
+    "detailedLocation": "Chuchu Cave - Behind Left Boulder",
+    "generalLocation": "Pawprint Isle",
+  },
+  {
+    "detailedLocation": "Chuchu Cave - Behind Right Boulder",
+    "generalLocation": "Pawprint Isle",
+  },
+  {
+    "detailedLocation": "Chuchu Cave - Scale the Wall",
+    "generalLocation": "Pawprint Isle",
+  },
+  {
+    "detailedLocation": "Wizzrobe Cave",
+    "generalLocation": "Pawprint Isle",
+  },
+  {
+    "detailedLocation": "Lookout Platform - Defeat the Enemies",
+    "generalLocation": "Pawprint Isle",
+  },
+  {
+    "detailedLocation": "Great Fairy",
+    "generalLocation": "Thorned Fairy Island",
+  },
+  {
+    "detailedLocation": "Northeastern Lookout Platform - Destroy the Cannons",
+    "generalLocation": "Thorned Fairy Island",
+  },
+  {
+    "detailedLocation": "Southwestern Lookout Platform - Defeat the Enemies",
+    "generalLocation": "Thorned Fairy Island",
+  },
+  {
+    "detailedLocation": "Great Fairy",
+    "generalLocation": "Eastern Fairy Island",
+  },
+  {
+    "detailedLocation": "Lookout Platform - Defeat the Cannons and Enemies",
+    "generalLocation": "Eastern Fairy Island",
+  },
+  {
+    "detailedLocation": "Great Fairy",
+    "generalLocation": "Western Fairy Island",
+  },
+  {
+    "detailedLocation": "Lookout Platform",
+    "generalLocation": "Western Fairy Island",
+  },
+  {
+    "detailedLocation": "Great Fairy",
+    "generalLocation": "Southern Fairy Island",
+  },
+  {
+    "detailedLocation": "Lookout Platform - Destroy the Northwest Cannons",
+    "generalLocation": "Southern Fairy Island",
+  },
+  {
+    "detailedLocation": "Lookout Platform - Destroy the Southeast Cannons",
+    "generalLocation": "Southern Fairy Island",
+  },
+  {
+    "detailedLocation": "Great Fairy",
+    "generalLocation": "Northern Fairy Island",
+  },
+  {
+    "detailedLocation": "Submarine",
+    "generalLocation": "Northern Fairy Island",
+  },
+  {
+    "detailedLocation": "Ankle - Reward for All Tingle Statues",
+    "generalLocation": "Tingle Island",
+  },
+  {
+    "detailedLocation": "Big Octo",
+    "generalLocation": "Tingle Island",
+  },
+  {
+    "detailedLocation": "Warp Maze Cave - First Chest",
+    "generalLocation": "Diamond Steppe Island",
+  },
+  {
+    "detailedLocation": "Warp Maze Cave - Second Chest",
+    "generalLocation": "Diamond Steppe Island",
+  },
+  {
+    "detailedLocation": "Big Octo",
+    "generalLocation": "Diamond Steppe Island",
+  },
+  {
+    "detailedLocation": "Cave",
+    "generalLocation": "Bomb Island",
+  },
+  {
+    "detailedLocation": "Lookout Platform - Defeat the Enemies",
+    "generalLocation": "Bomb Island",
+  },
+  {
+    "detailedLocation": "Submarine",
+    "generalLocation": "Bomb Island",
+  },
+  {
+    "detailedLocation": "Cave",
+    "generalLocation": "Rock Spire Isle",
+  },
+  {
+    "detailedLocation": "Beedle's Special Shop Ship - 500 Rupee Item",
+    "generalLocation": "Rock Spire Isle",
+  },
+  {
+    "detailedLocation": "Beedle's Special Shop Ship - 950 Rupee Item",
+    "generalLocation": "Rock Spire Isle",
+  },
+  {
+    "detailedLocation": "Beedle's Special Shop Ship - 900 Rupee Item",
+    "generalLocation": "Rock Spire Isle",
+  },
+  {
+    "detailedLocation": "Western Lookout Platform - Destroy the Cannons",
+    "generalLocation": "Rock Spire Isle",
+  },
+  {
+    "detailedLocation": "Eastern Lookout Platform - Destroy the Cannons",
+    "generalLocation": "Rock Spire Isle",
+  },
+  {
+    "detailedLocation": "Center Lookout Platform",
+    "generalLocation": "Rock Spire Isle",
+  },
+  {
+    "detailedLocation": "Southeast Gunboat",
+    "generalLocation": "Rock Spire Isle",
+  },
+  {
+    "detailedLocation": "Cave",
+    "generalLocation": "Shark Island",
+  },
+  {
+    "detailedLocation": "Cave",
+    "generalLocation": "Cliff Plateau Isles",
+  },
+  {
+    "detailedLocation": "Highest Isle",
+    "generalLocation": "Cliff Plateau Isles",
+  },
+  {
+    "detailedLocation": "Lookout Platform",
+    "generalLocation": "Cliff Plateau Isles",
+  },
+  {
+    "detailedLocation": "Chest",
+    "generalLocation": "Crescent Moon Island",
+  },
+  {
+    "detailedLocation": "Submarine",
+    "generalLocation": "Crescent Moon Island",
+  },
+  {
+    "detailedLocation": "Play Golf",
+    "generalLocation": "Horseshoe Island",
+  },
+  {
+    "detailedLocation": "Cave",
+    "generalLocation": "Horseshoe Island",
+  },
+  {
+    "detailedLocation": "Northwestern Lookout Platform",
+    "generalLocation": "Horseshoe Island",
+  },
+  {
+    "detailedLocation": "Southeastern Lookout Platform",
+    "generalLocation": "Horseshoe Island",
+  },
+  {
+    "detailedLocation": "Bird-Man Contest - First Prize",
+    "generalLocation": "Flight Control Platform",
+  },
+  {
+    "detailedLocation": "Submarine",
+    "generalLocation": "Flight Control Platform",
+  },
+  {
+    "detailedLocation": "Cave",
+    "generalLocation": "Star Island",
+  },
+  {
+    "detailedLocation": "Lookout Platform",
+    "generalLocation": "Star Island",
+  },
+  {
+    "detailedLocation": "Lookout Platform",
+    "generalLocation": "Star Belt Archipelago",
+  },
+  {
+    "detailedLocation": "Lookout Platform - Destroy the Cannons",
+    "generalLocation": "Five-Star Isles",
+  },
+  {
+    "detailedLocation": "Raft",
+    "generalLocation": "Five-Star Isles",
+  },
+  {
+    "detailedLocation": "Submarine",
+    "generalLocation": "Five-Star Isles",
+  },
+  {
+    "detailedLocation": "Center Lookout Platform",
+    "generalLocation": "Seven-Star Isles",
+  },
+  {
+    "detailedLocation": "Northern Lookout Platform",
+    "generalLocation": "Seven-Star Isles",
+  },
+  {
+    "detailedLocation": "Southern Lookout Platform",
+    "generalLocation": "Seven-Star Isles",
+  },
+  {
+    "detailedLocation": "Big Octo",
+    "generalLocation": "Seven-Star Isles",
+  },
+  {
+    "detailedLocation": "Destroy the Cannons and Gunboats",
+    "generalLocation": "Cyclops Reef",
+  },
+  {
+    "detailedLocation": "Lookout Platform - Defeat the Enemies",
+    "generalLocation": "Cyclops Reef",
+  },
+  {
+    "detailedLocation": "Destroy the Cannons and Gunboats",
+    "generalLocation": "Two-Eye Reef",
+  },
+  {
+    "detailedLocation": "Lookout Platform",
+    "generalLocation": "Two-Eye Reef",
+  },
+  {
+    "detailedLocation": "Big Octo Great Fairy",
+    "generalLocation": "Two-Eye Reef",
+  },
+  {
+    "detailedLocation": "Destroy the Cannons and Gunboats",
+    "generalLocation": "Three-Eye Reef",
+  },
+  {
+    "detailedLocation": "Destroy the Cannons and Gunboats",
+    "generalLocation": "Four-Eye Reef",
+  },
+  {
+    "detailedLocation": "Destroy the Cannons",
+    "generalLocation": "Five-Eye Reef",
+  },
+  {
+    "detailedLocation": "Lookout Platform",
+    "generalLocation": "Five-Eye Reef",
+  },
+  {
+    "detailedLocation": "Destroy the Cannons and Gunboats",
+    "generalLocation": "Six-Eye Reef",
+  },
+  {
+    "detailedLocation": "Lookout Platform - Destroy the Cannons",
+    "generalLocation": "Six-Eye Reef",
+  },
+  {
+    "detailedLocation": "Submarine",
+    "generalLocation": "Six-Eye Reef",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Forsaken Fortress Sector",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Star Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Northern Fairy Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Gale Isle",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Crescent Moon Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Seven-Star Isles",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Overlook Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Four-Eye Reef",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Mother and Child Isles",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Spectacle Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Windfall Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Pawprint Isle",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Dragon Roost Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Flight Control Platform",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Western Fairy Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Rock Spire Isle",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Tingle Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Northern Triangle Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Eastern Fairy Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Fire Mountain",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Star Belt Archipelago",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Three-Eye Reef",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Greatfish Isle",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Cyclops Reef",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Six-Eye Reef",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Tower of the Gods Sector",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Eastern Triangle Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Thorned Fairy Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Needle Rock Isle",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Islet of Steel",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Stone Watcher Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Southern Triangle Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Private Oasis",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Bomb Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Bird's Peak Rock",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Diamond Steppe Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Five-Eye Reef",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Shark Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Southern Fairy Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Ice Ring Isle",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Forest Haven",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Cliff Plateau Isles",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Horseshoe Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Headstone Island",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Two-Eye Reef",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Angular Isles",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Boating Course",
+  },
+  {
+    "detailedLocation": "Sunken Treasure",
+    "generalLocation": "Five-Star Isles",
+  },
+  {
+    "detailedLocation": "Defeat Ganondorf",
+    "generalLocation": "Ganon's Tower",
+  },
+]
+`;
+
 exports[`LogicTweaks applyTweaks when no options are set updates the macros 1`] = `
 {
   "60 Arrow Quiver": "Progressive Quiver x1",

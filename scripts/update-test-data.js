@@ -2,6 +2,7 @@ import fs from 'fs';
 
 import _ from 'lodash';
 
+import BinaryString from '../src/services/binary-string';
 import Locations from '../src/services/locations';
 import LogicHelper from '../src/services/logic-helper';
 import LogicLoader from '../src/services/logic-loader';
@@ -25,7 +26,6 @@ const writeJsonFile = (filePath, jsonData) => {
 };
 
 const script = async () => {
-  Settings.initializeFromPermalink(Permalink.DEFAULT_PERMALINK);
   Settings.version = 'master';
 
   const {
@@ -35,6 +35,9 @@ const script = async () => {
 
   Locations.initialize(_.cloneDeep(itemLocationsFile));
   Macros.initialize(_.cloneDeep(macrosFile));
+
+  const permalinkBinaryString = BinaryString.fromBase64(Permalink.DEFAULT_PERMALINK);
+  Settings.initializeFromPermalink(permalinkBinaryString);
 
   LogicTweaks.applyTweaks();
 

@@ -1,9 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
+import { Oval } from 'react-loader-spinner';
 import { ToastContainer, toast } from 'react-toastify';
 
 import HEADER_IMAGE from '../images/header.png';
 import Permalink from '../services/permalink';
+import TrackerController from '../services/tracker-controller';
 
 import DropdownOptionInput from './dropdown-option-input';
 import OptionsTable from './options-table';
@@ -45,13 +47,9 @@ export default class Launcher extends React.PureComponent {
   constructor() {
     super();
 
-    const permalink = Permalink.DEFAULT_PERMALINK;
-    const options = Permalink.decode(permalink);
+    this.state = { isLoading: true };
 
-    this.state = {
-      options,
-      permalink,
-    };
+    this.initialize();
 
     this.launchNewTracker = this.launchNewTracker.bind(this);
     this.loadFromFile = this.loadFromFile.bind(this);
@@ -88,6 +86,22 @@ export default class Launcher extends React.PureComponent {
     _.set(options, optionName, newValue);
 
     this.updateOptions(options);
+  }
+
+  async initialize() {
+    const permalink = Permalink.DEFAULT_PERMALINK;
+
+    // Need to initialize locations first since that is required for parsing
+    // excluded locations in permalink
+    await TrackerController.initializeLocationsAndMacros(permalink);
+
+    const options = Permalink.decode(permalink);
+
+    this.setState({
+      options,
+      permalink,
+      isLoading: false,
+    });
   }
 
   loadPermalink(permalinkInput) {
@@ -419,8 +433,18 @@ export default class Launcher extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div className="full-container">
+    const { isLoading } = this.state;
+
+    let content;
+
+    if (isLoading) {
+      content = (
+        <div className="loading-spinner">
+          <Oval color="white" secondaryColor="gray" />
+        </div>
+      );
+    } else {
+      content = (
         <div className="launcher-container">
           <div className="header">
             <img
@@ -450,6 +474,11 @@ export default class Launcher extends React.PureComponent {
             </a>
           </div>
         </div>
+      );
+    }
+    return (
+      <div className="full-container">
+        {content}
         <ToastContainer />
       </div>
     );

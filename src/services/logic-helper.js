@@ -357,6 +357,10 @@ class LogicHelper {
       return true;
     }
 
+    if (Settings.isLocationExcluded(generalLocation, detailedLocation)) {
+      return false;
+    }
+
     const locationTypesList = _.split(locationTypes, ', ');
     return _.every(
       locationTypesList,
@@ -591,15 +595,23 @@ class LogicHelper {
     return `Chart for ${islandName}`;
   }
 
+  static sunkenTreasureLocationForIsland(islandName) {
+    return {
+      generalLocation: islandName,
+      detailedLocation: 'Sunken Treasure',
+    };
+  }
+
   static islandHasProgressItemChart(islandName) {
     if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
       return this.anyProgressItemCharts();
     }
-    const { chartType } = this.vanillaChartForIsland(islandName);
-    if (chartType === this.CHART_TYPES.TREASURE) {
-      return Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS);
-    }
-    return Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS);
+
+    const {
+      generalLocation,
+      detailedLocation,
+    } = this.sunkenTreasureLocationForIsland(islandName);
+    return this.isProgressLocation(generalLocation, detailedLocation);
   }
 
   static bannedLocationsForZone(zoneName, { includeAdditionalLocations }) {

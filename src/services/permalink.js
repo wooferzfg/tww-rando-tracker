@@ -9,6 +9,7 @@ import SWORD_MODE_OPTIONS from '../data/sword-mode-options.json';
 
 import BinaryString from './binary-string';
 import Constants from './constants';
+import Locations from './locations';
 
 class Permalink {
   static LOGIC_DIFFICULTY_OPTIONS = Constants.createFromArray(LOGIC_DIFFICULTY_OPTIONS);
@@ -28,10 +29,19 @@ class Permalink {
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'bWFzdGVyAEEASRBQGAAA+wLIJQAAAAAAAQBBAIAA';
+  static DEFAULT_PERMALINK = 'eJzLTSwuSS1icGTwFAhgIBJIMDD8ZjqhCmYzArU2MAAAAi8GOw==';
+
+  static getVersion(binaryString) {
+    const clonedString = binaryString.clone();
+    return clonedString.popString(); // version is at the start of the permalink
+  }
 
   static decode(permalinkString) {
     const binaryString = BinaryString.fromBase64(permalinkString);
+    return this.decodeBinaryString(binaryString);
+  }
+
+  static decodeBinaryString(binaryString) {
     const options = {};
 
     _.forEach(this.#CONFIG, (configItem) => {
@@ -77,6 +87,7 @@ class Permalink {
     this.#booleanConfig(this.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES),
     this.#booleanConfig(this.OPTIONS.PROGRESSION_ISLAND_PUZZLES),
     this.#booleanConfig(this.OPTIONS.PROGRESSION_MISC),
+    this.#excludedLocationsConfig(),
     this.#booleanConfig(this.OPTIONS.KEYLUNACY),
     this.#dropdownConfig(this.OPTIONS.SWORD_MODE),
     this.#booleanConfig(this.OPTIONS.REQUIRED_BOSSES),
@@ -246,6 +257,45 @@ class Permalink {
           }
 
           binaryString.addNumber(itemValue, 2);
+        });
+      },
+    };
+  }
+
+  static #excludedLocationsConfig() {
+    const optionName = this.OPTIONS.EXCLUDED_LOCATIONS;
+
+    return {
+      decode: (binaryString, options) => {
+        if (!Locations.locationsLoaded()) {
+          // istanbul ignore next
+          throw Error('Cannot decode excluded locations. Locations are not loaded yet');
+        }
+
+        const excludedLocationsOption = Locations.mapLocations(() => {
+          const isLocationExcluded = binaryString.popBoolean();
+          return isLocationExcluded;
+        });
+        _.set(options, optionName, excludedLocationsOption);
+      },
+      encode: (binaryString, options) => {
+        if (!Locations.locationsLoaded()) {
+          // istanbul ignore next
+          throw Error('Cannot encode excluded locations. Locations are not loaded yet');
+        }
+
+        _.forEach(Locations.readLocationsList(), ({ generalLocation, detailedLocation }) => {
+          const isLocationExcluded = _.get(
+            options,
+            [optionName, generalLocation, detailedLocation],
+          );
+
+          if (_.isNil(isLocationExcluded)) {
+            // istanbul ignore next
+            throw Error(`Invalid value for location: ${generalLocation} - ${detailedLocation}`);
+          }
+
+          binaryString.addBoolean(isLocationExcluded);
         });
       },
     };
