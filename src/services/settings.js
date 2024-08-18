@@ -11,11 +11,11 @@ class Settings {
 
     this.flags = [];
     this.startingGear = this.getOptionValue(Permalink.OPTIONS.STARTING_GEAR);
-    this.version = this._parseVersion(
+    this.version = this.#parseVersion(
       this.getOptionValue(Permalink.OPTIONS.VERSION),
     );
 
-    _.forEach(this._FLAGS_MAPPING, (flagsForOption, optionName) => {
+    _.forEach(this.#FLAGS_MAPPING, (flagsForOption, optionName) => {
       if (this.getOptionValue(optionName)) {
         this.flags = _.concat(this.flags, flagsForOption);
       }
@@ -83,8 +83,12 @@ class Settings {
     return this.version;
   }
 
-  static _FLAGS_MAPPING = {
-    [Permalink.OPTIONS.PROGRESSION_DUNGEONS]: [this.FLAGS.DUNGEON],
+  static #FLAGS_MAPPING = {
+    [Permalink.OPTIONS.PROGRESSION_DUNGEONS]: [
+      this.FLAGS.BOSS,
+      this.FLAGS.RANDOMIZABLE_MINIBOSS_ROOM,
+      this.FLAGS.DUNGEON,
+    ],
     [Permalink.OPTIONS.PROGRESSION_GREAT_FAIRIES]: [this.FLAGS.GREAT_FAIRY],
     [Permalink.OPTIONS.PROGRESSION_PUZZLE_SECRET_CAVES]: [this.FLAGS.PUZZLE_SECRET_CAVE],
     [Permalink.OPTIONS.PROGRESSION_COMBAT_SECRET_CAVES]: [this.FLAGS.COMBAT_SECRET_CAVE],
@@ -114,9 +118,10 @@ class Settings {
     [Permalink.OPTIONS.PROGRESSION_BATTLESQUID]: [this.FLAGS.BATTLESQUID],
     [Permalink.OPTIONS.PROGRESSION_SAVAGE_LABYRINTH]: [this.FLAGS.SAVAGE_LABYRINTH],
     [Permalink.OPTIONS.PROGRESSION_ISLAND_PUZZLES]: [this.FLAGS.ISLAND_PUZZLE],
+    [Permalink.OPTIONS.PROGRESSION_DUNGEON_SECRETS]: [this.FLAGS.DUNGEON_SECRET],
   };
 
-  static _parseVersion(version) {
+  static #parseVersion(version) {
     const commitHashMatch = version.match(/([a-f\d]){7,}/);
     const versionMatch = version.match(/^[0-9.]+$/);
 

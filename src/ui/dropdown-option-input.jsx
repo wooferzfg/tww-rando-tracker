@@ -7,6 +7,7 @@ import Permalink from '../services/permalink';
 class DropdownOptionInput extends React.PureComponent {
   render() {
     const {
+      isDisabled,
       labelText,
       optionName,
       optionValue,
@@ -23,9 +24,11 @@ class DropdownOptionInput extends React.PureComponent {
       ),
     );
 
+    const labelClassName = `label-text ${isDisabled ? 'label-disabled' : ''}`;
+
     return (
       <>
-        <td className="label-text">{labelText}</td>
+        <td className={labelClassName}>{labelText}</td>
         <td className="option-container">
           <div className="select-container">
             <select
@@ -36,6 +39,8 @@ class DropdownOptionInput extends React.PureComponent {
                 )
               }
               value={optionValue}
+              className={isDisabled ? 'select-disabled' : ''}
+              disabled={isDisabled}
             >
               {dropdownOptions}
             </select>
@@ -47,6 +52,7 @@ class DropdownOptionInput extends React.PureComponent {
 }
 
 DropdownOptionInput.propTypes = {
+  isDisabled: PropTypes.bool.isRequired,
   labelText: PropTypes.string.isRequired,
   optionName: PropTypes.string.isRequired,
   optionValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

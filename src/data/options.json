@@ -24,9 +24,16 @@
   "progression_battlesquid",
   "progression_savage_labyrinth",
   "progression_island_puzzles",
+  "progression_dungeon_secrets",
 
   "keylunacy",
-  "randomize_entrances",
+  "randomize_dungeon_entrances",
+  "randomize_secret_cave_entrances",
+  "mix_entrances",
+  "randomize_miniboss_entrances",
+  "randomize_boss_entrances",
+  "randomize_secret_cave_inner_entrances",
+  "randomize_fairy_fountain_entrances",
   "randomize_charts",
   "randomize_starting_island",
   "chest_type_matches_contents",
@@ -39,6 +46,7 @@
   "num_item_hints",
   "cryptic_hints",
   "prioritize_remote_hints",
+  "hint_importance",
 
   "swift_sail",
   "instant_text_boxes",
@@ -50,14 +58,20 @@
   "skip_rematch_bosses",
   "invert_camera_x_axis",
   "invert_sea_compass_x_axis",
-  "race_mode",
-  "num_race_mode_dungeons",
-  "randomize_music",
+  "required_bosses",
+  "num_required_bosses",
   "randomize_enemy_palettes",
 
   "starting_gear",
   "starting_pohs",
   "starting_hcs",
+  "num_extra_starting_items",
   "remove_music",
-  "randomize_enemies"
+  "randomize_enemies",
+
+  "hero_mode",
+  "logic_obscurity",
+  "logic_precision",
+
+  "trap_chests"
 ]

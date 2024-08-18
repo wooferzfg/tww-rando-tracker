@@ -242,7 +242,7 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.entrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
       };
     });
 
@@ -259,7 +259,7 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.entrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
       };
     });
 
@@ -270,43 +270,120 @@ describe('TrackerState', () => {
     });
   });
 
-  describe('setEntranceForExit', () => {
+  describe('setExitForEntrance', () => {
     let state;
 
     beforeEach(() => {
-      const initialEntrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
-      };
-
       state = new TrackerState();
-      state.entrances = _.clone(initialEntrances);
+      state.entrances = {
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Ice Ring Isle Secret Cave': 'Forbidden Woods',
+      };
+      state.items = {
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+        'Entered Ice Ring Isle Cave': 0,
+      };
     });
 
-    test('returns a new state with the entrance value modified', () => {
-      const newState = state.setEntranceForExit('Needle Rock Isle Secret Cave', 'Forbidden Woods');
+    test('returns a new state with the entrance value and entry item modified', () => {
+      const newState = state.setExitForEntrance('Forbidden Woods', 'Ice Ring Isle Secret Cave');
 
-      expect(newState.entrances['Needle Rock Isle Secret Cave']).toEqual('Forbidden Woods');
+      expect(newState.entrances).toEqual({
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Ice Ring Isle Secret Cave': 'Forbidden Woods',
+        'Forbidden Woods': 'Ice Ring Isle Secret Cave',
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+        'Entered Ice Ring Isle Cave': 1,
+      });
+    });
+
+    test('when marking an entrance that leads to nothing, does not modify items', () => {
+      const newState = state.setExitForEntrance('Forbidden Woods', LogicHelper.NOTHING_EXIT);
+
+      expect(newState.entrances).toEqual({
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Ice Ring Isle Secret Cave': 'Forbidden Woods',
+        'Forbidden Woods': LogicHelper.NOTHING_EXIT,
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+        'Entered Ice Ring Isle Cave': 0,
+      });
     });
   });
 
-  describe('unsetEntranceForExit', () => {
+  describe('unsetExit', () => {
     let state;
 
     beforeEach(() => {
-      const initialEntrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
-        'Forbidden Woods': 'Tower of the Gods',
-      };
-
       state = new TrackerState();
-      state.entrances = _.clone(initialEntrances);
+      state.entrances = {
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Tower of the Gods': 'Forbidden Woods',
+      };
+      state.items = {
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+      };
     });
 
-    test('returns a new state with the entrance value unset', () => {
-      const newState = state.unsetEntranceForExit('Needle Rock Isle Secret Cave');
+    test('returns a new state with the entrance value and entry item unset', () => {
+      const newState = state.unsetExit('Needle Rock Isle Secret Cave');
 
       expect(newState.entrances).toEqual({
-        'Forbidden Woods': 'Tower of the Gods',
+        'Tower of the Gods': 'Forbidden Woods',
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 0,
+        'Entered FW': 1,
+      });
+    });
+  });
+
+  describe('unsetEntrance', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+      state.entrances = {
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Tower of the Gods': 'Forbidden Woods',
+        'Cliff Plateau Isles Secret Cave': LogicHelper.NOTHING_EXIT,
+      };
+      state.items = {
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+      };
+    });
+
+    test('returns a new state with the entrance value and entry item unset', () => {
+      const newState = state.unsetEntrance('Dragon Roost Cavern');
+
+      expect(newState.entrances).toEqual({
+        'Tower of the Gods': 'Forbidden Woods',
+        'Cliff Plateau Isles Secret Cave': LogicHelper.NOTHING_EXIT,
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 0,
+        'Entered FW': 1,
+      });
+    });
+
+    test('when unsetting an entrance that leads to nothing, does not modify items', () => {
+      const newState = state.unsetEntrance('Cliff Plateau Isles Secret Cave');
+
+      expect(newState.entrances).toEqual({
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Tower of the Gods': 'Forbidden Woods',
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
       });
     });
   });
@@ -317,8 +394,8 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.entrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
-        'Forbidden Woods': 'Tower of the Gods',
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Tower of the Gods': 'Forbidden Woods',
       };
     });
 
@@ -577,6 +654,168 @@ describe('TrackerState', () => {
       const newItemForLocation = _.get(newState.itemsForLocations, ['Dragon Roost Cavern', "Bird's Nest"]);
 
       expect(newItemForLocation).toEqual(null);
+    });
+  });
+
+  describe('clearBannedLocations', () => {
+    let state;
+
+    beforeEach(() => {
+      Locations.locations = {
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': {
+            test: 'data',
+          },
+          'Savage Labyrinth - Floor 50': {
+            test: 'data',
+          },
+          'Sunken Treasure': {
+            test: 'data',
+          },
+        },
+        'Dragon Roost Cavern': {
+          'First Room': {
+            test: 'data',
+          },
+          'Alcove With Water Jugs': {
+            test: 'data',
+          },
+          "Bird's Nest": {
+            test: 'data',
+          },
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': {
+            test: 'data',
+          },
+        },
+        Mailbox: {
+          'Letter from Aryll': {
+            test: 'data',
+          },
+          'Letter from Tingle': {
+            test: 'data',
+          },
+        },
+      };
+
+      state = new TrackerState();
+
+      state.locationsChecked = {
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': false,
+          'Savage Labyrinth - Floor 50': false,
+          'Sunken Treasure': false,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": false,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': false,
+        },
+        Mailbox: {
+          'Letter from Aryll': false,
+          'Letter from Tingle': false,
+        },
+      };
+    });
+
+    test('return a new state with the banned locations cleared for DRC', () => {
+      const newState = state.clearBannedLocations('Dragon Roost Cavern', { includeAdditionalLocations: true });
+
+      expect(newState.locationsChecked).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': false,
+          'Savage Labyrinth - Floor 50': false,
+          'Sunken Treasure': false,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': true,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": true,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': false,
+        },
+        Mailbox: {
+          'Letter from Aryll': false,
+          'Letter from Tingle': false,
+        },
+      });
+    });
+
+    test('return a new state with the banned locations cleared for Outset', () => {
+      const newState = state.clearBannedLocations('Outset Island', { includeAdditionalLocations: true });
+
+      expect(newState.locationsChecked).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': true,
+          'Savage Labyrinth - Floor 50': true,
+          'Sunken Treasure': true,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": false,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': false,
+        },
+        Mailbox: {
+          'Letter from Aryll': false,
+          'Letter from Tingle': false,
+        },
+      });
+    });
+
+    test('return a new state with the banned locations and mail cleared for FF when includeAdditionalLocations is true', () => {
+      const newState = state.clearBannedLocations('Forsaken Fortress', { includeAdditionalLocations: true });
+
+      expect(newState.locationsChecked).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': false,
+          'Savage Labyrinth - Floor 50': false,
+          'Sunken Treasure': false,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": false,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': true,
+        },
+        Mailbox: {
+          'Letter from Aryll': true,
+          'Letter from Tingle': true,
+        },
+      });
+    });
+
+    test('return a new state with the banned locations but mail not cleared for FF when includeAdditionalLocations is false', () => {
+      const newState = state.clearBannedLocations('Forsaken Fortress', { includeAdditionalLocations: false });
+
+      expect(newState.locationsChecked).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': false,
+          'Savage Labyrinth - Floor 50': false,
+          'Sunken Treasure': false,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": false,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': true,
+        },
+        Mailbox: {
+          'Letter from Aryll': false,
+          'Letter from Tingle': false,
+        },
+      });
     });
   });
 });

@@ -7,9 +7,9 @@ describe('Permalink', () => {
     });
   });
 
-  describe('RANDOMIZE_ENTRANCES_OPTIONS', () => {
+  describe('MIX_ENTRANCES_OPTIONS', () => {
     test('returns the correct options', () => {
-      expect(Permalink.RANDOMIZE_ENTRANCES_OPTIONS).toMatchSnapshot();
+      expect(Permalink.MIX_ENTRANCES_OPTIONS).toMatchSnapshot();
     });
   });
 
@@ -35,7 +35,7 @@ describe('Permalink', () => {
 
   describe('decode', () => {
     test('decodes a permalink', () => {
-      const options = Permalink.decode('MS4xMC4wAHllZXQABwEDAQ2gvg8Q8AAwAAAAAABAAEgG');
+      const options = Permalink.decode('bWFzdGVyAHNlZWQASRBQHcBG+wLIBQMRAAAAAIgAMIkA');
 
       expect(options).toMatchSnapshot();
     });
@@ -59,7 +59,7 @@ describe('Permalink', () => {
     let permalink;
 
     beforeEach(() => {
-      permalink = 'MS4xMC4wAHllZXQABwEDAQ2gvg8Q8AAwAAAAAABAAEoG';
+      permalink = 'bWFzdGVyAHNlZWQASRBQHcBG+wLIBQMRAAAAAIgAMIkA';
       options = Permalink.decode(permalink);
     });
 
