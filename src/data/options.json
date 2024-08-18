@@ -47,6 +47,7 @@
   "num_item_hints",
   "cryptic_hints",
   "prioritize_remote_hints",
+  "hint_importance",
 
   "swift_sail",
   "instant_text_boxes",
