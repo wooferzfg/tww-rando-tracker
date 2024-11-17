@@ -57,7 +57,7 @@ class TrackerState {
   }
 
   incrementItem(itemName) {
-    const newState = this._clone({ items: true });
+    const newState = this.#clone({ items: true });
 
     let newItemCount = 1 + this.getItemValue(itemName);
     const maxItemCount = LogicHelper.maxItemCount(itemName);
@@ -70,7 +70,7 @@ class TrackerState {
   }
 
   decrementItem(itemName) {
-    const newState = this._clone({ items: true });
+    const newState = this.#clone({ items: true });
 
     let newItemCount = this.getItemValue(itemName) - 1;
     const minItemCount = LogicHelper.startingItemCount(itemName);
@@ -82,28 +82,55 @@ class TrackerState {
     return newState;
   }
 
-  getEntranceForExit(dungeonOrCaveName) {
-    return _.get(this.entrances, dungeonOrCaveName);
+  getEntranceForExit(exitName) {
+    return _.findKey(this.entrances, (curExitName) => curExitName === exitName);
   }
 
-  getExitForEntrance(dungeonOrCaveName) {
-    return _.findKey(this.entrances, (entranceName) => entranceName === dungeonOrCaveName);
+  getExitForEntrance(entranceName) {
+    return _.get(this.entrances, entranceName);
   }
 
-  setEntranceForExit(exitName, entranceName) {
-    const newState = this._clone({ entrances: true });
-    _.set(newState.entrances, exitName, entranceName);
+  setExitForEntrance(entranceName, exitName) {
+    let newState = this.#clone({ entrances: true });
+
+    _.set(newState.entrances, entranceName, exitName);
+
+    if (exitName !== LogicHelper.NOTHING_EXIT) {
+      const entryName = LogicHelper.entryName(exitName);
+      newState = newState.incrementItem(entryName);
+    }
+
     return newState;
   }
 
-  unsetEntranceForExit(dungeonOrCaveName) {
-    const newState = this._clone({ entrances: true });
-    _.unset(newState.entrances, dungeonOrCaveName);
+  unsetEntrance(entranceName) {
+    let newState = this.#clone({ entrances: true });
+
+    const exitName = newState.getExitForEntrance(entranceName);
+    _.unset(newState.entrances, entranceName);
+
+    if (exitName !== LogicHelper.NOTHING_EXIT) {
+      const entryName = LogicHelper.entryName(exitName);
+      newState = newState.decrementItem(entryName);
+    }
+
     return newState;
   }
 
-  isEntranceChecked(dungeonOrCaveName) {
-    return _.includes(this.entrances, dungeonOrCaveName);
+  unsetExit(exitName) {
+    let newState = this.#clone({ entrances: true });
+
+    const entranceName = newState.getEntranceForExit(exitName);
+    _.unset(newState.entrances, entranceName);
+
+    const entryName = LogicHelper.entryName(exitName);
+    newState = newState.decrementItem(entryName);
+
+    return newState;
+  }
+
+  isEntranceChecked(entranceName) {
+    return _.has(this.entrances, entranceName);
   }
 
   isLocationChecked(generalLocation, detailedLocation) {
@@ -111,11 +138,8 @@ class TrackerState {
   }
 
   toggleLocationChecked(generalLocation, detailedLocation) {
-    const newState = this._clone({ locationsChecked: true });
-
-    const isChecked = this.isLocationChecked(generalLocation, detailedLocation);
-    _.set(newState.locationsChecked, [generalLocation, detailedLocation], !isChecked);
-
+    const newState = this.#clone({ locationsChecked: true });
+    newState.#toggleLocationCheckedUpdate(generalLocation, detailedLocation);
     return newState;
   }
 
@@ -141,7 +165,7 @@ class TrackerState {
   }
 
   setItemForLocation(itemName, generalLocation, detailedLocation) {
-    const newState = this._clone({ itemsForLocations: true });
+    const newState = this.#clone({ itemsForLocations: true });
     _.set(newState.itemsForLocations, [generalLocation, detailedLocation], itemName);
     return newState;
   }
@@ -155,7 +179,7 @@ class TrackerState {
   }
 
   setChartMapping(chart, chartForIsland) {
-    const newState = this._clone({ islandsForCharts: true });
+    const newState = this.#clone({ islandsForCharts: true });
     const island = LogicHelper.islandFromChartForIsland(chartForIsland);
 
     _.set(newState.islandsForCharts, chart, island);
@@ -164,7 +188,7 @@ class TrackerState {
   }
 
   unsetChartMapping(chartForIsland) {
-    const newState = this._clone({ islandsForCharts: true });
+    const newState = this.#clone({ islandsForCharts: true });
 
     const island = LogicHelper.islandFromChartForIsland(chartForIsland);
     const chart = this.getChartFromChartMapping(island);
@@ -175,12 +199,30 @@ class TrackerState {
   }
 
   unsetItemForLocation(generalLocation, detailedLocation) {
-    const newState = this._clone({ itemsForLocations: true });
+    const newState = this.#clone({ itemsForLocations: true });
     _.set(newState.itemsForLocations, [generalLocation, detailedLocation], null);
     return newState;
   }
 
-  _clone({
+  clearBannedLocations(zoneName, { includeAdditionalLocations }) {
+    const newState = this.#clone({ locationsChecked: true });
+
+    _.forEach(
+      LogicHelper.bannedLocationsForZone(zoneName, { includeAdditionalLocations }),
+      ({ generalLocation, detailedLocation }) => {
+        if (!newState.isLocationChecked(generalLocation, detailedLocation)) {
+          newState.#toggleLocationCheckedUpdate(
+            generalLocation,
+            detailedLocation,
+          );
+        }
+      },
+    );
+
+    return newState;
+  }
+
+  #clone({
     entrances: cloneEntrances,
     islandsForCharts: cloneIslandsForCharts,
     items: cloneItems,
@@ -206,6 +248,11 @@ class TrackerState {
       : this.itemsForLocations;
 
     return newState;
+  }
+
+  #toggleLocationCheckedUpdate(generalLocation, detailedLocation) {
+    const isChecked = this.isLocationChecked(generalLocation, detailedLocation);
+    _.set(this.locationsChecked, [generalLocation, detailedLocation], !isChecked);
   }
 }
 

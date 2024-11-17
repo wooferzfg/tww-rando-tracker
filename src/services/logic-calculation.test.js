@@ -18,11 +18,13 @@ describe('LogicCalculation', () => {
   const setLocations = (locationsList) => {
     Locations.locations = locationsList;
     LogicHelper.reset();
+    LogicHelper.initialize();
   };
 
   const setMacros = (macrosList) => {
     Macros.macros = macrosList;
     LogicHelper.reset();
+    LogicHelper.initialize();
   };
 
   const fullSetup = (settingsOverrides = {}) => {
@@ -30,11 +32,21 @@ describe('LogicCalculation', () => {
       options: {
         [Permalink.OPTIONS.KEYLUNACY]: false,
         [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-        [Permalink.OPTIONS.RACE_MODE]: false,
+        [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
         [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-        [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+        [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+        [Permalink.OPTIONS.MIX_ENTRANCES]: (
+          Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+        ),
+        [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
         [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
         [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
+        [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+        [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
       },
       startingGear: {
         [LogicHelper.ITEMS.BALLAD_OF_GALES]: 1,
@@ -44,6 +56,8 @@ describe('LogicCalculation', () => {
         [LogicHelper.ITEMS.SONG_OF_PASSING]: 1,
       },
       flags: [
+        Settings.FLAGS.BOSS,
+        Settings.FLAGS.RANDOMIZABLE_MINIBOSS_ROOM,
         Settings.FLAGS.DUNGEON,
         Settings.FLAGS.PUZZLE_SECRET_CAVE,
         Settings.FLAGS.GREAT_FAIRY,
@@ -78,6 +92,8 @@ describe('LogicCalculation', () => {
         [Permalink.OPTIONS.KEYLUNACY]: true,
       },
     });
+
+    LogicHelper.initialize();
 
     logic = new LogicCalculation(TrackerState.default());
   });
@@ -128,7 +144,7 @@ describe('LogicCalculation', () => {
           logic = new LogicCalculation(state);
 
           expect(logic.guaranteedKeys).toEqual({
-            'DRC Small Key': 1,
+            'DRC Small Key': 2,
             'DRC Big Key': 0,
             'FW Small Key': 0,
             'FW Big Key': 0,
@@ -144,19 +160,42 @@ describe('LogicCalculation', () => {
         test('shows the unlocked locations as available', () => {
           logic = new LogicCalculation(state);
 
-          const isLocationAvailable = logic.isLocationAvailable('Dragon Roost Cavern', 'Boarded Up Chest');
+          const isLocationAvailable = logic.isLocationAvailable('Dragon Roost Cavern', 'Rat Room Boarded Up Chest');
 
           expect(isLocationAvailable).toEqual(true);
         });
       });
 
-      describe('when setting the DRC Big Key Chest as checked', () => {
+      describe('when setting the DRC Chest Across Lava Pit as checked', () => {
         beforeEach(() => {
           state = TrackerState.default()
-            .toggleLocationChecked('Dragon Roost Cavern', 'Big Key Chest');
+            .toggleLocationChecked('Dragon Roost Cavern', 'Chest Across Lava Pit');
         });
 
-        test('guarantees 2 small keys in DRC', () => {
+        test('guarantees 4 small keys in DRC', () => {
+          logic = new LogicCalculation(state);
+
+          expect(logic.guaranteedKeys).toEqual({
+            'DRC Small Key': 4,
+            'DRC Big Key': 0,
+            'FW Small Key': 0,
+            'FW Big Key': 0,
+            'TotG Small Key': 0,
+            'TotG Big Key': 0,
+            'ET Small Key': 0,
+            'ET Big Key': 0,
+            'WT Small Key': 0,
+            'WT Big Key': 0,
+          });
+        });
+      });
+
+      describe('when only having the Hookshot', () => {
+        beforeEach(() => {
+          state = TrackerState.default().incrementItem('Hookshot');
+        });
+
+        test('does not guarantee additional keys in DRC', () => {
           logic = new LogicCalculation(state);
 
           expect(logic.guaranteedKeys).toEqual({
@@ -174,42 +213,18 @@ describe('LogicCalculation', () => {
         });
       });
 
-      describe('when only having the Grappling Hook', () => {
-        beforeEach(() => {
-          state = TrackerState.default().incrementItem('Grappling Hook');
-        });
-
-        test('does not guarantee additional keys in DRC', () => {
-          logic = new LogicCalculation(state);
-
-          expect(logic.guaranteedKeys).toEqual({
-            'DRC Small Key': 1,
-            'DRC Big Key': 0,
-            'FW Small Key': 0,
-            'FW Big Key': 0,
-            'TotG Small Key': 0,
-            'TotG Big Key': 0,
-            'ET Small Key': 0,
-            'ET Big Key': 0,
-            'WT Small Key': 0,
-            'WT Big Key': 0,
-          });
-        });
-      });
-
-      describe('when having the required items for DRC', () => {
+      describe('when having the required items for all DRC small keys', () => {
         beforeEach(() => {
           state = TrackerState.default()
-            .incrementItem('Grappling Hook')
             .incrementItem('Deku Leaf');
         });
 
-        test('guarantees all the keys for DRC', () => {
+        test('guarantees all the small keys for DRC', () => {
           logic = new LogicCalculation(state);
 
           expect(logic.guaranteedKeys).toEqual({
             'DRC Small Key': 4,
-            'DRC Big Key': 1,
+            'DRC Big Key': 0,
             'FW Small Key': 0,
             'FW Big Key': 0,
             'TotG Small Key': 0,
@@ -374,6 +389,32 @@ describe('LogicCalculation', () => {
       });
     });
 
+    describe('when the location requirements include a required boss', () => {
+      beforeEach(() => {
+        setLocations({
+          "Ganon's Tower": {
+            'Defeat Ganondorf': {
+              need: 'Defeated Gohma',
+            },
+          },
+          'Dragon Roost Cavern': {
+            'Gohma Heart Container': {
+              need: 'Grappling Hook',
+              types: 'Boss',
+            },
+          },
+        });
+      });
+
+      test('shows the boss requirement unmodified', () => {
+        const formattedRequirements = logic.formattedRequirementsForLocation("Ganon's Tower", 'Defeat Ganondorf');
+
+        expect(formattedRequirements).toEqual([
+          [{ text: 'Defeated Gohma', color: LogicCalculation.ITEM_REQUIREMENT_COLORS.UNAVAILABLE_ITEM }],
+        ]);
+      });
+    });
+
     describe('when the location requirements are partially met', () => {
       beforeEach(() => {
         setLocations({
@@ -385,7 +426,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state.incrementItem('Grappling Hook'),
+          logic.state().incrementItem('Grappling Hook'),
         );
       });
 
@@ -416,7 +457,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Deku Leaf')
             .incrementItem('Boomerang'),
         );
@@ -447,11 +488,11 @@ describe('LogicCalculation', () => {
   describe('formattedRequirementsForEntrance', () => {
     beforeEach(() => {
       setMacros({
-        'Can Access Dungeon Entrance On Headstone Island': 'Power Bracelets',
+        'Can Access Dungeon Entrance on Headstone Island': 'Power Bracelets',
       });
 
       logic = new LogicCalculation(
-        logic.state.incrementItem('Power Bracelets'),
+        logic.state().incrementItem('Power Bracelets'),
       );
     });
 
@@ -471,13 +512,12 @@ describe('LogicCalculation', () => {
 
     test('returns the correct counts for Dragon Roost Cavern', () => {
       const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
-        isDungeon: true,
         onlyProgressLocations: true,
         disableLogic: false,
       });
 
       expect(locationCounts).toEqual({
-        numAvailable: 3,
+        numAvailable: 5,
         numRemaining: 15,
         color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
       });
@@ -485,7 +525,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct counts for Forbidden Woods', () => {
       const locationCounts = logic.locationCounts('Forbidden Woods', {
-        isDungeon: true,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -499,7 +538,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct counts for Windfall Island', () => {
       const locationCounts = logic.locationCounts('Windfall Island', {
-        isDungeon: false,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -513,7 +551,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct counts for the Forsaken Fortress dungeon', () => {
       const locationCounts = logic.locationCounts('Forsaken Fortress', {
-        isDungeon: true,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -527,7 +564,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct counts for The Great Sea', () => {
       const locationCounts = logic.locationCounts('The Great Sea', {
-        isDungeon: false,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -541,8 +577,7 @@ describe('LogicCalculation', () => {
 
     describe('when showing non-progress locations', () => {
       test('returns the correct counts for the Forsaken Fortress island', () => {
-        const locationCounts = logic.locationCounts('Forsaken Fortress', {
-          isDungeon: false,
+        const locationCounts = logic.locationCounts('Forsaken Fortress Sector', {
           onlyProgressLocations: false,
           disableLogic: false,
         });
@@ -556,7 +591,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct counts for Rock Spire Isle', () => {
         const locationCounts = logic.locationCounts('Rock Spire Isle', {
-          isDungeon: false,
           onlyProgressLocations: false,
           disableLogic: false,
         });
@@ -570,14 +604,13 @@ describe('LogicCalculation', () => {
 
       test('returns the correct counts for Windfall Island', () => {
         const locationCounts = logic.locationCounts('Windfall Island', {
-          isDungeon: false,
           onlyProgressLocations: false,
           disableLogic: false,
         });
 
         expect(locationCounts).toEqual({
           numAvailable: 17,
-          numRemaining: 38,
+          numRemaining: 42,
           color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
         });
       });
@@ -586,7 +619,7 @@ describe('LogicCalculation', () => {
     describe('when locations are checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
             .toggleLocationChecked('Dragon Roost Cavern', 'Rat Room')
             .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
@@ -595,13 +628,12 @@ describe('LogicCalculation', () => {
 
       test('returns the correct counts for Dragon Roost Cavern', () => {
         const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
-          isDungeon: true,
           onlyProgressLocations: true,
           disableLogic: false,
         });
 
         expect(locationCounts).toEqual({
-          numAvailable: 2,
+          numAvailable: 3,
           numRemaining: 13,
           color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
         });
@@ -609,7 +641,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct counts for Mother and Child Isles', () => {
         const locationCounts = logic.locationCounts('Mother and Child Isles', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -625,7 +656,7 @@ describe('LogicCalculation', () => {
     describe('when more locations are available', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Grappling Hook')
             .incrementItem('Deku Leaf'),
         );
@@ -633,7 +664,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct counts for Dragon Roost Cavern', () => {
         const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
-          isDungeon: true,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -647,7 +677,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct counts for Forbidden Woods', () => {
         const locationCounts = logic.locationCounts('Forbidden Woods', {
-          isDungeon: true,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -663,7 +692,6 @@ describe('LogicCalculation', () => {
     describe('when location logic is disabled', () => {
       test('returns the correct count for Outset Island', () => {
         const locationCounts = logic.locationCounts('Outset Island', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: true,
         });
@@ -677,7 +705,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct count for Islet of Steel', () => {
         const locationCounts = logic.locationCounts('Islet of Steel', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: true,
         });
@@ -691,7 +718,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct count for Greatfish Isle', () => {
         const locationCounts = logic.locationCounts('Greatfish Isle', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: true,
         });
@@ -706,7 +732,6 @@ describe('LogicCalculation', () => {
       describe('when showing non-progress locations', () => {
         test('returns the correct count for Spectacle Island', () => {
           const locationCounts = logic.locationCounts('Spectacle Island', {
-            isDungeon: false,
             onlyProgressLocations: false,
             disableLogic: true,
           });
@@ -720,14 +745,13 @@ describe('LogicCalculation', () => {
 
         test('returns the correct count for Windfall Island', () => {
           const locationCounts = logic.locationCounts('Windfall Island', {
-            isDungeon: false,
             onlyProgressLocations: false,
             disableLogic: true,
           });
 
           expect(locationCounts).toEqual({
-            numAvailable: 38,
-            numRemaining: 38,
+            numAvailable: 42,
+            numRemaining: 42,
             color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           });
         });
@@ -736,7 +760,7 @@ describe('LogicCalculation', () => {
       describe('when locations are checked', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state
+            logic.state()
               .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
               .toggleLocationChecked('Dragon Roost Cavern', 'Rat Room'),
           );
@@ -744,7 +768,6 @@ describe('LogicCalculation', () => {
 
         test('returns the correct count for Dragon Roost Cavern', () => {
           const locationCounts = logic.locationCounts('Dragon Roost Cavern', {
-            isDungeon: true,
             onlyProgressLocations: true,
             disableLogic: true,
           });
@@ -766,7 +789,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct locations for the Forsaken Fortress dungeon', () => {
       const locationsList = logic.locationsList('Forsaken Fortress', {
-        isDungeon: true,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -801,7 +823,6 @@ describe('LogicCalculation', () => {
 
     test('returns the correct locations for The Great Sea', () => {
       const locationsList = logic.locationsList('The Great Sea', {
-        isDungeon: false,
         onlyProgressLocations: true,
         disableLogic: false,
       });
@@ -828,8 +849,7 @@ describe('LogicCalculation', () => {
 
     describe('when showing non-progress locations', () => {
       test('returns the correct locations for the Forsaken Fortress island', () => {
-        const locationsList = logic.locationsList('Forsaken Fortress', {
-          isDungeon: false,
+        const locationsList = logic.locationsList('Forsaken Fortress Sector', {
           onlyProgressLocations: false,
           disableLogic: false,
         });
@@ -844,7 +864,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Rock Spire Isle', () => {
         const locationsList = logic.locationsList('Rock Spire Isle', {
-          isDungeon: false,
           onlyProgressLocations: false,
           disableLogic: false,
         });
@@ -893,7 +912,7 @@ describe('LogicCalculation', () => {
     describe('when locations are checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .toggleLocationChecked('Cliff Plateau Isles', 'Cave')
             .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
         );
@@ -901,7 +920,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Cliff Plateau Isles', () => {
         const locationsList = logic.locationsList('Cliff Plateau Isles', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -920,7 +938,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Mother and Child Isles', () => {
         const locationsList = logic.locationsList('Mother and Child Isles', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -937,7 +954,7 @@ describe('LogicCalculation', () => {
     describe('when more locations are available', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Bombs')
             .incrementItem('Skull Hammer'),
         );
@@ -945,7 +962,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Pawprint Isle', () => {
         const locationsList = logic.locationsList('Pawprint Isle', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -972,7 +988,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Forsaken Fortress', () => {
         const locationsList = logic.locationsList('Forsaken Fortress', {
-          isDungeon: true,
           onlyProgressLocations: true,
           disableLogic: false,
         });
@@ -1009,7 +1024,6 @@ describe('LogicCalculation', () => {
     describe('when location logic is disabled', () => {
       test('returns the correct locations for Outset Island', () => {
         const locationsList = logic.locationsList('Outset Island', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: true,
         });
@@ -1032,7 +1046,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Islet of Steel', () => {
         const locationsList = logic.locationsList('Islet of Steel', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: true,
         });
@@ -1047,7 +1060,6 @@ describe('LogicCalculation', () => {
 
       test('returns the correct locations for Greatfish Isle', () => {
         const locationsList = logic.locationsList('Greatfish Isle', {
-          isDungeon: false,
           onlyProgressLocations: true,
           disableLogic: true,
         });
@@ -1058,7 +1070,6 @@ describe('LogicCalculation', () => {
       describe('when showing non-progress locations', () => {
         test('returns the correct locations for Spectacle Island', () => {
           const locationsList = logic.locationsList('Spectacle Island', {
-            isDungeon: false,
             onlyProgressLocations: false,
             disableLogic: true,
           });
@@ -1081,7 +1092,6 @@ describe('LogicCalculation', () => {
 
         test('returns the correct locations for Bomb Island', () => {
           const locationsList = logic.locationsList('Bomb Island', {
-            isDungeon: false,
             onlyProgressLocations: false,
             disableLogic: true,
           });
@@ -1110,13 +1120,12 @@ describe('LogicCalculation', () => {
       describe('when locations are checked', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+            logic.state().toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
           );
         });
 
         test("returns the correct locations for Ganon's Tower", () => {
           const locationsList = logic.locationsList("Ganon's Tower", {
-            isDungeon: true,
             onlyProgressLocations: true,
             disableLogic: true,
           });
@@ -1136,148 +1145,20 @@ describe('LogicCalculation', () => {
     });
   });
 
-  describe('entrancesList', () => {
-    describe('when entrances are not randomized', () => {
-      beforeEach(() => {
-        fullSetup({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
-          },
-        });
-      });
-
-      test('returns an empty array', () => {
-        const entrancesList = logic.entrancesList({ disableLogic: false });
-
-        expect(entrancesList).toEqual([]);
-      });
-    });
-
-    describe('when entrances are randomized', () => {
-      beforeEach(() => {
-        fullSetup({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
-          },
-        });
-      });
-
-      test('returns the list of entrances', () => {
-        const entrancesList = logic.entrancesList({ disableLogic: false });
-
-        expect(entrancesList).toEqual([
-          {
-            entrance: 'Dragon Roost Cavern',
-            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-          },
-          {
-            entrance: 'Forbidden Woods',
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-          },
-          {
-            entrance: 'Tower of the Gods',
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-          },
-          {
-            entrance: 'Earth Temple',
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-          },
-          {
-            entrance: 'Wind Temple',
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-          },
-        ]);
-      });
-    });
-
-    describe('when logic is disabled', () => {
-      beforeEach(() => {
-        fullSetup({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
-          },
-        });
-      });
-
-      test('returns the list of entrances as all available', () => {
-        const entrancesList = logic.entrancesList({ disableLogic: true });
-
-        expect(entrancesList).toEqual([
-          {
-            entrance: 'Dragon Roost Cavern',
-            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-          },
-          {
-            entrance: 'Forbidden Woods',
-            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-          },
-          {
-            entrance: 'Tower of the Gods',
-            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-          },
-          {
-            entrance: 'Earth Temple',
-            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-          },
-          {
-            entrance: 'Wind Temple',
-            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-          },
-        ]);
-      });
-    });
-
-    describe('when an entrance is checked', () => {
-      beforeEach(() => {
-        fullSetup({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
-          },
-        });
-
-        logic = new LogicCalculation(
-          logic.state
-            .setEntranceForExit('Dragon Roost Cavern', 'Forbidden Woods')
-            .incrementItem('Entered DRC'),
-        );
-      });
-
-      test('returns the list of entrances with FW checked', () => {
-        const entrancesList = logic.entrancesList({ disableLogic: false });
-
-        expect(entrancesList).toEqual([
-          {
-            entrance: 'Dragon Roost Cavern',
-            color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
-          },
-          {
-            entrance: 'Forbidden Woods',
-            color: LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION,
-          },
-          {
-            entrance: 'Tower of the Gods',
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-          },
-          {
-            entrance: 'Earth Temple',
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-          },
-          {
-            entrance: 'Wind Temple',
-            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
-          },
-        ]);
-      });
-    });
-  });
-
   describe('entrancesListForExit', () => {
     describe('when all entrances are randomized separately', () => {
       beforeEach(() => {
         fullSetup({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
@@ -1314,6 +1195,113 @@ describe('LogicCalculation', () => {
     });
   });
 
+  describe('entrancesListForIsland', () => {
+    beforeEach(() => {
+      fullSetup({
+        options: {
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+          [Permalink.OPTIONS.MIX_ENTRANCES]: (
+            Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+          ),
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+        },
+      });
+    });
+
+    test('returns the entrances for Dragon Roost Island', () => {
+      const entrancesListForIsland = logic.entrancesListForIsland(
+        'Dragon Roost Island',
+        { disableLogic: false },
+      );
+
+      expect(entrancesListForIsland).toEqual([
+        {
+          entrance: 'Dragon Roost Cavern',
+          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+        },
+        {
+          entrance: 'Dragon Roost Island Secret Cave',
+          color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+        },
+      ]);
+    });
+  });
+
+  describe('entrancesListForDungeon', () => {
+    beforeEach(() => {
+      fullSetup({
+        options: {
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+          [Permalink.OPTIONS.MIX_ENTRANCES]: (
+            Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+          ),
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+        },
+      });
+    });
+
+    test('returns the entrances for Forbidden Woods', () => {
+      const entrancesListForDungeon = logic.entrancesListForDungeon(
+        'Forbidden Woods',
+        { disableLogic: true },
+      );
+
+      expect(entrancesListForDungeon).toEqual([
+        {
+          entrance: 'Forbidden Woods Miniboss Arena',
+          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+        },
+        {
+          entrance: 'Kalle Demos Boss Arena',
+          color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
+        },
+      ]);
+    });
+  });
+
+  describe('exitsListForEntrance', () => {
+    beforeEach(() => {
+      fullSetup({
+        options: {
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+          [Permalink.OPTIONS.MIX_ENTRANCES]: (
+            Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+          ),
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+        },
+      });
+
+      logic = new LogicCalculation(
+        logic.state()
+          .setExitForEntrance('Bomb Island Secret Cave', 'Dragon Roost Cavern')
+          .setExitForEntrance('Gohma Boss Arena', 'Forbidden Woods')
+          .setExitForEntrance('Tower of the Gods Miniboss Arena', 'Forbidden Woods Miniboss Arena')
+          .setExitForEntrance('Kalle Demos Boss Arena', 'Tower of the Gods')
+          .setExitForEntrance('Forbidden Woods Miniboss Arena', 'Tower of the Gods Miniboss Arena')
+          .setExitForEntrance('Gohdan Boss Arena', 'Gohdan Boss Arena')
+          .setExitForEntrance('Cliff Plateau Isles Secret Cave', LogicHelper.NOTHING_EXIT),
+      );
+    });
+
+    test('returns all exits that are possible for an entrance and indicates which exits are checked, except its own dungeon, and includes the nothing exit', () => {
+      const exitsListForEntrance = logic.exitsListForEntrance('Earth Temple Miniboss Arena');
+
+      expect(exitsListForEntrance).toMatchSnapshot();
+    });
+  });
+
   describe('totalLocationsChecked', () => {
     beforeEach(() => {
       fullSetup();
@@ -1332,7 +1320,7 @@ describe('LogicCalculation', () => {
     describe('when some locations are checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
             .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle')
             .toggleLocationChecked('Windfall Island', 'Transparent Chest'),
@@ -1351,7 +1339,7 @@ describe('LogicCalculation', () => {
     describe('when showing non-progress locations', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
             .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle')
             .toggleLocationChecked('Windfall Island', 'Transparent Chest'),
@@ -1370,7 +1358,7 @@ describe('LogicCalculation', () => {
     describe('when Defeat Ganondorf is checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
             .toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
         );
@@ -1397,7 +1385,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsAvailable).toEqual(18);
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('20');
       });
     });
 
@@ -1407,14 +1395,14 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: false,
         });
 
-        expect(totalLocationsAvailable).toEqual(59);
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('62');
       });
     });
 
     describe('when a location is checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state.toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
+          logic.state().toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
         );
       });
 
@@ -1423,14 +1411,14 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsAvailable).toEqual(17);
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('19');
       });
     });
 
     describe('when Defeat Ganondorf is available', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Triforce Shard')
             .incrementItem('Triforce Shard')
             .incrementItem('Triforce Shard')
@@ -1456,7 +1444,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsAvailable).toEqual(40);
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('39');
       });
     });
   });
@@ -1472,7 +1460,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsRemaining).toEqual(120);
+        expect(totalLocationsRemaining).toMatchInlineSnapshot('119');
       });
     });
 
@@ -1482,14 +1470,14 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: false,
         });
 
-        expect(totalLocationsRemaining).toEqual(305);
+        expect(totalLocationsRemaining).toMatchInlineSnapshot('320');
       });
     });
 
     describe('when a location is checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state.toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
+          logic.state().toggleLocationChecked('Dragon Roost Cavern', 'First Room'),
         );
       });
 
@@ -1498,85 +1486,153 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsRemaining).toEqual(119);
+        expect(totalLocationsRemaining).toMatchInlineSnapshot('118');
       });
     });
   });
 
   describe('itemsNeededToFinishGame', () => {
-    beforeEach(() => {
-      fullSetup();
-    });
-
-    test('returns the correct total', () => {
-      const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
-
-      expect(itemsNeededToFinishGame).toEqual(17);
-    });
-
-    describe('when some required items are obtained', () => {
+    describe('when Required Bosses Mode is off', () => {
       beforeEach(() => {
-        logic = new LogicCalculation(
-          logic.state
-            .incrementItem('Deku Leaf') // not required to finish game
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard') // Triforce Shard x4
-            .incrementItem('Progressive Sword') // Progressive Sword x2
-            .incrementItem('Progressive Bow'),
-        );
+        fullSetup();
       });
 
       test('returns the correct total', () => {
         const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
 
-        expect(itemsNeededToFinishGame).toEqual(11);
+        expect(itemsNeededToFinishGame).toMatchInlineSnapshot('17');
+      });
+
+      describe('when some required items are obtained', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state()
+              .incrementItem('Deku Leaf') // not required to finish game
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard') // Triforce Shard x4
+              .incrementItem('Progressive Sword') // Progressive Sword x2
+              .incrementItem('Progressive Bow'),
+          );
+        });
+
+        test('returns the correct total', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toMatchInlineSnapshot('11');
+        });
+      });
+
+      describe('when Defeat Ganondorf is checked', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state().toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+          );
+        });
+
+        test('returns 0', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toEqual(0);
+        });
+      });
+
+      describe('when all required items are obtained', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state()
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard') // Triforce Shard x8
+              .incrementItem('Progressive Sword')
+              .incrementItem('Progressive Sword')
+              .incrementItem('Progressive Sword') // Progressive Sword x4
+              .incrementItem('Progressive Bow')
+              .incrementItem('Progressive Bow')
+              .incrementItem('Progressive Bow') // Progressive Bow x3
+              .incrementItem('Boomerang')
+              .incrementItem('Grappling Hook')
+              .incrementItem('Hookshot'),
+          );
+        });
+
+        test('returns 0', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toEqual(0);
+        });
       });
     });
 
-    describe('when Defeat Ganondorf is checked', () => {
+    describe('when required bosses mode is on', () => {
       beforeEach(() => {
-        logic = new LogicCalculation(
-          logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
-        );
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: true,
+            [Permalink.OPTIONS.NUM_REQUIRED_BOSSES]: 3,
+          },
+        });
       });
 
-      test('returns 0', () => {
+      test('returns the correct total', () => {
         const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
 
-        expect(itemsNeededToFinishGame).toEqual(0);
-      });
-    });
-
-    describe('when all required items are obtained', () => {
-      beforeEach(() => {
-        logic = new LogicCalculation(
-          logic.state
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard')
-            .incrementItem('Triforce Shard') // Triforce Shard x8
-            .incrementItem('Progressive Sword')
-            .incrementItem('Progressive Sword')
-            .incrementItem('Progressive Sword') // Progressive Sword x4
-            .incrementItem('Progressive Bow')
-            .incrementItem('Progressive Bow')
-            .incrementItem('Progressive Bow') // Progressive Bow x3
-            .incrementItem('Boomerang')
-            .incrementItem('Grappling Hook')
-            .incrementItem('Hookshot'),
-        );
+        expect(itemsNeededToFinishGame).toMatchInlineSnapshot('43');
       });
 
-      test('returns 0', () => {
-        const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+      describe('when bosses are marked as not required', () => {
+        beforeEach(() => {
+          LogicHelper.setBossNotRequired('Dragon Roost Cavern');
+          LogicHelper.setBossNotRequired('Tower of the Gods');
+          LogicHelper.setBossNotRequired('Earth Temple');
+        });
 
-        expect(itemsNeededToFinishGame).toEqual(0);
+        test('returns the correct total', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toMatchInlineSnapshot('27');
+        });
+      });
+
+      describe('when some required items are obtained', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state()
+              .incrementItem('Deku Leaf')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard')
+              .incrementItem('Triforce Shard') // Triforce Shard x4
+              .incrementItem('Progressive Sword') // Progressive Sword x2
+              .incrementItem('Progressive Bow'),
+          );
+        });
+
+        test('returns the correct total', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toMatchInlineSnapshot('34');
+        });
+      });
+
+      describe('when Defeat Ganondorf is checked', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state().toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+          );
+        });
+
+        test('returns 0', () => {
+          const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
+
+          expect(itemsNeededToFinishGame).toEqual(0);
+        });
       });
     });
   });
@@ -1589,13 +1645,13 @@ describe('LogicCalculation', () => {
     test('returns the correct total', () => {
       const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-      expect(estimatedLocationsLeftToCheck).toEqual(114);
+      expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('113');
     });
 
     describe('when some locations are checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .toggleLocationChecked('Dragon Roost Cavern', 'First Room')
             .toggleLocationChecked('Mother and Child Isles', 'Inside Mother Isle'),
         );
@@ -1604,14 +1660,14 @@ describe('LogicCalculation', () => {
       test('returns the correct total', () => {
         const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        expect(estimatedLocationsLeftToCheck).toEqual(112);
+        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('111');
       });
     });
 
     describe('when some required items are obtained', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Deku Leaf') // not required to finish game
             .incrementItem('Triforce Shard')
             .incrementItem('Triforce Shard')
@@ -1625,14 +1681,14 @@ describe('LogicCalculation', () => {
       test('returns the correct total', () => {
         const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        expect(estimatedLocationsLeftToCheck).toEqual(111);
+        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('110');
       });
     });
 
     describe('when all required items are obtained', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Triforce Shard')
             .incrementItem('Triforce Shard')
             .incrementItem('Triforce Shard')
@@ -1663,7 +1719,7 @@ describe('LogicCalculation', () => {
     describe('when Defeat Ganondorf is checked', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state.toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
+          logic.state().toggleLocationChecked("Ganon's Tower", 'Defeat Ganondorf'),
         );
       });
 
@@ -1676,7 +1732,7 @@ describe('LogicCalculation', () => {
 
     describe('when all locations are checked', () => {
       beforeEach(() => {
-        let { state } = logic;
+        let state = logic.state();
 
         _.forEach(Locations.locations, (detailedLocations, generalLocation) => {
           _.forEach(detailedLocations, (locationData, detailedLocation) => {
@@ -1704,6 +1760,7 @@ describe('LogicCalculation', () => {
           'Gohma Heart Container': {
             need: 'DRC Big Key',
             originalItem: 'Heart Container',
+            types: 'Dungeon, Boss',
           },
         },
       });
@@ -1749,7 +1806,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state.toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
+          logic.state().toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
         );
       });
 
@@ -1771,7 +1828,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Grappling Hook')
             .incrementItem('Deku Leaf'),
         );
@@ -1795,7 +1852,7 @@ describe('LogicCalculation', () => {
         });
 
         logic = new LogicCalculation(
-          logic.state
+          logic.state()
             .incrementItem('Deku Leaf'),
         );
       });
@@ -1812,11 +1869,11 @@ describe('LogicCalculation', () => {
     describe('when the entrance requirements are met', () => {
       beforeEach(() => {
         setMacros({
-          'Can Access Dungeon Entrance On Headstone Island': 'Power Bracelets',
+          'Can Access Dungeon Entrance on Headstone Island': 'Power Bracelets',
         });
 
         logic = new LogicCalculation(
-          logic.state.incrementItem('Power Bracelets'),
+          logic.state().incrementItem('Power Bracelets'),
         );
       });
 
@@ -1842,10 +1899,10 @@ describe('LogicCalculation', () => {
     });
   });
 
-  describe('_isRequirementMet', () => {
+  describe('isRequirementMet', () => {
     describe('when the requirement is nothing', () => {
       test('returns true', () => {
-        const isItemAvailable = logic._isRequirementMet('Nothing');
+        const isItemAvailable = logic.isRequirementMet('Nothing');
 
         expect(isItemAvailable).toEqual(true);
       });
@@ -1853,7 +1910,7 @@ describe('LogicCalculation', () => {
 
     describe('when the requirement is nothing', () => {
       test('returns false', () => {
-        const isItemAvailable = logic._isRequirementMet('Impossible');
+        const isItemAvailable = logic.isRequirementMet('Impossible');
 
         expect(isItemAvailable).toEqual(false);
       });
@@ -1863,12 +1920,12 @@ describe('LogicCalculation', () => {
       describe('when the item is available', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.incrementItem('Deku Leaf'),
+            logic.state().incrementItem('Deku Leaf'),
           );
         });
 
         test('returns true', () => {
-          const isItemAvailable = logic._isRequirementMet('Deku Leaf');
+          const isItemAvailable = logic.isRequirementMet('Deku Leaf');
 
           expect(isItemAvailable).toEqual(true);
         });
@@ -1876,7 +1933,7 @@ describe('LogicCalculation', () => {
 
       describe('when the item is not available', () => {
         test('returns false', () => {
-          const isItemAvailable = logic._isRequirementMet('Deku Leaf');
+          const isItemAvailable = logic.isRequirementMet('Deku Leaf');
 
           expect(isItemAvailable).toEqual(false);
         });
@@ -1887,7 +1944,7 @@ describe('LogicCalculation', () => {
       describe('when the item count meets the requirement', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state
+            logic.state()
               .incrementItem('Progressive Sword')
               .incrementItem('Progressive Sword')
               .incrementItem('Progressive Sword'),
@@ -1895,7 +1952,7 @@ describe('LogicCalculation', () => {
         });
 
         test('returns true', () => {
-          const isItemAvailable = logic._isRequirementMet('Progressive Sword x3');
+          const isItemAvailable = logic.isRequirementMet('Progressive Sword x3');
 
           expect(isItemAvailable).toEqual(true);
         });
@@ -1904,7 +1961,7 @@ describe('LogicCalculation', () => {
       describe('when the item count does not meet the requirement', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state
+            logic.state()
               .incrementItem('Triforce Shard')
               .incrementItem('Triforce Shard')
               .incrementItem('Triforce Shard')
@@ -1913,7 +1970,7 @@ describe('LogicCalculation', () => {
         });
 
         test('returns false', () => {
-          const isItemAvailable = logic._isRequirementMet('Triforce Shard x5');
+          const isItemAvailable = logic.isRequirementMet('Triforce Shard x5');
 
           expect(isItemAvailable).toEqual(false);
         });
@@ -1927,7 +1984,7 @@ describe('LogicCalculation', () => {
         });
 
         test('returns true', () => {
-          const isItemAvailable = logic._isRequirementMet('DRC Small Key x2');
+          const isItemAvailable = logic.isRequirementMet('DRC Small Key x2');
 
           expect(isItemAvailable).toEqual(true);
         });
@@ -1939,7 +1996,7 @@ describe('LogicCalculation', () => {
         });
 
         test('returns false', () => {
-          const isItemAvailable = logic._isRequirementMet('DRC Small Key x2');
+          const isItemAvailable = logic.isRequirementMet('DRC Small Key x2');
 
           expect(isItemAvailable).toEqual(false);
         });
@@ -1959,7 +2016,7 @@ describe('LogicCalculation', () => {
 
       describe('when the other location has not been checked', () => {
         test('returns false', () => {
-          const isItemAvailable = logic._isRequirementMet(
+          const isItemAvailable = logic.isRequirementMet(
             'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"',
           );
 
@@ -1970,12 +2027,12 @@ describe('LogicCalculation', () => {
       describe('when the other location has been checked', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
+            logic.state().toggleLocationChecked('Outset Island', 'Savage Labyrinth - Floor 30'),
           );
         });
 
         test('returns true', () => {
-          const isItemAvailable = logic._isRequirementMet(
+          const isItemAvailable = logic.isRequirementMet(
             'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"',
           );
 
@@ -1986,17 +2043,71 @@ describe('LogicCalculation', () => {
       describe('when the requirements for the other location have been met', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state.incrementItem('Grappling Hook'),
+            logic.state().incrementItem('Grappling Hook'),
           );
         });
 
         test('returns true', () => {
-          const isItemAvailable = logic._isRequirementMet(
+          const isItemAvailable = logic.isRequirementMet(
             'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 30"',
           );
 
           expect(isItemAvailable).toEqual(true);
         });
+      });
+    });
+  });
+
+  describe('when the requirement is a boss', () => {
+    beforeEach(() => {
+      setLocations({
+        "Ganon's Tower": {
+          'Defeat Ganondorf': {
+            need: 'Defeated Kalle Demos',
+          },
+        },
+        'Forbidden Woods': {
+          'Kalle Demos Heart Container': {
+            need: 'Boomerang',
+            types: 'Boss',
+          },
+        },
+      });
+    });
+
+    describe('when the boss location has not been checked', () => {
+      test('returns false', () => {
+        const isItemAvailable = logic.isRequirementMet('Defeated Kalle Demos');
+
+        expect(isItemAvailable).toEqual(false);
+      });
+    });
+
+    describe('when the boss location has been checked', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state().toggleLocationChecked('Forbidden Woods', 'Kalle Demos Heart Container'),
+        );
+      });
+
+      test('returns true', () => {
+        const isItemAvailable = logic.isRequirementMet('Defeated Kalle Demos');
+
+        expect(isItemAvailable).toEqual(true);
+      });
+    });
+
+    describe('when the requirements for the other location have been met', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state().incrementItem('Boomerang'),
+        );
+      });
+
+      test('returns true', () => {
+        const isItemAvailable = logic.isRequirementMet('Defeated Kalle Demos');
+
+        expect(isItemAvailable).toEqual(true);
       });
     });
   });

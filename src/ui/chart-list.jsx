@@ -4,6 +4,8 @@ import React from 'react';
 
 import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
+import Permalink from '../services/permalink';
+import Settings from '../services/settings';
 import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
@@ -16,121 +18,76 @@ import Tooltip from './tooltip';
 class ChartList extends React.PureComponent {
   static NUM_ROWS = 20;
 
-  mapChart(chart) {
+  chart(chartName, numColumns, isMapping) {
     const {
+      incrementItem,
       openedChartForIsland,
+      spheres,
+      trackSpheres,
       trackerState,
+      unsetChartMapping,
       updateChartMapping,
     } = this.props;
 
-    if (_.isNil(chart)) {
-      return null;
-    }
-
-    const itemCount = trackerState.getItemValue(chart);
-
-    const mappedIslandForChart = trackerState.getIslandFromChartMapping(chart);
-    const isChartMapped = !_.isNil(mappedIslandForChart);
-
-    const notInteractiveClassName = isChartMapped ? 'detail-not-interactive' : '';
-
-    let color;
-    if (isChartMapped) {
-      color = LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
-    } else if (itemCount === 1) {
-      color = LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION;
-    } else {
-      color = LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION;
-    }
-
-    const updateChartMappingFunc = (event) => {
-      event.stopPropagation();
-
-      if (!isChartMapped) {
-        updateChartMapping(chart, openedChartForIsland);
-      }
-    };
-
-    const chartElement = (
-      <div
-        className={`detail-span ${notInteractiveClassName} ${color} font-smallest`}
-        onClick={updateChartMappingFunc}
-        onKeyDown={KeyDownWrapper.onSpaceKey(updateChartMappingFunc)}
-        role="button"
-        tabIndex="0"
-      >
-        {chart}
-      </div>
-    );
-
-    let chartContent;
-    if (isChartMapped) {
-      const tooltip = (
-        <div className="tooltip">
-          <div className="tooltip-title">Chart Leads To</div>
-          <div>{mappedIslandForChart}</div>
-        </div>
-      );
-
-      chartContent = (
-        <Tooltip tooltipContent={tooltip}>
-          {chartElement}
-        </Tooltip>
-      );
-    } else {
-      chartContent = chartElement;
-    }
-
-    return <td key={chart}>{chartContent}</td>;
-  }
-
-  chart(chartName, showLocationTooltip = true) {
     if (_.isNil(chartName)) {
       return null;
     }
 
-    const {
-      incrementItem,
-      spheres,
-      trackerState,
-      trackSpheres,
-      unsetChartMapping,
-    } = this.props;
-
     const itemCount = trackerState.getItemValue(chartName);
+
     const mappedIslandForChart = (
-      LogicHelper.isRandomizedChartsSettings()
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)
         ? trackerState.getIslandFromChartMapping(chartName)
         : LogicHelper.islandForChart(chartName)
     );
     const isChartMapped = !_.isNil(mappedIslandForChart);
 
-    const color = itemCount === 1
-      ? LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION
-      : LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION;
+    const notInteractiveClassName = (isChartMapped && isMapping) ? 'detail-not-interactive' : '';
+
+    let color;
+    if ((isMapping && isChartMapped) || (!isMapping && itemCount === 1)) {
+      color = LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
+    } else if ((isMapping && itemCount === 1) || (!isMapping)) {
+      color = LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION;
+    } else {
+      color = LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION;
+    }
 
     let locations = [];
-    if (showLocationTooltip && trackSpheres) {
+    if (trackSpheres && isMapping) {
       locations = trackerState.getLocationsForItem(chartName);
     }
 
-    const incrementItemFunc = (event) => {
+    let fontSizeClassName = '';
+    if (numColumns === 3) {
+      fontSizeClassName = 'font-three-columns';
+    } else if (numColumns === 2) {
+      fontSizeClassName = 'font-two-columns';
+    }
+
+    const updateChartFunc = (event) => {
       event.stopPropagation();
 
-      incrementItem(chartName);
+      if (isMapping) {
+        if (!isChartMapped) {
+          updateChartMapping(chartName, openedChartForIsland);
+        }
+      } else {
+        incrementItem(chartName);
 
-      if (LogicHelper.isRandomizedChartsSettings()) {
-        if (isChartMapped) {
-          unsetChartMapping(LogicHelper.chartForIslandName(mappedIslandForChart), true);
+        if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
+          if (isChartMapped) {
+            unsetChartMapping(LogicHelper.randomizedChartForIsland(mappedIslandForChart), true);
+          }
         }
       }
     };
 
     const chartElement = (
       <div
-        className={`detail-span ${color} font-smallest`}
-        onClick={incrementItemFunc}
-        onKeyDown={KeyDownWrapper.onSpaceKey(incrementItemFunc)}
+        className={`detail-span ${notInteractiveClassName} ${color} ${fontSizeClassName}`}
+        onClick={updateChartFunc}
+        onKeyDown={KeyDownWrapper.onSpaceKey(updateChartFunc)}
         role="button"
         tabIndex="0"
       >
@@ -177,19 +134,18 @@ class ChartList extends React.PureComponent {
   }
 
   render() {
-    const { clearOpenedMenus, openedChartForIsland } = this.props;
+    const {
+      clearOpenedMenus,
+      openedChartForIsland,
+      trackNonProgressCharts,
+    } = this.props;
 
-    const chartItemFunc = (chart) => (
-      openedChartForIsland
-        ? this.mapChart(chart)
-        : this.chart(chart)
+    const chartItemFunc = (chart, numColumns) => (
+      this.chart(chart, numColumns, openedChartForIsland)
     );
 
     const chartRows = MapTable.groupIntoChunks(
-      [
-        ...LogicHelper.ALL_TREASURE_CHARTS,
-        ...LogicHelper.ALL_TRIFORCE_CHARTS,
-      ],
+      LogicHelper.allCharts({ includeNonProgressCharts: trackNonProgressCharts }),
       chartItemFunc,
       ChartList.NUM_ROWS,
     );
@@ -221,6 +177,7 @@ ChartList.propTypes = {
   openedChartForIsland: PropTypes.string,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackNonProgressCharts: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   updateChartMapping: PropTypes.func.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,

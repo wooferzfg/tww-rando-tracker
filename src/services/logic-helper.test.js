@@ -12,11 +12,49 @@ import Permalink from './permalink';
 import Settings from './settings';
 
 describe('LogicHelper', () => {
+  const fullSetup = (settingsOverrides = {}) => {
+    const defaultSettings = {
+      options: {
+        [Permalink.OPTIONS.KEYLUNACY]: false,
+        [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+        [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+        [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+        [Permalink.OPTIONS.MIX_ENTRANCES]: (
+          Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+        ),
+        [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+        [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+        [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
+        [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
+        [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+        [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+      },
+      startingGear: {
+        [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+      },
+    };
+
+    Settings.initializeRaw(_.merge(defaultSettings, settingsOverrides));
+
+    Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
+    Macros.initialize(_.cloneDeep(TEST_MACROS));
+
+    LogicTweaks.applyTweaks();
+
+    LogicHelper.initialize();
+  };
+
   beforeEach(() => {
     Locations.reset();
     LogicHelper.reset();
     Macros.reset();
     Settings.reset();
+
+    LogicHelper.initialize();
   });
 
   describe('initialize', () => {
@@ -73,6 +111,11 @@ describe('LogicHelper', () => {
             [LogicHelper.ITEMS.BOMBS]: 1,
             [LogicHelper.ITEMS.DEKU_LEAF]: 1,
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 2,
+            'Dragon Tingle Statue': 1,
+            'Earth Tingle Statue': 1,
+            'Forbidden Tingle Statue': 1,
+            'Goddess Tingle Statue': 1,
+            'Wind Tingle Statue': 1,
           },
         });
       });
@@ -185,6 +228,18 @@ describe('LogicHelper', () => {
   describe('ALL_TRIFORCE_CHARTS', () => {
     test('returns expected triforce charts', () => {
       expect(LogicHelper.ALL_TRIFORCE_CHARTS).toMatchSnapshot();
+    });
+  });
+
+  describe('MAIN_DUNGEONS', () => {
+    test('returns all dungeons with keys', () => {
+      expect(LogicHelper.MAIN_DUNGEONS).toMatchSnapshot();
+    });
+  });
+
+  describe('REQUIRED_BOSSES_MODE_DUNGEONS', () => {
+    test('returns all dungeons in required bosses mode', () => {
+      expect(LogicHelper.REQUIRED_BOSSES_MODE_DUNGEONS).toMatchSnapshot();
     });
   });
 
@@ -328,36 +383,36 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('isRaceModeDungeon', () => {
-    describe('when the dungeon is a race mode dungeon', () => {
+  describe('isRequiredBossesModeDungeon', () => {
+    describe('when the dungeon is a required bosses mode dungeon', () => {
       test('returns true', () => {
-        const isRaceModeDungeon = LogicHelper.isRaceModeDungeon('Dragon Roost Cavern');
+        const isRequiredBossesModeDungeon = LogicHelper.isRequiredBossesModeDungeon('Dragon Roost Cavern');
 
-        expect(isRaceModeDungeon).toEqual(true);
+        expect(isRequiredBossesModeDungeon).toEqual(true);
       });
     });
 
     describe('when the dungeon is Forsaken Fortress', () => {
       test('returns true', () => {
-        const isRaceModeDungeon = LogicHelper.isRaceModeDungeon('Forsaken Fortress');
+        const isRequiredBossesModeDungeon = LogicHelper.isRequiredBossesModeDungeon('Forsaken Fortress');
 
-        expect(isRaceModeDungeon).toEqual(true);
+        expect(isRequiredBossesModeDungeon).toEqual(true);
       });
     });
 
     describe("when the dungeon is Ganon's Tower", () => {
       test('returns false', () => {
-        const isRaceModeDungeon = LogicHelper.isRaceModeDungeon("Ganon's Tower");
+        const isRequiredBossesModeDungeon = LogicHelper.isRequiredBossesModeDungeon("Ganon's Tower");
 
-        expect(isRaceModeDungeon).toEqual(false);
+        expect(isRequiredBossesModeDungeon).toEqual(false);
       });
     });
 
     describe('when the argument is not a dungeon', () => {
       test('returns false', () => {
-        const isRaceModeDungeon = LogicHelper.isRaceModeDungeon('Pawprint Isle');
+        const isRequiredBossesModeDungeon = LogicHelper.isRequiredBossesModeDungeon('Pawprint Isle');
 
-        expect(isRaceModeDungeon).toEqual(false);
+        expect(isRequiredBossesModeDungeon).toEqual(false);
       });
     });
   });
@@ -373,6 +428,24 @@ describe('LogicHelper', () => {
       const entryName = LogicHelper.entryName('Dragon Roost Island Secret Cave');
 
       expect(entryName).toEqual('Entered Dragon Roost Island Cave');
+    });
+
+    test('returns the entry name based on a boss name', () => {
+      const entryName = LogicHelper.entryName('Gohma Boss Arena');
+
+      expect(entryName).toEqual('Entered Gohma');
+    });
+
+    test('returns the entry name based on a miniboss name', () => {
+      const entryName = LogicHelper.entryName('Forbidden Woods Miniboss Arena');
+
+      expect(entryName).toEqual('Entered FW Miniboss');
+    });
+
+    test('returns the entry name based on an inner cave', () => {
+      const entryName = LogicHelper.entryName('Ice Ring Isle Inner Cave');
+
+      expect(entryName).toEqual('Entered Ice Ring Isle Inner Cave');
     });
   });
 
@@ -394,34 +467,576 @@ describe('LogicHelper', () => {
 
       expect(shortEntranceName).toEqual('Diamond Steppe Island Cave');
     });
+
+    test('only mentions the island name for Savage Labyrinth', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Savage Labyrinth');
+
+      expect(shortEntranceName).toEqual('Outset Island Cave');
+    });
+
+    test('only mentions the island name for Cabana Labyrinth', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Cabana Labyrinth');
+
+      expect(shortEntranceName).toEqual('Private Oasis Cave');
+    });
+
+    test('handles the Pawprint Isle main entrance correctly', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Pawprint Isle Chuchu Cave');
+
+      expect(shortEntranceName).toEqual('Pawprint Isle Cave');
+    });
+
+    test('handles the Pawprint Isle Side Isle entrance correctly', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Pawprint Isle Wizzrobe Cave');
+
+      expect(shortEntranceName).toEqual('Pawprint Isle Side Isle Cave');
+    });
+
+    test('returns the inner cave name', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Cliff Plateau Isles Inner Cave');
+
+      expect(shortEntranceName).toEqual('Cliff Plateau Isles Inner Entrance');
+    });
+
+    test('returns the boss door name', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Kalle Demos Boss Arena');
+
+      expect(shortEntranceName).toEqual('FW Boss Door');
+    });
+
+    test('returns the miniboss door name', () => {
+      const shortEntranceName = LogicHelper.shortEntranceName('Earth Temple Miniboss Arena');
+
+      expect(shortEntranceName).toEqual('ET Miniboss Door');
+    });
   });
 
-  describe('cavesForIsland', () => {
-    test('returns no cave entrances when the island has no entrances', () => {
-      const caveEntrances = LogicHelper.cavesForIsland('Windfall Island');
+  describe('shortExitName', () => {
+    test('returns the unmodified dungeon name', () => {
+      const shortExitName = LogicHelper.shortExitName('Dragon Roost Cavern');
 
-      expect(caveEntrances).toEqual([]);
+      expect(shortExitName).toEqual('Dragon Roost Cavern');
     });
 
-    test('returns one cave entrance when the island has one entrance', () => {
-      const caveEntrances = LogicHelper.cavesForIsland('Dragon Roost Island');
+    test('returns the cave name without mentioning secret caves', () => {
+      const shortExitName = LogicHelper.shortExitName('Dragon Roost Island Secret Cave');
 
-      expect(caveEntrances).toEqual(['Dragon Roost Island Secret Cave']);
+      expect(shortExitName).toEqual('Dragon Roost Island Cave');
     });
 
-    test('returns the cave entrance when the island does not match the cave name', () => {
-      const caveEntrances = LogicHelper.cavesForIsland('Private Oasis');
+    test('returns the cave name without mentioning warp maze caves', () => {
+      const shortExitName = LogicHelper.shortExitName('Diamond Steppe Island Warp Maze Cave');
 
-      expect(caveEntrances).toEqual(['Cabana Labyrinth']);
+      expect(shortExitName).toEqual('Diamond Steppe Island Cave');
     });
 
-    test('returns multiple cave entrances when the island has multiple entrances', () => {
-      const caveEntrances = LogicHelper.cavesForIsland('Pawprint Isle');
+    test('returns Savage Labyrinth unmodified', () => {
+      const shortExitName = LogicHelper.shortExitName('Savage Labyrinth');
 
-      expect(caveEntrances).toEqual([
-        'Pawprint Isle Chuchu Cave',
-        'Pawprint Isle Wizzrobe Cave',
-      ]);
+      expect(shortExitName).toEqual('Savage Labyrinth');
+    });
+
+    test('returns Cabana Labyrinth unmodified', () => {
+      const shortExitName = LogicHelper.shortExitName('Cabana Labyrinth');
+
+      expect(shortExitName).toEqual('Cabana Labyrinth');
+    });
+
+    test('handles the Pawprint Chuchu Cave correctly', () => {
+      const shortExitName = LogicHelper.shortExitName('Pawprint Isle Chuchu Cave');
+
+      expect(shortExitName).toEqual('Pawprint Isle Chuchu Cave');
+    });
+
+    test('handles the Pawprint Wizzrobe Cave correctly', () => {
+      const shortExitName = LogicHelper.shortExitName('Pawprint Isle Wizzrobe Cave');
+
+      expect(shortExitName).toEqual('Pawprint Isle Wizzrobe Cave');
+    });
+
+    test('returns the inner cave name', () => {
+      const shortExitName = LogicHelper.shortExitName('Ice Ring Isle Inner Cave');
+
+      expect(shortExitName).toEqual('Ice Ring Isle Inner Cave');
+    });
+
+    test('returns the boss name', () => {
+      const shortExitName = LogicHelper.shortExitName('Kalle Demos Boss Arena');
+
+      expect(shortExitName).toEqual('Kalle Demos');
+    });
+
+    test('returns the miniboss name', () => {
+      const shortExitName = LogicHelper.shortExitName('Wind Temple Miniboss Arena');
+
+      expect(shortExitName).toEqual('WT Miniboss');
+    });
+
+    test('returns the nothing exit unmodified', () => {
+      const shortExitName = LogicHelper.shortExitName(LogicHelper.NOTHING_EXIT);
+
+      expect(shortExitName).toEqual('Nothing');
+    });
+  });
+
+  describe('exitsForIsland', () => {
+    describe('when there are no random island entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns an empty array', () => {
+        const islandExits = LogicHelper.exitsForIsland('Cliff Plateau Isles');
+
+        expect(islandExits).toEqual([]);
+      });
+    });
+
+    describe('when there are no nested cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns no cave entrances when the island has no entrances', () => {
+        const islandExits = LogicHelper.exitsForIsland('Windfall Island');
+
+        expect(islandExits).toEqual([]);
+      });
+
+      test('returns one cave entrance when the island has one entrance', () => {
+        const islandExits = LogicHelper.exitsForIsland('Dragon Roost Island');
+
+        expect(islandExits).toEqual(['Dragon Roost Island Secret Cave']);
+      });
+
+      test('returns the cave entrance when the island does not match the cave name', () => {
+        const islandExits = LogicHelper.exitsForIsland('Private Oasis');
+
+        expect(islandExits).toEqual(['Cabana Labyrinth']);
+      });
+
+      test('returns multiple cave entrances when the island has multiple entrances', () => {
+        const islandExits = LogicHelper.exitsForIsland('Pawprint Isle');
+
+        expect(islandExits).toEqual([
+          'Pawprint Isle Chuchu Cave',
+          'Pawprint Isle Wizzrobe Cave',
+        ]);
+      });
+
+      test('does not include nested caves', () => {
+        const islandExits = LogicHelper.exitsForIsland('Cliff Plateau Isles');
+
+        expect(islandExits).toEqual(['Cliff Plateau Isles Secret Cave']);
+      });
+
+      test('does not include fairy fountains', () => {
+        const islandExits = LogicHelper.exitsForIsland('Outset Island');
+
+        expect(islandExits).toEqual(['Savage Labyrinth']);
+      });
+    });
+
+    describe('when there are nested cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('includes nested caves', () => {
+        const islandExits = LogicHelper.exitsForIsland('Cliff Plateau Isles');
+
+        expect(islandExits).toEqual([
+          'Cliff Plateau Isles Secret Cave',
+          'Cliff Plateau Isles Inner Cave',
+        ]);
+      });
+
+      test('includes fairy fountains', () => {
+        const islandExits = LogicHelper.exitsForIsland('Outset Island');
+
+        expect(islandExits).toEqual([
+          'Savage Labyrinth',
+          'Outset Fairy Fountain',
+        ]);
+      });
+    });
+
+    describe('when there are only nested cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('includes nested caves', () => {
+        const islandExits = LogicHelper.exitsForIsland('Cliff Plateau Isles');
+
+        expect(islandExits).toEqual(['Cliff Plateau Isles Inner Cave']);
+      });
+
+      test('returns no caves for other islands', () => {
+        const islandExits = LogicHelper.exitsForIsland('Pawprint Isle');
+
+        expect(islandExits).toEqual([]);
+      });
+    });
+
+    describe('when there are only fairy fountain entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('includes fairy fountains', () => {
+        const islandExits = LogicHelper.exitsForIsland('Eastern Fairy Island');
+
+        expect(islandExits).toEqual(['Eastern Fairy Fountain']);
+      });
+
+      test('returns no caves for other islands', () => {
+        const islandExits = LogicHelper.exitsForIsland('Pawprint Isle');
+
+        expect(islandExits).toEqual([]);
+      });
+    });
+  });
+
+  describe('entrancesForIsland', () => {
+    describe('when cave entrances are not randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('does not include caves', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Cliff Plateau Isles');
+
+        expect(islandEntrances).toEqual([]);
+      });
+
+      test('does not include fairy fountains', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Outset Island');
+
+        expect(islandEntrances).toEqual([]);
+      });
+
+      test('includes dungeon entrances', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Dragon Roost Island');
+
+        expect(islandEntrances).toEqual(['Dragon Roost Cavern']);
+      });
+    });
+
+    describe('when dungeon entrances are not randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('does not include dungeon entrances', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Dragon Roost Island');
+
+        expect(islandEntrances).toEqual(['Dragon Roost Island Secret Cave']);
+      });
+    });
+
+    describe('when all entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('includes nested caves', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Cliff Plateau Isles');
+
+        expect(islandEntrances).toEqual([
+          'Cliff Plateau Isles Secret Cave',
+          'Cliff Plateau Isles Inner Cave',
+        ]);
+      });
+
+      test('includes fairy fountains', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Outset Island');
+
+        expect(islandEntrances).toEqual([
+          'Savage Labyrinth',
+          'Outset Fairy Fountain',
+        ]);
+      });
+
+      test('includes dungeon entrances', () => {
+        const islandEntrances = LogicHelper.entrancesForIsland('Dragon Roost Island');
+
+        expect(islandEntrances).toEqual([
+          'Dragon Roost Cavern',
+          'Dragon Roost Island Secret Cave',
+        ]);
+      });
+    });
+  });
+
+  describe('exitsForDungeon', () => {
+    describe('when dungeon entrances are not randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns an empty array', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forbidden Woods');
+
+        expect(exitsForDungeon).toEqual([]);
+      });
+    });
+
+    describe('when there are no nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns just the dungeon entrance for a dungeon with a random entrance', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forbidden Woods');
+
+        expect(exitsForDungeon).toEqual(['Forbidden Woods']);
+      });
+
+      test('returns no entrances for a dungeon with no random entrance', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forsaken Fortress');
+
+        expect(exitsForDungeon).toEqual([]);
+      });
+
+      test('returns no entrances for Hyrule', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Hyrule');
+
+        expect(exitsForDungeon).toEqual([]);
+      });
+    });
+
+    describe('when dungeons, bosses, and minibosses are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('returns the dungeon and boss for DRC', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Dragon Roost Cavern');
+
+        expect(exitsForDungeon).toEqual(['Dragon Roost Cavern', 'Gohma Boss Arena']);
+      });
+
+      test('returns the dungeon, miniboss, and boss for FW', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forbidden Woods');
+
+        expect(exitsForDungeon).toEqual(['Forbidden Woods', 'Forbidden Woods Miniboss Arena', 'Kalle Demos Boss Arena']);
+      });
+
+      test('returns only the boss for FF', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forsaken Fortress');
+
+        expect(exitsForDungeon).toEqual(['Helmaroc King Boss Arena']);
+      });
+
+      test('returns the Master Sword Chamber for Hyrule', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Hyrule');
+
+        expect(exitsForDungeon).toEqual(['Master Sword Chamber']);
+      });
+    });
+
+    describe('when only bosses are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('returns only the boss for DRC', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Dragon Roost Cavern');
+
+        expect(exitsForDungeon).toEqual(['Gohma Boss Arena']);
+      });
+
+      test('returns only the boss for FW', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forbidden Woods');
+
+        expect(exitsForDungeon).toEqual(['Kalle Demos Boss Arena']);
+      });
+
+      test('returns only the boss for FF', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forsaken Fortress');
+
+        expect(exitsForDungeon).toEqual(['Helmaroc King Boss Arena']);
+      });
+    });
+
+    describe('when only minibosses are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns no entrances for DRC', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Dragon Roost Cavern');
+
+        expect(exitsForDungeon).toEqual([]);
+      });
+
+      test('returns only the miniboss for FW', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forbidden Woods');
+
+        expect(exitsForDungeon).toEqual(['Forbidden Woods Miniboss Arena']);
+      });
+
+      test('returns no entrances for FF', () => {
+        const exitsForDungeon = LogicHelper.exitsForDungeon('Forsaken Fortress');
+
+        expect(exitsForDungeon).toEqual([]);
+      });
+    });
+  });
+
+  describe('entrancesForDungeon', () => {
+    describe('when there are no nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns no entrances for a dungeon with a random entrance', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+
+        expect(entrancesForDungeon).toEqual([]);
+      });
+
+      test('returns no entrances for a dungeon with no random entrance', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
+
+        expect(entrancesForDungeon).toEqual([]);
+      });
+
+      test('returns no entrances for Hyrule', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Hyrule');
+
+        expect(entrancesForDungeon).toEqual([]);
+      });
+    });
+
+    describe('when dungeons, bosses, and minibosses are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('returns only the boss for DRC', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Dragon Roost Cavern');
+
+        expect(entrancesForDungeon).toEqual(['Gohma Boss Arena']);
+      });
+
+      test('returns the miniboss and boss for FW', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forbidden Woods');
+
+        expect(entrancesForDungeon).toEqual(['Forbidden Woods Miniboss Arena', 'Kalle Demos Boss Arena']);
+      });
+
+      test('returns only the boss for FF', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Forsaken Fortress');
+
+        expect(entrancesForDungeon).toEqual(['Helmaroc King Boss Arena']);
+      });
+
+      test('returns the Master Sword Chamber for Hyrule', () => {
+        const entrancesForDungeon = LogicHelper.entrancesForDungeon('Hyrule');
+
+        expect(entrancesForDungeon).toEqual(['Master Sword Chamber']);
+      });
     });
   });
 
@@ -430,8 +1045,15 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
@@ -447,8 +1069,15 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
@@ -464,8 +1093,15 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
@@ -481,8 +1117,15 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
@@ -493,75 +1136,52 @@ describe('LogicHelper', () => {
         expect(isRandomEntrances).toEqual(false);
       });
     });
-  });
 
-  describe('isRandomDungeonEntrances', () => {
-    describe('when dungeon entrances are randomized', () => {
+    describe('when there are nested random entrances', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
 
       test('returns true', () => {
-        const isRandomDungeonEntrances = LogicHelper.isRandomDungeonEntrances();
+        const isRandomEntrances = LogicHelper.isRandomEntrances();
 
-        expect(isRandomDungeonEntrances).toEqual(true);
+        expect(isRandomEntrances).toEqual(true);
       });
     });
 
-    describe('when dungeon entrances are not randomized', () => {
+    describe('when there are random fairy fountain entrances', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
-          },
-        });
-      });
-
-      test('returns false', () => {
-        const isRandomDungeonEntrances = LogicHelper.isRandomDungeonEntrances();
-
-        expect(isRandomDungeonEntrances).toEqual(false);
-      });
-    });
-  });
-
-  describe('isRandomCaveEntrances', () => {
-    describe('when cave entrances are randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
           },
         });
       });
 
       test('returns true', () => {
-        const isRandomCaveEntrances = LogicHelper.isRandomCaveEntrances();
+        const isRandomEntrances = LogicHelper.isRandomEntrances();
 
-        expect(isRandomCaveEntrances).toEqual(true);
-      });
-    });
-
-    describe('when cave entrances are not randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
-          },
-        });
-      });
-
-      test('returns false', () => {
-        const isRandomCaveEntrances = LogicHelper.isRandomCaveEntrances();
-
-        expect(isRandomCaveEntrances).toEqual(false);
+        expect(isRandomEntrances).toEqual(true);
       });
     });
   });
@@ -571,8 +1191,15 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
@@ -588,8 +1215,15 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
@@ -605,13 +1239,20 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
 
-      test('returns all the caves', () => {
+      test('returns all the caves without inner caves', () => {
         const allRandomEntrances = LogicHelper.allRandomEntrances();
 
         expect(allRandomEntrances).toMatchSnapshot();
@@ -622,8 +1263,15 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
@@ -639,13 +1287,138 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
 
       test('returns all the dungeons and caves', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toMatchSnapshot();
+      });
+    });
+
+    describe('when there are nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns all the dungeons, bosses, and minibosses', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toMatchSnapshot();
+      });
+    });
+
+    describe('when there are nested cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns all the caves and inner caves', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toMatchSnapshot();
+      });
+    });
+
+    describe('when there are nested dungeon entrances and caves separately', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('returns all the dungeons, bosses, minibosses, caves, and fairies', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toMatchSnapshot();
+      });
+    });
+
+    describe('when there are nested dungeon entrances and caves together', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+      });
+
+      test('returns all the dungeons, bosses, minibosses, caves, and fairies', () => {
+        const allRandomEntrances = LogicHelper.allRandomEntrances();
+
+        expect(allRandomEntrances).toMatchSnapshot();
+      });
+    });
+
+    describe('when only inner entrances are randomized', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: Permalink.MIX_ENTRANCES_OPTIONS.KEEP_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      test('returns all the bosses, minibosses, and inner caves', () => {
         const allRandomEntrances = LogicHelper.allRandomEntrances();
 
         expect(allRandomEntrances).toMatchSnapshot();
@@ -658,8 +1431,15 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
@@ -675,8 +1455,15 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
@@ -692,8 +1479,15 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
@@ -719,8 +1513,15 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
       });
@@ -738,6 +1539,570 @@ describe('LogicHelper', () => {
           const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Savage Labyrinth');
 
           expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when there are nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon', () => {
+        test('returns all the dungeons, bosses, and minibosses except its own boss door and miniboss', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Tower of the Gods');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a boss', () => {
+        test('returns all the dungeons, bosses, and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos Boss Arena');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a miniboss', () => {
+        test('returns all the dungeons, bosses, and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Earth Temple Miniboss Arena');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when there are nested cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      describe('when the exit is a cave without an inner cave', () => {
+        test('returns all the caves', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Boating Course Secret Cave');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a cave with an inner cave', () => {
+        test('returns all the caves except its own inner cave', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Cliff Plateau Isles Secret Cave');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is an inner cave', () => {
+        test('returns all the caves', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Ice Ring Isle Inner Cave');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when there are nested dungeon entrances with caves separately', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon', () => {
+        test('returns all the dungeons, bosses, and minibosses except its own boss door and miniboss', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Tower of the Gods');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a boss', () => {
+        test('returns all the dungeons, bosses, and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos Boss Arena');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a miniboss', () => {
+        test('returns all the dungeons, bosses, and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Earth Temple Miniboss Arena');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a cave', () => {
+        test('returns all the caves and fairies', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Savage Labyrinth');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a cave with an inner cave', () => {
+        test('returns all the caves and fairies except its own inner cave', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Ice Ring Isle Secret Cave');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is an inner cave', () => {
+        test('returns all the caves and fairies', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Cliff Plateau Isles Inner Cave');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a fairy fountain', () => {
+        test('returns all the caves and fairies', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Eastern Fairy Fountain');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when there are nested dungeon entrances with caves together', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses except its own boss door and miniboss', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Tower of the Gods');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a boss', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos Boss Arena');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a miniboss', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Earth Temple Miniboss Arena');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a cave', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Savage Labyrinth');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a cave with an inner cave', () => {
+        test('returns all the dungeons, bosses, minibosses, fairies, and caves except its own inner cave', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Ice Ring Isle Secret Cave');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is an inner cave', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Cliff Plateau Isles Inner Cave');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a fairy fountain', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Outset Fairy Fountain');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when only inner entrances are randomized separately', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      describe('when the exit is a boss', () => {
+        test('returns all the bosses and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Kalle Demos Boss Arena');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is a miniboss', () => {
+        test('returns all the bosses and minibosses', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Earth Temple Miniboss Arena');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+
+      describe('when the exit is an inner cave', () => {
+        test('returns all the inner caves', () => {
+          const randomEntrancesForExit = LogicHelper.randomEntrancesForExit('Cliff Plateau Isles Inner Cave');
+
+          expect(randomEntrancesForExit).toMatchSnapshot();
+        });
+      });
+    });
+  });
+
+  describe('randomExitsForEntrance', () => {
+    describe('when dungeon and cave entrances are randomized separately', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      describe('when the entrance is a dungeon', () => {
+        test('returns all the dungeons', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Dragon Roost Cavern');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+
+      describe('when the entrance is a cave', () => {
+        test('returns all the caves', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Savage Labyrinth');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when there are nested dungeon entrances with caves together', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+      });
+
+      describe('when the entrance is a dungeon', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Tower of the Gods');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+
+      describe('when the entrance is a boss', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses except its own dungeon (FW)', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Kalle Demos Boss Arena');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+
+      describe('when the entrance is a miniboss', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses except its own dungeon (ET)', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Earth Temple Miniboss Arena');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+
+      describe('when the entrance is a cave', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Cliff Plateau Isles');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+
+      describe('when the entrance is an inner cave', () => {
+        test('returns all the dungeons, bosses, minibosses, fairies, and caves except the cave that contains the entrance', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Ice Ring Isle Inner Cave');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+
+      describe('when the entrance is a fairy fountain', () => {
+        test('returns all the dungeons, caves, fairies, bosses, and minibosses', () => {
+          const randomExitsForEntrance = LogicHelper.randomExitsForEntrance('Outset Fairy Fountain');
+
+          expect(randomExitsForEntrance).toMatchSnapshot();
+        });
+      });
+    });
+  });
+
+  describe('nestedEntrancesForExit', () => {
+    describe('when there are no nested entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon', () => {
+        test('returns an empty array', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods');
+
+          expect(nestedEntrancesForExit).toEqual([]);
+        });
+      });
+
+      describe('when the exit is a cave', () => {
+        test('returns an empty array', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Ice Ring Isle Secret Cave');
+
+          expect(nestedEntrancesForExit).toEqual([]);
+        });
+      });
+    });
+
+    describe('when there are nested entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon with only a boss door', () => {
+        test('returns the boss', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Dragon Roost Cavern');
+
+          expect(nestedEntrancesForExit).toEqual(['Gohma Boss Arena']);
+        });
+      });
+
+      describe('when the exit is a dungeon with boss and miniboss doors', () => {
+        test('returns the boss and miniboss', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods');
+
+          expect(nestedEntrancesForExit).toEqual(['Kalle Demos Boss Arena', 'Forbidden Woods Miniboss Arena']);
+        });
+      });
+
+      describe('when the exit is a cave with an inner cave', () => {
+        test('returns the inner cave', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Ice Ring Isle Secret Cave');
+
+          expect(nestedEntrancesForExit).toEqual(['Ice Ring Isle Inner Cave']);
+        });
+      });
+
+      describe('when the exit does not have nested entrances', () => {
+        test('returns an empty array', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Overlook Island Secret Cave');
+
+          expect(nestedEntrancesForExit).toEqual([]);
+        });
+      });
+    });
+
+    describe('when there are nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon with boss and miniboss doors', () => {
+        test('returns the boss and miniboss', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods');
+
+          expect(nestedEntrancesForExit).toEqual(['Kalle Demos Boss Arena', 'Forbidden Woods Miniboss Arena']);
+        });
+      });
+
+      describe('when the exit is a cave', () => {
+        test('returns an empty array', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Ice Ring Isle Secret Cave');
+
+          expect(nestedEntrancesForExit).toEqual([]);
+        });
+      });
+    });
+
+    describe('when there are nested cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon', () => {
+        test('returns an empty array', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods');
+
+          expect(nestedEntrancesForExit).toEqual([]);
+        });
+      });
+
+      describe('when the exit is a cave with an inner cave', () => {
+        test('returns the inner cave', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Ice Ring Isle Secret Cave');
+
+          expect(nestedEntrancesForExit).toEqual(['Ice Ring Isle Inner Cave']);
+        });
+      });
+    });
+
+    describe('when there are only nested minibosses', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+          },
+        });
+      });
+
+      describe('when the exit is a dungeon', () => {
+        test('returns only the miniboss', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Forbidden Woods Miniboss Arena');
+
+          expect(nestedEntrancesForExit).toEqual([]);
+        });
+      });
+
+      describe('when the exit is a cave', () => {
+        test('returns an empty array', () => {
+          const nestedEntrancesForExit = LogicHelper.nestedEntrancesForExit('Ice Ring Isle Secret Cave');
+
+          expect(nestedEntrancesForExit).toEqual([]);
         });
       });
     });
@@ -759,170 +2124,6 @@ describe('LogicHelper', () => {
       expect(itemCountRequirement).toEqual({
         itemName: 'DRC Small Key',
         countRequired: 2,
-      });
-    });
-  });
-
-  describe('_isValidLocation', () => {
-    describe('when isDungeon is true', () => {
-      describe('when the location is in a unique dungeon', () => {
-        test('returns true', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            "Ganon's Tower",
-            'Defeat Ganondorf',
-            { isDungeon: true },
-          );
-
-          expect(isValidLocation).toEqual(true);
-        });
-      });
-
-      describe('when the location is on an island', () => {
-        test('returns false', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Outset Island',
-            'Great Fairy',
-            { isDungeon: true },
-          );
-
-          expect(isValidLocation).toEqual(false);
-        });
-      });
-
-      describe('when the location is in a dungeon that is also an island', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Tower of the Gods': {
-              'Light Two Torches': {
-                types: 'Dungeon',
-              },
-            },
-          };
-        });
-
-        test('returns true', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Tower of the Gods',
-            'Light Two Torches',
-            { isDungeon: true },
-          );
-
-          expect(isValidLocation).toEqual(true);
-        });
-      });
-
-      describe('when the location is on an island that is also a dungeon', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Tower of the Gods': {
-              'Sunken Treasure': {
-                types: 'Sunken Treasure',
-              },
-            },
-          };
-        });
-
-        test('returns false', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Tower of the Gods',
-            'Sunken Treasure',
-            { isDungeon: true },
-          );
-
-          expect(isValidLocation).toEqual(false);
-        });
-      });
-    });
-
-    describe('when isDungeon is false', () => {
-      describe('when the location is on a unique island', () => {
-        test('returns true', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Windfall Island',
-            'Tott',
-            { isDungeon: false },
-          );
-
-          expect(isValidLocation).toEqual(true);
-        });
-      });
-
-      describe('when the location is in a dungeon', () => {
-        test('returns false', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Forbidden Woods',
-            'First Room',
-            { isDungeon: false },
-          );
-
-          expect(isValidLocation).toEqual(false);
-        });
-      });
-
-      describe('when the location is on an island that is also a dungeon', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Forsaken Fortress': {
-              'Sunken Treasure': {
-                types: 'Sunken Treasure',
-              },
-            },
-          };
-        });
-
-        test('returns true', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Forsaken Fortress',
-            'Sunken Treasure',
-            { isDungeon: false },
-          );
-
-          expect(isValidLocation).toEqual(true);
-        });
-      });
-
-      describe('when the location is in a dungeon that is also an island', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            'Forsaken Fortress': {
-              'Phantom Ganon': {
-                types: 'Dungeon',
-              },
-            },
-          };
-        });
-
-        test('returns false', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Forsaken Fortress',
-            'Phantom Ganon',
-            { isDungeon: false },
-          );
-
-          expect(isValidLocation).toEqual(false);
-        });
-      });
-
-      describe('when the location is in a miscellaneous location', () => {
-        beforeEach(() => {
-          Locations.locations = {
-            Mailbox: {
-              'Letter from Baito': {
-                types: 'Mail',
-              },
-            },
-          };
-        });
-
-        test('returns true', () => {
-          const isValidLocation = LogicHelper._isValidLocation(
-            'Mailbox',
-            'Letter from Baito',
-            { isDungeon: false },
-          );
-
-          expect(isValidLocation).toEqual(true);
-        });
       });
     });
   });
@@ -1000,31 +2201,151 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('isRandomizedChartsSettings', () => {
-    test('returns true when randomized charts is on', () => {
-      Settings.initializeRaw({
-        options: {
-          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
-        },
-      });
-
-      expect(LogicHelper.isRandomizedChartsSettings()).toBe(true);
-    });
-
-    test('returns false when randomized charts is off', () => {
-      Settings.initializeRaw({
-        options: {
-          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-        },
-      });
-
-      expect(LogicHelper.isRandomizedChartsSettings()).toBe(false);
+  describe('randomizedChartForIsland', () => {
+    test('returns randomized chart for island name', () => {
+      expect(LogicHelper.randomizedChartForIsland('Outset Island')).toBe('Chart for Outset Island');
     });
   });
 
-  describe('chartForIslandName', () => {
-    test('returns chart for island name', () => {
-      expect(LogicHelper.chartForIslandName('Outset Island')).toBe('Chart for Outset Island');
+  describe('islandHasProgressItemChart', () => {
+    describe('when randomized charts is on, and only triforce charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns true for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Outset Island')).toEqual(true);
+      });
+
+      test('returns true for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Crescent Moon Island')).toEqual(true);
+      });
+    });
+
+    describe('when randomized charts is on, and all charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns true for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Greatfish Isle')).toEqual(true);
+      });
+
+      test('returns true for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Dragon Roost Island')).toEqual(true);
+      });
+    });
+
+    describe('when randomized charts is on, and no charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns false for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Southern Triangle Island')).toEqual(false);
+      });
+
+      test('returns false for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Bomb Island')).toEqual(false);
+      });
+    });
+
+    describe('when randomized charts is off, and only treasure charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns false for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Stone Watcher Island')).toEqual(false);
+      });
+
+      test('returns true for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Five-Eye Reef')).toEqual(true);
+      });
+    });
+
+    describe('when randomized charts is off, and only triforce charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns true for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Gale Isle')).toEqual(true);
+      });
+
+      test('returns false for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Tingle Island')).toEqual(false);
+      });
+    });
+
+    describe('when randomized charts is off, and all charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns true for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Two-Eye Reef')).toEqual(true);
+      });
+
+      test('returns true for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Forsaken Fortress')).toEqual(true);
+      });
+    });
+
+    describe('when randomized charts is off, and no charts are progress items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns false for an island that normally has a triforce chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Headstone Island')).toEqual(false);
+      });
+
+      test('returns false for an island that normally has a treasure chart', () => {
+        expect(LogicHelper.islandHasProgressItemChart('Angular Isles')).toEqual(false);
+      });
     });
   });
 
@@ -1056,10 +2377,10 @@ describe('LogicHelper', () => {
           },
         });
       });
-      test('returns true when treasure chart', () => {
+      test('returns false when treasure chart', () => {
         expect(LogicHelper.isRandomizedChart('Treasure Chart 25')).toBe(false);
       });
-      test('returns true when triforce chart', () => {
+      test('returns false when triforce chart', () => {
         expect(LogicHelper.isRandomizedChart('Triforce Chart 25')).toBe(false);
       });
       test('returns false when item', () => {
@@ -1070,7 +2391,7 @@ describe('LogicHelper', () => {
 
   describe('filterDetailedLocations', () => {
     beforeEach(() => {
-      Settings.initializeRaw({
+      fullSetup({
         flags: [
           Settings.FLAGS.PUZZLE_SECRET_CAVE,
           Settings.FLAGS.GREAT_FAIRY,
@@ -1081,19 +2402,11 @@ describe('LogicHelper', () => {
           Settings.FLAGS.SUNKEN_TREASURE,
         ],
       });
-
-      Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-      Macros.initialize(_.cloneDeep(TEST_MACROS));
-
-      LogicTweaks.applyTweaks();
-
-      LogicHelper.initialize();
     });
 
     describe('when onlyProgressLocations is true', () => {
       test('returns the correct locations for Windfall Island', () => {
         const filteredLocations = LogicHelper.filterDetailedLocations('Windfall Island', {
-          isDungeon: false,
           onlyProgressLocations: true,
         });
 
@@ -1108,8 +2421,7 @@ describe('LogicHelper', () => {
       });
 
       test('includes sunken treasure for the Tower of the Gods island', () => {
-        const filteredLocations = LogicHelper.filterDetailedLocations('Tower of the Gods', {
-          isDungeon: false,
+        const filteredLocations = LogicHelper.filterDetailedLocations('Tower of the Gods Sector', {
           onlyProgressLocations: true,
         });
 
@@ -1118,7 +2430,6 @@ describe('LogicHelper', () => {
 
       test('includes no locations for the Tower of the Gods dungeon', () => {
         const filteredLocations = LogicHelper.filterDetailedLocations('Tower of the Gods', {
-          isDungeon: true,
           onlyProgressLocations: true,
         });
 
@@ -1127,7 +2438,6 @@ describe('LogicHelper', () => {
 
       test("includes Defeat Ganondorf in Ganon's Tower", () => {
         const filteredLocations = LogicHelper.filterDetailedLocations("Ganon's Tower", {
-          isDungeon: true,
           onlyProgressLocations: true,
         });
 
@@ -1138,7 +2448,6 @@ describe('LogicHelper', () => {
     describe('when onlyProgressLocations is false', () => {
       test('returns the correct locations for Forsaken Fortress', () => {
         const filteredLocations = LogicHelper.filterDetailedLocations('Forsaken Fortress', {
-          isDungeon: true,
           onlyProgressLocations: false,
         });
 
@@ -1154,7 +2463,6 @@ describe('LogicHelper', () => {
 
       test('returns the correct locations for Bomb Island', () => {
         const filteredLocations = LogicHelper.filterDetailedLocations('Bomb Island', {
-          isDungeon: false,
           onlyProgressLocations: false,
         });
 
@@ -1168,7 +2476,6 @@ describe('LogicHelper', () => {
 
       test("returns the correct locations for Ganon's Tower", () => {
         const filteredLocations = LogicHelper.filterDetailedLocations("Ganon's Tower", {
-          isDungeon: true,
           onlyProgressLocations: false,
         });
 
@@ -1180,29 +2487,10 @@ describe('LogicHelper', () => {
 
       test('returns the correct locations for Hyrule', () => {
         const filteredLocations = LogicHelper.filterDetailedLocations('Hyrule', {
-          isDungeon: false,
           onlyProgressLocations: false,
         });
 
         expect(filteredLocations).toEqual(['Master Sword Chamber']);
-      });
-    });
-
-    describe('when isDungeon is not given', () => {
-      test('includes both island and dungeon locations', () => {
-        const filteredLocations = LogicHelper.filterDetailedLocations('Forsaken Fortress', {
-          onlyProgressLocations: false,
-        });
-
-        expect(filteredLocations).toEqual([
-          'Phantom Ganon',
-          'Chest Outside Upper Jail Cell',
-          'Chest Inside Lower Jail Cell',
-          'Chest Guarded By Bokoblin',
-          'Chest on Bed',
-          'Helmaroc King Heart Container',
-          'Sunken Treasure',
-        ]);
       });
     });
   });
@@ -1248,7 +2536,7 @@ describe('LogicHelper', () => {
     describe('when the location is on an island that is also a dungeon', () => {
       beforeEach(() => {
         Locations.locations = {
-          'Tower of the Gods': {
+          'Tower of the Gods Sector': {
             'Sunken Treasure': {
               types: 'Sunken Treasure',
             },
@@ -1257,7 +2545,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns false', () => {
-        const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Tower of the Gods', 'Sunken Treasure');
+        const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Tower of the Gods Sector', 'Sunken Treasure');
 
         expect(isPotentialKeyLocation).toEqual(false);
       });
@@ -1278,7 +2566,7 @@ describe('LogicHelper', () => {
       describe('when the tingle chest flag is active', () => {
         beforeEach(() => {
           Settings.initializeRaw({
-            flags: [Settings.FLAGS.TINGLE_CHEST],
+            flags: [Settings.FLAGS.DUNGEON, Settings.FLAGS.TINGLE_CHEST],
           });
         });
 
@@ -1289,15 +2577,78 @@ describe('LogicHelper', () => {
         });
       });
 
-      describe('when the tingle chest flag is not active', () => {
+      describe('when only dungeons are active', () => {
         beforeEach(() => {
-          Settings.initializeRaw({ flags: [] });
+          Settings.initializeRaw({ flags: [Settings.FLAGS.DUNGEON] });
         });
 
         test('returns false', () => {
           const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Tingle Statue Chest');
 
           expect(isPotentialKeyLocation).toEqual(false);
+        });
+      });
+
+      describe('when dungeons are not active', () => {
+        beforeEach(() => {
+          Settings.initializeRaw({ flags: [] });
+        });
+
+        test('returns true', () => {
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Tingle Statue Chest');
+
+          expect(isPotentialKeyLocation).toEqual(true);
+        });
+      });
+    });
+
+    describe('when the location is a dungeon secret', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Forbidden Woods': {
+            'Highest Pot in Vine Maze': {
+              need: 'Can Access Forbidden Woods',
+              types: 'Dungeon, Dungeon Secret',
+            },
+          },
+        };
+      });
+
+      describe('when the dungeon secret flag is active', () => {
+        beforeEach(() => {
+          Settings.initializeRaw({
+            flags: [Settings.FLAGS.DUNGEON, Settings.FLAGS.DUNGEON_SECRET],
+          });
+        });
+
+        test('returns true', () => {
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
+
+          expect(isPotentialKeyLocation).toEqual(true);
+        });
+      });
+
+      describe('when only dungeons are active', () => {
+        beforeEach(() => {
+          Settings.initializeRaw({ flags: [Settings.FLAGS.DUNGEON] });
+        });
+
+        test('returns false', () => {
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
+
+          expect(isPotentialKeyLocation).toEqual(false);
+        });
+      });
+
+      describe('when dungeons are not active', () => {
+        beforeEach(() => {
+          Settings.initializeRaw({ flags: [] });
+        });
+
+        test('returns true', () => {
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
+
+          expect(isPotentialKeyLocation).toEqual(true);
         });
       });
     });
@@ -1307,8 +2658,8 @@ describe('LogicHelper', () => {
         Locations.locations = {
           'Dragon Roost Cavern': {
             'Gohma Heart Container': {
-              need: 'Grappling Hook & DRC Big Key',
-              types: 'Dungeon',
+              need: 'Entered Gohma & Grappling Hook',
+              types: 'Dungeon, Boss',
             },
           },
         };
@@ -1320,6 +2671,51 @@ describe('LogicHelper', () => {
         expect(isPotentialKeyLocation).toEqual(false);
       });
     });
+
+    describe('when the location is a miniboss', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Wind Temple': {
+            'Wizzrobe Miniboss Room': {
+              need: 'Can Access Wind Temple',
+              types: 'Dungeon, Randomizable Miniboss Room',
+            },
+          },
+        };
+      });
+
+      describe('when minibosses are randomized', () => {
+        beforeEach(() => {
+          Settings.initializeRaw({
+            options: {
+              [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            },
+          });
+        });
+
+        test('returns false', () => {
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Wizzrobe Miniboss Room');
+
+          expect(isPotentialKeyLocation).toEqual(false);
+        });
+      });
+
+      describe('when minibosses are not randomized', () => {
+        beforeEach(() => {
+          Settings.initializeRaw({
+            options: {
+              [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            },
+          });
+        });
+
+        test('returns true', () => {
+          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Wizzrobe Miniboss Room');
+
+          expect(isPotentialKeyLocation).toEqual(true);
+        });
+      });
+    });
   });
 
   describe('bossLocation', () => {
@@ -1328,18 +2724,18 @@ describe('LogicHelper', () => {
         'Dragon Roost Cavern': {
           'Gohma Heart Container': {
             originalItem: 'Heart Container',
-            types: 'Dungeon',
+            types: 'Dungeon, Boss',
           },
         },
         'Tower of the Gods': {
           'Gohdan Heart Container': {
             originalItem: 'Heart Container',
-            types: 'Dungeon',
+            types: 'Dungeon, Boss',
           },
         },
         "Ganon's Tower": {
           'Defeat Ganondorf': {
-            types: 'Dungeon',
+            need: 'Can Reach and Defeat Ganondorf',
           },
         },
       };
@@ -1625,95 +3021,102 @@ describe('LogicHelper', () => {
   describe('requirementsForLocation', () => {
     describe('when starting without a sword', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
-            [Permalink.OPTIONS.KEYLUNACY]: false,
-            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.RACE_MODE]: false,
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
-            [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
           },
-          startingGear: {},
         });
-
-        Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-        Macros.initialize(_.cloneDeep(TEST_MACROS));
-
-        LogicTweaks.applyTweaks();
-
-        LogicHelper.initialize();
       });
 
       test('returns no requirements for Dragon Roost Island - Wind Shrine', () => {
-        const requirements = LogicHelper.requirementsForLocation('Dragon Roost Island', 'Wind Shrine');
+        const requirements = LogicHelper.requirementsForLocation('Dragon Roost Island', 'Wind Shrine', false);
 
         expect(requirements).toEqual(BooleanExpression.and('Nothing'));
       });
 
       test('returns simplified requirements for Outset Island - Savage Labyrinth - Floor 30', () => {
-        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(requirements).toMatchSnapshot();
       });
 
       test('returns simplified requirements for Outset Island - Savage Labyrinth - Floor 50', () => {
-        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 50');
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 50', false);
 
         expect(requirements).toMatchSnapshot();
       });
 
       test('returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container', () => {
-        const requirements = LogicHelper.requirementsForLocation('Dragon Roost Cavern', 'Gohma Heart Container');
+        const requirements = LogicHelper.requirementsForLocation('Dragon Roost Cavern', 'Gohma Heart Container', false);
 
         expect(requirements).toMatchSnapshot();
       });
 
       test('returns simplified requirements for Earth Temple - Jalhalla Heart Container', () => {
-        const requirements = LogicHelper.requirementsForLocation('Earth Temple', 'Jalhalla Heart Container');
+        const requirements = LogicHelper.requirementsForLocation('Earth Temple', 'Jalhalla Heart Container', false);
 
         expect(requirements).toMatchSnapshot();
       });
 
       test("returns simplified requirements for Mailbox - Beedle's Silver Membership Reward", () => {
-        const requirements = LogicHelper.requirementsForLocation('Mailbox', "Beedle's Silver Membership Reward");
+        const requirements = LogicHelper.requirementsForLocation('Mailbox', "Beedle's Silver Membership Reward", false);
 
         expect(requirements).toMatchSnapshot();
       });
 
       test('returns simplified requirements for Cliff Plateau Isles - Cave', () => {
-        const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave');
+        const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave', false);
 
         expect(requirements).toMatchSnapshot();
+      });
+
+      test('returns simplified requirements for Outset Island - Great Fairy', () => {
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Great Fairy', false);
+
+        expect(requirements).toMatchSnapshot();
+      });
+
+      test('returns simplified requirements for Ganondorf', () => {
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
+
+        expect(requirements).toMatchSnapshot();
+      });
+
+      test('returns simplified requirements for Letter from Baito', () => {
+        const requirements = LogicHelper.requirementsForLocation('Mailbox', 'Letter from Baito', false);
+
+        expect(requirements).toMatchSnapshot();
+      });
+
+      describe('when flattened is true', () => {
+        test('returns the same simplified requirements for Ganondorf', () => {
+          // When Required Bosses Mode is off, the flattened requirements for Defeat Ganondorf
+          // should be the same as the non-flattened requirements
+          const unflattenedRequirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
+          const flattenedRequirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', true);
+
+          expect(unflattenedRequirements).toEqual(flattenedRequirements);
+        });
+
+        test('returns flattened requirements for Letter from Baito', () => {
+          const requirements = LogicHelper.requirementsForLocation('Mailbox', 'Letter from Baito', true);
+
+          expect(requirements).toMatchSnapshot();
+        });
       });
     });
 
     describe('when swordless', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
-            [Permalink.OPTIONS.KEYLUNACY]: false,
-            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.RACE_MODE]: false,
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
-            [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,
           },
-          startingGear: {},
         });
-
-        Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-        Macros.initialize(_.cloneDeep(TEST_MACROS));
-
-        LogicTweaks.applyTweaks();
-
-        LogicHelper.initialize();
       });
 
       test('returns simplified requirements for The Great Sea - Ghost Ship', () => {
-        const requirements = LogicHelper.requirementsForLocation('The Great Sea', 'Ghost Ship');
+        const requirements = LogicHelper.requirementsForLocation('The Great Sea', 'Ghost Ship', false);
 
         expect(requirements).toMatchSnapshot();
       });
@@ -1721,31 +3124,32 @@ describe('LogicHelper', () => {
 
     describe('when starting with a sword', () => {
       beforeEach(() => {
-        Settings.initializeRaw({
+        fullSetup({
           options: {
-            [Permalink.OPTIONS.KEYLUNACY]: false,
-            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-            [Permalink.OPTIONS.RACE_MODE]: false,
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
-            [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
           },
-          startingGear: {
-            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
-          },
         });
-
-        Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-        Macros.initialize(_.cloneDeep(TEST_MACROS));
-
-        LogicTweaks.applyTweaks();
-
-        LogicHelper.initialize();
       });
 
       test('returns simplified requirements for Cliff Plateau Isles - Cave', () => {
-        const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave');
+        const requirements = LogicHelper.requirementsForLocation('Cliff Plateau Isles', 'Cave', false);
+
+        expect(requirements).toMatchSnapshot();
+      });
+    });
+
+    describe('when using very hard logic', () => {
+      beforeEach(() => {
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.VERY_HARD,
+            [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.VERY_HARD,
+          },
+        });
+      });
+
+      test('returns simplified requirements for Outset Island - Great Fairy', () => {
+        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Great Fairy', false);
 
         expect(requirements).toMatchSnapshot();
       });
@@ -1754,26 +3158,20 @@ describe('LogicHelper', () => {
 
   describe('requirementsForEntrance', () => {
     beforeEach(() => {
-      Settings.initializeRaw({
+      fullSetup({
         options: {
-          [Permalink.OPTIONS.KEYLUNACY]: false,
-          [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-          [Permalink.OPTIONS.RACE_MODE]: false,
-          [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-            Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_SEPARATELY,
-          [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+          [Permalink.OPTIONS.MIX_ENTRANCES]: (
+            Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+          ),
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
         },
-        startingGear: {},
       });
-
-      Locations.initialize(_.cloneDeep(TEST_ITEM_LOCATIONS));
-      Macros.initialize(_.cloneDeep(TEST_MACROS));
-
-      LogicTweaks.applyTweaks();
-
-      LogicHelper.initialize();
     });
 
     test('returns no requirements for Dragon Roost Cavern', () => {
@@ -1790,6 +3188,36 @@ describe('LogicHelper', () => {
 
     test('returns simplified requirements for Bomb Island Secret Cave', () => {
       const requirements = LogicHelper.requirementsForEntrance('Bomb Island Secret Cave');
+
+      expect(requirements).toMatchSnapshot();
+    });
+
+    test('returns simplified requirements for Jalhalla', () => {
+      const requirements = LogicHelper.requirementsForEntrance('Jalhalla Boss Arena');
+
+      expect(requirements).toMatchSnapshot();
+    });
+
+    test('returns simplified requirements for FW Miniboss', () => {
+      const requirements = LogicHelper.requirementsForEntrance('Forbidden Woods Miniboss Arena');
+
+      expect(requirements).toMatchSnapshot();
+    });
+
+    test('returns simplified requirements for Ice Ring Isle Inner Cave', () => {
+      const requirements = LogicHelper.requirementsForEntrance('Ice Ring Isle Inner Cave');
+
+      expect(requirements).toMatchSnapshot();
+    });
+
+    test('returns simplified requirements for Outset Fairy Fountain', () => {
+      const requirements = LogicHelper.requirementsForEntrance('Outset Fairy Fountain');
+
+      expect(requirements).toMatchSnapshot();
+    });
+
+    test('returns simplified requirements for Master Sword Chamber', () => {
+      const requirements = LogicHelper.requirementsForEntrance('Master Sword Chamber');
 
       expect(requirements).toMatchSnapshot();
     });
@@ -2091,75 +3519,47 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('chartForIsland', () => {
-    describe('when charts are randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
-          },
-        });
-      });
+  describe('vanillaChartForIsland', () => {
+    test('returns a Triforce Chart when an island has one', () => {
+      const chartInfo = LogicHelper.vanillaChartForIsland('Seven-Star Isles');
 
-      test('returns a Treasure Chart when the island has a Triforce Chart', () => {
-        const chartInfo = LogicHelper.chartForIsland('Seven-Star Isles');
-
-        expect(chartInfo).toEqual({
-          chartName: 'Triforce Chart 7',
-          chartType: LogicHelper.CHART_TYPES.TREASURE,
-        });
-      });
-
-      test('returns a Treasure Chart when the island has a Treasure Chart', () => {
-        const chartInfo = LogicHelper.chartForIsland('Forsaken Fortress');
-
-        expect(chartInfo).toEqual({
-          chartName: 'Treasure Chart 25',
-          chartType: LogicHelper.CHART_TYPES.TREASURE,
-        });
+      expect(chartInfo).toEqual({
+        chartName: 'Triforce Chart 7',
+        chartType: LogicHelper.CHART_TYPES.TRIFORCE,
       });
     });
 
-    describe('when charts are not randomized', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-          },
-        });
-      });
+    test('returns a Treasure Chart when an island has one', () => {
+      const chartInfo = LogicHelper.vanillaChartForIsland('Forsaken Fortress Sector');
 
-      test('returns a Triforce Chart when an island has one', () => {
-        const chartInfo = LogicHelper.chartForIsland('Seven-Star Isles');
-
-        expect(chartInfo).toEqual({
-          chartName: 'Triforce Chart 7',
-          chartType: LogicHelper.CHART_TYPES.TRIFORCE,
-        });
-      });
-
-      test('returns a Treasure Chart when an island has one', () => {
-        const chartInfo = LogicHelper.chartForIsland('Forsaken Fortress');
-
-        expect(chartInfo).toEqual({
-          chartName: 'Treasure Chart 25',
-          chartType: LogicHelper.CHART_TYPES.TREASURE,
-        });
+      expect(chartInfo).toEqual({
+        chartName: 'Treasure Chart 25',
+        chartType: LogicHelper.CHART_TYPES.TREASURE,
       });
     });
   });
 
-  describe('raceModeBannedLocations', () => {
+  describe('bannedLocationsForZone', () => {
     beforeEach(() => {
       Settings.initializeRaw({
         options: {
           [Permalink.OPTIONS.KEYLUNACY]: false,
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-          [Permalink.OPTIONS.RACE_MODE]: false,
+          [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+          [Permalink.OPTIONS.MIX_ENTRANCES]: (
+            Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+          ),
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
+          [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+          [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
         },
         startingGear: {},
       });
@@ -2173,43 +3573,67 @@ describe('LogicHelper', () => {
     });
 
     test('returns the correct locations for Dragon Roost Cavern', () => {
-      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Dragon Roost Cavern');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Dragon Roost Cavern', { includeAdditionalLocations: true });
 
-      expect(raceModeBannedLocations).toMatchSnapshot();
+      expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
-    test('returns the correct locations for Forbidden Woods', () => {
-      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Forbidden Woods');
+    test('returns the correct locations for Forbidden Woods when includeAdditionalLocations is true', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Forbidden Woods', { includeAdditionalLocations: true });
 
-      expect(raceModeBannedLocations).toMatchSnapshot();
+      expect(bannedLocationsForZone).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Forbidden Woods when includeAdditionalLocations is false', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Forbidden Woods', { includeAdditionalLocations: false });
+
+      expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
     test('returns the correct locations for Tower of the Gods', () => {
-      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Tower of the Gods');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Tower of the Gods', { includeAdditionalLocations: true });
 
-      expect(raceModeBannedLocations).toMatchSnapshot();
+      expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
-    test('returns the correct locations for Forsaken Fortress', () => {
-      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Forsaken Fortress');
+    test('returns the correct locations for Forsaken Fortress when includeAdditionalLocations is true', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Forsaken Fortress', { includeAdditionalLocations: true });
 
-      expect(raceModeBannedLocations).toMatchSnapshot();
+      expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
-    test('returns the correct locations for Earth Temple', () => {
-      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Earth Temple');
+    test('returns the correct locations for Forsaken Fortress when includeAdditionalLocations is false', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Forsaken Fortress', { includeAdditionalLocations: false });
 
-      expect(raceModeBannedLocations).toMatchSnapshot();
+      expect(bannedLocationsForZone).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Earth Temple when includeAdditionalLocations is true', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Earth Temple', { includeAdditionalLocations: true });
+
+      expect(bannedLocationsForZone).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Earth Temple when includeAdditionalLocations is false', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Earth Temple', { includeAdditionalLocations: false });
+
+      expect(bannedLocationsForZone).toMatchSnapshot();
     });
 
     test('returns the correct locations for Wind Temple', () => {
-      const raceModeBannedLocations = LogicHelper.raceModeBannedLocations('Wind Temple');
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Wind Temple', { includeAdditionalLocations: true });
 
-      expect(raceModeBannedLocations).toMatchSnapshot();
+      expect(bannedLocationsForZone).toMatchSnapshot();
+    });
+
+    test('returns the correct locations for Outset Island', () => {
+      const bannedLocationsForZone = LogicHelper.bannedLocationsForZone('Outset Island', { includeAdditionalLocations: false });
+
+      expect(bannedLocationsForZone).toMatchSnapshot();
     });
   });
 
-  describe('_rawRequirementsForLocation', () => {
+  describe('rawRequirementsForLocation', () => {
     describe('when the location has no requirements', () => {
       beforeEach(() => {
         Locations.locations = {
@@ -2222,7 +3646,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.and('Nothing'),
@@ -2242,7 +3666,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.or('Grappling Hook', "Hero's Sword", 'Skull Hammer'),
@@ -2270,7 +3694,7 @@ describe('LogicHelper', () => {
           });
 
           test('replaces the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+            const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Nothing'),
@@ -2286,7 +3710,7 @@ describe('LogicHelper', () => {
           });
 
           test('does not replace the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+            const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Progressive Sword x2'),
@@ -2314,7 +3738,7 @@ describe('LogicHelper', () => {
           });
 
           test('replaces the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+            const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Nothing'),
@@ -2330,7 +3754,7 @@ describe('LogicHelper', () => {
           });
 
           test('does not replace the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+            const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Wind Waker'),
@@ -2360,7 +3784,7 @@ describe('LogicHelper', () => {
           });
 
           test('replaces the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+            const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Impossible'),
@@ -2376,7 +3800,7 @@ describe('LogicHelper', () => {
           });
 
           test('does not replace the item in the requirements expression', () => {
-            const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+            const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
             expect(expression).toEqual(
               BooleanExpression.and('Progressive Sword x2'),
@@ -2395,13 +3819,14 @@ describe('LogicHelper', () => {
             },
           };
 
+          LogicHelper.startingItems = {};
           LogicHelper.impossibleItems = {
             'Wind Waker': 1,
           };
         });
 
         test('replaces the item in the requirements expression', () => {
-          const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+          const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
           expect(expression).toEqual(
             BooleanExpression.and('Impossible'),
@@ -2419,10 +3844,11 @@ describe('LogicHelper', () => {
             },
           },
         };
+        LogicHelper.startingItems = {};
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.or(
@@ -2453,7 +3879,7 @@ describe('LogicHelper', () => {
       });
 
       test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
         expect(expression).toEqual(
           BooleanExpression.or(
@@ -2468,12 +3894,12 @@ describe('LogicHelper', () => {
       });
     });
 
-    describe('when the location requires another location', () => {
+    describe('when the location requires another location with Can Access macro', () => {
       beforeEach(() => {
         Locations.locations = {
           'Outset Island': {
             'Savage Labyrinth - Floor 30': {
-              need: 'Can Access Other Location "Outset Island - Savage Labyrinth - Floor 50"',
+              need: 'Can Access Item Location "Outset Island - Savage Labyrinth - Floor 50"',
             },
             'Savage Labyrinth - Floor 50': {
               need: "Grappling Hook | Hero's Bow",
@@ -2482,8 +3908,41 @@ describe('LogicHelper', () => {
         };
       });
 
-      test('returns the requirements expression', () => {
-        const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+      test('returns the requirements for the other location', () => {
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+
+        expect(expression).toEqual(
+          BooleanExpression.and(
+            BooleanExpression.or('Grappling Hook', "Hero's Bow"),
+          ),
+        );
+      });
+    });
+
+    describe('when the location requires another location with Has Accessed macro', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              need: 'Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 50"',
+            },
+            'Savage Labyrinth - Floor 50': {
+              need: "Grappling Hook | Hero's Bow",
+            },
+          },
+        };
+      });
+
+      test('returns the unmodified requirements when flattened is false', () => {
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
+
+        expect(expression).toEqual(
+          BooleanExpression.and('Has Accessed Other Location "Outset Island - Savage Labyrinth - Floor 50"'),
+        );
+      });
+
+      test('returns the requirements for the other location when flattened is true', () => {
+        const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', true);
 
         expect(expression).toEqual(
           BooleanExpression.and(
@@ -2512,7 +3971,7 @@ describe('LogicHelper', () => {
         });
 
         test('returns the requirements expression', () => {
-          const expression = LogicHelper._rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30');
+          const expression = LogicHelper.rawRequirementsForLocation('Outset Island', 'Savage Labyrinth - Floor 30', false);
 
           expect(expression).toEqual(expectedExpression);
         });
@@ -2661,93 +4120,420 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('_macroNameForEntrance', () => {
-    test('returns the correct macro name for a dungeon', () => {
-      const macroName = LogicHelper._macroNameForEntrance('Forbidden Woods');
+  describe('bossRequirementForDungeon', () => {
+    test('returns the name of the boss requirement for the dungeon', () => {
+      const bossRequirement = LogicHelper.bossRequirementForDungeon('Tower of the Gods');
 
-      expect(macroName).toEqual('Can Access Dungeon Entrance In Forest Haven Sector');
+      expect(bossRequirement).toEqual('Defeated Gohdan');
+    });
+  });
+
+  describe('bossLocationForRequirement', () => {
+    beforeEach(() => {
+      fullSetup();
+    });
+
+    test('returns the general and detailed location of the boss heart container for the boss requirement', () => {
+      const bossLocation = LogicHelper.bossLocationForRequirement('Defeated Jalhalla');
+
+      expect(bossLocation).toEqual({
+        generalLocation: 'Earth Temple',
+        detailedLocation: 'Jalhalla Heart Container',
+      });
+    });
+  });
+
+  describe('isBossRequired', () => {
+    beforeEach(() => {
+      fullSetup({
+        options: {
+          [Permalink.OPTIONS.REQUIRED_BOSSES]: true,
+          [Permalink.OPTIONS.NUM_REQUIRED_BOSSES]: 3,
+        },
+      });
+
+      LogicHelper.setBossNotRequired('Dragon Roost Cavern');
+      LogicHelper.setBossNotRequired('Tower of the Gods');
+    });
+
+    test('returns true when the boss for the dungeon is required', () => {
+      const isBossRequired = LogicHelper.isBossRequired('Earth Temple');
+
+      expect(isBossRequired).toEqual(true);
+    });
+
+    test('returns false when the boss for the dungeon is not required', () => {
+      const isBossRequired = LogicHelper.isBossRequired('Tower of the Gods');
+
+      expect(isBossRequired).toEqual(false);
+    });
+  });
+
+  describe('anyNonRequiredBossesRemaining', () => {
+    beforeEach(() => {
+      fullSetup({
+        options: {
+          [Permalink.OPTIONS.REQUIRED_BOSSES]: true,
+          [Permalink.OPTIONS.NUM_REQUIRED_BOSSES]: 3,
+        },
+      });
+    });
+
+    describe('when none of the non-required bosses are marked', () => {
+      test('returns true', () => {
+        const anyNonRequiredBossesRemaining = LogicHelper.anyNonRequiredBossesRemaining();
+
+        expect(anyNonRequiredBossesRemaining).toEqual(true);
+      });
+    });
+
+    describe('when only some non-required bosses are marked', () => {
+      beforeEach(() => {
+        LogicHelper.setBossNotRequired('Dragon Roost Cavern');
+        LogicHelper.setBossNotRequired('Tower of the Gods');
+      });
+
+      test('returns true', () => {
+        const anyNonRequiredBossesRemaining = LogicHelper.anyNonRequiredBossesRemaining();
+
+        expect(anyNonRequiredBossesRemaining).toEqual(true);
+      });
+    });
+
+    describe('when all non-required bosses are marked', () => {
+      beforeEach(() => {
+        LogicHelper.setBossNotRequired('Dragon Roost Cavern');
+        LogicHelper.setBossNotRequired('Tower of the Gods');
+        LogicHelper.setBossNotRequired('Earth Temple');
+      });
+
+      test('returns false', () => {
+        const anyNonRequiredBossesRemaining = LogicHelper.anyNonRequiredBossesRemaining();
+
+        expect(anyNonRequiredBossesRemaining).toEqual(false);
+      });
+    });
+  });
+
+  describe('boss requirements', () => {
+    beforeEach(() => {
+      fullSetup({
+        options: {
+          [Permalink.OPTIONS.REQUIRED_BOSSES]: true,
+          [Permalink.OPTIONS.NUM_REQUIRED_BOSSES]: 3,
+        },
+      });
+    });
+
+    describe('when none of the non-required bosses are marked', () => {
+      test('includes all bosses in the requirements for Defeat Ganondorf', () => {
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
+
+        expect(requirements).toMatchSnapshot();
+      });
+
+      test('flattens the boss requirements when flattened is true', () => {
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', true);
+
+        expect(requirements).toMatchSnapshot();
+      });
+    });
+
+    describe('when bosses are marked as non-required', () => {
+      beforeEach(() => {
+        LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false); // Test that the memoization is invalidated
+
+        LogicHelper.setBossNotRequired('Dragon Roost Cavern');
+        LogicHelper.setBossNotRequired('Tower of the Gods');
+        LogicHelper.setBossNotRequired('Earth Temple');
+      });
+
+      test('includes only required bosses in the requirements for Defeat Ganondorf', () => {
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
+
+        expect(requirements).toMatchSnapshot();
+      });
+
+      test('flattens the boss requirements of only the required bosses when flattened is true', () => {
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', true);
+
+        expect(requirements).toMatchSnapshot();
+      });
+    });
+
+    describe('when bosses are marked as non-required and then unmarked', () => {
+      beforeEach(() => {
+        LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false); // Test that the memoization is invalidated
+
+        LogicHelper.setBossNotRequired('Dragon Roost Cavern');
+        LogicHelper.setBossNotRequired('Tower of the Gods');
+        LogicHelper.setBossNotRequired('Earth Temple');
+
+        LogicHelper.setBossRequired('Dragon Roost Cavern');
+        LogicHelper.setBossRequired('Earth Temple');
+      });
+
+      test('includes only required bosses in the requirements for Defeat Ganondorf', () => {
+        const requirements = LogicHelper.requirementsForLocation("Ganon's Tower", 'Defeat Ganondorf', false);
+
+        expect(requirements).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('anyProgressItemCharts', () => {
+    describe('when there are only treasure progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        expect(LogicHelper.anyProgressItemCharts()).toEqual(true);
+      });
+    });
+
+    describe('when there are only triforce progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        expect(LogicHelper.anyProgressItemCharts()).toEqual(true);
+      });
+    });
+
+    describe('when there are treasure and triforce progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns true', () => {
+        expect(LogicHelper.anyProgressItemCharts()).toEqual(true);
+      });
+    });
+
+    describe('when there are no progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns false', () => {
+        expect(LogicHelper.anyProgressItemCharts()).toEqual(false);
+      });
+    });
+  });
+
+  describe('allCharts', () => {
+    describe('when there are only treasure progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns all treasure charts for includeNonProgressCharts = false', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: false });
+
+        expect(allCharts).toEqual(LogicHelper.ALL_TREASURE_CHARTS);
+      });
+
+      test('returns all charts for includeNonProgressCharts = true', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: true });
+
+        expect(allCharts).toEqual(
+          _.concat(LogicHelper.ALL_TREASURE_CHARTS, LogicHelper.ALL_TRIFORCE_CHARTS),
+        );
+      });
+    });
+
+    describe('when there are only triforce progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns all triforce charts for includeNonProgressCharts = false', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: false });
+
+        expect(allCharts).toEqual(LogicHelper.ALL_TRIFORCE_CHARTS);
+      });
+
+      test('returns all charts for includeNonProgressCharts = true', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: true });
+
+        expect(allCharts).toEqual(
+          _.concat(LogicHelper.ALL_TREASURE_CHARTS, LogicHelper.ALL_TRIFORCE_CHARTS),
+        );
+      });
+    });
+
+    describe('when there are treasure and triforce progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: true,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: true,
+          },
+        });
+      });
+
+      test('returns all charts for includeNonProgressCharts = false', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: false });
+
+        expect(allCharts).toEqual(
+          _.concat(LogicHelper.ALL_TREASURE_CHARTS, LogicHelper.ALL_TRIFORCE_CHARTS),
+        );
+      });
+
+      test('returns all charts for includeNonProgressCharts = true', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: true });
+
+        expect(allCharts).toEqual(
+          _.concat(LogicHelper.ALL_TREASURE_CHARTS, LogicHelper.ALL_TRIFORCE_CHARTS),
+        );
+      });
+    });
+
+    describe('when there are no progress charts', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS]: false,
+            [Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS]: false,
+          },
+        });
+      });
+
+      test('returns no charts for includeNonProgressCharts = false', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: false });
+
+        expect(allCharts).toEqual([]);
+      });
+
+      test('returns all charts for includeNonProgressCharts = true', () => {
+        const allCharts = LogicHelper.allCharts({ includeNonProgressCharts: true });
+
+        expect(allCharts).toEqual(
+          _.concat(LogicHelper.ALL_TREASURE_CHARTS, LogicHelper.ALL_TRIFORCE_CHARTS),
+        );
+      });
+    });
+  });
+
+  describe('macroNameForEntrance', () => {
+    test('returns the correct macro name for a dungeon', () => {
+      const macroName = LogicHelper.macroNameForEntrance('Forbidden Woods');
+
+      expect(macroName).toEqual('Can Access Dungeon Entrance in Forest Haven Sector');
     });
 
     test('returns the correct macro name for a cave', () => {
-      const macroName = LogicHelper._macroNameForEntrance('Pawprint Isle Wizzrobe Cave');
+      const macroName = LogicHelper.macroNameForEntrance('Pawprint Isle Wizzrobe Cave');
 
       expect(macroName).toEqual('Can Access Secret Cave Entrance on Pawprint Isle Side Isle');
     });
   });
 
-  describe('_requirementImplies', () => {
+  describe('requirementImplies', () => {
     test('returns true when the second requirement is nothing', () => {
-      const implies = LogicHelper._requirementImplies('Grappling Hook', 'Nothing');
+      const implies = LogicHelper.requirementImplies('Grappling Hook', 'Nothing');
 
       expect(implies).toEqual(true);
     });
 
     test('returns false when the first requirement is nothing', () => {
-      const implies = LogicHelper._requirementImplies('Nothing', 'Grappling Hook');
+      const implies = LogicHelper.requirementImplies('Nothing', 'Grappling Hook');
 
       expect(implies).toEqual(false);
     });
 
     test('returns true when the first requirement is impossible', () => {
-      const implies = LogicHelper._requirementImplies('Impossible', 'Grappling Hook');
+      const implies = LogicHelper.requirementImplies('Impossible', 'Grappling Hook');
 
       expect(implies).toEqual(true);
     });
 
     test('returns false when the second requirement is impossible', () => {
-      const implies = LogicHelper._requirementImplies('Grappling Hook', 'Impossible');
+      const implies = LogicHelper.requirementImplies('Grappling Hook', 'Impossible');
 
       expect(implies).toEqual(false);
     });
 
     test('returns true when both requirements are the same standard item', () => {
-      const implies = LogicHelper._requirementImplies('Grappling Hook', 'Grappling Hook');
+      const implies = LogicHelper.requirementImplies('Grappling Hook', 'Grappling Hook');
 
       expect(implies).toEqual(true);
     });
 
     test('returns false when the requirements are different standard items', () => {
-      const implies = LogicHelper._requirementImplies('Deku Leaf', 'Grappling Hook');
+      const implies = LogicHelper.requirementImplies('Deku Leaf', 'Grappling Hook');
 
       expect(implies).toEqual(false);
     });
 
     test('returns false when the one item is standard and the other is progressive', () => {
-      const implies = LogicHelper._requirementImplies('Deku Leaf', 'Progressive Sword x2');
+      const implies = LogicHelper.requirementImplies('Deku Leaf', 'Progressive Sword x2');
 
       expect(implies).toEqual(false);
     });
 
     test('returns true when both requirements are the same progressive item', () => {
-      const implies = LogicHelper._requirementImplies('Progressive Sword x2', 'Progressive Sword x2');
+      const implies = LogicHelper.requirementImplies('Progressive Sword x2', 'Progressive Sword x2');
 
       expect(implies).toEqual(true);
     });
 
     test('returns false when both requirements are different progressive items with the same count', () => {
-      const implies = LogicHelper._requirementImplies('Progressive Bow x2', 'Progressive Sword x2');
+      const implies = LogicHelper.requirementImplies('Progressive Bow x2', 'Progressive Sword x2');
 
       expect(implies).toEqual(false);
     });
 
     test('returns true when the first requirement is the same progressive item with a higher count', () => {
-      const implies = LogicHelper._requirementImplies('Progressive Sword x3', 'Progressive Sword x2');
+      const implies = LogicHelper.requirementImplies('Progressive Sword x3', 'Progressive Sword x2');
 
       expect(implies).toEqual(true);
     });
 
     test('returns false when the first requirement is the same progressive item with a lower count', () => {
-      const implies = LogicHelper._requirementImplies('Progressive Sword x3', 'Progressive Sword x4');
+      const implies = LogicHelper.requirementImplies('Progressive Sword x3', 'Progressive Sword x4');
 
       expect(implies).toEqual(false);
     });
   });
 
-  describe('_splitExpression', () => {
+  describe('splitExpression', () => {
     test('splits and trims an expression', () => {
       const input = "Can Defeat Darknuts & Can Play Wind's Requiem & (Grappling Hook | Hero's Sword | Skull Hammer)";
 
-      const splitExpression = LogicHelper._splitExpression(input);
+      const splitExpression = LogicHelper.splitExpression(input);
 
       expect(splitExpression).toEqual([
         'Can Defeat Darknuts',

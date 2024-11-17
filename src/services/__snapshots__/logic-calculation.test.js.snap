@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LogicCalculation exitsListForEntrance returns all exits that are possible for an entrance and indicates which exits are checked, except its own dungeon, and includes the nothing exit 1`] = `
+[
+  {
+    "color": "checked-location",
+    "exit": "Dragon Roost Cavern",
+  },
+  {
+    "color": "checked-location",
+    "exit": "Forbidden Woods",
+  },
+  {
+    "color": "checked-location",
+    "exit": "Tower of the Gods",
+  },
+  {
+    "color": "available-location",
+    "exit": "Wind Temple",
+  },
+  {
+    "color": "checked-location",
+    "exit": "Forbidden Woods Miniboss Arena",
+  },
+  {
+    "color": "checked-location",
+    "exit": "Tower of the Gods Miniboss Arena",
+  },
+  {
+    "color": "available-location",
+    "exit": "Earth Temple Miniboss Arena",
+  },
+  {
+    "color": "available-location",
+    "exit": "Wind Temple Miniboss Arena",
+  },
+  {
+    "color": "available-location",
+    "exit": "Gohma Boss Arena",
+  },
+  {
+    "color": "available-location",
+    "exit": "Kalle Demos Boss Arena",
+  },
+  {
+    "color": "checked-location",
+    "exit": "Gohdan Boss Arena",
+  },
+  {
+    "color": "available-location",
+    "exit": "Helmaroc King Boss Arena",
+  },
+  {
+    "color": "available-location",
+    "exit": "Jalhalla Boss Arena",
+  },
+  {
+    "color": "available-location",
+    "exit": "Molgera Boss Arena",
+  },
+  {
+    "color": "available-location",
+    "exit": "Master Sword Chamber",
+  },
+  {
+    "color": "available-location",
+    "exit": "Nothing",
+  },
+]
+`;

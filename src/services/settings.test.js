@@ -13,11 +13,11 @@ describe('Settings', () => {
   describe('initializeFromPermalink', () => {
     describe('default settings', () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink('MS4xMC4wAHllZXQABwEDAAygvgMA0AACAAAAAAGAIAAA');
+        Settings.initializeFromPermalink(Permalink.DEFAULT_PERMALINK);
       });
 
       test('initializes the version', () => {
-        expect(Settings.version).toEqual('1.10.0');
+        expect(Settings.version).toEqual('master'); // TODO: change to 1.11.0
       });
 
       test('initializes the starting gear', () => {
@@ -30,6 +30,8 @@ describe('Settings', () => {
 
       test('initializes the flags', () => {
         expect(Settings.flags).toEqual([
+          Settings.FLAGS.BOSS,
+          Settings.FLAGS.RANDOMIZABLE_MINIBOSS_ROOM,
           Settings.FLAGS.DUNGEON,
           Settings.FLAGS.GREAT_FAIRY,
           Settings.FLAGS.PUZZLE_SECRET_CAVE,
@@ -43,19 +45,19 @@ describe('Settings', () => {
 
     describe('when using a development build', () => {
       beforeEach(() => {
-        // version = 1.10.0_84fa5b4
-        Settings.initializeFromPermalink('MS4xMC4wXzg0ZmE1YjQAeWVldAAHAQMADKC+AwDQAAIAAAAAAYAgAAA=');
+        // version = 1.11.0_be1d4e2
+        Settings.initializeFromPermalink('MS4xMS4wX2JlMWQ0ZTIAQQBJEFAYAAD7AsglAAAAAAABAEEAgAA=');
       });
 
       test('sets the version to be the commit hash', () => {
-        expect(Settings.version).toEqual('84fa5b4');
+        expect(Settings.version).toEqual('be1d4e2');
       });
     });
 
     describe('when using a beta build', () => {
       beforeEach(() => {
-        // version = 1.10.0-BETA_2022-11-28
-        Settings.initializeFromPermalink('MS4xMC4wLUJFVEFfMjAyMi0xMS0yOAB5ZWV0AAcBAwAMoL4DANAAAgAAAAABgCAAAA==');
+        // version = 1.11.0-BETA_2022-11-28
+        Settings.initializeFromPermalink('MS4xMS4wLUJFVEFfMjAyMi0xMS0yOABBAEkQUBgAAPsCyCUAAAAAAAEAQQCAAA==');
       });
 
       test('sets the version to master', () => {
@@ -65,7 +67,7 @@ describe('Settings', () => {
 
     describe('all flags set', () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink('MS4xMC4wAHllZXQA//8/AAygvgMA0AACAAAAAAGAIAAA');
+        Settings.initializeFromPermalink('bWFzdGVyAEEA//9/GAAA+wLIJQAAAAAAAQBBAIAA');
       });
 
       test('initializes all the flags', () => {
@@ -76,7 +78,7 @@ describe('Settings', () => {
 
     describe('all starting gear set', () => {
       beforeEach(() => {
-        Settings.initializeFromPermalink('MS4xMC4wAHllZXQABwEDAAygvgMA0AD///////931QUA');
+        Settings.initializeFromPermalink('bWFzdGVyAEEASRBQGAAA+wLI9f///////++qC4AA');
       });
 
       test('initializes the starting gear', () => {
@@ -87,7 +89,7 @@ describe('Settings', () => {
     describe('only sunken triforce enabled', () => {
       describe('when charts are not randomized', () => {
         beforeEach(() => {
-          Settings.initializeFromPermalink('MS4xMC4wAHllZXQAAEAAAAygvgMA0AACAAAAAAGAIAAA');
+          Settings.initializeFromPermalink('bWFzdGVyAEEAAAAEGAAA+wLIJQAAAAAAAQBBAIAA');
         });
 
         test('initializes the flags', () => {
@@ -99,7 +101,7 @@ describe('Settings', () => {
 
       describe('when charts are randomized', () => {
         beforeEach(() => {
-          Settings.initializeFromPermalink('MS4xMC4wAHllZXQAAEAAgAygvgMA0AACAAAAAAGAIAAA');
+          Settings.initializeFromPermalink('bWFzdGVyAEEAAAAEGACA+wLIJQAAAAAAAQBBAIAA');
         });
 
         test('initializes the flags', () => {
@@ -115,7 +117,7 @@ describe('Settings', () => {
     test('initializes the flags, options, starting gear, and version', () => {
       const flags = [Settings.FLAGS.TINGLE_CHEST];
       const options = {
-        [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true,
+        [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
       };
       const startingGear = {
         'Grappling Hook': 1,
@@ -141,7 +143,7 @@ describe('Settings', () => {
       Settings.initializeRaw({
         flags: [Settings.FLAGS.TINGLE_CHEST],
         options: {
-          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true,
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
         },
         startingGear: {
           'Grappling Hook': 1,
@@ -169,7 +171,7 @@ describe('Settings', () => {
     beforeEach(() => {
       expectedFlags = [Settings.FLAGS.TINGLE_CHEST];
       expectedOptions = {
-        [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: true,
+        [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
       };
       expectedStartingGear = {
         'Grappling Hook': 1,

@@ -7,6 +7,7 @@ import LogicCalculation from '../src/services/logic-calculation';
 import LogicHelper from '../src/services/logic-helper';
 import LogicLoader from '../src/services/logic-loader';
 import LogicTweaks from '../src/services/logic-tweaks';
+import Permalink from '../src/services/permalink';
 import TrackerController from '../src/services/tracker-controller';
 
 LogicLoader.loadLogicFiles = async () => ({
@@ -14,7 +15,7 @@ LogicLoader.loadLogicFiles = async () => ({
   macrosFile: TEST_MACROS,
 });
 
-LogicTweaks._applyHasAccessedLocationTweaksForLocations = () => { };
+LogicTweaks.applyHasAccessedLocationTweaksForLocations = () => { };
 
 const verifyLogicForItemCounts = (
   generalLocation,
@@ -31,14 +32,16 @@ const verifyLogicForItemCounts = (
   const simplifiedRequirements = LogicHelper.requirementsForLocation(
     generalLocation,
     detailedLocation,
+    false,
   );
-  const rawRequirements = LogicHelper._rawRequirementsForLocation(
+  const rawRequirements = LogicHelper.rawRequirementsForLocation(
     generalLocation,
     detailedLocation,
+    false,
   );
 
-  const simplifiedRequirementsMet = logic._areRequirementsMet(simplifiedRequirements);
-  const rawRequirementsMet = logic._areRequirementsMet(rawRequirements);
+  const simplifiedRequirementsMet = logic.areRequirementsMet(simplifiedRequirements);
+  const rawRequirementsMet = logic.areRequirementsMet(rawRequirements);
 
   if (simplifiedRequirementsMet !== rawRequirementsMet) {
     throw Error(
@@ -54,9 +57,10 @@ const verifyLogicForItemCounts = (
 
 const verifyLogicForLocation = (generalLocation, detailedLocation, trackerState) => {
   console.log(`\nChecking location "${generalLocation} - ${detailedLocation}":`); // eslint-disable-line no-console
-  const rawRequirements = LogicHelper._rawRequirementsForLocation(
+  const rawRequirements = LogicHelper.rawRequirementsForLocation(
     generalLocation,
     detailedLocation,
+    false,
   );
   const rawItemsRequired = new Set();
 
@@ -129,8 +133,8 @@ const verifyLogicForSettings = async (permalink) => {
 };
 
 const script = async () => {
-  await verifyLogicForSettings('MS4xMC4wAEEABwEDAAygvgMQ0AAAAAAAAAAAAAAA'); // no starting items
-  await verifyLogicForSettings('MS4xMC4wAEEABwEDAAygvgMA0AACAAAAAAGAIAAA'); // default settings
+  await verifyLogicForSettings('bWFzdGVyAEEASRBQGAAA+wLIBQAAAAAAAAAAAIAA'); // no starting items
+  await verifyLogicForSettings(Permalink.DEFAULT_PERMALINK);
 };
 
 script();

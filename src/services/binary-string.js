@@ -2,19 +2,17 @@ import _ from 'lodash';
 
 class BinaryString {
   constructor(binaryData = [], bitOffset = 0) {
-    this.binaryData = binaryData;
-    this.bitOffset = bitOffset;
+    this.#binaryData = binaryData;
+    this.#bitOffset = bitOffset;
   }
 
-  static BYTE_SIZE = 8;
-
   static fromBase64(base64String) {
-    const binaryData = BinaryString._base64ToBinary(base64String);
+    const binaryData = BinaryString.#base64ToBinary(base64String);
     return new BinaryString(binaryData);
   }
 
   toBase64() {
-    return BinaryString._binaryToBase64(this.binaryData, this.bitOffset);
+    return BinaryString.#binaryToBase64(this.#binaryData, this.#bitOffset);
   }
 
   popString() {
@@ -22,18 +20,18 @@ class BinaryString {
     let currentByte;
 
     while (currentByte !== 0) {
-      currentByte = this.popNumber(BinaryString.BYTE_SIZE);
+      currentByte = this.popNumber(BinaryString.#BYTE_SIZE);
 
       if (currentByte !== 0) {
         poppedBytes.push(currentByte);
       }
     }
 
-    return BinaryString._binaryToString(poppedBytes);
+    return BinaryString.#binaryToString(poppedBytes);
   }
 
   popBoolean() {
-    const firstByte = _.first(this.binaryData);
+    const firstByte = _.first(this.#binaryData);
 
     if (_.isNil(firstByte)) {
       throw Error('Tried to pop when the binary data was empty');
@@ -41,12 +39,12 @@ class BinaryString {
 
     const poppedBoolean = firstByte % 2 === 1;
 
-    if (this.bitOffset < BinaryString.BYTE_SIZE - 1) {
-      _.set(this.binaryData, 0, _.floor(firstByte / 2));
-      this.bitOffset += 1;
+    if (this.#bitOffset < BinaryString.#BYTE_SIZE - 1) {
+      _.set(this.#binaryData, 0, _.floor(firstByte / 2));
+      this.#bitOffset += 1;
     } else {
-      this.binaryData = _.slice(this.binaryData, 1);
-      this.bitOffset = 0;
+      this.#binaryData = _.slice(this.#binaryData, 1);
+      this.#bitOffset = 0;
     }
 
     return poppedBoolean;
@@ -68,30 +66,30 @@ class BinaryString {
   }
 
   addString(stringValue) {
-    const bytesToAdd = BinaryString._stringToBinary(stringValue);
+    const bytesToAdd = BinaryString.#stringToBinary(stringValue);
 
     _.forEach(
       bytesToAdd,
-      (byte) => this.addNumber(byte, BinaryString.BYTE_SIZE),
+      (byte) => this.addNumber(byte, BinaryString.#BYTE_SIZE),
     );
 
-    this.addNumber(0, BinaryString.BYTE_SIZE);
+    this.addNumber(0, BinaryString.#BYTE_SIZE);
   }
 
   addBoolean(booleanValue) {
-    if (this.bitOffset > 0) {
-      this.bitOffset -= 1;
+    if (this.#bitOffset > 0) {
+      this.#bitOffset -= 1;
 
       if (booleanValue) {
-        const lastByte = _.last(this.binaryData);
-        const lastIndex = this.binaryData.length - 1;
-        const newValue = 2 ** (BinaryString.BYTE_SIZE - this.bitOffset - 1);
+        const lastByte = _.last(this.#binaryData);
+        const lastIndex = this.#binaryData.length - 1;
+        const newValue = 2 ** (BinaryString.#BYTE_SIZE - this.#bitOffset - 1);
 
-        _.set(this.binaryData, lastIndex, lastByte + newValue);
+        _.set(this.#binaryData, lastIndex, lastByte + newValue);
       }
     } else {
-      this.binaryData.push(booleanValue ? 1 : 0);
-      this.bitOffset = BinaryString.BYTE_SIZE - 1;
+      this.#binaryData.push(booleanValue ? 1 : 0);
+      this.#bitOffset = BinaryString.#BYTE_SIZE - 1;
     }
   }
 
@@ -106,12 +104,26 @@ class BinaryString {
     }
   }
 
-  static _base64ToBinary(base64String) {
+  binaryData() {
+    return this.#binaryData;
+  }
+
+  bitOffset() {
+    return this.#bitOffset;
+  }
+
+  #binaryData;
+
+  #bitOffset;
+
+  static #BYTE_SIZE = 8;
+
+  static #base64ToBinary(base64String) {
     const buffer = Buffer.from(base64String, 'base64');
     return Array.from(buffer.values());
   }
 
-  static _binaryToBase64(binaryArray, bitOffset) {
+  static #binaryToBase64(binaryArray, bitOffset) {
     let binaryDataToLoad = binaryArray;
     if (bitOffset === 0) {
       // If the bit offset ends up being exactly 0, add a 0 byte to the end of
@@ -123,12 +135,12 @@ class BinaryString {
     return Buffer.from(binaryDataToLoad).toString('base64');
   }
 
-  static _stringToBinary(utf8String) {
+  static #stringToBinary(utf8String) {
     const buffer = Buffer.from(utf8String);
     return Array.from(buffer.values());
   }
 
-  static _binaryToString(binaryArray) {
+  static #binaryToString(binaryArray) {
     return Buffer.from(binaryArray).toString();
   }
 }

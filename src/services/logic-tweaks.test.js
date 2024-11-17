@@ -22,6 +22,24 @@ describe('LogicTweaks', () => {
     });
 
     describe('when no options are set', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
+          },
+        });
+      });
+
       test('updates the locations', () => {
         LogicTweaks.applyTweaks();
 
@@ -39,7 +57,17 @@ describe('LogicTweaks', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
           },
         });
       });
@@ -55,8 +83,95 @@ describe('LogicTweaks', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.SECRET_CAVES,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
+          },
+        });
+      });
+
+      test('updates the macros', () => {
+        LogicTweaks.applyTweaks();
+
+        expect(Macros.macros).toMatchSnapshot();
+      });
+    });
+
+    describe('when there are nested dungeon entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
+          },
+        });
+      });
+
+      test('updates the macros', () => {
+        LogicTweaks.applyTweaks();
+
+        expect(Macros.macros).toMatchSnapshot();
+      });
+    });
+
+    describe('when there are nested cave entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
+          },
+        });
+      });
+
+      test('updates the macros', () => {
+        LogicTweaks.applyTweaks();
+
+        expect(Macros.macros).toMatchSnapshot();
+      });
+    });
+
+    describe('when there are random fairy fountain entrances', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
           },
         });
       });
@@ -73,6 +188,16 @@ describe('LogicTweaks', () => {
         Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.RANDOMIZE_CHARTS]: true,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
           },
         });
       });
@@ -94,6 +219,32 @@ describe('LogicTweaks', () => {
         LogicTweaks.applyTweaks();
 
         expect(Macros.macros).toMatchSnapshot();
+      });
+    });
+
+    describe('when required bosses mode is enabled', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.REQUIRED_BOSSES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+            ),
+          },
+        });
+      });
+
+      test('updates the required bosses macro', () => {
+        LogicTweaks.applyTweaks();
+
+        expect(Macros.macros['Can Defeat All Required Bosses']).toMatchSnapshot();
       });
     });
   });

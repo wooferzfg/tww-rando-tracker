@@ -21,11 +21,21 @@ describe('Spheres', () => {
         options: {
           [Permalink.OPTIONS.KEYLUNACY]: false,
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
-          [Permalink.OPTIONS.RACE_MODE]: false,
+          [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
-          [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]: Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DISABLED,
+          [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
+          [Permalink.OPTIONS.MIX_ENTRANCES]: (
+            Permalink.MIX_ENTRANCES_OPTIONS.SEPARATE_DUNGEONS_FROM_CAVES_AND_FOUNTAINS
+          ),
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+          [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
+          [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+          [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
         },
         startingGear: {
           [LogicHelper.ITEMS.BALLAD_OF_GALES]: 1,
@@ -35,6 +45,8 @@ describe('Spheres', () => {
           [LogicHelper.ITEMS.SONG_OF_PASSING]: 1,
         },
         flags: [
+          Settings.FLAGS.BOSS,
+          Settings.FLAGS.RANDOMIZABLE_MINIBOSS_ROOM,
           Settings.FLAGS.DUNGEON,
           Settings.FLAGS.PUZZLE_SECRET_CAVE,
           Settings.FLAGS.GREAT_FAIRY,
@@ -152,7 +164,7 @@ describe('Spheres', () => {
 
         expect(
           spheres.sphereForLocation('Dragon Roost Cavern', 'Rat Room'),
-        ).toEqual(1);
+        ).toEqual(0);
 
         expect(
           spheres.sphereForLocation('Dragon Roost Cavern', "Bird's Nest"),
@@ -177,7 +189,7 @@ describe('Spheres', () => {
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'Boarded Up Chest');
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', "Bird's Nest");
         updateForItemAndLocation('Deku Leaf', 'Dragon Roost Cavern', 'Pot Room Chest');
-        updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Mini-Boss');
+        updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Miniboss');
       });
 
       test('includes locations behind small keys in the same sphere', () => {
@@ -248,16 +260,24 @@ describe('Spheres', () => {
       beforeEach(() => {
         fullSetup({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
 
         updateForItemAndLocation('Power Bracelets', 'Windfall Island', 'Tott - Teach Rhythm');
 
         trackerState = trackerState
-          .setEntranceForExit('Pawprint Isle Chuchu Cave', 'Bomb Island Secret Cave')
-          .setEntranceForExit('Dragon Roost Cavern', 'Savage Labyrinth');
+          .setExitForEntrance('Bomb Island Secret Cave', 'Pawprint Isle Chuchu Cave')
+          .setExitForEntrance('Savage Labyrinth', 'Dragon Roost Cavern')
+          .setExitForEntrance('Cliff Plateau Isles Secret Cave', LogicHelper.NOTHING_EXIT);
       });
 
       test('sets spheres correctly through the entrances', () => {
@@ -281,21 +301,29 @@ describe('Spheres', () => {
       beforeEach(() => {
         fullSetup({
           options: {
-            [Permalink.OPTIONS.RANDOMIZE_ENTRANCES]:
-              Permalink.RANDOMIZE_ENTRANCES_OPTIONS.DUNGEONS_AND_SECRET_CAVES_TOGETHER,
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: false,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           },
         });
 
         updateForItemAndLocation('Power Bracelets', 'Windfall Island', 'Tott - Teach Rhythm');
 
-        trackerState = trackerState.setEntranceForExit('Dragon Roost Cavern', 'Bomb Island Secret Cave');
+        trackerState = trackerState
+          .setExitForEntrance('Bomb Island Secret Cave', 'Dragon Roost Cavern');
 
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'First Room');
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'Alcove With Water Jugs');
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'Boarded Up Chest');
         updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', "Bird's Nest");
         updateForItemAndLocation('Deku Leaf', 'Dragon Roost Cavern', 'Pot Room Chest');
-        updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Mini-Boss');
+        updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Miniboss');
       });
 
       test('includes locations behind small keys in the same sphere behind the random entrance', () => {
@@ -324,6 +352,323 @@ describe('Spheres', () => {
         expect(
           spheres.sphereForLocation('Dragon Roost Cavern', 'Gohma Heart Container'),
         ).toEqual(2);
+      });
+    });
+
+    describe('when there are nested dungeon entrances', () => {
+      beforeEach(() => {
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+
+        updateForItemAndLocation('Grappling Hook', 'Windfall Island', 'Jail - Tingle - First Gift');
+        updateForItemAndLocation('Deku Leaf', 'Windfall Island', 'Jail - Tingle - Second Gift');
+        updateForItemAndLocation('Bombs', 'Windfall Island', 'Mila - Follow the Thief');
+        updateForItemAndLocation('Progressive Bow', 'Windfall Island', 'Maggie - Free Item');
+        updateForItemAndLocation('Boomerang', 'Windfall Island', 'Tott - Teach Rhythm');
+        updateForItemAndLocation('Command Melody', 'Windfall Island', 'House of Wealth Chest');
+
+        trackerState = trackerState
+          .setExitForEntrance('Bomb Island Secret Cave', 'Dragon Roost Cavern')
+          .setExitForEntrance('Gohma Boss Arena', 'Forbidden Woods')
+          .setExitForEntrance('Tower of the Gods Miniboss Arena', 'Forbidden Woods Miniboss Arena')
+          .setExitForEntrance('Kalle Demos Boss Arena', 'Tower of the Gods')
+          .setExitForEntrance('Forbidden Woods Miniboss Arena', 'Tower of the Gods Miniboss Arena')
+          .setExitForEntrance('Gohdan Boss Arena', 'Gohdan Boss Arena');
+      });
+
+      test('includes all nested locations in the same sphere', () => {
+        const spheres = new Spheres(trackerState);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Boarded Up Chest'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Boss Stairs Right Chest'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Big Key Chest'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Forbidden Woods', 'First Room'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Forbidden Woods', 'Mothula Miniboss Room'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Forbidden Woods', 'Past Seeds Hanging by Vines'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Forbidden Woods', 'Big Key Chest'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Tower of the Gods', 'Hop Across Floating Boxes'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Tower of the Gods', 'Skulls Room Chest'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Tower of the Gods', 'Darknut Miniboss Room'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Tower of the Gods', 'Floating Platforms Room'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Tower of the Gods', 'Big Key Chest'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Tower of the Gods', 'Gohdan Heart Container'),
+        ).toEqual(1);
+      });
+    });
+
+    describe('when small keys are guaranteed with nested dungeon entrances', () => {
+      beforeEach(() => {
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+
+        updateForItemAndLocation('Deku Leaf', 'Windfall Island', 'Jail - Tingle - Second Gift');
+        updateForItemAndLocation('Bombs', 'Windfall Island', 'Mila - Follow the Thief');
+        updateForItemAndLocation('Boomerang', 'Windfall Island', 'Tott - Teach Rhythm');
+
+        trackerState = trackerState
+          .setExitForEntrance('Bomb Island Secret Cave', 'Forbidden Woods');
+
+        updateForItemAndLocation('FW Big Key', 'Forbidden Woods', 'Double Mothula Room');
+
+        trackerState = trackerState
+          .setExitForEntrance('Kalle Demos Boss Arena', 'Dragon Roost Cavern');
+
+        updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Alcove With Water Jugs');
+
+        trackerState = trackerState
+          .setExitForEntrance('Gohma Boss Arena', 'Gohma Boss Arena');
+      });
+
+      test('uses the worst case scenario sphere for the nested dungeon', () => {
+        const spheres = new Spheres(trackerState);
+
+        expect(
+          spheres.sphereForLocation('Forbidden Woods', 'Hole in Tree'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'First Room'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Boarded Up Chest'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Chest Across Lava Pit'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Rat Room'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', "Bird's Nest"),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Dark Room'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Gohma Heart Container'),
+        ).toEqual(3);
+      });
+    });
+
+    describe('when there are nested dungeon entrances and small keys are found', () => {
+      beforeEach(() => {
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+
+        updateForItemAndLocation('Deku Leaf', 'Windfall Island', 'Jail - Tingle - Second Gift');
+        updateForItemAndLocation('Bombs', 'Windfall Island', 'Mila - Follow the Thief');
+        updateForItemAndLocation('Boomerang', 'Windfall Island', 'Tott - Teach Rhythm');
+
+        trackerState = trackerState
+          .setExitForEntrance('Eastern Fairy Fountain', 'Forbidden Woods');
+
+        updateForItemAndLocation('FW Big Key', 'Forbidden Woods', 'Double Mothula Room');
+
+        trackerState = trackerState
+          .setExitForEntrance('Kalle Demos Boss Arena', 'Dragon Roost Cavern');
+
+        updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'First Room');
+        updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'Alcove With Water Jugs');
+        updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', 'Boarded Up Chest');
+        updateForItemAndLocation('DRC Small Key', 'Dragon Roost Cavern', "Bird's Nest");
+        updateForItemAndLocation('Grappling Hook', 'Dragon Roost Cavern', 'Miniboss');
+
+        trackerState = trackerState
+          .setExitForEntrance('Gohma Boss Arena', 'Gohma Boss Arena');
+      });
+
+      test('uses the worst case scenario sphere for the nested dungeon', () => {
+        const spheres = new Spheres(trackerState);
+
+        expect(
+          spheres.sphereForLocation('Forbidden Woods', 'Hole in Tree'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'First Room'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Boarded Up Chest'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Chest Across Lava Pit'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Rat Room'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', "Bird's Nest"),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Dark Room'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Dragon Roost Cavern', 'Gohma Heart Container'),
+        ).toEqual(3);
+      });
+    });
+
+    describe('when there is a chain of inner caves and dungeons', () => {
+      beforeEach(() => {
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: true,
+            [Permalink.OPTIONS.MIX_ENTRANCES]: (
+              Permalink.MIX_ENTRANCES_OPTIONS.MIX_DUNGEONS_AND_CAVES_AND_FOUNTAINS
+            ),
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES]: true,
+            [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: true,
+          },
+        });
+
+        updateForItemAndLocation('Grappling Hook', 'Windfall Island', 'Jail - Tingle - First Gift');
+        updateForItemAndLocation('Deku Leaf', 'Windfall Island', 'Jail - Tingle - Second Gift');
+        updateForItemAndLocation('Bombs', 'Windfall Island', 'Mila - Follow the Thief');
+        updateForItemAndLocation('Boomerang', 'Windfall Island', 'Tott - Teach Rhythm');
+
+        trackerState = trackerState
+          .setExitForEntrance('Southern Fairy Fountain', 'Cliff Plateau Isles Secret Cave');
+
+        updateForItemAndLocation('Iron Boots', 'Cliff Plateau Isles', 'Cave');
+
+        trackerState = trackerState
+          .setExitForEntrance('Cliff Plateau Isles Inner Cave', 'Ice Ring Isle Secret Cave');
+
+        updateForItemAndLocation('Progressive Bow', 'Ice Ring Isle', 'Cave - Chest');
+
+        trackerState = trackerState
+          .setExitForEntrance('Ice Ring Isle Inner Cave', 'Forbidden Woods')
+          .setExitForEntrance('Kalle Demos Boss Arena', 'Cliff Plateau Isles Inner Cave');
+
+        updateForItemAndLocation('Progressive Bow', 'Cliff Plateau Isles', 'Highest Isle');
+
+        trackerState = trackerState
+          .setExitForEntrance('Forbidden Woods Miniboss Arena', 'Ice Ring Isle Inner Cave');
+      });
+
+      test('includes all nested locations in the correct spheres', () => {
+        const spheres = new Spheres(trackerState);
+
+        expect(
+          spheres.sphereForLocation('Cliff Plateau Isles', 'Cave'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Ice Ring Isle', 'Cave - Chest'),
+        ).toEqual(1);
+
+        expect(
+          spheres.sphereForLocation('Forbidden Woods', 'First Room'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Forbidden Woods', 'Mothula Miniboss Room'),
+        ).toEqual(null);
+
+        expect(
+          spheres.sphereForLocation('Forbidden Woods', 'Past Seeds Hanging by Vines'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Forbidden Woods', 'Big Key Chest'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Forbidden Woods', 'Kalle Demos Heart Container'),
+        ).toEqual(null);
+
+        expect(
+          spheres.sphereForLocation('Cliff Plateau Isles', 'Highest Isle'),
+        ).toEqual(2);
+
+        expect(
+          spheres.sphereForLocation('Ice Ring Isle', 'Inner Cave - Chest'),
+        ).toEqual(3);
       });
     });
   });

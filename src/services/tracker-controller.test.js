@@ -38,9 +38,9 @@ describe('TrackerController', () => {
     expect(saveData).toMatchSnapshot();
     expect(trackerState).toBeInstanceOf(TrackerState);
     expect(logic).toBeInstanceOf(LogicCalculation);
-    expect(logic.state).toBe(trackerState);
+    expect(logic.state()).toBe(trackerState);
     expect(spheres).toBeInstanceOf(Spheres);
-    expect(spheres.state).toBe(trackerState);
+    expect(spheres.state()).toBe(trackerState);
   };
 
   describe('initializeFromPermalink', () => {
