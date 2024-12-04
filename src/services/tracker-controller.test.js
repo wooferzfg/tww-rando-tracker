@@ -43,12 +43,29 @@ describe('TrackerController', () => {
     expect(spheres.state()).toBe(trackerState);
   };
 
+  const validateLocationsAndMacros = () => {
+    expect(_.size(Locations.locations)).toBeGreaterThan(0);
+    expect(_.size(Locations.locationsList)).toBeGreaterThan(0);
+    expect(_.size(Macros.macros)).toBeGreaterThan(0);
+  };
+
+  describe('initializeLocationsAndMacros', () => {
+    test('returns the correct initial data', async () => {
+      await TrackerController.initializeLocationsAndMacros(
+        Permalink.DEFAULT_PERMALINK,
+      );
+
+      validateLocationsAndMacros();
+    });
+  });
+
   describe('initializeFromPermalink', () => {
     test('returns the correct initial data', async () => {
       const initialData = await TrackerController.initializeFromPermalink(
         Permalink.DEFAULT_PERMALINK,
       );
 
+      validateLocationsAndMacros();
       validateReturnedData(initialData);
     });
   });
@@ -78,6 +95,7 @@ describe('TrackerController', () => {
       TrackerController.reset();
 
       expect(Locations.locations).toEqual(null);
+      expect(Locations.locationsList).toEqual(null);
       expect(LogicHelper.impossibleItems).toEqual(null);
       expect(LogicHelper.startingItems).toEqual(null);
       expect(Macros.macros).toEqual(null);

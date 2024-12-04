@@ -1,3 +1,4 @@
+import BinaryString from './binary-string';
 import Locations from './locations';
 import LogicCalculation from './logic-calculation';
 import LogicHelper from './logic-helper';
@@ -9,16 +10,19 @@ import Spheres from './spheres';
 import TrackerState from './tracker-state';
 
 class TrackerController {
+  static async initializeLocationsAndMacros(permalink) {
+    const permalinkBinaryString = BinaryString.fromBase64(permalink);
+    this.#loadVersion(permalinkBinaryString);
+    await this.#loadLocationsAndMacros();
+  }
+
   static async initializeFromPermalink(permalink) {
-    Settings.initializeFromPermalink(permalink);
+    const permalinkBinaryString = BinaryString.fromBase64(permalink);
+    this.#loadVersion(permalinkBinaryString);
+    await this.#loadLocationsAndMacros();
 
-    const {
-      itemLocationsFile,
-      macrosFile,
-    } = await LogicLoader.loadLogicFiles();
-
-    Locations.initialize(itemLocationsFile);
-    Macros.initialize(macrosFile);
+    // excluded locations depend on Locations already being loaded
+    Settings.initializeFromPermalink(permalinkBinaryString);
 
     LogicTweaks.applyTweaks();
 
@@ -32,6 +36,7 @@ class TrackerController {
   static initializeFromSaveData(saveData) {
     const {
       locations,
+      locationsList,
       macros,
       settings,
       trackerState,
@@ -39,7 +44,7 @@ class TrackerController {
 
     Settings.initializeRaw(settings);
 
-    Locations.initializeRaw(locations);
+    Locations.initializeRaw(locations, locationsList);
     Macros.initialize(macros);
 
     LogicHelper.initialize();
@@ -72,12 +77,27 @@ class TrackerController {
   static #getSaveData(trackerState) {
     const saveData = {
       locations: Locations.readAll(),
+      locationsList: Locations.readLocationsList(),
       macros: Macros.readAll(),
       settings: Settings.readAll(),
       trackerState: trackerState.readState(),
     };
 
     return JSON.stringify(saveData);
+  }
+
+  static #loadVersion(permalinkBinaryString) {
+    Settings.initializeVersionFromPermalink(permalinkBinaryString);
+  }
+
+  static async #loadLocationsAndMacros() {
+    const {
+      itemLocationsFile,
+      macrosFile,
+    } = await LogicLoader.loadLogicFiles();
+
+    Locations.initialize(itemLocationsFile);
+    Macros.initialize(macrosFile);
   }
 }
 

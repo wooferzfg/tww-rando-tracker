@@ -40,7 +40,11 @@ module.exports = (env, argv) => {
     resolve: {
       extensions: ['.webpack.js', '.js', '.jsx', '.json', '.png'],
       fallback: {
+        assert: require.resolve('assert/'),
         buffer: require.resolve('buffer'),
+        stream: require.resolve('stream-browserify'),
+        util: require.resolve('util/'),
+        zlib: require.resolve('browserify-zlib'),
       },
     },
     output: {
@@ -57,6 +61,7 @@ module.exports = (env, argv) => {
       }),
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
+        process: 'process/browser',
       }),
       ...(isProduction ? [new WorkboxPlugin.GenerateSW({
         clientsClaim: true,
@@ -88,6 +93,12 @@ module.exports = (env, argv) => {
         {
           test: /\.png$/,
           type: 'asset/inline',
+        },
+        {
+          test: /\.m?js$/,
+          resolve: {
+            fullySpecified: false,
+          },
         },
       ],
     },

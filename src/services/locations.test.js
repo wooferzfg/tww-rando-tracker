@@ -46,11 +46,22 @@ describe('Locations', () => {
           },
         },
       });
+      expect(Locations.locationsList).toEqual([
+        {
+          generalLocation: 'Outset Island',
+          detailedLocation: 'Savage Labyrinth - Floor 30',
+        },
+        {
+          generalLocation: 'Dragon Roost Cavern',
+          detailedLocation: "Bird's Nest",
+        },
+      ]);
     });
   });
 
   describe('initializeRaw', () => {
     let allLocations;
+    let allLocationsList;
 
     beforeEach(() => {
       allLocations = {
@@ -62,18 +73,25 @@ describe('Locations', () => {
           },
         },
       };
+      allLocationsList = [
+        {
+          generalLocation: 'Dragon Roost Cavern',
+          detailedLocation: "Bird's Nest",
+        },
+      ];
     });
 
     test('returns all of the locations', () => {
-      Locations.initializeRaw(allLocations);
+      Locations.initializeRaw(allLocations, allLocationsList);
 
       expect(Locations.locations).toEqual(allLocations);
+      expect(Locations.locationsList).toEqual(allLocationsList);
     });
   });
 
   describe('reset', () => {
     beforeEach(() => {
-      Locations.initializeRaw({
+      const allLocations = {
         'Dragon Roost Cavern': {
           "Bird's Nest": {
             need: 'Can Access Dragon Roost Cavern & DRC Small Key x3',
@@ -81,13 +99,21 @@ describe('Locations', () => {
             types: 'Dungeon',
           },
         },
-      });
+      };
+      const allLocationsList = [
+        {
+          generalLocation: 'Dragon Roost Cavern',
+          detailedLocation: "Bird's Nest",
+        },
+      ];
+      Locations.initializeRaw(allLocations, allLocationsList);
     });
 
     test('resets the locations', () => {
       Locations.reset();
 
       expect(Locations.locations).toEqual(null);
+      expect(Locations.locationsList).toEqual(null);
     });
   });
 
@@ -112,6 +138,27 @@ describe('Locations', () => {
       const allLocations = Locations.readAll();
 
       expect(allLocations).toEqual(expectedLocations);
+    });
+  });
+
+  describe('readLocationsList', () => {
+    let expectedLocationsList;
+
+    beforeEach(() => {
+      expectedLocationsList = [
+        {
+          generalLocation: 'Dragon Roost Cavern',
+          detailedLocation: "Bird's Nest",
+        },
+      ];
+
+      Locations.locationsList = expectedLocationsList;
+    });
+
+    test('returns all of the locations list', () => {
+      const allLocationsList = Locations.readLocationsList();
+
+      expect(allLocationsList).toEqual(expectedLocationsList);
     });
   });
 
@@ -144,11 +191,53 @@ describe('Locations', () => {
     });
   });
 
+  describe('locationsLoaded', () => {
+    describe('when locations are loaded', () => {
+      beforeEach(() => {
+        const itemLocations = {
+          'Outset Island': {
+            'Savage Labyrinth - Floor 30': {
+              test: 'data',
+            },
+          },
+        };
+        const locationsList = [
+          {
+            generalLocation: 'Outset Island',
+            detailedLocation: 'Savage Labyrinth - Floor 30',
+          },
+        ];
+        Locations.initializeRaw(itemLocations, locationsList);
+      });
+
+      test('returns true', () => {
+        const locationsLoaded = Locations.locationsLoaded();
+
+        expect(locationsLoaded).toEqual(true);
+      });
+    });
+
+    describe('when locations are not loaded', () => {
+      beforeEach(() => {
+        Locations.reset();
+      });
+
+      test('returns false', () => {
+        const locationsLoaded = Locations.locationsLoaded();
+
+        expect(locationsLoaded).toEqual(false);
+      });
+    });
+  });
+
   describe('mapLocations', () => {
     beforeEach(() => {
       Locations.locations = {
         'Outset Island': {
           'Savage Labyrinth - Floor 30': {
+            test: 'data',
+          },
+          'Sunken Treasure': {
             test: 'data',
           },
         },
@@ -158,19 +247,39 @@ describe('Locations', () => {
           },
         },
       };
+      Locations.locationsList = [
+        {
+          generalLocation: 'Outset Island',
+          detailedLocation: 'Savage Labyrinth - Floor 30',
+        },
+        {
+          generalLocation: 'Dragon Roost Cavern',
+          detailedLocation: "Bird's Nest",
+        },
+        {
+          generalLocation: 'Outset Island',
+          detailedLocation: 'Sunken Treasure',
+        },
+      ];
     });
 
-    test('creates an object by calling the iteratee on each location', () => {
+    test('creates an object by calling the iteratee on each location, in the order of locationsList', () => {
+      let index = 0;
       const mappedLocations = Locations.mapLocations(
-        (generalLocation, detailedLocation) => `${detailedLocation} $$$ ${generalLocation}`,
+        (generalLocation, detailedLocation) => {
+          const returnValue = `${detailedLocation} $$$ ${generalLocation} $$$ ${index}`;
+          index += 1;
+          return returnValue;
+        },
       );
 
       expect(mappedLocations).toEqual({
         'Outset Island': {
-          'Savage Labyrinth - Floor 30': 'Savage Labyrinth - Floor 30 $$$ Outset Island',
+          'Savage Labyrinth - Floor 30': 'Savage Labyrinth - Floor 30 $$$ Outset Island $$$ 0',
+          'Sunken Treasure': 'Sunken Treasure $$$ Outset Island $$$ 2',
         },
         'Dragon Roost Cavern': {
-          "Bird's Nest": "Bird's Nest $$$ Dragon Roost Cavern",
+          "Bird's Nest": "Bird's Nest $$$ Dragon Roost Cavern $$$ 1",
         },
       });
     });
@@ -244,6 +353,35 @@ describe('Locations', () => {
       const newValue = _.get(Locations.locations, ['Outset Island', 'Savage Labyrinth - Floor 30', 'need']);
 
       expect(newValue).toEqual('expected value');
+    });
+  });
+
+  describe('addLocation', () => {
+    beforeEach(() => {
+      Locations.locationsList = [
+        {
+          generalLocation: 'Outset Island',
+          detailedLocation: 'Savage Labyrinth - Floor 30',
+        },
+      ];
+    });
+
+    test('adds the given location to the locations list', () => {
+      Locations.addLocation(
+        "Ganon's Tower",
+        'Defeat Ganondorf',
+      );
+
+      expect(Locations.locationsList).toEqual([
+        {
+          generalLocation: 'Outset Island',
+          detailedLocation: 'Savage Labyrinth - Floor 30',
+        },
+        {
+          generalLocation: "Ganon's Tower",
+          detailedLocation: 'Defeat Ganondorf',
+        },
+      ]);
     });
   });
 
