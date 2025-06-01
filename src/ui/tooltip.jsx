@@ -4,11 +4,11 @@ import React, { useId } from 'react';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 function Tooltip({ children, tooltipContent = null }) {
+  const tooltipId = useId();
+
   if (_.isNil(tooltipContent)) {
     return children;
   }
-
-  const tooltipId = useId();
 
   return (
     <div
