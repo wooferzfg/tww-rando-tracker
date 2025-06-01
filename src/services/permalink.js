@@ -29,7 +29,7 @@ class Permalink {
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'eJzLTSwuSS1icGTwFAhgIBJIMDD8ZjqhCmYzArU2MAAAAi8GOw==';
+  static DEFAULT_PERMALINK = 'eJwLtlAIyS8tykvMTc0rUSgzZHBkuPu5iKPBmEHAwZEBCBqAqJ9RAMSUYLJzrjf4KL/hf7YJAxjc8WjgcHlyWt3GVp5BwOMfE1CNA4MIgytjhQYXAGYwFsk=';
 
   static getVersion(binaryString) {
     const clonedString = binaryString.clone();
@@ -92,6 +92,7 @@ class Permalink {
     this.#dropdownConfig(this.OPTIONS.SWORD_MODE),
     this.#booleanConfig(this.OPTIONS.REQUIRED_BOSSES),
     this.#dropdownConfig(this.OPTIONS.NUM_REQUIRED_BOSSES),
+    this.#booleanConfig(this.OPTIONS.HELM_MORE_LIKELY),
     this.#booleanConfig(this.OPTIONS.CHEST_TYPE_MATCHES_CONTENTS),
     this.#booleanConfig(this.OPTIONS.TRAP_CHESTS),
     this.#booleanConfig(this.OPTIONS.HERO_MODE),
@@ -118,6 +119,13 @@ class Permalink {
     this.#booleanConfig(this.OPTIONS.CRYPTIC_HINTS),
     this.#booleanConfig(this.OPTIONS.PRIORITIZE_REMOTE_HINTS),
     this.#booleanConfig(this.OPTIONS.HINT_IMPORTANCE),
+    this.#booleanConfig(this.OPTIONS.HOHO_HINT_SHARDS),
+    this.#booleanConfig(this.OPTIONS.KORL_HINTS_SWORDS),
+    this.#booleanConfig(this.OPTIONS.KREEB_HINTS_BOWS),
+    this.#booleanConfig(this.OPTIONS.OPEN_DRC),
+    this.#booleanConfig(this.OPTIONS.ALWAYS_DOUBLE_MAGIC),
+    this.#booleanConfig(this.OPTIONS.RAINBOW_RUPEE_PROGRESS),
+    this.#booleanConfig(this.OPTIONS.USE_ASSUMED_FILL),
     this.#booleanConfig(this.OPTIONS.SWIFT_SAIL),
     this.#booleanConfig(this.OPTIONS.INSTANT_TEXT_BOXES),
     this.#booleanConfig(this.OPTIONS.REVEAL_FULL_SEA_CHART),
@@ -128,6 +136,14 @@ class Permalink {
     this.#dropdownConfig(this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS),
     this.#spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
     this.#spinBoxConfig(this.OPTIONS.STARTING_HCS, 1, 9),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_JOY_PENDANT, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_SKULL_NECKLACE, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_BOKO_BABA_SEED, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_GOLDEN_FEATHER, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_KNIGHTS_CREST, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_RED_CHU_JELLY, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_GREEN_CHU_JELLY, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_BLUE_CHU_JELLY, 0, 99),
     this.#spinBoxConfig(this.OPTIONS.NUM_EXTRA_STARTING_ITEMS, 0, 3),
     this.#booleanConfig(this.OPTIONS.DO_NOT_GENERATE_SPOILER_LOG),
   ];
