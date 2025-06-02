@@ -79,6 +79,34 @@ class ItemsTable extends React.PureComponent {
     );
   }
 
+  chuCount() {
+    // Dummy item to display how many blue chus the user has tracked
+    const { trackerState, trackNonProgressBlueChuJelly } = this.props;
+    if (!trackNonProgressBlueChuJelly && !LogicHelper.blueChusAreUseful()) {
+      return null;
+    }
+    const img = _.get(Images.IMAGES, ['BLUE_CHU_JELLY_COUNT']);
+    const count = trackerState.getMarkedBlueChuCount();
+    const color = count >= 15 ? 'gold' : 'white'
+    return (
+      <div style={{"position": "relative"}}>
+        <Item
+          clearSelectedItem={this.clearSelectedItem}
+          decrementItem={() => {}}
+          images={img}
+          incrementItem={() => {}}
+          itemCount={0}
+          itemName={`Marked Blue Chu Jelly (${count}/15)`}
+          locations={[]}
+          setSelectedItem={this.setSelectedItem}
+          spheres={[]}
+        />
+        <b style={{position: 'absolute', bottom: '-4%', right: '24%', color:'black', fontSize: '14pt'}}>x{count}</b>
+        <b style={{position: 'absolute', bottom: '0%', right: '26%', color:color, fontSize: '14pt'}}>x{count}</b>
+      </div>
+    );
+  }
+
   song(songName) {
     const { trackerState, trackSpheres, spheres } = this.props;
 
@@ -180,7 +208,7 @@ class ItemsTable extends React.PureComponent {
             <div className="misc-items">
               <Table
                 elements={[
-                  null,
+                  this.chuCount(),
                   this.item(LogicHelper.ITEMS.TINGLE_STATUE),
                   this.item(LogicHelper.ITEMS.GHOST_SHIP_CHART),
                   this.item(LogicHelper.ITEMS.HURRICANE_SPIN),
@@ -211,6 +239,7 @@ ItemsTable.propTypes = {
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
 };
 
 export default ItemsTable;

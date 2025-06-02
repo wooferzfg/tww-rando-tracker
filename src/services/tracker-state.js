@@ -254,6 +254,15 @@ class TrackerState {
     const isChecked = this.isLocationChecked(generalLocation, detailedLocation);
     _.set(this.locationsChecked, [generalLocation, detailedLocation], !isChecked);
   }
+
+  getMarkedBlueChuCount() {
+    const all_chu_items = _.values(LogicHelper.BLUE_CHU_ITEMS);
+    let count = 0;
+    _.forEach(all_chu_items, (chu) => {
+      count += this.getItemValue(chu) ?? 0;
+    });
+    return count + LogicHelper.startingBlueChuJellyCount();
+  }
 }
 
 export default TrackerState;

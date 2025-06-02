@@ -407,6 +407,7 @@ class Tracker extends React.PureComponent {
       colors,
       rightClickToClearAll,
       trackNonProgressCharts,
+      trackNonProgressBlueChuJelly,
       trackSpheres,
       viewingEntrances,
     } = this.state;
@@ -418,6 +419,7 @@ class Tracker extends React.PureComponent {
       onlyProgressLocations,
       rightClickToClearAll,
       trackNonProgressCharts,
+      trackNonProgressBlueChuJelly,
       trackSpheres,
       viewingEntrances,
     };
@@ -448,6 +450,7 @@ class Tracker extends React.PureComponent {
       settingsWindowOpen,
       spheres,
       trackNonProgressCharts,
+      trackNonProgressBlueChuJelly,
       trackSpheres,
       trackerState,
       viewingEntrances,
@@ -479,6 +482,7 @@ class Tracker extends React.PureComponent {
               spheres={spheres}
               trackerState={trackerState}
               trackSpheres={trackSpheres}
+              trackNonProgressBlueChuJelly={trackNonProgressBlueChuJelly}
             />
             <LocationsTable
               backgroundColor={extraLocationsBackground}
@@ -501,6 +505,7 @@ class Tracker extends React.PureComponent {
               toggleRequiredBoss={this.toggleRequiredBoss}
               trackerState={trackerState}
               trackNonProgressCharts={trackNonProgressCharts}
+              trackNonProgressBlueChuJelly={trackNonProgressBlueChuJelly}
               trackSpheres={trackSpheres}
               updateChartMapping={this.updateChartMapping}
               updateOpenedChartForIsland={this.updateOpenedChartForIsland}
@@ -539,6 +544,7 @@ class Tracker extends React.PureComponent {
               statisticsBackground={statisticsBackground}
               toggleSettingsWindow={this.toggleSettingsWindow}
               trackNonProgressCharts={trackNonProgressCharts}
+              trackNonProgressBlueChuJelly={trackNonProgressBlueChuJelly}
               trackSpheres={trackSpheres}
               updatePreferences={this.updatePreferences}
             />

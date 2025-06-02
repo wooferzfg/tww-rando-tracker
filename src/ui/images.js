@@ -66,6 +66,13 @@ export default class Images {
         0: import('../images/compass.png'),
         1: import('../images/compass_a.png'),
       },
+      BLUE_CHU_JELLIES: {
+        0: import('../images/blue_chu_jelly.png'),
+        1: import('../images/blue_chu_jelly_a.png'),
+      },
+      BLUE_CHU_JELLY_COUNT: {
+        0: import('../images/blue_chu_jelly_count.png'),
+      },
       DUNGEON_CHART_BACKGROUNDS: {
         [LogicHelper.DUNGEONS.DRAGON_ROOST_CAVERN]: import('../images/dungeon_mapfull0.png'),
         [LogicHelper.DUNGEONS.FORBIDDEN_WOODS]: import('../images/dungeon_mapfull1.png'),

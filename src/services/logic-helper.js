@@ -14,6 +14,7 @@ import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
 import REQUIRED_BOSSES from '../data/required-bosses.json';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
 import TINGLE_STATUES from '../data/tingle-statues.json';
+import BLUE_CHUCHUS from '../data/blue-chu-islands.json';
 
 import BooleanExpression from './boolean-expression';
 import Constants from './constants';
@@ -124,6 +125,8 @@ class LogicHelper {
 
   static ITEMS = Constants.createFromArray(_.keys(ITEMS));
 
+  static BLUE_CHU_ITEMS = Constants.createFromArray(_.values(BLUE_CHUCHUS).flat());
+
   static TOKENS = {
     AND: '&',
     CLOSING_PAREN: ')',
@@ -145,6 +148,7 @@ class LogicHelper {
     _.map(DUNGEON_ENTRANCES, (entranceData) => this.entryName(entranceData.internalName)),
     _.keys(ITEMS),
     _.keys(KEYS),
+    _.values(BLUE_CHUCHUS).flat(),
   );
 
   static ALL_TREASURE_CHARTS = _.range(1, CHARTS.length - this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Treasure Chart ${number}`);
@@ -600,6 +604,20 @@ class LogicHelper {
       return Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS);
     }
     return Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_TRIFORCE_CHARTS);
+  }
+
+  static blueChusOnIsland(islandName) {
+    const chus = BLUE_CHUCHUS[islandName];
+    return chus ?? [];
+  }
+
+  static startingBlueChuJellyCount() {
+    return 0;
+    // return Settings.getOptionValue(Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY);
+  }
+
+  static blueChusAreUseful() {
+    return this.isProgressLocation('Windfall Island', 'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly');
   }
 
   static bannedLocationsForZone(zoneName, { includeAdditionalLocations }) {
