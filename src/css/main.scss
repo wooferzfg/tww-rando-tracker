@@ -397,6 +397,34 @@ button:hover:enabled {
     left: 0;
     top: 100%;
   }
+
+  .chu-count-container {
+    position: relative;
+  }
+
+  .chu-text-white {
+    position: absolute;
+    bottom: 0%;
+    right: 26%;
+    font-size: 14pt;
+    color: white;
+  }
+
+  .chu-text-gold {
+    position: absolute;
+    bottom: 0%;
+    right: 26%;
+    font-size: 14pt;
+    color: gold;
+  }
+
+  .chu-text-shadow {
+    position: absolute;
+    bottom: -4%;
+    right: 24%;
+    font-size: 14pt;
+    color: black;
+  }
 }
 
 .song-notes {

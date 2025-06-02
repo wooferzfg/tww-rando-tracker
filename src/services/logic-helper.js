@@ -613,7 +613,6 @@ class LogicHelper {
 
   static startingBlueChuJellyCount() {
     return 0;
-    // return Settings.getOptionValue(Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY);
   }
 
   static blueChusAreUseful() {

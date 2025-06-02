@@ -81,15 +81,15 @@ class ItemsTable extends React.PureComponent {
 
   chuCount() {
     // Dummy item to display how many blue chus the user has tracked
-    const { trackerState, trackNonProgressBlueChuJelly } = this.props;
+    const { trackerState, trackNonProgressBlueChuJelly, spheres } = this.props;
     if (!trackNonProgressBlueChuJelly && !LogicHelper.blueChusAreUseful()) {
       return null;
     }
     const img = _.get(Images.IMAGES, ['BLUE_CHU_JELLY_COUNT']);
     const count = trackerState.getMarkedBlueChuCount();
-    const color = count >= 15 ? 'gold' : 'white'
+    const textClass = count >= 15 ? 'chu-text-gold' : 'chu-text-white'
     return (
-      <div style={{"position": "relative"}}>
+      <div className="chu-count-container">
         <Item
           clearSelectedItem={this.clearSelectedItem}
           decrementItem={() => {}}
@@ -99,10 +99,10 @@ class ItemsTable extends React.PureComponent {
           itemName={`Marked Blue Chu Jelly (${count}/15)`}
           locations={[]}
           setSelectedItem={this.setSelectedItem}
-          spheres={[]}
+          spheres={spheres}
         />
-        <b style={{position: 'absolute', bottom: '-4%', right: '24%', color:'black', fontSize: '14pt'}}>x{count}</b>
-        <b style={{position: 'absolute', bottom: '0%', right: '26%', color:color, fontSize: '14pt'}}>x{count}</b>
+        <b className="chu-text-shadow">x{count}</b>
+        <b className={textClass}>x{count}</b>
       </div>
     );
   }

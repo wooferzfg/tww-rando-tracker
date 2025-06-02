@@ -256,9 +256,9 @@ class TrackerState {
   }
 
   getMarkedBlueChuCount() {
-    const all_chu_items = _.values(LogicHelper.BLUE_CHU_ITEMS);
+    const allChuItems = _.values(LogicHelper.BLUE_CHU_ITEMS);
     let count = 0;
-    _.forEach(all_chu_items, (chu) => {
+    _.forEach(allChuItems, (chu) => {
       count += this.getItemValue(chu) ?? 0;
     });
     return count + LogicHelper.startingBlueChuJellyCount();

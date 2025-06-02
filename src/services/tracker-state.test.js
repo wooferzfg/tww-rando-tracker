@@ -818,4 +818,27 @@ describe('TrackerState', () => {
       });
     });
   });
+
+  describe('blueChuTests', () => {
+    let state;
+    const allChuItems = _.values(LogicHelper.BLUE_CHU_ITEMS);
+
+    beforeEach(() => {
+      state = new TrackerState();
+      state.items = Object.fromEntries(allChuItems.map((chu) => [chu, 0]));
+    });
+
+    test('counts a marked blue chu', () => {
+      const newState = state.incrementItem('Blue Chu Underneath Boulder');
+
+      expect(newState.getMarkedBlueChuCount()).toEqual(1);
+    });
+
+    test('counts every blue chu', () => {
+      let newState = state;
+      _.forEach(allChuItems, (chu) => newState = newState.incrementItem(chu));
+
+      expect(newState.getMarkedBlueChuCount()).toEqual(23);
+    });
+  });
 });
