@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import ADDITONAL_BANNED_LOCATIONS from '../data/additional-banned-locations.json';
+import BLUE_CHUCHUS from '../data/blue-chu-islands.json';
 import CHARTS from '../data/charts.json';
 import DUNGEON_ENTRANCES from '../data/dungeon-entrances.json';
 import DUNGEONS from '../data/dungeons.json';
@@ -14,7 +15,6 @@ import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
 import REQUIRED_BOSSES from '../data/required-bosses.json';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
 import TINGLE_STATUES from '../data/tingle-statues.json';
-import BLUE_CHUCHUS from '../data/blue-chu-islands.json';
 
 import BooleanExpression from './boolean-expression';
 import Constants from './constants';

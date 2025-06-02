@@ -222,6 +222,15 @@ class TrackerState {
     return newState;
   }
 
+  getMarkedBlueChuCount() {
+    const allChuItems = _.values(LogicHelper.BLUE_CHU_ITEMS);
+    let count = 0;
+    _.forEach(allChuItems, (chu) => {
+      count += this.getItemValue(chu) ?? 0;
+    });
+    return count + LogicHelper.startingBlueChuJellyCount();
+  }
+
   #clone({
     entrances: cloneEntrances,
     islandsForCharts: cloneIslandsForCharts,
@@ -253,15 +262,6 @@ class TrackerState {
   #toggleLocationCheckedUpdate(generalLocation, detailedLocation) {
     const isChecked = this.isLocationChecked(generalLocation, detailedLocation);
     _.set(this.locationsChecked, [generalLocation, detailedLocation], !isChecked);
-  }
-
-  getMarkedBlueChuCount() {
-    const allChuItems = _.values(LogicHelper.BLUE_CHU_ITEMS);
-    let count = 0;
-    _.forEach(allChuItems, (chu) => {
-      count += this.getItemValue(chu) ?? 0;
-    });
-    return count + LogicHelper.startingBlueChuJellyCount();
   }
 }
 

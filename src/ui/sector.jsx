@@ -84,7 +84,7 @@ class Sector extends React.PureComponent {
     return (
       <div>
         {jellies.map((jelly, index) => (
-          <div key={index} className="treasure-chart">
+          <div key={jelly} className="treasure-chart">
             <Item
               clearSelectedItem={clearSelectedItem}
               decrementItem={decrementItem}
@@ -389,6 +389,7 @@ Sector.propTypes = {
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,
+  trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
   unsetEntrance: PropTypes.func.isRequired,

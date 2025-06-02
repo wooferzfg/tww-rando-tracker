@@ -836,7 +836,7 @@ describe('TrackerState', () => {
 
     test('counts every blue chu', () => {
       let newState = state;
-      _.forEach(allChuItems, (chu) => newState = newState.incrementItem(chu));
+      _.forEach(allChuItems, (chu) => { newState = newState.incrementItem(chu); });
 
       expect(newState.getMarkedBlueChuCount()).toEqual(23);
     });

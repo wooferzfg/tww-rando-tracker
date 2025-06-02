@@ -87,7 +87,7 @@ class ItemsTable extends React.PureComponent {
     }
     const img = _.get(Images.IMAGES, ['BLUE_CHU_JELLY_COUNT']);
     const count = trackerState.getMarkedBlueChuCount();
-    const textClass = count >= 15 ? 'chu-text-gold' : 'chu-text-white'
+    const textClass = count >= 15 ? 'chu-text-gold' : 'chu-text-white';
     return (
       <div className="chu-count-container">
         <Item
@@ -101,8 +101,14 @@ class ItemsTable extends React.PureComponent {
           setSelectedItem={this.setSelectedItem}
           spheres={spheres}
         />
-        <b className="chu-text-shadow">x{count}</b>
-        <b className={textClass}>x{count}</b>
+        <b className="chu-text-shadow">
+          x
+          {count}
+        </b>
+        <b className={textClass}>
+          x
+          {count}
+        </b>
       </div>
     );
   }
