@@ -96,7 +96,7 @@ class ItemsTable extends React.PureComponent {
           images={img}
           incrementItem={() => {}}
           itemCount={0}
-          itemName={`Marked Blue Chu Jelly (${count}/15)`}
+          itemName={`Blue Chu Jelly (${count}/15)`}
           locations={[]}
           setSelectedItem={this.setSelectedItem}
           spheres={spheres}
