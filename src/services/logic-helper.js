@@ -615,7 +615,10 @@ class LogicHelper {
   }
 
   static blueChusAreUseful() {
-    return this.isProgressLocation('Windfall Island', 'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly');
+    return this.isProgressLocation(
+      LogicHelper.ISLANDS.WINDFALL_ISLAND,
+      'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly',
+    );
   }
 
   static bannedLocationsForZone(zoneName, { includeAdditionalLocations }) {
