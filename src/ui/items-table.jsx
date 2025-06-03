@@ -101,10 +101,6 @@ class ItemsTable extends React.PureComponent {
           setSelectedItem={this.setSelectedItem}
           spheres={spheres}
         />
-        <b className="chu-text-shadow">
-          x
-          {count}
-        </b>
         <b className={textClass}>
           x
           {count}

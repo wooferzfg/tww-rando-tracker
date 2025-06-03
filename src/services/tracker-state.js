@@ -224,11 +224,8 @@ class TrackerState {
 
   getMarkedBlueChuCount() {
     const allChuItems = _.values(LogicHelper.BLUE_CHU_ITEMS);
-    let count = 0;
-    _.forEach(allChuItems, (chu) => {
-      count += this.getItemValue(chu) ?? 0;
-    });
-    return count + LogicHelper.startingBlueChuJellyCount();
+    const numCollectedChus = _.sumBy(allChuItems, (chu) => this.getItemValue(chu));
+    return numCollectedChus + LogicHelper.startingBlueChuJellyCount();
   }
 
   #clone({

@@ -400,30 +400,27 @@ button:hover:enabled {
 
   .chu-count-container {
     position: relative;
+
+    .item-container {
+      cursor: auto;
+    }
   }
 
   .chu-text-white {
-    position: absolute;
-    bottom: 0%;
-    right: 26%;
-    font-size: 14pt;
     color: white;
   }
 
   .chu-text-gold {
+    color: gold;
+  }
+
+  .chu-text-white, .chu-text-gold {
+    pointer-events: none;
+    text-shadow: 1.5px 1px rgba(0, 0, 0, 0.5);
     position: absolute;
     bottom: 0%;
     right: 26%;
     font-size: 14pt;
-    color: gold;
-  }
-
-  .chu-text-shadow {
-    position: absolute;
-    bottom: -4%;
-    right: 24%;
-    font-size: 14pt;
-    color: black;
   }
 }
 
@@ -480,7 +477,8 @@ button:hover:enabled {
   }
 
   .treasure-chart,
-  .cave-entry {
+  .cave-entry,
+  .blue-chu-jelly {
     width: 16px;
     height: 16px;
     float: left;

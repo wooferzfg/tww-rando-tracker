@@ -607,8 +607,7 @@ class LogicHelper {
   }
 
   static blueChusOnIsland(islandName) {
-    const chus = BLUE_CHUCHUS[islandName];
-    return chus ?? [];
+    return _.get(BLUE_CHUCHUS, islandName, []);
   }
 
   static startingBlueChuJellyCount() {

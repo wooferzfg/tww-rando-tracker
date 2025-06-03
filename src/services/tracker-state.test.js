@@ -819,7 +819,7 @@ describe('TrackerState', () => {
     });
   });
 
-  describe('blueChuTests', () => {
+  describe('getMarkedBlueChuCount', () => {
     let state;
     const allChuItems = _.values(LogicHelper.BLUE_CHU_ITEMS);
 

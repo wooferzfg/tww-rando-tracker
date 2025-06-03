@@ -4551,7 +4551,14 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('blueChuTests', () => {
+  describe('startingBlueChuJellyCount', () => {
+    test('always returns 0', () => {
+      const startingBlueChuJellyCount = LogicHelper.startingBlueChuJellyCount();
+      expect(startingBlueChuJellyCount).toEqual(0);
+    });
+  });
+
+  describe('blueChusAreUseful', () => {
     describe('when spoils trading & long sidequests are on', () => {
       beforeEach(() => {
         fullSetup({
@@ -4614,27 +4621,28 @@ describe('LogicHelper', () => {
         expect(blueChusAreUseful).toEqual(false);
       });
     });
+  });
 
-    describe('chu island data checks', () => {
-      beforeEach(() => fullSetup());
+  describe('blueChusOnIsland', () => {
+    test('island without blue chus returns empty list', () => {
+      const chusOnDRI = LogicHelper.blueChusOnIsland('Dragon Roost Island');
 
-      test('island without blue chus returns empty list', () => {
-        const chusOnDRI = LogicHelper.blueChusOnIsland('Dragon Roost Island');
+      expect(chusOnDRI).toEqual([]);
+    });
 
-        expect(chusOnDRI.length).toEqual(0);
-      });
+    test('island with one blue chu returns list with one item', () => {
+      const chusOnCliffPlat = LogicHelper.blueChusOnIsland('Cliff Plateau Isles');
 
-      test('island with one blue chu returns list with one item', () => {
-        const chusOnCliffPlat = LogicHelper.blueChusOnIsland('Cliff Plateau Isles');
+      expect(chusOnCliffPlat).toEqual(['Blue Chu on Highest Isle']);
+    });
 
-        expect(chusOnCliffPlat.length).toEqual(1);
-      });
+    test('island with two blue chus returns list with two items', () => {
+      const chusOnCrescent = LogicHelper.blueChusOnIsland('Crescent Moon Island');
 
-      test('island with two blue chus returns list with two items', () => {
-        const chusOnCrescent = LogicHelper.blueChusOnIsland('Crescent Moon Island');
-
-        expect(chusOnCrescent.length).toEqual(2);
-      });
+      expect(chusOnCrescent).toEqual([
+        'First Blue Chu Near Chest',
+        'Second Blue Chu Near Chest',
+      ]);
     });
   });
 });

@@ -80,7 +80,7 @@ class Sector extends React.PureComponent {
 
     const chuImages = _.get(Images.IMAGES, ['BLUE_CHU_JELLIES']);
     const jellies = LogicHelper.blueChusOnIsland(island);
-    const chuCounts = jellies.map((jelly) => trackerState.getItemValue(jelly) ?? 0);
+    const chuCounts = jellies.map((jelly) => trackerState.getItemValue(jelly));
     return (
       <div>
         {jellies.map((jelly, index) => (
@@ -129,7 +129,7 @@ class Sector extends React.PureComponent {
     }
 
     return (
-      <div className="treasure-chart">
+      <div className="blue-chu-jelly">
         <Item
           clearSelectedItem={clearSelectedItem}
           decrementItem={decrementItem}
