@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import ADDITONAL_BANNED_LOCATIONS from '../data/additional-banned-locations.json';
+import BLUE_CHUCHUS from '../data/blue-chu-islands.json';
 import CHARTS from '../data/charts.json';
 import DUNGEON_ENTRANCES from '../data/dungeon-entrances.json';
 import DUNGEONS from '../data/dungeons.json';
@@ -124,6 +125,8 @@ class LogicHelper {
 
   static ITEMS = Constants.createFromArray(_.keys(ITEMS));
 
+  static BLUE_CHU_ITEMS = Constants.createFromArray(_.values(BLUE_CHUCHUS).flat());
+
   static TOKENS = {
     AND: '&',
     CLOSING_PAREN: ')',
@@ -145,6 +148,7 @@ class LogicHelper {
     _.map(DUNGEON_ENTRANCES, (entranceData) => this.entryName(entranceData.internalName)),
     _.keys(ITEMS),
     _.keys(KEYS),
+    _.values(BLUE_CHUCHUS).flat(),
   );
 
   static ALL_TREASURE_CHARTS = _.range(1, CHARTS.length - this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Treasure Chart ${number}`);
@@ -612,6 +616,18 @@ class LogicHelper {
       detailedLocation,
     } = this.sunkenTreasureLocationForIsland(islandName);
     return this.isProgressLocation(generalLocation, detailedLocation);
+  }
+
+  static blueChusOnIsland(islandName) {
+    return _.get(BLUE_CHUCHUS, islandName, []);
+  }
+
+  static startingBlueChuJellyCount() {
+    return 0;
+  }
+
+  static blueChusAreUseful() {
+    return this.isProgressLocation('Windfall Island', 'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly');
   }
 
   static bannedLocationsForZone(zoneName, { includeAdditionalLocations }) {

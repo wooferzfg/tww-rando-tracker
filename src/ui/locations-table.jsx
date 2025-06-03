@@ -97,6 +97,7 @@ class LocationsTable extends React.PureComponent {
       toggleLocationChecked,
       trackerState,
       trackNonProgressCharts,
+      trackNonProgressBlueChuJelly,
       trackSpheres,
       unsetChartMapping,
       unsetEntrance,
@@ -192,6 +193,7 @@ class LocationsTable extends React.PureComponent {
           spheres={spheres}
           trackerState={trackerState}
           trackNonProgressCharts={trackNonProgressCharts}
+          trackNonProgressBlueChuJelly={trackNonProgressBlueChuJelly}
           trackSpheres={trackSpheres}
           unsetChartMapping={unsetChartMapping}
           unsetEntrance={unsetEntrance}
@@ -307,6 +309,7 @@ LocationsTable.propTypes = {
   toggleRequiredBoss: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,
+  trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
