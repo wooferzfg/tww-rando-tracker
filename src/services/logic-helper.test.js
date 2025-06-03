@@ -4574,4 +4574,99 @@ describe('LogicHelper', () => {
       ]);
     });
   });
+
+  describe('startingBlueChuJellyCount', () => {
+    test('always returns 0', () => {
+      const startingBlueChuJellyCount = LogicHelper.startingBlueChuJellyCount();
+      expect(startingBlueChuJellyCount).toEqual(0);
+    });
+  });
+
+  describe('blueChusAreUseful', () => {
+    describe('when spoils trading & long sidequests are on', () => {
+      beforeEach(() => {
+        fullSetup({
+          flags: [
+            Settings.FLAGS.SPOILS_TRADING,
+            Settings.FLAGS.LONG_SIDEQUEST,
+          ],
+        });
+      });
+
+      test('blue chus are useful', () => {
+        const blueChusAreUseful = LogicHelper.blueChusAreUseful();
+
+        expect(blueChusAreUseful).toEqual(true);
+      });
+    });
+
+    describe('when only spoils trading is on', () => {
+      beforeEach(() => {
+        fullSetup({
+          flags: [
+            Settings.FLAGS.SPOILS_TRADING,
+          ],
+        });
+      });
+
+      test('blue chus are not useful', () => {
+        const blueChusAreUseful = LogicHelper.blueChusAreUseful();
+
+        expect(blueChusAreUseful).toEqual(false);
+      });
+    });
+
+    describe('when only long sidequests are on', () => {
+      beforeEach(() => {
+        fullSetup({
+          flags: [
+            Settings.FLAGS.LONG_SIDEQUEST,
+          ],
+        });
+      });
+
+      test('blue chus are not useful', () => {
+        const blueChusAreUseful = LogicHelper.blueChusAreUseful();
+
+        expect(blueChusAreUseful).toEqual(false);
+      });
+    });
+
+    describe('when neither spoils trading nor long sidequests are on', () => {
+      beforeEach(() => {
+        fullSetup({
+          flags: [],
+        });
+      });
+
+      test('blue chus are not useful', () => {
+        const blueChusAreUseful = LogicHelper.blueChusAreUseful();
+
+        expect(blueChusAreUseful).toEqual(false);
+      });
+    });
+  });
+
+  describe('blueChusOnIsland', () => {
+    test('island without blue chus returns empty list', () => {
+      const chusOnDRI = LogicHelper.blueChusOnIsland('Dragon Roost Island');
+
+      expect(chusOnDRI).toEqual([]);
+    });
+
+    test('island with one blue chu returns list with one item', () => {
+      const chusOnCliffPlat = LogicHelper.blueChusOnIsland('Cliff Plateau Isles');
+
+      expect(chusOnCliffPlat).toEqual(['Blue Chu on Highest Isle']);
+    });
+
+    test('island with two blue chus returns list with two items', () => {
+      const chusOnCrescent = LogicHelper.blueChusOnIsland('Crescent Moon Island');
+
+      expect(chusOnCrescent).toEqual([
+        'First Blue Chu Near Chest',
+        'Second Blue Chu Near Chest',
+      ]);
+    });
+  });
 });

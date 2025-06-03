@@ -31,6 +31,7 @@ class SeaChart extends React.PureComponent {
       spheres,
       trackerState,
       trackNonProgressCharts,
+      trackNonProgressBlueChuJelly,
       trackSpheres,
       unsetChartMapping,
       unsetEntrance,
@@ -64,6 +65,7 @@ class SeaChart extends React.PureComponent {
         spheres={spheres}
         trackerState={trackerState}
         trackNonProgressCharts={trackNonProgressCharts}
+        trackNonProgressBlueChuJelly={trackNonProgressBlueChuJelly}
         trackSpheres={trackSpheres}
         unsetChartMapping={unsetChartMapping}
         unsetEntrance={unsetEntrance}
@@ -112,6 +114,7 @@ SeaChart.propTypes = {
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,
+  trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
   unsetEntrance: PropTypes.func.isRequired,
