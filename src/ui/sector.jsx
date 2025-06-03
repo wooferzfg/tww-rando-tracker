@@ -84,7 +84,7 @@ class Sector extends React.PureComponent {
     return (
       <div>
         {jellies.map((jelly, index) => (
-          <div key={jelly} className="treasure-chart">
+          <div key={jelly} className="blue-chu-jelly">
             <Item
               clearSelectedItem={clearSelectedItem}
               decrementItem={decrementItem}
@@ -129,7 +129,7 @@ class Sector extends React.PureComponent {
     }
 
     return (
-      <div className="blue-chu-jelly">
+      <div className="treasure-chart">
         <Item
           clearSelectedItem={clearSelectedItem}
           decrementItem={decrementItem}
