@@ -62,6 +62,46 @@ class Sector extends React.PureComponent {
     return this.chartItemVanilla();
   }
 
+  blueChuItems() {
+    const {
+      clearSelectedItem,
+      decrementItem,
+      incrementItem,
+      island,
+      setSelectedItem,
+      spheres,
+      trackerState,
+      trackNonProgressBlueChuJelly,
+    } = this.props;
+
+    if (!trackNonProgressBlueChuJelly && !LogicHelper.blueChusAreUseful()) {
+      return null;
+    }
+
+    const chuImages = _.get(Images.IMAGES, ['BLUE_CHU_JELLIES']);
+    const jellies = LogicHelper.blueChusOnIsland(island);
+    const chuCounts = jellies.map((jelly) => trackerState.getItemValue(jelly));
+    return (
+      <div>
+        {jellies.map((jelly, index) => (
+          <div key={jelly} className="treasure-chart">
+            <Item
+              clearSelectedItem={clearSelectedItem}
+              decrementItem={decrementItem}
+              images={chuImages}
+              incrementItem={incrementItem}
+              itemCount={chuCounts[index]}
+              itemName={jelly}
+              locations={[]}
+              setSelectedItem={setSelectedItem}
+              spheres={spheres}
+            />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   chartItemVanilla() {
     const {
       clearSelectedItem,
@@ -89,7 +129,7 @@ class Sector extends React.PureComponent {
     }
 
     return (
-      <div className="treasure-chart">
+      <div className="blue-chu-jelly">
         <Item
           clearSelectedItem={clearSelectedItem}
           decrementItem={decrementItem}
@@ -321,6 +361,7 @@ class Sector extends React.PureComponent {
         tabIndex="0"
       >
         {this.chartItem()}
+        {this.blueChuItems()}
         {this.entranceExitItems()}
         {this.chestsCounter()}
       </div>
@@ -348,6 +389,7 @@ Sector.propTypes = {
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,
+  trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
   unsetEntrance: PropTypes.func.isRequired,

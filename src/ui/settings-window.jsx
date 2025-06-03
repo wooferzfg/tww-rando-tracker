@@ -99,6 +99,7 @@ class SettingsWindow extends React.PureComponent {
       statisticsBackground,
       toggleSettingsWindow,
       trackNonProgressCharts,
+      trackNonProgressBlueChuJelly,
       trackSpheres,
     } = this.props;
 
@@ -157,6 +158,11 @@ class SettingsWindow extends React.PureComponent {
           'trackNonProgressCharts',
         )}
         {this.checkboxRow(
+          'Track Non-Progress Blue Chu Jelly',
+          trackNonProgressBlueChuJelly,
+          'trackNonProgressBlueChuJelly',
+        )}
+        {this.checkboxRow(
           'Right Click to Clear All',
           rightClickToClearAll,
           'rightClickToClearAll',
@@ -187,6 +193,7 @@ SettingsWindow.propTypes = {
   sphereTrackingBackground: PropTypes.string,
   statisticsBackground: PropTypes.string,
   trackNonProgressCharts: PropTypes.bool.isRequired,
+  trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
   toggleSettingsWindow: PropTypes.func.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   updatePreferences: PropTypes.func.isRequired,

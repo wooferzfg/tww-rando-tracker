@@ -222,6 +222,12 @@ class TrackerState {
     return newState;
   }
 
+  getMarkedBlueChuCount() {
+    const allChuItems = _.values(LogicHelper.BLUE_CHU_ITEMS);
+    const numCollectedChus = _.sumBy(allChuItems, (chu) => this.getItemValue(chu));
+    return numCollectedChus + LogicHelper.startingBlueChuJellyCount();
+  }
+
   #clone({
     entrances: cloneEntrances,
     islandsForCharts: cloneIslandsForCharts,
