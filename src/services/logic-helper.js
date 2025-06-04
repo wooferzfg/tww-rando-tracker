@@ -808,6 +808,7 @@ class LogicHelper {
         Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS,
       ),
       [this.ITEMS.TINGLE_STATUE]: startingTingleStatues,
+      [this.BLUE_CHU_JELLY_COUNT_ITEM]: this.startingBlueChuJellyCount(),
     };
     this.impossibleItems = {};
 
