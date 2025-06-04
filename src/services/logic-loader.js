@@ -27,7 +27,7 @@ class LogicLoader {
   }
 
   static #logicFileUrl(fileName) {
-    return `https://raw.githubusercontent.com/LagoLunatic/wwrando/${Settings.getVersion()}/logic/${fileName}`;
+    return `https://raw.githubusercontent.com/tanjo3/wwrando/${Settings.getVersion()}/logic/${fileName}`;
   }
 }
 
