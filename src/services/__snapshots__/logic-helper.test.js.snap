@@ -1502,6 +1502,7 @@ BooleanExpression {
 
 exports[`LogicHelper initialize when in swordless mode sets sword to 0 in the starting items and adds impossible items 1`] = `
 {
+  "Blue Chu Jelly": 0,
   "Boat's Sail": 1,
   "Progressive Sword": 0,
   "Tingle Statue": 0,
@@ -1520,6 +1521,7 @@ exports[`LogicHelper initialize when in swordless mode sets sword to 0 in the st
 
 exports[`LogicHelper initialize when starting without a sword sets sword to 0 in the starting items 1`] = `
 {
+  "Blue Chu Jelly": 0,
   "Boat's Sail": 1,
   "Progressive Sword": 0,
   "Tingle Statue": 0,
@@ -1531,6 +1533,7 @@ exports[`LogicHelper initialize when starting without a sword sets sword to 0 in
 
 exports[`LogicHelper initialize with no starting shards, no starting gear, and starting with a sword sets the starting and impossible items 1`] = `
 {
+  "Blue Chu Jelly": 0,
   "Boat's Sail": 1,
   "Progressive Sword": 1,
   "Tingle Statue": 0,
@@ -1542,6 +1545,7 @@ exports[`LogicHelper initialize with no starting shards, no starting gear, and s
 
 exports[`LogicHelper initialize with starting gear sets the starting items based on the starting gear 1`] = `
 {
+  "Blue Chu Jelly": 0,
   "Boat's Sail": 1,
   "Bombs": 1,
   "Deku Leaf": 1,
@@ -1555,6 +1559,7 @@ exports[`LogicHelper initialize with starting gear sets the starting items based
 
 exports[`LogicHelper initialize with starting shards sets the number of starting shards 1`] = `
 {
+  "Blue Chu Jelly": 0,
   "Boat's Sail": 1,
   "Progressive Sword": 1,
   "Tingle Statue": 0,
