@@ -205,6 +205,29 @@ describe('TrackerState', () => {
         expect(newState.items['Deku Leaf']).toEqual(1);
       });
     });
+
+    describe('when incrementing a blue chu', () => {
+      beforeEach(() => {
+        state = TrackerState.default();
+      });
+
+      test('updates blue chu jelly count for a single blue chu', () => {
+        const newState = state.incrementItem('Blue Chu Underneath Boulder');
+
+        expect(newState.items['Blue Chu Underneath Boulder']).toEqual(1);
+        expect(newState.items['Blue Chu Jelly']).toEqual(1);
+      });
+
+      test('updates blue chu jelly count for all blue chus', () => {
+        let newState = state;
+        _.forEach(
+          _.values(LogicHelper.BLUE_CHU_ITEMS),
+          (chu) => { newState = newState.incrementItem(chu); },
+        );
+
+        expect(newState.items['Blue Chu Jelly']).toEqual(23);
+      });
+    });
   });
 
   describe('decrementItem', () => {
@@ -243,6 +266,27 @@ describe('TrackerState', () => {
         const newState = state.decrementItem('Deku Leaf');
 
         expect(newState.items['Deku Leaf']).toEqual(0);
+      });
+    });
+
+    describe('when decrementing a blue chu', () => {
+      beforeEach(() => {
+        state = TrackerState.default();
+        state.items['Blue Chu Underneath Boulder'] = 1;
+        state.items['Blue Chu on Top of Island'] = 1;
+        state.items['Blue Chu Jelly'] = 2;
+      });
+
+      test('updates blue chu jelly count', () => {
+        const newState = state.decrementItem('Blue Chu Underneath Boulder');
+
+        expect(newState.items['Blue Chu Underneath Boulder']).toEqual(0);
+        expect(newState.items['Blue Chu Jelly']).toEqual(1);
+
+        const newStateAfterSecondDecrement = newState.decrementItem('Blue Chu on Top of Island');
+
+        expect(newStateAfterSecondDecrement.items['Blue Chu on Top of Island']).toEqual(0);
+        expect(newStateAfterSecondDecrement.items['Blue Chu Jelly']).toEqual(0);
       });
     });
   });
@@ -854,29 +898,6 @@ describe('TrackerState', () => {
           'Letter from Tingle': false,
         },
       });
-    });
-  });
-
-  describe('getMarkedBlueChuCount', () => {
-    let state;
-    const allChuItems = _.values(LogicHelper.BLUE_CHU_ITEMS);
-
-    beforeEach(() => {
-      state = new TrackerState();
-      state.items = Object.fromEntries(allChuItems.map((chu) => [chu, 0]));
-    });
-
-    test('counts a marked blue chu', () => {
-      const newState = state.incrementItem('Blue Chu Underneath Boulder');
-
-      expect(newState.getMarkedBlueChuCount()).toEqual(1);
-    });
-
-    test('counts every blue chu', () => {
-      let newState = state;
-      _.forEach(allChuItems, (chu) => { newState = newState.incrementItem(chu); });
-
-      expect(newState.getMarkedBlueChuCount()).toEqual(23);
     });
   });
 });

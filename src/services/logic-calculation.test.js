@@ -2136,4 +2136,77 @@ describe('LogicCalculation', () => {
       });
     });
   });
+
+  describe('blue chus', () => {
+    beforeEach(() => {
+      fullSetup();
+    });
+
+    describe('when the player has no blue chus', () => {
+      test('blue chus location is unavailable', () => {
+        const isBlueChusLocationAvailable = logic.isLocationAvailable(
+          'Windfall Island',
+          'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly',
+        );
+        expect(isBlueChusLocationAvailable).toEqual(false);
+      });
+    });
+
+    describe('when the player collects 1 blue chu', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state().incrementItem('Second Blue Chu Near Chest'),
+        );
+      });
+
+      test('blue chus location is unavailable', () => {
+        const isBlueChusLocationAvailable = logic.isLocationAvailable(
+          'Windfall Island',
+          'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly',
+        );
+        expect(isBlueChusLocationAvailable).toEqual(false);
+      });
+
+      test('blue chu count is 1', () => {
+        const blueChuCount = logic.state().getItemValue(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM);
+        expect(blueChuCount).toEqual(1);
+      });
+    });
+
+    describe('when the player collects 15 blue chus', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state()
+            .incrementItem('Blue Chu Underneath Boulder')
+            .incrementItem('Blue Chu Near Northern Fairy Tree')
+            .incrementItem('First Blue Chu Near Chest')
+            .incrementItem('Blue Chu on High Ledge')
+            .incrementItem('Blue Chu on Highest Point')
+            .incrementItem('Blue Chu Near Southern Fairy Tree')
+            .incrementItem('Blue Chu on Highest Isle')
+            .incrementItem('Blue Chu Near Second Hole at Night')
+            .incrementItem('Blue Chu Near Peak Chest')
+            .incrementItem('Blue Chu Near Cave Entrance')
+            .incrementItem('Blue Chu Atop Northeast Statue')
+            .incrementItem('Blue Chu Near Western Fairy Tree')
+            .incrementItem('Blue Chu Near Final Rock Spire')
+            .incrementItem('Blue Chu Near Wooden Sign')
+            .incrementItem('Second Blue Chu Near Chest'),
+        );
+      });
+
+      test('blue chus location is available', () => {
+        const isBlueChusLocationAvailable = logic.isLocationAvailable(
+          'Windfall Island',
+          'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly',
+        );
+        expect(isBlueChusLocationAvailable).toEqual(true);
+      });
+
+      test('blue chu count is 15', () => {
+        const blueChuCount = logic.state().getItemValue(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM);
+        expect(blueChuCount).toEqual(15);
+      });
+    });
+  });
 });
