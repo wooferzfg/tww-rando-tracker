@@ -65,6 +65,7 @@ class TrackerState {
       newItemCount = LogicHelper.startingItemCount(itemName);
     }
     _.set(newState.items, itemName, newItemCount);
+    newState.#updateBlueChuTotalIfNecessary(itemName);
 
     return newState;
   }
@@ -78,6 +79,7 @@ class TrackerState {
       newItemCount = LogicHelper.maxItemCount(itemName);
     }
     _.set(newState.items, itemName, newItemCount);
+    newState.#updateBlueChuTotalIfNecessary(itemName);
 
     return newState;
   }
@@ -222,7 +224,7 @@ class TrackerState {
     return newState;
   }
 
-  getMarkedBlueChuCount() {
+  #getMarkedBlueChuCount() {
     const allChuItems = _.values(LogicHelper.BLUE_CHU_ITEMS);
     const numCollectedChus = _.sumBy(allChuItems, (chu) => this.getItemValue(chu));
     return numCollectedChus + LogicHelper.startingBlueChuJellyCount();
@@ -259,6 +261,13 @@ class TrackerState {
   #toggleLocationCheckedUpdate(generalLocation, detailedLocation) {
     const isChecked = this.isLocationChecked(generalLocation, detailedLocation);
     _.set(this.locationsChecked, [generalLocation, detailedLocation], !isChecked);
+  }
+
+  #updateBlueChuTotalIfNecessary(itemName) {
+    if (_.includes(LogicHelper.BLUE_CHU_ITEMS, itemName)) {
+      const totalBlueChus = this.#getMarkedBlueChuCount();
+      _.set(this.items, LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM, totalBlueChus);
+    }
   }
 }
 

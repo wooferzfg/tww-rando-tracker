@@ -50,6 +50,7 @@ class LogicTweaks {
   static #updateLocations() {
     this.#addDefeatGanondorf();
     this.#updateTingleStatueReward();
+    this.#updateBlueChuJelly();
     this.#updateSunkenTriforceTypes();
     this.applyHasAccessedLocationTweaksForLocations();
   }
@@ -81,6 +82,15 @@ class LogicTweaks {
       'Ankle - Reward for All Tingle Statues',
       Locations.KEYS.NEED,
       'Tingle Statue x5',
+    );
+  }
+
+  static #updateBlueChuJelly() {
+    Locations.setLocation(
+      LogicHelper.ISLANDS.WINDFALL_ISLAND,
+      'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly',
+      Locations.KEYS.NEED,
+      `${LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM} x${LogicHelper.BLUE_CHU_JELLY_COUNT_REQUIRED}`,
     );
   }
 

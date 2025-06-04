@@ -141,6 +141,10 @@ class LogicHelper {
     TRIFORCE: 'Triforce',
   };
 
+  static BLUE_CHU_JELLY_COUNT_REQUIRED = 15;
+
+  static BLUE_CHU_JELLY_COUNT_ITEM = 'Blue Chu Jelly';
+
   static ALL_ITEMS = _.concat(
     _.map(ISLAND_ENTRANCES, (entranceData) => this.entryName(entranceData.internalName)),
     CHARTS,
@@ -149,6 +153,7 @@ class LogicHelper {
     _.keys(ITEMS),
     _.keys(KEYS),
     _.values(BLUE_CHUCHUS).flat(),
+    [this.BLUE_CHU_JELLY_COUNT_ITEM],
   );
 
   static ALL_TREASURE_CHARTS = _.range(1, CHARTS.length - this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Treasure Chart ${number}`);
@@ -337,7 +342,7 @@ class LogicHelper {
   }
 
   static parseItemCountRequirement(requirement) {
-    const itemCountRequirementMatch = requirement.match(/((?:\w|\s)+) x(\d)/);
+    const itemCountRequirementMatch = requirement.match(/((?:\w|\s)+) x(\d+)/);
 
     if (itemCountRequirementMatch) {
       return {
