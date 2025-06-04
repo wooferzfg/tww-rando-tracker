@@ -141,7 +141,7 @@ class LogicHelper {
     TRIFORCE: 'Triforce',
   };
 
-  static BLUE_CHUS_REQUIREMENT = 15;
+  static BLUE_CHU_JELLY_COUNT_REQUIRED = 15;
 
   static BLUE_CHU_JELLY_COUNT_ITEM = 'Blue Chu Jelly';
 
@@ -342,7 +342,7 @@ class LogicHelper {
   }
 
   static parseItemCountRequirement(requirement) {
-    const itemCountRequirementMatch = requirement.match(/((?:\w|\s)+) x(\d)/);
+    const itemCountRequirementMatch = requirement.match(/((?:\w|\s)+) x(\d+)/);
 
     if (itemCountRequirementMatch) {
       return {

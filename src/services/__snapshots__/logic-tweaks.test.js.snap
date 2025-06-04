@@ -2489,7 +2489,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
       "types": "Short Sidequest",
     },
     "Chu Jelly Juice Shop - Give 15 Blue Chu Jelly": {
-      "need": "Can Obtain 15 Blue Chu Jelly",
+      "need": "Blue Chu Jelly x15",
       "originalItem": "Blue Potion",
       "types": "Spoils Trading, Long Sidequest",
     },

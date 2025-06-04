@@ -86,8 +86,8 @@ class ItemsTable extends React.PureComponent {
       return null;
     }
     const image = _.get(Images.IMAGES, ['BLUE_CHU_JELLY_COUNT']);
-    const count = trackerState.getItemValue(LogicHelper.ITEMS.BLUE_CHU_JELLY);
-    const textClass = count >= LogicHelper.BLUE_CHUS_REQUIREMENT ? 'chu-text-gold' : 'chu-text-white';
+    const count = trackerState.getItemValue(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM);
+    const textClass = count >= LogicHelper.BLUE_CHU_JELLY_COUNT_REQUIRED ? 'chu-text-gold' : 'chu-text-white';
     return (
       <div className="chu-count-container">
         <Item
@@ -96,7 +96,7 @@ class ItemsTable extends React.PureComponent {
           images={image}
           incrementItem={() => {}}
           itemCount={0}
-          itemName={`Blue Chu Jelly (${count}/${LogicHelper.BLUE_CHUS_REQUIREMENT})`}
+          itemName={`Blue Chu Jelly (${count}/${LogicHelper.BLUE_CHU_JELLY_COUNT_REQUIRED})`}
           locations={[]}
           setSelectedItem={this.setSelectedItem}
           spheres={spheres}
