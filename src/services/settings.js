@@ -144,10 +144,13 @@ class Settings {
   };
 
   static #parseVersion(version) {
-    const commitHashMatch = version.match(/([a-f\d]){7,}/);
-    const versionMatch = version.match(/^[0-9.]+$/);
+    const s8VersionMatch = version.match(/(v\d+)/);
+    if (_.first(s8VersionMatch)) {
+      return `s8-${_.first(s8VersionMatch)}`;
+    }
 
-    return _.first(commitHashMatch) || _.first(versionMatch) || 'master';
+    const commitHashMatch = version.match(/([a-f\d]){7,}/);
+    return _.first(commitHashMatch) || 'master';
   }
 }
 
