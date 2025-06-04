@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
 
   const commitHash = execSync('git rev-parse --short HEAD').toString();
-  const date = moment.utc().format('YYYY-MM-DD kk:mm:ss');
+  const date = moment.utc().format('YYYY-MM-DD HH:mm:ss');
 
   const faviconsWebpackPluginSettings = {
     logo: path.resolve('src/images/icon.png'),
