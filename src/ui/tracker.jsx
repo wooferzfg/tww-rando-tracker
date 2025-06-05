@@ -130,7 +130,7 @@ class Tracker extends React.PureComponent {
     });
   }
 
-  incrementItem(itemName) {
+  incrementItem(itemName, trackItemLocation) {
     const {
       lastLocation,
       trackerState,
@@ -138,7 +138,7 @@ class Tracker extends React.PureComponent {
 
     let newTrackerState = trackerState.incrementItem(itemName);
 
-    if (!_.isNil(lastLocation)) {
+    if (trackItemLocation && !_.isNil(lastLocation)) {
       const {
         generalLocation,
         detailedLocation,
