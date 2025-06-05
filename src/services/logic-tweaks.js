@@ -92,7 +92,7 @@ class LogicTweaks {
       LogicHelper.ISLANDS.WINDFALL_ISLAND,
       'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly',
       Locations.KEYS.NEED,
-      `(${LogicHelper.ITEMS.SPOILS_BAG} & ${LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM} x${LogicHelper.BLUE_CHU_JELLY_COUNT_REQUIRED}) | ${originalRequirement}`,
+      `${LogicHelper.ITEMS.SPOILS_BAG} & (${LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM} x${LogicHelper.BLUE_CHU_JELLY_COUNT_REQUIRED} | ${originalRequirement})`,
     );
   }
 
