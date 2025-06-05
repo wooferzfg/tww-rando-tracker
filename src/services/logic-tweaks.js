@@ -82,11 +82,17 @@ class LogicTweaks {
   }
 
   static #updateBlueChuJelly() {
+    const originalRequirement = Locations.getLocation(
+      LogicHelper.ISLANDS.WINDFALL_ISLAND,
+      'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly',
+      Locations.KEYS.NEED,
+    );
+
     Locations.setLocation(
       LogicHelper.ISLANDS.WINDFALL_ISLAND,
       'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly',
       Locations.KEYS.NEED,
-      `${LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM} x${LogicHelper.BLUE_CHU_JELLY_COUNT_REQUIRED}`,
+      `(${LogicHelper.ITEMS.SPOILS_BAG} & ${LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM} x${LogicHelper.BLUE_CHU_JELLY_COUNT_REQUIRED}) | ${originalRequirement}`,
     );
   }
 

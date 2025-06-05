@@ -2115,6 +2115,10 @@ describe('LogicCalculation', () => {
   describe('blue chus', () => {
     beforeEach(() => {
       fullSetup();
+
+      logic = new LogicCalculation(
+        logic.state().incrementItem('Spoils Bag'),
+      );
     });
 
     describe('when the player has no blue chus', () => {
@@ -2145,6 +2149,27 @@ describe('LogicCalculation', () => {
       test('blue chu count is 1', () => {
         const blueChuCount = logic.state().getItemValue(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM);
         expect(blueChuCount).toEqual(1);
+      });
+    });
+
+    describe('when the player is able to obtain 15 blue chus', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state().decrementItem('Deku Leaf'),
+        );
+      });
+
+      test('blue chus location is available', () => {
+        const isBlueChusLocationAvailable = logic.isLocationAvailable(
+          'Windfall Island',
+          'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly',
+        );
+        expect(isBlueChusLocationAvailable).toEqual(true);
+      });
+
+      test('blue chu count is 0', () => {
+        const blueChuCount = logic.state().getItemValue(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM);
+        expect(blueChuCount).toEqual(0);
       });
     });
 
@@ -2181,6 +2206,27 @@ describe('LogicCalculation', () => {
       test('blue chu count is 15', () => {
         const blueChuCount = logic.state().getItemValue(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM);
         expect(blueChuCount).toEqual(15);
+      });
+
+      describe('when the player does not have spoils bag', () => {
+        beforeEach(() => {
+          logic = new LogicCalculation(
+            logic.state().decrementItem('Spoils Bag'),
+          );
+        });
+
+        test('blue chus location is unavailable', () => {
+          const isBlueChusLocationAvailable = logic.isLocationAvailable(
+            'Windfall Island',
+            'Chu Jelly Juice Shop - Give 15 Blue Chu Jelly',
+          );
+          expect(isBlueChusLocationAvailable).toEqual(false);
+        });
+
+        test('blue chu count is 15', () => {
+          const blueChuCount = logic.state().getItemValue(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM);
+          expect(blueChuCount).toEqual(15);
+        });
       });
     });
   });
