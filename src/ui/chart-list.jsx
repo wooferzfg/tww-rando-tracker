@@ -73,7 +73,7 @@ class ChartList extends React.PureComponent {
           updateChartMapping(chartName, openedChartForIsland);
         }
       } else {
-        incrementItem(chartName);
+        incrementItem(chartName, true);
 
         if (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_CHARTS)) {
           if (isChartMapped) {
