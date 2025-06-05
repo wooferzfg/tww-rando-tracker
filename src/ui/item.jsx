@@ -17,6 +17,7 @@ class Item extends React.PureComponent {
       decrementItem,
       images,
       incrementItem,
+      trackItemLocation,
       itemCount,
       itemName,
       setSelectedItem,
@@ -36,7 +37,7 @@ class Item extends React.PureComponent {
     const incrementItemFunc = (event) => {
       event.stopPropagation();
 
-      incrementItem(itemName);
+      incrementItem(itemName, trackItemLocation);
     };
 
     const decrementItemFunc = (event) => {
@@ -88,6 +89,7 @@ Item.defaultProps = {
   decrementItem: null,
   locations: [],
   spheres: null,
+  trackItemLocation: true,
 };
 
 Item.propTypes = {
@@ -95,6 +97,7 @@ Item.propTypes = {
   decrementItem: PropTypes.func,
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
   incrementItem: PropTypes.func.isRequired,
+  trackItemLocation: PropTypes.bool,
   itemCount: PropTypes.number.isRequired,
   itemName: PropTypes.string.isRequired,
   locations: PropTypes.arrayOf(PropTypes.exact({

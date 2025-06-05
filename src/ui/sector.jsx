@@ -90,6 +90,7 @@ class Sector extends React.PureComponent {
               decrementItem={decrementItem}
               images={chuImages}
               incrementItem={incrementItem}
+              trackItemLocation={false}
               itemCount={chuCounts[index]}
               itemName={jelly}
               locations={[]}
