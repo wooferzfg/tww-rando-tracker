@@ -56,7 +56,7 @@ class LogicHelper {
       'requirementsForLocation',
       'shortEntranceName',
       'shortExitName',
-      'smallKeysRequiredForLocation',
+      'keysRequiredForLocation',
       'vanillaChartForIsland',
     ]);
 
@@ -95,7 +95,7 @@ class LogicHelper {
       this.requirementsForLocation,
       this.shortEntranceName,
       this.shortExitName,
-      this.smallKeysRequiredForLocation,
+      this.keysRequiredForLocation,
       this.vanillaChartForIsland,
     ]);
 
@@ -465,21 +465,27 @@ class LogicHelper {
     return this.maxItemCount(smallKeyName);
   }
 
-  static smallKeysRequiredForLocation(generalLocation, detailedLocation) {
+  static keysRequiredForLocation(generalLocation, detailedLocation) {
     const maxSmallKeys = this.maxSmallKeysForDungeon(generalLocation);
 
     for (let numSmallKeys = 0; numSmallKeys <= maxSmallKeys; numSmallKeys += 1) {
-      if (
-        this.isLocationAvailableWithSmallKeys(
-          generalLocation,
-          detailedLocation,
-          {
-            numSmallKeys,
-            nonKeyRequirementMet: () => true, // assume we have all items that aren't keys
-          },
-        )
-      ) {
-        return numSmallKeys;
+      for (let numBigKeys = 0; numBigKeys <= 1; numBigKeys += 1) {
+        if (
+          this.isLocationAvailableWithKeys(
+            generalLocation,
+            detailedLocation,
+            {
+              numSmallKeys,
+              numBigKeys,
+              nonKeyRequirementMet: () => true, // assume we have all items that aren't keys
+            },
+          )
+        ) {
+          return {
+            smallKeysRequired: numSmallKeys,
+            bigKeysRequired: numBigKeys,
+          };
+        }
       }
     }
 
@@ -487,11 +493,12 @@ class LogicHelper {
     throw Error(`Could not determine keys required for location: ${generalLocation} - ${detailedLocation}`);
   }
 
-  static isLocationAvailableWithSmallKeys(
+  static isLocationAvailableWithKeys(
     generalLocation,
     detailedLocation,
     {
       numSmallKeys,
+      numBigKeys,
       nonKeyRequirementMet,
     },
   ) {
@@ -502,11 +509,11 @@ class LogicHelper {
     );
 
     const smallKeyName = this.smallKeyName(generalLocation);
+    const bigKeyName = this.bigKeyName(generalLocation);
 
     return requirementsForLocation.evaluate({
       isItemTrue: (requirement) => {
         const itemCountRequirement = this.parseItemCountRequirement(requirement);
-
         if (!_.isNil(itemCountRequirement)) {
           const {
             countRequired,
@@ -516,6 +523,10 @@ class LogicHelper {
           if (itemName === smallKeyName) {
             return numSmallKeys >= countRequired;
           }
+        }
+
+        if (requirement === bigKeyName) {
+          return numBigKeys >= 1;
         }
 
         return nonKeyRequirementMet(requirement);

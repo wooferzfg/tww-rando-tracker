@@ -379,21 +379,26 @@ class LogicCalculation {
 
     _.forEach(detailedLocations, (detailedLocation) => {
       if (LogicHelper.isPotentialKeyLocation(dungeonName, detailedLocation)) {
-        const smallKeysRequired = LogicHelper.smallKeysRequiredForLocation(
+        const { smallKeysRequired, bigKeysRequired } = LogicHelper.keysRequiredForLocation(
           dungeonName,
           detailedLocation,
         );
         const nonKeyRequirementsMet = this.#nonKeyRequirementsMetForLocation(
           dungeonName,
           detailedLocation,
-          smallKeysRequired,
+          {
+            smallKeysRequired,
+            bigKeysRequired,
+          },
         );
 
         if (!nonKeyRequirementsMet) {
           if (smallKeysRequired < guaranteedSmallKeys) {
             guaranteedSmallKeys = smallKeysRequired;
           }
-          guaranteedBigKeys = 0;
+          if (bigKeysRequired < guaranteedBigKeys) {
+            guaranteedBigKeys = bigKeysRequired;
+          }
         }
       }
     });
@@ -404,16 +409,21 @@ class LogicCalculation {
     };
   }
 
-  #nonKeyRequirementsMetForLocation(generalLocation, detailedLocation, smallKeysRequired) {
+  #nonKeyRequirementsMetForLocation(
+    generalLocation,
+    detailedLocation,
+    { smallKeysRequired, bigKeysRequired },
+  ) {
     if (this.isLocationAvailable(generalLocation, detailedLocation)) {
       return true;
     }
 
-    return LogicHelper.isLocationAvailableWithSmallKeys(
+    return LogicHelper.isLocationAvailableWithKeys(
       generalLocation,
       detailedLocation,
       {
         numSmallKeys: smallKeysRequired,
+        numBigKeys: bigKeysRequired,
         nonKeyRequirementMet: (requirement) => this.isRequirementMet(requirement),
       },
     );

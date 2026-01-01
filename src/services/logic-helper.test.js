@@ -2844,7 +2844,7 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('smallKeysRequiredForLocation', () => {
+  describe('keysRequiredForLocation', () => {
     describe('when the location has no requirements', () => {
       beforeEach(() => {
         setLocations([
@@ -2857,9 +2857,12 @@ describe('LogicHelper', () => {
       });
 
       test('returns 0', () => {
-        const keysRequired = LogicHelper.smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
+        const keysRequired = LogicHelper.keysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
-        expect(keysRequired).toEqual(0);
+        expect(keysRequired).toEqual({
+          smallKeysRequired: 0,
+          bigKeysRequired: 0,
+        });
       });
     });
 
@@ -2875,9 +2878,12 @@ describe('LogicHelper', () => {
       });
 
       test('returns 0', () => {
-        const keysRequired = LogicHelper.smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
+        const keysRequired = LogicHelper.keysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
-        expect(keysRequired).toEqual(0);
+        expect(keysRequired).toEqual({
+          smallKeysRequired: 0,
+          bigKeysRequired: 0,
+        });
       });
     });
 
@@ -2893,9 +2899,12 @@ describe('LogicHelper', () => {
       });
 
       test('returns the 1 small key', () => {
-        const keysRequired = LogicHelper.smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
+        const keysRequired = LogicHelper.keysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
-        expect(keysRequired).toEqual(1);
+        expect(keysRequired).toEqual({
+          smallKeysRequired: 1,
+          bigKeysRequired: 0,
+        });
       });
     });
 
@@ -2911,9 +2920,12 @@ describe('LogicHelper', () => {
       });
 
       test('returns the number of small keys', () => {
-        const keysRequired = LogicHelper.smallKeysRequiredForLocation('Dragon Roost Cavern', 'First Room');
+        const keysRequired = LogicHelper.keysRequiredForLocation('Dragon Roost Cavern', 'First Room');
 
-        expect(keysRequired).toEqual(2);
+        expect(keysRequired).toEqual({
+          smallKeysRequired: 2,
+          bigKeysRequired: 1,
+        });
       });
     });
 
@@ -2929,14 +2941,17 @@ describe('LogicHelper', () => {
       });
 
       test('returns the number of small keys that are strictly required', () => {
-        const keysRequired = LogicHelper.smallKeysRequiredForLocation('Dragon Roost Cavern', 'Big Key Chest');
+        const keysRequired = LogicHelper.keysRequiredForLocation('Dragon Roost Cavern', 'Big Key Chest');
 
-        expect(keysRequired).toEqual(1);
+        expect(keysRequired).toEqual({
+          smallKeysRequired: 1,
+          bigKeysRequired: 0,
+        });
       });
     });
   });
 
-  describe('isLocationAvailableWithSmallKeys', () => {
+  describe('isLocationAvailableWithKeys', () => {
     describe('when the location requires small keys that are below the given count', () => {
       beforeEach(() => {
         setLocations([
@@ -2949,11 +2964,12 @@ describe('LogicHelper', () => {
       });
 
       test('returns true', () => {
-        const isLocationAvailable = LogicHelper.isLocationAvailableWithSmallKeys(
+        const isLocationAvailable = LogicHelper.isLocationAvailableWithKeys(
           'Dragon Roost Cavern',
           'First Room',
           {
             numSmallKeys: 3,
+            numBigKeys: 0,
             nonKeyRequirementMet: () => true,
           },
         );
@@ -2974,16 +2990,69 @@ describe('LogicHelper', () => {
       });
 
       test('returns false', () => {
-        const isLocationAvailable = LogicHelper.isLocationAvailableWithSmallKeys(
+        const isLocationAvailable = LogicHelper.isLocationAvailableWithKeys(
           'Dragon Roost Cavern',
           'First Room',
           {
             numSmallKeys: 3,
+            numBigKeys: 0,
             nonKeyRequirementMet: () => true,
           },
         );
 
         expect(isLocationAvailable).toEqual(false);
+      });
+    });
+
+    describe('when the location requires a big key and numBigKeys is 0', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'DRC Big Key',
+            },
+          },
+        };
+      });
+
+      test('returns true', () => {
+        const isLocationAvailable = LogicHelper.isLocationAvailableWithKeys(
+          'Dragon Roost Cavern',
+          'First Room',
+          {
+            numSmallKeys: 0,
+            numBigKeys: 0,
+            nonKeyRequirementMet: () => true,
+          },
+        );
+
+        expect(isLocationAvailable).toEqual(false);
+      });
+    });
+
+    describe('when the location requires small and big keys', () => {
+      beforeEach(() => {
+        Locations.locations = {
+          'Dragon Roost Cavern': {
+            'First Room': {
+              need: 'DRC Big Key & DRC Small Key x4',
+            },
+          },
+        };
+      });
+
+      test('returns true', () => {
+        const isLocationAvailable = LogicHelper.isLocationAvailableWithKeys(
+          'Dragon Roost Cavern',
+          'First Room',
+          {
+            numSmallKeys: 4,
+            numBigKeys: 1,
+            nonKeyRequirementMet: () => true,
+          },
+        );
+
+        expect(isLocationAvailable).toEqual(true);
       });
     });
 
@@ -2999,11 +3068,12 @@ describe('LogicHelper', () => {
       });
 
       test('returns false', () => {
-        const isLocationAvailable = LogicHelper.isLocationAvailableWithSmallKeys(
+        const isLocationAvailable = LogicHelper.isLocationAvailableWithKeys(
           'Dragon Roost Cavern',
           'First Room',
           {
             numSmallKeys: 0,
+            numBigKeys: 0,
             nonKeyRequirementMet: () => false,
           },
         );
@@ -3024,11 +3094,12 @@ describe('LogicHelper', () => {
       });
 
       test('returns true', () => {
-        const isLocationAvailable = LogicHelper.isLocationAvailableWithSmallKeys(
+        const isLocationAvailable = LogicHelper.isLocationAvailableWithKeys(
           'Dragon Roost Cavern',
           'First Room',
           {
             numSmallKeys: 0,
+            numBigKeys: 0,
             nonKeyRequirementMet: () => true,
           },
         );
