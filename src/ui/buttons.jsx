@@ -22,10 +22,12 @@ class Buttons extends React.PureComponent {
     const {
       chartListOpen,
       settingsWindowOpen,
+      showItemHints,
       onlyProgressLocations,
       toggleChartList,
       toggleSettingsWindow,
       toggleEntrances,
+      toggleItemHints,
       toggleOnlyProgressLocations,
       trackNonProgressCharts,
       viewingEntrances,
@@ -81,6 +83,9 @@ class Buttons extends React.PureComponent {
         >
           {settingsWindowText}
         </button>
+        <button onClick={toggleItemHints} type="button">
+          {showItemHints ? 'Hide' : 'Show'} Item Hints
+        </button>
       </div>
     );
   }
@@ -97,6 +102,8 @@ Buttons.propTypes = {
   toggleSettingsWindow: PropTypes.func.isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,
   viewingEntrances: PropTypes.bool.isRequired,
+  toggleItemHints: PropTypes.func.isRequired,
+  showItemHints: PropTypes.bool.isRequired,
 };
 
 export default Buttons;

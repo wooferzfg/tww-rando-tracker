@@ -861,3 +861,13 @@ button:hover:enabled {
     flex-grow: 1;
   }
 }
+
+.important-items-list {
+  position: fixed;
+  background-color: white;
+  padding: 10px;
+  width: calc(100% - 50px);
+  max-height: calc(100% - 150px);
+  overflow: scroll;
+  z-index: 100;
+}

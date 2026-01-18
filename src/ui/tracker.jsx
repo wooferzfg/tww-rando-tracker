@@ -9,6 +9,7 @@ import TrackerController from '../services/tracker-controller';
 
 import Buttons from './buttons';
 import Images from './images';
+import ItemHints from './item-hints';
 import ItemsTable from './items-table';
 import LocationsTable from './locations-table';
 import SettingsWindow from './settings-window';
@@ -42,6 +43,7 @@ class Tracker extends React.PureComponent {
       openedLocation: null,
       openedLocationIsDungeon: null,
       rightClickToClearAll: true,
+      showItemHints: false,
       trackNonProgressCharts: false,
       trackSpheres: false,
       viewingEntrances: false,
@@ -56,6 +58,7 @@ class Tracker extends React.PureComponent {
     this.toggleChartList = this.toggleChartList.bind(this);
     this.toggleSettingsWindow = this.toggleSettingsWindow.bind(this);
     this.toggleEntrances = this.toggleEntrances.bind(this);
+    this.toggleItemHints = this.toggleItemHints.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
     this.toggleOnlyProgressLocations = this.toggleOnlyProgressLocations.bind(this);
     this.toggleRequiredBoss = this.toggleRequiredBoss.bind(this);
@@ -127,6 +130,14 @@ class Tracker extends React.PureComponent {
       saveData,
       spheres,
       trackerState,
+    });
+  }
+
+  toggleItemHints() {
+    const { showItemHints } = this.state;
+
+    this.setState({
+      showItemHints: !showItemHints,
     });
   }
 
@@ -448,6 +459,7 @@ class Tracker extends React.PureComponent {
       rightClickToClearAll,
       saveData,
       settingsWindowOpen,
+      showItemHints,
       spheres,
       trackNonProgressCharts,
       trackNonProgressBlueChuJelly,
@@ -475,6 +487,9 @@ class Tracker extends React.PureComponent {
       content = (
         <div className="tracker-container">
           <div className="tracker">
+            {showItemHints && (
+              <ItemHints logic={logic} />
+            )}
             <ItemsTable
               backgroundColor={itemsTableBackground}
               decrementItem={this.decrementItem}
@@ -554,7 +569,9 @@ class Tracker extends React.PureComponent {
             chartListOpen={chartListOpen}
             onlyProgressLocations={onlyProgressLocations}
             saveData={saveData}
+            showItemHints={showItemHints}
             toggleChartList={this.toggleChartList}
+            toggleItemHints={this.toggleItemHints}
             toggleSettingsWindow={this.toggleSettingsWindow}
             toggleEntrances={this.toggleEntrances}
             toggleOnlyProgressLocations={this.toggleOnlyProgressLocations}

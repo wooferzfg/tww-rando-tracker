@@ -1,0 +1,202 @@
+[
+  {
+    "item": "Iron Boots",
+    "generalLocation": "Outset Island",
+    "detailedLocation": "Mesa the Grasscutter's House"
+  },
+  {
+    "item": "Deku Leaf",
+    "generalLocation": "Windfall Island",
+    "detailedLocation": "House of Wealth Chest"
+  },
+  {
+    "item": "Command Melody",
+    "generalLocation": "Windfall Island",
+    "detailedLocation": "Maggie - Free Item"
+  },
+  {
+    "item": "Triforce Shard 8",
+    "generalLocation": "Dragon Roost Cavern",
+    "detailedLocation": "Pot Room Chest"
+  },
+  {
+    "item": "Triforce Shard 3",
+    "generalLocation": "Mother and Child Isles",
+    "detailedLocation": "Inside Mother Isle"
+  },
+  {
+    "item": "Bait Bag",
+    "generalLocation": "Northern Fairy Island",
+    "detailedLocation": "Great Fairy"
+  },
+  {
+    "item": "Cabana Deed",
+    "generalLocation": "Dragon Roost Cavern",
+    "detailedLocation": "Boss Stairs Left Chest"
+  },
+  {
+    "item": "Boomerang",
+    "generalLocation": "Bird's Peak Rock",
+    "detailedLocation": "Cave"
+  },
+  {
+    "item": "Skull Hammer",
+    "generalLocation": "Cliff Plateau Isles",
+    "detailedLocation": "Highest Isle"
+  },
+  {
+    "item": "Triforce Shard 4",
+    "generalLocation": "Wind Temple",
+    "detailedLocation": "Spike Wall Room - First Chest"
+  },
+  {
+    "item": "Bombs",
+    "generalLocation": "Thorned Fairy Island",
+    "detailedLocation": "Great Fairy"
+  },
+  {
+    "item": "Progressive Bow",
+    "generalLocation": "Western Fairy Island",
+    "detailedLocation": "Great Fairy"
+  },
+  {
+    "item": "Progressive Sword",
+    "generalLocation": "Outset Island",
+    "detailedLocation": "Great Fairy"
+  },
+  {
+    "item": "Wind Tingle Statue",
+    "generalLocation": "Forsaken Fortress",
+    "detailedLocation": "Chest Outside Upper Jail Cell"
+  },
+  {
+    "item": "Earth Tingle Statue",
+    "generalLocation": "Forsaken Fortress",
+    "detailedLocation": "Chest Inside Lower Jail Cell"
+  },
+  {
+    "item": "Triforce Shard 7",
+    "generalLocation": "Forsaken Fortress",
+    "detailedLocation": "Helmaroc King Heart Container"
+  },
+  {
+    "item": "Goddess Tingle Statue",
+    "generalLocation": "The Great Sea",
+    "detailedLocation": "Cyclos"
+  },
+  {
+    "item": "Grappling Hook",
+    "generalLocation": "Islet of Steel",
+    "detailedLocation": "Interior"
+  },
+  {
+    "item": "Progressive Wallet",
+    "generalLocation": "Southern Fairy Island",
+    "detailedLocation": "Great Fairy"
+  },
+  {
+    "item": "Nayru's Pearl",
+    "generalLocation": "Bomb Island",
+    "detailedLocation": "Cave"
+  },
+  {
+    "item": "Din's Pearl",
+    "generalLocation": "Dragon Roost Cavern",
+    "detailedLocation": "Big Key Chest"
+  },
+  {
+    "item": "Hookshot",
+    "generalLocation": "Forsaken Fortress",
+    "detailedLocation": "Phantom Ganon"
+  },
+  {
+    "item": "Triforce Shard 1",
+    "generalLocation": "Forbidden Woods",
+    "detailedLocation": "Inside Hollow Tree's Mouth"
+  },
+  {
+    "item": "Progressive Shield",
+    "generalLocation": "Forbidden Woods",
+    "detailedLocation": "Hole in Tree"
+  },
+  {
+    "item": "Triforce Shard 6",
+    "generalLocation": "Forbidden Woods",
+    "detailedLocation": "Tall Room Before Miniboss"
+  },
+  {
+    "item": "Progressive Wallet",
+    "generalLocation": "Forbidden Woods",
+    "detailedLocation": "Mothula Miniboss Room"
+  },
+  {
+    "item": "Progressive Sword",
+    "generalLocation": "Forbidden Woods",
+    "detailedLocation": "Chest Across Red Hanging Flower"
+  },
+  {
+    "item": "Power Bracelets",
+    "generalLocation": "Forbidden Woods",
+    "detailedLocation": "Chest in Locked Tree Trunk"
+  },
+  {
+    "item": "Earth God's Lyric",
+    "generalLocation": "Pawprint Isle",
+    "detailedLocation": "Chuchu Cave - Scale the Wall"
+  },
+  {
+    "item": "Delivery Bag",
+    "generalLocation": "Rock Spire Isle",
+    "detailedLocation": "Beedle's Special Shop Ship - 500 Rupee Item"
+  },
+  {
+    "item": "Forbidden Tingle Statue",
+    "generalLocation": "Rock Spire Isle",
+    "detailedLocation": "Beedle's Special Shop Ship - 950 Rupee Item"
+  },
+  {
+    "item": "Wind God's Aria",
+    "generalLocation": "Forbidden Woods",
+    "detailedLocation": "Kalle Demos Heart Container"
+  },
+  {
+    "item": "Dragon Tingle Statue",
+    "generalLocation": "Earth Temple",
+    "detailedLocation": "Transparent Chest In Warp Pot Room"
+  },
+  {
+    "item": "Progressive Sword",
+    "generalLocation": "Earth Temple",
+    "detailedLocation": "Kill All Floormasters in Foggy Room"
+  },
+  {
+    "item": "Progressive Bow",
+    "generalLocation": "Angular Isles",
+    "detailedLocation": "Cave"
+  },
+  {
+    "item": "Ghost Ship Chart",
+    "generalLocation": "Diamond Steppe Island",
+    "detailedLocation": "Warp Maze Cave - First Chest"
+  },
+  {
+    "item": "Triforce Shard 5",
+    "generalLocation": "Diamond Steppe Island",
+    "detailedLocation": "Warp Maze Cave - Second Chest"
+  },
+  {
+    "item": "Progressive Bow",
+    "generalLocation": "Wind Temple",
+    "detailedLocation": "Molgera Heart Container"
+  },
+  {
+    "item": "Triforce Shard 2",
+    "generalLocation": "The Great Sea",
+    "detailedLocation": "Ghost Ship"
+  },
+  {
+    "item": "Farore's Pearl",
+    "generalLocation": "Earth Temple",
+    "detailedLocation": "Chest Behind Statues"
+  }
+]
