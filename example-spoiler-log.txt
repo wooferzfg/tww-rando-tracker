@@ -1,0 +1,94 @@
+1:
+  Outset Island:
+      Mesa the Grasscutter's House:                 Iron Boots
+  Windfall Island:
+      House of Wealth Chest:                        Deku Leaf
+      Maggie - Free Item:                           Command Melody
+  Dragon Roost Cavern:
+      Rat Room:                                     DRC Big Key
+      Pot Room Chest:                               Triforce Shard 8
+  Mother and Child Isles:
+      Inside Mother Isle:                           Triforce Shard 3
+  Northern Fairy Island:
+      Great Fairy:                                  Bait Bag
+2:
+  Dragon Roost Cavern:
+      Boss Stairs Left Chest:                       Cabana Deed
+  Bird's Peak Rock:
+      Cave:                                         Boomerang
+  Cliff Plateau Isles:
+      Highest Isle:                                 Skull Hammer
+3:
+  Wind Temple:
+      Spike Wall Room - First Chest:                Triforce Shard 4
+      Spike Wall Room - Destroy All Cracked Floors: WT Big Key
+  Thorned Fairy Island:
+      Great Fairy:                                  Bombs
+  Western Fairy Island:
+      Great Fairy:                                  Progressive Bow
+4:
+  Outset Island:
+      Great Fairy:                                  Progressive Sword
+  Forsaken Fortress:
+      Chest Outside Upper Jail Cell:                Wind Tingle Statue
+      Chest Inside Lower Jail Cell:                 Earth Tingle Statue
+      Boss:                                         Defeat Helmaroc King
+      Helmaroc King Heart Container:                Triforce Shard 7
+  The Great Sea:
+      Cyclos:                                       Goddess Tingle Statue
+  Islet of Steel:
+      Interior:                                     Grappling Hook
+  Southern Fairy Island:
+      Great Fairy:                                  Progressive Wallet
+  Bomb Island:
+      Cave:                                         Nayru's Pearl
+5:
+  Dragon Roost Cavern:
+      Big Key Chest:                                Din's Pearl
+      Boss:                                         Defeat Gohma
+  Forsaken Fortress:
+      Phantom Ganon:                                Hookshot
+  Forbidden Woods:
+      Inside Hollow Tree's Mouth:                   Triforce Shard 1
+      Hole in Tree:                                 Progressive Shield
+      Tall Room Before Miniboss:                    Triforce Shard 6
+      Mothula Miniboss Room:                        Progressive Wallet
+      Chest Across Red Hanging Flower:              Progressive Sword
+      Chest in Locked Tree Trunk:                   Power Bracelets
+      Double Mothula Room:                          FW Big Key
+  Pawprint Isle:
+      Chuchu Cave - Scale the Wall:                 Earth God's Lyric
+  Rock Spire Isle:
+      Beedle's Special Shop Ship - 500 Rupee Item:  Delivery Bag
+      Beedle's Special Shop Ship - 950 Rupee Item:  Forbidden Tingle Statue
+6:
+  Forbidden Woods:
+      Boss:                                         Defeat Kalle Demos
+      Kalle Demos Heart Container:                  Wind God's Aria
+  Earth Temple:
+      Transparent Chest In Warp Pot Room:           Dragon Tingle Statue
+      Kill All Floormasters in Foggy Room:          Progressive Sword
+  Angular Isles:
+      Cave:                                         Progressive Bow
+  Diamond Steppe Island:
+      Warp Maze Cave - First Chest:                 Ghost Ship Chart
+      Warp Maze Cave - Second Chest:                Triforce Shard 5
+7:
+  Wind Temple:
+      Boss:                                         Defeat Molgera
+      Molgera Heart Container:                      Progressive Bow
+  The Great Sea:
+      Ghost Ship:                                   Triforce Shard 2
+  Earth Temple:
+      Chest Behind Statues:                         Farore's Pearl
+      Chest in Third Crypt:                         ET Big Key
+8:
+  Earth Temple:
+      Boss:                                         Defeat Jalhalla
+  Tower of the Gods:
+      Big Key Chest:                                TotG Big Key
+  Ganon's Tower:
+      Rooftop:                                      Defeat Ganondorf
+9:
+  Tower of the Gods:
+      Boss:                                         Defeat Gohdan
