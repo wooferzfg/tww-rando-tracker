@@ -28,7 +28,6 @@ function parseSpoilerLog(filePath) {
     
     // Check if this is a detailed location with an item (indented by 6+ spaces, has colon)
     const detailedLocationMatch = line.match(/^      (.+?):\s+(.+)$/);
-    console.log(detailedLocationMatch);
     if (detailedLocationMatch && currentGeneralLocation) {
       const detailedLocation = detailedLocationMatch[1].trim();
       const item = detailedLocationMatch[2].trim();
