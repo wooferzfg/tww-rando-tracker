@@ -34,6 +34,12 @@ describe('Permalink', () => {
     });
   });
 
+  describe('DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS', () => {
+    test('returns the correct dungeon item shuffle mode options', () => {
+      expect(Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS).toMatchSnapshot();
+    });
+  });
+
   describe('DEFAULT_PERMALINK', () => {
     test('returns the default options', () => {
       const options = Permalink.decode(Permalink.DEFAULT_PERMALINK);
@@ -44,7 +50,7 @@ describe('Permalink', () => {
 
   describe('decode', () => {
     test('decodes a permalink', () => {
-      const options = Permalink.decode('eJzLTSwuSS1iKE5NTWHwFAhgQAAFFgjdAGIzoAHZA26/mU6wMguCOB0MBp0MAJR7Cd0=');
+      const options = Permalink.decode('eJxLSS2LL0nMy8o31jPUMzTQM41PSTM3M061YHBkOLshQYKdQY6DiQELUJBhYGhRgPE0zzA0cCgnPRBuEmBg4FBxcPBgZAiAyjE2MAAA/CkQNw==');
 
       expect(options).toMatchSnapshot();
     });
@@ -68,7 +74,7 @@ describe('Permalink', () => {
     let permalink;
 
     beforeEach(() => {
-      permalink = 'eJzLTSwuSS1iKE5NTWHwFAhgQAAFFgjdAGIzoAHZA26/mU6wMguCOB0MBp0MAJR7Cd0=';
+      permalink = 'eJxLSS2LL0nMy8o31jPUMzTQM41PSTM3M061YHBkOLshQYKdQY6DiQELUJBhYGhRgPE0zzA0cCgnPRBuEmBg4FBxcPBgZAiAyjE2MAAA/CkQNw==';
       options = Permalink.decode(permalink);
     });
 
