@@ -82,7 +82,8 @@ class LogicHelper {
       this.islandFromChartForIsland,
       this.islandForChart,
       this.islandHasProgressItemChart,
-      this.isPotentialKeyLocation,
+      this.isPotentialSmallKeyLocation,
+      this.isPotentialBigKeyLocation,
       this.isProgressLocation,
       this.maxItemCount,
       this.nestedEntrancesForExit,
@@ -419,33 +420,6 @@ class LogicHelper {
       Locations.KEYS.ORIGINAL_ITEM,
     );
     return originalItem === 'Big Key';
-  }
-
-  static #isPotentialKeyLocation(generalLocation, detailedLocation) {
-    if (!this.isMainDungeon(generalLocation)) {
-      return false;
-    }
-
-    const locationTypes = Locations.getLocation(
-      generalLocation,
-      detailedLocation,
-      Locations.KEYS.TYPES,
-    );
-    if (
-      Settings.isFlagActive(Settings.FLAGS.DUNGEON)
-      && !this.isProgressLocation(generalLocation, detailedLocation)
-    ) {
-      return false;
-    }
-
-    if (
-      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
-      && _.includes(locationTypes, Settings.FLAGS.RANDOMIZABLE_MINIBOSS_ROOM)
-    ) {
-      return false;
-    }
-
-    return !_.includes(locationTypes, Settings.FLAGS.BOSS);
   }
 
   static bossLocation(dungeonName) {
@@ -880,8 +854,12 @@ class LogicHelper {
       });
     }
 
-    const dungeonMapsCompassesShuffleMode = Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES);
-    if (dungeonMapsCompassesShuffleMode === Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH) {
+    const dungeonMapsCompassesShuffleMode = Settings.getOptionValue(
+      Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES,
+    );
+    if (
+      dungeonMapsCompassesShuffleMode === Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH
+    ) {
       _.forEach(this.DUNGEONS, (dungeonName) => {
         const dungeonMapName = this.dungeonMapName(dungeonName);
         this.startingItems[dungeonMapName] = this.maxItemCount(dungeonMapName);
@@ -1182,6 +1160,33 @@ class LogicHelper {
       return this.#allDungeonEntrances();
     }
     return this.#allIslandEntrances();
+  }
+
+  static #isPotentialKeyLocation(generalLocation, detailedLocation) {
+    if (!this.isMainDungeon(generalLocation)) {
+      return false;
+    }
+
+    const locationTypes = Locations.getLocation(
+      generalLocation,
+      detailedLocation,
+      Locations.KEYS.TYPES,
+    );
+    if (
+      Settings.isFlagActive(Settings.FLAGS.DUNGEON)
+      && !this.isProgressLocation(generalLocation, detailedLocation)
+    ) {
+      return false;
+    }
+
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
+      && _.includes(locationTypes, Settings.FLAGS.RANDOMIZABLE_MINIBOSS_ROOM)
+    ) {
+      return false;
+    }
+
+    return !_.includes(locationTypes, Settings.FLAGS.BOSS);
   }
 }
 

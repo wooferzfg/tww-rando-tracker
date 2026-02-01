@@ -369,7 +369,7 @@ class LogicCalculation {
     ]);
   }
 
-  #keysInOwnDungeon(settingValue) {
+  static #keysInOwnDungeon(settingValue) {
     return [
       Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.VANILLA,
       Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
@@ -377,8 +377,12 @@ class LogicCalculation {
   }
 
   #guaranteedKeysForDungeon(dungeonName) {
-    const smallKeysInOwnDungeon = this.#keysInOwnDungeon(Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_SMALL_KEYS));
-    const bigKeysInOwnDungeon = this.#keysInOwnDungeon(Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_BIG_KEYS));
+    const smallKeysInOwnDungeon = LogicCalculation.#keysInOwnDungeon(
+      Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_SMALL_KEYS),
+    );
+    const bigKeysInOwnDungeon = LogicCalculation.#keysInOwnDungeon(
+      Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_BIG_KEYS),
+    );
 
     if (!smallKeysInOwnDungeon && !bigKeysInOwnDungeon) {
       return {
@@ -389,7 +393,11 @@ class LogicCalculation {
 
     const detailedLocations = Locations.detailedLocationsForGeneralLocation(dungeonName);
 
-    let guaranteedSmallKeys = smallKeysInOwnDungeon ? LogicHelper.maxSmallKeysForDungeon(dungeonName) : 0;
+    let guaranteedSmallKeys = (
+      smallKeysInOwnDungeon
+        ? LogicHelper.maxSmallKeysForDungeon(dungeonName)
+        : 0
+    );
     let guaranteedBigKeys = bigKeysInOwnDungeon ? 1 : 0;
 
     _.forEach(detailedLocations, (detailedLocation) => {
@@ -428,6 +436,8 @@ class LogicCalculation {
       if (isPotentialBigKeyLocation && bigKeysRequired < guaranteedBigKeys) {
         guaranteedBigKeys = bigKeysRequired;
       }
+
+      return true; // continue
     });
 
     return {

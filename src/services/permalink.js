@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
+import DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS from '../data/dungeon-item-shuffle-mode-options.json';
 import LOGIC_DIFFICULTY_OPTIONS from '../data/logic-difficulty-options.json';
+import MILA_SPEEDUP_OPTIONS from '../data/mila-speedup-options.json';
 import MIX_ENTRANCES_OPTIONS from '../data/mix-entrances-options.json';
 import OPTIONS from '../data/options.json';
 import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items.json';
 import REGULAR_STARTING_ITEMS from '../data/regular-starting-items.json';
 import SWORD_MODE_OPTIONS from '../data/sword-mode-options.json';
-import DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS from '../data/dungeon-item-shuffle-mode-options.json';
-import MILA_SPEEDUP_OPTIONS from '../data/mila-speedup-options.json';
 
 import BinaryString from './binary-string';
 import Constants from './constants';
@@ -22,7 +22,9 @@ class Permalink {
 
   static SWORD_MODE_OPTIONS = Constants.createFromArray(SWORD_MODE_OPTIONS);
 
-  static DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS = Constants.createFromArray(DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS);
+  static DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS = Constants.createFromArray(
+    DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS,
+  );
 
   static MILA_SPEEDUP_OPTIONS = Constants.createFromArray(MILA_SPEEDUP_OPTIONS);
 
