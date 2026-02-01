@@ -57,9 +57,14 @@ describe('LogicCalculation', () => {
 
     const defaultSettings = {
       options: {
-        [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-        [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-        [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+        [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: (
+          Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+        ),
+        [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: (
+          Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+        ),
+        [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]:
+          Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
         [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
         [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
         [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
@@ -119,8 +124,12 @@ describe('LogicCalculation', () => {
     Settings.initializeRaw({
       options: {
         // don't run the guaranteed keys logic unless the test needs it
-        [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.ANYWHERE,
-        [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.ANYWHERE,
+        [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: (
+          Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.ANYWHERE
+        ),
+        [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: (
+          Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.ANYWHERE
+        ),
       },
     });
 
@@ -141,8 +150,10 @@ describe('LogicCalculation', () => {
         beforeEach(() => {
           Settings.initializeRaw({
             options: {
-              [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.ANYWHERE,
-              [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.ANYWHERE,
+              [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]:
+                Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.ANYWHERE,
+              [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]:
+                Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.ANYWHERE,
             },
           });
 

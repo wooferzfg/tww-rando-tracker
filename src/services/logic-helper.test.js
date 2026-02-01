@@ -1,4 +1,4 @@
-import _, { before } from 'lodash';
+import _ from 'lodash';
 
 import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
 import TEST_MACROS from '../data/test-macros.json';
@@ -46,9 +46,15 @@ describe('LogicHelper', () => {
 
     const defaultSettings = {
       options: {
-        [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-        [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-        [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+        [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: (
+          Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+        ),
+        [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: (
+          Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+        ),
+        [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: (
+          Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+        ),
         [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
         [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
         [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
@@ -97,9 +103,15 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
             [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
-            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
+            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -122,9 +134,15 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 7,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
             [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
-            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
+            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -147,9 +165,15 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
             [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 3,
-            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
+            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
           },
           startingGear: {
             [LogicHelper.ITEMS.BOMBS]: 1,
@@ -179,9 +203,15 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
             [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
-            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
+            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -204,9 +234,15 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,
             [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
-            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
+            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+            ),
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -229,9 +265,15 @@ describe('LogicHelper', () => {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
             [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
-            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH,
-            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH,
-            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH
+            ),
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH
+            ),
+            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH
+            ),
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -2619,8 +2661,12 @@ describe('LogicHelper', () => {
       beforeEach(() => {
         fullSetup({
           options: {
-            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.VANILLA,
-            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.VANILLA,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.VANILLA
+            ),
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: (
+              Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.VANILLA
+            ),
           },
         });
       });
@@ -3807,9 +3853,15 @@ describe('LogicHelper', () => {
     beforeEach(() => {
       Settings.initializeRaw({
         options: {
-          [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-          [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
-          [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+          [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: (
+            Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+          ),
+          [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: (
+            Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+          ),
+          [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: (
+            Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON
+          ),
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
           [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
