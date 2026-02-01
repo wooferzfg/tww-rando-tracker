@@ -42,7 +42,8 @@ class LogicHelper {
       'islandFromChartForIsland',
       'islandForChart',
       'islandHasProgressItemChart',
-      'isPotentialKeyLocation',
+      'isPotentialSmallKeyLocation',
+      'isPotentialBigKeyLocation',
       'isProgressLocation',
       'maxItemCount',
       'nestedEntrancesForExit',
@@ -392,7 +393,35 @@ class LogicHelper {
     return detailedLocations;
   }
 
-  static isPotentialKeyLocation(generalLocation, detailedLocation) {
+  static isPotentialSmallKeyLocation(generalLocation, detailedLocation) {
+    const smallKeysShuffleMode = Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_SMALL_KEYS);
+    if (smallKeysShuffleMode !== Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.VANILLA) {
+      return this.#isPotentialKeyLocation(generalLocation, detailedLocation);
+    }
+
+    const originalItem = Locations.getLocation(
+      generalLocation,
+      detailedLocation,
+      Locations.KEYS.ORIGINAL_ITEM,
+    );
+    return originalItem === 'Small Key';
+  }
+
+  static isPotentialBigKeyLocation(generalLocation, detailedLocation) {
+    const bigKeysShuffleMode = Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_BIG_KEYS);
+    if (bigKeysShuffleMode !== Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.VANILLA) {
+      return this.#isPotentialKeyLocation(generalLocation, detailedLocation);
+    }
+
+    const originalItem = Locations.getLocation(
+      generalLocation,
+      detailedLocation,
+      Locations.KEYS.ORIGINAL_ITEM,
+    );
+    return originalItem === 'Big Key';
+  }
+
+  static #isPotentialKeyLocation(generalLocation, detailedLocation) {
     if (!this.isMainDungeon(generalLocation)) {
       return false;
     }
@@ -833,6 +862,33 @@ class LogicHelper {
         [this.ITEMS.PROGRESSIVE_SWORD]: 1,
         [this.ITEMS.HURRICANE_SPIN]: 1,
       };
+    }
+
+    const smallKeysShuffleMode = Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_SMALL_KEYS);
+    if (smallKeysShuffleMode === Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH) {
+      _.forEach(this.MAIN_DUNGEONS, (dungeonName) => {
+        const smallKeyName = this.smallKeyName(dungeonName);
+        this.startingItems[smallKeyName] = this.maxItemCount(smallKeyName);
+      });
+    }
+
+    const bigKeysShuffleMode = Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_BIG_KEYS);
+    if (bigKeysShuffleMode === Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH) {
+      _.forEach(this.MAIN_DUNGEONS, (dungeonName) => {
+        const bigKeyName = this.bigKeyName(dungeonName);
+        this.startingItems[bigKeyName] = this.maxItemCount(bigKeyName);
+      });
+    }
+
+    const dungeonMapsCompassesShuffleMode = Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES);
+    if (dungeonMapsCompassesShuffleMode === Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH) {
+      _.forEach(this.DUNGEONS, (dungeonName) => {
+        const dungeonMapName = this.dungeonMapName(dungeonName);
+        this.startingItems[dungeonMapName] = this.maxItemCount(dungeonMapName);
+
+        const compassName = this.compassName(dungeonName);
+        this.startingItems[compassName] = this.maxItemCount(compassName);
+      });
     }
   }
 
