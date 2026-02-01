@@ -45,7 +45,7 @@ exports[`Settings initializeFromPermalink all starting gear set initializes the 
   "DRC Big Key": 1,
   "DRC Compass": 1,
   "DRC Dungeon Map": 1,
-  "DRC Small Key": 0,
+  "DRC Small Key": 4,
   "Deku Leaf": 1,
   "Delivery Bag": 1,
   "Din's Pearl": 1,
@@ -207,7 +207,7 @@ exports[`Settings initializeFromPermalink default settings initializes the optio
   "swift_sail": true,
   "sword_mode": "Start with Hero's Sword",
   "trap_chests": false,
-  "version": "dev_tanjo3.1.10.5_df763e8",
+  "version": "dev_tanjo3.1.10.5_92859f0",
   "wallet_fill_behavior": false,
 }
 `;

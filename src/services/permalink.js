@@ -39,7 +39,7 @@ class Permalink {
     [this.OPTIONS.MILA_SPEEDUP]: MILA_SPEEDUP_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'eJxLSS2LL0nMy8o31jPUMzTQM41PSTM3M061YHBk8BQIYCASeEowMHxjFfggBOaxABEjgwJCGgA+rQsm';
+  static DEFAULT_PERMALINK = 'eJxLSS2LL0nMy8o31jPUMzTQM423NLIwtUwzYHBk8BQIYCASeEowMHxjFfggBOaxMDA0MDCCaSgAADAmCyY=';
 
   static getVersion(binaryString) {
     const clonedString = binaryString.clone();
@@ -286,7 +286,7 @@ class Permalink {
         });
 
         _.forEach(PROGRESSIVE_STARTING_ITEMS, (item) => {
-          const itemValue = binaryString.popNumber(2);
+          const itemValue = binaryString.popNumber(3);
           _.set(options, [optionName, item], itemValue);
         });
       },
@@ -310,7 +310,7 @@ class Permalink {
             throw Error(`Invalid value for starting item: ${item}`);
           }
 
-          binaryString.addNumber(itemValue, 2);
+          binaryString.addNumber(itemValue, 3);
         });
       },
     };

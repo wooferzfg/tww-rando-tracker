@@ -19,7 +19,7 @@ describe('Settings', () => {
         BinaryString.fromBase64(Permalink.DEFAULT_PERMALINK),
       );
 
-      expect(Settings.version).toEqual('df763e8');
+      expect(Settings.version).toEqual('92859f0');
     });
   });
 
@@ -65,7 +65,7 @@ describe('Settings', () => {
     describe('all flags set', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink(
-          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM41PSTM3M061YHBk+P+/noFI4CnBwPCNVeCDEJjHAkSMDAoIaQDEqAz6'),
+          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM423NLIwtUwzYHBk+P+/noFI4CnBwPCNVeCDEJjHwsDQwMAIpqEAALf1DPo='),
         );
       });
 
@@ -78,7 +78,7 @@ describe('Settings', () => {
     describe('all starting gear set', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink(
-          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM41PSTM3M061YHBk8BQIYCASeEowMHxjFfjw6z8EzFm9jkkBIQ0A8uMU9Q=='),
+          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM423NLIwtUwzYHBk8BQIYCASeEowMHxjFfjw6z8ExJh4zlJhYIHLAwDf0RQZ'),
         );
       });
 
@@ -91,7 +91,7 @@ describe('Settings', () => {
       describe('when charts are not randomized', () => {
         beforeEach(() => {
           Settings.initializeFromPermalink(
-            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM41PSTM3M061YHBkYGBgYSASeEowMHxjFfggBOYBtbEwMiggpAEPowqB'),
+            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM423NLIwtUwzYHBkYGBgYSASeEowMHxjFfggBOYBtTUwMCJrBwAAdwqB'),
           );
         });
 
@@ -105,7 +105,7 @@ describe('Settings', () => {
       describe('when charts are randomized', () => {
         beforeEach(() => {
           Settings.initializeFromPermalink(
-            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM41PSTM3M061YHBkYGBgYSASeEowMHxnFfggBOYBtbEwMiggpAEPvgqC'),
+            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM423NLIwtUwzYHBkYGBgYSASeEowMHxnFfggBOYBtTUwMCJrBwAAkwqC'),
           );
         });
 
@@ -120,7 +120,7 @@ describe('Settings', () => {
     describe('when some locations are excluded', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink(
-          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM41PSTM3M061YHBk8BQIYEAABSQ2IwMTAwrwlGBg+MYq8EEIzGMBIkZkDQBGuQtJ'),
+          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM423NLIwtUwzYHBk8BQIYEAABSQ2IwMTAwrwlGBg+MYq8EEIzGNhYGgAqgHRUAAAOFULSQ=='),
         );
       });
 
