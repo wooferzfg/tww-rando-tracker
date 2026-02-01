@@ -1531,18 +1531,6 @@ exports[`LogicHelper initialize when starting without a sword sets sword to 0 in
 }
 `;
 
-exports[`LogicHelper initialize with no starting shards, no starting gear, and starting with a sword sets the starting and impossible items 1`] = `
-{
-  "Blue Chu Jelly": 0,
-  "Boat's Sail": 1,
-  "Progressive Sword": 1,
-  "Tingle Statue": 0,
-  "Triforce Shard": 0,
-  "Wind Waker": 1,
-  "Wind's Requiem": 1,
-}
-`;
-
 exports[`LogicHelper initialize with no starting shards, no starting gear, no starting dungeon items, no starting jelly, and starting with a sword sets the starting and impossible items 1`] = `
 {
   "Blue Chu Jelly": 0,
@@ -1593,7 +1581,7 @@ exports[`LogicHelper initialize with starting dungeon items sets the starting an
 
 exports[`LogicHelper initialize with starting gear sets the starting items based on the starting gear 1`] = `
 {
-  "Blue Chu Jelly": 0,
+  "Blue Chu Jelly": 3,
   "Boat's Sail": 1,
   "Bombs": 1,
   "Deku Leaf": 1,
@@ -2941,6 +2929,22 @@ BooleanExpression {
 exports[`LogicHelper requirementsForLocation when starting without a sword returns simplified requirements for Dragon Roost Cavern - Gohma Heart Container 1`] = `
 BooleanExpression {
   "items": [
+    BooleanExpression {
+      "items": [
+        "Option "open_drc" Enabled",
+        "Empty Bottle",
+        "Bombs",
+        "Power Bracelets",
+        BooleanExpression {
+          "items": [
+            "Deku Leaf",
+            "Progressive Magic Meter x1",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
     "DRC Small Key x4",
     "DRC Big Key",
     "Grappling Hook",
