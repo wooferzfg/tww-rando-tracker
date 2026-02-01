@@ -6,6 +6,8 @@ import OPTIONS from '../data/options.json';
 import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items.json';
 import REGULAR_STARTING_ITEMS from '../data/regular-starting-items.json';
 import SWORD_MODE_OPTIONS from '../data/sword-mode-options.json';
+import DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS from '../data/dungeon-item-shuffle-mode-options.json';
+import MILA_SPEEDUP_OPTIONS from '../data/mila-speedup-options.json';
 
 import BinaryString from './binary-string';
 import Constants from './constants';
@@ -20,6 +22,10 @@ class Permalink {
 
   static SWORD_MODE_OPTIONS = Constants.createFromArray(SWORD_MODE_OPTIONS);
 
+  static DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS = Constants.createFromArray(DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS);
+
+  static MILA_SPEEDUP_OPTIONS = Constants.createFromArray(MILA_SPEEDUP_OPTIONS);
+
   static DROPDOWN_OPTIONS = {
     [this.OPTIONS.LOGIC_OBSCURITY]: LOGIC_DIFFICULTY_OPTIONS,
     [this.OPTIONS.LOGIC_PRECISION]: LOGIC_DIFFICULTY_OPTIONS,
@@ -27,9 +33,13 @@ class Permalink {
     [this.OPTIONS.NUM_REQUIRED_BOSSES]: _.range(1, 7),
     [this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: _.range(0, 9),
     [this.OPTIONS.SWORD_MODE]: SWORD_MODE_OPTIONS,
+    [this.OPTIONS.SHUFFLE_SMALL_KEYS]: DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS,
+    [this.OPTIONS.SHUFFLE_BIG_KEYS]: DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS,
+    [this.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS,
+    [this.OPTIONS.MILA_SPEEDUP]: MILA_SPEEDUP_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'eJzLTSwuSS1icGTwFAhgIBJIMDD8ZjqhCmYzArU2MAAAAi8GOw==';
+  static DEFAULT_PERMALINK = 'eJxLSS2LL0nMy8o31jPUMzTQM41PSTM3M061YHBk8BQIYCASeEowMHxjFfggBOaxABEjgwJCGgA+rQsm';
 
   static getVersion(binaryString) {
     const clonedString = binaryString.clone();
@@ -64,6 +74,7 @@ class Permalink {
   static #CONFIG = [
     this.#stringConfig(this.OPTIONS.VERSION),
     this.#stringConfig(this.OPTIONS.SEED_NAME),
+
     this.#booleanConfig(this.OPTIONS.PROGRESSION_DUNGEONS),
     this.#booleanConfig(this.OPTIONS.PROGRESSION_TINGLE_CHESTS),
     this.#booleanConfig(this.OPTIONS.PROGRESSION_DUNGEON_SECRETS),
@@ -87,16 +98,24 @@ class Permalink {
     this.#booleanConfig(this.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES),
     this.#booleanConfig(this.OPTIONS.PROGRESSION_ISLAND_PUZZLES),
     this.#booleanConfig(this.OPTIONS.PROGRESSION_MISC),
+
     this.#excludedLocationsConfig(),
-    this.#booleanConfig(this.OPTIONS.KEYLUNACY),
+
+    this.#dropdownConfig(this.OPTIONS.SHUFFLE_SMALL_KEYS),
+    this.#dropdownConfig(this.OPTIONS.SHUFFLE_BIG_KEYS),
+    this.#dropdownConfig(this.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES),
+
     this.#dropdownConfig(this.OPTIONS.SWORD_MODE),
     this.#booleanConfig(this.OPTIONS.REQUIRED_BOSSES),
     this.#dropdownConfig(this.OPTIONS.NUM_REQUIRED_BOSSES),
+    this.#booleanConfig(this.OPTIONS.PRIORITIZE_REQUIRED_BOSSES),
     this.#booleanConfig(this.OPTIONS.CHEST_TYPE_MATCHES_CONTENTS),
     this.#booleanConfig(this.OPTIONS.TRAP_CHESTS),
+
     this.#booleanConfig(this.OPTIONS.HERO_MODE),
     this.#dropdownConfig(this.OPTIONS.LOGIC_OBSCURITY),
     this.#dropdownConfig(this.OPTIONS.LOGIC_PRECISION),
+
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES),
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES),
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES),
@@ -104,10 +123,12 @@ class Permalink {
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_SECRET_CAVE_INNER_ENTRANCES),
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES),
     this.#dropdownConfig(this.OPTIONS.MIX_ENTRANCES),
+
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_ENEMIES),
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_ENEMY_PALETTES),
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_STARTING_ISLAND),
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_CHARTS),
+
     this.#booleanConfig(this.OPTIONS.HOHO_HINTS),
     this.#booleanConfig(this.OPTIONS.FISHMEN_HINTS),
     this.#booleanConfig(this.OPTIONS.KORL_HINTS),
@@ -118,17 +139,50 @@ class Permalink {
     this.#booleanConfig(this.OPTIONS.CRYPTIC_HINTS),
     this.#booleanConfig(this.OPTIONS.PRIORITIZE_REMOTE_HINTS),
     this.#booleanConfig(this.OPTIONS.HINT_IMPORTANCE),
+    this.#booleanConfig(this.OPTIONS.HOHO_HINT_SHARDS),
+    this.#booleanConfig(this.OPTIONS.KORL_HINTS_SWORDS),
+    this.#booleanConfig(this.OPTIONS.KREEB_HINTS_BOWS),
+
+    this.#booleanConfig(this.OPTIONS.ALWAYS_DOUBLE_MAGIC),
+
+    this.#booleanConfig(this.OPTIONS.RAINBOW_RUPEE_PROGRESS),
+
+    this.#booleanConfig(this.OPTIONS.OPEN_DRC),
+
     this.#booleanConfig(this.OPTIONS.SWIFT_SAIL),
     this.#booleanConfig(this.OPTIONS.INSTANT_TEXT_BOXES),
     this.#booleanConfig(this.OPTIONS.REVEAL_FULL_SEA_CHART),
     this.#booleanConfig(this.OPTIONS.ADD_SHORTCUT_WARPS_BETWEEN_DUNGEONS),
     this.#booleanConfig(this.OPTIONS.SKIP_REMATCH_BOSSES),
     this.#booleanConfig(this.OPTIONS.REMOVE_MUSIC),
+
     this.#startingGearConfig(),
     this.#dropdownConfig(this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS),
     this.#spinBoxConfig(this.OPTIONS.STARTING_POHS, 0, 44),
     this.#spinBoxConfig(this.OPTIONS.STARTING_HCS, 1, 9),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_JOY_PENDANT, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_SKULL_NECKLACE, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_BOKO_BABA_SEED, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_GOLDEN_FEATHER, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_KNIGHTS_CREST, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_RED_CHU_JELLY, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_GREEN_CHU_JELLY, 0, 99),
+    this.#spinBoxConfig(this.OPTIONS.STARTING_BLUE_CHU_JELLY, 0, 99),
     this.#spinBoxConfig(this.OPTIONS.NUM_EXTRA_STARTING_ITEMS, 0, 3),
+
+    this.#dropdownConfig(this.OPTIONS.MILA_SPEEDUP),
+    this.#booleanConfig(this.OPTIONS.SPLIT_INTERDUNGEON_WARPS_BY_REQUIRED),
+    this.#booleanConfig(this.OPTIONS.REMOVE_BALLAD_OF_GALES_WARP_IN_CUTSCENE),
+    this.#booleanConfig(this.OPTIONS.ALWAYS_SKIP_TRIFORCE_CUTSCENE),
+    this.#booleanConfig(this.OPTIONS.ADD_DROPS),
+    this.#booleanConfig(this.OPTIONS.SPEEDUP_LENZOS_ASSISTANT),
+    this.#booleanConfig(this.OPTIONS.KAMO_ANY_MOON_PHASE),
+    this.#booleanConfig(this.OPTIONS.SHORTEN_MAIL_MINIGAME),
+    this.#booleanConfig(this.OPTIONS.SKIP_DRC_PLAT_CS),
+    this.#booleanConfig(this.OPTIONS.WALLET_FILL_BEHAVIOR),
+    this.#booleanConfig(this.OPTIONS.SPEEDUP_TINGLE_JAIL),
+    this.#booleanConfig(this.OPTIONS.FIX_AUCTION),
+
     this.#booleanConfig(this.OPTIONS.DO_NOT_GENERATE_SPOILER_LOG),
   ];
 

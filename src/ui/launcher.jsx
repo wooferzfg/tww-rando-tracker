@@ -331,10 +331,6 @@ export default class Launcher extends React.PureComponent {
             labelText: 'Sword Mode',
             optionName: Permalink.OPTIONS.SWORD_MODE,
           }),
-          this.toggleInput({
-            labelText: 'Key-Lunacy',
-            optionName: Permalink.OPTIONS.KEYLUNACY,
-          }),
           this.dropdownInput({
             labelText: 'Triforce Shards to Start With',
             optionName: Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS,
