@@ -22,7 +22,9 @@ describe('Spheres', () => {
 
       const defaultSettings = {
         options: {
-          [Permalink.OPTIONS.KEYLUNACY]: false,
+          [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+          [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+          [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
           [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
@@ -39,6 +41,8 @@ describe('Spheres', () => {
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
           [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
           [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+          [Permalink.OPTIONS.ALWAYS_DOUBLE_MAGIC]: false,
+          [Permalink.OPTIONS.OPEN_DRC]: true,
         },
         startingGear: {
           [LogicHelper.ITEMS.BALLAD_OF_GALES]: 1,

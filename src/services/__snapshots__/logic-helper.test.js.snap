@@ -1543,6 +1543,54 @@ exports[`LogicHelper initialize with no starting shards, no starting gear, and s
 }
 `;
 
+exports[`LogicHelper initialize with no starting shards, no starting gear, no starting dungeon items, no starting jelly, and starting with a sword sets the starting and impossible items 1`] = `
+{
+  "Blue Chu Jelly": 0,
+  "Boat's Sail": 1,
+  "Progressive Sword": 1,
+  "Tingle Statue": 0,
+  "Triforce Shard": 0,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
+}
+`;
+
+exports[`LogicHelper initialize with starting dungeon items sets the starting and impossible items 1`] = `
+{
+  "Blue Chu Jelly": 0,
+  "Boat's Sail": 1,
+  "DRC Big Key": 1,
+  "DRC Compass": 1,
+  "DRC Dungeon Map": 1,
+  "DRC Small Key": 4,
+  "ET Big Key": 1,
+  "ET Compass": 1,
+  "ET Dungeon Map": 1,
+  "ET Small Key": 3,
+  "FF Compass": 1,
+  "FF Dungeon Map": 1,
+  "FW Big Key": 1,
+  "FW Compass": 1,
+  "FW Dungeon Map": 1,
+  "FW Small Key": 1,
+  "GT Compass": 1,
+  "GT Dungeon Map": 1,
+  "Progressive Sword": 1,
+  "Tingle Statue": 0,
+  "TotG Big Key": 1,
+  "TotG Compass": 1,
+  "TotG Dungeon Map": 1,
+  "TotG Small Key": 2,
+  "Triforce Shard": 0,
+  "WT Big Key": 1,
+  "WT Compass": 1,
+  "WT Dungeon Map": 1,
+  "WT Small Key": 2,
+  "Wind Waker": 1,
+  "Wind's Requiem": 1,
+}
+`;
+
 exports[`LogicHelper initialize with starting gear sets the starting items based on the starting gear 1`] = `
 {
   "Blue Chu Jelly": 0,
@@ -2735,6 +2783,25 @@ exports[`LogicHelper randomExitsForEntrance when there are nested dungeon entran
   "Southern Fairy Fountain",
   "Northern Fairy Fountain",
 ]
+`;
+
+exports[`LogicHelper requirementsForEntrance returns requirements for Dragon Roost Cavern 1`] = `
+BooleanExpression {
+  "items": [
+    "Option "open_drc" Enabled",
+    "Empty Bottle",
+    "Bombs",
+    "Power Bracelets",
+    BooleanExpression {
+      "items": [
+        "Deku Leaf",
+        "Progressive Magic Meter x1",
+      ],
+      "type": "and",
+    },
+  ],
+  "type": "or",
+}
 `;
 
 exports[`LogicHelper requirementsForEntrance returns simplified requirements for Bomb Island Secret Cave 1`] = `

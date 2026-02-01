@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _, { before } from 'lodash';
 
 import TEST_ITEM_LOCATIONS from '../data/test-item-locations.json';
 import TEST_MACROS from '../data/test-macros.json';
@@ -46,7 +46,9 @@ describe('LogicHelper', () => {
 
     const defaultSettings = {
       options: {
-        [Permalink.OPTIONS.KEYLUNACY]: false,
+        [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+        [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+        [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
         [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
         [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
         [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
@@ -63,6 +65,7 @@ describe('LogicHelper', () => {
         [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
         [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
         [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+        [Permalink.OPTIONS.ALWAYS_DOUBLE_MAGIC]: false,
       },
       startingGear: {
         [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -87,12 +90,16 @@ describe('LogicHelper', () => {
   });
 
   describe('initialize', () => {
-    describe('with no starting shards, no starting gear, and starting with a sword', () => {
+    describe('with no starting shards, no starting gear, no starting dungeon items, no starting jelly, and starting with a sword', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
+            [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -114,6 +121,10 @@ describe('LogicHelper', () => {
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 7,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
+            [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -135,6 +146,10 @@ describe('LogicHelper', () => {
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
+            [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 3,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
           },
           startingGear: {
             [LogicHelper.ITEMS.BOMBS]: 1,
@@ -163,6 +178,10 @@ describe('LogicHelper', () => {
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
+            [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -184,6 +203,10 @@ describe('LogicHelper', () => {
           options: {
             [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
             [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.SWORDLESS,
+            [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
           },
           startingGear: {
             [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
@@ -196,6 +219,31 @@ describe('LogicHelper', () => {
 
         expect(LogicHelper.startingItems).toMatchSnapshot();
         expect(LogicHelper.impossibleItems).toMatchSnapshot();
+      });
+    });
+
+    describe('with starting dungeon items', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
+            [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
+            [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH,
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH,
+            [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH,
+          },
+          startingGear: {
+            [LogicHelper.ITEMS.PROGRESSIVE_SWORD]: 0,
+          },
+        });
+      });
+
+      test('sets the starting and impossible items', () => {
+        LogicHelper.initialize();
+
+        expect(LogicHelper.startingItems).toMatchSnapshot();
+        expect(LogicHelper.impossibleItems).toEqual({});
       });
     });
   });
@@ -2566,16 +2614,75 @@ describe('LogicHelper', () => {
     });
   });
 
-  describe('isPotentialKeyLocation', () => {
-    describe('when the location is a valid big key location', () => {
+  describe('isPotentialBigKeyLocation and isPotentialSmallKeyLocation', () => {
+    describe('when keys are vanilla', () => {
+      beforeEach(() => {
+        fullSetup({
+          options: {
+            [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.VANILLA,
+            [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.VANILLA,
+          },
+        });
+      });
+
+      describe('when the location is a vanilla small key location', () => {
+        test('isPotentialSmallKeyLocation returns true', () => {
+          const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Dragon Roost Cavern', 'First Room');
+
+          expect(isPotentialSmallKeyLocation).toEqual(true);
+        });
+
+        test('isPotentialBigKeyLocation returns false', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Dragon Roost Cavern', 'First Room');
+
+          expect(isPotentialBigKeyLocation).toEqual(false);
+        });
+      });
+
+      describe('when the location is a vanilla big key location', () => {
+        test('isPotentialBigKeyLocation returns true', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Dragon Roost Cavern', 'Big Key Chest');
+
+          expect(isPotentialBigKeyLocation).toEqual(true);
+        });
+
+        test('isPotentialSmallKeyLocation returns false', () => {
+          const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Dragon Roost Cavern', 'Big Key Chest');
+
+          expect(isPotentialSmallKeyLocation).toEqual(false);
+        });
+      });
+
+      describe('when the location is not a vanilla key location', () => {
+        test('isPotentialBigKeyLocation returns false', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Dragon Roost Cavern', 'Chest Across Lava Pit');
+
+          expect(isPotentialBigKeyLocation).toEqual(false);
+        });
+
+        test('isPotentialSmallKeyLocation returns false', () => {
+          const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Dragon Roost Cavern', 'Chest Across Lava Pit');
+
+          expect(isPotentialSmallKeyLocation).toEqual(false);
+        });
+      });
+    });
+
+    describe('when the location is a valid key location in a dungeon', () => {
       beforeEach(() => {
         fullSetup();
       });
 
-      test('returns true', () => {
-        const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Big Key Chest');
+      test('isPotentialBigKeyLocation returns true', () => {
+        const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Wind Temple', 'Big Key Chest');
 
-        expect(isPotentialKeyLocation).toEqual(true);
+        expect(isPotentialBigKeyLocation).toEqual(true);
+      });
+
+      test('isPotentialSmallKeyLocation returns true', () => {
+        const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Wind Temple', 'Big Key Chest');
+
+        expect(isPotentialSmallKeyLocation).toEqual(true);
       });
     });
 
@@ -2584,10 +2691,16 @@ describe('LogicHelper', () => {
         fullSetup();
       });
 
-      test('returns false', () => {
-        const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Forsaken Fortress', 'Phantom Ganon');
+      test('isPotentialBigKeyLocation returns false', () => {
+        const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Forsaken Fortress', 'Phantom Ganon');
 
-        expect(isPotentialKeyLocation).toEqual(false);
+        expect(isPotentialBigKeyLocation).toEqual(false);
+      });
+
+      test('isPotentialSmallKeyLocation returns false', () => {
+        const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Forsaken Fortress', 'Phantom Ganon');
+
+        expect(isPotentialSmallKeyLocation).toEqual(false);
       });
     });
 
@@ -2596,10 +2709,16 @@ describe('LogicHelper', () => {
         fullSetup();
       });
 
-      test('returns false', () => {
-        const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Tower of the Gods Sector', 'Sunken Treasure');
+      test('isPotentialBigKeyLocation returns false', () => {
+        const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Tower of the Gods Sector', 'Sunken Treasure');
 
-        expect(isPotentialKeyLocation).toEqual(false);
+        expect(isPotentialBigKeyLocation).toEqual(false);
+      });
+
+      test('isPotentialSmallKeyLocation returns false', () => {
+        const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Tower of the Gods Sector', 'Sunken Treasure');
+
+        expect(isPotentialSmallKeyLocation).toEqual(false);
       });
     });
 
@@ -2611,10 +2730,16 @@ describe('LogicHelper', () => {
           });
         });
 
-        test('returns true', () => {
-          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Tingle Statue Chest');
+        test('isPotentialBigKeyLocation returns true', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Wind Temple', 'Tingle Statue Chest');
 
-          expect(isPotentialKeyLocation).toEqual(true);
+          expect(isPotentialBigKeyLocation).toEqual(true);
+        });
+
+        test('isPotentialSmallKeyLocation returns true', () => {
+          const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Wind Temple', 'Tingle Statue Chest');
+
+          expect(isPotentialSmallKeyLocation).toEqual(true);
         });
       });
 
@@ -2625,10 +2750,16 @@ describe('LogicHelper', () => {
           });
         });
 
-        test('returns false', () => {
-          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Tingle Statue Chest');
+        test('isPotentialBigKeyLocation returns false', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Wind Temple', 'Tingle Statue Chest');
 
-          expect(isPotentialKeyLocation).toEqual(false);
+          expect(isPotentialBigKeyLocation).toEqual(false);
+        });
+
+        test('isPotentialSmallKeyLocation returns false', () => {
+          const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Wind Temple', 'Tingle Statue Chest');
+
+          expect(isPotentialSmallKeyLocation).toEqual(false);
         });
       });
 
@@ -2639,10 +2770,16 @@ describe('LogicHelper', () => {
           });
         });
 
-        test('returns true', () => {
-          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Tingle Statue Chest');
+        test('isPotentialBigKeyLocation returns true', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Wind Temple', 'Tingle Statue Chest');
 
-          expect(isPotentialKeyLocation).toEqual(true);
+          expect(isPotentialBigKeyLocation).toEqual(true);
+        });
+
+        test('isPotentialSmallKeyLocation returns true', () => {
+          const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Wind Temple', 'Tingle Statue Chest');
+
+          expect(isPotentialSmallKeyLocation).toEqual(true);
         });
       });
     });
@@ -2655,10 +2792,16 @@ describe('LogicHelper', () => {
           });
         });
 
-        test('returns true', () => {
-          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
+        test('isPotentialBigKeyLocation returns true', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
 
-          expect(isPotentialKeyLocation).toEqual(true);
+          expect(isPotentialBigKeyLocation).toEqual(true);
+        });
+
+        test('isPotentialSmallKeyLocation returns true', () => {
+          const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
+
+          expect(isPotentialSmallKeyLocation).toEqual(true);
         });
       });
 
@@ -2669,10 +2812,16 @@ describe('LogicHelper', () => {
           });
         });
 
-        test('returns false', () => {
-          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
+        test('isPotentialBigKeyLocation returns false', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
 
-          expect(isPotentialKeyLocation).toEqual(false);
+          expect(isPotentialBigKeyLocation).toEqual(false);
+        });
+
+        test('isPotentialSmallKeyLocation returns false', () => {
+          const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
+
+          expect(isPotentialSmallKeyLocation).toEqual(false);
         });
       });
 
@@ -2683,10 +2832,16 @@ describe('LogicHelper', () => {
           });
         });
 
-        test('returns true', () => {
-          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
+        test('isPotentialBigKeyLocation returns true', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
 
-          expect(isPotentialKeyLocation).toEqual(true);
+          expect(isPotentialBigKeyLocation).toEqual(true);
+        });
+
+        test('isPotentialSmallKeyLocation returns true', () => {
+          const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Forbidden Woods', 'Highest Pot in Vine Maze');
+
+          expect(isPotentialSmallKeyLocation).toEqual(true);
         });
       });
     });
@@ -2696,10 +2851,16 @@ describe('LogicHelper', () => {
         fullSetup();
       });
 
-      test('returns false', () => {
-        const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Dragon Roost Cavern', 'Gohma Heart Container');
+      test('isPotentialBigKeyLocation returns false', () => {
+        const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Dragon Roost Cavern', 'Gohma Heart Container');
 
-        expect(isPotentialKeyLocation).toEqual(false);
+        expect(isPotentialBigKeyLocation).toEqual(false);
+      });
+
+      test('isPotentialSmallKeyLocation returns false', () => {
+        const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Dragon Roost Cavern', 'Gohma Heart Container');
+
+        expect(isPotentialSmallKeyLocation).toEqual(false);
       });
     });
 
@@ -2713,10 +2874,16 @@ describe('LogicHelper', () => {
           });
         });
 
-        test('returns false', () => {
-          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Wizzrobe Miniboss Room');
+        test('isPotentialBigKeyLocation returns false', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Wind Temple', 'Wizzrobe Miniboss Room');
 
-          expect(isPotentialKeyLocation).toEqual(false);
+          expect(isPotentialBigKeyLocation).toEqual(false);
+        });
+
+        test('isPotentialSmallKeyLocation returns false', () => {
+          const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Wind Temple', 'Wizzrobe Miniboss Room');
+
+          expect(isPotentialSmallKeyLocation).toEqual(false);
         });
       });
 
@@ -2729,10 +2896,16 @@ describe('LogicHelper', () => {
           });
         });
 
-        test('returns true', () => {
-          const isPotentialKeyLocation = LogicHelper.isPotentialKeyLocation('Wind Temple', 'Wizzrobe Miniboss Room');
+        test('isPotentialBigKeyLocation returns true', () => {
+          const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation('Wind Temple', 'Wizzrobe Miniboss Room');
 
-          expect(isPotentialKeyLocation).toEqual(true);
+          expect(isPotentialBigKeyLocation).toEqual(true);
+        });
+
+        test('isPotentialSmallKeyLocation returns true', () => {
+          const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation('Wind Temple', 'Wizzrobe Miniboss Room');
+
+          expect(isPotentialSmallKeyLocation).toEqual(true);
         });
       });
     });
@@ -3265,10 +3438,10 @@ describe('LogicHelper', () => {
       });
     });
 
-    test('returns no requirements for Dragon Roost Cavern', () => {
+    test('returns requirements for Dragon Roost Cavern', () => {
       const requirements = LogicHelper.requirementsForEntrance('Dragon Roost Cavern');
 
-      expect(requirements).toEqual(BooleanExpression.and('Nothing'));
+      expect(requirements).toMatchSnapshot();
     });
 
     test('returns simplified requirements for Forbidden Woods', () => {
@@ -3634,7 +3807,9 @@ describe('LogicHelper', () => {
     beforeEach(() => {
       Settings.initializeRaw({
         options: {
-          [Permalink.OPTIONS.KEYLUNACY]: false,
+          [Permalink.OPTIONS.SHUFFLE_SMALL_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+          [Permalink.OPTIONS.SHUFFLE_BIG_KEYS]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+          [Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES]: Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
           [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
@@ -3651,6 +3826,7 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
           [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
           [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
+          [Permalink.OPTIONS.ALWAYS_DOUBLE_MAGIC]: false,
         },
         startingGear: {},
       });
@@ -4647,9 +4823,36 @@ describe('LogicHelper', () => {
   });
 
   describe('startingBlueChuJellyCount', () => {
-    test('always returns 0', () => {
-      const startingBlueChuJellyCount = LogicHelper.startingBlueChuJellyCount();
-      expect(startingBlueChuJellyCount).toEqual(0);
+    describe('when starting with no blue chu jelly', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
+          },
+          startingGear: {},
+        });
+      });
+
+      test('returns 0', () => {
+        const startingBlueChuJellyCount = LogicHelper.startingBlueChuJellyCount();
+        expect(startingBlueChuJellyCount).toEqual(0);
+      });
+    });
+
+    describe('when starting with blue chu jelly', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 5,
+          },
+          startingGear: {},
+        });
+      });
+
+      test('returns the starting item count', () => {
+        const startingBlueChuJellyCount = LogicHelper.startingBlueChuJellyCount();
+        expect(startingBlueChuJellyCount).toEqual(5);
+      });
     });
   });
 
