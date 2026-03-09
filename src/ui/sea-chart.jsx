@@ -28,7 +28,12 @@ class SeaChart extends React.PureComponent {
       setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
+      showBeedleLocations,
+      showSalvageCorpLocations,
+      showCyclosLocations,
+      showGhostShipLocations,
       spheres,
+      toggleLocationChecked,
       trackerState,
       trackNonProgressCharts,
       trackNonProgressBlueChuJelly,
@@ -62,7 +67,12 @@ class SeaChart extends React.PureComponent {
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
+        showBeedleLocations={showBeedleLocations}
+        showSalvageCorpLocations={showSalvageCorpLocations}
+        showCyclosLocations={showCyclosLocations}
+        showGhostShipLocations={showGhostShipLocations}
         spheres={spheres}
+        toggleLocationChecked={toggleLocationChecked}
         trackerState={trackerState}
         trackNonProgressCharts={trackNonProgressCharts}
         trackNonProgressBlueChuJelly={trackNonProgressBlueChuJelly}
@@ -111,7 +121,12 @@ SeaChart.propTypes = {
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
+  showBeedleLocations: PropTypes.bool.isRequired,
+  showSalvageCorpLocations: PropTypes.bool.isRequired,
+  showCyclosLocations: PropTypes.bool.isRequired,
+  showGhostShipLocations: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
+  toggleLocationChecked: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,
   trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,

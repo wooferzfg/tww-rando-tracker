@@ -73,6 +73,10 @@ export default class Images {
       BLUE_CHU_JELLY_COUNT: {
         0: import('../images/blue_chu_jelly_count.png'),
       },
+      BEEDLE: import('../images/beedle.png'),
+      SALVAGE_CORP: import('../images/salvage_corp.png'),
+      CYCLOS: import('../images/cyclos.png'),
+      GHOST_SHIP: import('../images/ghost_ship.png'),
       DUNGEON_CHART_BACKGROUNDS: {
         [LogicHelper.DUNGEONS.DRAGON_ROOST_CAVERN]: import('../images/dungeon_mapfull0.png'),
         [LogicHelper.DUNGEONS.FORBIDDEN_WOODS]: import('../images/dungeon_mapfull1.png'),

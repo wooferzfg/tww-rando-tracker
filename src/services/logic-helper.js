@@ -3,6 +3,7 @@ import _ from 'lodash';
 import ADDITONAL_BANNED_LOCATIONS from '../data/additional-banned-locations.json';
 import BLUE_CHUCHUS from '../data/blue-chu-islands.json';
 import CHARTS from '../data/charts.json';
+import GREAT_SEA_ISLANDS from '../data/great-sea-islands.json';
 import DUNGEON_ENTRANCES from '../data/dungeon-entrances.json';
 import DUNGEONS from '../data/dungeons.json';
 import ISLAND_ENTRANCES from '../data/island-entrances.json';
@@ -624,6 +625,22 @@ class LogicHelper {
 
   static blueChusOnIsland(islandName) {
     return _.get(BLUE_CHUCHUS, islandName, []);
+  }
+
+  static beedleOnIsland(islandName) {
+    return _.includes(_.get(GREAT_SEA_ISLANDS, 'beedle', []), islandName);
+  }
+
+  static salvageCorpOnIsland(islandName) {
+    return _.includes(_.get(GREAT_SEA_ISLANDS, 'salvageCorp', []), islandName);
+  }
+
+  static cyclosOnIsland(islandName) {
+    return _.includes(_.get(GREAT_SEA_ISLANDS, 'cyclos', []), islandName);
+  }
+
+  static ghostShipOnIsland(islandName) {
+    return _.includes(_.get(GREAT_SEA_ISLANDS, 'ghostShip', []), islandName);
   }
 
   static startingBlueChuJellyCount() {

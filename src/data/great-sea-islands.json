@@ -1,0 +1,32 @@
+{
+  "beedle": [
+    "Spectacle Island",
+    "Pawprint Isle",
+    "Dragon Roost Island",
+    "Eastern Triangle Island",
+    "Southern Triangle Island",
+    "Forest Haven",
+    "Outset Island"
+  ],
+  "salvageCorp": [
+    "Pawprint Isle",
+    "Western Fairy Island",
+    "Northern Triangle Island",
+    "Eastern Triangle Island",
+    "Horseshoe Island"
+  ],
+  "cyclos": [
+    "Mother and Child Isles",
+    "Northern Triangle Island",
+    "Shark Island"
+  ],
+  "ghostShip": [
+    "Crescent Moon Island",
+    "Spectacle Island",
+    "Star Belt Archipelago",
+    "Greatfish Isle",
+    "Bomb Island",
+    "Diamond Steppe Island",
+    "Five-Star Isles"
+  ]
+}

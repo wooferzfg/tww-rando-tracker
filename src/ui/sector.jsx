@@ -103,6 +103,110 @@ class Sector extends React.PureComponent {
     );
   }
 
+  greatSeaIcons() {
+    const {
+      disableLogic,
+      island,
+      logic,
+      showBeedleLocations,
+      showSalvageCorpLocations,
+      showCyclosLocations,
+      showGhostShipLocations,
+      toggleLocationChecked,
+      trackerState,
+    } = this.props;
+
+    const beedleUnchecked = !trackerState.isLocationChecked('The Great Sea', "Beedle's Shop Ship - 20 Rupee Item");
+    const salvageUnchecked = !trackerState.isLocationChecked('The Great Sea', 'Salvage Corp Gift');
+    const cyclosUnchecked = !trackerState.isLocationChecked('The Great Sea', 'Cyclos');
+    const ghostShipUnchecked = !trackerState.isLocationChecked('The Great Sea', 'Ghost Ship');
+
+    const beedleAvailable = disableLogic || logic.isLocationAvailable('The Great Sea', "Beedle's Shop Ship - 20 Rupee Item");
+    const salvageAvailable = disableLogic || logic.isLocationAvailable('The Great Sea', 'Salvage Corp Gift');
+    const cyclosAvailable = disableLogic || logic.isLocationAvailable('The Great Sea', 'Cyclos');
+    const ghostShipAvailable = disableLogic || logic.isLocationAvailable('The Great Sea', 'Ghost Ship');
+
+    const handleBeedleClick = (event) => {
+      event.stopPropagation();
+      toggleLocationChecked('The Great Sea', "Beedle's Shop Ship - 20 Rupee Item");
+    };
+    const handleSalvageClick = (event) => {
+      event.stopPropagation();
+      toggleLocationChecked('The Great Sea', 'Salvage Corp Gift');
+    };
+    const handleCyclosClick = (event) => {
+      event.stopPropagation();
+      toggleLocationChecked('The Great Sea', 'Cyclos');
+    };
+    const handleGhostShipClick = (event) => {
+      event.stopPropagation();
+      toggleLocationChecked('The Great Sea', 'Ghost Ship');
+    };
+
+    const icons = [];
+    if (showBeedleLocations && LogicHelper.beedleOnIsland(island) && beedleUnchecked && beedleAvailable) {
+      icons.push(
+        <div
+          key="beedle"
+          className="great-sea-icon"
+          onClick={handleBeedleClick}
+          onKeyDown={KeyDownWrapper.onSpaceKey(handleBeedleClick)}
+          role="button"
+          tabIndex="0"
+        >
+          <img src={Images.IMAGES.BEEDLE} alt="Beedle's Shop Ship" draggable={false} />
+        </div>,
+      );
+    }
+    if (showSalvageCorpLocations && LogicHelper.salvageCorpOnIsland(island) && salvageUnchecked && salvageAvailable) {
+      icons.push(
+        <div
+          key="salvageCorp"
+          className="great-sea-icon"
+          onClick={handleSalvageClick}
+          onKeyDown={KeyDownWrapper.onSpaceKey(handleSalvageClick)}
+          role="button"
+          tabIndex="0"
+        >
+          <img src={Images.IMAGES.SALVAGE_CORP} alt="Salvage Corp Gift" draggable={false} />
+        </div>,
+      );
+    }
+    if (showCyclosLocations && LogicHelper.cyclosOnIsland(island) && cyclosUnchecked && cyclosAvailable) {
+      icons.push(
+        <div
+          key="cyclos"
+          className="great-sea-icon"
+          onClick={handleCyclosClick}
+          onKeyDown={KeyDownWrapper.onSpaceKey(handleCyclosClick)}
+          role="button"
+          tabIndex="0"
+        >
+          <img src={Images.IMAGES.CYCLOS} alt="Cyclos" draggable={false} />
+        </div>,
+      );
+    }
+    if (showGhostShipLocations && LogicHelper.ghostShipOnIsland(island) && ghostShipUnchecked && ghostShipAvailable) {
+      icons.push(
+        <div
+          key="ghostShip"
+          className="great-sea-icon"
+          onClick={handleGhostShipClick}
+          onKeyDown={KeyDownWrapper.onSpaceKey(handleGhostShipClick)}
+          role="button"
+          tabIndex="0"
+        >
+          <img src={Images.IMAGES.GHOST_SHIP} alt="Ghost Ship" draggable={false} />
+        </div>,
+      );
+    }
+
+    if (icons.length === 0) {
+      return null;
+    }
+    return <div>{icons}</div>;
+  }
+
   chartItemVanilla() {
     const {
       clearSelectedItem,
@@ -363,6 +467,7 @@ class Sector extends React.PureComponent {
       >
         {this.chartItem()}
         {this.blueChuItems()}
+        {this.greatSeaIcons()}
         {this.entranceExitItems()}
         {this.chestsCounter()}
       </div>
@@ -382,6 +487,10 @@ Sector.propTypes = {
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   rightClickToClearAll: PropTypes.bool.isRequired,
+  showBeedleLocations: PropTypes.bool.isRequired,
+  showSalvageCorpLocations: PropTypes.bool.isRequired,
+  showCyclosLocations: PropTypes.bool.isRequired,
+  showGhostShipLocations: PropTypes.bool.isRequired,
   setSelectedChartForIsland: PropTypes.func.isRequired,
   setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
@@ -392,6 +501,7 @@ Sector.propTypes = {
   trackNonProgressCharts: PropTypes.bool.isRequired,
   trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  toggleLocationChecked: PropTypes.func.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
   unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
