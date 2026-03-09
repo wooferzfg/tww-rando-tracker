@@ -105,9 +105,11 @@ class Sector extends React.PureComponent {
 
   greatSeaIcons() {
     const {
+      clearSelectedItem,
       disableLogic,
       island,
       logic,
+      setSelectedGreatSeaLocation,
       showBeedleLocations,
       showSalvageCorpLocations,
       showCyclosLocations,
@@ -128,18 +130,22 @@ class Sector extends React.PureComponent {
 
     const handleBeedleClick = (event) => {
       event.stopPropagation();
+      clearSelectedItem();
       toggleLocationChecked('The Great Sea', "Beedle's Shop Ship - 20 Rupee Item");
     };
     const handleSalvageClick = (event) => {
       event.stopPropagation();
+      clearSelectedItem();
       toggleLocationChecked('The Great Sea', 'Salvage Corp Gift');
     };
     const handleCyclosClick = (event) => {
       event.stopPropagation();
+      clearSelectedItem();
       toggleLocationChecked('The Great Sea', 'Cyclos');
     };
     const handleGhostShipClick = (event) => {
       event.stopPropagation();
+      clearSelectedItem();
       toggleLocationChecked('The Great Sea', 'Ghost Ship');
     };
 
@@ -150,7 +156,11 @@ class Sector extends React.PureComponent {
           key="beedle"
           className="great-sea-icon"
           onClick={handleBeedleClick}
+          onBlur={clearSelectedItem}
+          onFocus={() => setSelectedGreatSeaLocation("Beedle's Shop Ship - 20 Rupee Item")}
           onKeyDown={KeyDownWrapper.onSpaceKey(handleBeedleClick)}
+          onMouseOut={clearSelectedItem}
+          onMouseOver={() => setSelectedGreatSeaLocation("Beedle's Shop Ship - 20 Rupee Item")}
           role="button"
           tabIndex="0"
         >
@@ -164,7 +174,11 @@ class Sector extends React.PureComponent {
           key="salvageCorp"
           className="great-sea-icon"
           onClick={handleSalvageClick}
+          onBlur={clearSelectedItem}
+          onFocus={() => setSelectedGreatSeaLocation('Salvage Corp Gift')}
           onKeyDown={KeyDownWrapper.onSpaceKey(handleSalvageClick)}
+          onMouseOut={clearSelectedItem}
+          onMouseOver={() => setSelectedGreatSeaLocation('Salvage Corp Gift')}
           role="button"
           tabIndex="0"
         >
@@ -178,7 +192,11 @@ class Sector extends React.PureComponent {
           key="cyclos"
           className="great-sea-icon"
           onClick={handleCyclosClick}
+          onBlur={clearSelectedItem}
+          onFocus={() => setSelectedGreatSeaLocation('Cyclos')}
           onKeyDown={KeyDownWrapper.onSpaceKey(handleCyclosClick)}
+          onMouseOut={clearSelectedItem}
+          onMouseOver={() => setSelectedGreatSeaLocation('Cyclos')}
           role="button"
           tabIndex="0"
         >
@@ -192,7 +210,11 @@ class Sector extends React.PureComponent {
           key="ghostShip"
           className="great-sea-icon"
           onClick={handleGhostShipClick}
+          onBlur={clearSelectedItem}
+          onFocus={() => setSelectedGreatSeaLocation('Ghost Ship')}
           onKeyDown={KeyDownWrapper.onSpaceKey(handleGhostShipClick)}
+          onMouseOut={clearSelectedItem}
+          onMouseOver={() => setSelectedGreatSeaLocation('Ghost Ship')}
           role="button"
           tabIndex="0"
         >
@@ -496,6 +518,7 @@ Sector.propTypes = {
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
+  setSelectedGreatSeaLocation: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,

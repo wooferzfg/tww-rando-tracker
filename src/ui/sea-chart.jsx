@@ -28,6 +28,7 @@ class SeaChart extends React.PureComponent {
       setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
+      setSelectedGreatSeaLocation,
       showBeedleLocations,
       showSalvageCorpLocations,
       showCyclosLocations,
@@ -67,6 +68,7 @@ class SeaChart extends React.PureComponent {
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
+        setSelectedGreatSeaLocation={setSelectedGreatSeaLocation}
         showBeedleLocations={showBeedleLocations}
         showSalvageCorpLocations={showSalvageCorpLocations}
         showCyclosLocations={showCyclosLocations}
@@ -121,6 +123,7 @@ SeaChart.propTypes = {
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
+  setSelectedGreatSeaLocation: PropTypes.func.isRequired,
   showBeedleLocations: PropTypes.bool.isRequired,
   showSalvageCorpLocations: PropTypes.bool.isRequired,
   showCyclosLocations: PropTypes.bool.isRequired,

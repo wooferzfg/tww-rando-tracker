@@ -55,11 +55,16 @@ class MapInfo extends React.PureComponent {
       selectedChartForIsland,
       selectedEntrance,
       selectedExit,
+      selectedGreatSeaLocation,
       selectedItem,
       trackerState,
     } = this.props;
 
     let itemInfoText;
+
+    if (!_.isNil(selectedGreatSeaLocation)) {
+      itemInfoText = selectedGreatSeaLocation;
+    }
 
     if (!_.isNil(selectedEntrance)) {
       const exitForEntrance = trackerState.getExitForEntrance(selectedEntrance);
@@ -121,6 +126,7 @@ MapInfo.defaultProps = {
   selectedChartForIsland: null,
   selectedEntrance: null,
   selectedExit: null,
+  selectedGreatSeaLocation: null,
   selectedItem: null,
   selectedLocation: null,
 };
@@ -132,6 +138,7 @@ MapInfo.propTypes = {
   selectedChartForIsland: PropTypes.string,
   selectedEntrance: PropTypes.string,
   selectedExit: PropTypes.string,
+  selectedGreatSeaLocation: PropTypes.string,
   selectedItem: PropTypes.string,
   selectedLocation: PropTypes.string,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
