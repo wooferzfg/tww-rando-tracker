@@ -167,7 +167,7 @@ class SettingsWindow extends React.PureComponent {
           'trackNonProgressBlueChuJelly',
         )}
         {this.checkboxRow(
-          'Show Beedle Locations',
+          'Show 20 Rupee Beedle Locations',
           showBeedleLocations,
           'showBeedleLocations',
         )}
