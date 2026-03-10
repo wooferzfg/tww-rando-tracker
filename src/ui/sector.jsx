@@ -128,25 +128,10 @@ class Sector extends React.PureComponent {
     const cyclosAvailable = disableLogic || logic.isLocationAvailable('The Great Sea', 'Cyclos');
     const ghostShipAvailable = disableLogic || logic.isLocationAvailable('The Great Sea', 'Ghost Ship');
 
-    const handleBeedleClick = (event) => {
+    const handleIconClick = (event, locationName) => {
       event.stopPropagation();
       clearSelectedItem();
-      toggleLocationChecked('The Great Sea', "Beedle's Shop Ship - 20 Rupee Item");
-    };
-    const handleSalvageClick = (event) => {
-      event.stopPropagation();
-      clearSelectedItem();
-      toggleLocationChecked('The Great Sea', 'Salvage Corp Gift');
-    };
-    const handleCyclosClick = (event) => {
-      event.stopPropagation();
-      clearSelectedItem();
-      toggleLocationChecked('The Great Sea', 'Cyclos');
-    };
-    const handleGhostShipClick = (event) => {
-      event.stopPropagation();
-      clearSelectedItem();
-      toggleLocationChecked('The Great Sea', 'Ghost Ship');
+      toggleLocationChecked('The Great Sea', locationName);
     };
 
     const icons = [];
@@ -155,16 +140,16 @@ class Sector extends React.PureComponent {
         <div
           key="beedle"
           className="great-sea-icon"
-          onClick={handleBeedleClick}
+          onClick={(event) => handleIconClick(event, "Beedle's Shop Ship - 20 Rupee Item")}
           onBlur={clearSelectedItem}
           onFocus={() => setSelectedGreatSeaLocation("Beedle's Shop Ship - 20 Rupee Item")}
-          onKeyDown={KeyDownWrapper.onSpaceKey(handleBeedleClick)}
+          onKeyDown={KeyDownWrapper.onSpaceKey((event) => handleIconClick(event, "Beedle's Shop Ship - 20 Rupee Item"))}
           onMouseOut={clearSelectedItem}
           onMouseOver={() => setSelectedGreatSeaLocation("Beedle's Shop Ship - 20 Rupee Item")}
           role="button"
           tabIndex="0"
         >
-          <img src={Images.IMAGES.BEEDLE} alt="Beedle's Shop Ship" draggable={false} />
+          <img src={Images.IMAGES.BEEDLE} alt="Beedle's Shop Ship - 20 Rupee Item" draggable={false} />
         </div>,
       );
     }
@@ -173,10 +158,10 @@ class Sector extends React.PureComponent {
         <div
           key="salvageCorp"
           className="great-sea-icon"
-          onClick={handleSalvageClick}
+          onClick={(event) => handleIconClick(event, "Salvage Corp Gift")}
           onBlur={clearSelectedItem}
           onFocus={() => setSelectedGreatSeaLocation('Salvage Corp Gift')}
-          onKeyDown={KeyDownWrapper.onSpaceKey(handleSalvageClick)}
+          onKeyDown={KeyDownWrapper.onSpaceKey((event) => handleIconClick(event, "Salvage Corp Gift"))}
           onMouseOut={clearSelectedItem}
           onMouseOver={() => setSelectedGreatSeaLocation('Salvage Corp Gift')}
           role="button"
@@ -191,10 +176,10 @@ class Sector extends React.PureComponent {
         <div
           key="cyclos"
           className="great-sea-icon"
-          onClick={handleCyclosClick}
+          onClick={(event) => handleIconClick(event, "Cyclos")}
           onBlur={clearSelectedItem}
           onFocus={() => setSelectedGreatSeaLocation('Cyclos')}
-          onKeyDown={KeyDownWrapper.onSpaceKey(handleCyclosClick)}
+          onKeyDown={KeyDownWrapper.onSpaceKey((event) => handleIconClick(event, "Cyclos"))}
           onMouseOut={clearSelectedItem}
           onMouseOver={() => setSelectedGreatSeaLocation('Cyclos')}
           role="button"
@@ -209,10 +194,10 @@ class Sector extends React.PureComponent {
         <div
           key="ghostShip"
           className="great-sea-icon"
-          onClick={handleGhostShipClick}
+          onClick={(event) => handleIconClick(event, "Ghost Ship")}
           onBlur={clearSelectedItem}
           onFocus={() => setSelectedGreatSeaLocation('Ghost Ship')}
-          onKeyDown={KeyDownWrapper.onSpaceKey(handleGhostShipClick)}
+          onKeyDown={KeyDownWrapper.onSpaceKey((event) => handleIconClick(event, "Ghost Ship"))}
           onMouseOut={clearSelectedItem}
           onMouseOver={() => setSelectedGreatSeaLocation('Ghost Ship')}
           role="button"
