@@ -103,30 +103,34 @@ class Sector extends React.PureComponent {
     );
   }
 
-  greatSeaIcons() {
+  greatSeaIcon({
+    detailedLocation,
+    shouldShowLocation,
+    isOnIsland,
+    imageName,
+  }) {
+    if (!shouldShowLocation || !isOnIsland) {
+      return null;
+    }
+
     const {
       clearSelectedItem,
       disableLogic,
-      island,
       logic,
       setSelectedGreatSeaLocation,
-      showBeedleLocations,
-      showSalvageCorpLocations,
-      showCyclosLocations,
-      showGhostShipLocations,
       toggleLocationChecked,
       trackerState,
     } = this.props;
 
-    const beedleUnchecked = !trackerState.isLocationChecked('The Great Sea', "Beedle's Shop Ship - 20 Rupee Item");
-    const salvageUnchecked = !trackerState.isLocationChecked('The Great Sea', 'Salvage Corp Gift');
-    const cyclosUnchecked = !trackerState.isLocationChecked('The Great Sea', 'Cyclos');
-    const ghostShipUnchecked = !trackerState.isLocationChecked('The Great Sea', 'Ghost Ship');
+    const isUnchecked = !trackerState.isLocationChecked('The Great Sea', detailedLocation);
+    if (!isUnchecked) {
+      return null;
+    }
 
-    const beedleAvailable = disableLogic || logic.isLocationAvailable('The Great Sea', "Beedle's Shop Ship - 20 Rupee Item");
-    const salvageAvailable = disableLogic || logic.isLocationAvailable('The Great Sea', 'Salvage Corp Gift');
-    const cyclosAvailable = disableLogic || logic.isLocationAvailable('The Great Sea', 'Cyclos');
-    const ghostShipAvailable = disableLogic || logic.isLocationAvailable('The Great Sea', 'Ghost Ship');
+    const isAvailable = disableLogic || logic.isLocationAvailable('The Great Sea', detailedLocation);
+    if (!isAvailable) {
+      return null;
+    }
 
     const handleIconClick = (event, locationName) => {
       event.stopPropagation();
@@ -134,78 +138,69 @@ class Sector extends React.PureComponent {
       toggleLocationChecked('The Great Sea', locationName);
     };
 
+    return (
+      <div
+        key={detailedLocation}
+        className="great-sea-icon"
+        onClick={(event) => handleIconClick(event, detailedLocation)}
+        onBlur={clearSelectedItem}
+        onFocus={() => setSelectedGreatSeaLocation(detailedLocation)}
+        onKeyDown={KeyDownWrapper.onSpaceKey((event) => handleIconClick(event, detailedLocation))}
+        onMouseOut={clearSelectedItem}
+        onMouseOver={() => setSelectedGreatSeaLocation(detailedLocation)}
+        role="button"
+        tabIndex="0"
+      >
+        <img src={imageName} alt={detailedLocation} draggable={false} />
+      </div>
+    );
+  }
+
+  greatSeaIcons() {
+    const {
+      island,
+      showBeedleLocations,
+      showSalvageCorpLocations,
+      showCyclosLocations,
+      showGhostShipLocations,
+    } = this.props;
+
     const icons = [];
-    if (showBeedleLocations && LogicHelper.beedleOnIsland(island) && beedleUnchecked && beedleAvailable) {
-      icons.push(
-        <div
-          key="beedle"
-          className="great-sea-icon"
-          onClick={(event) => handleIconClick(event, "Beedle's Shop Ship - 20 Rupee Item")}
-          onBlur={clearSelectedItem}
-          onFocus={() => setSelectedGreatSeaLocation("Beedle's Shop Ship - 20 Rupee Item")}
-          onKeyDown={KeyDownWrapper.onSpaceKey((event) => handleIconClick(event, "Beedle's Shop Ship - 20 Rupee Item"))}
-          onMouseOut={clearSelectedItem}
-          onMouseOver={() => setSelectedGreatSeaLocation("Beedle's Shop Ship - 20 Rupee Item")}
-          role="button"
-          tabIndex="0"
-        >
-          <img src={Images.IMAGES.BEEDLE} alt="Beedle's Shop Ship - 20 Rupee Item" draggable={false} />
-        </div>,
-      );
+    const beedleIcon = this.greatSeaIcon({
+      detailedLocation: "Beedle's Shop Ship - 20 Rupee Item",
+      shouldShowLocation: showBeedleLocations,
+      isOnIsland: LogicHelper.beedleOnIsland(island),
+      imageName: Images.IMAGES.BEEDLE,
+    });
+    if (beedleIcon) {
+      icons.push(beedleIcon);
     }
-    if (showSalvageCorpLocations && LogicHelper.salvageCorpOnIsland(island) && salvageUnchecked && salvageAvailable) {
-      icons.push(
-        <div
-          key="salvageCorp"
-          className="great-sea-icon"
-          onClick={(event) => handleIconClick(event, "Salvage Corp Gift")}
-          onBlur={clearSelectedItem}
-          onFocus={() => setSelectedGreatSeaLocation('Salvage Corp Gift')}
-          onKeyDown={KeyDownWrapper.onSpaceKey((event) => handleIconClick(event, "Salvage Corp Gift"))}
-          onMouseOut={clearSelectedItem}
-          onMouseOver={() => setSelectedGreatSeaLocation('Salvage Corp Gift')}
-          role="button"
-          tabIndex="0"
-        >
-          <img src={Images.IMAGES.SALVAGE_CORP} alt="Salvage Corp Gift" draggable={false} />
-        </div>,
-      );
+    const salvageCorpIcon = this.greatSeaIcon({
+      detailedLocation: 'Salvage Corp Gift',
+      shouldShowLocation: showSalvageCorpLocations,
+      isOnIsland: LogicHelper.salvageCorpOnIsland(island),
+      imageName: Images.IMAGES.SALVAGE_CORP,
+    });
+    if (salvageCorpIcon) {
+      icons.push(salvageCorpIcon);
     }
-    if (showCyclosLocations && LogicHelper.cyclosOnIsland(island) && cyclosUnchecked && cyclosAvailable) {
-      icons.push(
-        <div
-          key="cyclos"
-          className="great-sea-icon"
-          onClick={(event) => handleIconClick(event, "Cyclos")}
-          onBlur={clearSelectedItem}
-          onFocus={() => setSelectedGreatSeaLocation('Cyclos')}
-          onKeyDown={KeyDownWrapper.onSpaceKey((event) => handleIconClick(event, "Cyclos"))}
-          onMouseOut={clearSelectedItem}
-          onMouseOver={() => setSelectedGreatSeaLocation('Cyclos')}
-          role="button"
-          tabIndex="0"
-        >
-          <img src={Images.IMAGES.CYCLOS} alt="Cyclos" draggable={false} />
-        </div>,
-      );
+    const cyclosIcon = this.greatSeaIcon({
+      detailedLocation: 'Cyclos',
+      shouldShowLocation: showCyclosLocations,
+      isOnIsland: LogicHelper.cyclosOnIsland(island),
+      imageName: Images.IMAGES.CYCLOS,
+    });
+    if (cyclosIcon) {
+      icons.push(cyclosIcon);
     }
-    if (showGhostShipLocations && LogicHelper.ghostShipOnIsland(island) && ghostShipUnchecked && ghostShipAvailable) {
-      icons.push(
-        <div
-          key="ghostShip"
-          className="great-sea-icon"
-          onClick={(event) => handleIconClick(event, "Ghost Ship")}
-          onBlur={clearSelectedItem}
-          onFocus={() => setSelectedGreatSeaLocation('Ghost Ship')}
-          onKeyDown={KeyDownWrapper.onSpaceKey((event) => handleIconClick(event, "Ghost Ship"))}
-          onMouseOut={clearSelectedItem}
-          onMouseOver={() => setSelectedGreatSeaLocation('Ghost Ship')}
-          role="button"
-          tabIndex="0"
-        >
-          <img src={Images.IMAGES.GHOST_SHIP} alt="Ghost Ship" draggable={false} />
-        </div>,
-      );
+    const ghostShipIcon = this.greatSeaIcon({
+      detailedLocation: 'Ghost Ship',
+      shouldShowLocation: showGhostShipLocations,
+      isOnIsland: LogicHelper.ghostShipOnIsland(island),
+      imageName: Images.IMAGES.GHOST_SHIP,
+    });
+    if (ghostShipIcon) {
+      icons.push(ghostShipIcon);
     }
 
     if (icons.length === 0) {
