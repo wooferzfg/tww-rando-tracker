@@ -103,6 +103,112 @@ class Sector extends React.PureComponent {
     );
   }
 
+  greatSeaIcon({
+    detailedLocation,
+    shouldShowLocation,
+    isOnIsland,
+    imageName,
+  }) {
+    if (!shouldShowLocation || !isOnIsland) {
+      return null;
+    }
+
+    const {
+      clearSelectedItem,
+      disableLogic,
+      logic,
+      setSelectedGreatSeaLocation,
+      toggleLocationChecked,
+      trackerState,
+    } = this.props;
+
+    const isUnchecked = !trackerState.isLocationChecked('The Great Sea', detailedLocation);
+    if (!isUnchecked) {
+      return null;
+    }
+
+    const isAvailable = disableLogic || logic.isLocationAvailable('The Great Sea', detailedLocation);
+    if (!isAvailable) {
+      return null;
+    }
+
+    const handleIconClick = (event, locationName) => {
+      event.stopPropagation();
+      clearSelectedItem();
+      toggleLocationChecked('The Great Sea', locationName);
+    };
+
+    return (
+      <div
+        key={detailedLocation}
+        className="great-sea-icon"
+        onClick={(event) => handleIconClick(event, detailedLocation)}
+        onBlur={clearSelectedItem}
+        onFocus={() => setSelectedGreatSeaLocation(detailedLocation)}
+        onKeyDown={KeyDownWrapper.onSpaceKey((event) => handleIconClick(event, detailedLocation))}
+        onMouseOut={clearSelectedItem}
+        onMouseOver={() => setSelectedGreatSeaLocation(detailedLocation)}
+        role="button"
+        tabIndex="0"
+      >
+        <img src={imageName} alt={detailedLocation} draggable={false} />
+      </div>
+    );
+  }
+
+  greatSeaIcons() {
+    const {
+      island,
+      showBeedleLocations,
+      showSalvageCorpLocations,
+      showCyclosLocations,
+      showGhostShipLocations,
+    } = this.props;
+
+    const icons = [];
+    const beedleIcon = this.greatSeaIcon({
+      detailedLocation: "Beedle's Shop Ship - 20 Rupee Item",
+      shouldShowLocation: showBeedleLocations,
+      isOnIsland: LogicHelper.beedleOnIsland(island),
+      imageName: Images.IMAGES.BEEDLE,
+    });
+    if (beedleIcon) {
+      icons.push(beedleIcon);
+    }
+    const salvageCorpIcon = this.greatSeaIcon({
+      detailedLocation: 'Salvage Corp Gift',
+      shouldShowLocation: showSalvageCorpLocations,
+      isOnIsland: LogicHelper.salvageCorpOnIsland(island),
+      imageName: Images.IMAGES.SALVAGE_CORP,
+    });
+    if (salvageCorpIcon) {
+      icons.push(salvageCorpIcon);
+    }
+    const cyclosIcon = this.greatSeaIcon({
+      detailedLocation: 'Cyclos',
+      shouldShowLocation: showCyclosLocations,
+      isOnIsland: LogicHelper.cyclosOnIsland(island),
+      imageName: Images.IMAGES.CYCLOS,
+    });
+    if (cyclosIcon) {
+      icons.push(cyclosIcon);
+    }
+    const ghostShipIcon = this.greatSeaIcon({
+      detailedLocation: 'Ghost Ship',
+      shouldShowLocation: showGhostShipLocations,
+      isOnIsland: LogicHelper.ghostShipOnIsland(island),
+      imageName: Images.IMAGES.GHOST_SHIP,
+    });
+    if (ghostShipIcon) {
+      icons.push(ghostShipIcon);
+    }
+
+    if (icons.length === 0) {
+      return null;
+    }
+    return <div>{icons}</div>;
+  }
+
   chartItemVanilla() {
     const {
       clearSelectedItem,
@@ -363,6 +469,7 @@ class Sector extends React.PureComponent {
       >
         {this.chartItem()}
         {this.blueChuItems()}
+        {this.greatSeaIcons()}
         {this.entranceExitItems()}
         {this.chestsCounter()}
       </div>
@@ -382,16 +489,22 @@ Sector.propTypes = {
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   rightClickToClearAll: PropTypes.bool.isRequired,
+  showBeedleLocations: PropTypes.bool.isRequired,
+  showSalvageCorpLocations: PropTypes.bool.isRequired,
+  showCyclosLocations: PropTypes.bool.isRequired,
+  showGhostShipLocations: PropTypes.bool.isRequired,
   setSelectedChartForIsland: PropTypes.func.isRequired,
   setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
+  setSelectedGreatSeaLocation: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,
   trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  toggleLocationChecked: PropTypes.func.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
   unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,

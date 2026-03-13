@@ -4995,4 +4995,44 @@ describe('LogicHelper', () => {
       ]);
     });
   });
+
+  describe('beedleOnIsland', () => {
+    test('island with Beedle returns true', () => {
+      expect(LogicHelper.beedleOnIsland('Outset Island')).toBe(true);
+    });
+
+    test('island without Beedle returns false', () => {
+      expect(LogicHelper.beedleOnIsland('Greatfish Isle')).toBe(false);
+    });
+  });
+
+  describe('salvageCorpOnIsland', () => {
+    test('island with Salvage Corp returns true', () => {
+      expect(LogicHelper.salvageCorpOnIsland('Pawprint Isle')).toBe(true);
+    });
+
+    test('island without Salvage Corp returns false', () => {
+      expect(LogicHelper.salvageCorpOnIsland('Greatfish Isle')).toBe(false);
+    });
+  });
+
+  describe('cyclosOnIsland', () => {
+    test('island with Cyclos returns true', () => {
+      expect(LogicHelper.cyclosOnIsland('Shark Island')).toBe(true);
+    });
+
+    test('island without Cyclos returns false', () => {
+      expect(LogicHelper.cyclosOnIsland('Greatfish Isle')).toBe(false);
+    });
+  });
+
+  describe('ghostShipOnIsland', () => {
+    test('island with Ghost Ship returns true', () => {
+      expect(LogicHelper.ghostShipOnIsland('Crescent Moon Island')).toBe(true);
+    });
+
+    test('island without Ghost Ship returns false', () => {
+      expect(LogicHelper.ghostShipOnIsland('Shark Island')).toBe(false);
+    });
+  });
 });

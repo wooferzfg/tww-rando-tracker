@@ -22,6 +22,7 @@ class LocationsTable extends React.PureComponent {
       selectedChartForIsland: null,
       selectedEntrance: null,
       selectedExit: null,
+      selectedGreatSeaLocation: null,
       selectedItem: null,
       selectedLocation: null,
     };
@@ -33,6 +34,7 @@ class LocationsTable extends React.PureComponent {
     this.setSelectedItem = this.setSelectedItem.bind(this);
     this.clearSelectedItem = this.clearSelectedItem.bind(this);
     this.setSelectedLocation = this.setSelectedLocation.bind(this);
+    this.setSelectedGreatSeaLocation = this.setSelectedGreatSeaLocation.bind(this);
     this.clearSelectedLocation = this.clearSelectedLocation.bind(this);
   }
 
@@ -58,6 +60,10 @@ class LocationsTable extends React.PureComponent {
     });
   }
 
+  setSelectedGreatSeaLocation(locationName) {
+    this.setState({ selectedGreatSeaLocation: locationName });
+  }
+
   clearSelectedChartForIsland() {
     this.setState({
       selectedChartForIsland: null,
@@ -68,6 +74,7 @@ class LocationsTable extends React.PureComponent {
     this.setState({
       selectedEntrance: null,
       selectedExit: null,
+      selectedGreatSeaLocation: null,
       selectedItem: null,
     });
   }
@@ -93,6 +100,10 @@ class LocationsTable extends React.PureComponent {
       openedLocation,
       openedLocationIsDungeon,
       rightClickToClearAll,
+      showBeedleLocations,
+      showSalvageCorpLocations,
+      showCyclosLocations,
+      showGhostShipLocations,
       spheres,
       toggleLocationChecked,
       trackerState,
@@ -115,6 +126,7 @@ class LocationsTable extends React.PureComponent {
       selectedChartForIsland,
       selectedEntrance,
       selectedExit,
+      selectedGreatSeaLocation,
       selectedItem,
       selectedLocation,
     } = this.state;
@@ -190,7 +202,13 @@ class LocationsTable extends React.PureComponent {
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
+          setSelectedGreatSeaLocation={this.setSelectedGreatSeaLocation}
+          showBeedleLocations={showBeedleLocations}
+          showSalvageCorpLocations={showSalvageCorpLocations}
+          showCyclosLocations={showCyclosLocations}
+          showGhostShipLocations={showGhostShipLocations}
           spheres={spheres}
+          toggleLocationChecked={toggleLocationChecked}
           trackerState={trackerState}
           trackNonProgressCharts={trackNonProgressCharts}
           trackNonProgressBlueChuJelly={trackNonProgressBlueChuJelly}
@@ -217,6 +235,7 @@ class LocationsTable extends React.PureComponent {
           selectedChartForIsland={selectedChartForIsland}
           selectedEntrance={selectedEntrance}
           selectedExit={selectedExit}
+          selectedGreatSeaLocation={selectedGreatSeaLocation}
           selectedItem={selectedItem}
           selectedLocation={selectedLocation}
           trackerState={trackerState}
@@ -304,6 +323,10 @@ LocationsTable.propTypes = {
   openedLocation: PropTypes.string,
   openedLocationIsDungeon: PropTypes.bool,
   rightClickToClearAll: PropTypes.bool.isRequired,
+  showBeedleLocations: PropTypes.bool.isRequired,
+  showSalvageCorpLocations: PropTypes.bool.isRequired,
+  showCyclosLocations: PropTypes.bool.isRequired,
+  showGhostShipLocations: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
   toggleRequiredBoss: PropTypes.func.isRequired,

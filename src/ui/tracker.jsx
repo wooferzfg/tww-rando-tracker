@@ -42,6 +42,10 @@ class Tracker extends React.PureComponent {
       openedLocation: null,
       openedLocationIsDungeon: null,
       rightClickToClearAll: true,
+      showBeedleLocations: false,
+      showSalvageCorpLocations: false,
+      showCyclosLocations: false,
+      showGhostShipLocations: false,
       trackNonProgressCharts: false,
       trackSpheres: false,
       viewingEntrances: false,
@@ -406,6 +410,10 @@ class Tracker extends React.PureComponent {
       onlyProgressLocations,
       colors,
       rightClickToClearAll,
+      showBeedleLocations,
+      showSalvageCorpLocations,
+      showCyclosLocations,
+      showGhostShipLocations,
       trackNonProgressCharts,
       trackNonProgressBlueChuJelly,
       trackSpheres,
@@ -418,6 +426,10 @@ class Tracker extends React.PureComponent {
       disableLogic,
       onlyProgressLocations,
       rightClickToClearAll,
+      showBeedleLocations,
+      showSalvageCorpLocations,
+      showCyclosLocations,
+      showGhostShipLocations,
       trackNonProgressCharts,
       trackNonProgressBlueChuJelly,
       trackSpheres,
@@ -449,6 +461,10 @@ class Tracker extends React.PureComponent {
       saveData,
       settingsWindowOpen,
       spheres,
+      showBeedleLocations,
+      showSalvageCorpLocations,
+      showCyclosLocations,
+      showGhostShipLocations,
       trackNonProgressCharts,
       trackNonProgressBlueChuJelly,
       trackSpheres,
@@ -500,6 +516,10 @@ class Tracker extends React.PureComponent {
               openedLocation={openedLocation}
               openedLocationIsDungeon={openedLocationIsDungeon}
               rightClickToClearAll={rightClickToClearAll}
+              showBeedleLocations={showBeedleLocations}
+              showSalvageCorpLocations={showSalvageCorpLocations}
+              showCyclosLocations={showCyclosLocations}
+              showGhostShipLocations={showGhostShipLocations}
               spheres={spheres}
               toggleLocationChecked={this.toggleLocationChecked}
               toggleRequiredBoss={this.toggleRequiredBoss}
@@ -540,6 +560,10 @@ class Tracker extends React.PureComponent {
               extraLocationsBackground={extraLocationsBackground}
               itemsTableBackground={itemsTableBackground}
               rightClickToClearAll={rightClickToClearAll}
+              showBeedleLocations={showBeedleLocations}
+              showSalvageCorpLocations={showSalvageCorpLocations}
+              showCyclosLocations={showCyclosLocations}
+              showGhostShipLocations={showGhostShipLocations}
               sphereTrackingBackground={sphereTrackingBackground}
               statisticsBackground={statisticsBackground}
               toggleSettingsWindow={this.toggleSettingsWindow}

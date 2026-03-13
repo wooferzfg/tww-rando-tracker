@@ -95,6 +95,10 @@ class SettingsWindow extends React.PureComponent {
       extraLocationsBackground,
       itemsTableBackground,
       rightClickToClearAll,
+      showBeedleLocations,
+      showSalvageCorpLocations,
+      showCyclosLocations,
+      showGhostShipLocations,
       sphereTrackingBackground,
       statisticsBackground,
       toggleSettingsWindow,
@@ -163,6 +167,26 @@ class SettingsWindow extends React.PureComponent {
           'trackNonProgressBlueChuJelly',
         )}
         {this.checkboxRow(
+          'Show 20 Rupee Beedle Locations',
+          showBeedleLocations,
+          'showBeedleLocations',
+        )}
+        {this.checkboxRow(
+          'Show Salvage Corp Locations',
+          showSalvageCorpLocations,
+          'showSalvageCorpLocations',
+        )}
+        {this.checkboxRow(
+          'Show Cyclos Locations',
+          showCyclosLocations,
+          'showCyclosLocations',
+        )}
+        {this.checkboxRow(
+          'Show Ghost Ship Locations',
+          showGhostShipLocations,
+          'showGhostShipLocations',
+        )}
+        {this.checkboxRow(
           'Right Click to Clear All',
           rightClickToClearAll,
           'rightClickToClearAll',
@@ -190,6 +214,10 @@ SettingsWindow.propTypes = {
   extraLocationsBackground: PropTypes.string,
   itemsTableBackground: PropTypes.string,
   rightClickToClearAll: PropTypes.bool.isRequired,
+  showBeedleLocations: PropTypes.bool.isRequired,
+  showSalvageCorpLocations: PropTypes.bool.isRequired,
+  showCyclosLocations: PropTypes.bool.isRequired,
+  showGhostShipLocations: PropTypes.bool.isRequired,
   sphereTrackingBackground: PropTypes.string,
   statisticsBackground: PropTypes.string,
   trackNonProgressCharts: PropTypes.bool.isRequired,
