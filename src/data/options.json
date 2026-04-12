@@ -39,9 +39,9 @@
   "chest_type_matches_contents",
   "trap_chests",
 
+  "enabled_tricks",
+
   "hero_mode",
-  "logic_obscurity",
-  "logic_precision",
 
   "randomize_dungeon_entrances",
   "randomize_secret_cave_entrances",

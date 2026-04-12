@@ -1,21 +1,19 @@
 import _ from 'lodash';
 
 import DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS from '../data/dungeon-item-shuffle-mode-options.json';
-import LOGIC_DIFFICULTY_OPTIONS from '../data/logic-difficulty-options.json';
 import MILA_SPEEDUP_OPTIONS from '../data/mila-speedup-options.json';
 import MIX_ENTRANCES_OPTIONS from '../data/mix-entrances-options.json';
 import OPTIONS from '../data/options.json';
 import PROGRESSIVE_STARTING_ITEMS from '../data/progressive-starting-items.json';
 import REGULAR_STARTING_ITEMS from '../data/regular-starting-items.json';
 import SWORD_MODE_OPTIONS from '../data/sword-mode-options.json';
+import TRICKS from '../data/tricks.json';
 
 import BinaryString from './binary-string';
 import Constants from './constants';
 import Locations from './locations';
 
 class Permalink {
-  static LOGIC_DIFFICULTY_OPTIONS = Constants.createFromArray(LOGIC_DIFFICULTY_OPTIONS);
-
   static OPTIONS = Constants.createFromArray(OPTIONS);
 
   static MIX_ENTRANCES_OPTIONS = Constants.createFromArray(MIX_ENTRANCES_OPTIONS);
@@ -27,8 +25,6 @@ class Permalink {
   );
 
   static DROPDOWN_OPTIONS = {
-    [this.OPTIONS.LOGIC_OBSCURITY]: LOGIC_DIFFICULTY_OPTIONS,
-    [this.OPTIONS.LOGIC_PRECISION]: LOGIC_DIFFICULTY_OPTIONS,
     [this.OPTIONS.MIX_ENTRANCES]: MIX_ENTRANCES_OPTIONS,
     [this.OPTIONS.NUM_REQUIRED_BOSSES]: _.range(1, 7),
     [this.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: _.range(0, 9),
@@ -112,9 +108,9 @@ class Permalink {
     this.#booleanConfig(this.OPTIONS.CHEST_TYPE_MATCHES_CONTENTS),
     this.#booleanConfig(this.OPTIONS.TRAP_CHESTS),
 
+    this.#enabledTricksConfig(),
+
     this.#booleanConfig(this.OPTIONS.HERO_MODE),
-    this.#dropdownConfig(this.OPTIONS.LOGIC_OBSCURITY),
-    this.#dropdownConfig(this.OPTIONS.LOGIC_PRECISION),
 
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES),
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES),
@@ -311,6 +307,32 @@ class Permalink {
           }
 
           binaryString.addNumber(itemValue, 3);
+        });
+      },
+    };
+  }
+
+  static #enabledTricksConfig() {
+    const optionName = this.OPTIONS.ENABLED_TRICKS;
+
+    return {
+      decode: (binaryString, options) => {
+        const enabledTricksOption = {};
+        _.forEach(TRICKS, (trickName) => {
+          enabledTricksOption[trickName] = binaryString.popBoolean();
+        });
+        _.set(options, optionName, enabledTricksOption);
+      },
+      encode: (binaryString, options) => {
+        _.forEach(TRICKS, (trickName) => {
+          const isTrickEnabled = _.get(options, [optionName, trickName]);
+
+          if (_.isNil(isTrickEnabled)) {
+            // istanbul ignore next
+            throw Error(`Invalid value for trick: ${trickName}`);
+          }
+
+          binaryString.addBoolean(isTrickEnabled);
         });
       },
     };

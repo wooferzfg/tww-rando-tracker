@@ -357,25 +357,6 @@ export default class Launcher extends React.PureComponent {
     );
   }
 
-  logicDifficultyTable() {
-    return (
-      <OptionsTable
-        title="Logic Difficulty"
-        numColumns={2}
-        options={[
-          this.dropdownInput({
-            labelText: 'Obscure Tricks Required',
-            optionName: Permalink.OPTIONS.LOGIC_OBSCURITY,
-          }),
-          this.dropdownInput({
-            labelText: 'Precise Tricks Required',
-            optionName: Permalink.OPTIONS.LOGIC_PRECISION,
-          }),
-        ]}
-      />
-    );
-  }
-
   launchNewTracker() {
     const encodedPermalink = this.encodedPermalink();
 
@@ -454,7 +435,6 @@ export default class Launcher extends React.PureComponent {
             {this.progressItemLocationsTable()}
             {this.entranceRandomizerOptionsTable()}
             {this.additionalOptionsTable()}
-            {this.logicDifficultyTable()}
             {this.launchButtonContainer()}
           </div>
           <div className="attribution">
