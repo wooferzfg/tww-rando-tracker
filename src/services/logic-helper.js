@@ -16,6 +16,7 @@ import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
 import REQUIRED_BOSSES from '../data/required-bosses.json';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
 import TINGLE_STATUES from '../data/tingle-statues.json';
+import TRICKS from '../data/tricks.json';
 
 import BooleanExpression from './boolean-expression';
 import Constants from './constants';
@@ -131,6 +132,8 @@ class LogicHelper {
   static MISC_LOCATIONS = Constants.createFromArray(MISC_LOCATIONS);
 
   static ITEMS = Constants.createFromArray(_.keys(ITEMS));
+
+  static TRICKS = Constants.createFromArray(TRICKS);
 
   static BLUE_CHU_ITEMS = Constants.createFromArray(_.values(BLUE_CHUCHUS).flat());
 
@@ -934,7 +937,7 @@ class LogicHelper {
       },
       {
         regex: /^Option "([^"]+)" Contains "([^"]+)"$/,
-        value: (optionValue, expectedValue) => !!_.get(optionValue, expectedValue),
+        value: (optionValue, expectedValue) => _.get(optionValue, expectedValue),
       },
       {
         regex: /^Option "([^"]+)" Does Not Contain "([^"]+)"$/,

@@ -1842,10 +1842,28 @@ BooleanExpression {
     "Defeated Helmaroc King",
     "Defeated Jalhalla",
     "Defeated Molgera",
-    "Boomerang",
+    BooleanExpression {
+      "items": [
+        "Boomerang",
+        "Option "enabled_tricks" Contains "Defeat Puppet Ganon Without Boomerang"",
+      ],
+      "type": "or",
+    },
     "Grappling Hook",
     "Hookshot",
-    "Progressive Shield x1",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x1",
+        BooleanExpression {
+          "items": [
+            "Skull Hammer",
+            "Option "enabled_tricks" Contains "Reflect Light Arrows with Skull Hammer"",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -1861,7 +1879,14 @@ BooleanExpression {
     "Deku Leaf",
     "FW Big Key",
     "Boomerang",
-    "Bombs",
+    BooleanExpression {
+      "items": [
+        "Bombs",
+        "Option "enabled_tricks" Contains "FF - Trick Mounted Cannons to Blow Up Gate"",
+        "Option "enabled_tricks" Contains "FF - Access via Ganon's Tower Dark Portal"",
+      ],
+      "type": "or",
+    },
     "Skull Hammer",
     "Iron Boots",
     "Command Melody",
@@ -1870,7 +1895,13 @@ BooleanExpression {
     "WT Big Key",
     "Grappling Hook",
     "Hookshot",
-    "Progressive Shield x1",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x1",
+        "Option "enabled_tricks" Contains "Reflect Light Arrows with Skull Hammer"",
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -1886,10 +1917,28 @@ BooleanExpression {
     "Defeated Kalle Demos",
     "Defeated Helmaroc King",
     "Defeated Molgera",
-    "Boomerang",
+    BooleanExpression {
+      "items": [
+        "Boomerang",
+        "Option "enabled_tricks" Contains "Defeat Puppet Ganon Without Boomerang"",
+      ],
+      "type": "or",
+    },
     "Grappling Hook",
     "Hookshot",
-    "Progressive Shield x1",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x1",
+        BooleanExpression {
+          "items": [
+            "Skull Hammer",
+            "Option "enabled_tricks" Contains "Reflect Light Arrows with Skull Hammer"",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -1944,10 +1993,28 @@ BooleanExpression {
     "Defeated Helmaroc King",
     "Defeated Jalhalla",
     "Defeated Molgera",
-    "Boomerang",
+    BooleanExpression {
+      "items": [
+        "Boomerang",
+        "Option "enabled_tricks" Contains "Defeat Puppet Ganon Without Boomerang"",
+      ],
+      "type": "or",
+    },
     "Grappling Hook",
     "Hookshot",
-    "Progressive Shield x1",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x1",
+        BooleanExpression {
+          "items": [
+            "Skull Hammer",
+            "Option "enabled_tricks" Contains "Reflect Light Arrows with Skull Hammer"",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -3270,7 +3337,13 @@ BooleanExpression {
 exports[`LogicHelper requirementsForEntrance returns simplified requirements for Forbidden Woods 1`] = `
 BooleanExpression {
   "items": [
-    "Grappling Hook",
+    BooleanExpression {
+      "items": [
+        "Grappling Hook",
+        "Option "enabled_tricks" Contains "Reach Pillar Outside Forest Haven without Grappling Hook"",
+      ],
+      "type": "or",
+    },
     "Deku Leaf",
     "Progressive Magic Meter x1",
     BooleanExpression {
@@ -3331,6 +3404,14 @@ BooleanExpression {
         "Progressive Sword x1",
         "Boomerang",
         "Skull Hammer",
+        BooleanExpression {
+          "items": [
+            "Power Bracelets",
+            "Option "enabled_tricks" Contains "Use Big Pig to Cut Down Outset Island Trees"",
+          ],
+          "type": "and",
+        },
+        "Option "enabled_tricks" Contains "Circumvent Outset Island Trees with Deku Leaf"",
       ],
       "type": "or",
     },
@@ -3370,6 +3451,13 @@ BooleanExpression {
       "items": [
         "Deku Leaf",
         "Grappling Hook",
+      ],
+      "type": "and",
+    },
+    BooleanExpression {
+      "items": [
+        "Grappling Hook",
+        "Option "enabled_tricks" Contains "Cliff Plateau Isles Cave with Only Grappling Hook"",
       ],
       "type": "and",
     },
@@ -3426,10 +3514,28 @@ BooleanExpression {
     "Progressive Sword x4",
     "Progressive Bow x3",
     "Progressive Magic Meter x1",
-    "Boomerang",
+    BooleanExpression {
+      "items": [
+        "Boomerang",
+        "Option "enabled_tricks" Contains "Defeat Puppet Ganon Without Boomerang"",
+      ],
+      "type": "or",
+    },
     "Grappling Hook",
     "Hookshot",
-    "Progressive Shield x1",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x1",
+        BooleanExpression {
+          "items": [
+            "Skull Hammer",
+            "Option "enabled_tricks" Contains "Reflect Light Arrows with Skull Hammer"",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -3472,6 +3578,14 @@ BooleanExpression {
         "Progressive Sword x1",
         "Boomerang",
         "Skull Hammer",
+        BooleanExpression {
+          "items": [
+            "Power Bracelets",
+            "Option "enabled_tricks" Contains "Use Big Pig to Cut Down Outset Island Trees"",
+          ],
+          "type": "and",
+        },
+        "Option "enabled_tricks" Contains "Circumvent Outset Island Trees with Deku Leaf"",
       ],
       "type": "or",
     },
@@ -3501,6 +3615,8 @@ BooleanExpression {
                 "Progressive Sword x1",
                 "Boomerang",
                 "Skull Hammer",
+                "Option "enabled_tricks" Contains "Use Big Pig to Cut Down Outset Island Trees"",
+                "Option "enabled_tricks" Contains "Circumvent Outset Island Trees with Deku Leaf"",
               ],
               "type": "or",
             },
@@ -3556,6 +3672,14 @@ BooleanExpression {
           "type": "and",
         },
         "Skull Hammer",
+        BooleanExpression {
+          "items": [
+            "Grappling Hook",
+            "Progressive Sword x1",
+            "Option "enabled_tricks" Contains "Defeat Electric ChuChus with Grappling Hook and Sword"",
+          ],
+          "type": "and",
+        },
       ],
       "type": "or",
     },
