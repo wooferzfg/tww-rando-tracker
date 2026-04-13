@@ -1960,12 +1960,25 @@ BooleanExpression {
     "Farore's Pearl",
     "Nayru's Pearl",
     "Bombs",
-    "TotG Small Key x2",
+    "TotG Small Key x1",
+    BooleanExpression {
+      "items": [
+        "Option "totg_tablet_from_start" Enabled",
+        "TotG Small Key x2",
+      ],
+      "type": "or",
+    },
     "TotG Big Key",
     "Skull Hammer",
     "Power Bracelets",
     "Command Melody",
-    "Progressive Shield x2",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        "Option "sunlight_arrows" Enabled",
+      ],
+      "type": "or",
+    },
     "Earth God's Lyric",
     "ET Small Key x3",
     "ET Big Key",
@@ -1975,6 +1988,13 @@ BooleanExpression {
     "WT Big Key",
     "Grappling Hook",
     "Hookshot",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x1",
+        "Option "enabled_tricks" Contains "Reflect Light Arrows with Skull Hammer"",
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -3296,6 +3316,7 @@ exports[`LogicHelper randomExitsForEntrance when there are nested dungeon entran
 exports[`LogicHelper requirementsForEntrance returns requirements for Dragon Roost Cavern 1`] = `
 BooleanExpression {
   "items": [
+    "Option "open_drc" Enabled",
     "Empty Bottle",
     "Bombs",
     "Power Bracelets",
@@ -3376,7 +3397,20 @@ BooleanExpression {
   "items": [
     "Entered ET",
     "Command Melody",
-    "Progressive Shield x2",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+            "Option "sunlight_arrows" Enabled",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
     "Earth God's Lyric",
     "Power Bracelets",
     "Skull Hammer",
@@ -3471,6 +3505,7 @@ BooleanExpression {
   "items": [
     BooleanExpression {
       "items": [
+        "Option "open_drc" Enabled",
         "Empty Bottle",
         "Bombs",
         "Power Bracelets",
@@ -3497,11 +3532,37 @@ BooleanExpression {
   "items": [
     "Power Bracelets",
     "Command Melody",
-    "Progressive Shield x2",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+            "Option "sunlight_arrows" Enabled",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
     "Earth God's Lyric",
     "Skull Hammer",
     "ET Small Key x3",
     "ET Big Key",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -3727,7 +3788,20 @@ BooleanExpression {
       "type": "or",
     },
     "Power Bracelets",
-    "Progressive Shield x2",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+            "Option "sunlight_arrows" Enabled",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
     "Skull Hammer",
   ],
   "type": "and",
@@ -3741,11 +3815,37 @@ BooleanExpression {
     "Note to Mom",
     "Power Bracelets",
     "Command Melody",
-    "Progressive Shield x2",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+            "Option "sunlight_arrows" Enabled",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
     "Earth God's Lyric",
     "Skull Hammer",
     "ET Small Key x3",
     "ET Big Key",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }

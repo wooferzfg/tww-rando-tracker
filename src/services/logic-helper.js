@@ -921,7 +921,7 @@ class LogicHelper {
     const matchers = [
       {
         regex: /^Option "([^"]+)" Enabled$/,
-        value: (optionValue) => !!optionValue,
+        value: (optionValue) => optionValue,
       },
       {
         regex: /^Option "([^"]+)" Disabled$/,

@@ -48,6 +48,7 @@ describe('Spheres', () => {
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
           [Permalink.OPTIONS.ALWAYS_DOUBLE_MAGIC]: false,
           [Permalink.OPTIONS.OPEN_DRC]: true,
+          [Permalink.OPTIONS.TOTG_TABLET_FROM_START]: false,
         },
         startingGear: {
           [LogicHelper.ITEMS.BALLAD_OF_GALES]: 1,

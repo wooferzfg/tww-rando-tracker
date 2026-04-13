@@ -82,6 +82,8 @@ describe('LogicCalculation', () => {
         [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
         [Permalink.OPTIONS.ALWAYS_DOUBLE_MAGIC]: false,
         [Permalink.OPTIONS.OPEN_DRC]: true,
+        [Permalink.OPTIONS.TOTG_TABLET_FROM_START]: false,
+        [Permalink.OPTIONS.SUNLIGHT_ARROWS]: false,
         [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
       },
       startingGear: {
