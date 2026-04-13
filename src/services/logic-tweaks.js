@@ -141,7 +141,7 @@ class LogicTweaks {
         return;
       }
 
-      // All rupeesanity locations have both the Rupee flag and its other flags (Dungeon, Puzzle Secret Cave, etc.).
+      // All rupeesanity locations have both the Rupee flag and its other flags.
       // So, we need special logic to distinguish between overworld and dungeon rupees.
       const isDungeonRupee = _.includes(typesList, Settings.FLAGS.DUNGEON);
       const rupeeOption = isDungeonRupee

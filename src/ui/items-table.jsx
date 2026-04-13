@@ -97,7 +97,8 @@ class ItemsTable extends React.PureComponent {
     const count = trackerState.getItemValue(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM);
     const textClass = count >= LogicHelper.BLUE_CHU_JELLY_COUNT_REQUIRED ? 'chu-text-gold' : 'chu-text-white';
 
-    // When Blue ChuChu drop shuffle are progression locations, let the player manually track their jelly count.
+    // When Blue ChuChu drop shuffle are progression locations,
+    // let the player manually track their jelly count.
     const shuffleOn = Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_BLUE_CHU_JELLIES);
     const onIncrement = shuffleOn
       ? () => incrementItem(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM, false)

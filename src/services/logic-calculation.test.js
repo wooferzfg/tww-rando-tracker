@@ -67,7 +67,9 @@ describe('LogicCalculation', () => {
           Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
         [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
         [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
-        [Permalink.OPTIONS.ENABLED_TRICKS]: _.fromPairs(_.map(LogicHelper.TRICKS, (trick) => [trick, false])),
+        [Permalink.OPTIONS.ENABLED_TRICKS]: _.fromPairs(
+          _.map(LogicHelper.TRICKS, (trick) => [trick, false]),
+        ),
         [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
         [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
         [Permalink.OPTIONS.MIX_ENTRANCES]: (
@@ -1552,7 +1554,7 @@ describe('LogicCalculation', () => {
       test('returns the correct total', () => {
         const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
 
-        expect(itemsNeededToFinishGame).toMatchInlineSnapshot(`17`);
+        expect(itemsNeededToFinishGame).toMatchInlineSnapshot('17');
       });
 
       describe('when some required items are obtained', () => {
@@ -1572,7 +1574,7 @@ describe('LogicCalculation', () => {
         test('returns the correct total', () => {
           const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
 
-          expect(itemsNeededToFinishGame).toMatchInlineSnapshot(`11`);
+          expect(itemsNeededToFinishGame).toMatchInlineSnapshot('11');
         });
       });
 
@@ -1635,7 +1637,7 @@ describe('LogicCalculation', () => {
       test('returns the correct total', () => {
         const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
 
-        expect(itemsNeededToFinishGame).toMatchInlineSnapshot(`43`);
+        expect(itemsNeededToFinishGame).toMatchInlineSnapshot('43');
       });
 
       describe('when bosses are marked as not required', () => {
@@ -1648,7 +1650,7 @@ describe('LogicCalculation', () => {
         test('returns the correct total', () => {
           const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
 
-          expect(itemsNeededToFinishGame).toMatchInlineSnapshot(`27`);
+          expect(itemsNeededToFinishGame).toMatchInlineSnapshot('27');
         });
       });
 
@@ -1669,7 +1671,7 @@ describe('LogicCalculation', () => {
         test('returns the correct total', () => {
           const itemsNeededToFinishGame = logic.itemsNeededToFinishGame();
 
-          expect(itemsNeededToFinishGame).toMatchInlineSnapshot(`34`);
+          expect(itemsNeededToFinishGame).toMatchInlineSnapshot('34');
         });
       });
 
@@ -1697,7 +1699,7 @@ describe('LogicCalculation', () => {
     test('returns the correct total', () => {
       const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-      expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot(`114`);
+      expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('114');
     });
 
     describe('when some locations are checked', () => {
@@ -1712,7 +1714,7 @@ describe('LogicCalculation', () => {
       test('returns the correct total', () => {
         const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot(`112`);
+        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('112');
       });
     });
 
@@ -1733,7 +1735,7 @@ describe('LogicCalculation', () => {
       test('returns the correct total', () => {
         const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot(`111`);
+        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('111');
       });
     });
 

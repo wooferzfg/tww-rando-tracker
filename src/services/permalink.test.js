@@ -79,9 +79,10 @@ describe('Permalink', () => {
     });
 
     test('round-trips options through encode and decode', () => {
-      // Python's zlib and Node's zlib produce different compressed bytes for the same uncompressed input.
-      // For this test permalink, I've confirmed that the uncompressed payload is byte-identical on both sides.
-      // So, for this test, simply check that the options are identical after an encode-decode round-trip.
+      // Python's zlib and Node's zlib produce different compressed bytes for the same uncompressed
+      // input. For this test permalink, I've confirmed that the uncompressed payload is
+      // byte-identical on both sides. So, for this test, simply check that the options are
+      // identical after an encode-decode round-trip.
       const encodedPermalink = Permalink.encode(options);
       const roundTrippedOptions = Permalink.decode(encodedPermalink);
 

@@ -33,7 +33,9 @@ describe('Spheres', () => {
           ),
           [Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS]: 0,
           [Permalink.OPTIONS.REQUIRED_BOSSES]: false,
-          [Permalink.OPTIONS.ENABLED_TRICKS]: _.fromPairs(_.map(LogicHelper.TRICKS, (trick) => [trick, false])),
+          [Permalink.OPTIONS.ENABLED_TRICKS]: _.fromPairs(
+            _.map(LogicHelper.TRICKS, (trick) => [trick, false]),
+          ),
           [Permalink.OPTIONS.RANDOMIZE_CHARTS]: false,
           [Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES]: false,
           [Permalink.OPTIONS.MIX_ENTRANCES]: (
