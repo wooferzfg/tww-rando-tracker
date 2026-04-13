@@ -918,7 +918,7 @@ class LogicHelper {
     const matchers = [
       {
         regex: /^Option "([^"]+)" Enabled$/,
-        value: (optionValue) => optionValue,
+        value: (optionValue) => !!optionValue,
       },
       {
         regex: /^Option "([^"]+)" Disabled$/,
@@ -934,7 +934,7 @@ class LogicHelper {
       },
       {
         regex: /^Option "([^"]+)" Contains "([^"]+)"$/,
-        value: (optionValue, expectedValue) => _.get(optionValue, expectedValue),
+        value: (optionValue, expectedValue) => !!_.get(optionValue, expectedValue),
       },
       {
         regex: /^Option "([^"]+)" Does Not Contain "([^"]+)"$/,

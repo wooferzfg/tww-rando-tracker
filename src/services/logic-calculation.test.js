@@ -79,8 +79,6 @@ describe('LogicCalculation', () => {
         [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
         [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
         [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
-        [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
-        [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
         [Permalink.OPTIONS.ALWAYS_DOUBLE_MAGIC]: false,
         [Permalink.OPTIONS.OPEN_DRC]: true,
         [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
@@ -586,8 +584,8 @@ describe('LogicCalculation', () => {
       });
 
       expect(locationCounts).toEqual({
-        numAvailable: 5,
-        numRemaining: 5,
+        numAvailable: 6,
+        numRemaining: 6,
         color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
       });
     });
@@ -640,7 +638,7 @@ describe('LogicCalculation', () => {
 
         expect(locationCounts).toEqual({
           numAvailable: 1,
-          numRemaining: 9,
+          numRemaining: 10,
           color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
         });
       });
@@ -652,8 +650,8 @@ describe('LogicCalculation', () => {
         });
 
         expect(locationCounts).toEqual({
-          numAvailable: 17,
-          numRemaining: 42,
+          numAvailable: 28,
+          numRemaining: 54,
           color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
         });
       });
@@ -780,8 +778,8 @@ describe('LogicCalculation', () => {
           });
 
           expect(locationCounts).toEqual({
-            numAvailable: 3,
-            numRemaining: 3,
+            numAvailable: 4,
+            numRemaining: 4,
             color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
           });
         });
@@ -793,8 +791,8 @@ describe('LogicCalculation', () => {
           });
 
           expect(locationCounts).toEqual({
-            numAvailable: 42,
-            numRemaining: 42,
+            numAvailable: 54,
+            numRemaining: 54,
             color: LogicCalculation.LOCATION_COLORS.AVAILABLE_LOCATION,
           });
         });
@@ -942,6 +940,10 @@ describe('LogicCalculation', () => {
           },
           {
             location: 'Southeast Gunboat',
+            color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
+          },
+          {
+            location: 'Blue ChuChu Drop',
             color: LogicCalculation.LOCATION_COLORS.UNAVAILABLE_LOCATION,
           },
           {
@@ -1124,6 +1126,10 @@ describe('LogicCalculation', () => {
             },
             {
               location: 'Barrel Shooting - Second Prize',
+              color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
+            },
+            {
+              location: 'Blue ChuChu Drop',
               color: LogicCalculation.LOCATION_COLORS.NON_PROGRESS_LOCATION,
             },
             {
@@ -1428,7 +1434,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsAvailable).toMatchInlineSnapshot('20');
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('21');
       });
     });
 
@@ -1438,7 +1444,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: false,
         });
 
-        expect(totalLocationsAvailable).toMatchInlineSnapshot('62');
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('132');
       });
     });
 
@@ -1454,7 +1460,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsAvailable).toMatchInlineSnapshot('19');
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('20');
       });
     });
 
@@ -1487,7 +1493,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsAvailable).toMatchInlineSnapshot('39');
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('40');
       });
     });
   });
@@ -1503,7 +1509,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsRemaining).toMatchInlineSnapshot('119');
+        expect(totalLocationsRemaining).toMatchInlineSnapshot('120');
       });
     });
 
@@ -1513,7 +1519,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: false,
         });
 
-        expect(totalLocationsRemaining).toMatchInlineSnapshot('320');
+        expect(totalLocationsRemaining).toMatchInlineSnapshot('514');
       });
     });
 
@@ -1529,7 +1535,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: true,
         });
 
-        expect(totalLocationsRemaining).toMatchInlineSnapshot('118');
+        expect(totalLocationsRemaining).toMatchInlineSnapshot('119');
       });
     });
   });
@@ -1688,7 +1694,7 @@ describe('LogicCalculation', () => {
     test('returns the correct total', () => {
       const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-      expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('113');
+      expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('114');
     });
 
     describe('when some locations are checked', () => {
@@ -1703,7 +1709,7 @@ describe('LogicCalculation', () => {
       test('returns the correct total', () => {
         const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('111');
+        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('112');
       });
     });
 
@@ -1724,7 +1730,7 @@ describe('LogicCalculation', () => {
       test('returns the correct total', () => {
         const estimatedLocationsLeftToCheck = logic.estimatedLocationsLeftToCheck();
 
-        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('110');
+        expect(estimatedLocationsLeftToCheck).toMatchInlineSnapshot('111');
       });
     });
 

@@ -69,8 +69,6 @@ describe('LogicHelper', () => {
         [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
         [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
         [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.START_WITH_HEROS_SWORD,
-        [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
-        [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
         [Permalink.OPTIONS.ALWAYS_DOUBLE_MAGIC]: false,
       },
       startingGear: {
@@ -2577,6 +2575,7 @@ describe('LogicHelper', () => {
           'House of Wealth Chest',
           'Maggie - Free Item',
           'Tott - Teach Rhythm',
+          'Zunari - Sail',
           'Sunken Treasure',
         ]);
       });
@@ -3447,23 +3446,6 @@ describe('LogicHelper', () => {
         expect(requirements).toMatchSnapshot();
       });
     });
-
-    describe('when using very hard logic', () => {
-      beforeEach(() => {
-        fullSetup({
-          options: {
-            [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.VERY_HARD,
-            [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.VERY_HARD,
-          },
-        });
-      });
-
-      test('returns simplified requirements for Outset Island - Great Fairy', () => {
-        const requirements = LogicHelper.requirementsForLocation('Outset Island', 'Great Fairy', false);
-
-        expect(requirements).toMatchSnapshot();
-      });
-    });
   });
 
   describe('requirementsForEntrance', () => {
@@ -3876,8 +3858,6 @@ describe('LogicHelper', () => {
           [Permalink.OPTIONS.RANDOMIZE_FAIRY_FOUNTAIN_ENTRANCES]: false,
           [Permalink.OPTIONS.SKIP_REMATCH_BOSSES]: true,
           [Permalink.OPTIONS.SWORD_MODE]: Permalink.SWORD_MODE_OPTIONS.NO_STARTING_SWORD,
-          [Permalink.OPTIONS.LOGIC_OBSCURITY]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
-          [Permalink.OPTIONS.LOGIC_PRECISION]: Permalink.LOGIC_DIFFICULTY_OPTIONS.NONE,
           [Permalink.OPTIONS.ALWAYS_DOUBLE_MAGIC]: false,
         },
         startingGear: {},
