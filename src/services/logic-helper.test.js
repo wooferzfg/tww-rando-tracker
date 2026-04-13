@@ -3030,6 +3030,19 @@ describe('LogicHelper', () => {
     });
   });
 
+  describe('soulItemName', () => {
+    test('returns the boss soul name for a dungeon', () => {
+      expect(LogicHelper.soulItemName('Dragon Roost Cavern')).toEqual('Soul of Gohma');
+      expect(LogicHelper.soulItemName('Wind Temple')).toEqual('Soul of Molgera');
+    });
+  });
+
+  describe('hasBossSoul', () => {
+    test('returns true for a dungeon', () => {
+      expect(LogicHelper.hasBossSoul('Forbidden Woods')).toBe(true);
+    });
+  });
+
   describe('maxSmallKeysForDungeon', () => {
     test('returns the max small keys for DRC', () => {
       const maxKeys = LogicHelper.maxSmallKeysForDungeon('Dragon Roost Cavern');
