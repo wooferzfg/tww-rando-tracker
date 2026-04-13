@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import LogicHelper from '../services/logic-helper';
+import Permalink from '../services/permalink';
+import Settings from '../services/settings';
 import Spheres from '../services/spheres';
 import TrackerState from '../services/tracker-state';
 
@@ -81,22 +83,38 @@ class ItemsTable extends React.PureComponent {
 
   chuCount() {
     // Dummy item to display how many blue chus the user has tracked
-    const { trackerState, trackNonProgressBlueChuJelly, spheres } = this.props;
+    const {
+      decrementItem,
+      incrementItem,
+      spheres,
+      trackerState,
+      trackNonProgressBlueChuJelly,
+    } = this.props;
     if (!trackNonProgressBlueChuJelly && !LogicHelper.blueChusAreUseful()) {
       return null;
     }
     const image = _.get(Images.IMAGES, ['BLUE_CHU_JELLY_COUNT']);
     const count = trackerState.getItemValue(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM);
     const textClass = count >= LogicHelper.BLUE_CHU_JELLY_COUNT_REQUIRED ? 'chu-text-gold' : 'chu-text-white';
+
+    // When Blue ChuChu drop shuffle are progression locations, let the player manually track their jelly count.
+    const shuffleOn = Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_BLUE_CHU_JELLIES);
+    const onIncrement = shuffleOn
+      ? () => incrementItem(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM, false)
+      : () => {};
+    const onDecrement = shuffleOn
+      ? () => decrementItem(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM)
+      : () => {};
+
     return (
       <div className="chu-count-container">
         <Item
           clearSelectedItem={this.clearSelectedItem}
-          decrementItem={() => {}}
+          decrementItem={onDecrement}
           images={image}
-          incrementItem={() => {}}
+          incrementItem={onIncrement}
           itemCount={0}
-          itemName={`Blue Chu Jelly (${count}/${LogicHelper.BLUE_CHU_JELLY_COUNT_REQUIRED})`}
+          itemName={LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM}
           locations={[]}
           setSelectedItem={this.setSelectedItem}
           spheres={spheres}

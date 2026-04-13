@@ -160,7 +160,6 @@ class LogicHelper {
     _.keys(ITEMS),
     _.keys(KEYS),
     _.values(BLUE_CHUCHUS).flat(),
-    [this.BLUE_CHU_JELLY_COUNT_ITEM],
   );
 
   static ALL_TREASURE_CHARTS = _.range(1, CHARTS.length - this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Treasure Chart ${number}`);

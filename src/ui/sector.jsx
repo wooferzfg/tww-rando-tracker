@@ -78,6 +78,11 @@ class Sector extends React.PureComponent {
       return null;
     }
 
+    // Hide when Blue ChuChu drops are not progression locations.
+    if (Settings.getOptionValue(Permalink.OPTIONS.PROGRESSION_BLUE_CHU_JELLIES)) {
+      return null;
+    }
+
     const chuImages = _.get(Images.IMAGES, ['BLUE_CHU_JELLIES']);
     const jellies = LogicHelper.blueChusOnIsland(island);
     const chuCounts = jellies.map((jelly) => trackerState.getItemValue(jelly));
