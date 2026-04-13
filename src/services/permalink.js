@@ -94,6 +94,10 @@ class Permalink {
     this.#booleanConfig(this.OPTIONS.PROGRESSION_EXPENSIVE_PURCHASES),
     this.#booleanConfig(this.OPTIONS.PROGRESSION_ISLAND_PUZZLES),
     this.#booleanConfig(this.OPTIONS.PROGRESSION_MISC),
+    this.#booleanConfig(this.OPTIONS.PROGRESSION_RUPEE_DUNGEON),
+    this.#booleanConfig(this.OPTIONS.PROGRESSION_RUPEE_OVERWORLD),
+    this.#booleanConfig(this.OPTIONS.PROGRESSION_BLUE_CHU_JELLIES),
+    this.#booleanConfig(this.OPTIONS.PROGRESSION_ORCA_MINIGAME),
 
     this.#excludedLocationsConfig(),
 
@@ -107,10 +111,12 @@ class Permalink {
     this.#booleanConfig(this.OPTIONS.PRIORITIZE_REQUIRED_BOSSES),
     this.#booleanConfig(this.OPTIONS.CHEST_TYPE_MATCHES_CONTENTS),
     this.#booleanConfig(this.OPTIONS.TRAP_CHESTS),
+    this.#booleanConfig(this.OPTIONS.BOSS_SOUL_SHUFFLE),
 
     this.#enabledTricksConfig(),
 
     this.#booleanConfig(this.OPTIONS.HERO_MODE),
+    this.#booleanConfig(this.OPTIONS.ORCA_ONE_HIT_KNOCKOUT),
 
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES),
     this.#booleanConfig(this.OPTIONS.RANDOMIZE_SECRET_CAVE_ENTRANCES),
@@ -140,10 +146,8 @@ class Permalink {
     this.#booleanConfig(this.OPTIONS.KREEB_HINTS_BOWS),
 
     this.#booleanConfig(this.OPTIONS.ALWAYS_DOUBLE_MAGIC),
-
-    this.#booleanConfig(this.OPTIONS.RAINBOW_RUPEE_PROGRESS),
-
     this.#booleanConfig(this.OPTIONS.OPEN_DRC),
+    this.#booleanConfig(this.OPTIONS.RAINBOW_RUPEE_PROGRESS),
 
     this.#booleanConfig(this.OPTIONS.SWIFT_SAIL),
     this.#booleanConfig(this.OPTIONS.INSTANT_TEXT_BOXES),
@@ -178,6 +182,9 @@ class Permalink {
     this.#booleanConfig(this.OPTIONS.WALLET_FILL_BEHAVIOR),
     this.#booleanConfig(this.OPTIONS.SPEEDUP_TINGLE_JAIL),
     this.#booleanConfig(this.OPTIONS.FIX_AUCTION),
+    this.#booleanConfig(this.OPTIONS.TOTG_TABLET_FROM_START),
+    this.#booleanConfig(this.OPTIONS.QUICK_GOHMA),
+    this.#booleanConfig(this.OPTIONS.SUNLIGHT_ARROWS),
 
     this.#booleanConfig(this.OPTIONS.DO_NOT_GENERATE_SPOILER_LOG),
   ];

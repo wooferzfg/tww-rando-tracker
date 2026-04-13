@@ -373,7 +373,23 @@ class LogicHelper {
       return false;
     }
 
-    const locationTypesList = _.split(locationTypes, ', ');
+    let locationTypesList = _.split(locationTypes, ', ');
+
+    // All rupeesanity locations have both the Rupee flag and its progression flags (Dungeon, Puzzle Secret Cave, etc.).
+    // So, we need special logic to distinguish between overworld and dungeon rupees.
+    if (_.includes(locationTypesList, Settings.FLAGS.RUPEE)) {
+      const isDungeonRupee = _.includes(locationTypesList, Settings.FLAGS.DUNGEON);
+      const rupeeOption = isDungeonRupee
+        ? Permalink.OPTIONS.PROGRESSION_RUPEE_DUNGEON
+        : Permalink.OPTIONS.PROGRESSION_RUPEE_OVERWORLD;
+      if (!Settings.getOptionValue(rupeeOption)) {
+        return false;
+      }
+
+      // Drop the Rupee tag itself, but let the other tags still gate through isFlagActive below.
+      locationTypesList = _.without(locationTypesList, Settings.FLAGS.RUPEE);
+    }
+
     return _.every(
       locationTypesList,
       (flag) => Settings.isFlagActive(flag),
