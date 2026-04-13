@@ -122,6 +122,10 @@ class LogicHelper {
     (requiredBossData) => requiredBossData.dungeonName,
   );
 
+  static DUNGEON_TO_BOSS_SOUL = _.fromPairs(
+    _.map(REQUIRED_BOSSES, ({ dungeonName, soul }) => [dungeonName, soul]),
+  );
+
   static ISLANDS = Constants.createFromArray(ISLANDS);
 
   static MISC_LOCATIONS = Constants.createFromArray(MISC_LOCATIONS);
@@ -478,6 +482,14 @@ class LogicHelper {
   static compassName(dungeonName) {
     const shortDungeonName = this.#shortDungeonName(dungeonName);
     return `${shortDungeonName} Compass`;
+  }
+
+  static soulItemName(dungeonName) {
+    return _.get(this.DUNGEON_TO_BOSS_SOUL, dungeonName, null);
+  }
+
+  static hasBossSoul(dungeonName) {
+    return !_.isNil(this.soulItemName(dungeonName));
   }
 
   static maxSmallKeysForDungeon(dungeonName) {
