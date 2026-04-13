@@ -228,6 +228,52 @@ describe('LogicTweaks', () => {
       });
     });
 
+    describe('when dungeon rupeesanity is enabled', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_RUPEE_DUNGEON]: true,
+            [Permalink.OPTIONS.PROGRESSION_RUPEE_OVERWORLD]: false,
+          },
+        });
+      });
+
+      test('strips the Rupee tag from dungeon rupee locations', () => {
+        LogicTweaks.applyTweaks();
+
+        const types = Locations.getLocation(
+          'Dragon Roost Cavern',
+          'Rupee in Rat Room Lower Crawlspace 1',
+          Locations.KEYS.TYPES,
+        );
+
+        expect(types).toEqual(Settings.FLAGS.DUNGEON);
+      });
+    });
+
+    describe('when overworld rupeesanity is enabled', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_RUPEE_DUNGEON]: false,
+            [Permalink.OPTIONS.PROGRESSION_RUPEE_OVERWORLD]: true,
+          },
+        });
+      });
+
+      test('strips the Rupee tag from overworld rupee locations', () => {
+        LogicTweaks.applyTweaks();
+
+        const types = Locations.getLocation(
+          'Outset Island',
+          "Rupee Behind Trees Near Link's House",
+          Locations.KEYS.TYPES,
+        );
+
+        expect(types).toEqual('');
+      });
+    });
+
     describe('when required bosses mode is enabled', () => {
       beforeEach(() => {
         Settings.initializeRaw({

@@ -1,26 +1,32 @@
 [
   {
     "dungeonName": "Dragon Roost Cavern",
-    "requirement": "Defeated Gohma"
+    "requirement": "Defeated Gohma",
+    "soul": "Soul of Gohma"
   },
   {
     "dungeonName": "Forbidden Woods",
-    "requirement": "Defeated Kalle Demos"
+    "requirement": "Defeated Kalle Demos",
+    "soul": "Soul of Kalle Demos"
   },
   {
     "dungeonName": "Tower of the Gods",
-    "requirement": "Defeated Gohdan"
+    "requirement": "Defeated Gohdan",
+    "soul": "Soul of Gohdan"
   },
   {
     "dungeonName": "Forsaken Fortress",
-    "requirement": "Defeated Helmaroc King"
+    "requirement": "Defeated Helmaroc King",
+    "soul": "Soul of Helmaroc King"
   },
   {
     "dungeonName": "Earth Temple",
-    "requirement": "Defeated Jalhalla"
+    "requirement": "Defeated Jalhalla",
+    "soul": "Soul of Jalhalla"
   },
   {
     "dungeonName": "Wind Temple",
-    "requirement": "Defeated Molgera"
+    "requirement": "Defeated Molgera",
+    "soul": "Soul of Molgera"
   }
 ]

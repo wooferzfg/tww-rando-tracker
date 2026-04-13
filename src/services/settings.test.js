@@ -19,7 +19,7 @@ describe('Settings', () => {
         BinaryString.fromBase64(Permalink.DEFAULT_PERMALINK),
       );
 
-      expect(Settings.version).toEqual('92859f0');
+      expect(Settings.version).toEqual('b7db940');
     });
   });
 
@@ -65,20 +65,22 @@ describe('Settings', () => {
     describe('all flags set', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink(
-          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM423NLIwtUwzYHBk+P+/noFI4CnBwPCNVeCDEJjHwsDQwMAIpqEAALf1DPo='),
+          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM4tPMk9JsjQxYHBk+P//PzsDZcBBiA1MN9QysuxiATMZgZhDACiFUAUAOVMNUQ=='),
         );
       });
 
       test('initializes all the flags', () => {
-        expect(_.difference(FLAGS, Settings.flags)).toEqual([]);
-        expect(_.difference(Settings.flags, FLAGS)).toEqual([]);
+        // The Rupee flag is intentionally omitted from FLAGS_MAPPING
+        const mappedFlags = _.without(FLAGS, Settings.FLAGS.RUPEE);
+        expect(_.difference(mappedFlags, Settings.flags)).toEqual([]);
+        expect(_.difference(Settings.flags, mappedFlags)).toEqual([]);
       });
     });
 
     describe('all starting gear set', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink(
-          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM423NLIwtUwzYHBk8BQIYCASeEowMHxjFfjw6z8ExJh4zlJhYIHLAwDf0RQZ'),
+          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM4tPMk9JsjQxYHBk8BQIYKAQOAixgemGWkaWXf/+g0Dj//Ouk5d4MjkgVAEAC+UU6A=='),
         );
       });
 
@@ -91,7 +93,7 @@ describe('Settings', () => {
       describe('when charts are not randomized', () => {
         beforeEach(() => {
           Settings.initializeFromPermalink(
-            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM423NLIwtUwzYHBkYGBgYSASeEowMHxjFfggBOYBtTUwMCJrBwAAdwqB'),
+            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM4tPMk9JsjQxYHBkYGBgYaAQOAixgemGWkaWXRDTGIGYQwAohVAFAAFOClE='),
           );
         });
 
@@ -105,7 +107,7 @@ describe('Settings', () => {
       describe('when charts are randomized', () => {
         beforeEach(() => {
           Settings.initializeFromPermalink(
-            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM423NLIwtUwzYHBkYGBgYSASeEowMHxnFfggBOYBtTUwMCJrBwAAkwqC'),
+            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM4tPMk9JsjQxYHBkYGBgYaAQOAixgekDtYwsuyCmMQIxhwBQCqEKAAjOCpE='),
           );
         });
 
@@ -120,7 +122,7 @@ describe('Settings', () => {
     describe('when some locations are excluded', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink(
-          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM423NLIwtUwzYHBk8BQIYEAABSQ2IwMTAwrwlGBg+MYq8EEIzGNhYGgAqgHRUAAAOFULSQ=='),
+          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM4tPMk9JsjQxYHBk8BQIYMACGnAIOmARdhBig0jXMrLsYgEzGYGYQwBFOQCaUww2'),
         );
       });
 

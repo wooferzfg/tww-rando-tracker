@@ -208,6 +208,13 @@ exports[`LogicHelper ALL_ITEMS returns a list of all the items, including entran
   "Secret Cave Chart",
   "Submarine Chart",
   "Tingle's Chart",
+  "Blue Chu Jelly",
+  "Soul of Gohma",
+  "Soul of Kalle Demos",
+  "Soul of Gohdan",
+  "Soul of Helmaroc King",
+  "Soul of Jalhalla",
+  "Soul of Molgera",
   "DRC Big Key",
   "DRC Small Key",
   "FW Big Key",
@@ -241,7 +248,6 @@ exports[`LogicHelper ALL_ITEMS returns a list of all the items, including entran
   "Blue Chu Near Second Hole at Night",
   "Blue Chu Near Peak Chest",
   "Blue Chu Near Cave Entrance",
-  "Blue Chu Jelly",
 ]
 `;
 
@@ -375,6 +381,7 @@ exports[`LogicHelper ITEMS returns the correct items 1`] = `
   "BAIT_BAG": "Bait Bag",
   "BALLAD_OF_GALES": "Ballad of Gales",
   "BEEDLES_CHART": "Beedle's Chart",
+  "BLUE_CHU_JELLY": "Blue Chu Jelly",
   "BOATS_SAIL": "Boat's Sail",
   "BOMBS": "Bombs",
   "BOOMERANG": "Boomerang",
@@ -422,6 +429,12 @@ exports[`LogicHelper ITEMS returns the correct items 1`] = `
   "SECRET_CAVE_CHART": "Secret Cave Chart",
   "SKULL_HAMMER": "Skull Hammer",
   "SONG_OF_PASSING": "Song of Passing",
+  "SOUL_OF_GOHDAN": "Soul of Gohdan",
+  "SOUL_OF_GOHMA": "Soul of Gohma",
+  "SOUL_OF_HELMAROC_KING": "Soul of Helmaroc King",
+  "SOUL_OF_JALHALLA": "Soul of Jalhalla",
+  "SOUL_OF_KALLE_DEMOS": "Soul of Kalle Demos",
+  "SOUL_OF_MOLGERA": "Soul of Molgera",
   "SPOILS_BAG": "Spoils Bag",
   "SUBMARINE_CHART": "Submarine Chart",
   "TELESCOPE": "Telescope",
@@ -750,6 +763,42 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Dr
     "generalLocation": "Dragon Roost Cavern",
   },
   {
+    "detailedLocation": "Rupee in Rat Room Lower Crawlspace 1",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Rupee in Rat Room Lower Crawlspace 2",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Rupee in Rat Room Lower Crawlspace 3",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Rupee in Rat Room Lower Crawlspace 4",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Rupee in Rat Room Lower Crawlspace 5",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Rupee in Rat Room Upper Crawlspace 1",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Rupee in Rat Room Upper Crawlspace 2",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Rupee in Rat Room Upper Crawlspace 3",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
+    "detailedLocation": "Rupee in Rat Room Upper Crawlspace 4",
+    "generalLocation": "Dragon Roost Cavern",
+  },
+  {
     "detailedLocation": "Rat Room",
     "generalLocation": "Dragon Roost Cavern",
   },
@@ -823,6 +872,10 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Ea
     "generalLocation": "Earth Temple",
   },
   {
+    "detailedLocation": "Rupee Behind Curtain In Warp Pot Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
     "detailedLocation": "Transparent Chest in First Crypt",
     "generalLocation": "Earth Temple",
   },
@@ -839,7 +892,51 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Ea
     "generalLocation": "Earth Temple",
   },
   {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 1",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 2",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 3",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 4",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 5",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 6",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 7",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 8",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 9",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Under Destructible Statue in Shortcut",
+    "generalLocation": "Earth Temple",
+  },
+  {
     "detailedLocation": "Casket in Second Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee in Second Crypt",
     "generalLocation": "Earth Temple",
   },
   {
@@ -863,7 +960,19 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Ea
     "generalLocation": "Earth Temple",
   },
   {
+    "detailedLocation": "Rupee Behind Destructible Statue Before Third Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
     "detailedLocation": "Chest in Third Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee in Third Crypt 1",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee in Third Crypt 2",
     "generalLocation": "Earth Temple",
   },
   {
@@ -900,6 +1009,10 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Ea
     "generalLocation": "Earth Temple",
   },
   {
+    "detailedLocation": "Rupee Behind Curtain In Warp Pot Room",
+    "generalLocation": "Earth Temple",
+  },
+  {
     "detailedLocation": "Transparent Chest in First Crypt",
     "generalLocation": "Earth Temple",
   },
@@ -916,7 +1029,51 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Ea
     "generalLocation": "Earth Temple",
   },
   {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 1",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 2",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 3",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 4",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 5",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 6",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 7",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 8",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Behind Destructible Wall in Shortcut 9",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee Under Destructible Statue in Shortcut",
+    "generalLocation": "Earth Temple",
+  },
+  {
     "detailedLocation": "Casket in Second Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee in Second Crypt",
     "generalLocation": "Earth Temple",
   },
   {
@@ -940,7 +1097,19 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Ea
     "generalLocation": "Earth Temple",
   },
   {
+    "detailedLocation": "Rupee Behind Destructible Statue Before Third Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
     "detailedLocation": "Chest in Third Crypt",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee in Third Crypt 1",
+    "generalLocation": "Earth Temple",
+  },
+  {
+    "detailedLocation": "Rupee in Third Crypt 2",
     "generalLocation": "Earth Temple",
   },
   {
@@ -989,7 +1158,79 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Fo
     "generalLocation": "Forbidden Woods",
   },
   {
+    "detailedLocation": "Rupee on Lower Tree Branch 1",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Lower Tree Branch 2",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Lower Tree Branch 3",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Lower Tree Branch 4",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Upper Tree Branch 1",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Upper Tree Branch 2",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Upper Tree Branch 3",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Upper Tree Branch 4",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
     "detailedLocation": "Hole in Tree",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Near Boko Baba 1",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Near Boko Baba 2",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Near Boko Baba 3",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Near Boko Baba 4",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Near Boko Baba 5",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee in Tree in Hub Room 1",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee in Tree in Hub Room 2",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee in Tree in Hub Room 3",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee in Tree in Hub Room 4",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee in Tree in Hub Room 5",
     "generalLocation": "Forbidden Woods",
   },
   {
@@ -1014,6 +1255,38 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Fo
   },
   {
     "detailedLocation": "Mothula Miniboss Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 1",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 2",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 3",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 4",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 5",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 6",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 7",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 8",
     "generalLocation": "Forbidden Woods",
   },
   {
@@ -1066,7 +1339,79 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Fo
     "generalLocation": "Forbidden Woods",
   },
   {
+    "detailedLocation": "Rupee on Lower Tree Branch 1",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Lower Tree Branch 2",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Lower Tree Branch 3",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Lower Tree Branch 4",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Upper Tree Branch 1",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Upper Tree Branch 2",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Upper Tree Branch 3",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee on Upper Tree Branch 4",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
     "detailedLocation": "Hole in Tree",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Near Boko Baba 1",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Near Boko Baba 2",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Near Boko Baba 3",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Near Boko Baba 4",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Near Boko Baba 5",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee in Tree in Hub Room 1",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee in Tree in Hub Room 2",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee in Tree in Hub Room 3",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee in Tree in Hub Room 4",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee in Tree in Hub Room 5",
     "generalLocation": "Forbidden Woods",
   },
   {
@@ -1091,6 +1436,38 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Fo
   },
   {
     "detailedLocation": "Mothula Miniboss Room",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 1",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 2",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 3",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 4",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 5",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 6",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 7",
+    "generalLocation": "Forbidden Woods",
+  },
+  {
+    "detailedLocation": "Rupee Around Miniboss Chest 8",
     "generalLocation": "Forbidden Woods",
   },
   {
@@ -1201,7 +1578,47 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Ou
     "generalLocation": "Outset Island",
   },
   {
+    "detailedLocation": "Rupee Behind Trees Near Link's House",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Rupee Above Water Pool Near Link's House",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Rupee on Link's House",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Rupee on Jumping Rocks 1",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Rupee on Jumping Rocks 2",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Rupee Underneath Mesa's Door",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Rupee Behind Mesa's Bed",
+    "generalLocation": "Outset Island",
+  },
+  {
     "detailedLocation": "Mesa the Grasscutter's House",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Rupee on Mesa's House Upper",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Rupee on Mesa's House Lower",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Rupee Above Aryll's Lookout",
     "generalLocation": "Outset Island",
   },
   {
@@ -1209,7 +1626,31 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Ou
     "generalLocation": "Outset Island",
   },
   {
+    "detailedLocation": "Orca - Hit 100 Times",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Orca - Hit 300 Times",
+    "generalLocation": "Outset Island",
+  },
+  {
     "detailedLocation": "Orca - Hit 500 Times",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Orca - Hit 1000 Times",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Rupee Above Path to Forest of Fairies",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Rupee on Pillar Below Bridge to Forest of Fairies",
+    "generalLocation": "Outset Island",
+  },
+  {
+    "detailedLocation": "Rupee in Log in Forest of Fairies",
     "generalLocation": "Outset Island",
   },
   {
@@ -1331,6 +1772,18 @@ exports[`LogicHelper bannedLocationsForZone returns the correct locations for Wi
     "generalLocation": "Wind Temple",
   },
   {
+    "detailedLocation": "Rupee Hidden Under Cracked Floor 1",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Rupee Hidden Under Cracked Floor 2",
+    "generalLocation": "Wind Temple",
+  },
+  {
+    "detailedLocation": "Rupee Hidden Under Cracked Floor 3",
+    "generalLocation": "Wind Temple",
+  },
+  {
     "detailedLocation": "Big Key Chest",
     "generalLocation": "Wind Temple",
   },
@@ -1389,10 +1842,28 @@ BooleanExpression {
     "Defeated Helmaroc King",
     "Defeated Jalhalla",
     "Defeated Molgera",
-    "Boomerang",
+    BooleanExpression {
+      "items": [
+        "Boomerang",
+        "Option "enabled_tricks" Contains "Defeat Puppet Ganon Without Boomerang"",
+      ],
+      "type": "or",
+    },
     "Grappling Hook",
     "Hookshot",
-    "Progressive Shield x1",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x1",
+        BooleanExpression {
+          "items": [
+            "Skull Hammer",
+            "Option "enabled_tricks" Contains "Reflect Light Arrows with Skull Hammer"",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -1408,7 +1879,14 @@ BooleanExpression {
     "Deku Leaf",
     "FW Big Key",
     "Boomerang",
-    "Bombs",
+    BooleanExpression {
+      "items": [
+        "Bombs",
+        "Option "enabled_tricks" Contains "FF - Trick Mounted Cannons to Blow Up Gate"",
+        "Option "enabled_tricks" Contains "FF - Access via Ganon's Tower Dark Portal"",
+      ],
+      "type": "or",
+    },
     "Skull Hammer",
     "Iron Boots",
     "Command Melody",
@@ -1417,7 +1895,13 @@ BooleanExpression {
     "WT Big Key",
     "Grappling Hook",
     "Hookshot",
-    "Progressive Shield x1",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x1",
+        "Option "enabled_tricks" Contains "Reflect Light Arrows with Skull Hammer"",
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -1433,10 +1917,28 @@ BooleanExpression {
     "Defeated Kalle Demos",
     "Defeated Helmaroc King",
     "Defeated Molgera",
-    "Boomerang",
+    BooleanExpression {
+      "items": [
+        "Boomerang",
+        "Option "enabled_tricks" Contains "Defeat Puppet Ganon Without Boomerang"",
+      ],
+      "type": "or",
+    },
     "Grappling Hook",
     "Hookshot",
-    "Progressive Shield x1",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x1",
+        BooleanExpression {
+          "items": [
+            "Skull Hammer",
+            "Option "enabled_tricks" Contains "Reflect Light Arrows with Skull Hammer"",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -1458,12 +1960,25 @@ BooleanExpression {
     "Farore's Pearl",
     "Nayru's Pearl",
     "Bombs",
-    "Command Melody",
-    "TotG Small Key x2",
+    "TotG Small Key x1",
+    BooleanExpression {
+      "items": [
+        "Option "totg_tablet_from_start" Enabled",
+        "TotG Small Key x2",
+      ],
+      "type": "or",
+    },
     "TotG Big Key",
     "Skull Hammer",
     "Power Bracelets",
-    "Progressive Shield x2",
+    "Command Melody",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        "Option "sunlight_arrows" Enabled",
+      ],
+      "type": "or",
+    },
     "Earth God's Lyric",
     "ET Small Key x3",
     "ET Big Key",
@@ -1473,6 +1988,13 @@ BooleanExpression {
     "WT Big Key",
     "Grappling Hook",
     "Hookshot",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x1",
+        "Option "enabled_tricks" Contains "Reflect Light Arrows with Skull Hammer"",
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -1491,10 +2013,28 @@ BooleanExpression {
     "Defeated Helmaroc King",
     "Defeated Jalhalla",
     "Defeated Molgera",
-    "Boomerang",
+    BooleanExpression {
+      "items": [
+        "Boomerang",
+        "Option "enabled_tricks" Contains "Defeat Puppet Ganon Without Boomerang"",
+      ],
+      "type": "or",
+    },
     "Grappling Hook",
     "Hookshot",
-    "Progressive Shield x1",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x1",
+        BooleanExpression {
+          "items": [
+            "Skull Hammer",
+            "Option "enabled_tricks" Contains "Reflect Light Arrows with Skull Hammer"",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -2818,7 +3358,13 @@ BooleanExpression {
 exports[`LogicHelper requirementsForEntrance returns simplified requirements for Forbidden Woods 1`] = `
 BooleanExpression {
   "items": [
-    "Grappling Hook",
+    BooleanExpression {
+      "items": [
+        "Grappling Hook",
+        "Option "enabled_tricks" Contains "Reach Pillar Outside Forest Haven without Grappling Hook"",
+      ],
+      "type": "or",
+    },
     "Deku Leaf",
     "Progressive Magic Meter x1",
     BooleanExpression {
@@ -2851,7 +3397,20 @@ BooleanExpression {
   "items": [
     "Entered ET",
     "Command Melody",
-    "Progressive Shield x2",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+            "Option "sunlight_arrows" Enabled",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
     "Earth God's Lyric",
     "Power Bracelets",
     "Skull Hammer",
@@ -2879,6 +3438,14 @@ BooleanExpression {
         "Progressive Sword x1",
         "Boomerang",
         "Skull Hammer",
+        BooleanExpression {
+          "items": [
+            "Power Bracelets",
+            "Option "enabled_tricks" Contains "Use Big Pig to Cut Down Outset Island Trees"",
+          ],
+          "type": "and",
+        },
+        "Option "enabled_tricks" Contains "Circumvent Outset Island Trees with Deku Leaf"",
       ],
       "type": "or",
     },
@@ -2921,6 +3488,13 @@ BooleanExpression {
       ],
       "type": "and",
     },
+    BooleanExpression {
+      "items": [
+        "Grappling Hook",
+        "Option "enabled_tricks" Contains "Cliff Plateau Isles Cave with Only Grappling Hook"",
+      ],
+      "type": "and",
+    },
   ],
   "type": "or",
 }
@@ -2958,11 +3532,37 @@ BooleanExpression {
   "items": [
     "Power Bracelets",
     "Command Melody",
-    "Progressive Shield x2",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+            "Option "sunlight_arrows" Enabled",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
     "Earth God's Lyric",
     "Skull Hammer",
     "ET Small Key x3",
     "ET Big Key",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -2975,10 +3575,28 @@ BooleanExpression {
     "Progressive Sword x4",
     "Progressive Bow x3",
     "Progressive Magic Meter x1",
-    "Boomerang",
+    BooleanExpression {
+      "items": [
+        "Boomerang",
+        "Option "enabled_tricks" Contains "Defeat Puppet Ganon Without Boomerang"",
+      ],
+      "type": "or",
+    },
     "Grappling Hook",
     "Hookshot",
-    "Progressive Shield x1",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x1",
+        BooleanExpression {
+          "items": [
+            "Skull Hammer",
+            "Option "enabled_tricks" Contains "Reflect Light Arrows with Skull Hammer"",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -3021,6 +3639,14 @@ BooleanExpression {
         "Progressive Sword x1",
         "Boomerang",
         "Skull Hammer",
+        BooleanExpression {
+          "items": [
+            "Power Bracelets",
+            "Option "enabled_tricks" Contains "Use Big Pig to Cut Down Outset Island Trees"",
+          ],
+          "type": "and",
+        },
+        "Option "enabled_tricks" Contains "Circumvent Outset Island Trees with Deku Leaf"",
       ],
       "type": "or",
     },
@@ -3050,6 +3676,8 @@ BooleanExpression {
                 "Progressive Sword x1",
                 "Boomerang",
                 "Skull Hammer",
+                "Option "enabled_tricks" Contains "Use Big Pig to Cut Down Outset Island Trees"",
+                "Option "enabled_tricks" Contains "Circumvent Outset Island Trees with Deku Leaf"",
               ],
               "type": "or",
             },
@@ -3105,6 +3733,14 @@ BooleanExpression {
           "type": "and",
         },
         "Skull Hammer",
+        BooleanExpression {
+          "items": [
+            "Grappling Hook",
+            "Progressive Sword x1",
+            "Option "enabled_tricks" Contains "Defeat Electric ChuChus with Grappling Hook and Sword"",
+          ],
+          "type": "and",
+        },
       ],
       "type": "or",
     },
@@ -3152,7 +3788,20 @@ BooleanExpression {
       "type": "or",
     },
     "Power Bracelets",
-    "Progressive Shield x2",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+            "Option "sunlight_arrows" Enabled",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
     "Skull Hammer",
   ],
   "type": "and",
@@ -3166,11 +3815,37 @@ BooleanExpression {
     "Note to Mom",
     "Power Bracelets",
     "Command Melody",
-    "Progressive Shield x2",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+            "Option "sunlight_arrows" Enabled",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
     "Earth God's Lyric",
     "Skull Hammer",
     "ET Small Key x3",
     "ET Big Key",
+    BooleanExpression {
+      "items": [
+        "Progressive Shield x2",
+        BooleanExpression {
+          "items": [
+            "Progressive Bow x3",
+            "Progressive Magic Meter x1",
+          ],
+          "type": "and",
+        },
+      ],
+      "type": "or",
+    },
   ],
   "type": "and",
 }
@@ -3192,23 +3867,6 @@ BooleanExpression {
         },
         "Skull Hammer",
         "Bombs",
-      ],
-      "type": "or",
-    },
-  ],
-  "type": "and",
-}
-`;
-
-exports[`LogicHelper requirementsForLocation when using very hard logic returns simplified requirements for Outset Island - Great Fairy 1`] = `
-BooleanExpression {
-  "items": [
-    "Deku Leaf",
-    "Progressive Magic Meter x1",
-    BooleanExpression {
-      "items": [
-        "Bombs",
-        "Power Bracelets",
       ],
       "type": "or",
     },

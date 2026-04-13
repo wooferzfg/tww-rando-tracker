@@ -25,6 +25,10 @@
   "progression_expensive_purchases",
   "progression_island_puzzles",
   "progression_misc",
+  "progression_rupee_dungeon",
+  "progression_rupee_overworld",
+  "progression_blue_chu_jellies",
+  "progression_orca_minigame",
 
   "excluded_locations",
 
@@ -38,10 +42,12 @@
   "prioritize_required_bosses",
   "chest_type_matches_contents",
   "trap_chests",
+  "boss_soul_shuffle",
+
+  "enabled_tricks",
 
   "hero_mode",
-  "logic_obscurity",
-  "logic_precision",
+  "orca_one_hit_knockout",
 
   "randomize_dungeon_entrances",
   "randomize_secret_cave_entrances",
@@ -71,10 +77,8 @@
   "kreeb_hints_bows",
 
   "always_double_magic",
-
-  "rainbow_rupee_progress",
-
   "open_drc",
+  "rainbow_rupee_progress",
 
   "swift_sail",
   "instant_text_boxes",
@@ -109,6 +113,9 @@
   "wallet_fill_behavior",
   "speedup_tingle_jail",
   "fix_auction",
+  "totg_tablet_from_start",
+  "quick_gohma",
+  "sunlight_arrows",
 
   "do_not_generate_spoiler_log"
 ]

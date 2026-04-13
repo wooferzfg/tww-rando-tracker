@@ -268,6 +268,22 @@ export default class Launcher extends React.PureComponent {
             labelText: 'Sunken Treasure (From Treasure Charts)',
             optionName: Permalink.OPTIONS.PROGRESSION_TREASURE_CHARTS,
           }),
+          this.toggleInput({
+            labelText: 'Dungeon Rupees',
+            optionName: Permalink.OPTIONS.PROGRESSION_RUPEE_DUNGEON,
+          }),
+          this.toggleInput({
+            labelText: 'Overworld Rupees',
+            optionName: Permalink.OPTIONS.PROGRESSION_RUPEE_OVERWORLD,
+          }),
+          this.toggleInput({
+            labelText: 'Blue ChuChu Drops',
+            optionName: Permalink.OPTIONS.PROGRESSION_BLUE_CHU_JELLIES,
+          }),
+          this.toggleInput({
+            labelText: 'Orca Minigame',
+            optionName: Permalink.OPTIONS.PROGRESSION_ORCA_MINIGAME,
+          }),
         ]}
       />
     );
@@ -336,10 +352,6 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.NUM_STARTING_TRIFORCE_SHARDS,
           }),
           this.toggleInput({
-            labelText: 'Randomize Charts',
-            optionName: Permalink.OPTIONS.RANDOMIZE_CHARTS,
-          }),
-          this.toggleInput({
             labelText: 'Required Bosses Mode',
             optionName: Permalink.OPTIONS.REQUIRED_BOSSES,
           }),
@@ -348,28 +360,41 @@ export default class Launcher extends React.PureComponent {
             optionName: Permalink.OPTIONS.NUM_REQUIRED_BOSSES,
             isDisabled: !this.getOptionValue(Permalink.OPTIONS.REQUIRED_BOSSES),
           }),
+          this.dropdownInput({
+            labelText: 'Small Keys Shuffle',
+            optionName: Permalink.OPTIONS.SHUFFLE_SMALL_KEYS,
+          }),
+          this.dropdownInput({
+            labelText: 'Big Keys Shuffle',
+            optionName: Permalink.OPTIONS.SHUFFLE_BIG_KEYS,
+          }),
+          this.toggleInput({
+            labelText: 'Boss Soul Shuffle',
+            optionName: Permalink.OPTIONS.BOSS_SOUL_SHUFFLE,
+          }),
           this.toggleInput({
             labelText: 'Skip Boss Rematches',
             optionName: Permalink.OPTIONS.SKIP_REMATCH_BOSSES,
           }),
-        ]}
-      />
-    );
-  }
-
-  logicDifficultyTable() {
-    return (
-      <OptionsTable
-        title="Logic Difficulty"
-        numColumns={2}
-        options={[
-          this.dropdownInput({
-            labelText: 'Obscure Tricks Required',
-            optionName: Permalink.OPTIONS.LOGIC_OBSCURITY,
+          this.toggleInput({
+            labelText: 'All Magic Meters Are Double',
+            optionName: Permalink.OPTIONS.ALWAYS_DOUBLE_MAGIC,
           }),
-          this.dropdownInput({
-            labelText: 'Precise Tricks Required',
-            optionName: Permalink.OPTIONS.LOGIC_PRECISION,
+          this.toggleInput({
+            labelText: 'Open DRC',
+            optionName: Permalink.OPTIONS.OPEN_DRC,
+          }),
+          this.toggleInput({
+            labelText: 'Skip TotG Statues',
+            optionName: Permalink.OPTIONS.TOTG_TABLET_FROM_START,
+          }),
+          this.toggleInput({
+            labelText: 'Sunlight Arrows',
+            optionName: Permalink.OPTIONS.SUNLIGHT_ARROWS,
+          }),
+          this.toggleInput({
+            labelText: 'Randomize Charts',
+            optionName: Permalink.OPTIONS.RANDOMIZE_CHARTS,
           }),
         ]}
       />
@@ -454,7 +479,6 @@ export default class Launcher extends React.PureComponent {
             {this.progressItemLocationsTable()}
             {this.entranceRandomizerOptionsTable()}
             {this.additionalOptionsTable()}
-            {this.logicDifficultyTable()}
             {this.launchButtonContainer()}
           </div>
           <div className="attribution">

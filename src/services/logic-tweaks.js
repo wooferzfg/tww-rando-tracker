@@ -52,6 +52,7 @@ class LogicTweaks {
     this.#updateTingleStatueReward();
     this.#updateBlueChuJelly();
     this.#updateSunkenTriforceTypes();
+    this.#updateRupeeTypes();
     this.applyHasAccessedLocationTweaksForLocations();
   }
 
@@ -118,6 +119,42 @@ class LogicTweaks {
           'Sunken Treasure',
           Locations.KEYS.TYPES,
           Settings.FLAGS.SUNKEN_TRIFORCE,
+        );
+      }
+    });
+  }
+
+  static #updateRupeeTypes() {
+    _.forEach(Locations.readLocationsList(), ({ generalLocation, detailedLocation }) => {
+      const types = Locations.getLocation(
+        generalLocation,
+        detailedLocation,
+        Locations.KEYS.TYPES,
+      );
+
+      if (!types) {
+        return;
+      }
+
+      const typesList = _.split(types, ', ');
+      if (!_.includes(typesList, Settings.FLAGS.RUPEE)) {
+        return;
+      }
+
+      // All rupeesanity locations have both the Rupee flag and its other flags.
+      // So, we need special logic to distinguish between overworld and dungeon rupees.
+      const isDungeonRupee = _.includes(typesList, Settings.FLAGS.DUNGEON);
+      const rupeeOption = isDungeonRupee
+        ? Permalink.OPTIONS.PROGRESSION_RUPEE_DUNGEON
+        : Permalink.OPTIONS.PROGRESSION_RUPEE_OVERWORLD;
+
+      if (Settings.getOptionValue(rupeeOption)) {
+        // Drop the Rupee tag, but keep the other tags.
+        Locations.setLocation(
+          generalLocation,
+          detailedLocation,
+          Locations.KEYS.TYPES,
+          _.join(_.without(typesList, Settings.FLAGS.RUPEE), ', '),
         );
       }
     });

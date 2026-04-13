@@ -16,6 +16,7 @@ import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
 import REQUIRED_BOSSES from '../data/required-bosses.json';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
 import TINGLE_STATUES from '../data/tingle-statues.json';
+import TRICKS from '../data/tricks.json';
 
 import BooleanExpression from './boolean-expression';
 import Constants from './constants';
@@ -122,11 +123,17 @@ class LogicHelper {
     (requiredBossData) => requiredBossData.dungeonName,
   );
 
+  static DUNGEON_TO_BOSS_SOUL = _.fromPairs(
+    _.map(REQUIRED_BOSSES, ({ dungeonName, soul }) => [dungeonName, soul]),
+  );
+
   static ISLANDS = Constants.createFromArray(ISLANDS);
 
   static MISC_LOCATIONS = Constants.createFromArray(MISC_LOCATIONS);
 
   static ITEMS = Constants.createFromArray(_.keys(ITEMS));
+
+  static TRICKS = Constants.createFromArray(TRICKS);
 
   static BLUE_CHU_ITEMS = Constants.createFromArray(_.values(BLUE_CHUCHUS).flat());
 
@@ -156,7 +163,6 @@ class LogicHelper {
     _.keys(ITEMS),
     _.keys(KEYS),
     _.values(BLUE_CHUCHUS).flat(),
-    [this.BLUE_CHU_JELLY_COUNT_ITEM],
   );
 
   static ALL_TREASURE_CHARTS = _.range(1, CHARTS.length - this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Treasure Chart ${number}`);
@@ -374,6 +380,7 @@ class LogicHelper {
     }
 
     const locationTypesList = _.split(locationTypes, ', ');
+
     return _.every(
       locationTypesList,
       (flag) => Settings.isFlagActive(flag),
@@ -462,6 +469,14 @@ class LogicHelper {
   static compassName(dungeonName) {
     const shortDungeonName = this.#shortDungeonName(dungeonName);
     return `${shortDungeonName} Compass`;
+  }
+
+  static soulItemName(dungeonName) {
+    return _.get(this.DUNGEON_TO_BOSS_SOUL, dungeonName, null);
+  }
+
+  static hasBossSoul(dungeonName) {
+    return !_.isNil(this.soulItemName(dungeonName));
   }
 
   static maxSmallKeysForDungeon(dungeonName) {
