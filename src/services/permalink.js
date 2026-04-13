@@ -35,7 +35,7 @@ class Permalink {
     [this.OPTIONS.MILA_SPEEDUP]: MILA_SPEEDUP_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'eJxLSS2LL0nMy8o31jPUMzTQM423NLIwtUwzYHBk8BQIYCASeEowMHxjFfggBOaxMDA0MDCCaSgAADAmCyY=';
+  static DEFAULT_PERMALINK = 'eJxLSS2LL0nMy8o31jPUMzTQM4tPMk9JsjQxYHBk8BQIYKAQOAixgemGWkaWXSxgJiMQcwgApRCqAERTCvY=';
 
   static getVersion(binaryString) {
     const clonedString = binaryString.clone();
