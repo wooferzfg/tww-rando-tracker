@@ -228,40 +228,51 @@ describe('LogicTweaks', () => {
       });
     });
 
-    describe('when dungeon rupeesanity is enabled', () => {
+    describe('rupee locations', () => {
       beforeEach(() => {
         Settings.initializeRaw({
           options: {
             [Permalink.OPTIONS.PROGRESSION_RUPEE_DUNGEON]: true,
-            [Permalink.OPTIONS.PROGRESSION_RUPEE_OVERWORLD]: false,
-          },
-        });
-      });
-
-      test('strips the Rupee tag from dungeon rupee locations', () => {
-        LogicTweaks.applyTweaks();
-
-        const types = Locations.getLocation(
-          'Dragon Roost Cavern',
-          'Rupee in Rat Room Lower Crawlspace 1',
-          Locations.KEYS.TYPES,
-        );
-
-        expect(types).toEqual(Settings.FLAGS.DUNGEON);
-      });
-    });
-
-    describe('when overworld rupeesanity is enabled', () => {
-      beforeEach(() => {
-        Settings.initializeRaw({
-          options: {
-            [Permalink.OPTIONS.PROGRESSION_RUPEE_DUNGEON]: false,
             [Permalink.OPTIONS.PROGRESSION_RUPEE_OVERWORLD]: true,
           },
         });
       });
 
-      test('strips the Rupee tag from overworld rupee locations', () => {
+      test('replaces the Rupee tag with Rupee Dungeon on dungeon rupee locations', () => {
+        LogicTweaks.applyTweaks();
+
+        const typesList = _.split(
+          Locations.getLocation(
+            'Dragon Roost Cavern',
+            'Rupee in Rat Room Lower Crawlspace 1',
+            Locations.KEYS.TYPES,
+          ),
+          ', ',
+        );
+
+        expect(typesList).toContain(Settings.FLAGS.RUPEE_DUNGEON);
+        expect(typesList).toContain(Settings.FLAGS.DUNGEON);
+        expect(typesList).not.toContain(Settings.FLAGS.RUPEE);
+      });
+
+      test('replaces the Rupee tag with Rupee Overworld on overworld rupee locations', () => {
+        LogicTweaks.applyTweaks();
+
+        const typesList = _.split(
+          Locations.getLocation(
+            'Cliff Plateau Isles',
+            'Rupee on Platform in Lower Pool 1',
+            Locations.KEYS.TYPES,
+          ),
+          ', ',
+        );
+
+        expect(typesList).toContain(Settings.FLAGS.RUPEE_OVERWORLD);
+        expect(typesList).toContain(Settings.FLAGS.PUZZLE_SECRET_CAVE);
+        expect(typesList).not.toContain(Settings.FLAGS.RUPEE);
+      });
+
+      test('replaces the Rupee tag with Rupee Overworld on rupee locations whose only type is Rupee', () => {
         LogicTweaks.applyTweaks();
 
         const types = Locations.getLocation(
@@ -270,7 +281,7 @@ describe('LogicTweaks', () => {
           Locations.KEYS.TYPES,
         );
 
-        expect(types).toEqual('');
+        expect(types).toEqual(Settings.FLAGS.RUPEE_OVERWORLD);
       });
     });
 

@@ -26,6 +26,8 @@ exports[`Settings FLAGS returns the correct flags 1`] = `
   "RAFT": "Raft",
   "RANDOMIZABLE_MINIBOSS_ROOM": "Randomizable Miniboss Room",
   "RUPEE": "Rupee",
+  "RUPEE_DUNGEON": "Rupee Dungeon",
+  "RUPEE_OVERWORLD": "Rupee Overworld",
   "SAVAGE_LABYRINTH": "Savage Labyrinth",
   "SHORT_SIDEQUEST": "Short Sidequest",
   "SPOILS_TRADING": "Spoils Trading",
