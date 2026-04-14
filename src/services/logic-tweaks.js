@@ -144,19 +144,17 @@ class LogicTweaks {
       // All rupeesanity locations have both the Rupee flag and its other flags.
       // So, we need special logic to distinguish between overworld and dungeon rupees.
       const isDungeonRupee = _.includes(typesList, Settings.FLAGS.DUNGEON);
-      const rupeeOption = isDungeonRupee
-        ? Permalink.OPTIONS.PROGRESSION_RUPEE_DUNGEON
-        : Permalink.OPTIONS.PROGRESSION_RUPEE_OVERWORLD;
+      const rupeeFlag = isDungeonRupee
+        ? Settings.FLAGS.RUPEE_DUNGEON
+        : Settings.FLAGS.RUPEE_OVERWORLD;
 
-      if (Settings.getOptionValue(rupeeOption)) {
-        // Drop the Rupee tag, but keep the other tags.
-        Locations.setLocation(
-          generalLocation,
-          detailedLocation,
-          Locations.KEYS.TYPES,
-          _.join(_.without(typesList, Settings.FLAGS.RUPEE), ', '),
-        );
-      }
+      // Replace the Rupee tag with the more specific Rupee Dungeon / Rupee Overworld tag.
+      Locations.setLocation(
+        generalLocation,
+        detailedLocation,
+        Locations.KEYS.TYPES,
+        types.replace(Settings.FLAGS.RUPEE, rupeeFlag),
+      );
     });
   }
 
