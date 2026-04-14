@@ -370,7 +370,7 @@ class LogicHelper {
       Locations.KEYS.TYPES,
     );
 
-    if (!locationTypes) {
+    if (_.isNil(locationTypes)) {
       // the Defeat Ganondorf location does not have any types
       return true;
     }
