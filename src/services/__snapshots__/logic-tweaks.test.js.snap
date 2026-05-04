@@ -1052,37 +1052,37 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
       "types": "Platform",
     },
     "Rupee on Platform in Lower Pool 1": {
-      "need": "Can Access Cliff Plateau Isles Inner Cave",
+      "need": "Can Access Cliff Plateau Isles Secret Cave",
       "originalItem": "Green Rupee",
       "types": "Puzzle Secret Cave, Rupee Overworld",
     },
     "Rupee on Platform in Lower Pool 2": {
-      "need": "Can Access Cliff Plateau Isles Inner Cave",
+      "need": "Can Access Cliff Plateau Isles Secret Cave",
       "originalItem": "Green Rupee",
       "types": "Puzzle Secret Cave, Rupee Overworld",
     },
     "Rupee on Platform in Lower Pool 3": {
-      "need": "Can Access Cliff Plateau Isles Inner Cave",
+      "need": "Can Access Cliff Plateau Isles Secret Cave",
       "originalItem": "Green Rupee",
       "types": "Puzzle Secret Cave, Rupee Overworld",
     },
     "Rupee on Platform in Lower Pool 4": {
-      "need": "Can Access Cliff Plateau Isles Inner Cave",
+      "need": "Can Access Cliff Plateau Isles Secret Cave",
       "originalItem": "Green Rupee",
       "types": "Puzzle Secret Cave, Rupee Overworld",
     },
     "Rupee on Platform in Middle Pool 1": {
-      "need": "Can Access Cliff Plateau Isles Inner Cave",
+      "need": "Can Access Cliff Plateau Isles Secret Cave",
       "originalItem": "Blue Rupee",
       "types": "Puzzle Secret Cave, Rupee Overworld",
     },
     "Rupee on Platform in Middle Pool 2": {
-      "need": "Can Access Cliff Plateau Isles Inner Cave",
+      "need": "Can Access Cliff Plateau Isles Secret Cave",
       "originalItem": "Blue Rupee",
       "types": "Puzzle Secret Cave, Rupee Overworld",
     },
     "Rupee on Platform in Upper Pool": {
-      "need": "Can Access Cliff Plateau Isles Inner Cave",
+      "need": "Can Access Cliff Plateau Isles Secret Cave",
       "originalItem": "Yellow Rupee",
       "types": "Puzzle Secret Cave, Rupee Overworld",
     },
@@ -2437,7 +2437,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
       "types": "Rupee Overworld",
     },
     "Rupee Above Path to Forest of Fairies": {
-      "need": "(Bait Bag & Can Buy Hyoi Pears) | (Can Reach Outset Island Upper Level & Can Fly With Deku Leaf Outdoors) | Boomerang | Hookshot",
+      "need": "(Bait Bag & Can Buy Hyoi Pears) | Can Fly With Deku Leaf Outdoors | (Can Reach Outset Island Upper Level & (Boomerang | Hookshot))",
       "originalItem": "Yellow Rupee",
       "types": "Rupee Overworld",
     },
@@ -2452,7 +2452,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
       "types": "Rupee Overworld",
     },
     "Rupee Behind Trees Near Link's House": {
-      "need": "Can Cut Down Outset Trees | Boomerang | Hookshot",
+      "need": "Can Cut Down Outset Trees | Hookshot",
       "originalItem": "Yellow Rupee",
       "types": "Rupee Overworld",
     },
@@ -3435,7 +3435,7 @@ exports[`LogicTweaks applyTweaks when no options are set updates the locations 1
     "Dampa Pig Minigame - Deliver 3 Pigs": {
       "need": "Spoils Bag & Can Farm Skull Necklaces",
       "originalItem": "Purple Rupee",
-      "types": "Minigame",
+      "types": "Minigame, Spoils Trading",
     },
     "House of Wealth Chest": {
       "need": "Nothing",

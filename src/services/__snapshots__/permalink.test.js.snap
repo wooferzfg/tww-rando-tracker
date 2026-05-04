@@ -854,7 +854,7 @@ exports[`Permalink DEFAULT_PERMALINK returns the default options 1`] = `
   "sword_mode": "Start with Hero's Sword",
   "totg_tablet_from_start": false,
   "trap_chests": false,
-  "version": "dev_tanjo3.1.10.6_b7db940",
+  "version": "dev_tanjo3.1.10.7_46f8e01",
   "wallet_fill_behavior": false,
 }
 `;
@@ -1911,7 +1911,7 @@ exports[`Permalink decode decodes a permalink 1`] = `
   "sword_mode": "Start with Hero's Sword",
   "totg_tablet_from_start": false,
   "trap_chests": false,
-  "version": "dev_tanjo3.1.10.6_b7db940",
+  "version": "dev_tanjo3.1.10.7_46f8e01",
   "wallet_fill_behavior": false,
 }
 `;
