@@ -1449,7 +1449,7 @@ describe('LogicCalculation', () => {
           onlyProgressLocations: false,
         });
 
-        expect(totalLocationsAvailable).toMatchInlineSnapshot('132');
+        expect(totalLocationsAvailable).toMatchInlineSnapshot('139');
       });
     });
 

@@ -8,7 +8,7 @@
     ]
   },
   "Outset Island - Rupee Behind Trees Near Link's House": {
-    "Need": "Can Cut Down Outset Trees | Boomerang | Hookshot",
+    "Need": "Can Cut Down Outset Trees | Hookshot",
     "Original item": "Yellow Rupee",
     "Types": "Rupee",
     "Paths": [
@@ -137,7 +137,7 @@
     ]
   },
   "Outset Island - Rupee Above Path to Forest of Fairies": {
-    "Need": "(Bait Bag & Can Buy Hyoi Pears) | (Can Reach Outset Island Upper Level & Can Fly With Deku Leaf Outdoors) | Boomerang | Hookshot",
+    "Need": "(Bait Bag & Can Buy Hyoi Pears) | Can Fly With Deku Leaf Outdoors | (Can Reach Outset Island Upper Level & (Boomerang | Hookshot))",
     "Original item": "Yellow Rupee",
     "Types": "Rupee",
     "Paths": [
@@ -593,7 +593,7 @@
   "Windfall Island - Dampa Pig Minigame - Deliver 3 Pigs": {
     "Need": "Spoils Bag & Can Farm Skull Necklaces",
     "Original item": "Purple Rupee",
-    "Types": "Minigame",
+    "Types": "Minigame, Spoils Trading",
     "Paths": [
       "rels/d_a_npc_people.rel@5BDF"
     ]
@@ -3411,7 +3411,7 @@
     ]
   },
   "Cliff Plateau Isles - Rupee on Platform in Lower Pool 1": {
-    "Need": "Can Access Cliff Plateau Isles Inner Cave",
+    "Need": "Can Access Cliff Plateau Isles Secret Cave",
     "Original item": "Green Rupee",
     "Types": "Puzzle Secret Cave, Rupee",
     "Paths": [
@@ -3419,7 +3419,7 @@
     ]
   },
   "Cliff Plateau Isles - Rupee on Platform in Lower Pool 2": {
-    "Need": "Can Access Cliff Plateau Isles Inner Cave",
+    "Need": "Can Access Cliff Plateau Isles Secret Cave",
     "Original item": "Green Rupee",
     "Types": "Puzzle Secret Cave, Rupee",
     "Paths": [
@@ -3427,7 +3427,7 @@
     ]
   },
   "Cliff Plateau Isles - Rupee on Platform in Lower Pool 3": {
-    "Need": "Can Access Cliff Plateau Isles Inner Cave",
+    "Need": "Can Access Cliff Plateau Isles Secret Cave",
     "Original item": "Green Rupee",
     "Types": "Puzzle Secret Cave, Rupee",
     "Paths": [
@@ -3435,7 +3435,7 @@
     ]
   },
   "Cliff Plateau Isles - Rupee on Platform in Lower Pool 4": {
-    "Need": "Can Access Cliff Plateau Isles Inner Cave",
+    "Need": "Can Access Cliff Plateau Isles Secret Cave",
     "Original item": "Green Rupee",
     "Types": "Puzzle Secret Cave, Rupee",
     "Paths": [
@@ -3443,7 +3443,7 @@
     ]
   },
   "Cliff Plateau Isles - Rupee on Platform in Middle Pool 1": {
-    "Need": "Can Access Cliff Plateau Isles Inner Cave",
+    "Need": "Can Access Cliff Plateau Isles Secret Cave",
     "Original item": "Blue Rupee",
     "Types": "Puzzle Secret Cave, Rupee",
     "Paths": [
@@ -3451,7 +3451,7 @@
     ]
   },
   "Cliff Plateau Isles - Rupee on Platform in Middle Pool 2": {
-    "Need": "Can Access Cliff Plateau Isles Inner Cave",
+    "Need": "Can Access Cliff Plateau Isles Secret Cave",
     "Original item": "Blue Rupee",
     "Types": "Puzzle Secret Cave, Rupee",
     "Paths": [
@@ -3459,7 +3459,7 @@
     ]
   },
   "Cliff Plateau Isles - Rupee on Platform in Upper Pool": {
-    "Need": "Can Access Cliff Plateau Isles Inner Cave",
+    "Need": "Can Access Cliff Plateau Isles Secret Cave",
     "Original item": "Yellow Rupee",
     "Types": "Puzzle Secret Cave, Rupee",
     "Paths": [

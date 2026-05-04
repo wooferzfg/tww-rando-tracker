@@ -19,7 +19,7 @@ describe('Settings', () => {
         BinaryString.fromBase64(Permalink.DEFAULT_PERMALINK),
       );
 
-      expect(Settings.version).toEqual('b7db940');
+      expect(Settings.version).toEqual('46f8e01');
     });
   });
 
@@ -65,7 +65,7 @@ describe('Settings', () => {
     describe('all flags set', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink(
-          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM4tPMk9JsjQxYHBk+P//PzsDZcBBiA1MN9QysuxiATMZgZhDACiFUAUAOVMNUQ=='),
+          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM483MUuzSDUwZHBk+P//PzsDZcBBiA1MN9QysuxiATMZgZhDACiFUAUAJPcNJA=='),
         );
       });
 
@@ -80,7 +80,7 @@ describe('Settings', () => {
     describe('all starting gear set', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink(
-          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM4tPMk9JsjQxYHBk8BQIYKAQOAixgemGWkaWXf/+g0Dj//Ouk5d4MjkgVAEAC+UU6A=='),
+          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM483MUuzSDUwZHBk8BQIYKAQOAixgemGWkaWXf/+g0Dj//Ouk5d4MjkgVAEA93oUuw=='),
         );
       });
 
@@ -93,7 +93,7 @@ describe('Settings', () => {
       describe('when charts are not randomized', () => {
         beforeEach(() => {
           Settings.initializeFromPermalink(
-            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM4tPMk9JsjQxYHBkYGBgYaAQOAixgemGWkaWXRDTGIGYQwAohVAFAAFOClE='),
+            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM483MUuzSDUwZHBkYGBgYaAQOAixgemGWkaWXRDTGIGYQwAohVAFAOzjCiQ='),
           );
         });
 
@@ -107,7 +107,7 @@ describe('Settings', () => {
       describe('when charts are randomized', () => {
         beforeEach(() => {
           Settings.initializeFromPermalink(
-            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM4tPMk9JsjQxYHBkYGBgYaAQOAixgekDtYwsuyCmMQIxhwBQCqEKAAjOCpE='),
+            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM483MUuzSDUwZHBkYGBgYaAQOAixgekDtYwsuyCmMQIxhwBQCqEKAPRjCmQ='),
           );
         });
 
@@ -122,7 +122,7 @@ describe('Settings', () => {
     describe('when some locations are excluded', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink(
-          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM4tPMk9JsjQxYHBk8BQIYMACGnAIOmARdhBig0jXMrLsYgEzGYGYQwBFOQCaUww2'),
+          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM483MUuzSDUwZHBk8BQIYMACGnAIOmARdhBig0jXMrLsYgEzGYGYQwBFOQCF9wwJ'),
         );
       });
 
