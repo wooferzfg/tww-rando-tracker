@@ -35,7 +35,7 @@ class Permalink {
     [this.OPTIONS.MILA_SPEEDUP]: MILA_SPEEDUP_OPTIONS,
   };
 
-  static DEFAULT_PERMALINK = 'eJxLSS2LL0nMy8o31jPUMzTQM483MUuzSDUwZHBk8BQIYKAQOAixgemGWkaWXSxgJiMQcwgApRCqAC/3Csk=';
+  static DEFAULT_PERMALINK = 'eJxLSS2LL0nMy8o31jPUMzTQM9czjk8xNkgxMk9mcGS4//1Tc+mHA/HnJOY/kNiv9INfkeHfX/4/wgYMDA5PT/3n/K/J/ceehUGg4Ub9f3v/nE32d0rsjf//L663/v+fg5UBBBy8liYysDEJKDRdnfGzJYFHgIGJkYkFIsUgzODAWMCgxMMBAMVjLfw=';
 
   static getVersion(binaryString) {
     const clonedString = binaryString.clone();
