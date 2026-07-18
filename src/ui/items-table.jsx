@@ -50,13 +50,18 @@ class ItemsTable extends React.PureComponent {
   item(itemName, showLocationTooltip = true) {
     const {
       decrementItem,
+      enableItemCycling,
       incrementItem,
+      isStartingItemMode,
       spheres,
-      trackerState,
       trackSpheres,
+      trackerState,
+      updateStartingItemCount,
     } = this.props;
 
     const itemCount = trackerState.getItemValue(itemName);
+    const startingItemCount = trackerState.getStartingItemCount(itemName);
+    const hasSelectedStartingItem = trackerState.hasSelectedStartingItem(itemName);
     const itemImages = _.get(Images.IMAGES, ['ITEMS', itemName]);
 
     let locations = [];
@@ -69,12 +74,16 @@ class ItemsTable extends React.PureComponent {
         clearSelectedItem={this.clearSelectedItem}
         decrementItem={decrementItem}
         images={itemImages}
-        incrementItem={incrementItem}
+        incrementItem={(name) => incrementItem(name, true)}
+        isStartingItem={hasSelectedStartingItem}
+        isStartingItemMode={isStartingItemMode}
         itemCount={itemCount}
         itemName={itemName}
         locations={locations}
         setSelectedItem={this.setSelectedItem}
         spheres={spheres}
+        startingItemCount={startingItemCount}
+        updateStartingItemCount={updateStartingItemCount}
       />
     );
   }
@@ -237,11 +246,14 @@ ItemsTable.defaultProps = {
 ItemsTable.propTypes = {
   backgroundColor: PropTypes.string,
   decrementItem: PropTypes.func.isRequired,
+  enableItemCycling: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
+  isStartingItemMode: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
-  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
-  trackSpheres: PropTypes.bool.isRequired,
   trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
+  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  updateStartingItemCount: PropTypes.func.isRequired,
 };
 
 export default ItemsTable;

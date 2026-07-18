@@ -13,13 +13,15 @@ class ExtraLocationsTable extends React.PureComponent {
 
   static EXTRA_WIDTH = 30;
 
-  static getWidth() {
-    return this.NUM_EXTRA_LOCATIONS * ExtraLocation.getWidth() + this.EXTRA_WIDTH;
+  static getWidth(props = {}) {
+    const locationWidth = ExtraLocation.getWidth(props);
+    return (this.NUM_EXTRA_LOCATIONS * locationWidth) + this.EXTRA_WIDTH;
   }
 
   extraLocation(locationName) {
     const {
       clearAllLocations,
+      clearAllLocationsAndDisableBoss,
       clearSelectedItem,
       clearSelectedLocation,
       decrementItem,
@@ -32,9 +34,10 @@ class ExtraLocationsTable extends React.PureComponent {
       setSelectedExit,
       setSelectedItem,
       setSelectedLocation,
+      showDungeonMapsAndCompasses,
       spheres,
-      trackerState,
       trackSpheres,
+      trackerState,
       unsetEntrance,
       unsetExit,
       updateOpenedEntrance,
@@ -48,13 +51,14 @@ class ExtraLocationsTable extends React.PureComponent {
     return (
       <ExtraLocation
         clearAllLocations={clearAllLocations}
+        clearAllLocationsAndDisableBoss={clearAllLocationsAndDisableBoss}
         clearSelectedItem={clearSelectedItem}
         clearSelectedLocation={clearSelectedLocation}
         decrementItem={decrementItem}
         disableLogic={disableLogic}
-        key={locationName}
         incrementItem={incrementItem}
         isDungeon={isDungeon}
+        key={locationName}
         locationName={locationName}
         logic={logic}
         onlyProgressLocations={onlyProgressLocations}
@@ -63,6 +67,7 @@ class ExtraLocationsTable extends React.PureComponent {
         setSelectedExit={setSelectedExit}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
+        showDungeonMapsAndCompasses={showDungeonMapsAndCompasses}
         spheres={spheres}
         trackerState={trackerState}
         trackSpheres={trackSpheres}
@@ -72,7 +77,7 @@ class ExtraLocationsTable extends React.PureComponent {
         updateOpenedExit={updateOpenedExit}
         updateOpenedLocation={updateOpenedLocation}
         viewingEntrances={viewingEntrances}
-      />
+	  />
     );
   }
 
@@ -82,7 +87,7 @@ class ExtraLocationsTable extends React.PureComponent {
     return (
       <div
         className="extra-locations"
-        style={{ backgroundColor, width: ExtraLocationsTable.getWidth() }}
+        style={{backgroundColor,width: ExtraLocationsTable.getWidth(this.props)}}
       >
         {this.extraLocation(LogicHelper.DUNGEONS.DRAGON_ROOST_CAVERN)}
         {this.extraLocation(LogicHelper.DUNGEONS.FORBIDDEN_WOODS)}
@@ -106,6 +111,7 @@ ExtraLocationsTable.defaultProps = {
 ExtraLocationsTable.propTypes = {
   backgroundColor: PropTypes.string,
   clearAllLocations: PropTypes.func.isRequired,
+  clearAllLocationsAndDisableBoss: PropTypes.func.isRequired,
   clearSelectedItem: PropTypes.func.isRequired,
   clearSelectedLocation: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
@@ -118,9 +124,10 @@ ExtraLocationsTable.propTypes = {
   setSelectedExit: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
+  showDungeonMapsAndCompasses: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
-  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
   updateOpenedEntrance: PropTypes.func.isRequired,

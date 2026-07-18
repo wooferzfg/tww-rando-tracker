@@ -154,6 +154,111 @@ describe('TrackerState', () => {
 
       expect(itemValue).toEqual(2);
     });
+
+    test('returns the starting item count when it is higher than the stored value', () => {
+      LogicHelper.startingItems = {
+        'Progressive Sword': 2,
+      };
+
+      state.items = {
+        'Progressive Sword': 1,
+      };
+
+      const itemValue = state.getItemValue('Progressive Sword');
+
+      expect(itemValue).toEqual(2);
+    });
+  });
+
+  describe('starting items', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+
+      LogicHelper.startingItems = {
+        'Progressive Sword': 2,
+      };
+    });
+
+    test('getStartingItemCount returns the logic helper starting count by default', () => {
+      expect(state.getStartingItemCount('Progressive Sword')).toBe(2);
+    });
+
+    test('getStartingItemCount returns the selected starting count when it is higher', () => {
+      state.selectedStartingItems = {
+        'Progressive Sword': 4,
+      };
+
+      expect(state.getStartingItemCount('Progressive Sword')).toBe(4);
+    });
+
+    test('getSelectedStartingItemCount returns only the selected starting count', () => {
+      state.selectedStartingItems = {
+        'Progressive Sword': 3,
+      };
+
+      expect(state.getSelectedStartingItemCount('Progressive Sword')).toBe(3);
+    });
+
+    test('hasSelectedStartingItem returns whether a selected starting count exists', () => {
+      expect(state.hasSelectedStartingItem('Progressive Sword')).toBe(false);
+
+      state.selectedStartingItems = {
+        'Progressive Sword': 3,
+      };
+
+      expect(state.hasSelectedStartingItem('Progressive Sword')).toBe(true);
+    });
+  });
+
+  describe('updateStartingItemCount', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+
+      LogicHelper.startingItems = {
+        'Progressive Sword': 2,
+      };
+    });
+
+    test('increments the selected starting count', () => {
+      const newState = state.updateStartingItemCount('Progressive Sword');
+
+      expect(newState.getStartingItemCount('Progressive Sword')).toBe(3);
+      expect(newState.items['Progressive Sword']).toBe(3);
+    });
+
+    test('removes the selected starting count when decremented back to the base count', () => {
+      state.selectedStartingItems = {
+        'Progressive Sword': 3,
+      };
+      state.items = {
+        'Progressive Sword': 3,
+      };
+
+      const newState = state.updateStartingItemCount('Progressive Sword', -1);
+
+      expect(newState.getStartingItemCount('Progressive Sword')).toBe(2);
+      expect(newState.getSelectedStartingItemCount('Progressive Sword')).toBe(0);
+      expect(newState.items['Progressive Sword']).toBe(2);
+    });
+
+    test('cycles back to the base count when incremented past the maximum', () => {
+      state.selectedStartingItems = {
+        'Progressive Sword': 4,
+      };
+      state.items = {
+        'Progressive Sword': 4,
+      };
+
+      const newState = state.updateStartingItemCount('Progressive Sword');
+
+      expect(newState.getStartingItemCount('Progressive Sword')).toBe(2);
+      expect(newState.getSelectedStartingItemCount('Progressive Sword')).toBe(0);
+      expect(newState.items['Progressive Sword']).toBe(2);
+    });
   });
 
   describe('incrementItem', () => {
@@ -174,11 +279,18 @@ describe('TrackerState', () => {
         };
       });
 
-      test('returns a new state with the item reset to the minimum quantity', () => {
-        const newState = state.incrementItem('Progressive Sword');
+      test('returns a new state with the item reset to the starting quantity when cycling is enabled', () => {
+        const newState = state.incrementItem('Progressive Sword', true);
 
         expect(newState.items['Progressive Sword']).toEqual(2);
       });
+
+      test('returns a new state with the item unchanged when cycling is disabled', () => {
+        const newState = state.incrementItem('Progressive Sword');
+
+        expect(newState.items['Progressive Sword']).toEqual(4);
+      });
+
     });
 
     describe('when the item is not already at max quantity', () => {
@@ -193,6 +305,24 @@ describe('TrackerState', () => {
 
         expect(newState.items['Deku Leaf']).toEqual(1);
       });
+      test('cycles back to the selected starting count when item cycling is enabled', () => {
+        LogicHelper.startingItems = {
+          'Progressive Sword': 2,
+        };
+
+        state.selectedStartingItems = {
+          'Progressive Sword': 3,
+        };
+
+        state.items = {
+          'Progressive Sword': 4,
+        };
+
+        const newState = state.incrementItem('Progressive Sword', true);
+
+        expect(newState.items['Progressive Sword']).toBe(3);
+      });
+
     });
 
     describe('when incrementing a blue chu', () => {
@@ -237,8 +367,8 @@ describe('TrackerState', () => {
         };
       });
 
-      test('returns a new state with the item reset to the maximum quantity', () => {
-        const newState = state.decrementItem('Progressive Sword');
+      test('returns a new state with the item reset to the maximum quantity when cycling is enabled', () => {
+        const newState = state.decrementItem('Progressive Sword', true);
 
         expect(newState.items['Progressive Sword']).toEqual(4);
       });
@@ -255,6 +385,28 @@ describe('TrackerState', () => {
         const newState = state.decrementItem('Deku Leaf');
 
         expect(newState.items['Deku Leaf']).toEqual(0);
+      });
+    });
+
+    describe('when decrementing from the selected starting count', () => {
+      beforeEach(() => {
+        LogicHelper.startingItems = {
+          'Progressive Sword': 2,
+        };
+
+        state.selectedStartingItems = {
+          'Progressive Sword': 3,
+        };
+
+        state.items = {
+          'Progressive Sword': 3,
+        };
+      });
+
+      test('cycles to the maximum when item cycling is enabled', () => {
+        const newState = state.decrementItem('Progressive Sword', true);
+
+        expect(newState.items['Progressive Sword']).toBe(4);
       });
     });
 
@@ -603,6 +755,34 @@ describe('TrackerState', () => {
 
       expect(newItemForLocation).toEqual('Grappling Hook');
     });
+
+    test('prevents assigning more locations than available item copies', () => {      
+      LogicHelper.startingItems = {
+        'Progressive Sword': 2,
+      };
+
+      state.selectedStartingItems = {
+        'Progressive Sword': 3,
+      };
+
+      state.itemsForLocations = {
+        'Windfall Island': {
+          'Maggie - Free Item': 'Progressive Sword',
+        },
+        'Dragon Roost Cavern': {
+          "Bird's Nest": null,
+        },
+      };
+
+      const newState = state.setItemForLocation(
+        'Progressive Sword',
+        'Dragon Roost Cavern',
+        "Bird's Nest",
+      );
+
+      // max is 4, starting is 3, so only one location may be assigned.
+      expect(newState.getItemForLocation('Dragon Roost Cavern', "Bird's Nest")).toBeNull();
+    });
   });
 
   describe('getChartFromChartMapping', () => {
@@ -698,6 +878,48 @@ describe('TrackerState', () => {
       const newItemForLocation = _.get(newState.itemsForLocations, ['Dragon Roost Cavern', "Bird's Nest"]);
 
       expect(newItemForLocation).toEqual(null);
+    });
+  });
+  
+  describe('resetZone', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+
+      state.locationsChecked = {
+        'Dragon Roost Cavern': {
+          'First Room': true,
+          'Alcove With Water Jugs': false,
+          "Bird's Nest": true,
+        },
+      };
+    });
+
+    test('returns a new state with all locations in the area reset', () => {      
+      const newState = state.resetZone('Dragon Roost Cavern');
+
+      expect(newState.locationsChecked).toEqual({
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': false,
+          "Bird's Nest": false,
+        },
+      });
+    });
+
+    test('does not mutate the original state', () => {
+      const newState = state.resetZone('Dragon Roost Cavern');
+
+      expect(state.locationsChecked).toEqual({
+        'Dragon Roost Cavern': {
+          'First Room': true,
+          'Alcove With Water Jugs': false,
+          "Bird's Nest": true,
+        },
+      });
+
+      expect(newState.locationsChecked).not.toBe(state.locationsChecked);
     });
   });
 

@@ -151,12 +151,16 @@ class DetailedLocationsTable extends React.PureComponent {
     const {
       clearAllLocations,
       clearOpenedMenus,
-      toggleRequiredBoss,
       disableLogic,
       logic,
       onlyProgressLocations,
       openedLocation,
       openedLocationIsDungeon,
+      resetZone,
+      showClearAll,
+      showRequiredBossToggle,
+      showResetAll,
+      toggleRequiredBoss,
     } = this.props;
 
     const backgroundImage = _.get(Images.IMAGES, [
@@ -179,24 +183,45 @@ class DetailedLocationsTable extends React.PureComponent {
     );
 
     const clearAllLocationsFunc = () => clearAllLocations(openedLocation);
+    const resetAllFunc = () => resetZone(openedLocation);
 
-    const clearAllElement = (
-      <td>
-        <div
-          className="detail-span"
-          onClick={clearAllLocationsFunc}
-          onKeyDown={KeyDownWrapper.onSpaceKey(clearAllLocationsFunc)}
-          role="button"
-          tabIndex="0"
-        >
-          ✓ Clear All
-        </div>
-      </td>
-    );
-
+    let clearAllElement = null;
+    let resetAllElement = null;
     let requiredBossElement = null;
+
+    if (showClearAll) {
+      clearAllElement = (
+        <td>
+          <div
+            className="detail-span"
+            onClick={clearAllLocationsFunc}
+            onKeyDown={KeyDownWrapper.onSpaceKey(clearAllLocationsFunc)}
+            role="button"
+            tabIndex="0"
+          >
+            ✓ Clear All
+          </div>
+        </td>
+      );
+    }
+    if (showResetAll) {
+      resetAllElement = (
+        <td>
+          <div
+            className="detail-span"
+            onClick={resetAllFunc}
+            onKeyDown={KeyDownWrapper.onSpaceKey(resetAllFunc)}
+            role="button"
+            tabIndex="0"
+          >
+            ↺ Reset All
+          </div>
+        </td>
+      );
+    }
     if (
-      Settings.getOptionValue(Permalink.OPTIONS.REQUIRED_BOSSES)
+      showRequiredBossToggle
+      && Settings.getOptionValue(Permalink.OPTIONS.REQUIRED_BOSSES)
       && openedLocationIsDungeon
       && LogicHelper.isRequiredBossesModeDungeon(openedLocation)
     ) {
@@ -209,12 +234,10 @@ class DetailedLocationsTable extends React.PureComponent {
         }
       };
 
-      const className = `detail-span ${isDisabled ? 'detail-disabled' : ''}`;
-
       requiredBossElement = (
         <td className="extra-width-header">
           <div
-            className={className}
+            className={`detail-span ${isDisabled ? 'detail-disabled' : ''}`}
             onClick={toggleRequiredBossFunc}
             onKeyDown={KeyDownWrapper.onSpaceKey(toggleRequiredBossFunc)}
             role="button"
@@ -240,6 +263,7 @@ class DetailedLocationsTable extends React.PureComponent {
         headerCellsAfterClose={(
           <>
             {clearAllElement}
+            {resetAllElement}
             {requiredBossElement}
           </>
         )}
@@ -257,11 +281,12 @@ DetailedLocationsTable.propTypes = {
   onlyProgressLocations: PropTypes.bool.isRequired,
   openedLocation: PropTypes.string.isRequired,
   openedLocationIsDungeon: PropTypes.bool.isRequired,
+  resetZone: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
-  toggleRequiredBoss: PropTypes.func.isRequired,
-  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
-  trackSpheres: PropTypes.bool.isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
+  toggleRequiredBoss: PropTypes.func.isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
+  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
 };
 
 export default DetailedLocationsTable;

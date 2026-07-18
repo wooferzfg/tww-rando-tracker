@@ -20,7 +20,7 @@ class TrackerState {
     );
     newState.itemsForLocations = Locations.mapLocations(() => null);
     newState.locationsChecked = Locations.mapLocations(() => false);
-
+    newState.selectedStartingItems = {};
     return newState;
   }
 
@@ -30,6 +30,7 @@ class TrackerState {
     items,
     itemsForLocations,
     locationsChecked,
+    selectedStartingItems,
   }) {
     const newState = new TrackerState();
 
@@ -38,7 +39,7 @@ class TrackerState {
     newState.items = items;
     newState.itemsForLocations = itemsForLocations;
     newState.locationsChecked = locationsChecked;
-
+    newState.selectedStartingItems = selectedStartingItems || {};
     return newState;
   }
 
@@ -49,35 +50,97 @@ class TrackerState {
       items: this.items,
       itemsForLocations: this.itemsForLocations,
       locationsChecked: this.locationsChecked,
+      selectedStartingItems: this.selectedStartingItems,
     };
   }
 
   getItemValue(itemName) {
-    return _.get(this.items, itemName);
+    return Math.max(
+      _.get(this.items, itemName, 0),
+      this.getStartingItemCount(itemName),
+    );
   }
 
-  incrementItem(itemName) {
+  getStartingItemCount(itemName) {
+    return Math.max(
+      _.get(this.selectedStartingItems, itemName, 0),
+      LogicHelper.startingItemCount(itemName),
+    );
+  }
+  getSelectedStartingItemCount(itemName) {
+    return _.get(this.selectedStartingItems, itemName, 0);
+  }
+
+  hasSelectedStartingItem(itemName) {
+    return this.getSelectedStartingItemCount(itemName) > 0;
+  }
+
+  updateStartingItemCount(itemName, amount = 1) {
+    const newState = this.#clone({ selectedStartingItems: true, items: true });
+
+    const baseCount = LogicHelper.startingItemCount(itemName);
+    const currentCount = newState.getStartingItemCount(itemName);
+    const maximumCount = LogicHelper.maxItemCount(itemName);
+
+    let newCount = currentCount + amount;
+
+    if (amount > 0 && currentCount >= maximumCount) {
+      newCount = baseCount;
+    }
+
+    newCount = Math.max(baseCount, newCount);
+
+    if (newCount === baseCount) {
+      _.unset(newState.selectedStartingItems, itemName);
+    } else {
+      _.set(newState.selectedStartingItems, itemName, newCount);
+    }
+
+    _.set(newState.items, itemName, newCount);
+
+    return newState;
+  }
+  
+  incrementItem(itemName, enableItemCycling) {
     const newState = this.#clone({ items: true });
 
-    let newItemCount = 1 + this.getItemValue(itemName);
+    const currentCount = this.getItemValue(itemName);
     const maxItemCount = LogicHelper.maxItemCount(itemName);
-    if (newItemCount > maxItemCount) {
-      newItemCount = LogicHelper.startingItemCount(itemName);
+    const startingCount = this.getStartingItemCount(itemName);
+
+    if (currentCount >= maxItemCount) {
+      if (!enableItemCycling) {
+        return newState;
+      }
+
+      _.set(newState.items, itemName, startingCount);
+      return newState;
     }
+
+    const newItemCount = currentCount + 1;
     _.set(newState.items, itemName, newItemCount);
     newState.#updateBlueChuTotalIfNecessary(itemName);
 
     return newState;
   }
 
-  decrementItem(itemName) {
+  decrementItem(itemName, enableItemCycling) {
     const newState = this.#clone({ items: true });
 
-    let newItemCount = this.getItemValue(itemName) - 1;
-    const minItemCount = LogicHelper.startingItemCount(itemName);
-    if (newItemCount < minItemCount) {
-      newItemCount = LogicHelper.maxItemCount(itemName);
+    const currentCount = this.getItemValue(itemName);
+    const startingCount = this.getStartingItemCount(itemName);
+    const maxItemCount = LogicHelper.maxItemCount(itemName);
+
+    if (currentCount <= startingCount) {
+      if (!enableItemCycling) {
+        return newState;
+      }
+
+      _.set(newState.items, itemName, maxItemCount);
+      return newState;
     }
+
+    const newItemCount = currentCount - 1;
     _.set(newState.items, itemName, newItemCount);
     newState.#updateBlueChuTotalIfNecessary(itemName);
 
@@ -168,6 +231,28 @@ class TrackerState {
 
   setItemForLocation(itemName, generalLocation, detailedLocation) {
     const newState = this.#clone({ itemsForLocations: true });
+    const previousItem = newState.getItemForLocation(
+      generalLocation,
+      detailedLocation,
+    );
+
+    const startingCount = newState.getStartingItemCount(itemName);
+    const maxItemCount = LogicHelper.maxItemCount(itemName);
+    const allowedLocationCount = Math.max(
+      0,
+      maxItemCount - startingCount,
+    );
+
+    _.set(newState.itemsForLocations, [generalLocation, detailedLocation], null);
+
+    const currentBoundCount = newState.getLocationsForItem(itemName).length;
+
+    if (currentBoundCount >= allowedLocationCount) {
+      _.set(newState.itemsForLocations, [generalLocation, detailedLocation], previousItem);
+
+      return newState;
+    }
+
     _.set(newState.itemsForLocations, [generalLocation, detailedLocation], itemName);
     return newState;
   }
@@ -206,12 +291,16 @@ class TrackerState {
     return newState;
   }
 
-  clearBannedLocations(zoneName, { includeAdditionalLocations }) {
+  clearBannedLocations(zoneName, { includeAdditionalLocations, excludeLocation }) {
     const newState = this.#clone({ locationsChecked: true });
 
     _.forEach(
       LogicHelper.bannedLocationsForZone(zoneName, { includeAdditionalLocations }),
       ({ generalLocation, detailedLocation }) => {
+        if (excludeLocation && detailedLocation === excludeLocation) {
+          return;
+        }
+
         if (!newState.isLocationChecked(generalLocation, detailedLocation)) {
           newState.#toggleLocationCheckedUpdate(
             generalLocation,
@@ -224,6 +313,25 @@ class TrackerState {
     return newState;
   }
 
+  resetZone(zoneName) {
+    const newState = this.#clone({ locationsChecked: true });
+
+    _.forEach(
+      newState.locationsChecked[zoneName],
+      (isChecked, detailedLocation) => {
+        if (isChecked) {
+          _.set(newState.locationsChecked, [zoneName, detailedLocation], false);
+        }
+      },
+    );
+
+    if (LogicHelper.isRequiredBossesModeDungeon(zoneName)) {
+      LogicHelper.setBossRequired(zoneName);
+    }
+
+    return newState;
+  }
+  
   #getMarkedBlueChuCount() {
     const allChuItems = _.values(LogicHelper.BLUE_CHU_ITEMS);
     const numCollectedChus = _.sumBy(allChuItems, (chu) => this.getItemValue(chu));
@@ -234,8 +342,9 @@ class TrackerState {
     entrances: cloneEntrances,
     islandsForCharts: cloneIslandsForCharts,
     items: cloneItems,
-    locationsChecked: cloneLocationsChecked,
     itemsForLocations: cloneItemsForLocations,
+    locationsChecked: cloneLocationsChecked,
+    selectedStartingItems: cloneSelectedStartingItems,
   }) {
     const newState = new TrackerState();
 
@@ -254,6 +363,9 @@ class TrackerState {
     newState.itemsForLocations = cloneItemsForLocations
       ? _.cloneDeep(this.itemsForLocations)
       : this.itemsForLocations;
+    newState.selectedStartingItems = cloneSelectedStartingItems
+      ? _.cloneDeep(this.selectedStartingItems)
+      : this.selectedStartingItems;
 
     return newState;
   }

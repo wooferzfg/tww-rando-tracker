@@ -25,6 +25,17 @@ class Spheres {
 
   #calculate() {
     this.#temporaryState = TrackerState.default();
+    this.#temporaryState.selectedStartingItems = _.cloneDeep(
+    this.#state.selectedStartingItems,
+    );
+
+    _.forEach(this.#state.selectedStartingItems, (count, itemName) => {
+      _.set(this.#temporaryState.items,itemName,Math.min(
+          LogicHelper.maxItemCount(itemName),
+          count,
+        ),
+      );
+    });
     this.#spheres = Locations.mapLocations(() => null);
     this.#entrancesAdded = _.reduce(
       LogicHelper.allRandomEntrances(),

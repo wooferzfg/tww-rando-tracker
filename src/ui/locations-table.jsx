@@ -88,7 +88,6 @@ class LocationsTable extends React.PureComponent {
       chartListOpen,
       clearAllLocations,
       clearOpenedMenus,
-      toggleRequiredBoss,
       decrementItem,
       disableLogic,
       incrementItem,
@@ -99,17 +98,22 @@ class LocationsTable extends React.PureComponent {
       openedExit,
       openedLocation,
       openedLocationIsDungeon,
+      resetZone,
       rightClickToClearAll,
       showBeedleLocations,
-      showSalvageCorpLocations,
+      showClearAll,
       showCyclosLocations,
       showGhostShipLocations,
+      showRequiredBossToggle,
+      showResetAll,
+      showSalvageCorpLocations,
       spheres,
       toggleLocationChecked,
-      trackerState,
-      trackNonProgressCharts,
+      toggleRequiredBoss,
       trackNonProgressBlueChuJelly,
+      trackNonProgressCharts,
       trackSpheres,
+      trackerState,
       unsetChartMapping,
       unsetEntrance,
       unsetExit,
@@ -177,11 +181,15 @@ class LocationsTable extends React.PureComponent {
           onlyProgressLocations={onlyProgressLocations}
           openedLocation={openedLocation}
           openedLocationIsDungeon={openedLocationIsDungeon}
+          resetZone={resetZone}
+          showClearAll={showClearAll}
+          showRequiredBossToggle={showRequiredBossToggle}
+          showResetAll={showResetAll}
           spheres={spheres}
-          toggleRequiredBoss={toggleRequiredBoss}
-          trackerState={trackerState}
-          trackSpheres={trackSpheres}
           toggleLocationChecked={toggleLocationChecked}
+          toggleRequiredBoss={toggleRequiredBoss}
+          trackSpheres={trackSpheres}
+          trackerState={trackerState}
         />
       );
     } else {
@@ -196,23 +204,28 @@ class LocationsTable extends React.PureComponent {
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
+          resetZone={resetZone}
           rightClickToClearAll={rightClickToClearAll}
           setSelectedChartForIsland={this.setSelectedChartForIsland}
           setSelectedEntrance={this.setSelectedEntrance}
           setSelectedExit={this.setSelectedExit}
+          setSelectedGreatSeaLocation={this.setSelectedGreatSeaLocation}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
-          setSelectedGreatSeaLocation={this.setSelectedGreatSeaLocation}
           showBeedleLocations={showBeedleLocations}
-          showSalvageCorpLocations={showSalvageCorpLocations}
+          showClearAll={showClearAll}
           showCyclosLocations={showCyclosLocations}
+          
           showGhostShipLocations={showGhostShipLocations}
+          showRequiredBossToggle={showRequiredBossToggle}
+          showResetAll={showResetAll}
+          showSalvageCorpLocations={showSalvageCorpLocations}
           spheres={spheres}
           toggleLocationChecked={toggleLocationChecked}
-          trackerState={trackerState}
-          trackNonProgressCharts={trackNonProgressCharts}
           trackNonProgressBlueChuJelly={trackNonProgressBlueChuJelly}
+          trackNonProgressCharts={trackNonProgressCharts}
           trackSpheres={trackSpheres}
+          trackerState={trackerState}
           unsetChartMapping={unsetChartMapping}
           unsetEntrance={unsetEntrance}
           unsetExit={unsetExit}
@@ -248,15 +261,21 @@ class LocationsTable extends React.PureComponent {
     const {
       backgroundColor,
       clearAllLocations,
+      clearAllLocationsAndDisableBoss,
       decrementItem,
       disableLogic,
       incrementItem,
       logic,
       onlyProgressLocations,
+      resetZone,
       rightClickToClearAll,
+      showClearAll,
+      showDungeonMapsAndCompasses,
+      showRequiredBossToggle,
+      showResetAll,
       spheres,
-      trackerState,
       trackSpheres,
+      trackerState,
       unsetEntrance,
       unsetExit,
       updateOpenedEntrance,
@@ -271,6 +290,7 @@ class LocationsTable extends React.PureComponent {
         <ExtraLocationsTable
           backgroundColor={backgroundColor}
           clearAllLocations={clearAllLocations}
+          clearAllLocationsAndDisableBoss={clearAllLocationsAndDisableBoss}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
           decrementItem={decrementItem}
@@ -283,9 +303,13 @@ class LocationsTable extends React.PureComponent {
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
+          showClearAll={showClearAll}
+          showDungeonMapsAndCompasses={showDungeonMapsAndCompasses}
+          showRequiredBossToggle={showRequiredBossToggle}
+          showResetAll={showResetAll}
           spheres={spheres}
-          trackerState={trackerState}
           trackSpheres={trackSpheres}
+          trackerState={trackerState}
           unsetEntrance={unsetEntrance}
           unsetExit={unsetExit}
           updateOpenedEntrance={updateOpenedEntrance}
@@ -311,6 +335,7 @@ LocationsTable.propTypes = {
   backgroundColor: PropTypes.string,
   chartListOpen: PropTypes.bool.isRequired,
   clearAllLocations: PropTypes.func.isRequired,
+  clearAllLocationsAndDisableBoss: PropTypes.func.isRequired,
   clearOpenedMenus: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
@@ -322,24 +347,29 @@ LocationsTable.propTypes = {
   openedExit: PropTypes.string,
   openedLocation: PropTypes.string,
   openedLocationIsDungeon: PropTypes.bool,
+  resetZone: PropTypes.func.isRequired,
   rightClickToClearAll: PropTypes.bool.isRequired,
   showBeedleLocations: PropTypes.bool.isRequired,
-  showSalvageCorpLocations: PropTypes.bool.isRequired,
+  showClearAll: PropTypes.bool.isRequired,
   showCyclosLocations: PropTypes.bool.isRequired,
+  showDungeonMapsAndCompasses: PropTypes.bool.isRequired,
   showGhostShipLocations: PropTypes.bool.isRequired,
+  showRequiredBossToggle: PropTypes.bool.isRequired,
+  showResetAll: PropTypes.bool.isRequired,
+  showSalvageCorpLocations: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
   toggleRequiredBoss: PropTypes.func.isRequired,
-  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
-  trackNonProgressCharts: PropTypes.bool.isRequired,
   trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
+  trackNonProgressCharts: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  unsetChartMapping: PropTypes.func.isRequired,
   unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
-  unsetChartMapping: PropTypes.func.isRequired,
   updateChartMapping: PropTypes.func.isRequired,
-  updateOpenedChartForIsland: PropTypes.func.isRequired,
   updateExitForEntrance: PropTypes.func.isRequired,
+  updateOpenedChartForIsland: PropTypes.func.isRequired,
   updateOpenedEntrance: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,

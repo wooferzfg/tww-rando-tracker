@@ -17,13 +17,18 @@ class Item extends React.PureComponent {
       decrementItem,
       images,
       incrementItem,
-      trackItemLocation,
+      isStartingItem,
+      isStartingItemMode,
       itemCount,
       itemName,
+      locations,
       setSelectedItem,
+      trackItemLocation,
+      updateStartingItemCount,
     } = this.props;
 
-    const itemImage = _.get(images, itemCount);
+    const displayedItemCount = isStartingItem ? Math.max(itemCount, 1) : itemCount;
+    const itemImage = _.get(images, displayedItemCount);
     const startingItemCount = LogicHelper.startingItemCount(itemName);
     const maxItemCount = LogicHelper.maxItemCount(itemName);
 
@@ -35,25 +40,62 @@ class Item extends React.PureComponent {
     }
 
     const incrementItemFunc = (event) => {
+      if (!_.isNil(event.button) && event.button !== 0) {
+        return;
+      }
+
       event.stopPropagation();
+
+      if (isStartingItemMode) {
+        if (updateStartingItemCount) {
+          updateStartingItemCount(itemName);
+        }
+
+        return;
+      }
 
       incrementItem(itemName, trackItemLocation);
     };
 
     const decrementItemFunc = (event) => {
-      event.preventDefault();
+      if (!decrementItem) {
+        return;
+      }
 
+      event.preventDefault();
+      event.stopPropagation();
       decrementItem(itemName);
     };
+
+    const decrementStartingItemFunc = (event) => {
+      if (!updateStartingItemCount) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      updateStartingItemCount(itemName, -1);
+    };
+
+    const rightClickFunc = isStartingItemMode
+      ? decrementStartingItemFunc
+      : decrementItemFunc;
+
+    const onMiddleMouseDown = updateStartingItemCount
+      ? ContextMenuWrapper.onMiddleClick(() => {
+        updateStartingItemCount(itemName);
+      })
+      : undefined;
 
     const setSelectedItemFunc = () => setSelectedItem(itemName);
 
     return (
       <div
-        className={`item-container ${itemClassName}`}
+        className={`item-container ${itemClassName} ${isStartingItem ? 'starting-item' : ''}`}
         onBlur={clearSelectedItem}
         onClick={incrementItemFunc}
-        onContextMenu={ContextMenuWrapper.onRightClick(decrementItemFunc)}
+        onContextMenu={ContextMenuWrapper.onRightClick(rightClickFunc)}        
+        onMouseDown={onMiddleMouseDown}
         onFocus={setSelectedItemFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(incrementItemFunc)}
         onMouseOver={setSelectedItemFunc}
@@ -87,8 +129,10 @@ class Item extends React.PureComponent {
 
 Item.defaultProps = {
   decrementItem: null,
+  isStartingItem: false,
   locations: [],
   spheres: null,
+  updateStartingItemCount: null,
   trackItemLocation: true,
 };
 
@@ -97,7 +141,8 @@ Item.propTypes = {
   decrementItem: PropTypes.func,
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
   incrementItem: PropTypes.func.isRequired,
-  trackItemLocation: PropTypes.bool,
+  isStartingItem: PropTypes.bool,
+  isStartingItemMode: PropTypes.bool,
   itemCount: PropTypes.number.isRequired,
   itemName: PropTypes.string.isRequired,
   locations: PropTypes.arrayOf(PropTypes.exact({
@@ -106,6 +151,8 @@ Item.propTypes = {
   })),
   setSelectedItem: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres),
+  updateStartingItemCount: PropTypes.func,
+  trackItemLocation: PropTypes.bool,
 };
 
 export default Item;
