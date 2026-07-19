@@ -37,7 +37,7 @@ class ExtraLocation extends React.PureComponent {
       + (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES) ? 1 : 0)
       + (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES) ? 1 : 0)
       + (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES) ? 1 : 0)
-      + (showDungeonMapsAndCompasses? 2 : 0);
+      + (showDungeonMapsAndCompasses ? 2 : 0);
 
     return Math.max(this.ITEM_WIDTH * numItems + this.EXTRA_WIDTH, this.MIN_WIDTH);
   }

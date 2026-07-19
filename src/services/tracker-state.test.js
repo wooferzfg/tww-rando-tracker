@@ -35,7 +35,18 @@ describe('TrackerState', () => {
         'Progressive Sword': 1,
       };
     });
+    test('initializes items for locations with null values', () => {
+      const defaultState = TrackerState.default();
 
+      expect(defaultState.itemsForLocations).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': null,
+        },
+        'Dragon Roost Cavern': {
+          "Bird's Nest": null,
+        },
+      });
+    });
     test('initializes the entrances as an empty object', () => {
       const defaultState = TrackerState.default();
 
@@ -124,6 +135,7 @@ describe('TrackerState', () => {
         items: expectedItems,
         itemsForLocations: expectedItemsForLocations,
         locationsChecked: expectedLocationsChecked,
+        selectedStartingItems: {},
       });
     });
 
@@ -135,6 +147,7 @@ describe('TrackerState', () => {
         items: expectedItems,
         itemsForLocations: expectedItemsForLocations,
         locationsChecked: expectedLocationsChecked,
+        selectedStartingItems: {},
       });
     });
   });
@@ -148,6 +161,34 @@ describe('TrackerState', () => {
         'Deku Leaf': 2,
       };
     });
+
+  describe('getDisplayedItemValue', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+
+      LogicHelper.startingItems = {
+        'Progressive Sword': 2,
+      };
+    });
+
+    test('returns the stored item value when it is higher than the starting count', () => {
+      state.items = {
+        'Progressive Sword': 4,
+      };
+
+      expect(state.getDisplayedItemValue('Progressive Sword')).toBe(4);
+    });
+
+    test('returns the starting item count when it is higher than the stored value', () => {
+      state.items = {
+        'Progressive Sword': 1,
+      };
+
+      expect(state.getDisplayedItemValue('Progressive Sword')).toBe(2);
+    });
+  });
 
     test('returns the value of the item', () => {
       const itemValue = state.getItemValue('Deku Leaf');
@@ -166,7 +207,7 @@ describe('TrackerState', () => {
 
       const itemValue = state.getItemValue('Progressive Sword');
 
-      expect(itemValue).toEqual(2);
+      expect(itemValue).toEqual(1);
     });
   });
 
@@ -216,7 +257,7 @@ describe('TrackerState', () => {
     let state;
 
     beforeEach(() => {
-      state = new TrackerState();
+      state = TrackerState.default();
 
       LogicHelper.startingItems = {
         'Progressive Sword': 2,
@@ -224,12 +265,19 @@ describe('TrackerState', () => {
     });
 
     test('increments the selected starting count', () => {
+      state.selectedStartingItems = {
+        'Progressive Sword': 2,
+      };
+
+      state.items = {
+        'Progressive Sword': 2,
+      };
+
       const newState = state.updateStartingItemCount('Progressive Sword');
 
       expect(newState.getStartingItemCount('Progressive Sword')).toBe(3);
       expect(newState.items['Progressive Sword']).toBe(3);
     });
-
     test('removes the selected starting count when decremented back to the base count', () => {
       state.selectedStartingItems = {
         'Progressive Sword': 3,
@@ -268,6 +316,14 @@ describe('TrackerState', () => {
       state = new TrackerState();
     });
 
+  test('increments an item that does not exist yet', () => {
+    state.items = {};
+
+    const newState = state.incrementItem('Deku Leaf');
+
+    expect(newState.items['Deku Leaf']).toEqual(1);
+  });
+
     describe('when the item is already at max quantity', () => {
       beforeEach(() => {
         LogicHelper.startingItems = {
@@ -290,7 +346,6 @@ describe('TrackerState', () => {
 
         expect(newState.items['Progressive Sword']).toEqual(4);
       });
-
     });
 
     describe('when the item is not already at max quantity', () => {
@@ -322,7 +377,6 @@ describe('TrackerState', () => {
 
         expect(newState.items['Progressive Sword']).toBe(3);
       });
-
     });
 
     describe('when incrementing a blue chu', () => {
@@ -339,6 +393,7 @@ describe('TrackerState', () => {
 
       test('updates blue chu jelly count for all blue chus', () => {
         let newState = state;
+
         _.forEach(
           _.values(LogicHelper.BLUE_CHU_ITEMS),
           (chu) => { newState = newState.incrementItem(chu); },
@@ -388,6 +443,24 @@ describe('TrackerState', () => {
       });
     });
 
+    describe('when the item is already at min quantity and cycling is disabled', () => {
+      beforeEach(() => {
+        LogicHelper.startingItems = {
+          'Progressive Sword': 2,
+        };
+
+        state.items = {
+          'Progressive Sword': 2,
+        };
+      });
+
+      test('returns a new state with the item unchanged', () => {
+        const newState = state.decrementItem('Progressive Sword');
+
+        expect(newState.items['Progressive Sword']).toEqual(2);
+      });
+    });
+    
     describe('when decrementing from the selected starting count', () => {
       beforeEach(() => {
         LogicHelper.startingItems = {
@@ -884,17 +957,25 @@ describe('TrackerState', () => {
   describe('resetZone', () => {
     let state;
 
-    beforeEach(() => {
-      state = new TrackerState();
+  beforeEach(() => {
+    Locations.locations = {
+      'Dragon Roost Cavern': {
+        'First Room': {},
+        'Alcove With Water Jugs': {},
+        "Bird's Nest": {},
+      },
+    };
 
-      state.locationsChecked = {
-        'Dragon Roost Cavern': {
-          'First Room': true,
-          'Alcove With Water Jugs': false,
-          "Bird's Nest": true,
-        },
-      };
-    });
+    state = new TrackerState();
+
+    state.locationsChecked = {
+      'Dragon Roost Cavern': {
+        'First Room': true,
+        'Alcove With Water Jugs': false,
+        "Bird's Nest": true,
+      },
+    };
+  });
 
     test('returns a new state with all locations in the area reset', () => {      
       const newState = state.resetZone('Dragon Roost Cavern');
@@ -1011,7 +1092,21 @@ describe('TrackerState', () => {
         },
       });
     });
+    test('skips the excluded location when clearing banned locations', () => {
+      const newState = state.clearBannedLocations(
+        'Dragon Roost Cavern',
+        {
+          includeAdditionalLocations: true,
+          excludeLocation: 'First Room',
+        },
+      );
 
+      expect(newState.locationsChecked['Dragon Roost Cavern']['First Room'])
+        .toBe(false);
+
+      expect(newState.locationsChecked['Dragon Roost Cavern']["Bird's Nest"])
+        .toBe(true);
+    });
     test('return a new state with the banned locations cleared for Outset', () => {
       const newState = state.clearBannedLocations('Outset Island', { includeAdditionalLocations: true });
 

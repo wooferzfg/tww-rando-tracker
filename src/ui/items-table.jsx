@@ -59,7 +59,7 @@ class ItemsTable extends React.PureComponent {
       updateStartingItemCount,
     } = this.props;
 
-    const itemCount = trackerState.getItemValue(itemName);
+    const itemCount = trackerState.getDisplayedItemValue(itemName);
     const startingItemCount = trackerState.getStartingItemCount(itemName);
     const hasSelectedStartingItem = trackerState.hasSelectedStartingItem(itemName);
     const itemImages = _.get(Images.IMAGES, ['ITEMS', itemName]);

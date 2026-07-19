@@ -55,18 +55,26 @@ class TrackerState {
   }
 
   getItemValue(itemName) {
+    return _.get(this.items, itemName);
+  }
+
+  getDisplayedItemValue(itemName) {
     return Math.max(
-      _.get(this.items, itemName, 0),
+      this.getItemValue(itemName),
       this.getStartingItemCount(itemName),
     );
   }
 
   getStartingItemCount(itemName) {
-    return Math.max(
-      _.get(this.selectedStartingItems, itemName, 0),
-      LogicHelper.startingItemCount(itemName),
+    return Math.min(
+      Math.max(
+        _.get(this.selectedStartingItems, itemName, 0),
+        LogicHelper.startingItemCount(itemName),
+      ),
+      LogicHelper.maxItemCount(itemName),
     );
   }
+
   getSelectedStartingItemCount(itemName) {
     return _.get(this.selectedStartingItems, itemName, 0);
   }
@@ -104,7 +112,7 @@ class TrackerState {
   incrementItem(itemName, enableItemCycling) {
     const newState = this.#clone({ items: true });
 
-    const currentCount = this.getItemValue(itemName);
+    const currentCount = this.getItemValue(itemName) || 0;
     const maxItemCount = LogicHelper.maxItemCount(itemName);
     const startingCount = this.getStartingItemCount(itemName);
 
@@ -317,11 +325,15 @@ class TrackerState {
     const newState = this.#clone({ locationsChecked: true });
 
     _.forEach(
-      newState.locationsChecked[zoneName],
-      (isChecked, detailedLocation) => {
-        if (isChecked) {
-          _.set(newState.locationsChecked, [zoneName, detailedLocation], false);
-        }
+      LogicHelper.bannedLocationsForZone(zoneName, {
+        includeAdditionalLocations: true,
+      }),
+      ({ generalLocation, detailedLocation }) => {
+        _.set(
+          newState.locationsChecked,
+          [generalLocation, detailedLocation],
+          false,
+        );
       },
     );
 

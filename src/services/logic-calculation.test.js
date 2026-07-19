@@ -2155,7 +2155,7 @@ describe('LogicCalculation', () => {
     describe('when the player is able to obtain 15 blue chus', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state().decrementItem('Deku Leaf'),
+          logic.state().decrementItem('Deku Leaf', true),
         );
       });
 
@@ -2208,12 +2208,12 @@ describe('LogicCalculation', () => {
         expect(blueChuCount).toEqual(15);
       });
 
-      describe('when the player does not have spoils bag', () => {
-        beforeEach(() => {
-          logic = new LogicCalculation(
-            logic.state().decrementItem('Spoils Bag'),
-          );
-        });
+    describe('when the player does not have spoils bag', () => {
+      beforeEach(() => {
+        logic = new LogicCalculation(
+          logic.state().decrementItem('Spoils Bag', true),
+        );
+      });
 
         test('blue chus location is unavailable', () => {
           const isBlueChusLocationAvailable = logic.isLocationAvailable(

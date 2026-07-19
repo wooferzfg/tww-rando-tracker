@@ -261,13 +261,19 @@ class Tracker extends React.PureComponent {
   }
 
   resetZone(zoneName) {
-    const { trackerState } = this.state;
+    const {
+      clearAllIncludesMail,
+      trackerState,
+    } = this.state;
 
-    const newTrackerState = trackerState.resetZone(zoneName);
+    const newTrackerState = trackerState.resetZone(
+      zoneName,
+      clearAllIncludesMail,
+    );
 
     this.updateTrackerState(newTrackerState);
   }
-  
+    
   clearAllLocationsAndDisableBoss(zoneName) {
     const {
       clearAllIncludesMail,

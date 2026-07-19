@@ -87,7 +87,19 @@ describe('Spheres', () => {
       beforeEach(() => {
         fullSetup();
       });
+      test('uses selected starting items when calculating spheres', () => {
+        fullSetup();
 
+        trackerState.selectedStartingItems = {
+          'Bombs': 1,
+        };
+
+        const spheres = new Spheres(trackerState);
+
+        expect(
+          spheres.sphereForLocation('Windfall Island', 'Jail - Tingle - First Gift'),
+        ).toEqual(0);
+      });
       test('only sets sphere to 0 for accessible locations', () => {
         const spheres = new Spheres(trackerState);
 
