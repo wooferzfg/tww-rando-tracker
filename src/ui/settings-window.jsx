@@ -405,10 +405,6 @@ SettingsWindow.defaultProps = {
   itemsTableBackground: null,
   sphereTrackingBackground: null,
   statisticsBackground: null,
-  settingsWindowPosition: PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-  }),
 };
 
 SettingsWindow.propTypes = {
