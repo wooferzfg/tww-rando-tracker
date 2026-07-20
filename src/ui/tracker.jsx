@@ -42,6 +42,10 @@ class Tracker extends React.PureComponent {
       openedLocation: null,
       openedLocationIsDungeon: null,
       rightClickToClearAll: true,
+      settingsWindowPosition: {
+        x: 20,
+        y: 300,
+      },
       showBeedleLocations: false,
       showSalvageCorpLocations: false,
       showCyclosLocations: false,
@@ -74,6 +78,7 @@ class Tracker extends React.PureComponent {
     this.updateOpenedExit = this.updateOpenedExit.bind(this);
     this.updateOpenedLocation = this.updateOpenedLocation.bind(this);
     this.updatePreferences = this.updatePreferences.bind(this);
+    this.updateSettingsWindowPosition = this.updateSettingsWindowPosition.bind(this);
   }
 
   async initialize() {
@@ -403,6 +408,12 @@ class Tracker extends React.PureComponent {
     this.setState({ lastLocation: null });
   }
 
+  updateSettingsWindowPosition(position) {
+    this.updatePreferences({
+      settingsWindowPosition: position,
+    });
+  }
+
   updatePreferences(preferenceChanges) {
     const {
       clearAllIncludesMail,
@@ -410,6 +421,7 @@ class Tracker extends React.PureComponent {
       onlyProgressLocations,
       colors,
       rightClickToClearAll,
+      settingsWindowPosition,
       showBeedleLocations,
       showSalvageCorpLocations,
       showCyclosLocations,
@@ -426,6 +438,7 @@ class Tracker extends React.PureComponent {
       disableLogic,
       onlyProgressLocations,
       rightClickToClearAll,
+      settingsWindowPosition,
       showBeedleLocations,
       showSalvageCorpLocations,
       showCyclosLocations,
@@ -460,6 +473,7 @@ class Tracker extends React.PureComponent {
       rightClickToClearAll,
       saveData,
       settingsWindowOpen,
+      settingsWindowPosition,
       spheres,
       showBeedleLocations,
       showSalvageCorpLocations,
@@ -560,6 +574,7 @@ class Tracker extends React.PureComponent {
               extraLocationsBackground={extraLocationsBackground}
               itemsTableBackground={itemsTableBackground}
               rightClickToClearAll={rightClickToClearAll}
+              settingsWindowPosition={settingsWindowPosition}
               showBeedleLocations={showBeedleLocations}
               showSalvageCorpLocations={showSalvageCorpLocations}
               showCyclosLocations={showCyclosLocations}
@@ -571,6 +586,7 @@ class Tracker extends React.PureComponent {
               trackNonProgressBlueChuJelly={trackNonProgressBlueChuJelly}
               trackSpheres={trackSpheres}
               updatePreferences={this.updatePreferences}
+              updateSettingsWindowPosition={this.updateSettingsWindowPosition}
             />
           )}
           <Buttons
