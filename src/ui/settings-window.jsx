@@ -416,7 +416,7 @@ SettingsWindow.propTypes = {
   settingsWindowPosition: PropTypes.shape({
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
-  }),
+  }).isRequired,
   showBeedleLocations: PropTypes.bool.isRequired,
   showCyclosLocations: PropTypes.bool.isRequired,
   showGhostShipLocations: PropTypes.bool.isRequired,
