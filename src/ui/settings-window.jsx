@@ -32,6 +32,18 @@ class SettingsWindow extends React.PureComponent {
     this.keepInBounds = this.keepInBounds.bind(this);
   }
 
+  componentDidMount() {
+    document.addEventListener('mousemove', this.handleMouseMove);
+    document.addEventListener('mouseup', this.handleMouseUp);
+    window.addEventListener('resize', this.keepInBounds);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousemove', this.handleMouseMove);
+    document.removeEventListener('mouseup', this.handleMouseUp);
+    window.removeEventListener('resize', this.keepInBounds);
+  }
+
   handleMouseDown(event) {
     if (event.button !== 0) {
       return;
@@ -92,7 +104,11 @@ class SettingsWindow extends React.PureComponent {
       return;
     }
 
-    this.props.updateSettingsWindowPosition(dragPosition);
+    const {
+      updateSettingsWindowPosition,
+    } = this.props;
+
+    updateSettingsWindowPosition(dragPosition);
 
     this.setState({
       dragging: false,
@@ -100,16 +116,15 @@ class SettingsWindow extends React.PureComponent {
     });
   }
 
-  componentDidMount() {
-    document.addEventListener('mousemove', this.handleMouseMove);
-    document.addEventListener('mouseup', this.handleMouseUp);
-    window.addEventListener('resize', this.keepInBounds);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousemove', this.handleMouseMove);
-    document.removeEventListener('mouseup', this.handleMouseUp);
-    window.removeEventListener('resize', this.keepInBounds);
+  settingsTab(label, tab) {
+    return (
+      <button
+        onClick={() => this.setState({ activeTab: tab })}
+        type="button"
+      >
+        {label}
+      </button>
+    );
   }
 
   keepInBounds() {
@@ -137,14 +152,18 @@ class SettingsWindow extends React.PureComponent {
     };
 
     if (
-      newPosition.x !== dragPosition.x ||
-      newPosition.y !== dragPosition.y
+      newPosition.x !== dragPosition.x
+      || newPosition.y !== dragPosition.y
     ) {
       this.setState({
         dragPosition: newPosition,
       });
 
-      this.props.updateSettingsWindowPosition(newPosition);
+      const {
+        updateSettingsWindowPosition,
+      } = this.props;
+
+      updateSettingsWindowPosition(newPosition);
     }
   }
 
@@ -227,17 +246,6 @@ class SettingsWindow extends React.PureComponent {
     );
   }
 
-  settingsTab(label, tab) {
-    return (
-      <button
-        onClick={() => this.setState({ activeTab: tab })}
-        type="button"
-      >
-        {label}
-      </button>
-    );
-  }
-
   render() {
     const {
       activeTab,
@@ -273,6 +281,9 @@ class SettingsWindow extends React.PureComponent {
         <div
           className="settings-window-top-row"
           onMouseDown={this.handleMouseDown}
+          onKeyDown={() => {}}
+          role="button"
+          tabIndex={0}
         >
           <div className="settings-window-title">
             Settings
@@ -394,10 +405,10 @@ SettingsWindow.defaultProps = {
   itemsTableBackground: null,
   sphereTrackingBackground: null,
   statisticsBackground: null,
-  settingsWindowPosition: {
-    x: 20,
-    y: 300,
-  },
+  settingsWindowPosition: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+  }),
 };
 
 SettingsWindow.propTypes = {
@@ -409,7 +420,7 @@ SettingsWindow.propTypes = {
   settingsWindowPosition: PropTypes.shape({
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
-  }).isRequired,
+  }),
   showBeedleLocations: PropTypes.bool.isRequired,
   showCyclosLocations: PropTypes.bool.isRequired,
   showGhostShipLocations: PropTypes.bool.isRequired,
