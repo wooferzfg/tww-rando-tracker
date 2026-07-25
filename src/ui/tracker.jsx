@@ -115,6 +115,7 @@ class Tracker extends React.PureComponent {
     this.incrementItem = this.incrementItem.bind(this);
     this.removeItemHint = this.removeItemHint.bind(this);
     this.removePathHint = this.removePathHint.bind(this);
+    this.selectHintCheck = this.selectHintCheck.bind(this);
     this.selectHintGoal = this.selectHintGoal.bind(this);
     this.selectHintItem = this.selectHintItem.bind(this);
     this.selectHintLocation = this.selectHintLocation.bind(this);
@@ -349,6 +350,21 @@ class Tracker extends React.PureComponent {
       Hints.locationSelection(generalLocation, detailedLocation),
       startedOnTheFly,
     );
+  }
+
+  selectHintCheck(generalLocation, detailedLocation) {
+    const { pendingSelection, showHints, trackerState } = this.state;
+
+    // Middle clicking a check on its own records that it holds something,
+    // without saying what.
+    if (showHints && _.isNil(pendingSelection)) {
+      this.updateTrackerState(
+        trackerState.addItemHint(Hints.UNKNOWN_ITEM, generalLocation, detailedLocation),
+      );
+      return;
+    }
+
+    this.selectHintLocation(generalLocation, detailedLocation, true);
   }
 
   applyHintSelection(newSelection, startedOnTheFly = false) {
@@ -815,6 +831,7 @@ class Tracker extends React.PureComponent {
               openedLocation={openedLocation}
               openedLocationIsDungeon={openedLocationIsDungeon}
               rightClickToClearAll={rightClickToClearAll}
+              selectHintCheck={this.selectHintCheck}
               selectHintGoal={this.selectHintGoal}
               selectHintItem={this.selectHintItem}
               selectHintLocation={this.selectHintLocation}

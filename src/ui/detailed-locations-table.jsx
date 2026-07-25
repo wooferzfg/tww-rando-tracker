@@ -79,7 +79,7 @@ class DetailedLocationsTable extends React.PureComponent {
     const {
       disableLogic,
       openedLocation,
-      selectHintLocation,
+      selectHintCheck,
       spheres,
       trackSpheres,
       toggleLocationChecked,
@@ -96,7 +96,7 @@ class DetailedLocationsTable extends React.PureComponent {
 
     const toggleLocationFunc = () => toggleLocationChecked(openedLocation, location);
 
-    const selectHintLocationFunc = () => selectHintLocation(openedLocation, location, true);
+    const selectHintCheckFunc = () => selectHintCheck(openedLocation, location);
 
     let locationText;
     if (trackSpheres) {
@@ -111,7 +111,7 @@ class DetailedLocationsTable extends React.PureComponent {
     const locationElement = (
       <div
         className={`detail-span ${color} ${fontSizeClassName}`}
-        onAuxClick={MiddleClickWrapper.onMiddleClick(selectHintLocationFunc)}
+        onAuxClick={MiddleClickWrapper.onMiddleClick(selectHintCheckFunc)}
         onClick={toggleLocationFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(toggleLocationFunc)}
         onMouseDown={MiddleClickWrapper.preventAutoScroll}
@@ -296,6 +296,7 @@ DetailedLocationsTable.propTypes = {
   openedLocationIsDungeon: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   hintMode: PropTypes.bool.isRequired,
+  selectHintCheck: PropTypes.func.isRequired,
   selectHintLocation: PropTypes.func.isRequired,
   toggleRequiredBoss: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,

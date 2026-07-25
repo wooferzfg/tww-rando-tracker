@@ -11,6 +11,10 @@ class Hints {
 
   static GOALS = _.keys(PATH_GOAL_NAMES);
 
+  // Stands in for the item of a check that is known to hold something useful,
+  // without knowing what. It is not a real item name, so it displays as is.
+  static UNKNOWN_ITEM = 'Something';
+
   static isGoal(locationName) {
     return _.includes(this.GOALS, locationName);
   }

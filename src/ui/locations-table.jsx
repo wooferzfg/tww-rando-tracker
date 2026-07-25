@@ -101,6 +101,7 @@ class LocationsTable extends React.PureComponent {
       openedLocation,
       openedLocationIsDungeon,
       rightClickToClearAll,
+      selectHintCheck,
       selectHintItem,
       selectHintLocation,
       showBeedleLocations,
@@ -183,6 +184,7 @@ class LocationsTable extends React.PureComponent {
           openedLocationIsDungeon={openedLocationIsDungeon}
           spheres={spheres}
           hintMode={hintMode}
+          selectHintCheck={selectHintCheck}
           selectHintLocation={selectHintLocation}
           toggleRequiredBoss={toggleRequiredBoss}
           trackerState={trackerState}
@@ -346,6 +348,7 @@ LocationsTable.propTypes = {
   showGhostShipLocations: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
+  selectHintCheck: PropTypes.func.isRequired,
   selectHintGoal: PropTypes.func.isRequired,
   selectHintItem: PropTypes.func.isRequired,
   selectHintLocation: PropTypes.func.isRequired,
