@@ -264,6 +264,7 @@ class SettingsWindow extends React.PureComponent {
       showBeedleLocations,
       showCyclosLocations,
       showGhostShipLocations,
+      showHints,
       showSalvageCorpLocations,
       sphereTrackingBackground,
       statisticsBackground,
@@ -336,6 +337,11 @@ class SettingsWindow extends React.PureComponent {
               'Clear All Includes Dungeon Mail',
               clearAllIncludesMail,
               'clearAllIncludesMail',
+            )}
+            {this.checkboxRow(
+              'Show Hints',
+              showHints,
+              'showHints',
             )}
             {this.checkboxRow(
               'Auto-Mark Non-Required Bosses',
@@ -438,6 +444,7 @@ SettingsWindow.propTypes = {
   showBeedleLocations: PropTypes.bool.isRequired,
   showCyclosLocations: PropTypes.bool.isRequired,
   showGhostShipLocations: PropTypes.bool.isRequired,
+  showHints: PropTypes.bool.isRequired,
   showSalvageCorpLocations: PropTypes.bool.isRequired,
   sphereTrackingBackground: PropTypes.string,
   statisticsBackground: PropTypes.string,

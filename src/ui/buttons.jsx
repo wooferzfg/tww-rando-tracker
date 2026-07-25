@@ -24,6 +24,7 @@ class Buttons extends React.PureComponent {
       hintMode,
       settingsWindowOpen,
       onlyProgressLocations,
+      showHints,
       toggleChartList,
       toggleHintMode,
       toggleSettingsWindow,
@@ -77,13 +78,15 @@ class Buttons extends React.PureComponent {
         >
           Export Progress
         </button>
-        <button
-          onClick={toggleHintMode}
-          type="button"
-        >
-          <input type="checkbox" className="button-checkbox" checked={hintMode} readOnly />
-          Hint Mode
-        </button>
+        {showHints && (
+          <button
+            onClick={toggleHintMode}
+            type="button"
+          >
+            <input type="checkbox" className="button-checkbox" checked={hintMode} readOnly />
+            Hint Mode
+          </button>
+        )}
         <button
           onClick={toggleSettingsWindow}
           type="button"
@@ -101,6 +104,7 @@ Buttons.propTypes = {
   onlyProgressLocations: PropTypes.bool.isRequired,
   saveData: PropTypes.string.isRequired,
   settingsWindowOpen: PropTypes.bool.isRequired,
+  showHints: PropTypes.bool.isRequired,
   toggleChartList: PropTypes.func.isRequired,
   toggleEntrances: PropTypes.func.isRequired,
   toggleHintMode: PropTypes.func.isRequired,

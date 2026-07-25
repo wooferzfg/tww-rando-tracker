@@ -259,7 +259,6 @@ class LocationsTable extends React.PureComponent {
       decrementItem,
       disableLogic,
       hintMode,
-      hintsTable,
       incrementItem,
       logic,
       onlyProgressLocations,
@@ -281,7 +280,6 @@ class LocationsTable extends React.PureComponent {
     return (
       <>
         {this.chartContainer()}
-        {hintsTable}
         <ExtraLocationsTable
           backgroundColor={backgroundColor}
           hintMode={hintMode}
@@ -333,7 +331,6 @@ LocationsTable.propTypes = {
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   hintMode: PropTypes.bool.isRequired,
-  hintsTable: PropTypes.node.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,

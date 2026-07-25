@@ -98,6 +98,7 @@ class Tracker extends React.PureComponent {
       showSalvageCorpLocations: false,
       showCyclosLocations: false,
       showGhostShipLocations: false,
+      showHints: true,
       trackNonProgressCharts: false,
       trackSpheres: false,
       transientHintMode: false,
@@ -354,9 +355,15 @@ class Tracker extends React.PureComponent {
     const {
       hintMode,
       pendingSelection,
+      showHints,
       trackerState,
       transientHintMode,
     } = this.state;
+
+    // Hints cannot be entered while the hints are hidden.
+    if (!showHints) {
+      return;
+    }
 
     const {
       itemHint,
@@ -667,6 +674,7 @@ class Tracker extends React.PureComponent {
       showSalvageCorpLocations,
       showCyclosLocations,
       showGhostShipLocations,
+      showHints,
       trackNonProgressCharts,
       trackNonProgressBlueChuJelly,
       trackSpheres,
@@ -685,6 +693,7 @@ class Tracker extends React.PureComponent {
       showSalvageCorpLocations,
       showCyclosLocations,
       showGhostShipLocations,
+      showHints,
       trackNonProgressCharts,
       trackNonProgressBlueChuJelly,
       trackSpheres,
@@ -695,6 +704,15 @@ class Tracker extends React.PureComponent {
 
     this.setState(newPreferences);
     Storage.savePreferences(newPreferences);
+
+    // Hiding the hints also hides the way out of hint mode.
+    if (!newPreferences.showHints) {
+      this.setState({
+        hintMode: false,
+        pendingSelection: null,
+        transientHintMode: false,
+      });
+    }
 
     const { trackerState } = this.state;
 
@@ -739,6 +757,7 @@ class Tracker extends React.PureComponent {
       showSalvageCorpLocations,
       showCyclosLocations,
       showGhostShipLocations,
+      showHints,
       trackNonProgressCharts,
       trackNonProgressBlueChuJelly,
       trackSpheres,
@@ -784,16 +803,6 @@ class Tracker extends React.PureComponent {
               decrementItem={this.decrementItem}
               disableLogic={disableLogic}
               hintMode={hintMode}
-              hintsTable={(
-                <HintsTable
-                  backgroundColor={hintsTableBackground}
-                  hintMode={hintMode}
-                  pendingSelection={pendingSelection}
-                  removeItemHint={this.removeItemHint}
-                  removePathHint={this.removePathHint}
-                  trackerState={trackerState}
-                />
-              )}
               incrementItem={this.incrementItem}
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
@@ -834,6 +843,16 @@ class Tracker extends React.PureComponent {
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
             />
+            {showHints && (
+              <HintsTable
+                backgroundColor={hintsTableBackground}
+                hintMode={hintMode}
+                pendingSelection={pendingSelection}
+                removeItemHint={this.removeItemHint}
+                removePathHint={this.removePathHint}
+                trackerState={trackerState}
+              />
+            )}
           </div>
           {trackSpheres && (
             <SphereTracking
@@ -857,6 +876,7 @@ class Tracker extends React.PureComponent {
               showSalvageCorpLocations={showSalvageCorpLocations}
               showCyclosLocations={showCyclosLocations}
               showGhostShipLocations={showGhostShipLocations}
+              showHints={showHints}
               sphereTrackingBackground={sphereTrackingBackground}
               statisticsBackground={statisticsBackground}
               toggleSettingsWindow={this.toggleSettingsWindow}
@@ -873,6 +893,7 @@ class Tracker extends React.PureComponent {
             hintMode={hintMode}
             onlyProgressLocations={onlyProgressLocations}
             saveData={saveData}
+            showHints={showHints}
             toggleChartList={this.toggleChartList}
             toggleHintMode={this.toggleHintMode}
             toggleSettingsWindow={this.toggleSettingsWindow}
