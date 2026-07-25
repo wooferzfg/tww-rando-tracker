@@ -33,7 +33,7 @@ export default class Launcher extends React.PureComponent {
 
   static openTrackerWindow(route) {
     const windowWidth = 1797;
-    const windowHeight = 585;
+    const windowHeight = 780;
 
     window.open(
       `#/tracker${route}`,

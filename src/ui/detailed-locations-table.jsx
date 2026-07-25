@@ -153,10 +153,12 @@ class DetailedLocationsTable extends React.PureComponent {
       clearOpenedMenus,
       toggleRequiredBoss,
       disableLogic,
+      hintMode,
       logic,
       onlyProgressLocations,
       openedLocation,
       openedLocationIsDungeon,
+      selectHintZone,
     } = this.props;
 
     const backgroundImage = _.get(Images.IMAGES, [
@@ -177,6 +179,35 @@ class DetailedLocationsTable extends React.PureComponent {
       this.detailedLocation,
       DetailedLocationsTable.NUM_ROWS,
     );
+
+    const selectHintZoneFunc = () => selectHintZone(openedLocation);
+
+    // In hint mode the bulk actions are replaced by a way to hint the zone as a
+    // whole, so that they cannot be triggered by accident.
+    if (hintMode) {
+      const wholeZoneElement = (
+        <td className="extra-width-header">
+          <div
+            className="detail-span"
+            onClick={selectHintZoneFunc}
+            onKeyDown={KeyDownWrapper.onSpaceKey(selectHintZoneFunc)}
+            role="button"
+            tabIndex="0"
+          >
+            ◈ Whole Zone
+          </div>
+        </td>
+      );
+
+      return (
+        <MapTable
+          backgroundImage={backgroundImage}
+          closeFunc={clearOpenedMenus}
+          headerCellsAfterClose={wholeZoneElement}
+          tableRows={locationRows}
+        />
+      );
+    }
 
     const clearAllLocationsFunc = () => clearAllLocations(openedLocation);
 
@@ -258,6 +289,8 @@ DetailedLocationsTable.propTypes = {
   openedLocation: PropTypes.string.isRequired,
   openedLocationIsDungeon: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
+  hintMode: PropTypes.bool.isRequired,
+  selectHintZone: PropTypes.func.isRequired,
   toggleRequiredBoss: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,

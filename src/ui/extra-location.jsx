@@ -2,6 +2,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import Hints from '../services/hints';
 import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
 import Permalink from '../services/permalink';
@@ -329,9 +330,11 @@ class ExtraLocation extends React.PureComponent {
 
   locationIcon() {
     const {
+      hintMode,
       isDungeon,
       locationName,
       logic,
+      selectHintGoal,
     } = this.props;
 
     let locationIcon;
@@ -343,9 +346,33 @@ class ExtraLocation extends React.PureComponent {
       locationIcon = _.get(Images.IMAGES, ['MISC_LOCATIONS', locationName]);
     }
 
+    const image = <img src={locationIcon} alt={locationName} draggable={false} />;
+
+    // In hint mode, the boss picture selects the goal of a path hint, while the
+    // rest of the tile still opens the location.
+    if (!hintMode || !Hints.isGoal(locationName)) {
+      return (
+        <div className="dungeon-icon">
+          {image}
+        </div>
+      );
+    }
+
+    const selectHintGoalFunc = (event) => {
+      event.stopPropagation();
+
+      selectHintGoal(locationName);
+    };
+
     return (
-      <div className="dungeon-icon">
-        <img src={locationIcon} alt={locationName} draggable={false} />
+      <div
+        className="dungeon-icon hint-goal"
+        onClick={selectHintGoalFunc}
+        onKeyDown={KeyDownWrapper.onSpaceKey(selectHintGoalFunc)}
+        role="button"
+        tabIndex="0"
+      >
+        {image}
       </div>
     );
   }
@@ -431,6 +458,7 @@ ExtraLocation.propTypes = {
   clearSelectedLocation: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
+  hintMode: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
   isDungeon: PropTypes.bool.isRequired,
   locationName: PropTypes.string.isRequired,
@@ -439,6 +467,7 @@ ExtraLocation.propTypes = {
   rightClickToClearAll: PropTypes.bool.isRequired,
   setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
+  selectHintGoal: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,

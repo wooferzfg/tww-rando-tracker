@@ -91,6 +91,7 @@ class LocationsTable extends React.PureComponent {
       toggleRequiredBoss,
       decrementItem,
       disableLogic,
+      hintMode,
       incrementItem,
       logic,
       onlyProgressLocations,
@@ -100,6 +101,7 @@ class LocationsTable extends React.PureComponent {
       openedLocation,
       openedLocationIsDungeon,
       rightClickToClearAll,
+      selectHintZone,
       showBeedleLocations,
       showSalvageCorpLocations,
       showCyclosLocations,
@@ -178,6 +180,8 @@ class LocationsTable extends React.PureComponent {
           openedLocation={openedLocation}
           openedLocationIsDungeon={openedLocationIsDungeon}
           spheres={spheres}
+          hintMode={hintMode}
+          selectHintZone={selectHintZone}
           toggleRequiredBoss={toggleRequiredBoss}
           trackerState={trackerState}
           trackSpheres={trackSpheres}
@@ -250,10 +254,12 @@ class LocationsTable extends React.PureComponent {
       clearAllLocations,
       decrementItem,
       disableLogic,
+      hintMode,
       incrementItem,
       logic,
       onlyProgressLocations,
       rightClickToClearAll,
+      selectHintGoal,
       spheres,
       trackerState,
       trackSpheres,
@@ -270,6 +276,8 @@ class LocationsTable extends React.PureComponent {
         {this.chartContainer()}
         <ExtraLocationsTable
           backgroundColor={backgroundColor}
+          hintMode={hintMode}
+          selectHintGoal={selectHintGoal}
           clearAllLocations={clearAllLocations}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
@@ -314,6 +322,7 @@ LocationsTable.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
+  hintMode: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
@@ -329,6 +338,8 @@ LocationsTable.propTypes = {
   showGhostShipLocations: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
+  selectHintGoal: PropTypes.func.isRequired,
+  selectHintZone: PropTypes.func.isRequired,
   toggleRequiredBoss: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,

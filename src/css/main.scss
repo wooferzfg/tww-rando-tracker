@@ -705,6 +705,63 @@ button:hover:enabled {
   }
 }
 
+.hints-table {
+  float: left;
+  width: 500px;
+  height: 200px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  background-color: rgba(80, 80, 80, 0.85);
+  color: #bbbbbb;
+  font-size: 14px;
+
+  .hints-title {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .hints-pending {
+    color: #ffd75e;
+    font-style: italic;
+    padding: 2px 0;
+  }
+
+  .hints-section-title {
+    color: white;
+    font-weight: bold;
+    margin-top: 6px;
+  }
+
+  .hint-row {
+    cursor: pointer;
+    line-height: 1.3em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  .no-hints {
+    color: #8c8c8c;
+    font-style: italic;
+  }
+}
+
+.dungeon-icon.hint-goal {
+  outline-style: none;
+
+  img {
+    outline: 1px dashed rgba(255, 215, 94, 0.7);
+  }
+}
+
 .statistics {
   float: left;
   background-color: rgba(80, 80, 80, 0.85);

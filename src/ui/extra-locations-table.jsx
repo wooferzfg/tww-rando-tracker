@@ -24,12 +24,14 @@ class ExtraLocationsTable extends React.PureComponent {
       clearSelectedLocation,
       decrementItem,
       disableLogic,
+      hintMode,
       incrementItem,
       logic,
       onlyProgressLocations,
       rightClickToClearAll,
       setSelectedEntrance,
       setSelectedExit,
+      selectHintGoal,
       setSelectedItem,
       setSelectedLocation,
       spheres,
@@ -52,6 +54,7 @@ class ExtraLocationsTable extends React.PureComponent {
         clearSelectedLocation={clearSelectedLocation}
         decrementItem={decrementItem}
         disableLogic={disableLogic}
+        hintMode={hintMode}
         key={locationName}
         incrementItem={incrementItem}
         isDungeon={isDungeon}
@@ -61,6 +64,7 @@ class ExtraLocationsTable extends React.PureComponent {
         rightClickToClearAll={rightClickToClearAll}
         setSelectedEntrance={setSelectedEntrance}
         setSelectedExit={setSelectedExit}
+        selectHintGoal={selectHintGoal}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
         spheres={spheres}
@@ -110,12 +114,14 @@ ExtraLocationsTable.propTypes = {
   clearSelectedLocation: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
+  hintMode: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   rightClickToClearAll: PropTypes.bool.isRequired,
   setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
+  selectHintGoal: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
