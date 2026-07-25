@@ -48,7 +48,7 @@ class Hints {
       return Hints.#noHints(newSelection);
     }
 
-    const { LOCATION } = this.SELECTION_TYPES;
+    const { GOAL, LOCATION } = this.SELECTION_TYPES;
 
     if (pendingSelection.type === LOCATION && newSelection.type !== LOCATION) {
       return Hints.#completeHint(newSelection, pendingSelection);
@@ -56,6 +56,14 @@ class Hints {
 
     if (newSelection.type === LOCATION && pendingSelection.type !== LOCATION) {
       return Hints.#completeHint(pendingSelection, newSelection);
+    }
+
+    // Every goal is also a zone, so once something is pending, a boss picture
+    // means the dungeon it belongs to. This makes the whole dungeon tile a
+    // valid target instead of only the area around the picture, and it allows
+    // hinting a dungeon as the path to its own boss.
+    if (newSelection.type === GOAL) {
+      return Hints.#completeHint(pendingSelection, this.locationSelection(newSelection.goal));
     }
 
     return Hints.#noHints(newSelection);

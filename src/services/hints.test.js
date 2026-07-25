@@ -108,13 +108,21 @@ describe('Hints', () => {
         });
       });
 
-      test('replaces the pending selection when another goal is clicked', () => {
+      test('completes a path hint when another dungeon is clicked', () => {
         const newGoal = Hints.goalSelection('Wind Temple');
 
         expect(Hints.applySelection(goal, newGoal)).toEqual({
           itemHint: null,
-          pathHint: null,
-          pendingSelection: newGoal,
+          pathHint: { zone: 'Wind Temple', goal: 'Dragon Roost Cavern' },
+          pendingSelection: null,
+        });
+      });
+
+      test('completes a path hint when the same dungeon is clicked', () => {
+        expect(Hints.applySelection(goal, goal)).toEqual({
+          itemHint: null,
+          pathHint: { zone: 'Dragon Roost Cavern', goal: 'Dragon Roost Cavern' },
+          pendingSelection: null,
         });
       });
 
@@ -146,6 +154,18 @@ describe('Hints', () => {
             itemName: 'Deku Leaf',
             generalLocation: 'Windfall Island',
             detailedLocation: "Maggie's Father",
+          },
+          pathHint: null,
+          pendingSelection: null,
+        });
+      });
+
+      test('completes a zone level item hint when a dungeon boss is clicked', () => {
+        expect(Hints.applySelection(item, goal)).toEqual({
+          itemHint: {
+            itemName: 'Deku Leaf',
+            generalLocation: 'Dragon Roost Cavern',
+            detailedLocation: null,
           },
           pathHint: null,
           pendingSelection: null,

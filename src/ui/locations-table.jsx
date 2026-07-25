@@ -101,7 +101,8 @@ class LocationsTable extends React.PureComponent {
       openedLocation,
       openedLocationIsDungeon,
       rightClickToClearAll,
-      selectHintZone,
+      selectHintItem,
+      selectHintLocation,
       showBeedleLocations,
       showSalvageCorpLocations,
       showCyclosLocations,
@@ -140,6 +141,7 @@ class LocationsTable extends React.PureComponent {
           clearOpenedMenus={clearOpenedMenus}
           incrementItem={incrementItem}
           openedChartForIsland={openedChartForIsland}
+          selectHintItem={selectHintItem}
           spheres={spheres}
           trackerState={trackerState}
           trackNonProgressCharts={trackNonProgressCharts}
@@ -181,7 +183,7 @@ class LocationsTable extends React.PureComponent {
           openedLocationIsDungeon={openedLocationIsDungeon}
           spheres={spheres}
           hintMode={hintMode}
-          selectHintZone={selectHintZone}
+          selectHintLocation={selectHintLocation}
           toggleRequiredBoss={toggleRequiredBoss}
           trackerState={trackerState}
           trackSpheres={trackSpheres}
@@ -201,6 +203,8 @@ class LocationsTable extends React.PureComponent {
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
           rightClickToClearAll={rightClickToClearAll}
+          selectHintItem={selectHintItem}
+          selectHintLocation={selectHintLocation}
           setSelectedChartForIsland={this.setSelectedChartForIsland}
           setSelectedEntrance={this.setSelectedEntrance}
           setSelectedExit={this.setSelectedExit}
@@ -255,11 +259,14 @@ class LocationsTable extends React.PureComponent {
       decrementItem,
       disableLogic,
       hintMode,
+      hintsTable,
       incrementItem,
       logic,
       onlyProgressLocations,
       rightClickToClearAll,
       selectHintGoal,
+      selectHintItem,
+      selectHintLocation,
       spheres,
       trackerState,
       trackSpheres,
@@ -274,10 +281,13 @@ class LocationsTable extends React.PureComponent {
     return (
       <>
         {this.chartContainer()}
+        {hintsTable}
         <ExtraLocationsTable
           backgroundColor={backgroundColor}
           hintMode={hintMode}
           selectHintGoal={selectHintGoal}
+          selectHintItem={selectHintItem}
+          selectHintLocation={selectHintLocation}
           clearAllLocations={clearAllLocations}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
@@ -323,6 +333,7 @@ LocationsTable.propTypes = {
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   hintMode: PropTypes.bool.isRequired,
+  hintsTable: PropTypes.node.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
@@ -339,7 +350,8 @@ LocationsTable.propTypes = {
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
   selectHintGoal: PropTypes.func.isRequired,
-  selectHintZone: PropTypes.func.isRequired,
+  selectHintItem: PropTypes.func.isRequired,
+  selectHintLocation: PropTypes.func.isRequired,
   toggleRequiredBoss: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,

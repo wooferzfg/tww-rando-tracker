@@ -100,19 +100,23 @@ class Tracker extends React.PureComponent {
       showGhostShipLocations: false,
       trackNonProgressCharts: false,
       trackSpheres: false,
+      transientHintMode: false,
       viewingEntrances: false,
     };
 
     this.initialize();
 
+    this.cancelHintSelection = this.cancelHintSelection.bind(this);
     this.clearAllLocations = this.clearAllLocations.bind(this);
     this.clearOpenedMenus = this.clearOpenedMenus.bind(this);
     this.decrementItem = this.decrementItem.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.incrementItem = this.incrementItem.bind(this);
     this.removeItemHint = this.removeItemHint.bind(this);
     this.removePathHint = this.removePathHint.bind(this);
     this.selectHintGoal = this.selectHintGoal.bind(this);
-    this.selectHintZone = this.selectHintZone.bind(this);
+    this.selectHintItem = this.selectHintItem.bind(this);
+    this.selectHintLocation = this.selectHintLocation.bind(this);
     this.toggleChartList = this.toggleChartList.bind(this);
     this.toggleHintMode = this.toggleHintMode.bind(this);
     this.toggleSettingsWindow = this.toggleSettingsWindow.bind(this);
@@ -132,6 +136,20 @@ class Tracker extends React.PureComponent {
     this.updateOpenedLocation = this.updateOpenedLocation.bind(this);
     this.updatePreferences = this.updatePreferences.bind(this);
     this.updateSettingsWindowPosition = this.updateSettingsWindowPosition.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown(event) {
+    if (event.key === 'Escape') {
+      this.cancelHintSelection();
+    }
   }
 
   async initialize() {
@@ -302,19 +320,43 @@ class Tracker extends React.PureComponent {
       openedLocation: null,
       openedLocationIsDungeon: null,
       pendingSelection: null,
+      transientHintMode: false,
     });
   }
 
-  selectHintGoal(goal) {
-    this.applyHintSelection(Hints.goalSelection(goal));
+  cancelHintSelection() {
+    const { hintMode, transientHintMode } = this.state;
+
+    this.setState({
+      hintMode: hintMode && !transientHintMode,
+      pendingSelection: null,
+      transientHintMode: false,
+    });
   }
 
-  selectHintZone(generalLocation) {
-    this.applyHintSelection(Hints.locationSelection(generalLocation));
+  selectHintGoal(goal, startedOnTheFly = false) {
+    this.applyHintSelection(Hints.goalSelection(goal), startedOnTheFly);
   }
 
-  applyHintSelection(newSelection) {
-    const { pendingSelection, trackerState } = this.state;
+  selectHintItem(itemName) {
+    // Items are only ever hinted by middle clicking them.
+    this.applyHintSelection(Hints.itemSelection(itemName), true);
+  }
+
+  selectHintLocation(generalLocation, detailedLocation = null, startedOnTheFly = false) {
+    this.applyHintSelection(
+      Hints.locationSelection(generalLocation, detailedLocation),
+      startedOnTheFly,
+    );
+  }
+
+  applyHintSelection(newSelection, startedOnTheFly = false) {
+    const {
+      hintMode,
+      pendingSelection,
+      trackerState,
+      transientHintMode,
+    } = this.state;
 
     const {
       itemHint,
@@ -322,7 +364,16 @@ class Tracker extends React.PureComponent {
       pendingSelection: newPendingSelection,
     } = Hints.applySelection(pendingSelection, newSelection);
 
-    this.setState({ pendingSelection: newPendingSelection });
+    const hintWasCompleted = !_.isNil(pathHint) || !_.isNil(itemHint);
+    // Middle clicking enters hint mode for a single hint, so that hints can be
+    // entered without toggling the mode on and off around them.
+    const isTransient = transientHintMode || (startedOnTheFly && !hintMode);
+
+    this.setState({
+      hintMode: !(hintWasCompleted && isTransient),
+      pendingSelection: newPendingSelection,
+      transientHintMode: isTransient && !hintWasCompleted,
+    });
     // A selection is always followed by a click somewhere outside the map slot.
     this.clearOpenedMenus();
 
@@ -719,6 +770,7 @@ class Tracker extends React.PureComponent {
               backgroundColor={itemsTableBackground}
               decrementItem={this.decrementItem}
               incrementItem={this.incrementItem}
+              selectHintItem={this.selectHintItem}
               spheres={spheres}
               trackerState={trackerState}
               trackSpheres={trackSpheres}
@@ -732,6 +784,16 @@ class Tracker extends React.PureComponent {
               decrementItem={this.decrementItem}
               disableLogic={disableLogic}
               hintMode={hintMode}
+              hintsTable={(
+                <HintsTable
+                  backgroundColor={hintsTableBackground}
+                  hintMode={hintMode}
+                  pendingSelection={pendingSelection}
+                  removeItemHint={this.removeItemHint}
+                  removePathHint={this.removePathHint}
+                  trackerState={trackerState}
+                />
+              )}
               incrementItem={this.incrementItem}
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
@@ -742,7 +804,8 @@ class Tracker extends React.PureComponent {
               openedLocationIsDungeon={openedLocationIsDungeon}
               rightClickToClearAll={rightClickToClearAll}
               selectHintGoal={this.selectHintGoal}
-              selectHintZone={this.selectHintZone}
+              selectHintItem={this.selectHintItem}
+              selectHintLocation={this.selectHintLocation}
               showBeedleLocations={showBeedleLocations}
               showSalvageCorpLocations={showSalvageCorpLocations}
               showCyclosLocations={showCyclosLocations}
@@ -770,14 +833,6 @@ class Tracker extends React.PureComponent {
               disableLogic={disableLogic}
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
-            />
-            <HintsTable
-              backgroundColor={hintsTableBackground}
-              hintMode={hintMode}
-              pendingSelection={pendingSelection}
-              removeItemHint={this.removeItemHint}
-              removePathHint={this.removePathHint}
-              trackerState={trackerState}
             />
           </div>
           {trackSpheres && (

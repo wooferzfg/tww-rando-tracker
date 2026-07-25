@@ -7,8 +7,15 @@ import LogicHelper from '../services/logic-helper';
 import TrackerState from '../services/tracker-state';
 
 import ContextMenuWrapper from './context-menu-wrapper';
+import ExtraLocationsTable from './extra-locations-table';
 
 class HintsTable extends React.PureComponent {
+  static WIDTH_DIFFERENCE = -10;
+
+  static getWidth() {
+    return ExtraLocationsTable.getWidth() + this.WIDTH_DIFFERENCE;
+  }
+
   static hintRow(key, hintText, removeFunc) {
     const removeHintFunc = (event) => {
       event.preventDefault();
@@ -21,6 +28,7 @@ class HintsTable extends React.PureComponent {
         className="hint-row"
         key={key}
         onContextMenu={ContextMenuWrapper.onRightClick(removeHintFunc)}
+        title={hintText}
       >
         {hintText}
       </div>
@@ -105,14 +113,20 @@ class HintsTable extends React.PureComponent {
     return (
       <div
         className="hints-table"
-        style={{ backgroundColor }}
+        style={{ backgroundColor, width: HintsTable.getWidth() }}
       >
         <div className="hints-title">Hints</div>
         {this.pendingSelection()}
-        <div className="hints-section-title">Path Hints</div>
-        {this.pathHints()}
-        <div className="hints-section-title">Item Hints</div>
-        {this.itemHints()}
+        <div className="hints-columns">
+          <div className="hints-column left-column">
+            <div className="hints-section-title">Path Hints</div>
+            {this.pathHints()}
+          </div>
+          <div className="hints-column right-column">
+            <div className="hints-section-title">Item Hints</div>
+            {this.itemHints()}
+          </div>
+        </div>
       </div>
     );
   }

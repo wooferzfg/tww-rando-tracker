@@ -707,16 +707,16 @@ button:hover:enabled {
 
 .hints-table {
   float: left;
-  width: 500px;
-  height: 200px;
+  height: 196px;
   margin-right: 8px;
   margin-bottom: 8px;
-  padding: 6px 8px;
+  padding: 6px 5px 5px 5px;
   box-sizing: border-box;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   background-color: rgba(80, 80, 80, 0.85);
   color: #bbbbbb;
-  font-size: 14px;
+  font-size: 15px;
 
   .hints-title {
     color: white;
@@ -730,6 +730,19 @@ button:hover:enabled {
     padding: 2px 0;
   }
 
+  .hints-columns {
+    display: flex;
+    flex-grow: 1;
+    min-height: 0;
+  }
+
+  .hints-column {
+    width: 50%;
+    overflow-y: auto;
+    padding-right: 5px;
+    box-sizing: border-box;
+  }
+
   .hints-section-title {
     color: white;
     font-weight: bold;
@@ -737,19 +750,20 @@ button:hover:enabled {
   }
 
   .hint-row {
+    color: white;
     cursor: pointer;
-    line-height: 1.3em;
+    line-height: 1.4em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 
     &:hover {
-      color: white;
+      color: #ffd75e;
     }
   }
 
   .no-hints {
-    color: #8c8c8c;
+    color: #bbbbbb;
     font-style: italic;
   }
 }

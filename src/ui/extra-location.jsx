@@ -14,6 +14,7 @@ import ContextMenuWrapper from './context-menu-wrapper';
 import Images from './images';
 import Item from './item';
 import KeyDownWrapper from './key-down-wrapper';
+import MiddleClickWrapper from './middle-click-wrapper';
 import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
@@ -47,6 +48,7 @@ class ExtraLocation extends React.PureComponent {
       decrementItem,
       incrementItem,
       locationName,
+      selectHintItem,
       setSelectedItem,
       spheres,
       trackerState,
@@ -71,6 +73,7 @@ class ExtraLocation extends React.PureComponent {
           itemCount={compassCount}
           itemName={compassName}
           locations={locations}
+          selectHintItem={selectHintItem}
           setSelectedItem={setSelectedItem}
           spheres={spheres}
         />
@@ -84,6 +87,7 @@ class ExtraLocation extends React.PureComponent {
       decrementItem,
       incrementItem,
       locationName,
+      selectHintItem,
       setSelectedItem,
       spheres,
       trackerState,
@@ -108,6 +112,7 @@ class ExtraLocation extends React.PureComponent {
           itemCount={dungeonMapCount}
           itemName={dungeonMapName}
           locations={locations}
+          selectHintItem={selectHintItem}
           setSelectedItem={setSelectedItem}
           spheres={spheres}
         />
@@ -121,6 +126,7 @@ class ExtraLocation extends React.PureComponent {
       decrementItem,
       incrementItem,
       locationName,
+      selectHintItem,
       setSelectedItem,
       spheres,
       trackerState,
@@ -145,6 +151,7 @@ class ExtraLocation extends React.PureComponent {
           itemCount={smallKeyCount}
           itemName={smallKeyName}
           locations={locations}
+          selectHintItem={selectHintItem}
           setSelectedItem={setSelectedItem}
           spheres={spheres}
         />
@@ -158,6 +165,7 @@ class ExtraLocation extends React.PureComponent {
       decrementItem,
       incrementItem,
       locationName,
+      selectHintItem,
       setSelectedItem,
       spheres,
       trackerState,
@@ -182,6 +190,7 @@ class ExtraLocation extends React.PureComponent {
           itemCount={bigKeyCount}
           itemName={bigKeyName}
           locations={locations}
+          selectHintItem={selectHintItem}
           setSelectedItem={setSelectedItem}
           spheres={spheres}
         />
@@ -411,6 +420,8 @@ class ExtraLocation extends React.PureComponent {
       isDungeon,
       locationName,
       rightClickToClearAll,
+      selectHintGoal,
+      selectHintLocation,
       setSelectedLocation,
       updateOpenedLocation,
     } = this.props;
@@ -419,6 +430,16 @@ class ExtraLocation extends React.PureComponent {
       isDungeon,
       locationName,
     });
+
+    // Middle clicking a dungeon picks its boss, so that a path hint can be
+    // started without entering hint mode first.
+    const selectHintFunc = () => {
+      if (Hints.isGoal(locationName)) {
+        selectHintGoal(locationName, true);
+      } else {
+        selectHintLocation(locationName, null, true);
+      }
+    };
 
     const setSelectedLocationFunc = () => setSelectedLocation({ locationName });
 
@@ -433,11 +454,13 @@ class ExtraLocation extends React.PureComponent {
     return (
       <div
         className="extra-location"
+        onAuxClick={MiddleClickWrapper.onMiddleClick(selectHintFunc)}
         onBlur={clearSelectedLocation}
         onClick={updateOpenedLocationFunc}
         onContextMenu={ContextMenuWrapper.onRightClick(clearAllLocationsFunc)}
         onFocus={setSelectedLocationFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(updateOpenedLocationFunc)}
+        onMouseDown={MiddleClickWrapper.preventAutoScroll}
         onMouseOver={setSelectedLocationFunc}
         onMouseOut={clearSelectedLocation}
         role="button"
@@ -468,6 +491,8 @@ ExtraLocation.propTypes = {
   setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
   selectHintGoal: PropTypes.func.isRequired,
+  selectHintItem: PropTypes.func.isRequired,
+  selectHintLocation: PropTypes.func.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,

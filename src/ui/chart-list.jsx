@@ -13,6 +13,7 @@ import FoundAtTooltip from './found-at-tooltip';
 import Images from './images';
 import KeyDownWrapper from './key-down-wrapper';
 import MapTable from './map-table';
+import MiddleClickWrapper from './middle-click-wrapper';
 import Tooltip from './tooltip';
 
 class ChartList extends React.PureComponent {
@@ -22,6 +23,7 @@ class ChartList extends React.PureComponent {
     const {
       incrementItem,
       openedChartForIsland,
+      selectHintItem,
       spheres,
       trackSpheres,
       trackerState,
@@ -83,11 +85,15 @@ class ChartList extends React.PureComponent {
       }
     };
 
+    const selectHintItemFunc = () => selectHintItem(chartName);
+
     const chartElement = (
       <div
         className={`detail-span ${notInteractiveClassName} ${color} ${fontSizeClassName}`}
+        onAuxClick={MiddleClickWrapper.onMiddleClick(selectHintItemFunc)}
         onClick={updateChartFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(updateChartFunc)}
+        onMouseDown={MiddleClickWrapper.preventAutoScroll}
         role="button"
         tabIndex="0"
       >
@@ -175,6 +181,7 @@ ChartList.propTypes = {
   clearOpenedMenus: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
   openedChartForIsland: PropTypes.string,
+  selectHintItem: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,
