@@ -381,8 +381,11 @@ class Tracker extends React.PureComponent {
       pendingSelection: newPendingSelection,
       transientHintMode: isTransient && !hintWasCompleted,
     });
-    // A selection is always followed by a click somewhere outside the map slot.
-    this.clearOpenedMenus();
+    // An opened location list stays open until the hint is complete, so that a
+    // check can be picked right after the item it holds.
+    if (hintWasCompleted) {
+      this.clearOpenedMenus();
+    }
 
     if (!_.isNil(pathHint)) {
       const newTrackerState = trackerState.addPathHint(pathHint.zone, pathHint.goal);
