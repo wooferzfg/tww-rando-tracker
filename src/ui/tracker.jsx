@@ -337,6 +337,18 @@ class Tracker extends React.PureComponent {
   }
 
   selectHintGoal(goal, startedOnTheFly = false) {
+    const { pendingSelection } = this.state;
+
+    // With an item pending, a dungeon is somewhere to look inside rather than a
+    // goal, so its picture opens the check list like the rest of the tile.
+    if (_.get(pendingSelection, 'type') === Hints.SELECTION_TYPES.ITEM) {
+      this.updateOpenedLocation({
+        isDungeon: LogicHelper.isDungeon(goal),
+        locationName: goal,
+      });
+      return;
+    }
+
     this.applyHintSelection(Hints.goalSelection(goal), startedOnTheFly);
   }
 
