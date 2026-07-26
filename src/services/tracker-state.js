@@ -8,6 +8,7 @@ class TrackerState {
     const newState = new TrackerState();
 
     newState.entrances = {};
+    newState.hints = TrackerState.#defaultHints();
     newState.islandsForCharts = {};
     newState.items = _.reduce(
       LogicHelper.ALL_ITEMS,
@@ -26,6 +27,7 @@ class TrackerState {
 
   static createStateRaw({
     entrances,
+    hints,
     islandsForCharts,
     items,
     itemsForLocations,
@@ -34,6 +36,8 @@ class TrackerState {
     const newState = new TrackerState();
 
     newState.entrances = entrances;
+    // Saves created before hint tracking existed have no hints.
+    newState.hints = _.defaults({}, hints, TrackerState.#defaultHints());
     newState.islandsForCharts = islandsForCharts;
     newState.items = items;
     newState.itemsForLocations = itemsForLocations;
@@ -45,6 +49,7 @@ class TrackerState {
   readState() {
     return {
       entrances: this.entrances,
+      hints: this.hints,
       islandsForCharts: this.islandsForCharts,
       items: this.items,
       itemsForLocations: this.itemsForLocations,
@@ -224,6 +229,79 @@ class TrackerState {
     return newState;
   }
 
+  getPathHints() {
+    return this.hints.path;
+  }
+
+  getItemHints() {
+    return this.hints.items;
+  }
+
+  getPathHintGoals() {
+    return _.uniq(_.map(this.hints.path, 'goal'));
+  }
+
+  addPathHint(zone, goal) {
+    if (_.some(this.hints.path, TrackerState.#pathHintMatcher(zone, goal))) {
+      return this;
+    }
+
+    const newState = this.#clone({ hints: true });
+    newState.hints.path.push({ zone, goal });
+
+    return newState;
+  }
+
+  removePathHint(zone, goal) {
+    const newState = this.#clone({ hints: true });
+    newState.hints.path = _.reject(
+      newState.hints.path,
+      TrackerState.#pathHintMatcher(zone, goal),
+    );
+
+    return newState;
+  }
+
+  addItemHint(itemName, generalLocation, detailedLocation) {
+    const matcher = TrackerState.#itemHintMatcher(itemName, generalLocation, detailedLocation);
+
+    if (_.some(this.hints.items, matcher)) {
+      return this;
+    }
+
+    const newState = this.#clone({ hints: true });
+    newState.hints.items.push({ itemName, generalLocation, detailedLocation });
+
+    return newState;
+  }
+
+  removeItemHint(itemName, generalLocation, detailedLocation) {
+    const newState = this.#clone({ hints: true });
+    newState.hints.items = _.reject(
+      newState.hints.items,
+      TrackerState.#itemHintMatcher(itemName, generalLocation, detailedLocation),
+    );
+
+    return newState;
+  }
+
+  static #defaultHints() {
+    return {
+      path: [],
+      items: [],
+    };
+  }
+
+  static #pathHintMatcher(zone, goal) {
+    return (hint) => hint.zone === zone && hint.goal === goal;
+  }
+
+  static #itemHintMatcher(itemName, generalLocation, detailedLocation) {
+    return (hint) => hint.itemName === itemName
+      && hint.generalLocation === generalLocation
+      && hint.detailedLocation === detailedLocation;
+  }
+
   #getMarkedBlueChuCount() {
     const allChuItems = _.values(LogicHelper.BLUE_CHU_ITEMS);
     const numCollectedChus = _.sumBy(allChuItems, (chu) => this.getItemValue(chu));
@@ -232,6 +310,7 @@ class TrackerState {
 
   #clone({
     entrances: cloneEntrances,
+    hints: cloneHints,
     islandsForCharts: cloneIslandsForCharts,
     items: cloneItems,
     locationsChecked: cloneLocationsChecked,
@@ -242,6 +321,9 @@ class TrackerState {
     newState.entrances = cloneEntrances
       ? _.clone(this.entrances)
       : this.entrances;
+    newState.hints = cloneHints
+      ? _.cloneDeep(this.hints)
+      : this.hints;
     newState.islandsForCharts = cloneIslandsForCharts
       ? _.clone(this.islandsForCharts)
       : this.islandsForCharts;

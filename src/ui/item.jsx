@@ -8,6 +8,7 @@ import Spheres from '../services/spheres';
 import ContextMenuWrapper from './context-menu-wrapper';
 import FoundAtTooltip from './found-at-tooltip';
 import KeyDownWrapper from './key-down-wrapper';
+import MiddleClickWrapper from './middle-click-wrapper';
 import Tooltip from './tooltip';
 
 class Item extends React.PureComponent {
@@ -20,6 +21,7 @@ class Item extends React.PureComponent {
       trackItemLocation,
       itemCount,
       itemName,
+      selectHintItem,
       setSelectedItem,
     } = this.props;
 
@@ -48,14 +50,21 @@ class Item extends React.PureComponent {
 
     const setSelectedItemFunc = () => setSelectedItem(itemName);
 
+    // Only items that can be hinted get a middle click handler.
+    const selectHintItemFunc = _.isNil(selectHintItem)
+      ? null
+      : MiddleClickWrapper.onMiddleClick(() => selectHintItem(itemName));
+
     return (
       <div
         className={`item-container ${itemClassName}`}
+        onAuxClick={selectHintItemFunc}
         onBlur={clearSelectedItem}
         onClick={incrementItemFunc}
         onContextMenu={ContextMenuWrapper.onRightClick(decrementItemFunc)}
         onFocus={setSelectedItemFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(incrementItemFunc)}
+        onMouseDown={MiddleClickWrapper.preventAutoScroll}
         onMouseOver={setSelectedItemFunc}
         onMouseOut={clearSelectedItem}
         role="button"
@@ -88,6 +97,7 @@ class Item extends React.PureComponent {
 Item.defaultProps = {
   decrementItem: null,
   locations: [],
+  selectHintItem: null,
   spheres: null,
   trackItemLocation: true,
 };
@@ -104,6 +114,7 @@ Item.propTypes = {
     generalLocation: PropTypes.string.isRequired,
     detailedLocation: PropTypes.string.isRequired,
   })),
+  selectHintItem: PropTypes.func,
   setSelectedItem: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres),
 };

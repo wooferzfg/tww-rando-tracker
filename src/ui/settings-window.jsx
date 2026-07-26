@@ -12,6 +12,8 @@ class SettingsWindow extends React.PureComponent {
 
   static #DEFAULT_STATISTICS_BACKGROUND = '#4f4f4f';
 
+  static #DEFAULT_HINTS_TABLE_BACKGROUND = '#4f4f4f';
+
   static #DEFAULT_SPHERE_TRACKING_BACKGROUND = '#dcdcdc';
 
   constructor(props) {
@@ -252,14 +254,17 @@ class SettingsWindow extends React.PureComponent {
       dragPosition,
     } = this.state;
     const {
+      autoMarkNonRequiredBosses,
       clearAllIncludesMail,
       disableLogic,
       extraLocationsBackground,
+      hintsTableBackground,
       itemsTableBackground,
       rightClickToClearAll,
       showBeedleLocations,
       showCyclosLocations,
       showGhostShipLocations,
+      showHints,
       showSalvageCorpLocations,
       sphereTrackingBackground,
       statisticsBackground,
@@ -333,6 +338,16 @@ class SettingsWindow extends React.PureComponent {
               clearAllIncludesMail,
               'clearAllIncludesMail',
             )}
+            {this.checkboxRow(
+              'Show Hints',
+              showHints,
+              'showHints',
+            )}
+            {this.checkboxRow(
+              'Auto-Mark Non-Required Bosses',
+              autoMarkNonRequiredBosses,
+              'autoMarkNonRequiredBosses',
+            )}
           </>
         )}
         {activeTab === 'display' && (
@@ -393,6 +408,12 @@ class SettingsWindow extends React.PureComponent {
               'sphereTrackingBackground',
               SettingsWindow.#DEFAULT_SPHERE_TRACKING_BACKGROUND,
             )}
+            {this.colorPickerRow(
+              'Hints',
+              hintsTableBackground,
+              'hintsTableBackground',
+              SettingsWindow.#DEFAULT_HINTS_TABLE_BACKGROUND,
+            )}
           </>
         )}
       </div>
@@ -402,15 +423,18 @@ class SettingsWindow extends React.PureComponent {
 
 SettingsWindow.defaultProps = {
   extraLocationsBackground: null,
+  hintsTableBackground: null,
   itemsTableBackground: null,
   sphereTrackingBackground: null,
   statisticsBackground: null,
 };
 
 SettingsWindow.propTypes = {
+  autoMarkNonRequiredBosses: PropTypes.bool.isRequired,
   clearAllIncludesMail: PropTypes.bool.isRequired,
   disableLogic: PropTypes.bool.isRequired,
   extraLocationsBackground: PropTypes.string,
+  hintsTableBackground: PropTypes.string,
   itemsTableBackground: PropTypes.string,
   rightClickToClearAll: PropTypes.bool.isRequired,
   settingsWindowPosition: PropTypes.shape({
@@ -420,6 +444,7 @@ SettingsWindow.propTypes = {
   showBeedleLocations: PropTypes.bool.isRequired,
   showCyclosLocations: PropTypes.bool.isRequired,
   showGhostShipLocations: PropTypes.bool.isRequired,
+  showHints: PropTypes.bool.isRequired,
   showSalvageCorpLocations: PropTypes.bool.isRequired,
   sphereTrackingBackground: PropTypes.string,
   statisticsBackground: PropTypes.string,

@@ -30,6 +30,10 @@ class ExtraLocationsTable extends React.PureComponent {
       rightClickToClearAll,
       setSelectedEntrance,
       setSelectedExit,
+      selectHintGoal,
+      selectHintItem,
+      selectHintLocation,
+      selectingHintGoal,
       setSelectedItem,
       setSelectedLocation,
       spheres,
@@ -61,6 +65,10 @@ class ExtraLocationsTable extends React.PureComponent {
         rightClickToClearAll={rightClickToClearAll}
         setSelectedEntrance={setSelectedEntrance}
         setSelectedExit={setSelectedExit}
+        selectHintGoal={selectHintGoal}
+        selectHintItem={selectHintItem}
+        selectHintLocation={selectHintLocation}
+        selectingHintGoal={selectingHintGoal}
         setSelectedItem={setSelectedItem}
         setSelectedLocation={setSelectedLocation}
         spheres={spheres}
@@ -116,6 +124,10 @@ ExtraLocationsTable.propTypes = {
   rightClickToClearAll: PropTypes.bool.isRequired,
   setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
+  selectHintGoal: PropTypes.func.isRequired,
+  selectHintItem: PropTypes.func.isRequired,
+  selectHintLocation: PropTypes.func.isRequired,
+  selectingHintGoal: PropTypes.bool.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,

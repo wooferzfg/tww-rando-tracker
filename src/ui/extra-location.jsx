@@ -2,6 +2,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import Hints from '../services/hints';
 import LogicCalculation from '../services/logic-calculation';
 import LogicHelper from '../services/logic-helper';
 import Permalink from '../services/permalink';
@@ -13,6 +14,7 @@ import ContextMenuWrapper from './context-menu-wrapper';
 import Images from './images';
 import Item from './item';
 import KeyDownWrapper from './key-down-wrapper';
+import MiddleClickWrapper from './middle-click-wrapper';
 import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
@@ -46,6 +48,7 @@ class ExtraLocation extends React.PureComponent {
       decrementItem,
       incrementItem,
       locationName,
+      selectHintItem,
       setSelectedItem,
       spheres,
       trackerState,
@@ -70,6 +73,7 @@ class ExtraLocation extends React.PureComponent {
           itemCount={compassCount}
           itemName={compassName}
           locations={locations}
+          selectHintItem={selectHintItem}
           setSelectedItem={setSelectedItem}
           spheres={spheres}
         />
@@ -83,6 +87,7 @@ class ExtraLocation extends React.PureComponent {
       decrementItem,
       incrementItem,
       locationName,
+      selectHintItem,
       setSelectedItem,
       spheres,
       trackerState,
@@ -107,6 +112,7 @@ class ExtraLocation extends React.PureComponent {
           itemCount={dungeonMapCount}
           itemName={dungeonMapName}
           locations={locations}
+          selectHintItem={selectHintItem}
           setSelectedItem={setSelectedItem}
           spheres={spheres}
         />
@@ -120,6 +126,7 @@ class ExtraLocation extends React.PureComponent {
       decrementItem,
       incrementItem,
       locationName,
+      selectHintItem,
       setSelectedItem,
       spheres,
       trackerState,
@@ -144,6 +151,7 @@ class ExtraLocation extends React.PureComponent {
           itemCount={smallKeyCount}
           itemName={smallKeyName}
           locations={locations}
+          selectHintItem={selectHintItem}
           setSelectedItem={setSelectedItem}
           spheres={spheres}
         />
@@ -157,6 +165,7 @@ class ExtraLocation extends React.PureComponent {
       decrementItem,
       incrementItem,
       locationName,
+      selectHintItem,
       setSelectedItem,
       spheres,
       trackerState,
@@ -181,6 +190,7 @@ class ExtraLocation extends React.PureComponent {
           itemCount={bigKeyCount}
           itemName={bigKeyName}
           locations={locations}
+          selectHintItem={selectHintItem}
           setSelectedItem={setSelectedItem}
           spheres={spheres}
         />
@@ -332,6 +342,8 @@ class ExtraLocation extends React.PureComponent {
       isDungeon,
       locationName,
       logic,
+      selectHintGoal,
+      selectingHintGoal,
     } = this.props;
 
     let locationIcon;
@@ -343,9 +355,33 @@ class ExtraLocation extends React.PureComponent {
       locationIcon = _.get(Images.IMAGES, ['MISC_LOCATIONS', locationName]);
     }
 
+    const image = <img src={locationIcon} alt={locationName} draggable={false} />;
+
+    // In hint mode, the boss picture selects the goal of a path hint, while the
+    // rest of the tile still opens the location.
+    if (!selectingHintGoal || !Hints.isGoal(locationName)) {
+      return (
+        <div className="dungeon-icon">
+          {image}
+        </div>
+      );
+    }
+
+    const selectHintGoalFunc = (event) => {
+      event.stopPropagation();
+
+      selectHintGoal(locationName);
+    };
+
     return (
-      <div className="dungeon-icon">
-        <img src={locationIcon} alt={locationName} draggable={false} />
+      <div
+        className="dungeon-icon hint-goal"
+        onClick={selectHintGoalFunc}
+        onKeyDown={KeyDownWrapper.onSpaceKey(selectHintGoalFunc)}
+        role="button"
+        tabIndex="0"
+      >
+        {image}
       </div>
     );
   }
@@ -384,6 +420,8 @@ class ExtraLocation extends React.PureComponent {
       isDungeon,
       locationName,
       rightClickToClearAll,
+      selectHintGoal,
+      selectHintLocation,
       setSelectedLocation,
       updateOpenedLocation,
     } = this.props;
@@ -392,6 +430,16 @@ class ExtraLocation extends React.PureComponent {
       isDungeon,
       locationName,
     });
+
+    // Middle clicking a dungeon picks its boss, so that a path hint can be
+    // started without entering hint mode first.
+    const selectHintFunc = () => {
+      if (Hints.isGoal(locationName)) {
+        selectHintGoal(locationName, true);
+      } else {
+        selectHintLocation(locationName, null, true);
+      }
+    };
 
     const setSelectedLocationFunc = () => setSelectedLocation({ locationName });
 
@@ -406,11 +454,13 @@ class ExtraLocation extends React.PureComponent {
     return (
       <div
         className="extra-location"
+        onAuxClick={MiddleClickWrapper.onMiddleClick(selectHintFunc)}
         onBlur={clearSelectedLocation}
         onClick={updateOpenedLocationFunc}
         onContextMenu={ContextMenuWrapper.onRightClick(clearAllLocationsFunc)}
         onFocus={setSelectedLocationFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(updateOpenedLocationFunc)}
+        onMouseDown={MiddleClickWrapper.preventAutoScroll}
         onMouseOver={setSelectedLocationFunc}
         onMouseOut={clearSelectedLocation}
         role="button"
@@ -439,6 +489,10 @@ ExtraLocation.propTypes = {
   rightClickToClearAll: PropTypes.bool.isRequired,
   setSelectedEntrance: PropTypes.func.isRequired,
   setSelectedExit: PropTypes.func.isRequired,
+  selectHintGoal: PropTypes.func.isRequired,
+  selectHintItem: PropTypes.func.isRequired,
+  selectHintLocation: PropTypes.func.isRequired,
+  selectingHintGoal: PropTypes.bool.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,

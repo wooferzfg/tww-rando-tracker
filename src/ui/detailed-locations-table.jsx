@@ -12,6 +12,7 @@ import TrackerState from '../services/tracker-state';
 import Images from './images';
 import KeyDownWrapper from './key-down-wrapper';
 import MapTable from './map-table';
+import MiddleClickWrapper from './middle-click-wrapper';
 import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
@@ -78,6 +79,7 @@ class DetailedLocationsTable extends React.PureComponent {
     const {
       disableLogic,
       openedLocation,
+      selectHintCheck,
       spheres,
       trackSpheres,
       toggleLocationChecked,
@@ -94,6 +96,8 @@ class DetailedLocationsTable extends React.PureComponent {
 
     const toggleLocationFunc = () => toggleLocationChecked(openedLocation, location);
 
+    const selectHintCheckFunc = () => selectHintCheck(openedLocation, location);
+
     let locationText;
     if (trackSpheres) {
       const sphere = spheres.sphereForLocation(openedLocation, location);
@@ -107,8 +111,10 @@ class DetailedLocationsTable extends React.PureComponent {
     const locationElement = (
       <div
         className={`detail-span ${color} ${fontSizeClassName}`}
+        onAuxClick={MiddleClickWrapper.onMiddleClick(selectHintCheckFunc)}
         onClick={toggleLocationFunc}
         onKeyDown={KeyDownWrapper.onSpaceKey(toggleLocationFunc)}
+        onMouseDown={MiddleClickWrapper.preventAutoScroll}
         role="button"
         tabIndex="0"
       >
@@ -153,10 +159,12 @@ class DetailedLocationsTable extends React.PureComponent {
       clearOpenedMenus,
       toggleRequiredBoss,
       disableLogic,
+      hintMode,
       logic,
       onlyProgressLocations,
       openedLocation,
       openedLocationIsDungeon,
+      selectHintLocation,
     } = this.props;
 
     const backgroundImage = _.get(Images.IMAGES, [
@@ -177,6 +185,35 @@ class DetailedLocationsTable extends React.PureComponent {
       this.detailedLocation,
       DetailedLocationsTable.NUM_ROWS,
     );
+
+    const selectHintZoneFunc = () => selectHintLocation(openedLocation);
+
+    // In hint mode the bulk actions are replaced by a way to hint the zone as a
+    // whole, so that they cannot be triggered by accident.
+    if (hintMode) {
+      const wholeZoneElement = (
+        <td className="extra-width-header">
+          <div
+            className="detail-span"
+            onClick={selectHintZoneFunc}
+            onKeyDown={KeyDownWrapper.onSpaceKey(selectHintZoneFunc)}
+            role="button"
+            tabIndex="0"
+          >
+            ◈ Whole Zone
+          </div>
+        </td>
+      );
+
+      return (
+        <MapTable
+          backgroundImage={backgroundImage}
+          closeFunc={clearOpenedMenus}
+          headerCellsAfterClose={wholeZoneElement}
+          tableRows={locationRows}
+        />
+      );
+    }
 
     const clearAllLocationsFunc = () => clearAllLocations(openedLocation);
 
@@ -258,6 +295,9 @@ DetailedLocationsTable.propTypes = {
   openedLocation: PropTypes.string.isRequired,
   openedLocationIsDungeon: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
+  hintMode: PropTypes.bool.isRequired,
+  selectHintCheck: PropTypes.func.isRequired,
+  selectHintLocation: PropTypes.func.isRequired,
   toggleRequiredBoss: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
   trackSpheres: PropTypes.bool.isRequired,

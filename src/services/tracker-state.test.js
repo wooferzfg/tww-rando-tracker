@@ -92,6 +92,25 @@ describe('TrackerState', () => {
       expect(newState.itemsForLocations).toEqual(itemsForLocations);
       expect(newState.locationsChecked).toEqual(locationsChecked);
     });
+
+    test('creates the state with the provided hints', () => {
+      const hints = {
+        path: [{ zone: 'Windfall Island', goal: 'Dragon Roost Cavern' }],
+        items: [{ itemName: 'Deku Leaf', generalLocation: 'Windfall Island', detailedLocation: null }],
+      };
+
+      const newState = TrackerState.createStateRaw({ hints });
+
+      expect(newState.hints).toEqual(hints);
+    });
+
+    describe('when the save data has no hints', () => {
+      test('creates the state with empty hints', () => {
+        const newState = TrackerState.createStateRaw({});
+
+        expect(newState.hints).toEqual({ path: [], items: [] });
+      });
+    });
   });
 
   describe('readState', () => {
@@ -99,6 +118,7 @@ describe('TrackerState', () => {
     let expectedEntrances;
     let expectedLocationsChecked;
     let expectedItemsForLocations;
+    let expectedHints;
     let trackerState;
 
     beforeEach(() => {
@@ -119,8 +139,14 @@ describe('TrackerState', () => {
         },
       };
 
+      expectedHints = {
+        path: [{ zone: 'Windfall Island', goal: 'Dragon Roost Cavern' }],
+        items: [],
+      };
+
       trackerState = TrackerState.createStateRaw({
         entrances: expectedEntrances,
+        hints: expectedHints,
         items: expectedItems,
         itemsForLocations: expectedItemsForLocations,
         locationsChecked: expectedLocationsChecked,
@@ -132,6 +158,7 @@ describe('TrackerState', () => {
 
       expect(stateData).toEqual({
         entrances: expectedEntrances,
+        hints: expectedHints,
         items: expectedItems,
         itemsForLocations: expectedItemsForLocations,
         locationsChecked: expectedLocationsChecked,
@@ -859,6 +886,122 @@ describe('TrackerState', () => {
           'Letter from Aryll': false,
           'Letter from Tingle': false,
         },
+      });
+    });
+  });
+
+  describe('hints', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+
+      state.hints = {
+        path: [
+          { zone: 'Windfall Island', goal: 'Dragon Roost Cavern' },
+          { zone: 'Tingle Island', goal: 'Dragon Roost Cavern' },
+          { zone: 'Forest Haven', goal: "Ganon's Tower" },
+        ],
+        items: [
+          { itemName: 'Bombs', generalLocation: 'Windfall Island', detailedLocation: null },
+          { itemName: 'Deku Leaf', generalLocation: 'Dragon Roost Cavern', detailedLocation: "Bird's Nest" },
+        ],
+      };
+    });
+
+    describe('getPathHints', () => {
+      test('returns the path hints', () => {
+        expect(state.getPathHints()).toEqual(state.hints.path);
+      });
+    });
+
+    describe('getItemHints', () => {
+      test('returns the item hints', () => {
+        expect(state.getItemHints()).toEqual(state.hints.items);
+      });
+    });
+
+    describe('getPathHintGoals', () => {
+      test('returns the distinct goals that have a path hint', () => {
+        expect(state.getPathHintGoals()).toEqual(['Dragon Roost Cavern', "Ganon's Tower"]);
+      });
+    });
+
+    describe('addPathHint', () => {
+      test('returns a new state with the path hint appended', () => {
+        const newState = state.addPathHint('Outset Island', 'Wind Temple');
+
+        expect(_.last(newState.getPathHints())).toEqual({
+          zone: 'Outset Island',
+          goal: 'Wind Temple',
+        });
+        expect(state.getPathHints()).toHaveLength(3);
+      });
+
+      describe('when the path hint already exists', () => {
+        test('returns the same state', () => {
+          const newState = state.addPathHint('Windfall Island', 'Dragon Roost Cavern');
+
+          expect(newState).toBe(state);
+        });
+      });
+    });
+
+    describe('removePathHint', () => {
+      test('returns a new state without the matching path hint', () => {
+        const newState = state.removePathHint('Tingle Island', 'Dragon Roost Cavern');
+
+        expect(newState.getPathHints()).toEqual([
+          { zone: 'Windfall Island', goal: 'Dragon Roost Cavern' },
+          { zone: 'Forest Haven', goal: "Ganon's Tower" },
+        ]);
+        expect(state.getPathHints()).toHaveLength(3);
+      });
+
+      describe('when there is no matching path hint', () => {
+        test('returns a new state with the same path hints', () => {
+          const newState = state.removePathHint('Outset Island', 'Wind Temple');
+
+          expect(newState.getPathHints()).toEqual(state.getPathHints());
+        });
+      });
+    });
+
+    describe('addItemHint', () => {
+      test('returns a new state with the item hint appended', () => {
+        const newState = state.addItemHint('Hookshot', 'Forbidden Woods', null);
+
+        expect(_.last(newState.getItemHints())).toEqual({
+          itemName: 'Hookshot',
+          generalLocation: 'Forbidden Woods',
+          detailedLocation: null,
+        });
+        expect(state.getItemHints()).toHaveLength(2);
+      });
+
+      test('returns a new state when only the detailed location differs', () => {
+        const newState = state.addItemHint('Bombs', 'Windfall Island', "Maggie's Father");
+
+        expect(newState.getItemHints()).toHaveLength(3);
+      });
+
+      describe('when the item hint already exists', () => {
+        test('returns the same state', () => {
+          const newState = state.addItemHint('Bombs', 'Windfall Island', null);
+
+          expect(newState).toBe(state);
+        });
+      });
+    });
+
+    describe('removeItemHint', () => {
+      test('returns a new state without the matching item hint', () => {
+        const newState = state.removeItemHint('Bombs', 'Windfall Island', null);
+
+        expect(newState.getItemHints()).toEqual([
+          { itemName: 'Deku Leaf', generalLocation: 'Dragon Roost Cavern', detailedLocation: "Bird's Nest" },
+        ]);
+        expect(state.getItemHints()).toHaveLength(2);
       });
     });
   });

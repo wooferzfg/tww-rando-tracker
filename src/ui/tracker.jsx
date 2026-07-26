@@ -4,10 +4,14 @@ import React from 'react';
 import { Oval } from 'react-loader-spinner';
 import { ToastContainer, toast } from 'react-toastify';
 
+import Hints from '../services/hints';
 import LogicHelper from '../services/logic-helper';
+import Permalink from '../services/permalink';
+import Settings from '../services/settings';
 import TrackerController from '../services/tracker-controller';
 
 import Buttons from './buttons';
+import HintsTable from './hints-table';
 import Images from './images';
 import ItemsTable from './items-table';
 import LocationsTable from './locations-table';
@@ -19,20 +23,63 @@ import Storage from './storage';
 import 'react-toastify/dist/ReactToastify.css';
 
 class Tracker extends React.PureComponent {
+  static hasAllPathHints(trackerState) {
+    if (!Settings.getOptionValue(Permalink.OPTIONS.REQUIRED_BOSSES)) {
+      return false;
+    }
+
+    const numRequiredBosses = Settings.getOptionValue(Permalink.OPTIONS.NUM_REQUIRED_BOSSES);
+    // Hints for Hyrule and Ganon's Tower do not narrow down the required bosses.
+    const numHintedDungeons = _.size(_.intersection(
+      trackerState.getPathHintGoals(),
+      LogicHelper.REQUIRED_BOSSES_MODE_DUNGEONS,
+    ));
+
+    return numHintedDungeons >= numRequiredBosses;
+  }
+
+  static markNonRequiredBosses(trackerState, clearAllIncludesMail) {
+    if (!Tracker.hasAllPathHints(trackerState)) {
+      return trackerState;
+    }
+
+    const hintedGoals = trackerState.getPathHintGoals();
+
+    return _.reduce(
+      LogicHelper.REQUIRED_BOSSES_MODE_DUNGEONS,
+      (newTrackerState, dungeonName) => {
+        if (_.includes(hintedGoals, dungeonName) || !LogicHelper.isBossRequired(dungeonName)) {
+          return newTrackerState;
+        }
+
+        LogicHelper.setBossNotRequired(dungeonName);
+
+        return newTrackerState.clearBannedLocations(
+          dungeonName,
+          { includeAdditionalLocations: clearAllIncludesMail },
+        );
+      },
+      trackerState,
+    );
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
+      autoMarkNonRequiredBosses: false,
       chartListOpen: false,
       clearAllIncludesMail: true,
       settingsWindowOpen: false,
       colors: {
         extraLocationsBackground: null,
+        hintsTableBackground: null,
         itemsTableBackground: null,
         sphereTrackingBackground: null,
         statisticsBackground: null,
       },
       disableLogic: false,
+      hintMode: false,
       isLoading: true,
       lastLocation: null,
       onlyProgressLocations: true,
@@ -41,6 +88,7 @@ class Tracker extends React.PureComponent {
       openedExit: null,
       openedLocation: null,
       openedLocationIsDungeon: null,
+      pendingSelection: null,
       rightClickToClearAll: true,
       settingsWindowPosition: {
         x: 20,
@@ -50,18 +98,29 @@ class Tracker extends React.PureComponent {
       showSalvageCorpLocations: false,
       showCyclosLocations: false,
       showGhostShipLocations: false,
+      showHints: true,
       trackNonProgressCharts: false,
       trackSpheres: false,
+      transientHintMode: false,
       viewingEntrances: false,
     };
 
     this.initialize();
 
+    this.cancelHintSelection = this.cancelHintSelection.bind(this);
     this.clearAllLocations = this.clearAllLocations.bind(this);
     this.clearOpenedMenus = this.clearOpenedMenus.bind(this);
     this.decrementItem = this.decrementItem.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.incrementItem = this.incrementItem.bind(this);
+    this.removeItemHint = this.removeItemHint.bind(this);
+    this.removePathHint = this.removePathHint.bind(this);
+    this.selectHintCheck = this.selectHintCheck.bind(this);
+    this.selectHintGoal = this.selectHintGoal.bind(this);
+    this.selectHintItem = this.selectHintItem.bind(this);
+    this.selectHintLocation = this.selectHintLocation.bind(this);
     this.toggleChartList = this.toggleChartList.bind(this);
+    this.toggleHintMode = this.toggleHintMode.bind(this);
     this.toggleSettingsWindow = this.toggleSettingsWindow.bind(this);
     this.toggleEntrances = this.toggleEntrances.bind(this);
     this.toggleLocationChecked = this.toggleLocationChecked.bind(this);
@@ -79,6 +138,20 @@ class Tracker extends React.PureComponent {
     this.updateOpenedLocation = this.updateOpenedLocation.bind(this);
     this.updatePreferences = this.updatePreferences.bind(this);
     this.updateSettingsWindowPosition = this.updateSettingsWindowPosition.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown(event) {
+    if (event.key === 'Escape') {
+      this.cancelHintSelection();
+    }
   }
 
   async initialize() {
@@ -141,9 +214,15 @@ class Tracker extends React.PureComponent {
 
   incrementItem(itemName, trackItemLocation) {
     const {
+      hintMode,
       lastLocation,
       trackerState,
     } = this.state;
+
+    if (hintMode) {
+      this.applyHintSelection(Hints.itemSelection(itemName));
+      return;
+    }
 
     let newTrackerState = trackerState.incrementItem(itemName);
 
@@ -164,7 +243,11 @@ class Tracker extends React.PureComponent {
   }
 
   decrementItem(itemName) {
-    const { trackerState } = this.state;
+    const { hintMode, trackerState } = this.state;
+
+    if (hintMode) {
+      return;
+    }
 
     const newTrackerState = trackerState.decrementItem(itemName);
 
@@ -172,7 +255,12 @@ class Tracker extends React.PureComponent {
   }
 
   toggleLocationChecked(generalLocation, detailedLocation) {
-    const { trackerState } = this.state;
+    const { hintMode, trackerState } = this.state;
+
+    if (hintMode) {
+      this.applyHintSelection(Hints.locationSelection(generalLocation, detailedLocation));
+      return;
+    }
 
     let newTrackerState = trackerState.toggleLocationChecked(generalLocation, detailedLocation);
 
@@ -222,6 +310,154 @@ class Tracker extends React.PureComponent {
     this.updateTrackerState(newTrackerState);
   }
 
+  toggleHintMode() {
+    const { hintMode } = this.state;
+
+    this.setState({
+      chartListOpen: false,
+      hintMode: !hintMode,
+      openedChartForIsland: null,
+      openedEntrance: null,
+      openedExit: null,
+      openedLocation: null,
+      openedLocationIsDungeon: null,
+      pendingSelection: null,
+      transientHintMode: false,
+    });
+  }
+
+  cancelHintSelection() {
+    const { hintMode, transientHintMode } = this.state;
+
+    this.setState({
+      hintMode: hintMode && !transientHintMode,
+      pendingSelection: null,
+      transientHintMode: false,
+    });
+  }
+
+  selectHintGoal(goal, startedOnTheFly = false) {
+    const { pendingSelection } = this.state;
+
+    // With an item pending, a dungeon is somewhere to look inside rather than a
+    // goal, so its picture opens the check list like the rest of the tile.
+    if (_.get(pendingSelection, 'type') === Hints.SELECTION_TYPES.ITEM) {
+      this.updateOpenedLocation({
+        isDungeon: LogicHelper.isDungeon(goal),
+        locationName: goal,
+      });
+      return;
+    }
+
+    this.applyHintSelection(Hints.goalSelection(goal), startedOnTheFly);
+  }
+
+  selectHintItem(itemName) {
+    // Items are only ever hinted by middle clicking them.
+    this.applyHintSelection(Hints.itemSelection(itemName), true);
+  }
+
+  selectHintLocation(generalLocation, detailedLocation = null, startedOnTheFly = false) {
+    this.applyHintSelection(
+      Hints.locationSelection(generalLocation, detailedLocation),
+      startedOnTheFly,
+    );
+  }
+
+  selectHintCheck(generalLocation, detailedLocation) {
+    const { pendingSelection, showHints, trackerState } = this.state;
+
+    // Middle clicking a check on its own records that it holds something,
+    // without saying what.
+    if (showHints && _.isNil(pendingSelection)) {
+      this.updateTrackerState(
+        trackerState.addItemHint(Hints.UNKNOWN_ITEM, generalLocation, detailedLocation),
+      );
+      return;
+    }
+
+    this.selectHintLocation(generalLocation, detailedLocation, true);
+  }
+
+  applyHintSelection(newSelection, startedOnTheFly = false) {
+    const {
+      hintMode,
+      pendingSelection,
+      showHints,
+      trackerState,
+      transientHintMode,
+    } = this.state;
+
+    // Hints cannot be entered while the hints are hidden.
+    if (!showHints) {
+      return;
+    }
+
+    const {
+      itemHint,
+      pathHint,
+      pendingSelection: newPendingSelection,
+    } = Hints.applySelection(pendingSelection, newSelection);
+
+    const hintWasCompleted = !_.isNil(pathHint) || !_.isNil(itemHint);
+    // Middle clicking enters hint mode for a single hint, so that hints can be
+    // entered without toggling the mode on and off around them.
+    const isTransient = transientHintMode || (startedOnTheFly && !hintMode);
+
+    this.setState({
+      hintMode: !(hintWasCompleted && isTransient),
+      pendingSelection: newPendingSelection,
+      transientHintMode: isTransient && !hintWasCompleted,
+    });
+    // An opened location list stays open until the hint is complete, so that a
+    // check can be picked right after the item it holds.
+    if (hintWasCompleted) {
+      this.clearOpenedMenus();
+    }
+
+    if (!_.isNil(pathHint)) {
+      const newTrackerState = trackerState.addPathHint(pathHint.zone, pathHint.goal);
+
+      this.updateTrackerState(this.applyAutoMarkNonRequiredBosses(trackerState, newTrackerState));
+    } else if (!_.isNil(itemHint)) {
+      this.updateTrackerState(trackerState.addItemHint(
+        itemHint.itemName,
+        itemHint.generalLocation,
+        itemHint.detailedLocation,
+      ));
+    }
+  }
+
+  removePathHint(zone, goal) {
+    const { trackerState } = this.state;
+
+    this.updateTrackerState(trackerState.removePathHint(zone, goal));
+  }
+
+  removeItemHint(itemName, generalLocation, detailedLocation) {
+    const { trackerState } = this.state;
+
+    this.updateTrackerState(
+      trackerState.removeItemHint(itemName, generalLocation, detailedLocation),
+    );
+  }
+
+  applyAutoMarkNonRequiredBosses(previousTrackerState, newTrackerState) {
+    const { autoMarkNonRequiredBosses, clearAllIncludesMail } = this.state;
+
+    if (!autoMarkNonRequiredBosses) {
+      return newTrackerState;
+    }
+
+    // Only mark when the path hints first become complete, so that bosses which
+    // get marked required again afterwards stay that way.
+    if (Tracker.hasAllPathHints(previousTrackerState)) {
+      return newTrackerState;
+    }
+
+    return Tracker.markNonRequiredBosses(newTrackerState, clearAllIncludesMail);
+  }
+
   updateTrackerState(newTrackerState) {
     const {
       logic,
@@ -251,6 +487,13 @@ class Tracker extends React.PureComponent {
   }
 
   updateOpenedEntrance(entranceName) {
+    const { hintMode } = this.state;
+
+    // Entrances are not hintable, so they are inert in hint mode.
+    if (hintMode) {
+      return;
+    }
+
     this.setState({
       chartListOpen: false,
       openedChartForIsland: null,
@@ -262,6 +505,12 @@ class Tracker extends React.PureComponent {
   }
 
   updateOpenedExit(exitName) {
+    const { hintMode } = this.state;
+
+    if (hintMode) {
+      return;
+    }
+
     this.setState({
       chartListOpen: false,
       openedChartForIsland: null,
@@ -273,7 +522,11 @@ class Tracker extends React.PureComponent {
   }
 
   unsetEntrance(entranceName) {
-    const { trackerState } = this.state;
+    const { hintMode, trackerState } = this.state;
+
+    if (hintMode) {
+      return;
+    }
 
     const newTrackerState = trackerState.unsetEntrance(entranceName);
 
@@ -281,7 +534,11 @@ class Tracker extends React.PureComponent {
   }
 
   unsetExit(exitName) {
-    const { trackerState } = this.state;
+    const { hintMode, trackerState } = this.state;
+
+    if (hintMode) {
+      return;
+    }
 
     const newTrackerState = trackerState.unsetExit(exitName);
 
@@ -298,6 +555,15 @@ class Tracker extends React.PureComponent {
   }
 
   updateOpenedLocation({ locationName, isDungeon }) {
+    const { hintMode, pendingSelection } = this.state;
+
+    // Path hints always refer to a whole zone, so a pending goal completes the
+    // hint immediately instead of opening the zone.
+    if (hintMode && _.get(pendingSelection, 'type') === Hints.SELECTION_TYPES.GOAL) {
+      this.applyHintSelection(Hints.locationSelection(locationName));
+      return;
+    }
+
     this.setState({
       chartListOpen: false,
       openedChartForIsland: null,
@@ -342,7 +608,12 @@ class Tracker extends React.PureComponent {
   // Unset via sector should only remove mapping.
   // Unset via chart-list should remove both mapping and decrement chart.
   unsetChartMapping(chartForIsland, decrementChart) {
-    const { trackerState } = this.state;
+    const { hintMode, trackerState } = this.state;
+
+    if (hintMode) {
+      return;
+    }
+
     let newTrackerState = trackerState;
 
     if (decrementChart) {
@@ -361,6 +632,13 @@ class Tracker extends React.PureComponent {
   }
 
   updateOpenedChartForIsland(openedChartForIsland) {
+    const { hintMode } = this.state;
+
+    // Chart mapping items are not hintable, so they are inert in hint mode.
+    if (hintMode) {
+      return;
+    }
+
     this.setState({
       chartListOpen: false,
       openedChartForIsland,
@@ -416,6 +694,7 @@ class Tracker extends React.PureComponent {
 
   updatePreferences(preferenceChanges) {
     const {
+      autoMarkNonRequiredBosses,
       clearAllIncludesMail,
       disableLogic,
       onlyProgressLocations,
@@ -426,6 +705,7 @@ class Tracker extends React.PureComponent {
       showSalvageCorpLocations,
       showCyclosLocations,
       showGhostShipLocations,
+      showHints,
       trackNonProgressCharts,
       trackNonProgressBlueChuJelly,
       trackSpheres,
@@ -433,6 +713,7 @@ class Tracker extends React.PureComponent {
     } = this.state;
 
     const existingPreferences = {
+      autoMarkNonRequiredBosses,
       clearAllIncludesMail,
       colors,
       disableLogic,
@@ -443,6 +724,7 @@ class Tracker extends React.PureComponent {
       showSalvageCorpLocations,
       showCyclosLocations,
       showGhostShipLocations,
+      showHints,
       trackNonProgressCharts,
       trackNonProgressBlueChuJelly,
       trackSpheres,
@@ -453,14 +735,40 @@ class Tracker extends React.PureComponent {
 
     this.setState(newPreferences);
     Storage.savePreferences(newPreferences);
+
+    // Hiding the hints also hides the way out of hint mode.
+    if (!newPreferences.showHints) {
+      this.setState({
+        hintMode: false,
+        pendingSelection: null,
+        transientHintMode: false,
+      });
+    }
+
+    const { trackerState } = this.state;
+
+    // Preferences are also loaded before the tracker state exists.
+    if (
+      !autoMarkNonRequiredBosses
+      && newPreferences.autoMarkNonRequiredBosses
+      && !_.isNil(trackerState)
+    ) {
+      // Apply to the path hints that have already been recorded.
+      this.updateTrackerState(Tracker.markNonRequiredBosses(
+        trackerState,
+        newPreferences.clearAllIncludesMail,
+      ));
+    }
   }
 
   render() {
     const {
+      autoMarkNonRequiredBosses,
       chartListOpen,
       clearAllIncludesMail,
       colors,
       disableLogic,
+      hintMode,
       isLoading,
       lastLocation,
       logic,
@@ -470,6 +778,7 @@ class Tracker extends React.PureComponent {
       openedExit,
       openedLocation,
       openedLocationIsDungeon,
+      pendingSelection,
       rightClickToClearAll,
       saveData,
       settingsWindowOpen,
@@ -479,6 +788,7 @@ class Tracker extends React.PureComponent {
       showSalvageCorpLocations,
       showCyclosLocations,
       showGhostShipLocations,
+      showHints,
       trackNonProgressCharts,
       trackNonProgressBlueChuJelly,
       trackSpheres,
@@ -488,10 +798,16 @@ class Tracker extends React.PureComponent {
 
     const {
       extraLocationsBackground,
+      hintsTableBackground,
       itemsTableBackground,
       sphereTrackingBackground,
       statisticsBackground,
     } = colors;
+
+    // A pending item is looking for a place to be, so the boss pictures stop
+    // offering themselves as goals until it is done.
+    const selectingHintGoal = hintMode
+      && _.get(pendingSelection, 'type') !== Hints.SELECTION_TYPES.ITEM;
 
     let content;
 
@@ -509,6 +825,7 @@ class Tracker extends React.PureComponent {
               backgroundColor={itemsTableBackground}
               decrementItem={this.decrementItem}
               incrementItem={this.incrementItem}
+              selectHintItem={this.selectHintItem}
               spheres={spheres}
               trackerState={trackerState}
               trackSpheres={trackSpheres}
@@ -521,6 +838,7 @@ class Tracker extends React.PureComponent {
               clearOpenedMenus={this.clearOpenedMenus}
               decrementItem={this.decrementItem}
               disableLogic={disableLogic}
+              hintMode={hintMode}
               incrementItem={this.incrementItem}
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
@@ -530,6 +848,11 @@ class Tracker extends React.PureComponent {
               openedLocation={openedLocation}
               openedLocationIsDungeon={openedLocationIsDungeon}
               rightClickToClearAll={rightClickToClearAll}
+              selectHintCheck={this.selectHintCheck}
+              selectHintGoal={this.selectHintGoal}
+              selectingHintGoal={selectingHintGoal}
+              selectHintItem={this.selectHintItem}
+              selectHintLocation={this.selectHintLocation}
               showBeedleLocations={showBeedleLocations}
               showSalvageCorpLocations={showSalvageCorpLocations}
               showCyclosLocations={showCyclosLocations}
@@ -558,6 +881,16 @@ class Tracker extends React.PureComponent {
               logic={logic}
               onlyProgressLocations={onlyProgressLocations}
             />
+            {showHints && (
+              <HintsTable
+                backgroundColor={hintsTableBackground}
+                hintMode={hintMode}
+                pendingSelection={pendingSelection}
+                removeItemHint={this.removeItemHint}
+                removePathHint={this.removePathHint}
+                trackerState={trackerState}
+              />
+            )}
           </div>
           {trackSpheres && (
             <SphereTracking
@@ -569,9 +902,11 @@ class Tracker extends React.PureComponent {
           )}
           {settingsWindowOpen && (
             <SettingsWindow
+              autoMarkNonRequiredBosses={autoMarkNonRequiredBosses}
               clearAllIncludesMail={clearAllIncludesMail}
               disableLogic={disableLogic}
               extraLocationsBackground={extraLocationsBackground}
+              hintsTableBackground={hintsTableBackground}
               itemsTableBackground={itemsTableBackground}
               rightClickToClearAll={rightClickToClearAll}
               settingsWindowPosition={settingsWindowPosition}
@@ -579,6 +914,7 @@ class Tracker extends React.PureComponent {
               showSalvageCorpLocations={showSalvageCorpLocations}
               showCyclosLocations={showCyclosLocations}
               showGhostShipLocations={showGhostShipLocations}
+              showHints={showHints}
               sphereTrackingBackground={sphereTrackingBackground}
               statisticsBackground={statisticsBackground}
               toggleSettingsWindow={this.toggleSettingsWindow}
@@ -592,9 +928,12 @@ class Tracker extends React.PureComponent {
           <Buttons
             settingsWindowOpen={settingsWindowOpen}
             chartListOpen={chartListOpen}
+            hintMode={hintMode}
             onlyProgressLocations={onlyProgressLocations}
             saveData={saveData}
+            showHints={showHints}
             toggleChartList={this.toggleChartList}
+            toggleHintMode={this.toggleHintMode}
             toggleSettingsWindow={this.toggleSettingsWindow}
             toggleEntrances={this.toggleEntrances}
             toggleOnlyProgressLocations={this.toggleOnlyProgressLocations}
