@@ -53,5 +53,5 @@ jobs:
           git add ${{ github.ref_name }}/
           git add .
           git commit -m "Deploy main branch and ${{ github.ref_name }} branch together"
-          git push --force https://action:${{ secrets.GH_PAGES_DEPLOY }}@github.com/wooferzfg/tww-rando-tracker.git gh-pages-temp:gh-pages-main
-          git push https://action:${{ secrets.GH_PAGES_DEPLOY }}@github.com/wooferzfg/tww-rando-tracker.git :gh-pages-${{ github.ref_name }}
+          git push --force https://action:${{ secrets.GITHUB_TOKEN }}@github.com/wooferzfg/tww-rando-tracker.git gh-pages-temp:gh-pages-main
+          git push https://action:${{ secrets.GITHUB_TOKEN }}@github.com/wooferzfg/tww-rando-tracker.git :gh-pages-${{ github.ref_name }}
