@@ -339,11 +339,11 @@ class ExtraLocation extends React.PureComponent {
 
   locationIcon() {
     const {
-      hintMode,
       isDungeon,
       locationName,
       logic,
       selectHintGoal,
+      selectingHintGoal,
     } = this.props;
 
     let locationIcon;
@@ -359,7 +359,7 @@ class ExtraLocation extends React.PureComponent {
 
     // In hint mode, the boss picture selects the goal of a path hint, while the
     // rest of the tile still opens the location.
-    if (!hintMode || !Hints.isGoal(locationName)) {
+    if (!selectingHintGoal || !Hints.isGoal(locationName)) {
       return (
         <div className="dungeon-icon">
           {image}
@@ -481,7 +481,6 @@ ExtraLocation.propTypes = {
   clearSelectedLocation: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
-  hintMode: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
   isDungeon: PropTypes.bool.isRequired,
   locationName: PropTypes.string.isRequired,
@@ -493,6 +492,7 @@ ExtraLocation.propTypes = {
   selectHintGoal: PropTypes.func.isRequired,
   selectHintItem: PropTypes.func.isRequired,
   selectHintLocation: PropTypes.func.isRequired,
+  selectingHintGoal: PropTypes.bool.isRequired,
   setSelectedItem: PropTypes.func.isRequired,
   setSelectedLocation: PropTypes.func.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,

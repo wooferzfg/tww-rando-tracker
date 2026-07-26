@@ -804,6 +804,11 @@ class Tracker extends React.PureComponent {
       statisticsBackground,
     } = colors;
 
+    // A pending item is looking for a place to be, so the boss pictures stop
+    // offering themselves as goals until it is done.
+    const selectingHintGoal = hintMode
+      && _.get(pendingSelection, 'type') !== Hints.SELECTION_TYPES.ITEM;
+
     let content;
 
     if (isLoading) {
@@ -845,6 +850,7 @@ class Tracker extends React.PureComponent {
               rightClickToClearAll={rightClickToClearAll}
               selectHintCheck={this.selectHintCheck}
               selectHintGoal={this.selectHintGoal}
+              selectingHintGoal={selectingHintGoal}
               selectHintItem={this.selectHintItem}
               selectHintLocation={this.selectHintLocation}
               showBeedleLocations={showBeedleLocations}

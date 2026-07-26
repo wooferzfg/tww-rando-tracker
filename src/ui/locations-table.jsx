@@ -260,7 +260,6 @@ class LocationsTable extends React.PureComponent {
       clearAllLocations,
       decrementItem,
       disableLogic,
-      hintMode,
       incrementItem,
       logic,
       onlyProgressLocations,
@@ -268,6 +267,7 @@ class LocationsTable extends React.PureComponent {
       selectHintGoal,
       selectHintItem,
       selectHintLocation,
+      selectingHintGoal,
       spheres,
       trackerState,
       trackSpheres,
@@ -284,10 +284,10 @@ class LocationsTable extends React.PureComponent {
         {this.chartContainer()}
         <ExtraLocationsTable
           backgroundColor={backgroundColor}
-          hintMode={hintMode}
           selectHintGoal={selectHintGoal}
           selectHintItem={selectHintItem}
           selectHintLocation={selectHintLocation}
+          selectingHintGoal={selectingHintGoal}
           clearAllLocations={clearAllLocations}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
@@ -350,6 +350,7 @@ LocationsTable.propTypes = {
   toggleLocationChecked: PropTypes.func.isRequired,
   selectHintCheck: PropTypes.func.isRequired,
   selectHintGoal: PropTypes.func.isRequired,
+  selectingHintGoal: PropTypes.bool.isRequired,
   selectHintItem: PropTypes.func.isRequired,
   selectHintLocation: PropTypes.func.isRequired,
   toggleRequiredBoss: PropTypes.func.isRequired,
