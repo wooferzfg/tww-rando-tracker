@@ -49,7 +49,7 @@ jobs:
         if: github.repository == 'wooferzfg/tww-rando-tracker' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v4.1.0
         with:
-          personal_token: ${{ secrets.GH_PAGES_DEPLOY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           force_orphan: true
           publish_branch: gh-pages-main
           publish_dir: ./dist
