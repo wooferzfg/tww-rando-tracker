@@ -312,6 +312,12 @@ button:hover:enabled {
     &.impossible-item {
       visibility: hidden;
     }
+    
+    &.starting-item {
+      background: rgba(255, 215, 0, 0.15);
+      border-radius: 6px;
+      box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.75);
+    }
 
     img {
       display: block;

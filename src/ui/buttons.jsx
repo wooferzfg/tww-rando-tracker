@@ -21,12 +21,14 @@ class Buttons extends React.PureComponent {
   render() {
     const {
       chartListOpen,
-      settingsWindowOpen,
+      isStartingItemMode,
       onlyProgressLocations,
+      settingsWindowOpen,
       toggleChartList,
-      toggleSettingsWindow,
       toggleEntrances,
       toggleOnlyProgressLocations,
+      toggleSettingsWindow,
+      toggleStartingItemMode,
       trackNonProgressCharts,
       viewingEntrances,
     } = this.props;
@@ -49,7 +51,12 @@ class Buttons extends React.PureComponent {
           onClick={toggleOnlyProgressLocations}
           type="button"
         >
-          <input type="checkbox" className="button-checkbox" checked={!onlyProgressLocations} readOnly />
+          <input
+            type="checkbox"
+            className="button-checkbox"
+            checked={!onlyProgressLocations}
+            readOnly
+          />
           Show Non-Progress Locations
         </button>
         {isRandomEntrances && (
@@ -57,17 +64,42 @@ class Buttons extends React.PureComponent {
             onClick={toggleEntrances}
             type="button"
           >
-            <input type="radio" className="button-radio" checked={viewingEntrances} readOnly />
+            <input
+              type="radio"
+              className="button-radio"
+              checked={viewingEntrances}
+              readOnly
+            />
             View Entrances
-            <input type="radio" className="button-radio second-button-radio" checked={!viewingEntrances} readOnly />
+            <input
+              type="radio"
+              className="button-radio second-button-radio"
+              checked={!viewingEntrances}
+              readOnly
+            />
             View Exits
           </button>
         )}
         {showChartsButton && (
-          <button onClick={toggleChartList} type="button">
+          <button
+            onClick={toggleChartList}
+            type="button"
+          >
             {chartListText}
           </button>
         )}
+        <button
+          onClick={toggleStartingItemMode}
+          type="button"
+        >
+          <input
+            type="checkbox"
+            className="button-checkbox"
+            checked={isStartingItemMode}
+            readOnly
+          />
+          Edit Starting Items
+        </button>
         <br />
         <button
           onClick={this.exportProgress}
@@ -88,6 +120,7 @@ class Buttons extends React.PureComponent {
 
 Buttons.propTypes = {
   chartListOpen: PropTypes.bool.isRequired,
+  isStartingItemMode: PropTypes.bool.isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   saveData: PropTypes.string.isRequired,
   settingsWindowOpen: PropTypes.bool.isRequired,
@@ -95,6 +128,7 @@ Buttons.propTypes = {
   toggleEntrances: PropTypes.func.isRequired,
   toggleOnlyProgressLocations: PropTypes.func.isRequired,
   toggleSettingsWindow: PropTypes.func.isRequired,
+  toggleStartingItemMode: PropTypes.func.isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,
   viewingEntrances: PropTypes.bool.isRequired,
 };
