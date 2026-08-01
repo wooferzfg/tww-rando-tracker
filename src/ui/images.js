@@ -10,42 +10,47 @@ export default class Images {
   static async importImages() {
     this.images = {};
 
-    await this._resolveImports(this._IMAGE_IMPORTS);
+    await this.#resolveImports(this.#IMAGE_IMPORTS);
   }
 
-  static async _resolveImports(imageImports, keys = []) {
+  static async #resolveImports(imageImports, keys = []) {
     await Promise.all(
       _.map(
         imageImports,
-        (importValue, importKey) => this._resolveImportValue(importValue, keys, importKey),
+        (importValue, importKey) => this.#resolveImportValue(importValue, keys, importKey),
       ),
     );
   }
 
-  static async _resolveImportValue(value, keys, newKey) {
+  static async #resolveImportValue(value, keys, newKey) {
     const updatedKeys = _.concat(keys, newKey);
 
     if (_.isPlainObject(value)) {
-      await this._resolveImports(value, updatedKeys);
+      await this.#resolveImports(value, updatedKeys);
     } else {
-      await this._loadImage(value, updatedKeys);
+      await this.#loadImage(value, updatedKeys);
     }
   }
 
-  static async _loadImage(importPromise, imageKeys) {
+  static async #loadImage(importPromise, imageKeys) {
     const imageImport = await importPromise;
     _.set(this.images, imageKeys, imageImport.default);
   }
 
-  static get _IMAGE_IMPORTS() {
+  static get #IMAGE_IMPORTS() {
     return {
       BIG_KEYS: {
         0: import('../images/bosskey.png'),
         1: import('../images/bosskey_a.png'),
       },
-      CAVE_ENTRANCE: {
-        0: import('../images/cave_noentry.png'),
-        1: import('../images/cave_entered.png'),
+      ISLAND_ENTRANCE: {
+        0: import('../images/cave_red_x.png'),
+        1: import('../images/cave_blue_circle.png'),
+        2: import('../images/cave_gray_check.png'),
+      },
+      ISLAND_EXIT: {
+        0: import('../images/cave_gray_x.png'),
+        1: import('../images/cave_green_check.png'),
       },
       CHARTS: {
         [LogicHelper.CHART_TYPES.TREASURE]: {
@@ -61,6 +66,17 @@ export default class Images {
         0: import('../images/compass.png'),
         1: import('../images/compass_a.png'),
       },
+      BLUE_CHU_JELLIES: {
+        0: import('../images/blue_chu_jelly.png'),
+        1: import('../images/blue_chu_jelly_a.png'),
+      },
+      BLUE_CHU_JELLY_COUNT: {
+        0: import('../images/blue_chu_jelly_count.png'),
+      },
+      BEEDLE: import('../images/beedle.png'),
+      SALVAGE_CORP: import('../images/salvage_corp.png'),
+      CYCLOS: import('../images/cyclos.png'),
+      GHOST_SHIP: import('../images/ghost_ship.png'),
       DUNGEON_CHART_BACKGROUNDS: {
         [LogicHelper.DUNGEONS.DRAGON_ROOST_CAVERN]: import('../images/dungeon_mapfull0.png'),
         [LogicHelper.DUNGEONS.FORBIDDEN_WOODS]: import('../images/dungeon_mapfull1.png'),
@@ -71,8 +87,13 @@ export default class Images {
         [LogicHelper.DUNGEONS.GANONS_TOWER]: import('../images/dungeon_mapfull6.png'),
       },
       DUNGEON_ENTRANCE: {
-        0: import('../images/dungeon_noentry.png'),
-        1: import('../images/dungeon_entered.png'),
+        0: import('../images/dungeon_red_x.png'),
+        1: import('../images/dungeon_blue_circle.png'),
+        2: import('../images/dungeon_gray_check.png'),
+      },
+      DUNGEON_EXIT: {
+        0: import('../images/dungeon_gray_x.png'),
+        1: import('../images/dungeon_green_check.png'),
       },
       DUNGEON_MAPS: {
         0: import('../images/map.png'),
@@ -110,7 +131,7 @@ export default class Images {
       },
       EMPTY_BACKGROUND: import('../images/mapempty.png'),
       ISLAND_CHART_BACKGROUNDS: {
-        [LogicHelper.ISLANDS.FORSAKEN_FORTRESS]: import('../images/mapfull0.png'),
+        [LogicHelper.ISLANDS.FORSAKEN_FORTRESS_SECTOR]: import('../images/mapfull0.png'),
         [LogicHelper.ISLANDS.STAR_ISLAND]: import('../images/mapfull1.png'),
         [LogicHelper.ISLANDS.NORTHERN_FAIRY_ISLAND]: import('../images/mapfull2.png'),
         [LogicHelper.ISLANDS.GALE_ISLE]: import('../images/mapfull3.png'),
@@ -135,7 +156,7 @@ export default class Images {
         [LogicHelper.ISLANDS.GREATFISH_ISLE]: import('../images/mapfull22.png'),
         [LogicHelper.ISLANDS.CYCLOPS_REEF]: import('../images/mapfull23.png'),
         [LogicHelper.ISLANDS.SIX_EYE_REEF]: import('../images/mapfull24.png'),
-        [LogicHelper.ISLANDS.TOWER_OF_THE_GODS]: import('../images/mapfull25.png'),
+        [LogicHelper.ISLANDS.TOWER_OF_THE_GODS_SECTOR]: import('../images/mapfull25.png'),
         [LogicHelper.ISLANDS.EASTERN_TRIANGLE_ISLAND]: import('../images/mapfull26.png'),
         [LogicHelper.ISLANDS.THORNED_FAIRY_ISLAND]: import('../images/mapfull27.png'),
         [LogicHelper.ISLANDS.NEEDLE_ROCK_ISLE]: import('../images/mapfull28.png'),

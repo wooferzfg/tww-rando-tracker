@@ -9,7 +9,7 @@ import TrackerState from '../services/tracker-state';
 import ChartList from './chart-list';
 import DetailedLocationsTable from './detailed-locations-table';
 import EntranceSelection from './entrance-selection';
-import EntrancesList from './entrances-list';
+import ExitSelection from './exit-selection';
 import ExtraLocationsTable from './extra-locations-table';
 import MapInfo from './map-info';
 import SeaChart from './sea-chart';
@@ -20,23 +20,30 @@ class LocationsTable extends React.PureComponent {
 
     this.state = {
       selectedChartForIsland: null,
+      selectedEntrance: null,
       selectedExit: null,
+      selectedGreatSeaLocation: null,
       selectedItem: null,
       selectedLocation: null,
-      selectedLocationIsDungeon: null,
     };
 
     this.setSelectedChartForIsland = this.setSelectedChartForIsland.bind(this);
     this.clearSelectedChartForIsland = this.clearSelectedChartForIsland.bind(this);
+    this.setSelectedEntrance = this.setSelectedEntrance.bind(this);
     this.setSelectedExit = this.setSelectedExit.bind(this);
     this.setSelectedItem = this.setSelectedItem.bind(this);
     this.clearSelectedItem = this.clearSelectedItem.bind(this);
     this.setSelectedLocation = this.setSelectedLocation.bind(this);
+    this.setSelectedGreatSeaLocation = this.setSelectedGreatSeaLocation.bind(this);
     this.clearSelectedLocation = this.clearSelectedLocation.bind(this);
   }
 
   setSelectedChartForIsland(chartForIsland) {
     this.setState({ selectedChartForIsland: chartForIsland });
+  }
+
+  setSelectedEntrance(entranceName) {
+    this.setState({ selectedEntrance: entranceName });
   }
 
   setSelectedExit(exitName) {
@@ -47,11 +54,14 @@ class LocationsTable extends React.PureComponent {
     this.setState({ selectedItem: itemName });
   }
 
-  setSelectedLocation({ locationName, isDungeon }) {
+  setSelectedLocation({ locationName }) {
     this.setState({
       selectedLocation: locationName,
-      selectedLocationIsDungeon: isDungeon,
     });
+  }
+
+  setSelectedGreatSeaLocation(locationName) {
+    this.setState({ selectedGreatSeaLocation: locationName });
   }
 
   clearSelectedChartForIsland() {
@@ -62,7 +72,9 @@ class LocationsTable extends React.PureComponent {
 
   clearSelectedItem() {
     this.setState({
+      selectedEntrance: null,
       selectedExit: null,
+      selectedGreatSeaLocation: null,
       selectedItem: null,
     });
   }
@@ -74,37 +86,49 @@ class LocationsTable extends React.PureComponent {
   chartContainer() {
     const {
       chartListOpen,
+      clearAllLocations,
       clearOpenedMenus,
-      clearRaceModeBannedLocations,
+      toggleRequiredBoss,
       decrementItem,
       disableLogic,
-      entrancesListOpen,
       incrementItem,
       logic,
       onlyProgressLocations,
       openedChartForIsland,
+      openedEntrance,
       openedExit,
       openedLocation,
       openedLocationIsDungeon,
+      rightClickToClearAll,
+      showBeedleLocations,
+      showSalvageCorpLocations,
+      showCyclosLocations,
+      showGhostShipLocations,
       spheres,
       toggleLocationChecked,
       trackerState,
+      trackNonProgressCharts,
+      trackNonProgressBlueChuJelly,
       trackSpheres,
       unsetChartMapping,
+      unsetEntrance,
       unsetExit,
       updateChartMapping,
-      updateEntranceForExit,
+      updateExitForEntrance,
       updateOpenedChartForIsland,
+      updateOpenedEntrance,
       updateOpenedExit,
       updateOpenedLocation,
+      viewingEntrances,
     } = this.props;
 
     const {
       selectedChartForIsland,
+      selectedEntrance,
       selectedExit,
+      selectedGreatSeaLocation,
       selectedItem,
       selectedLocation,
-      selectedLocationIsDungeon,
     } = this.state;
 
     let chartElement;
@@ -116,18 +140,20 @@ class LocationsTable extends React.PureComponent {
           openedChartForIsland={openedChartForIsland}
           spheres={spheres}
           trackerState={trackerState}
+          trackNonProgressCharts={trackNonProgressCharts}
           trackSpheres={trackSpheres}
           updateChartMapping={updateChartMapping}
           unsetChartMapping={unsetChartMapping}
         />
       );
-    } else if (entrancesListOpen) {
+    } else if (!_.isNil(openedEntrance)) {
       chartElement = (
-        <EntrancesList
+        <ExitSelection
           clearOpenedMenus={clearOpenedMenus}
-          disableLogic={disableLogic}
           logic={logic}
+          openedEntrance={openedEntrance}
           trackerState={trackerState}
+          updateExitForEntrance={updateExitForEntrance}
         />
       );
     } else if (!_.isNil(openedExit)) {
@@ -138,20 +164,21 @@ class LocationsTable extends React.PureComponent {
           logic={logic}
           openedExit={openedExit}
           trackerState={trackerState}
-          updateEntranceForExit={updateEntranceForExit}
+          updateExitForEntrance={updateExitForEntrance}
         />
       );
     } else if (!_.isNil(openedLocation)) {
       chartElement = (
         <DetailedLocationsTable
+          clearAllLocations={clearAllLocations}
           clearOpenedMenus={clearOpenedMenus}
-          clearRaceModeBannedLocations={clearRaceModeBannedLocations}
           disableLogic={disableLogic}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
           openedLocation={openedLocation}
           openedLocationIsDungeon={openedLocationIsDungeon}
           spheres={spheres}
+          toggleRequiredBoss={toggleRequiredBoss}
           trackerState={trackerState}
           trackSpheres={trackSpheres}
           toggleLocationChecked={toggleLocationChecked}
@@ -160,6 +187,7 @@ class LocationsTable extends React.PureComponent {
     } else {
       chartElement = (
         <SeaChart
+          clearAllLocations={clearAllLocations}
           clearSelectedChartForIsland={this.clearSelectedChartForIsland}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
@@ -168,18 +196,31 @@ class LocationsTable extends React.PureComponent {
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
+          rightClickToClearAll={rightClickToClearAll}
           setSelectedChartForIsland={this.setSelectedChartForIsland}
+          setSelectedEntrance={this.setSelectedEntrance}
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
+          setSelectedGreatSeaLocation={this.setSelectedGreatSeaLocation}
+          showBeedleLocations={showBeedleLocations}
+          showSalvageCorpLocations={showSalvageCorpLocations}
+          showCyclosLocations={showCyclosLocations}
+          showGhostShipLocations={showGhostShipLocations}
           spheres={spheres}
+          toggleLocationChecked={toggleLocationChecked}
           trackerState={trackerState}
+          trackNonProgressCharts={trackNonProgressCharts}
+          trackNonProgressBlueChuJelly={trackNonProgressBlueChuJelly}
           trackSpheres={trackSpheres}
           unsetChartMapping={unsetChartMapping}
+          unsetEntrance={unsetEntrance}
           unsetExit={unsetExit}
           updateOpenedChartForIsland={updateOpenedChartForIsland}
+          updateOpenedEntrance={updateOpenedEntrance}
           updateOpenedExit={updateOpenedExit}
           updateOpenedLocation={updateOpenedLocation}
+          viewingEntrances={viewingEntrances}
         />
       );
     }
@@ -192,10 +233,11 @@ class LocationsTable extends React.PureComponent {
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
           selectedChartForIsland={selectedChartForIsland}
+          selectedEntrance={selectedEntrance}
           selectedExit={selectedExit}
+          selectedGreatSeaLocation={selectedGreatSeaLocation}
           selectedItem={selectedItem}
           selectedLocation={selectedLocation}
-          selectedLocationIsDungeon={selectedLocationIsDungeon}
           trackerState={trackerState}
         />
       </div>
@@ -205,17 +247,22 @@ class LocationsTable extends React.PureComponent {
   render() {
     const {
       backgroundColor,
+      clearAllLocations,
       decrementItem,
       disableLogic,
       incrementItem,
       logic,
       onlyProgressLocations,
+      rightClickToClearAll,
       spheres,
       trackerState,
       trackSpheres,
+      unsetEntrance,
       unsetExit,
+      updateOpenedEntrance,
       updateOpenedExit,
       updateOpenedLocation,
+      viewingEntrances,
     } = this.props;
 
     return (
@@ -223,6 +270,7 @@ class LocationsTable extends React.PureComponent {
         {this.chartContainer()}
         <ExtraLocationsTable
           backgroundColor={backgroundColor}
+          clearAllLocations={clearAllLocations}
           clearSelectedItem={this.clearSelectedItem}
           clearSelectedLocation={this.clearSelectedLocation}
           decrementItem={decrementItem}
@@ -230,15 +278,20 @@ class LocationsTable extends React.PureComponent {
           incrementItem={incrementItem}
           logic={logic}
           onlyProgressLocations={onlyProgressLocations}
+          rightClickToClearAll={rightClickToClearAll}
+          setSelectedEntrance={this.setSelectedEntrance}
           setSelectedExit={this.setSelectedExit}
           setSelectedItem={this.setSelectedItem}
           setSelectedLocation={this.setSelectedLocation}
           spheres={spheres}
           trackerState={trackerState}
           trackSpheres={trackSpheres}
+          unsetEntrance={unsetEntrance}
           unsetExit={unsetExit}
+          updateOpenedEntrance={updateOpenedEntrance}
           updateOpenedExit={updateOpenedExit}
           updateOpenedLocation={updateOpenedLocation}
+          viewingEntrances={viewingEntrances}
         />
       </>
     );
@@ -248,6 +301,7 @@ class LocationsTable extends React.PureComponent {
 LocationsTable.defaultProps = {
   backgroundColor: null,
   openedChartForIsland: null,
+  openedEntrance: null,
   openedExit: null,
   openedLocation: null,
   openedLocationIsDungeon: null,
@@ -256,29 +310,40 @@ LocationsTable.defaultProps = {
 LocationsTable.propTypes = {
   backgroundColor: PropTypes.string,
   chartListOpen: PropTypes.bool.isRequired,
+  clearAllLocations: PropTypes.func.isRequired,
   clearOpenedMenus: PropTypes.func.isRequired,
-  clearRaceModeBannedLocations: PropTypes.func.isRequired,
   decrementItem: PropTypes.func.isRequired,
   disableLogic: PropTypes.bool.isRequired,
-  entrancesListOpen: PropTypes.bool.isRequired,
   incrementItem: PropTypes.func.isRequired,
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   openedChartForIsland: PropTypes.string,
+  openedEntrance: PropTypes.string,
   openedExit: PropTypes.string,
   openedLocation: PropTypes.string,
   openedLocationIsDungeon: PropTypes.bool,
+  rightClickToClearAll: PropTypes.bool.isRequired,
+  showBeedleLocations: PropTypes.bool.isRequired,
+  showSalvageCorpLocations: PropTypes.bool.isRequired,
+  showCyclosLocations: PropTypes.bool.isRequired,
+  showGhostShipLocations: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
   toggleLocationChecked: PropTypes.func.isRequired,
+  toggleRequiredBoss: PropTypes.func.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackNonProgressCharts: PropTypes.bool.isRequired,
+  trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  unsetEntrance: PropTypes.func.isRequired,
   unsetExit: PropTypes.func.isRequired,
   unsetChartMapping: PropTypes.func.isRequired,
   updateChartMapping: PropTypes.func.isRequired,
   updateOpenedChartForIsland: PropTypes.func.isRequired,
-  updateEntranceForExit: PropTypes.func.isRequired,
+  updateExitForEntrance: PropTypes.func.isRequired,
+  updateOpenedEntrance: PropTypes.func.isRequired,
   updateOpenedExit: PropTypes.func.isRequired,
   updateOpenedLocation: PropTypes.func.isRequired,
+  viewingEntrances: PropTypes.bool.isRequired,
 };
 
 export default LocationsTable;

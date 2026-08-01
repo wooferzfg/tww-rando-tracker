@@ -26,7 +26,7 @@ class BooleanExpression {
    * @returns {BooleanExpression} The new boolean expression.
    */
   static and(...items) {
-    return new BooleanExpression(items, this._TYPES.AND);
+    return new BooleanExpression(items, this.#TYPES.AND);
   }
 
   /**
@@ -37,21 +37,21 @@ class BooleanExpression {
    * @returns {BooleanExpression} The new boolean expression.
    */
   static or(...items) {
-    return new BooleanExpression(items, this._TYPES.OR);
+    return new BooleanExpression(items, this.#TYPES.OR);
   }
 
   /**
    * @returns {boolean} Whether the expression is an 'and' expression.
    */
   isAnd() {
-    return this.type === BooleanExpression._TYPES.AND;
+    return this.type === BooleanExpression.#TYPES.AND;
   }
 
   /**
    * @returns {boolean} Whether the expression is an 'or' expression.
    */
   isOr() {
-    return this.type === BooleanExpression._TYPES.OR;
+    return this.type === BooleanExpression.#TYPES.OR;
   }
 
   /**
@@ -80,7 +80,7 @@ class BooleanExpression {
     orInitialValue,
     orReducer,
   }) {
-    return this._map({
+    return this.#map({
       handleAnd: (items, recursiveMappingFunc) => (
         _.reduce(
           items,
@@ -122,7 +122,7 @@ class BooleanExpression {
    * @returns {boolean} Whether the overall expression is true or false.
    */
   evaluate({ isItemTrue }) {
-    return this._map({
+    return this.#map({
       handleAnd: (items, recursiveMappingFunc) => (
         _.every(items, (unmappedItem) => {
           const { isMapped, item } = recursiveMappingFunc(unmappedItem);
@@ -149,14 +149,61 @@ class BooleanExpression {
    * @returns {BooleanExpression} The simplified boolean expression.
    */
   simplify({ implies }) {
-    let updatedExpression = this._flatten();
+    let updatedExpression = this.#flatten();
 
     for (let i = 1; i <= 3; i += 1) {
-      updatedExpression = updatedExpression._removeDuplicateChildren(implies);
-      updatedExpression = updatedExpression._removeDuplicateExpressions(implies);
+      updatedExpression = updatedExpression.#removeDuplicateChildren(implies);
+      updatedExpression = updatedExpression.#removeDuplicateExpressions(implies);
     }
 
     return updatedExpression;
+  }
+
+  /**
+   * @param {object} options Options for evaluating if the expressions are
+   *   equal.
+   * @param {BooleanExpression} options.otherExpression The boolean expression
+   *   to compare the expression to.
+   * @param {Function} options.areItemsEqual A function that takes two arguments
+   *   that are items in the boolean expression. This function should return
+   *   whether the two items are equal.
+   * @returns {boolean} Whether the boolean expression is equal to the given
+   *   other boolean expression. The items in the two expressions can be in any
+   *   order, but they must otherwise be equivalent.
+   */
+  isEqualTo({
+    otherExpression,
+    areItemsEqual,
+  }) {
+    if (
+      !BooleanExpression.#isExpression(otherExpression)
+      || this.type !== otherExpression.type
+      || this.items.length !== otherExpression.items.length
+    ) {
+      return false;
+    }
+
+    const difference = _.xorWith(
+      this.items,
+      otherExpression.items,
+      (item, otherItem) => {
+        if (BooleanExpression.#isExpression(item)) {
+          return item.isEqualTo({
+            otherExpression: otherItem,
+            areItemsEqual,
+          });
+        }
+        if (BooleanExpression.#isExpression(otherItem)) {
+          return false;
+        }
+
+        return areItemsEqual({
+          item,
+          otherItem,
+        });
+      },
+    );
+    return _.isEmpty(difference);
   }
 
   /**
@@ -165,7 +212,7 @@ class BooleanExpression {
    * @property {object.<string, string>}
    * @private
    */
-  static _TYPES = {
+  static #TYPES = {
     AND: 'and',
     OR: 'or',
   };
@@ -191,10 +238,10 @@ class BooleanExpression {
    * @returns {any} The mapped value of the expression.
    * @private
    */
-  _map({ handleAnd, handleOr }) {
+  #map({ handleAnd, handleOr }) {
     const recursiveMappingFunc = (item) => {
-      if (BooleanExpression._isExpression(item)) {
-        const mappedItem = item._map({ handleAnd, handleOr });
+      if (BooleanExpression.#isExpression(item)) {
+        const mappedItem = item.#map({ handleAnd, handleOr });
 
         return {
           item: mappedItem,
@@ -225,12 +272,12 @@ class BooleanExpression {
    *   versa.
    * @private
    */
-  _oppositeType() {
+  #oppositeType() {
     if (this.isAnd()) {
-      return BooleanExpression._TYPES.OR;
+      return BooleanExpression.#TYPES.OR;
     }
     if (this.isOr()) {
-      return BooleanExpression._TYPES.AND;
+      return BooleanExpression.#TYPES.AND;
     }
     // istanbul ignore next
     throw Error(`Invalid type: ${this.type}`);
@@ -242,56 +289,8 @@ class BooleanExpression {
    *   expression.
    * @private
    */
-  static _isExpression(item) {
+  static #isExpression(item) {
     return item instanceof BooleanExpression;
-  }
-
-  /**
-   * @param {object} options Options for evaluating if the expressions are
-   *   equal.
-   * @param {BooleanExpression} options.otherExpression The boolean expression
-   *   to compare the expression to.
-   * @param {Function} options.areItemsEqual A function that takes two arguments
-   *   that are items in the boolean expression. This function should return
-   *   whether the two items are equal.
-   * @returns {boolean} Whether the boolean expression is equal to the given
-   *   other boolean expression. The items in the two expressions can be in any
-   *   order, but they must otherwise be equivalent.
-   * @private
-   */
-  _isEqualTo({
-    otherExpression,
-    areItemsEqual,
-  }) {
-    if (
-      !BooleanExpression._isExpression(otherExpression)
-      || this.type !== otherExpression.type
-      || this.items.length !== otherExpression.items.length
-    ) {
-      return false;
-    }
-
-    const difference = _.xorWith(
-      this.items,
-      otherExpression.items,
-      (item, otherItem) => {
-        if (BooleanExpression._isExpression(item)) {
-          return item._isEqualTo({
-            otherExpression: otherItem,
-            areItemsEqual,
-          });
-        }
-        if (BooleanExpression._isExpression(otherItem)) {
-          return false;
-        }
-
-        return areItemsEqual({
-          item,
-          otherItem,
-        });
-      },
-    );
-    return _.isEmpty(difference);
   }
 
   /**
@@ -300,13 +299,13 @@ class BooleanExpression {
    *   `And("X > 5")`.
    * @private
    */
-  _flatten() {
+  #flatten() {
     const newItems = _.flatMap(this.items, (item) => {
-      if (!BooleanExpression._isExpression(item)) {
+      if (!BooleanExpression.#isExpression(item)) {
         return item;
       }
 
-      const flatItem = item._flatten();
+      const flatItem = item.#flatten();
 
       if (_.isEmpty(flatItem.items)) {
         return [];
@@ -321,7 +320,7 @@ class BooleanExpression {
 
     if (newItems.length === 1) {
       const firstItem = _.first(newItems);
-      if (BooleanExpression._isExpression(firstItem)) {
+      if (BooleanExpression.#isExpression(firstItem)) {
         return firstItem;
       }
     }
@@ -341,9 +340,9 @@ class BooleanExpression {
    *   items and type, modified to be flattened.
    * @private
    */
-  static _createFlatExpression(items, type) {
+  static #createFlatExpression(items, type) {
     const newExpression = new BooleanExpression(items, type);
-    return newExpression._flatten();
+    return newExpression.#flatten();
   }
 
   /**
@@ -363,22 +362,22 @@ class BooleanExpression {
    *   the items in the given items collection.
    * @private
    */
-  static _itemIsSubsumed({
+  static #itemIsSubsumed({
     itemsCollection,
     item,
     expressionType,
     implies,
   }) {
     return _.some(itemsCollection, (otherItem) => {
-      if (this._isExpression(otherItem)) {
+      if (this.#isExpression(otherItem)) {
         return false;
       }
 
-      if (expressionType === this._TYPES.AND) {
+      if (expressionType === this.#TYPES.AND) {
         if (implies(otherItem, item)) {
           return true;
         }
-      } else if (expressionType === this._TYPES.OR) {
+      } else if (expressionType === this.#TYPES.OR) {
         if (implies(item, otherItem)) {
           return true;
         }
@@ -401,7 +400,7 @@ class BooleanExpression {
    *   type.
    * @private
    */
-  _getUpdatedParentItems(parentItems) {
+  #getUpdatedParentItems(parentItems) {
     return _.mergeWith(
       {},
       parentItems,
@@ -410,7 +409,7 @@ class BooleanExpression {
         if (_.isArray(objectValue)) {
           return _.concat(
             objectValue,
-            _.filter(sourceValue, (value) => !BooleanExpression._isExpression(value)),
+            _.filter(sourceValue, (value) => !BooleanExpression.#isExpression(value)),
           );
         }
         return undefined;
@@ -438,25 +437,25 @@ class BooleanExpression {
    *   parent is removed.
    * @private
    */
-  _removeDuplicateChildrenHelper({
+  #removeDuplicateChildrenHelper({
     implies,
     parentItems,
   }) {
     const newItems = [];
 
-    const updatedParentItems = this._getUpdatedParentItems(parentItems);
+    const updatedParentItems = this.#getUpdatedParentItems(parentItems);
 
     const sameTypeItems = _.get(parentItems, this.type);
-    const oppositeTypeItems = _.get(parentItems, this._oppositeType());
+    const oppositeTypeItems = _.get(parentItems, this.#oppositeType());
 
     let removeSelf = false;
 
     _.forEach(this.items, (item) => {
-      if (BooleanExpression._isExpression(item)) {
+      if (BooleanExpression.#isExpression(item)) {
         const {
           expression: childExpression,
           removeParent: childRemoveParent,
-        } = item._removeDuplicateChildrenHelper({
+        } = item.#removeDuplicateChildrenHelper({
           implies,
           parentItems: updatedParentItems,
         });
@@ -468,17 +467,17 @@ class BooleanExpression {
 
         newItems.push(childExpression);
       } else {
-        if (BooleanExpression._itemIsSubsumed({
+        if (BooleanExpression.#itemIsSubsumed({
           itemsCollection: oppositeTypeItems,
           item,
-          expressionType: this._oppositeType(),
+          expressionType: this.#oppositeType(),
           implies,
         })) {
           removeSelf = true;
           return false; // break loop
         }
 
-        if (!BooleanExpression._itemIsSubsumed({
+        if (!BooleanExpression.#itemIsSubsumed({
           itemsCollection: sameTypeItems,
           item,
           expressionType: this.type,
@@ -497,7 +496,7 @@ class BooleanExpression {
       };
     }
 
-    const expression = BooleanExpression._createFlatExpression(newItems, this.type);
+    const expression = BooleanExpression.#createFlatExpression(newItems, this.type);
 
     if (_.isEmpty(expression.items)) {
       return {
@@ -522,12 +521,12 @@ class BooleanExpression {
    *   expressions of the current boolean expression instance.
    * @private
    */
-  _removeDuplicateChildren(implies) {
-    const { expression } = this._removeDuplicateChildrenHelper({
+  #removeDuplicateChildren(implies) {
+    const { expression } = this.#removeDuplicateChildrenHelper({
       implies,
       parentItems: {
-        [BooleanExpression._TYPES.AND]: [],
-        [BooleanExpression._TYPES.OR]: [],
+        [BooleanExpression.#TYPES.AND]: [],
+        [BooleanExpression.#TYPES.OR]: [],
       },
     });
 
@@ -553,12 +552,12 @@ class BooleanExpression {
    *   instance is redundant.
    * @private
    */
-  _isSubsumedBy({
+  #isSubsumedBy({
     otherExpression,
     implies,
     removeIfIdentical,
   }) {
-    if (this._isEqualTo({
+    if (this.isEqualTo({
       otherExpression,
       areItemsEqual: ({ item, otherItem }) => implies(item, otherItem) && implies(otherItem, item),
     })) {
@@ -570,15 +569,15 @@ class BooleanExpression {
     return iteratorFunc(
       otherExpression.items,
       (otherItem) => {
-        if (BooleanExpression._isExpression(otherItem)) {
-          return this._isSubsumedBy({
+        if (BooleanExpression.#isExpression(otherItem)) {
+          return this.#isSubsumedBy({
             otherExpression: otherItem,
             implies,
             removeIfIdentical: true,
           });
         }
 
-        return BooleanExpression._itemIsSubsumed({
+        return BooleanExpression.#itemIsSubsumed({
           itemsCollection: this.items,
           item: otherItem,
           expressionType: this.type,
@@ -605,20 +604,20 @@ class BooleanExpression {
    *   with the lowest index is kept.
    * @private
    */
-  _expressionIsSubsumed({ expressionToCheck, index, implies }) {
+  #expressionIsSubsumed({ expressionToCheck, index, implies }) {
     return _.some(this.items, (otherItem, otherIndex) => {
       if (otherIndex === index) {
         return false;
       }
 
       let otherExpression;
-      if (BooleanExpression._isExpression(otherItem)) {
+      if (BooleanExpression.#isExpression(otherItem)) {
         otherExpression = otherItem;
       } else {
-        otherExpression = new BooleanExpression([otherItem], this._oppositeType());
+        otherExpression = new BooleanExpression([otherItem], this.#oppositeType());
       }
 
-      return expressionToCheck._isSubsumedBy({
+      return expressionToCheck.#isSubsumedBy({
         otherExpression,
         implies,
         removeIfIdentical: otherIndex < index,
@@ -632,18 +631,18 @@ class BooleanExpression {
    *   item being true implies that the second item is true. For example,
    *   "X > 5" would imply "X > 3".
    * @returns {BooleanExpression} The result of recursively calling
-   *   `_removeDuplicateExpressions` on any child boolean expressions.
+   *   `#removeDuplicateExpressions` on any child boolean expressions.
    * @private
    */
-  _removeDuplicateExpressionsInChildren(implies) {
+  #removeDuplicateExpressionsInChildren(implies) {
     const newItems = _.map(this.items, (item) => {
-      if (BooleanExpression._isExpression(item)) {
-        return item._removeDuplicateExpressions(implies);
+      if (BooleanExpression.#isExpression(item)) {
+        return item.#removeDuplicateExpressions(implies);
       }
       return item;
     });
 
-    return BooleanExpression._createFlatExpression(newItems, this.type);
+    return BooleanExpression.#createFlatExpression(newItems, this.type);
   }
 
   /**
@@ -655,25 +654,25 @@ class BooleanExpression {
    *   items removed if they are subsumed by any other items.
    * @private
    */
-  _removeDuplicateExpressions(implies) {
-    const parentExpression = this._removeDuplicateExpressionsInChildren(implies);
+  #removeDuplicateExpressions(implies) {
+    const parentExpression = this.#removeDuplicateExpressionsInChildren(implies);
 
     const newItems = _.filter(parentExpression.items, (item, index) => {
       let expressionToCheck;
-      if (BooleanExpression._isExpression(item)) {
+      if (BooleanExpression.#isExpression(item)) {
         expressionToCheck = item;
       } else {
-        expressionToCheck = new BooleanExpression([item], parentExpression._oppositeType());
+        expressionToCheck = new BooleanExpression([item], parentExpression.#oppositeType());
       }
 
-      return !parentExpression._expressionIsSubsumed({
+      return !parentExpression.#expressionIsSubsumed({
         expressionToCheck,
         index,
         implies,
       });
     });
 
-    return BooleanExpression._createFlatExpression(newItems, this.type);
+    return BooleanExpression.#createFlatExpression(newItems, this.type);
   }
 }
 

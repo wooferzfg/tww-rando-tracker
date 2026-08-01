@@ -1,9 +1,162 @@
 [
-  "On Dragon Roost Island",
-  "In Forest Haven Sector",
-  "In Tower of the Gods Sector",
-  "",
-  "On Headstone Island",
-  "On Gale Isle",
-  ""
+  {
+    "entranceZoneName": "Dragon Roost Island",
+    "exitZoneName": "Dragon Roost Cavern",
+    "entranceName": "Dragon Roost Cavern",
+    "exitName": "Dragon Roost Cavern",
+    "entryName": "Entered DRC",
+    "entranceMacroName": "Dungeon Entrance on Dragon Roost Island",
+    "internalName": "Dragon Roost Cavern",
+    "isDungeon": true
+  },
+  {
+    "entranceZoneName": "Forest Haven",
+    "exitZoneName": "Forbidden Woods",
+    "entranceName": "Forbidden Woods",
+    "exitName": "Forbidden Woods",
+    "entryName": "Entered FW",
+    "entranceMacroName": "Dungeon Entrance in Forest Haven Sector",
+    "internalName": "Forbidden Woods",
+    "isDungeon": true
+  },
+  {
+    "entranceZoneName": "Tower of the Gods Sector",
+    "exitZoneName": "Tower of the Gods",
+    "entranceName": "Tower of the Gods",
+    "exitName": "Tower of the Gods",
+    "entryName": "Entered TotG",
+    "entranceMacroName": "Dungeon Entrance in Tower of the Gods Sector",
+    "internalName": "Tower of the Gods",
+    "isDungeon": true
+  },
+  {
+    "entranceZoneName": "Headstone Island",
+    "exitZoneName": "Earth Temple",
+    "entranceName": "Earth Temple",
+    "exitName": "Earth Temple",
+    "entryName": "Entered ET",
+    "entranceMacroName": "Dungeon Entrance on Headstone Island",
+    "internalName": "Earth Temple",
+    "isDungeon": true
+  },
+  {
+    "entranceZoneName": "Gale Isle",
+    "exitZoneName": "Wind Temple",
+    "entranceName": "Wind Temple",
+    "exitName": "Wind Temple",
+    "entryName": "Entered WT",
+    "entranceMacroName": "Dungeon Entrance on Gale Isle",
+    "internalName": "Wind Temple",
+    "isDungeon": true
+  },
+  {
+    "entranceZoneName": "Forbidden Woods",
+    "exitZoneName": "Forbidden Woods",
+    "entranceName": "FW Miniboss Door",
+    "exitName": "FW Miniboss",
+    "entryName": "Entered FW Miniboss",
+    "entranceMacroName": "Miniboss Entrance in Forbidden Woods",
+    "internalName": "Forbidden Woods Miniboss Arena",
+    "isMiniboss": true
+  },
+  {
+    "entranceZoneName": "Tower of the Gods",
+    "exitZoneName": "Tower of the Gods",
+    "entranceName": "TotG Miniboss Door",
+    "exitName": "TotG Miniboss",
+    "entryName": "Entered TotG Miniboss",
+    "entranceMacroName": "Miniboss Entrance in Tower of the Gods",
+    "internalName": "Tower of the Gods Miniboss Arena",
+    "isMiniboss": true
+  },
+  {
+    "entranceZoneName": "Earth Temple",
+    "exitZoneName": "Earth Temple",
+    "entranceName": "ET Miniboss Door",
+    "exitName": "ET Miniboss",
+    "entryName": "Entered ET Miniboss",
+    "entranceMacroName": "Miniboss Entrance in Earth Temple",
+    "internalName": "Earth Temple Miniboss Arena",
+    "isMiniboss": true
+  },
+  {
+    "entranceZoneName": "Wind Temple",
+    "exitZoneName": "Wind Temple",
+    "entranceName": "WT Miniboss Door",
+    "exitName": "WT Miniboss",
+    "entryName": "Entered WT Miniboss",
+    "entranceMacroName": "Miniboss Entrance in Wind Temple",
+    "internalName": "Wind Temple Miniboss Arena",
+    "isMiniboss": true
+  },
+  {
+    "entranceZoneName": "Dragon Roost Cavern",
+    "exitZoneName": "Dragon Roost Cavern",
+    "entranceName": "DRC Boss Door",
+    "exitName": "Gohma",
+    "entryName": "Entered Gohma",
+    "entranceMacroName": "Boss Entrance in Dragon Roost Cavern",
+    "internalName": "Gohma Boss Arena",
+    "isBoss": true
+  },
+  {
+    "entranceZoneName": "Forbidden Woods",
+    "exitZoneName": "Forbidden Woods",
+    "entranceName": "FW Boss Door",
+    "exitName": "Kalle Demos",
+    "entryName": "Entered Kalle Demos",
+    "entranceMacroName": "Boss Entrance in Forbidden Woods",
+    "internalName": "Kalle Demos Boss Arena",
+    "isBoss": true
+  },
+  {
+    "entranceZoneName": "Tower of the Gods",
+    "exitZoneName": "Tower of the Gods",
+    "entranceName": "TotG Boss Door",
+    "exitName": "Gohdan",
+    "entryName": "Entered Gohdan",
+    "entranceMacroName": "Boss Entrance in Tower of the Gods",
+    "internalName": "Gohdan Boss Arena",
+    "isBoss": true
+  },
+  {
+    "entranceZoneName": "Forsaken Fortress",
+    "exitZoneName": "Forsaken Fortress",
+    "entranceName": "FF Boss Door",
+    "exitName": "Helmaroc King",
+    "entryName": "Entered Helmaroc King",
+    "entranceMacroName": "Boss Entrance in Forsaken Fortress",
+    "internalName": "Helmaroc King Boss Arena",
+    "isBoss": true
+  },
+  {
+    "entranceZoneName": "Earth Temple",
+    "exitZoneName": "Earth Temple",
+    "entranceName": "ET Boss Door",
+    "exitName": "Jalhalla",
+    "entryName": "Entered Jalhalla",
+    "entranceMacroName": "Boss Entrance in Earth Temple",
+    "internalName": "Jalhalla Boss Arena",
+    "isBoss": true
+  },
+  {
+    "entranceZoneName": "Wind Temple",
+    "exitZoneName": "Wind Temple",
+    "entranceName": "WT Boss Door",
+    "exitName": "Molgera",
+    "entryName": "Entered Molgera",
+    "entranceMacroName": "Boss Entrance in Wind Temple",
+    "internalName": "Molgera Boss Arena",
+    "isBoss": true
+  },
+  {
+    "entranceZoneName": "Hyrule",
+    "exitZoneName": "Hyrule",
+    "entranceName": "Master Sword Chamber",
+    "exitName": "Master Sword Chamber",
+    "entryName": "Entered Master Sword Chamber",
+    "entranceMacroName": "Miniboss Entrance in Hyrule Castle",
+    "internalName": "Master Sword Chamber",
+    "isMiniboss": true
+  }
 ]

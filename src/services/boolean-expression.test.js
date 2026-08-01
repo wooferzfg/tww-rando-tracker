@@ -8,7 +8,7 @@ describe('BooleanExpression', () => {
       const expression = BooleanExpression.and('Apple', 'Banana', 'Coconut');
 
       expect(expression).toEqual(
-        new BooleanExpression(['Apple', 'Banana', 'Coconut'], BooleanExpression._TYPES.AND),
+        new BooleanExpression(['Apple', 'Banana', 'Coconut'], 'and'),
       );
     });
   });
@@ -18,7 +18,7 @@ describe('BooleanExpression', () => {
       const expression = BooleanExpression.or('Apple', 'Banana', 'Coconut');
 
       expect(expression).toEqual(
-        new BooleanExpression(['Apple', 'Banana', 'Coconut'], BooleanExpression._TYPES.OR),
+        new BooleanExpression(['Apple', 'Banana', 'Coconut'], 'or'),
       );
     });
   });
@@ -71,7 +71,7 @@ describe('BooleanExpression', () => {
     });
   });
 
-  describe('_isEqualTo', () => {
+  describe('isEqualTo', () => {
     let expression;
     let mockAreItemsEqual;
 
@@ -92,7 +92,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns false', () => {
-        const isEqualTo = expression._isEqualTo({
+        const isEqualTo = expression.isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual,
         });
@@ -112,7 +112,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns false', () => {
-        const isEqualTo = expression._isEqualTo({
+        const isEqualTo = expression.isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual,
         });
@@ -131,7 +131,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns false', () => {
-        const isEqualTo = expression._isEqualTo({
+        const isEqualTo = expression.isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual,
         });
@@ -151,7 +151,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns false', () => {
-        const isEqualTo = expression._isEqualTo({
+        const isEqualTo = expression.isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual,
         });
@@ -171,7 +171,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns false', () => {
-        const isEqualTo = expression._isEqualTo({
+        const isEqualTo = expression.isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual,
         });
@@ -191,7 +191,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns true', () => {
-        const isEqualTo = expression._isEqualTo({
+        const isEqualTo = expression.isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual,
         });
@@ -211,7 +211,7 @@ describe('BooleanExpression', () => {
       });
 
       test('returns true', () => {
-        const isEqualTo = expression._isEqualTo({
+        const isEqualTo = expression.isEqualTo({
           otherExpression,
           areItemsEqual: mockAreItemsEqual,
         });

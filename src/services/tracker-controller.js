@@ -59,7 +59,7 @@ class TrackerController {
   static refreshState(newState) {
     const logic = new LogicCalculation(newState);
     const spheres = new Spheres(newState);
-    const saveData = this._getSaveData(newState);
+    const saveData = this.#getSaveData(newState);
 
     return {
       logic,
@@ -69,7 +69,7 @@ class TrackerController {
     };
   }
 
-  static _getSaveData(trackerState) {
+  static #getSaveData(trackerState) {
     const saveData = {
       locations: Locations.readAll(),
       macros: Macros.readAll(),

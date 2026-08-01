@@ -20,7 +20,6 @@
       "newlines-between": "always"
     }],
     "no-continue": "off",
-    "no-underscore-dangle": "off",
     "valid-jsdoc": ["error", {
       "requireReturn": false
     }],
@@ -82,20 +81,20 @@
               "type": "method"
             }],
             "public-properties": [{
-              "name": "/[^_].+/",
+              "name": "/[^#].+/",
               "type": "property"
             }],
             "public-static-methods": [{
-              "name": "/[^_].+/",
+              "name": "/[^#].+/",
               "static": true,
               "type": "method"
             }],
             "public-methods": [{
-              "name": "/[^_].+/",
+              "name": "/[^#].+/",
               "type": "method"
             }],
             "private": [{
-              "name": "/_.+/"
+              "name": "/#.+/"
             }]
           }
         }]

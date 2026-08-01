@@ -51,12 +51,15 @@ class ItemsTable extends React.PureComponent {
     const {
       decrementItem,
       incrementItem,
+      isStartingItemMode,
       spheres,
-      trackerState,
       trackSpheres,
+      trackerState,
+      updateStartingItemCount,
     } = this.props;
 
     const itemCount = trackerState.getItemValue(itemName);
+    const hasSelectedStartingItem = trackerState.hasSelectedStartingItem(itemName);
     const itemImages = _.get(Images.IMAGES, ['ITEMS', itemName]);
 
     let locations = [];
@@ -70,12 +73,45 @@ class ItemsTable extends React.PureComponent {
         decrementItem={decrementItem}
         images={itemImages}
         incrementItem={incrementItem}
+        isStartingItem={hasSelectedStartingItem}
+        isStartingItemMode={isStartingItemMode}
         itemCount={itemCount}
         itemName={itemName}
         locations={locations}
         setSelectedItem={this.setSelectedItem}
         spheres={spheres}
+        updateStartingItemCount={updateStartingItemCount}
       />
+    );
+  }
+
+  chuCount() {
+    // Dummy item to display how many blue chus the user has tracked
+    const { trackerState, trackNonProgressBlueChuJelly, spheres } = this.props;
+    if (!trackNonProgressBlueChuJelly && !LogicHelper.blueChusAreUseful()) {
+      return null;
+    }
+    const image = _.get(Images.IMAGES, ['BLUE_CHU_JELLY_COUNT']);
+    const count = trackerState.getItemValue(LogicHelper.BLUE_CHU_JELLY_COUNT_ITEM);
+    const textClass = count >= LogicHelper.BLUE_CHU_JELLY_COUNT_REQUIRED ? 'chu-text-gold' : 'chu-text-white';
+    return (
+      <div className="chu-count-container">
+        <Item
+          clearSelectedItem={this.clearSelectedItem}
+          decrementItem={() => {}}
+          images={image}
+          incrementItem={() => {}}
+          itemCount={0}
+          itemName={`Blue Chu Jelly (${count}/${LogicHelper.BLUE_CHU_JELLY_COUNT_REQUIRED})`}
+          locations={[]}
+          setSelectedItem={this.setSelectedItem}
+          spheres={spheres}
+        />
+        <b className={textClass}>
+          x
+          {count}
+        </b>
+      </div>
     );
   }
 
@@ -180,7 +216,7 @@ class ItemsTable extends React.PureComponent {
             <div className="misc-items">
               <Table
                 elements={[
-                  null,
+                  this.chuCount(),
                   this.item(LogicHelper.ITEMS.TINGLE_STATUE),
                   this.item(LogicHelper.ITEMS.GHOST_SHIP_CHART),
                   this.item(LogicHelper.ITEMS.HURRICANE_SPIN),
@@ -208,9 +244,12 @@ ItemsTable.propTypes = {
   backgroundColor: PropTypes.string,
   decrementItem: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
+  isStartingItemMode: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
-  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
+  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  updateStartingItemCount: PropTypes.func.isRequired,
 };
 
 export default ItemsTable;

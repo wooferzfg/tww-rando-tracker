@@ -114,6 +114,10 @@ body {
         &.label-text {
           padding-left: 20px;
           padding-right: 10px;
+
+          &.label-disabled {
+            opacity: 0.7;
+          }
         }
 
         &.option-container {
@@ -136,6 +140,10 @@ body {
               height: 34px;
               font-size: 1em;
               cursor: pointer;
+
+              &.select-disabled {
+                cursor: auto;
+              }
             }
           }
 
@@ -304,6 +312,12 @@ button:hover:enabled {
     &.impossible-item {
       visibility: hidden;
     }
+    
+    &.starting-item {
+      background: rgba(255, 215, 0, 0.15);
+      border-radius: 6px;
+      box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.75);
+    }
 
     img {
       display: block;
@@ -389,6 +403,31 @@ button:hover:enabled {
     left: 0;
     top: 100%;
   }
+
+  .chu-count-container {
+    position: relative;
+
+    .item-container {
+      cursor: auto;
+    }
+  }
+
+  .chu-text-white {
+    color: white;
+  }
+
+  .chu-text-gold {
+    color: gold;
+  }
+
+  .chu-text-white, .chu-text-gold {
+    pointer-events: none;
+    text-shadow: 1.5px 1px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    bottom: 0%;
+    right: 26%;
+    font-size: 14pt;
+  }
 }
 
 .song-notes {
@@ -444,7 +483,9 @@ button:hover:enabled {
   }
 
   .treasure-chart,
-  .cave-entry {
+  .cave-entry,
+  .blue-chu-jelly,
+  .great-sea-icon {
     width: 16px;
     height: 16px;
     float: left;
@@ -514,6 +555,10 @@ button:hover:enabled {
         padding-top: 0;
         padding-bottom: 0;
       }
+
+      .extra-width-header {
+        width: 130px;
+      }
     }
 
     .zoom-map-background,
@@ -554,12 +599,21 @@ button:hover:enabled {
         text-decoration: line-through;
       }
 
-      &.font-small {
+      &.font-two-columns {
         font-size: 13px;
       }
 
-      &.font-smallest {
+      &.font-three-columns {
         font-size: 10px;
+      }
+
+      &.less-padding {
+        padding-bottom: 2px;
+      }
+
+      &.detail-disabled span {
+        cursor: auto;
+        opacity: 0.7;
       }
     }
   }
@@ -609,13 +663,11 @@ button:hover:enabled {
 .extra-locations {
   float: left;
   background-color: rgba(160, 160, 160, 0.85);
-  width: 630px;
   height: 242px;
   margin-right: 8px;
   margin-bottom: 8px;
 
   .extra-location {
-    width: 120px;
     float: left;
     background-position-y: 15px;
     display: flex;
@@ -661,7 +713,6 @@ button:hover:enabled {
 
 .statistics {
   float: left;
-  width: 620px;
   background-color: rgba(80, 80, 80, 0.85);
   height: 85px;
   margin: 0 0 8px 0;
@@ -741,20 +792,27 @@ button:hover:enabled {
     margin-top: 5px;
     width: 250px;
   }
-
-  .button-checkbox {
-    margin: 0 5px 0 0;
-    vertical-align: middle;
-    pointer-events: none;
-  }
 }
 
-.color-picker-window {
+.detail-span .button-checkbox,
+.buttons .button-checkbox,
+.buttons .button-radio {
+  margin: 0 5px 0 0;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
+.buttons .second-button-radio {
+  margin-left: 20px;
+}
+
+.settings-window {
   position: fixed;
   background-color: white;
   padding: 10px;
   width: 400px;
   user-select: none;
+  z-index: 10;
 
   .close-color-picker {
     position: fixed;
@@ -769,27 +827,27 @@ button:hover:enabled {
     z-index: 10;
   }
 
-  .color-picker-top-row {
+  .settings-window-top-row {
     display: flex;
   }
 
-  .color-picker-title {
+  .settings-window-title {
     font-size: 20px;
   }
 
-  .color-picker-row {
+  .settings-window-row {
     display: flex;
     height: 35px;
     align-items: center;
   }
 
-  .color-picker-label {
+  .settings-window-label {
     cursor: pointer;
     width: 360px;
     margin-left: 5px;
   }
 
-  .color-picker-checkbox {
+  .settings-window-checkbox {
     cursor: pointer;
   }
 

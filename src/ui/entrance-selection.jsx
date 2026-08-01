@@ -13,7 +13,7 @@ import RequirementsTooltip from './requirements-tooltip';
 import Tooltip from './tooltip';
 
 class EntranceSelection extends React.PureComponent {
-  static NUM_ROWS = 13;
+  static NUM_ROWS = 15;
 
   constructor(props) {
     super(props);
@@ -25,7 +25,7 @@ class EntranceSelection extends React.PureComponent {
     const { trackerState } = this.props;
 
     const exitName = trackerState.getExitForEntrance(entranceName);
-    const shortExitName = LogicHelper.shortEntranceName(exitName);
+    const shortExitName = LogicHelper.shortExitName(exitName);
 
     return (
       <div className="tooltip">
@@ -58,16 +58,16 @@ class EntranceSelection extends React.PureComponent {
     const {
       disableLogic,
       openedExit,
-      updateEntranceForExit,
+      updateExitForEntrance,
     } = this.props;
 
     const shortEntranceName = LogicHelper.shortEntranceName(entrance);
 
     let fontSizeClassName = '';
     if (numColumns === 3) {
-      fontSizeClassName = 'font-smallest';
+      fontSizeClassName = 'font-three-columns';
     } else if (numColumns === 2) {
-      fontSizeClassName = 'font-small';
+      fontSizeClassName = 'font-two-columns';
     }
 
     const isEntranceChecked = color === LogicCalculation.LOCATION_COLORS.CHECKED_LOCATION;
@@ -76,7 +76,7 @@ class EntranceSelection extends React.PureComponent {
 
     const updateEntranceFunc = () => {
       if (!isEntranceChecked) {
-        updateEntranceForExit(openedExit, entrance);
+        updateExitForEntrance(entrance, openedExit);
       }
     };
 
@@ -159,7 +159,7 @@ EntranceSelection.propTypes = {
   logic: PropTypes.instanceOf(LogicCalculation).isRequired,
   openedExit: PropTypes.string.isRequired,
   trackerState: PropTypes.instanceOf(TrackerState).isRequired,
-  updateEntranceForExit: PropTypes.func.isRequired,
+  updateExitForEntrance: PropTypes.func.isRequired,
 };
 
 export default EntranceSelection;

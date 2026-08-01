@@ -21,32 +21,86 @@ class Buttons extends React.PureComponent {
   render() {
     const {
       chartListOpen,
-      colorPickerOpen,
-      disableLogic,
-      entrancesListOpen,
+      isStartingItemMode,
       onlyProgressLocations,
-      trackSpheres,
+      settingsWindowOpen,
       toggleChartList,
-      toggleColorPicker,
-      toggleDisableLogic,
-      toggleEntrancesList,
+      toggleEntrances,
       toggleOnlyProgressLocations,
-      toggleTrackSpheres,
+      toggleSettingsWindow,
+      toggleStartingItemMode,
+      trackNonProgressCharts,
+      viewingEntrances,
     } = this.props;
 
-    const colorPickerText = colorPickerOpen
-      ? 'Close Color Picker'
-      : 'Open Color Picker';
-    const entrancesListText = entrancesListOpen
-      ? 'Close Entrances'
-      : 'View Entrances';
+    const settingsWindowText = settingsWindowOpen
+      ? 'Close Settings'
+      : 'Open Settings';
     const chartListText = chartListOpen
       ? 'Close Chart List'
       : 'View Charts';
     const isRandomEntrances = LogicHelper.isRandomEntrances();
+    const showChartsButton = (
+      trackNonProgressCharts
+      || LogicHelper.anyProgressItemCharts()
+    );
 
     return (
       <div className="buttons">
+        <button
+          onClick={toggleOnlyProgressLocations}
+          type="button"
+        >
+          <input
+            type="checkbox"
+            className="button-checkbox"
+            checked={!onlyProgressLocations}
+            readOnly
+          />
+          Show Non-Progress Locations
+        </button>
+        {isRandomEntrances && (
+          <button
+            onClick={toggleEntrances}
+            type="button"
+          >
+            <input
+              type="radio"
+              className="button-radio"
+              checked={viewingEntrances}
+              readOnly
+            />
+            View Entrances
+            <input
+              type="radio"
+              className="button-radio second-button-radio"
+              checked={!viewingEntrances}
+              readOnly
+            />
+            View Exits
+          </button>
+        )}
+        {showChartsButton && (
+          <button
+            onClick={toggleChartList}
+            type="button"
+          >
+            {chartListText}
+          </button>
+        )}
+        <button
+          onClick={toggleStartingItemMode}
+          type="button"
+        >
+          <input
+            type="checkbox"
+            className="button-checkbox"
+            checked={isStartingItemMode}
+            readOnly
+          />
+          Edit Starting Items
+        </button>
+        <br />
         <button
           onClick={this.exportProgress}
           type="button"
@@ -54,45 +108,10 @@ class Buttons extends React.PureComponent {
           Export Progress
         </button>
         <button
-          onClick={toggleOnlyProgressLocations}
+          onClick={toggleSettingsWindow}
           type="button"
         >
-          <input type="checkbox" className="button-checkbox" checked={!onlyProgressLocations} readOnly />
-          Show Non-Progress Locations
-        </button>
-        {
-          isRandomEntrances && (
-            <button
-              onClick={toggleEntrancesList}
-              type="button"
-            >
-              {entrancesListText}
-            </button>
-          )
-        }
-        <button onClick={toggleChartList} type="button">
-          {chartListText}
-        </button>
-        <br />
-        <button
-          onClick={toggleDisableLogic}
-          type="button"
-        >
-          <input type="checkbox" className="button-checkbox" checked={!disableLogic} readOnly />
-          Show Location Logic
-        </button>
-        <button
-          onClick={toggleTrackSpheres}
-          type="button"
-        >
-          <input type="checkbox" className="button-checkbox" checked={trackSpheres} readOnly />
-          Track Spheres
-        </button>
-        <button
-          onClick={toggleColorPicker}
-          type="button"
-        >
-          {colorPickerText}
+          {settingsWindowText}
         </button>
       </div>
     );
@@ -101,18 +120,17 @@ class Buttons extends React.PureComponent {
 
 Buttons.propTypes = {
   chartListOpen: PropTypes.bool.isRequired,
-  colorPickerOpen: PropTypes.bool.isRequired,
-  disableLogic: PropTypes.bool.isRequired,
-  entrancesListOpen: PropTypes.bool.isRequired,
+  isStartingItemMode: PropTypes.bool.isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   saveData: PropTypes.string.isRequired,
-  trackSpheres: PropTypes.bool.isRequired,
+  settingsWindowOpen: PropTypes.bool.isRequired,
   toggleChartList: PropTypes.func.isRequired,
-  toggleColorPicker: PropTypes.func.isRequired,
-  toggleDisableLogic: PropTypes.func.isRequired,
-  toggleEntrancesList: PropTypes.func.isRequired,
+  toggleEntrances: PropTypes.func.isRequired,
   toggleOnlyProgressLocations: PropTypes.func.isRequired,
-  toggleTrackSpheres: PropTypes.func.isRequired,
+  toggleSettingsWindow: PropTypes.func.isRequired,
+  toggleStartingItemMode: PropTypes.func.isRequired,
+  trackNonProgressCharts: PropTypes.bool.isRequired,
+  viewingEntrances: PropTypes.bool.isRequired,
 };
 
 export default Buttons;

@@ -121,9 +121,11 @@ describe('TrackerState', () => {
 
       trackerState = TrackerState.createStateRaw({
         entrances: expectedEntrances,
+        islandsForCharts: {},
         items: expectedItems,
         itemsForLocations: expectedItemsForLocations,
         locationsChecked: expectedLocationsChecked,
+        selectedStartingItems: {},
       });
     });
 
@@ -132,9 +134,11 @@ describe('TrackerState', () => {
 
       expect(stateData).toEqual({
         entrances: expectedEntrances,
+        islandsForCharts: {},
         items: expectedItems,
         itemsForLocations: expectedItemsForLocations,
         locationsChecked: expectedLocationsChecked,
+        selectedStartingItems: {},
       });
     });
   });
@@ -156,6 +160,95 @@ describe('TrackerState', () => {
     });
   });
 
+  describe('starting items', () => {
+    let state;
+
+    beforeEach(() => {
+      state = TrackerState.default();
+
+      LogicHelper.startingItems = {
+        'Progressive Sword': 2,
+      };
+    });
+
+    afterEach(() => {
+      LogicHelper.startingItems = {};
+    });
+
+    test('hasSelectedStartingItem returns false by default', () => {
+      expect(state.hasSelectedStartingItem('Progressive Sword')).toBe(false);
+    });
+
+    test('hasSelectedStartingItem returns true after selecting starting items', () => {
+      state = state.updateStartingItemCount('Progressive Sword');
+
+      expect(state.hasSelectedStartingItem('Progressive Sword')).toBe(true);
+    });
+  });
+
+  describe('updateStartingItemCount', () => {
+    let state;
+
+    beforeEach(() => {
+      state = TrackerState.default();
+
+      LogicHelper.startingItems = {
+        'Progressive Sword': 2,
+      };
+    });
+
+    afterEach(() => {
+      LogicHelper.startingItems = {};
+    });
+
+    test('increments the selected starting count', () => {
+      state.selectedStartingItems = {
+        'Progressive Sword': 3,
+      };
+
+      state.items = {
+        'Progressive Sword': 3,
+      };
+
+      const newState = state.updateStartingItemCount('Progressive Sword');
+
+      expect(newState.selectedStartingItems['Progressive Sword']).toBe(4);
+      expect(newState.items['Progressive Sword']).toBe(4);
+    });
+
+    test('removes the selected starting count when decremented back to the base count', () => {
+      state.selectedStartingItems = {
+        'Progressive Sword': 3,
+      };
+
+      state.items = {
+        'Progressive Sword': 3,
+      };
+
+      const newState = state.updateStartingItemCount('Progressive Sword', -1);
+
+      expect(newState.hasSelectedStartingItem('Progressive Sword')).toBe(false);
+      expect(newState.selectedStartingItems['Progressive Sword']).toBeUndefined();
+      expect(newState.items['Progressive Sword']).toBe(2);
+    });
+
+    test('cycles back to the base count when incremented at the maximum', () => {
+      state.selectedStartingItems = {
+        'Progressive Sword': 4,
+      };
+
+      state.items = {
+        'Progressive Sword': 4,
+      };
+
+      const newState = state.updateStartingItemCount('Progressive Sword');
+
+      expect(newState.hasSelectedStartingItem('Progressive Sword')).toBe(false);
+      expect(newState.selectedStartingItems['Progressive Sword']).toBeUndefined();
+      expect(newState.items['Progressive Sword']).toBe(2);
+    });
+  });
+
   describe('incrementItem', () => {
     let state;
 
@@ -174,10 +267,16 @@ describe('TrackerState', () => {
         };
       });
 
-      test('returns a new state with the item reset to the minimum quantity', () => {
-        const newState = state.incrementItem('Progressive Sword');
+      test('returns a new state with the item reset to the minimum quantity when cycling is enabled', () => {
+        const newState = state.incrementItem('Progressive Sword', true);
 
         expect(newState.items['Progressive Sword']).toEqual(2);
+      });
+
+      test('returns a new state with the item unchanged when item cycling is disabled', () => {
+        const newState = state.incrementItem('Progressive Sword');
+
+        expect(newState.items['Progressive Sword']).toEqual(4);
       });
     });
 
@@ -192,6 +291,47 @@ describe('TrackerState', () => {
         const newState = state.incrementItem('Deku Leaf');
 
         expect(newState.items['Deku Leaf']).toEqual(1);
+      });
+
+      test('cycles back to the selected starting count when item cycling is enabled', () => {
+        LogicHelper.startingItems = {
+          'Progressive Sword': 2,
+        };
+
+        state.selectedStartingItems = {
+          'Progressive Sword': 3,
+        };
+
+        state.items = {
+          'Progressive Sword': 4,
+        };
+
+        const newState = state.incrementItem('Progressive Sword', true);
+
+        expect(newState.items['Progressive Sword']).toBe(3);
+      });
+    });
+
+    describe('when incrementing a blue chu', () => {
+      beforeEach(() => {
+        state = TrackerState.default();
+      });
+
+      test('updates blue chu jelly count for a single blue chu', () => {
+        const newState = state.incrementItem('Blue Chu Underneath Boulder');
+
+        expect(newState.items['Blue Chu Underneath Boulder']).toEqual(1);
+        expect(newState.items['Blue Chu Jelly']).toEqual(1);
+      });
+
+      test('updates blue chu jelly count for all blue chus', () => {
+        let newState = state;
+        _.forEach(
+          _.values(LogicHelper.BLUE_CHU_ITEMS),
+          (chu) => { newState = newState.incrementItem(chu); },
+        );
+
+        expect(newState.items['Blue Chu Jelly']).toEqual(23);
       });
     });
   });
@@ -214,8 +354,8 @@ describe('TrackerState', () => {
         };
       });
 
-      test('returns a new state with the item reset to the maximum quantity', () => {
-        const newState = state.decrementItem('Progressive Sword');
+      test('returns a new state with the item reset to the maximum quantity when cycling is enabled', () => {
+        const newState = state.decrementItem('Progressive Sword', true);
 
         expect(newState.items['Progressive Sword']).toEqual(4);
       });
@@ -234,6 +374,67 @@ describe('TrackerState', () => {
         expect(newState.items['Deku Leaf']).toEqual(0);
       });
     });
+
+    describe('when the item is already at min quantity and cycling is disabled', () => {
+      beforeEach(() => {
+        LogicHelper.startingItems = {
+          'Progressive Sword': 2,
+        };
+
+        state.items = {
+          'Progressive Sword': 2,
+        };
+      });
+
+      test('returns a new state with the item unchanged', () => {
+        const newState = state.decrementItem('Progressive Sword');
+
+        expect(newState.items['Progressive Sword']).toEqual(2);
+      });
+    });
+
+    describe('when decrementing from the selected starting count', () => {
+      beforeEach(() => {
+        LogicHelper.startingItems = {
+          'Progressive Sword': 2,
+        };
+
+        state.selectedStartingItems = {
+          'Progressive Sword': 3,
+        };
+
+        state.items = {
+          'Progressive Sword': 3,
+        };
+      });
+
+      test('cycles to the maximum when item cycling is enabled', () => {
+        const newState = state.decrementItem('Progressive Sword', true);
+
+        expect(newState.items['Progressive Sword']).toBe(4);
+      });
+    });
+
+    describe('when decrementing a blue chu', () => {
+      beforeEach(() => {
+        state = TrackerState.default();
+        state.items['Blue Chu Underneath Boulder'] = 1;
+        state.items['Blue Chu on Top of Island'] = 1;
+        state.items['Blue Chu Jelly'] = 2;
+      });
+
+      test('updates blue chu jelly count', () => {
+        const newState = state.decrementItem('Blue Chu Underneath Boulder');
+
+        expect(newState.items['Blue Chu Underneath Boulder']).toEqual(0);
+        expect(newState.items['Blue Chu Jelly']).toEqual(1);
+
+        const newStateAfterSecondDecrement = newState.decrementItem('Blue Chu on Top of Island');
+
+        expect(newStateAfterSecondDecrement.items['Blue Chu on Top of Island']).toEqual(0);
+        expect(newStateAfterSecondDecrement.items['Blue Chu Jelly']).toEqual(0);
+      });
+    });
   });
 
   describe('getEntranceForExit', () => {
@@ -242,7 +443,7 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.entrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
       };
     });
 
@@ -259,7 +460,7 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.entrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
       };
     });
 
@@ -270,43 +471,120 @@ describe('TrackerState', () => {
     });
   });
 
-  describe('setEntranceForExit', () => {
+  describe('setExitForEntrance', () => {
     let state;
 
     beforeEach(() => {
-      const initialEntrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
-      };
-
       state = new TrackerState();
-      state.entrances = _.clone(initialEntrances);
+      state.entrances = {
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Ice Ring Isle Secret Cave': 'Forbidden Woods',
+      };
+      state.items = {
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+        'Entered Ice Ring Isle Cave': 0,
+      };
     });
 
-    test('returns a new state with the entrance value modified', () => {
-      const newState = state.setEntranceForExit('Needle Rock Isle Secret Cave', 'Forbidden Woods');
+    test('returns a new state with the entrance value and entry item modified', () => {
+      const newState = state.setExitForEntrance('Forbidden Woods', 'Ice Ring Isle Secret Cave');
 
-      expect(newState.entrances['Needle Rock Isle Secret Cave']).toEqual('Forbidden Woods');
+      expect(newState.entrances).toEqual({
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Ice Ring Isle Secret Cave': 'Forbidden Woods',
+        'Forbidden Woods': 'Ice Ring Isle Secret Cave',
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+        'Entered Ice Ring Isle Cave': 1,
+      });
+    });
+
+    test('when marking an entrance that leads to nothing, does not modify items', () => {
+      const newState = state.setExitForEntrance('Forbidden Woods', LogicHelper.NOTHING_EXIT);
+
+      expect(newState.entrances).toEqual({
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Ice Ring Isle Secret Cave': 'Forbidden Woods',
+        'Forbidden Woods': LogicHelper.NOTHING_EXIT,
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+        'Entered Ice Ring Isle Cave': 0,
+      });
     });
   });
 
-  describe('unsetEntranceForExit', () => {
+  describe('unsetExit', () => {
     let state;
 
     beforeEach(() => {
-      const initialEntrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
-        'Forbidden Woods': 'Tower of the Gods',
-      };
-
       state = new TrackerState();
-      state.entrances = _.clone(initialEntrances);
+      state.entrances = {
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Tower of the Gods': 'Forbidden Woods',
+      };
+      state.items = {
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+      };
     });
 
-    test('returns a new state with the entrance value unset', () => {
-      const newState = state.unsetEntranceForExit('Needle Rock Isle Secret Cave');
+    test('returns a new state with the entrance value and entry item unset', () => {
+      const newState = state.unsetExit('Needle Rock Isle Secret Cave');
 
       expect(newState.entrances).toEqual({
-        'Forbidden Woods': 'Tower of the Gods',
+        'Tower of the Gods': 'Forbidden Woods',
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 0,
+        'Entered FW': 1,
+      });
+    });
+  });
+
+  describe('unsetEntrance', () => {
+    let state;
+
+    beforeEach(() => {
+      state = new TrackerState();
+      state.entrances = {
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Tower of the Gods': 'Forbidden Woods',
+        'Cliff Plateau Isles Secret Cave': LogicHelper.NOTHING_EXIT,
+      };
+      state.items = {
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
+      };
+    });
+
+    test('returns a new state with the entrance value and entry item unset', () => {
+      const newState = state.unsetEntrance('Dragon Roost Cavern');
+
+      expect(newState.entrances).toEqual({
+        'Tower of the Gods': 'Forbidden Woods',
+        'Cliff Plateau Isles Secret Cave': LogicHelper.NOTHING_EXIT,
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 0,
+        'Entered FW': 1,
+      });
+    });
+
+    test('when unsetting an entrance that leads to nothing, does not modify items', () => {
+      const newState = state.unsetEntrance('Cliff Plateau Isles Secret Cave');
+
+      expect(newState.entrances).toEqual({
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Tower of the Gods': 'Forbidden Woods',
+      });
+      expect(newState.items).toEqual({
+        'Entered Needle Rock Isle Cave': 1,
+        'Entered FW': 1,
       });
     });
   });
@@ -317,8 +595,8 @@ describe('TrackerState', () => {
     beforeEach(() => {
       state = new TrackerState();
       state.entrances = {
-        'Needle Rock Isle Secret Cave': 'Dragon Roost Cavern',
-        'Forbidden Woods': 'Tower of the Gods',
+        'Dragon Roost Cavern': 'Needle Rock Isle Secret Cave',
+        'Tower of the Gods': 'Forbidden Woods',
       };
     });
 
@@ -482,6 +760,34 @@ describe('TrackerState', () => {
 
       expect(newItemForLocation).toEqual('Grappling Hook');
     });
+
+    test('prevents assigning more locations than available item copies', () => {
+      LogicHelper.startingItems = {
+        'Progressive Sword': 2,
+      };
+
+      state.selectedStartingItems = {
+        'Progressive Sword': 3,
+      };
+
+      state.itemsForLocations = {
+        'Windfall Island': {
+          'Maggie - Free Item': 'Progressive Sword',
+        },
+        'Dragon Roost Cavern': {
+          "Bird's Nest": null,
+        },
+      };
+
+      const newState = state.setItemForLocation(
+        'Progressive Sword',
+        'Dragon Roost Cavern',
+        "Bird's Nest",
+      );
+
+      // max is 4, starting is 3, so only one location may be assigned.
+      expect(newState.getItemForLocation('Dragon Roost Cavern', "Bird's Nest")).toBeNull();
+    });
   });
 
   describe('getChartFromChartMapping', () => {
@@ -577,6 +883,168 @@ describe('TrackerState', () => {
       const newItemForLocation = _.get(newState.itemsForLocations, ['Dragon Roost Cavern', "Bird's Nest"]);
 
       expect(newItemForLocation).toEqual(null);
+    });
+  });
+
+  describe('clearBannedLocations', () => {
+    let state;
+
+    beforeEach(() => {
+      Locations.locations = {
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': {
+            test: 'data',
+          },
+          'Savage Labyrinth - Floor 50': {
+            test: 'data',
+          },
+          'Sunken Treasure': {
+            test: 'data',
+          },
+        },
+        'Dragon Roost Cavern': {
+          'First Room': {
+            test: 'data',
+          },
+          'Alcove With Water Jugs': {
+            test: 'data',
+          },
+          "Bird's Nest": {
+            test: 'data',
+          },
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': {
+            test: 'data',
+          },
+        },
+        Mailbox: {
+          'Letter from Aryll': {
+            test: 'data',
+          },
+          'Letter from Tingle': {
+            test: 'data',
+          },
+        },
+      };
+
+      state = new TrackerState();
+
+      state.locationsChecked = {
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': false,
+          'Savage Labyrinth - Floor 50': false,
+          'Sunken Treasure': false,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": false,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': false,
+        },
+        Mailbox: {
+          'Letter from Aryll': false,
+          'Letter from Tingle': false,
+        },
+      };
+    });
+
+    test('return a new state with the banned locations cleared for DRC', () => {
+      const newState = state.clearBannedLocations('Dragon Roost Cavern', { includeAdditionalLocations: true });
+
+      expect(newState.locationsChecked).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': false,
+          'Savage Labyrinth - Floor 50': false,
+          'Sunken Treasure': false,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': true,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": true,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': false,
+        },
+        Mailbox: {
+          'Letter from Aryll': false,
+          'Letter from Tingle': false,
+        },
+      });
+    });
+
+    test('return a new state with the banned locations cleared for Outset', () => {
+      const newState = state.clearBannedLocations('Outset Island', { includeAdditionalLocations: true });
+
+      expect(newState.locationsChecked).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': true,
+          'Savage Labyrinth - Floor 50': true,
+          'Sunken Treasure': true,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": false,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': false,
+        },
+        Mailbox: {
+          'Letter from Aryll': false,
+          'Letter from Tingle': false,
+        },
+      });
+    });
+
+    test('return a new state with the banned locations and mail cleared for FF when includeAdditionalLocations is true', () => {
+      const newState = state.clearBannedLocations('Forsaken Fortress', { includeAdditionalLocations: true });
+
+      expect(newState.locationsChecked).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': false,
+          'Savage Labyrinth - Floor 50': false,
+          'Sunken Treasure': false,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": false,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': true,
+        },
+        Mailbox: {
+          'Letter from Aryll': true,
+          'Letter from Tingle': true,
+        },
+      });
+    });
+
+    test('return a new state with the banned locations but mail not cleared for FF when includeAdditionalLocations is false', () => {
+      const newState = state.clearBannedLocations('Forsaken Fortress', { includeAdditionalLocations: false });
+
+      expect(newState.locationsChecked).toEqual({
+        'Outset Island': {
+          'Savage Labyrinth - Floor 30': false,
+          'Savage Labyrinth - Floor 50': false,
+          'Sunken Treasure': false,
+        },
+        'Dragon Roost Cavern': {
+          'First Room': false,
+          'Alcove With Water Jugs': true,
+          "Bird's Nest": false,
+        },
+        'Forsaken Fortress': {
+          'Phantom Ganon': true,
+        },
+        Mailbox: {
+          'Letter from Aryll': false,
+          'Letter from Tingle': false,
+        },
+      });
     });
   });
 });

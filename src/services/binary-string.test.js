@@ -11,8 +11,8 @@ describe('BinaryString', () => {
     test('sets the binary data and bit offset', () => {
       binaryString = BinaryString.fromBase64('MS44LjAAeWVl');
 
-      expect(binaryString.binaryData).toEqual([49, 46, 56, 46, 48, 0, 121, 101, 101]);
-      expect(binaryString.bitOffset).toEqual(0);
+      expect(binaryString.binaryData()).toEqual([49, 46, 56, 46, 48, 0, 121, 101, 101]);
+      expect(binaryString.bitOffset()).toEqual(0);
     });
   });
 
@@ -64,8 +64,8 @@ describe('BinaryString', () => {
     test('removes the string and trailing null character from the binary data', () => {
       binaryString.popString();
 
-      expect(binaryString.binaryData).toEqual([121, 101, 101]); // yee
-      expect(binaryString.bitOffset).toEqual(0);
+      expect(binaryString.binaryData()).toEqual([121, 101, 101]); // yee
+      expect(binaryString.bitOffset()).toEqual(0);
     });
 
     describe('when the binary string is empty', () => {
@@ -95,8 +95,8 @@ describe('BinaryString', () => {
         test('removes the value from the binary data', () => {
           binaryString.popBoolean();
 
-          expect(binaryString.binaryData).toEqual([64]); // 64 = 1000000
-          expect(binaryString.bitOffset).toEqual(1);
+          expect(binaryString.binaryData()).toEqual([64]); // 64 = 1000000
+          expect(binaryString.bitOffset()).toEqual(1);
         });
       });
 
@@ -114,8 +114,8 @@ describe('BinaryString', () => {
         test('removes the value from the binary data', () => {
           binaryString.popBoolean();
 
-          expect(binaryString.binaryData).toEqual([64]); // 64 = 1000000
-          expect(binaryString.bitOffset).toEqual(1);
+          expect(binaryString.binaryData()).toEqual([64]); // 64 = 1000000
+          expect(binaryString.bitOffset()).toEqual(1);
         });
       });
     });
@@ -135,8 +135,8 @@ describe('BinaryString', () => {
         test('removes the value from the binary data', () => {
           binaryString.popBoolean();
 
-          expect(binaryString.binaryData).toEqual([6]); // 6 = 0110
-          expect(binaryString.bitOffset).toEqual(4);
+          expect(binaryString.binaryData()).toEqual([6]); // 6 = 0110
+          expect(binaryString.bitOffset()).toEqual(4);
         });
       });
 
@@ -154,8 +154,8 @@ describe('BinaryString', () => {
         test('removes the value from the binary data', () => {
           binaryString.popBoolean();
 
-          expect(binaryString.binaryData).toEqual([7]); // 7 = 0111
-          expect(binaryString.bitOffset).toEqual(4);
+          expect(binaryString.binaryData()).toEqual([7]); // 7 = 0111
+          expect(binaryString.bitOffset()).toEqual(4);
         });
       });
     });
@@ -175,8 +175,8 @@ describe('BinaryString', () => {
         test('removes the value from the binary data', () => {
           binaryString.popBoolean();
 
-          expect(binaryString.binaryData).toEqual([65]);
-          expect(binaryString.bitOffset).toEqual(0);
+          expect(binaryString.binaryData()).toEqual([65]);
+          expect(binaryString.bitOffset()).toEqual(0);
         });
       });
 
@@ -194,8 +194,8 @@ describe('BinaryString', () => {
         test('removes the value from the binary data', () => {
           binaryString.popBoolean();
 
-          expect(binaryString.binaryData).toEqual([67]);
-          expect(binaryString.bitOffset).toEqual(0);
+          expect(binaryString.binaryData()).toEqual([67]);
+          expect(binaryString.bitOffset()).toEqual(0);
         });
       });
     });
@@ -226,8 +226,8 @@ describe('BinaryString', () => {
       test('removes the number from the binary data', () => {
         binaryString.popNumber(5);
 
-        expect(binaryString.binaryData).toEqual([2]); // 2 = 10
-        expect(binaryString.bitOffset).toEqual(6);
+        expect(binaryString.binaryData()).toEqual([2]); // 2 = 10
+        expect(binaryString.bitOffset()).toEqual(6);
       });
     });
 
@@ -245,8 +245,8 @@ describe('BinaryString', () => {
       test('removes the number from the binary data', () => {
         binaryString.popNumber(6);
 
-        expect(binaryString.binaryData).toEqual([11]); // 11 = 1011
-        expect(binaryString.bitOffset).toEqual(4);
+        expect(binaryString.binaryData()).toEqual([11]); // 11 = 1011
+        expect(binaryString.bitOffset()).toEqual(4);
       });
     });
 
@@ -270,8 +270,8 @@ describe('BinaryString', () => {
       test('adds the string to the binary data', () => {
         binaryString.addString('yeet');
 
-        expect(binaryString.binaryData).toEqual([121, 101, 101, 116, 0]);
-        expect(binaryString.bitOffset).toEqual(0);
+        expect(binaryString.binaryData()).toEqual([121, 101, 101, 116, 0]);
+        expect(binaryString.bitOffset()).toEqual(0);
       });
     });
 
@@ -283,8 +283,8 @@ describe('BinaryString', () => {
       test('adds the string to the binary data', () => {
         binaryString.addString('yeet');
 
-        expect(binaryString.binaryData).toEqual([49, 46, 56, 46, 48, 0, 121, 101, 101, 116, 0]);
-        expect(binaryString.bitOffset).toEqual(0);
+        expect(binaryString.binaryData()).toEqual([49, 46, 56, 46, 48, 0, 121, 101, 101, 116, 0]);
+        expect(binaryString.bitOffset()).toEqual(0);
       });
     });
   });
@@ -299,8 +299,8 @@ describe('BinaryString', () => {
         test('adds the value to the binary data', () => {
           binaryString.addBoolean(true);
 
-          expect(binaryString.binaryData).toEqual([70, 1]);
-          expect(binaryString.bitOffset).toEqual(7);
+          expect(binaryString.binaryData()).toEqual([70, 1]);
+          expect(binaryString.bitOffset()).toEqual(7);
         });
       });
 
@@ -312,8 +312,8 @@ describe('BinaryString', () => {
         test('adds the value to the binary data', () => {
           binaryString.addBoolean(false);
 
-          expect(binaryString.binaryData).toEqual([70, 0]);
-          expect(binaryString.bitOffset).toEqual(7);
+          expect(binaryString.binaryData()).toEqual([70, 0]);
+          expect(binaryString.bitOffset()).toEqual(7);
         });
       });
     });
@@ -327,8 +327,8 @@ describe('BinaryString', () => {
         test('adds the value to the binary data', () => {
           binaryString.addBoolean(true);
 
-          expect(binaryString.binaryData).toEqual([45]); // 45 = [1]01101
-          expect(binaryString.bitOffset).toEqual(2);
+          expect(binaryString.binaryData()).toEqual([45]); // 45 = [1]01101
+          expect(binaryString.bitOffset()).toEqual(2);
         });
       });
 
@@ -340,8 +340,8 @@ describe('BinaryString', () => {
         test('adds the value to the binary data', () => {
           binaryString.addBoolean(false);
 
-          expect(binaryString.binaryData).toEqual([13]);
-          expect(binaryString.bitOffset).toEqual(2);
+          expect(binaryString.binaryData()).toEqual([13]);
+          expect(binaryString.bitOffset()).toEqual(2);
         });
       });
     });
@@ -355,8 +355,8 @@ describe('BinaryString', () => {
         test('adds the value to the binary data', () => {
           binaryString.addBoolean(true);
 
-          expect(binaryString.binaryData).toEqual([227]); // 227 = [1]1100011
-          expect(binaryString.bitOffset).toEqual(0);
+          expect(binaryString.binaryData()).toEqual([227]); // 227 = [1]1100011
+          expect(binaryString.bitOffset()).toEqual(0);
         });
       });
 
@@ -368,8 +368,8 @@ describe('BinaryString', () => {
         test('adds the value to the binary data', () => {
           binaryString.addBoolean(false);
 
-          expect(binaryString.binaryData).toEqual([99]);
-          expect(binaryString.bitOffset).toEqual(0);
+          expect(binaryString.binaryData()).toEqual([99]);
+          expect(binaryString.bitOffset()).toEqual(0);
         });
       });
     });
@@ -384,8 +384,8 @@ describe('BinaryString', () => {
       test('adds the number to the binary data', () => {
         binaryString.addNumber(18, 5); // 18 = 10010
 
-        expect(binaryString.binaryData).toEqual([74]); // 74 = [10010]10
-        expect(binaryString.bitOffset).toEqual(1);
+        expect(binaryString.binaryData()).toEqual([74]); // 74 = [10010]10
+        expect(binaryString.bitOffset()).toEqual(1);
       });
     });
 
@@ -397,8 +397,8 @@ describe('BinaryString', () => {
       test('adds the number to the binary data', () => {
         binaryString.addNumber(58, 6); // 58 = 111010
 
-        expect(binaryString.binaryData).toEqual([171, 3]); // 171 = [1010]1011, 3 = [11]
-        expect(binaryString.bitOffset).toEqual(6);
+        expect(binaryString.binaryData()).toEqual([171, 3]); // 171 = [1010]1011, 3 = [11]
+        expect(binaryString.bitOffset()).toEqual(6);
       });
     });
   });

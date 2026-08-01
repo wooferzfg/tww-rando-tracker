@@ -1,5 +1,7 @@
 import fs from 'fs';
 
+import _ from 'lodash';
+
 import Locations from '../src/services/locations';
 import LogicHelper from '../src/services/logic-helper';
 import LogicLoader from '../src/services/logic-loader';
@@ -31,8 +33,8 @@ const script = async () => {
     macrosFile,
   } = await LogicLoader.loadLogicFiles();
 
-  Locations.initialize(itemLocationsFile);
-  Macros.initialize(macrosFile);
+  Locations.initialize(_.cloneDeep(itemLocationsFile));
+  Macros.initialize(_.cloneDeep(macrosFile));
 
   LogicTweaks.applyTweaks();
 
