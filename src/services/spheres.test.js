@@ -51,6 +51,7 @@ describe('Spheres', () => {
           [Permalink.OPTIONS.ALWAYS_DOUBLE_MAGIC]: false,
           [Permalink.OPTIONS.OPEN_DRC]: true,
           [Permalink.OPTIONS.TOTG_TABLET_FROM_START]: false,
+          [Permalink.OPTIONS.SUNLIGHT_ARROWS]: false,
         },
         startingGear: {
           [LogicHelper.ITEMS.BALLAD_OF_GALES]: 1,
@@ -119,6 +120,31 @@ describe('Spheres', () => {
         expect(
           spheres.sphereForLocation('Forsaken Fortress', 'Chest on Bed'),
         ).toEqual(null);
+      });
+    });
+
+    describe('when selected starting items are configured', () => {
+      beforeEach(() => {
+        fullSetup();
+
+        trackerState = TrackerState.createStateRaw({
+          ...trackerState.readState(),
+          selectedStartingItems: {
+            'Spoils Bag': 1,
+            'Grappling Hook': 1,
+          },
+        });
+      });
+
+      test('puts a newly unlocked location in sphere 0', () => {
+        const spheres = new Spheres(trackerState);
+
+        expect(
+          spheres.sphereForLocation(
+            'Windfall Island',
+            'Mrs. Marie - Give 21 Joy Pendants',
+          ),
+        ).toEqual(0);
       });
     });
 
