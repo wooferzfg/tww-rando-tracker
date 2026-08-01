@@ -109,6 +109,31 @@ describe('Spheres', () => {
       });
     });
 
+    describe('when selected starting items are configured', () => {
+      beforeEach(() => {
+        fullSetup();
+
+        trackerState = TrackerState.createStateRaw({
+          ...trackerState.readState(),
+          selectedStartingItems: {
+            'Spoils Bag': 1,
+            'Grappling Hook': 1,
+          },
+        });
+      });
+
+      test('puts a newly unlocked location in sphere 0', () => {
+        const spheres = new Spheres(trackerState);
+
+        expect(
+          spheres.sphereForLocation(
+            'Windfall Island',
+            'Mrs. Marie - Give 21 Joy Pendants',
+          ),
+        ).toEqual(0);
+      });
+    });
+
     describe('when finding an item in each sphere', () => {
       beforeEach(() => {
         fullSetup();
