@@ -2180,7 +2180,7 @@ describe('LogicCalculation', () => {
     describe('when the player is able to obtain 15 blue chus', () => {
       beforeEach(() => {
         logic = new LogicCalculation(
-          logic.state().decrementItem('Deku Leaf'),
+          logic.state().decrementItem('Deku Leaf', true),
         );
       });
 
@@ -2236,7 +2236,7 @@ describe('LogicCalculation', () => {
       describe('when the player does not have spoils bag', () => {
         beforeEach(() => {
           logic = new LogicCalculation(
-            logic.state().decrementItem('Spoils Bag'),
+            logic.state().decrementItem('Spoils Bag', true),
           );
         });
 
