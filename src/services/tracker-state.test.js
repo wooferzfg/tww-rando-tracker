@@ -12,7 +12,7 @@ describe('TrackerState', () => {
 
   describe('default', () => {
     beforeEach(() => {
-      Locations.locations = {
+      const itemLocations = {
         'Outset Island': {
           'Savage Labyrinth - Floor 30': {
             test: 'data',
@@ -24,6 +24,17 @@ describe('TrackerState', () => {
           },
         },
       };
+      const locationsList = [
+        {
+          generalLocation: 'Outset Island',
+          detailedLocation: 'Savage Labyrinth - Floor 30',
+        },
+        {
+          generalLocation: 'Dragon Roost Cavern',
+          detailedLocation: "Bird's Nest",
+        },
+      ];
+      Locations.initializeRaw(itemLocations, locationsList);
 
       LogicHelper.startingItems = {
         'Progressive Shield': 1,
@@ -890,7 +901,7 @@ describe('TrackerState', () => {
     let state;
 
     beforeEach(() => {
-      Locations.locations = {
+      const itemLocations = {
         'Outset Island': {
           'Savage Labyrinth - Floor 30': {
             test: 'data',
@@ -927,6 +938,33 @@ describe('TrackerState', () => {
           },
         },
       };
+      const locationsList = [
+        {
+          generalLocation: 'Outset Island',
+          detailedLocation: 'Savage Labyrinth - Floor 30',
+        },
+        {
+          generalLocation: 'Outset Island',
+          detailedLocation: 'Savage Labyrinth - Floor 50',
+        },
+        {
+          generalLocation: 'Dragon Roost Cavern',
+          detailedLocation: 'First Room',
+        },
+        {
+          generalLocation: 'Dragon Roost Cavern',
+          detailedLocation: 'Alcove With Water Jugs',
+        },
+        {
+          generalLocation: 'Dragon Roost Cavern',
+          detailedLocation: "Bird's Nest",
+        },
+        {
+          generalLocation: 'Outset Island',
+          detailedLocation: 'Sunken Treasure',
+        },
+      ];
+      Locations.initializeRaw(itemLocations, locationsList);
 
       state = new TrackerState();
 

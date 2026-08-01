@@ -133,7 +133,7 @@ const verifyLogicForSettings = async (permalink) => {
 };
 
 const script = async () => {
-  await verifyLogicForSettings('bWFzdGVyAEEASRBQGAAA+wLIBQAAAAAAAAAAAIAA'); // no starting items
+  await verifyLogicForSettings('eJzLTSwuSS1icGTwFAhgIBJIMDD8ZjrBCuc3MAAA/5YF2Q=='); // no starting items
   await verifyLogicForSettings(Permalink.DEFAULT_PERMALINK);
 };
 

@@ -1,3 +1,5 @@
+import { deflateSync, unzipSync } from 'zlib';
+
 import _ from 'lodash';
 
 class BinaryString {
@@ -6,13 +8,15 @@ class BinaryString {
     this.#bitOffset = bitOffset;
   }
 
-  static fromBase64(base64String) {
+  static fromBase64(compressedString) {
+    const base64String = BinaryString.#decompress(compressedString);
     const binaryData = BinaryString.#base64ToBinary(base64String);
     return new BinaryString(binaryData);
   }
 
   toBase64() {
-    return BinaryString.#binaryToBase64(this.#binaryData, this.#bitOffset);
+    const base64String = BinaryString.#binaryToBase64(this.#binaryData, this.#bitOffset);
+    return BinaryString.#compress(base64String);
   }
 
   popString() {
@@ -112,15 +116,33 @@ class BinaryString {
     return this.#bitOffset;
   }
 
+  clone() {
+    return new BinaryString(_.clone(this.#binaryData), _.clone(this.#bitOffset));
+  }
+
   #binaryData;
 
   #bitOffset;
 
   static #BYTE_SIZE = 8;
 
+  static #decompress(compressedString) {
+    const buffer = this.#base64StringToBuffer(compressedString);
+    return unzipSync(buffer).toString('base64');
+  }
+
+  static #compress(base64String) {
+    const buffer = this.#base64StringToBuffer(base64String);
+    return deflateSync(buffer).toString('base64');
+  }
+
   static #base64ToBinary(base64String) {
-    const buffer = Buffer.from(base64String, 'base64');
+    const buffer = this.#base64StringToBuffer(base64String);
     return Array.from(buffer.values());
+  }
+
+  static #base64StringToBuffer(base64String) {
+    return Buffer.from(base64String, 'base64');
   }
 
   static #binaryToBase64(binaryArray, bitOffset) {

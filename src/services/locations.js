@@ -3,12 +3,15 @@ import _ from 'lodash';
 class Locations {
   static initialize(itemLocationsFile) {
     this.locations = {};
+    this.locationsList = [];
 
     _.forEach(itemLocationsFile, (locationData, locationName) => {
       const {
         generalLocation,
         detailedLocation,
       } = this.splitLocationName(locationName);
+
+      this.addLocation(generalLocation, detailedLocation);
 
       const filteredLocationData = _.pick(locationData, ['Need', 'Original item', 'Types']);
 
@@ -18,12 +21,14 @@ class Locations {
     });
   }
 
-  static initializeRaw(itemLocations) {
+  static initializeRaw(itemLocations, locationsList) {
     this.locations = itemLocations;
+    this.locationsList = locationsList;
   }
 
   static reset() {
     this.locations = null;
+    this.locationsList = null;
   }
 
   static KEYS = {
@@ -36,21 +41,27 @@ class Locations {
     return this.locations;
   }
 
+  static readLocationsList() {
+    return this.locationsList;
+  }
+
   static allGeneralLocations() {
     return _.keys(this.locations);
+  }
+
+  static locationsLoaded() {
+    return !_.isNil(this.locations);
   }
 
   static mapLocations(locationIteratee) {
     const newLocations = {};
 
-    _.forEach(this.locations, (generalLocationData, generalLocationName) => {
-      _.forEach(_.keys(generalLocationData), (detailedLocationName) => {
-        _.set(
-          newLocations,
-          [generalLocationName, detailedLocationName],
-          locationIteratee(generalLocationName, detailedLocationName),
-        );
-      });
+    _.forEach(this.locationsList, ({ generalLocation, detailedLocation }) => {
+      _.set(
+        newLocations,
+        [generalLocation, detailedLocation],
+        locationIteratee(generalLocation, detailedLocation),
+      );
     });
 
     return newLocations;
@@ -78,6 +89,10 @@ class Locations {
 
   static setLocation(generalLocation, detailedLocation, infoKey, infoValue) {
     _.set(this.locations, [generalLocation, detailedLocation, infoKey], infoValue);
+  }
+
+  static addLocation(generalLocation, detailedLocation) {
+    this.locationsList.push({ generalLocation, detailedLocation });
   }
 
   static splitLocationName(fullLocationName) {
