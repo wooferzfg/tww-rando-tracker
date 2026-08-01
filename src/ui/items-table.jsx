@@ -53,12 +53,15 @@ class ItemsTable extends React.PureComponent {
     const {
       decrementItem,
       incrementItem,
+      isStartingItemMode,
       spheres,
-      trackerState,
       trackSpheres,
+      trackerState,
+      updateStartingItemCount,
     } = this.props;
 
     const itemCount = trackerState.getItemValue(itemName);
+    const hasSelectedStartingItem = trackerState.hasSelectedStartingItem(itemName);
     const itemImages = _.get(Images.IMAGES, ['ITEMS', itemName]);
 
     let locations = [];
@@ -72,11 +75,14 @@ class ItemsTable extends React.PureComponent {
         decrementItem={decrementItem}
         images={itemImages}
         incrementItem={incrementItem}
+        isStartingItem={hasSelectedStartingItem}
+        isStartingItemMode={isStartingItemMode}
         itemCount={itemCount}
         itemName={itemName}
         locations={locations}
         setSelectedItem={this.setSelectedItem}
         spheres={spheres}
+        updateStartingItemCount={updateStartingItemCount}
       />
     );
   }
@@ -257,10 +263,12 @@ ItemsTable.propTypes = {
   backgroundColor: PropTypes.string,
   decrementItem: PropTypes.func.isRequired,
   incrementItem: PropTypes.func.isRequired,
+  isStartingItemMode: PropTypes.bool.isRequired,
   spheres: PropTypes.instanceOf(Spheres).isRequired,
-  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
-  trackSpheres: PropTypes.bool.isRequired,
   trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
+  trackSpheres: PropTypes.bool.isRequired,
+  trackerState: PropTypes.instanceOf(TrackerState).isRequired,
+  updateStartingItemCount: PropTypes.func.isRequired,
 };
 
 export default ItemsTable;

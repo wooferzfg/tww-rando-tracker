@@ -25,6 +25,7 @@ class Spheres {
 
   #calculate() {
     this.#temporaryState = TrackerState.default();
+    this.#applySelectedStartingItems();
     this.#spheres = Locations.mapLocations(() => null);
     this.#entrancesAdded = _.reduce(
       LogicHelper.allRandomEntrances(),
@@ -58,6 +59,14 @@ class Spheres {
   #anyItemsAdded;
 
   #currentSphere;
+
+  #applySelectedStartingItems() {
+    _.forEach(this.#state.selectedStartingItems, (count, itemName) => {
+      for (let i = 0; i < count; i += 1) {
+        this.#updateStateWithItem(itemName);
+      }
+    });
+  }
 
   #sphereForLocation(generalLocation, detailedLocation) {
     return _.get(this.#spheres, [generalLocation, detailedLocation]);

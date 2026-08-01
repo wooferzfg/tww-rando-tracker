@@ -254,6 +254,7 @@ class SettingsWindow extends React.PureComponent {
     const {
       clearAllIncludesMail,
       disableLogic,
+      enableItemCycling,
       extraLocationsBackground,
       itemsTableBackground,
       rightClickToClearAll,
@@ -322,6 +323,11 @@ class SettingsWindow extends React.PureComponent {
               'Track Non-Progress Blue Chu Jelly',
               trackNonProgressBlueChuJelly,
               'trackNonProgressBlueChuJelly',
+            )}
+            {this.checkboxRow(
+              'Enable Item Cycling',
+              enableItemCycling,
+              'enableItemCycling',
             )}
             {this.checkboxRow(
               'Right Click to Clear All',
@@ -410,6 +416,7 @@ SettingsWindow.defaultProps = {
 SettingsWindow.propTypes = {
   clearAllIncludesMail: PropTypes.bool.isRequired,
   disableLogic: PropTypes.bool.isRequired,
+  enableItemCycling: PropTypes.bool.isRequired,
   extraLocationsBackground: PropTypes.string,
   itemsTableBackground: PropTypes.string,
   rightClickToClearAll: PropTypes.bool.isRequired,
@@ -423,10 +430,10 @@ SettingsWindow.propTypes = {
   showSalvageCorpLocations: PropTypes.bool.isRequired,
   sphereTrackingBackground: PropTypes.string,
   statisticsBackground: PropTypes.string,
+  toggleSettingsWindow: PropTypes.func.isRequired,
   trackNonProgressBlueChuJelly: PropTypes.bool.isRequired,
   trackNonProgressCharts: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
-  toggleSettingsWindow: PropTypes.func.isRequired,
   updatePreferences: PropTypes.func.isRequired,
   updateSettingsWindowPosition: PropTypes.func.isRequired,
 };
