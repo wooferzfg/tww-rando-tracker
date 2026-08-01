@@ -382,6 +382,30 @@ export default class Images {
           1: import('../images/item26_a.png'),
           2: import('../images/item26_2_a.png'),
         },
+        [LogicHelper.ITEMS.SOUL_OF_GOHMA]: {
+          0: import('../images/boss0_d.png'),
+          1: import('../images/boss0.png'),
+        },
+        [LogicHelper.ITEMS.SOUL_OF_KALLE_DEMOS]: {
+          0: import('../images/boss1_d.png'),
+          1: import('../images/boss1.png'),
+        },
+        [LogicHelper.ITEMS.SOUL_OF_GOHDAN]: {
+          0: import('../images/boss2_d.png'),
+          1: import('../images/boss2.png'),
+        },
+        [LogicHelper.ITEMS.SOUL_OF_HELMAROC_KING]: {
+          0: import('../images/boss3_d.png'),
+          1: import('../images/boss3.png'),
+        },
+        [LogicHelper.ITEMS.SOUL_OF_JALHALLA]: {
+          0: import('../images/boss4_d.png'),
+          1: import('../images/boss4.png'),
+        },
+        [LogicHelper.ITEMS.SOUL_OF_MOLGERA]: {
+          0: import('../images/boss5_d.png'),
+          1: import('../images/boss5.png'),
+        },
       },
       ITEMS_TABLE_BACKGROUND: import('../images/trackerbg.png'),
       MISC_LOCATIONS: {

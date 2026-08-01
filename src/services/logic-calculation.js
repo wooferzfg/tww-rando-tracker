@@ -343,27 +343,25 @@ class LogicCalculation {
       {},
     );
 
-    if (!Settings.getOptionValue(Permalink.OPTIONS.KEYLUNACY)) {
-      _.forEach(LogicHelper.MAIN_DUNGEONS, (dungeonName) => {
-        const {
-          guaranteedSmallKeys,
-          guaranteedBigKeys,
-        } = this.#guaranteedKeysForDungeon(dungeonName);
+    _.forEach(LogicHelper.MAIN_DUNGEONS, (dungeonName) => {
+      const {
+        guaranteedSmallKeys,
+        guaranteedBigKeys,
+      } = this.#guaranteedKeysForDungeon(dungeonName);
 
-        const smallKeyName = LogicHelper.smallKeyName(dungeonName);
-        const bigKeyName = LogicHelper.bigKeyName(dungeonName);
+      const smallKeyName = LogicHelper.smallKeyName(dungeonName);
+      const bigKeyName = LogicHelper.bigKeyName(dungeonName);
 
-        const currentSmallKeyCount = _.get(this.guaranteedKeys, smallKeyName);
-        const currentBigKeyCount = _.get(this.guaranteedKeys, bigKeyName);
+      const currentSmallKeyCount = _.get(this.guaranteedKeys, smallKeyName);
+      const currentBigKeyCount = _.get(this.guaranteedKeys, bigKeyName);
 
-        if (guaranteedSmallKeys > currentSmallKeyCount) {
-          _.set(this.guaranteedKeys, smallKeyName, guaranteedSmallKeys);
-        }
-        if (guaranteedBigKeys > currentBigKeyCount) {
-          _.set(this.guaranteedKeys, bigKeyName, guaranteedBigKeys);
-        }
-      });
-    }
+      if (guaranteedSmallKeys > currentSmallKeyCount) {
+        _.set(this.guaranteedKeys, smallKeyName, guaranteedSmallKeys);
+      }
+      if (guaranteedBigKeys > currentBigKeyCount) {
+        _.set(this.guaranteedKeys, bigKeyName, guaranteedBigKeys);
+      }
+    });
 
     Memoizer.invalidate([
       this.isLocationAvailable,
@@ -371,36 +369,75 @@ class LogicCalculation {
     ]);
   }
 
+  static #keysInOwnDungeon(settingValue) {
+    return [
+      Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.VANILLA,
+      Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.OWN_DUNGEON,
+    ].includes(settingValue);
+  }
+
   #guaranteedKeysForDungeon(dungeonName) {
+    const smallKeysInOwnDungeon = LogicCalculation.#keysInOwnDungeon(
+      Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_SMALL_KEYS),
+    );
+    const bigKeysInOwnDungeon = LogicCalculation.#keysInOwnDungeon(
+      Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_BIG_KEYS),
+    );
+
+    if (!smallKeysInOwnDungeon && !bigKeysInOwnDungeon) {
+      return {
+        guaranteedSmallKeys: 0,
+        guaranteedBigKeys: 0,
+      };
+    }
+
     const detailedLocations = Locations.detailedLocationsForGeneralLocation(dungeonName);
 
-    let guaranteedSmallKeys = LogicHelper.maxSmallKeysForDungeon(dungeonName);
-    let guaranteedBigKeys = 1;
+    let guaranteedSmallKeys = (
+      smallKeysInOwnDungeon
+        ? LogicHelper.maxSmallKeysForDungeon(dungeonName)
+        : 0
+    );
+    let guaranteedBigKeys = bigKeysInOwnDungeon ? 1 : 0;
 
     _.forEach(detailedLocations, (detailedLocation) => {
-      if (LogicHelper.isPotentialKeyLocation(dungeonName, detailedLocation)) {
-        const { smallKeysRequired, bigKeysRequired } = LogicHelper.keysRequiredForLocation(
-          dungeonName,
-          detailedLocation,
-        );
-        const nonKeyRequirementsMet = this.#nonKeyRequirementsMetForLocation(
-          dungeonName,
-          detailedLocation,
-          {
-            smallKeysRequired,
-            bigKeysRequired,
-          },
-        );
+      const isPotentialSmallKeyLocation = LogicHelper.isPotentialSmallKeyLocation(
+        dungeonName,
+        detailedLocation,
+      );
+      const isPotentialBigKeyLocation = LogicHelper.isPotentialBigKeyLocation(
+        dungeonName,
+        detailedLocation,
+      );
 
-        if (!nonKeyRequirementsMet) {
-          if (smallKeysRequired < guaranteedSmallKeys) {
-            guaranteedSmallKeys = smallKeysRequired;
-          }
-          if (bigKeysRequired < guaranteedBigKeys) {
-            guaranteedBigKeys = bigKeysRequired;
-          }
-        }
+      if (!isPotentialSmallKeyLocation && !isPotentialBigKeyLocation) {
+        return true; // continue
       }
+
+      const { smallKeysRequired, bigKeysRequired } = LogicHelper.keysRequiredForLocation(
+        dungeonName,
+        detailedLocation,
+      );
+      const nonKeyRequirementsMet = this.#nonKeyRequirementsMetForLocation(
+        dungeonName,
+        detailedLocation,
+        {
+          smallKeysRequired,
+          bigKeysRequired,
+        },
+      );
+      if (nonKeyRequirementsMet) {
+        return true; // continue
+      }
+
+      if (isPotentialSmallKeyLocation && smallKeysRequired < guaranteedSmallKeys) {
+        guaranteedSmallKeys = smallKeysRequired;
+      }
+      if (isPotentialBigKeyLocation && bigKeysRequired < guaranteedBigKeys) {
+        guaranteedBigKeys = bigKeysRequired;
+      }
+
+      return true; // continue
     });
 
     return {

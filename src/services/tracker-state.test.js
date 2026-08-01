@@ -2,12 +2,15 @@ import _ from 'lodash';
 
 import Locations from './locations';
 import LogicHelper from './logic-helper';
+import Permalink from './permalink';
+import Settings from './settings';
 import TrackerState from './tracker-state';
 
 describe('TrackerState', () => {
   beforeEach(() => {
     Locations.reset();
     LogicHelper.reset();
+    Settings.reset();
   });
 
   describe('default', () => {
@@ -325,6 +328,13 @@ describe('TrackerState', () => {
 
     describe('when incrementing a blue chu', () => {
       beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 0,
+          },
+          startingGear: {},
+        });
+
         state = TrackerState.default();
       });
 
@@ -428,22 +438,28 @@ describe('TrackerState', () => {
 
     describe('when decrementing a blue chu', () => {
       beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY]: 4,
+          },
+          startingGear: {},
+        });
+
         state = TrackerState.default();
         state.items['Blue Chu Underneath Boulder'] = 1;
         state.items['Blue Chu on Top of Island'] = 1;
-        state.items['Blue Chu Jelly'] = 2;
       });
 
       test('updates blue chu jelly count', () => {
         const newState = state.decrementItem('Blue Chu Underneath Boulder');
 
         expect(newState.items['Blue Chu Underneath Boulder']).toEqual(0);
-        expect(newState.items['Blue Chu Jelly']).toEqual(1);
+        expect(newState.items['Blue Chu Jelly']).toEqual(5);
 
         const newStateAfterSecondDecrement = newState.decrementItem('Blue Chu on Top of Island');
 
         expect(newStateAfterSecondDecrement.items['Blue Chu on Top of Island']).toEqual(0);
-        expect(newStateAfterSecondDecrement.items['Blue Chu Jelly']).toEqual(0);
+        expect(newStateAfterSecondDecrement.items['Blue Chu Jelly']).toEqual(4);
       });
     });
   });

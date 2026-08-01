@@ -52,6 +52,7 @@ class LogicTweaks {
     this.#updateTingleStatueReward();
     this.#updateBlueChuJelly();
     this.#updateSunkenTriforceTypes();
+    this.#updateRupeeTypes();
     this.applyHasAccessedLocationTweaksForLocations();
   }
 
@@ -120,6 +121,40 @@ class LogicTweaks {
           Settings.FLAGS.SUNKEN_TRIFORCE,
         );
       }
+    });
+  }
+
+  static #updateRupeeTypes() {
+    _.forEach(Locations.readLocationsList(), ({ generalLocation, detailedLocation }) => {
+      const types = Locations.getLocation(
+        generalLocation,
+        detailedLocation,
+        Locations.KEYS.TYPES,
+      );
+
+      if (!types) {
+        return;
+      }
+
+      const typesList = _.split(types, ', ');
+      if (!_.includes(typesList, Settings.FLAGS.RUPEE)) {
+        return;
+      }
+
+      // All rupeesanity locations have both the Rupee flag and its other flags.
+      // So, we need special logic to distinguish between overworld and dungeon rupees.
+      const isDungeonRupee = _.includes(typesList, Settings.FLAGS.DUNGEON);
+      const rupeeFlag = isDungeonRupee
+        ? Settings.FLAGS.RUPEE_DUNGEON
+        : Settings.FLAGS.RUPEE_OVERWORLD;
+
+      // Replace the Rupee tag with the more specific Rupee Dungeon / Rupee Overworld tag.
+      Locations.setLocation(
+        generalLocation,
+        detailedLocation,
+        Locations.KEYS.TYPES,
+        types.replace(Settings.FLAGS.RUPEE, rupeeFlag),
+      );
     });
   }
 

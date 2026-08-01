@@ -35,7 +35,8 @@ class ExtraLocation extends React.PureComponent {
     const numItems = this.NUM_CONSISTENT_ITEMS
       + (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_DUNGEON_ENTRANCES) ? 1 : 0)
       + (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES) ? 1 : 0)
-      + (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES) ? 1 : 0);
+      + (Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_BOSS_ENTRANCES) ? 1 : 0)
+      + (Settings.getOptionValue(Permalink.OPTIONS.BOSS_SOUL_SHUFFLE) ? 1 : 0);
 
     return Math.max(this.ITEM_WIDTH * numItems + this.EXTRA_WIDTH, this.MIN_WIDTH);
   }
@@ -188,6 +189,44 @@ class ExtraLocation extends React.PureComponent {
     );
   }
 
+  bossSoulItem() {
+    const {
+      clearSelectedItem,
+      decrementItem,
+      incrementItem,
+      locationName,
+      setSelectedItem,
+      spheres,
+      trackerState,
+      trackSpheres,
+    } = this.props;
+
+    const soulItemName = LogicHelper.soulItemName(locationName);
+    const soulCount = trackerState.getItemValue(soulItemName);
+    const soulImages = _.get(Images.IMAGES, ['ITEMS', soulItemName]);
+
+    let locations = [];
+    if (trackSpheres) {
+      locations = trackerState.getLocationsForItem(soulItemName);
+    }
+
+    return (
+      <div className="dungeon-item boss-soul">
+        <Item
+          clearSelectedItem={clearSelectedItem}
+          decrementItem={decrementItem}
+          images={soulImages}
+          incrementItem={incrementItem}
+          itemCount={soulCount}
+          itemName={soulItemName}
+          locations={locations}
+          setSelectedItem={setSelectedItem}
+          spheres={spheres}
+        />
+      </div>
+    );
+  }
+
   dungeonEntrance(entranceInfo) {
     const {
       entrance,
@@ -307,6 +346,10 @@ class ExtraLocation extends React.PureComponent {
 
     const isMainDungeon = LogicHelper.isMainDungeon(locationName);
     const isRequiredBossesModeDungeon = LogicHelper.isRequiredBossesModeDungeon(locationName);
+    const showBossSoul = (
+      Settings.getOptionValue(Permalink.OPTIONS.BOSS_SOUL_SHUFFLE)
+      && LogicHelper.hasBossSoul(locationName)
+    );
 
     return (
       <div className="dungeon-items">
@@ -317,6 +360,7 @@ class ExtraLocation extends React.PureComponent {
             {this.bigKeyItem()}
           </>
         )}
+        { showBossSoul && this.bossSoulItem() }
         { isRequiredBossesModeDungeon && (
           <>
             {this.dungeonMapItem()}

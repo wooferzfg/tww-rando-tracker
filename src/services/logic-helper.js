@@ -16,6 +16,7 @@ import PRETTY_ITEM_NAMES from '../data/pretty-item-names.json';
 import REQUIRED_BOSSES from '../data/required-bosses.json';
 import SHORT_DUNGEON_NAMES from '../data/short-dungeon-names.json';
 import TINGLE_STATUES from '../data/tingle-statues.json';
+import TRICKS from '../data/tricks.json';
 
 import BooleanExpression from './boolean-expression';
 import Constants from './constants';
@@ -43,7 +44,8 @@ class LogicHelper {
       'islandFromChartForIsland',
       'islandForChart',
       'islandHasProgressItemChart',
-      'isPotentialKeyLocation',
+      'isPotentialSmallKeyLocation',
+      'isPotentialBigKeyLocation',
       'isProgressLocation',
       'maxItemCount',
       'nestedEntrancesForExit',
@@ -82,7 +84,8 @@ class LogicHelper {
       this.islandFromChartForIsland,
       this.islandForChart,
       this.islandHasProgressItemChart,
-      this.isPotentialKeyLocation,
+      this.isPotentialSmallKeyLocation,
+      this.isPotentialBigKeyLocation,
       this.isProgressLocation,
       this.maxItemCount,
       this.nestedEntrancesForExit,
@@ -120,11 +123,17 @@ class LogicHelper {
     (requiredBossData) => requiredBossData.dungeonName,
   );
 
+  static DUNGEON_TO_BOSS_SOUL = _.fromPairs(
+    _.map(REQUIRED_BOSSES, ({ dungeonName, soul }) => [dungeonName, soul]),
+  );
+
   static ISLANDS = Constants.createFromArray(ISLANDS);
 
   static MISC_LOCATIONS = Constants.createFromArray(MISC_LOCATIONS);
 
   static ITEMS = Constants.createFromArray(_.keys(ITEMS));
+
+  static TRICKS = Constants.createFromArray(TRICKS);
 
   static BLUE_CHU_ITEMS = Constants.createFromArray(_.values(BLUE_CHUCHUS).flat());
 
@@ -154,7 +163,6 @@ class LogicHelper {
     _.keys(ITEMS),
     _.keys(KEYS),
     _.values(BLUE_CHUCHUS).flat(),
-    [this.BLUE_CHU_JELLY_COUNT_ITEM],
   );
 
   static ALL_TREASURE_CHARTS = _.range(1, CHARTS.length - this.NUM_TRIFORCE_CHARTS + 1).map((number) => `Treasure Chart ${number}`);
@@ -362,7 +370,7 @@ class LogicHelper {
       Locations.KEYS.TYPES,
     );
 
-    if (!locationTypes) {
+    if (_.isNil(locationTypes)) {
       // the Defeat Ganondorf location does not have any types
       return true;
     }
@@ -372,6 +380,7 @@ class LogicHelper {
     }
 
     const locationTypesList = _.split(locationTypes, ', ');
+
     return _.every(
       locationTypesList,
       (flag) => Settings.isFlagActive(flag),
@@ -393,31 +402,32 @@ class LogicHelper {
     return detailedLocations;
   }
 
-  static isPotentialKeyLocation(generalLocation, detailedLocation) {
-    if (!this.isMainDungeon(generalLocation)) {
-      return false;
+  static isPotentialSmallKeyLocation(generalLocation, detailedLocation) {
+    const smallKeysShuffleMode = Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_SMALL_KEYS);
+    if (smallKeysShuffleMode !== Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.VANILLA) {
+      return this.#isPotentialKeyLocation(generalLocation, detailedLocation);
     }
 
-    const locationTypes = Locations.getLocation(
+    const originalItem = Locations.getLocation(
       generalLocation,
       detailedLocation,
-      Locations.KEYS.TYPES,
+      Locations.KEYS.ORIGINAL_ITEM,
     );
-    if (
-      Settings.isFlagActive(Settings.FLAGS.DUNGEON)
-      && !this.isProgressLocation(generalLocation, detailedLocation)
-    ) {
-      return false;
+    return originalItem === 'Small Key';
+  }
+
+  static isPotentialBigKeyLocation(generalLocation, detailedLocation) {
+    const bigKeysShuffleMode = Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_BIG_KEYS);
+    if (bigKeysShuffleMode !== Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.VANILLA) {
+      return this.#isPotentialKeyLocation(generalLocation, detailedLocation);
     }
 
-    if (
-      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
-      && _.includes(locationTypes, Settings.FLAGS.RANDOMIZABLE_MINIBOSS_ROOM)
-    ) {
-      return false;
-    }
-
-    return !_.includes(locationTypes, Settings.FLAGS.BOSS);
+    const originalItem = Locations.getLocation(
+      generalLocation,
+      detailedLocation,
+      Locations.KEYS.ORIGINAL_ITEM,
+    );
+    return originalItem === 'Big Key';
   }
 
   static bossLocation(dungeonName) {
@@ -459,6 +469,14 @@ class LogicHelper {
   static compassName(dungeonName) {
     const shortDungeonName = this.#shortDungeonName(dungeonName);
     return `${shortDungeonName} Compass`;
+  }
+
+  static soulItemName(dungeonName) {
+    return _.get(this.DUNGEON_TO_BOSS_SOUL, dungeonName, null);
+  }
+
+  static hasBossSoul(dungeonName) {
+    return !_.isNil(this.soulItemName(dungeonName));
   }
 
   static maxSmallKeysForDungeon(dungeonName) {
@@ -656,7 +674,7 @@ class LogicHelper {
   }
 
   static startingBlueChuJellyCount() {
-    return 0;
+    return Settings.getOptionValue(Permalink.OPTIONS.STARTING_BLUE_CHU_JELLY);
   }
 
   static blueChusAreUseful() {
@@ -850,6 +868,37 @@ class LogicHelper {
         [this.ITEMS.PROGRESSIVE_SWORD]: 1,
         [this.ITEMS.HURRICANE_SPIN]: 1,
       };
+    }
+
+    const smallKeysShuffleMode = Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_SMALL_KEYS);
+    if (smallKeysShuffleMode === Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH) {
+      _.forEach(this.MAIN_DUNGEONS, (dungeonName) => {
+        const smallKeyName = this.smallKeyName(dungeonName);
+        this.startingItems[smallKeyName] = this.maxItemCount(smallKeyName);
+      });
+    }
+
+    const bigKeysShuffleMode = Settings.getOptionValue(Permalink.OPTIONS.SHUFFLE_BIG_KEYS);
+    if (bigKeysShuffleMode === Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH) {
+      _.forEach(this.MAIN_DUNGEONS, (dungeonName) => {
+        const bigKeyName = this.bigKeyName(dungeonName);
+        this.startingItems[bigKeyName] = this.maxItemCount(bigKeyName);
+      });
+    }
+
+    const dungeonMapsCompassesShuffleMode = Settings.getOptionValue(
+      Permalink.OPTIONS.SHUFFLE_MAPS_AND_COMPASSES,
+    );
+    if (
+      dungeonMapsCompassesShuffleMode === Permalink.DUNGEON_ITEM_SHUFFLE_MODE_OPTIONS.START_WITH
+    ) {
+      _.forEach(this.DUNGEONS, (dungeonName) => {
+        const dungeonMapName = this.dungeonMapName(dungeonName);
+        this.startingItems[dungeonMapName] = this.maxItemCount(dungeonMapName);
+
+        const compassName = this.compassName(dungeonName);
+        this.startingItems[compassName] = this.maxItemCount(compassName);
+      });
     }
   }
 
@@ -1143,6 +1192,33 @@ class LogicHelper {
       return this.#allDungeonEntrances();
     }
     return this.#allIslandEntrances();
+  }
+
+  static #isPotentialKeyLocation(generalLocation, detailedLocation) {
+    if (!this.isMainDungeon(generalLocation)) {
+      return false;
+    }
+
+    const locationTypes = Locations.getLocation(
+      generalLocation,
+      detailedLocation,
+      Locations.KEYS.TYPES,
+    );
+    if (
+      Settings.isFlagActive(Settings.FLAGS.DUNGEON)
+      && !this.isProgressLocation(generalLocation, detailedLocation)
+    ) {
+      return false;
+    }
+
+    if (
+      Settings.getOptionValue(Permalink.OPTIONS.RANDOMIZE_MINIBOSS_ENTRANCES)
+      && _.includes(locationTypes, Settings.FLAGS.RANDOMIZABLE_MINIBOSS_ROOM)
+    ) {
+      return false;
+    }
+
+    return !_.includes(locationTypes, Settings.FLAGS.BOSS);
   }
 }
 

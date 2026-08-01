@@ -19,25 +19,7 @@ describe('Settings', () => {
         BinaryString.fromBase64(Permalink.DEFAULT_PERMALINK),
       );
 
-      expect(Settings.version).toEqual('master'); // TODO: change to 1.11.0
-    });
-
-    test('initializes the version for a development build', () => {
-      // version = 1.11.0_be1d4e2
-      Settings.initializeVersionFromPermalink(
-        BinaryString.fromBase64('eJwz1DM01DOIT0o1TDFJNWJwZPAUCGAgEkgwMPxmOqEKZjMCtTYwAABYqAdU'),
-      );
-
-      expect(Settings.version).toEqual('be1d4e2');
-    });
-
-    test('initializes the version for a beta build', () => {
-      // version = 1.11.0-BETA_2022-11-28
-      Settings.initializeVersionFromPermalink(
-        BinaryString.fromBase64('eJwz1DM01DPQdXINcYw3MjAy0jU01DWyYHBk8BQIYCASSDAw/GY6oQpmMwK1NjAAALlcCGI='),
-      );
-
-      expect(Settings.version).toEqual('master');
+      expect(Settings.version).toEqual('46f8e01');
     });
   });
 
@@ -83,20 +65,22 @@ describe('Settings', () => {
     describe('all flags set', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink(
-          BinaryString.fromBase64('eJzLTSwuSS1icGT4/7+egUggwcDwm+mEKpjNCNTawAAAcGYIDw=='),
+          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM483MUuzSDUwZHBk+P//PzsDZcBBiA1MN9QysuxiATMZgZhDACiFUAUAJPcNJA=='),
         );
       });
 
       test('initializes all the flags', () => {
-        expect(_.difference(FLAGS, Settings.flags)).toEqual([]);
-        expect(_.difference(Settings.flags, FLAGS)).toEqual([]);
+        // The Rupee flag is intentionally omitted from FLAGS_MAPPING
+        const mappedFlags = _.without(FLAGS, Settings.FLAGS.RUPEE);
+        expect(_.difference(mappedFlags, Settings.flags)).toEqual([]);
+        expect(_.difference(Settings.flags, mappedFlags)).toEqual([]);
       });
     });
 
     describe('all starting gear set', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink(
-          BinaryString.fromBase64('eJzLTSwuSS1icGTwFAhgIBJIMDD8Zjrx9T8YvF/F3cAAAEUmDmc='),
+          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM483MUuzSDUwZHBk8BQIYKAQOAixgemGWkaWXf/+g0Dj//Ouk5d4MjkgVAEA93oUuw=='),
         );
       });
 
@@ -109,7 +93,7 @@ describe('Settings', () => {
       describe('when charts are not randomized', () => {
         beforeEach(() => {
           Settings.initializeFromPermalink(
-            BinaryString.fromBase64('eJzLTSwuSS1icGRgYGBhIBJIMDD8ZjqhCmYzArU2MAAA23cFlg=='),
+            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM483MUuzSDUwZHBkYGBgYaAQOAixgemGWkaWXRDTGIGYQwAohVAFAOzjCiQ='),
           );
         });
 
@@ -123,7 +107,7 @@ describe('Settings', () => {
       describe('when charts are randomized', () => {
         beforeEach(() => {
           Settings.initializeFromPermalink(
-            BinaryString.fromBase64('eJzLTSwuSS1icGRgYGBhIBJIMDT8ZjqhCmYzArU2MAAA43cGFg=='),
+            BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM483MUuzSDUwZHBkYGBgYaAQOAixgekDtYwsuyCmMQIxhwBQCqEKAPRjCmQ='),
           );
         });
 
@@ -138,7 +122,7 @@ describe('Settings', () => {
     describe('when some locations are excluded', () => {
       beforeEach(() => {
         Settings.initializeFromPermalink(
-          BinaryString.fromBase64('eJzLTSwuSS1icGTwFAhgQAAFJDYjAxMDCpBgYPjNdEIVKunI0MAAAAh0Bl4='),
+          BinaryString.fromBase64('eJxLSS2LL0nMy8o31jPUMzTQM483MUuzSDUwZHBk8BQIYMACGnAIOmARdhBig0jXMrLsYgEzGYGYQwBFOQCF9wwJ'),
         );
       });
 

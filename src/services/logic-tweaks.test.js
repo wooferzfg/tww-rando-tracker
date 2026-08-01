@@ -228,6 +228,63 @@ describe('LogicTweaks', () => {
       });
     });
 
+    describe('rupee locations', () => {
+      beforeEach(() => {
+        Settings.initializeRaw({
+          options: {
+            [Permalink.OPTIONS.PROGRESSION_RUPEE_DUNGEON]: true,
+            [Permalink.OPTIONS.PROGRESSION_RUPEE_OVERWORLD]: true,
+          },
+        });
+      });
+
+      test('replaces the Rupee tag with Rupee Dungeon on dungeon rupee locations', () => {
+        LogicTweaks.applyTweaks();
+
+        const typesList = _.split(
+          Locations.getLocation(
+            'Dragon Roost Cavern',
+            'Rupee in Rat Room Lower Crawlspace 1',
+            Locations.KEYS.TYPES,
+          ),
+          ', ',
+        );
+
+        expect(typesList).toContain(Settings.FLAGS.RUPEE_DUNGEON);
+        expect(typesList).toContain(Settings.FLAGS.DUNGEON);
+        expect(typesList).not.toContain(Settings.FLAGS.RUPEE);
+      });
+
+      test('replaces the Rupee tag with Rupee Overworld on overworld rupee locations', () => {
+        LogicTweaks.applyTweaks();
+
+        const typesList = _.split(
+          Locations.getLocation(
+            'Cliff Plateau Isles',
+            'Rupee on Platform in Lower Pool 1',
+            Locations.KEYS.TYPES,
+          ),
+          ', ',
+        );
+
+        expect(typesList).toContain(Settings.FLAGS.RUPEE_OVERWORLD);
+        expect(typesList).toContain(Settings.FLAGS.PUZZLE_SECRET_CAVE);
+        expect(typesList).not.toContain(Settings.FLAGS.RUPEE);
+      });
+
+      test('replaces the Rupee tag with Rupee Overworld on rupee locations whose only type is Rupee', () => {
+        LogicTweaks.applyTweaks();
+
+        const types = Locations.getLocation(
+          'Outset Island',
+          "Rupee Behind Trees Near Link's House",
+          Locations.KEYS.TYPES,
+        );
+
+        expect(types).toEqual(Settings.FLAGS.RUPEE_OVERWORLD);
+      });
+    });
+
     describe('when required bosses mode is enabled', () => {
       beforeEach(() => {
         Settings.initializeRaw({
