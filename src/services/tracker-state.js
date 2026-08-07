@@ -56,6 +56,10 @@ class TrackerState {
     return _.get(this.items, itemName);
   }
 
+  setItemValue(itemName, value) {
+    return _.set(this.items, itemName, value);
+  }
+
   incrementItem(itemName) {
     const newState = this._clone({ items: true });
 

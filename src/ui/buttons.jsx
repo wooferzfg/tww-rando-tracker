@@ -25,12 +25,14 @@ class Buttons extends React.PureComponent {
       disableLogic,
       entrancesListOpen,
       onlyProgressLocations,
+      startingItemSelection,
       trackSpheres,
       toggleChartList,
       toggleColorPicker,
       toggleDisableLogic,
       toggleEntrancesList,
       toggleOnlyProgressLocations,
+      toggleStartingItemSelection,
       toggleTrackSpheres,
     } = this.props;
 
@@ -43,10 +45,13 @@ class Buttons extends React.PureComponent {
     const chartListText = chartListOpen
       ? 'Close Chart List'
       : 'View Charts';
+    const startingItemSelectionText = startingItemSelection
+      ? 'Disable Starting Item Selection'
+      : 'Enable Starting Item Selection';
     const isRandomEntrances = LogicHelper.isRandomEntrances();
 
     return (
-      <div className="buttons">
+      <div className={`buttons ${startingItemSelection ? 'darken-background-z-index' : ''}`}>
         <button
           onClick={this.exportProgress}
           type="button"
@@ -94,6 +99,13 @@ class Buttons extends React.PureComponent {
         >
           {colorPickerText}
         </button>
+        <button
+          onClick={toggleStartingItemSelection}
+          type="button"
+        >
+          <input type="checkbox" className="button-checkbox" checked={startingItemSelection} readOnly />
+          {startingItemSelectionText}
+        </button>
       </div>
     );
   }
@@ -106,12 +118,14 @@ Buttons.propTypes = {
   entrancesListOpen: PropTypes.bool.isRequired,
   onlyProgressLocations: PropTypes.bool.isRequired,
   saveData: PropTypes.string.isRequired,
+  startingItemSelection: PropTypes.bool.isRequired,
   trackSpheres: PropTypes.bool.isRequired,
   toggleChartList: PropTypes.func.isRequired,
   toggleColorPicker: PropTypes.func.isRequired,
   toggleDisableLogic: PropTypes.func.isRequired,
   toggleEntrancesList: PropTypes.func.isRequired,
   toggleOnlyProgressLocations: PropTypes.func.isRequired,
+  toggleStartingItemSelection: PropTypes.func.isRequired,
   toggleTrackSpheres: PropTypes.func.isRequired,
 };
 
